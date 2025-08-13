@@ -1,0 +1,1224 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:17:56",
+        declId = NamePair {
+          nameC = Name "f0",
+          nameHsIdent = HsIdentifier
+            "f0"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:18:56",
+        declId = NamePair {
+          nameC = Name "f1",
+          nameHsIdent = HsIdentifier
+            "f1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:19:56",
+        declId = NamePair {
+          nameC = Name "f2",
+          nameHsIdent = HsIdentifier
+            "f2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:20:56",
+        declId = NamePair {
+          nameC = Name "f3",
+          nameHsIdent = HsIdentifier
+            "f3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:21:56",
+        declId = NamePair {
+          nameC = Name "f4",
+          nameHsIdent = HsIdentifier
+            "f4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:24:56",
+        declId = NamePair {
+          nameC = Name "f5",
+          nameHsIdent = HsIdentifier
+            "f5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:25:56",
+        declId = NamePair {
+          nameC = Name "f6",
+          nameHsIdent = HsIdentifier
+            "f6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:26:56",
+        declId = NamePair {
+          nameC = Name "f7",
+          nameHsIdent = HsIdentifier
+            "f7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:27:56",
+        declId = NamePair {
+          nameC = Name "f8",
+          nameHsIdent = HsIdentifier
+            "f8"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:28:56",
+        declId = NamePair {
+          nameC = Name "f9",
+          nameHsIdent = HsIdentifier
+            "f9"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:31:56",
+        declId = NamePair {
+          nameC = Name "f10",
+          nameHsIdent = HsIdentifier
+            "f10"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:32:56",
+        declId = NamePair {
+          nameC = Name "f11",
+          nameHsIdent = HsIdentifier
+            "f11"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:33:56",
+        declId = NamePair {
+          nameC = Name "f12",
+          nameHsIdent = HsIdentifier
+            "f12"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:34:56",
+        declId = NamePair {
+          nameC = Name "f13",
+          nameHsIdent = HsIdentifier
+            "f13"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:35:56",
+        declId = NamePair {
+          nameC = Name "f14",
+          nameHsIdent = HsIdentifier
+            "f14"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:38:56",
+        declId = NamePair {
+          nameC = Name "f15",
+          nameHsIdent = HsIdentifier
+            "f15"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:39:56",
+        declId = NamePair {
+          nameC = Name "f16",
+          nameHsIdent = HsIdentifier
+            "f16"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:40:56",
+        declId = NamePair {
+          nameC = Name "f17",
+          nameHsIdent = HsIdentifier
+            "f17"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:41:56",
+        declId = NamePair {
+          nameC = Name "f18",
+          nameHsIdent = HsIdentifier
+            "f18"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:42:56",
+        declId = NamePair {
+          nameC = Name "f19",
+          nameHsIdent = HsIdentifier
+            "f19"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:45:56",
+        declId = NamePair {
+          nameC = Name "f20",
+          nameHsIdent = HsIdentifier
+            "f20"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:46:56",
+        declId = NamePair {
+          nameC = Name "f21",
+          nameHsIdent = HsIdentifier
+            "f21"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:47:56",
+        declId = NamePair {
+          nameC = Name "f22",
+          nameHsIdent = HsIdentifier
+            "f22"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:48:56",
+        declId = NamePair {
+          nameC = Name "f23",
+          nameHsIdent = HsIdentifier
+            "f23"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:49:56",
+        declId = NamePair {
+          nameC = Name "f24",
+          nameHsIdent = HsIdentifier
+            "f24"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:52:56",
+        declId = NamePair {
+          nameC = Name "f25",
+          nameHsIdent = HsIdentifier
+            "f25"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:53:56",
+        declId = NamePair {
+          nameC = Name "f26",
+          nameHsIdent = HsIdentifier
+            "f26"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:54:56",
+        declId = NamePair {
+          nameC = Name "f27",
+          nameHsIdent = HsIdentifier
+            "f27"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:55:56",
+        declId = NamePair {
+          nameC = Name "f28",
+          nameHsIdent = HsIdentifier
+            "f28"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:56:56",
+        declId = NamePair {
+          nameC = Name "f29",
+          nameHsIdent = HsIdentifier
+            "f29"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:61:48",
+        declId = NamePair {
+          nameC = Name "i0",
+          nameHsIdent = HsIdentifier
+            "i0"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:62:48",
+        declId = NamePair {
+          nameC = Name "i1",
+          nameHsIdent = HsIdentifier
+            "i1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:63:48",
+        declId = NamePair {
+          nameC = Name "i2",
+          nameHsIdent = HsIdentifier
+            "i2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:64:48",
+        declId = NamePair {
+          nameC = Name "i3",
+          nameHsIdent = HsIdentifier
+            "i3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:65:48",
+        declId = NamePair {
+          nameC = Name "i4",
+          nameHsIdent = HsIdentifier
+            "i4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:68:48",
+        declId = NamePair {
+          nameC = Name "i5",
+          nameHsIdent = HsIdentifier
+            "i5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:69:48",
+        declId = NamePair {
+          nameC = Name "i6",
+          nameHsIdent = HsIdentifier
+            "i6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:70:48",
+        declId = NamePair {
+          nameC = Name "i7",
+          nameHsIdent = HsIdentifier
+            "i7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:71:48",
+        declId = NamePair {
+          nameC = Name "i8",
+          nameHsIdent = HsIdentifier
+            "i8"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:72:48",
+        declId = NamePair {
+          nameC = Name "i9",
+          nameHsIdent = HsIdentifier
+            "i9"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:75:55",
+        declId = NamePair {
+          nameC = Name "i10",
+          nameHsIdent = HsIdentifier
+            "i10"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:76:55",
+        declId = NamePair {
+          nameC = Name "i11",
+          nameHsIdent = HsIdentifier
+            "i11"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:77:55",
+        declId = NamePair {
+          nameC = Name "i12",
+          nameHsIdent = HsIdentifier
+            "i12"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:78:55",
+        declId = NamePair {
+          nameC = Name "i13",
+          nameHsIdent = HsIdentifier
+            "i13"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:79:55",
+        declId = NamePair {
+          nameC = Name "i14",
+          nameHsIdent = HsIdentifier
+            "i14"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:82:55",
+        declId = NamePair {
+          nameC = Name "i15",
+          nameHsIdent = HsIdentifier
+            "i15"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:83:55",
+        declId = NamePair {
+          nameC = Name "i16",
+          nameHsIdent = HsIdentifier
+            "i16"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:84:55",
+        declId = NamePair {
+          nameC = Name "i17",
+          nameHsIdent = HsIdentifier
+            "i17"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:85:55",
+        declId = NamePair {
+          nameC = Name "i18",
+          nameHsIdent = HsIdentifier
+            "i18"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "visibility_attributes.h:86:55",
+        declId = NamePair {
+          nameC = Name "i19",
+          nameHsIdent = HsIdentifier
+            "i19"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "visibility_attributes.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "visibility_attributes"]}

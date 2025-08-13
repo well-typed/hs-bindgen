@@ -1,0 +1,8 @@
+-- addDependentFile examples/golden/tentative_definitions.h
+-- #include <tentative_definitions.h>
+-- __attribute__ ((const)) signed int *get_i1_ptr (void) { return &i1; } 
+-- __attribute__ ((const)) signed int *get_i2_ptr (void) { return &i2; } 
+-- __attribute__ ((const)) signed int *get_i3_ptr (void) { return &i3; } 
+foreign import ccall safe "get_i1_ptr" i1_ptr :: Ptr CInt
+foreign import ccall safe "get_i2_ptr" i2_ptr :: Ptr CInt
+foreign import ccall safe "get_i3_ptr" i3_ptr :: Ptr CInt

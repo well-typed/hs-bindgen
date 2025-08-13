@@ -954,15 +954,14 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "char test_internal_quux (F arg1, char arg2) { return quux(arg1, arg2); }",
+    "char test_internal_quux (float arg1, char arg2) { return quux(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
         "quux",
       foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "F"))
+        (HsPrimType HsPrimCFloat)
         (HsFun
           (HsPrimType HsPrimCChar)
           (HsIO
@@ -974,25 +973,24 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
+            TypePrim
+              (PrimFloating PrimFloat),
             TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))],
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))},
+              (PrimSignImplicit
+                (Just Signed)))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "C *test_internal_wam (float arg1, C *arg2) { return wam(arg1, arg2); }",
+    "char *test_internal_wam (float arg1, char *arg2) { return wam(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1001,15 +999,10 @@
       foreignImportType = HsFun
         (HsPrimType HsPrimCFloat)
         (HsFun
-          (HsPtr
-            (HsTypRef
-              (HsName "@NsTypeConstr" "C")))
+          (HsPtr (HsPrimType HsPrimCChar))
           (HsIO
             (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "C"))))),
+              (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "test_internal_wam",
       foreignImportCallConv =
@@ -1020,20 +1013,18 @@
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeMacroTypedef
-                NamePair {
-                  nameC = Name "C",
-                  nameHsIdent = HsIdentifier "C"}
-                NameOriginInSource)],
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeMacroTypedef
-              NamePair {
-                nameC = Name "C",
-                nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource)},
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1084,15 +1075,14 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "char *test_internal_foo2 (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
+    "char *test_internal_foo2 (float arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
         "foo2",
       foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "F"))
+        (HsPrimType HsPrimCFloat)
         (HsFun
           (HsFunPtr
             (HsFun
@@ -1108,11 +1098,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
+            TypePrim
+              (PrimFloating PrimFloat),
             TypePointer
               (TypeFun
                 [
@@ -1128,12 +1115,13 @@
           functionRes = TypePointer
             (TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing)))},
+                (PrimSignImplicit
+                  (Just Signed))))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "C *test_internal_foo3 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
+    "char *test_internal_foo3 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1148,10 +1136,7 @@
               (HsIO (HsPrimType HsPrimCInt))))
           (HsIO
             (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "C"))))),
+              (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "test_internal_foo3",
       foreignImportCallConv =
@@ -1174,11 +1159,10 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeMacroTypedef
-              NamePair {
-                nameC = Name "C",
-                nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource)},
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1222,15 +1206,14 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_bar2 (L arg1)) (signed short arg1) { return bar2(arg1); }",
+    "signed int (*test_internal_bar2 (signed long arg1)) (signed short arg1) { return bar2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
         "bar2",
       foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "L"))
+        (HsPrimType HsPrimCLong)
         (HsIO
           (HsFunPtr
             (HsFun
@@ -1244,11 +1227,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "L",
-                nameHsIdent = HsIdentifier "L"}
-              NameOriginInSource],
+            TypePrim
+              (PrimIntegral PrimLong Signed)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1265,7 +1245,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_bar3 (signed long arg1)) (S arg1) { return bar3(arg1); }",
+    "signed int (*test_internal_bar3 (signed long arg1)) (signed short arg1) { return bar3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1276,8 +1256,7 @@
         (HsIO
           (HsFunPtr
             (HsFun
-              (HsTypRef
-                (HsName "@NsTypeConstr" "S"))
+              (HsPrimType HsPrimCShort)
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
@@ -1295,11 +1274,8 @@
           functionRes = TypePointer
             (TypeFun
               [
-                TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "S",
-                    nameHsIdent = HsIdentifier "S"}
-                  NameOriginInSource]
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -1308,7 +1284,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "I (*test_internal_bar4 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
+    "signed int (*test_internal_bar4 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1321,10 +1297,7 @@
             (HsFun
               (HsPrimType HsPrimCShort)
               (HsIO
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "I")))))),
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "test_internal_bar4",
       foreignImportCallConv =
@@ -1342,11 +1315,10 @@
               [
                 TypePrim
                   (PrimIntegral PrimShort Signed)]
-              (TypeMacroTypedef
-                NamePair {
-                  nameC = Name "I",
-                  nameHsIdent = HsIdentifier "I"}
-                NameOriginInSource))},
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1391,15 +1363,14 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_baz2 (I arg1))[2][3] { return baz2(arg1); }",
+    "signed int (*test_internal_baz2 (signed int arg1))[2][3] { return baz2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
         "baz2",
       foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "I"))
+        (HsPrimType HsPrimCInt)
         (HsIO
           (HsPtr
             (HsConstArray
@@ -1414,11 +1385,8 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "I",
-                nameHsIdent = HsIdentifier "I"}
-              NameOriginInSource],
+            TypePrim
+              (PrimIntegral PrimInt Signed)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1435,7 +1403,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "I (*test_internal_baz3 (signed int arg1))[2][3] { return baz3(arg1); }",
+    "signed int (*test_internal_baz3 (signed int arg1))[2][3] { return baz3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1449,10 +1417,7 @@
               2
               (HsConstArray
                 3
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "I")))))),
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "test_internal_baz3",
       foreignImportCallConv =
@@ -1470,11 +1435,10 @@
               2
               (TypeConstArray
                 3
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "I",
-                    nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource)))},
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",

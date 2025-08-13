@@ -14,7 +14,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include <macro_in_fundecl_vs_typedef.h>\nchar test_internal_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }\nTC test_internal_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }\nMC *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *test_internal_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }\nvoid test_internal_struct_typedef1 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }\nvoid test_internal_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }\nvoid test_internal_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }\nvoid test_internal_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }\nvoid test_internal_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }\nvoid test_internal_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }\n")
+$(CAPI.addCSource "#include <macro_in_fundecl_vs_typedef.h>\nchar test_internal_quux1 (char arg1, TC arg2) { return quux1(arg1, arg2); }\nTC test_internal_quux2 (char arg1, char arg2) { return quux2(arg1, arg2); }\nchar *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *test_internal_wam2 (float arg1, char *arg2) { return wam2(arg1, arg2); }\nvoid test_internal_struct_typedef1 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }\nvoid test_internal_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }\nvoid test_internal_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }\nvoid test_internal_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }\nvoid test_internal_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }\nvoid test_internal_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }\n")
 
 newtype MC = MC
   { un_MC :: FC.CChar
@@ -28,13 +28,13 @@ newtype TC = TC
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "test_internal_quux1" quux1 :: MC -> TC -> IO FC.CChar
+foreign import ccall safe "test_internal_quux1" quux1 :: FC.CChar -> TC -> IO FC.CChar
 
-foreign import ccall safe "test_internal_quux2" quux2 :: MC -> FC.CChar -> IO TC
+foreign import ccall safe "test_internal_quux2" quux2 :: FC.CChar -> FC.CChar -> IO TC
 
-foreign import ccall safe "test_internal_wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
+foreign import ccall safe "test_internal_wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr FC.CChar)
 
-foreign import ccall safe "test_internal_wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
+foreign import ccall safe "test_internal_wam2" wam2 :: FC.CFloat -> (F.Ptr FC.CChar) -> IO (F.Ptr TC)
 
 data Struct1 = Struct1
   { struct1_a :: FC.CInt

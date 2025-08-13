@@ -1,0 +1,74 @@
+-- addDependentFile examples/golden/redeclaration.h
+-- #include <redeclaration.h>
+-- __attribute__ ((const)) signed int *get_x_ptr (void) { return &x; } 
+foreign import ccall safe "get_x_ptr" x_ptr :: Ptr CInt
+newtype Int_t
+    = Int_t {un_Int_t :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+data X = X {x_n :: CInt} deriving stock (Eq, Show)
+instance Storable X
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure X <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   X x_n_3 -> pokeByteOff ptr_1 (0 :: Int) x_n_3
+data Y
+newtype Y = Y {un_Y :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable Y
+{-|
+
+  __See:__ 'set_y_m'
+
+-}
+get_y_m :: Y -> CInt
+{-|
+
+  __See:__ 'set_y_m'
+
+-}
+get_y_m = getUnionPayload
+{-|
+
+  __See:__ 'get_y_m'
+
+-}
+set_y_m :: CInt -> Y
+{-|
+
+  __See:__ 'get_y_m'
+
+-}
+set_y_m = setUnionPayload
+{-|
+
+  __See:__ 'set_y_o'
+
+-}
+get_y_o :: Y -> CInt
+{-|
+
+  __See:__ 'set_y_o'
+
+-}
+get_y_o = getUnionPayload
+{-|
+
+  __See:__ 'get_y_o'
+
+-}
+set_y_o :: CInt -> Y
+{-|
+
+  __See:__ 'get_y_o'
+
+-}
+set_y_o = setUnionPayload

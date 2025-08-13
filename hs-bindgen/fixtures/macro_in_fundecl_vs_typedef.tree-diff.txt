@@ -80,11 +80,10 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
             TypeTypedef
               (TypedefRegular
                 NamePair {
@@ -96,7 +95,8 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing))},
+              (PrimSignImplicit
+                (Just Signed)))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -119,14 +119,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
             TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))],
+                (PrimSignImplicit
+                  (Just Signed))),
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -171,11 +171,10 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource)},
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -201,11 +200,10 @@ TranslationUnit {
             TypePrim
               (PrimFloating PrimFloat),
             TypePointer
-              (TypeMacroTypedef
-                NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource)],
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

@@ -1,0 +1,15 @@
+types:
+- headers: definitions.h
+  cname: struct X
+  module: Example
+  identifier: X
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: definitions.h
+  cname: union Y
+  module: Example
+  identifier: 'Y'
+  instances:
+  - Storable

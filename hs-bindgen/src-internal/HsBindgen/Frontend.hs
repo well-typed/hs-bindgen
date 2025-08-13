@@ -168,8 +168,7 @@ frontend tracer Config{..} BootArtefact{..} = do
     setup :: ClangSetup
     setup = (defaultClangSetup configClangArgs $ ClangInputMemory hFilePath hContent) {
           clangFlags = bitfieldEnum [
-              CXTranslationUnit_SkipFunctionBodies
-            , CXTranslationUnit_DetailedPreprocessingRecord
+              CXTranslationUnit_DetailedPreprocessingRecord
             , CXTranslationUnit_IncludeAttributedTypes
             , CXTranslationUnit_VisitImplicitAttributes
             ]
