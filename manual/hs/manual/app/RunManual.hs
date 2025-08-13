@@ -284,7 +284,7 @@ main = do
       print Globals.constTuple
       print =<< F.peek Globals.nonConstTuple_ptr
       -- TODO: the stub loses type qualifier information for everything but the
-      -- outer type, so we get incompatible return type warnings here
+      -- outer type, so we get type warnings here. See issue #994.
       print =<< F.peek Globals.ptrToConstInt_ptr
       print Globals.constPtrToInt
       print Globals.constPtrToConstInt
