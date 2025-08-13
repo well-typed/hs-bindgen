@@ -8,6 +8,7 @@ module HsBindgen.Backend.SHs.AST (
     SAlt (..),
     PatExpr (..),
     SDecl (..),
+    Pragma (..),
     ClosedType,
     SType (..),
     Var (..),
@@ -75,6 +76,9 @@ data Global =
   | CAPI_allocaAndPeek
   | ConstantArray_withPtr
   | IncompleteArray_withPtr
+
+    -- Unsafe
+  | IO_unsafePerformIO
 
     -- Other type classes
   | Bits_class
@@ -247,6 +251,7 @@ data SDecl =
   | DDerivingInstance DerivingInstance
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
+  | DPragma Pragma
   | DCSource String
   deriving stock (Show)
 
@@ -263,6 +268,9 @@ data SType ctx =
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
+
+data Pragma = NOINLINE (HsName NsVar)
+  deriving stock Show
 
 infixl 9 `TApp`
 

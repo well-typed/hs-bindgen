@@ -59,7 +59,7 @@ newtype Size_type
   This variable tracks the number of operations performed.
 
 -}
-foreign import ccall safe "get_global_counter_ptr" global_counter :: Ptr CInt
+foreign import ccall safe "get_global_counter_ptr" global_counter_ptr :: Ptr CInt
 {-|
 
   > extern const char* version_string
@@ -67,7 +67,7 @@ foreign import ccall safe "get_global_counter_ptr" global_counter :: Ptr CInt
   Version string constant
 
 -}
-foreign import ccall safe "get_version_string_ptr" version_string :: Ptr (Ptr CChar)
+foreign import ccall safe "get_version_string_ptr" version_string_ptr :: Ptr (Ptr CChar)
 {-| This is the comment @title@
 
   Forward declaration with documentation

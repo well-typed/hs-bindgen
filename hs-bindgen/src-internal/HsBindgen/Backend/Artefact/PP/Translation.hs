@@ -164,6 +164,7 @@ resolveDeclImports = \case
         resolvePatExprImports patSynRHS
     DCSource _ ->
         ImportAcc (Set.singleton (HsImportModule "HsBindgen.Runtime.CAPI" (Just "CAPI")), Map.empty)
+    DPragma {} -> mempty
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
 resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Global])] -> ImportAcc

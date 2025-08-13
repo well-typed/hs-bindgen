@@ -33,32 +33,32 @@
 {-| Global, complete, not initialised
 
 -}
-foreign import ccall safe "get_arr0_ptr" arr0 :: Ptr (ConstantArray 3
-                                                                    CInt)
+foreign import ccall safe "get_arr0_ptr" arr0_ptr :: Ptr (ConstantArray 3
+                                                                        CInt)
 {-| Global, complete, initialised
 
 -}
-foreign import ccall safe "get_arr1_ptr" arr1 :: Ptr (ConstantArray 3
-                                                                    CInt)
+foreign import ccall safe "get_arr1_ptr" arr1_ptr :: Ptr (ConstantArray 3
+                                                                        CInt)
 {-| Global, extern, complete, not initialised
 
 -}
-foreign import ccall safe "get_arr2_ptr" arr2 :: Ptr (ConstantArray 3
-                                                                    CInt)
+foreign import ccall safe "get_arr2_ptr" arr2_ptr :: Ptr (ConstantArray 3
+                                                                        CInt)
 {-| Global, extern, complete, initialised
 
 -}
-foreign import ccall safe "get_arr3_ptr" arr3 :: Ptr (ConstantArray 3
-                                                                    CInt)
+foreign import ccall safe "get_arr3_ptr" arr3_ptr :: Ptr (ConstantArray 3
+                                                                        CInt)
 {-| Global, incomplete
 
 -}
-foreign import ccall safe "get_arr6_ptr" arr6 :: Ptr (ConstantArray 1
-                                                                    CInt)
+foreign import ccall safe "get_arr6_ptr" arr6_ptr :: Ptr (ConstantArray 1
+                                                                        CInt)
 {-| Global, extern, incomplete
 
 -}
-foreign import ccall safe "get_arr7_ptr" arr7 :: Ptr (IncompleteArray CInt)
+foreign import ccall safe "get_arr7_ptr" arr7_ptr :: Ptr (IncompleteArray CInt)
 newtype Triplet
     = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
     deriving stock (Eq, Show)
@@ -88,38 +88,38 @@ instance Storable Example
 {-| Array of known size
 
 -}
-foreign import ccall safe "get_arr_1_ptr" arr_1 :: Ptr (ConstantArray 3
-                                                                      CInt)
+foreign import ccall safe "get_arr_1_ptr" arr_1_ptr :: Ptr (ConstantArray 3
+                                                                          CInt)
 {-| Array of known size, typedef
 
 -}
-foreign import ccall safe "get_arr_2_ptr" arr_2 :: Ptr Triplet
+foreign import ccall safe "get_arr_2_ptr" arr_2_ptr :: Ptr Triplet
 {-| Array of unknown size
 
 -}
-foreign import ccall safe "get_arr_3_ptr" arr_3 :: Ptr (IncompleteArray CInt)
+foreign import ccall safe "get_arr_3_ptr" arr_3_ptr :: Ptr (IncompleteArray CInt)
 {-| Array of unknown size, typedef
 
 -}
-foreign import ccall safe "get_arr_4_ptr" arr_4 :: Ptr List
+foreign import ccall safe "get_arr_4_ptr" arr_4_ptr :: Ptr List
 {-| Multi-dimensional array of known size
 
 -}
-foreign import ccall safe "get_arr_5_ptr" arr_5 :: Ptr (ConstantArray 4
-                                                                      (ConstantArray 3 CInt))
+foreign import ccall safe "get_arr_5_ptr" arr_5_ptr :: Ptr (ConstantArray 4
+                                                                          (ConstantArray 3 CInt))
 {-| Multi-dimensional array of known size, typedef
 
 -}
-foreign import ccall safe "get_arr_6_ptr" arr_6 :: Ptr Matrix
+foreign import ccall safe "get_arr_6_ptr" arr_6_ptr :: Ptr Matrix
 {-| Multi-dimensional array of unknown size
 
 -}
-foreign import ccall safe "get_arr_7_ptr" arr_7 :: Ptr (IncompleteArray (ConstantArray 3
-                                                                                       CInt))
+foreign import ccall safe "get_arr_7_ptr" arr_7_ptr :: Ptr (IncompleteArray (ConstantArray 3
+                                                                                           CInt))
 {-| Multi-dimensional array of unknown size, typedef
 
 -}
-foreign import ccall safe "get_arr_8_ptr" arr_8 :: Ptr Tripletlist
+foreign import ccall safe "get_arr_8_ptr" arr_8_ptr :: Ptr Tripletlist
 {-| Array of known size
 
 -}

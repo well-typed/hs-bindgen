@@ -22,6 +22,7 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import GHC.Exts qualified as IsList(IsList(..))
 import GHC.Ptr ( Ptr(Ptr) )
+import System.IO.Unsafe qualified
 import Text.Read qualified
 
 import GHC.Float
@@ -95,6 +96,9 @@ mkGlobal = \case
       CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
       ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
       IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
+
+      -- Unsafe
+      IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -284,6 +288,9 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CAPI_allocaAndPeek    -> TH.varE name
     ConstantArray_withPtr -> TH.varE name
     IncompleteArray_withPtr -> TH.varE name
+
+    -- Unsafe
+    IO_unsafePerformIO -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"
@@ -640,6 +647,12 @@ mkDecl = \case
       DCSource src -> do
           addCSource src
           return []
+
+      DPragma p ->
+          case p of
+            NOINLINE n ->
+              singleton <$>
+                TH.pragInlD (hsNameToTH n) TH.NoInline TH.FunLike TH.AllPhases
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []

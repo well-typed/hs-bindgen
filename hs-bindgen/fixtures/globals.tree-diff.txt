@@ -1553,6 +1553,422 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "globals.h:445:18",
+        declId = NamePair {
+          nameC = Name "globalConstant",
+          nameHsIdent = HsIdentifier
+            "globalConstant"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment =
+        Just
+          [
+            Paragraph
+              [TextContent "Constant"],
+            Paragraph
+              [
+                TextContent
+                  "Although this is a constant, we don't expect an initializer (since it's",
+                TextContent "`extern`)."]]},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:448:19",
+        declId = NamePair {
+          nameC = Name "ConstInt",
+          nameHsIdent = HsIdentifier
+            "ConstInt"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "Constant, through typedef"]]},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "ConstInt",
+            newtypeField = HsName
+              "@NsVar"
+              "un_ConstInt"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:449:17",
+        declId = NamePair {
+          nameC = Name
+            "anotherGlobalConstant",
+          nameHsIdent = HsIdentifier
+            "anotherGlobalConstant"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "ConstInt",
+              nameHsIdent = HsIdentifier
+                "ConstInt"})),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "globals.h:454:18",
+        declId = NamePair {
+          nameC = Name "staticConst",
+          nameHsIdent = HsIdentifier
+            "staticConst"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment =
+        Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "Constant, but local to the file"],
+            Paragraph
+              [
+                TextContent
+                  "Unlike with `extern`, in this we _do_ expect an initializer."]]},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:457:11",
+        declId = NamePair {
+          nameC = Name "classless",
+          nameHsIdent = HsIdentifier
+            "classless"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "No storage class specified"]]},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:460:18",
+        declId = NamePair {
+          nameC = Name "constArray1",
+          nameHsIdent = HsIdentifier
+            "constArray1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "A an array of size 4 containing constant integers"]]},
+      declKind = DeclConst
+        (TypeConstArray
+          4
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:463:19",
+        declId = NamePair {
+          nameC = Name "ConstIntArray",
+          nameHsIdent = HsIdentifier
+            "ConstIntArray"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "An array of uknown size containing constant integers"]]},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "ConstIntArray",
+            newtypeField = HsName
+              "@NsVar"
+              "un_ConstIntArray"},
+          typedefType =
+          TypeIncompleteArray
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:464:22",
+        declId = NamePair {
+          nameC = Name "constArray2",
+          nameHsIdent = HsIdentifier
+            "constArray2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "ConstIntArray",
+              nameHsIdent = HsIdentifier
+                "ConstIntArray"})),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:466:8",
+        declId = NamePair {
+          nameC = Name "tuple",
+          nameHsIdent = HsIdentifier
+            "Tuple"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName "@NsConstr" "Tuple"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldLoc =
+              "globals.h:466:20",
+              structFieldName = NamePair {
+                nameC = Name "x",
+                nameHsIdent = HsIdentifier
+                  "tuple_x"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing},
+            StructField {
+              structFieldLoc =
+              "globals.h:466:33",
+              structFieldName = NamePair {
+                nameC = Name "y",
+                nameHsIdent = HsIdentifier
+                  "tuple_y"},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing,
+              structFieldComment = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:468:27",
+        declId = NamePair {
+          nameC = Name "constTuple",
+          nameHsIdent = HsIdentifier
+            "constTuple"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "A constant tuple"]]},
+      declKind = DeclConst
+        (TypeStruct
+          NamePair {
+            nameC = Name "tuple",
+            nameHsIdent = HsIdentifier
+              "Tuple"}
+          NameOriginInSource),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:470:21",
+        declId = NamePair {
+          nameC = Name "nonConstTuple",
+          nameHsIdent = HsIdentifier
+            "nonConstTuple"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "A non-constant tuple with a constant member"]]},
+      declKind = DeclGlobal
+        (TypeStruct
+          NamePair {
+            nameC = Name "tuple",
+            nameHsIdent = HsIdentifier
+              "Tuple"}
+          NameOriginInSource),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:473:20",
+        declId = NamePair {
+          nameC = Name "ptrToConstInt",
+          nameHsIdent = HsIdentifier
+            "ptrToConstInt"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "A pointer to const int"]]},
+      declKind = DeclGlobal
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:475:20",
+        declId = NamePair {
+          nameC = Name "constPtrToInt",
+          nameHsIdent = HsIdentifier
+            "constPtrToInt"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "A const pointer to int"]]},
+      declKind = DeclConst
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "globals.h:477:26",
+        declId = NamePair {
+          nameC = Name
+            "constPtrToConstInt",
+          nameHsIdent = HsIdentifier
+            "constPtrToConstInt"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "globals.h",
+        declComment = Just
+          [
+            Paragraph
+              [
+                TextContent
+                  "A const pointer to const int"]]},
+      declKind = DeclConst
+        (TypePointer
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = [
     "stdbool",

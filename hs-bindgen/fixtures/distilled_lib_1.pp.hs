@@ -318,4 +318,4 @@ newtype Callback_t = Callback_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-foreign import ccall safe "get_v_ptr" v :: F.Ptr Var_t
+foreign import ccall safe "get_v_ptr" v_ptr :: F.Ptr Var_t

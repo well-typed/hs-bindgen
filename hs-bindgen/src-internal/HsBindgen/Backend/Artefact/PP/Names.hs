@@ -35,6 +35,7 @@ import Foreign.C           qualified
 import Foreign.C.String    qualified
 import GHC.Float           qualified
 import GHC.Ptr             qualified
+import System.IO.Unsafe    qualified
 import Text.Read           qualified
 
 import HsBindgen.Runtime.IncompleteArray     qualified
@@ -228,6 +229,9 @@ resolveGlobal = \case
     CAPI_allocaAndPeek    -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
     ConstantArray_withPtr -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
     IncompleteArray_withPtr -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
+
+    -- Unsafe
+    IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
 
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded

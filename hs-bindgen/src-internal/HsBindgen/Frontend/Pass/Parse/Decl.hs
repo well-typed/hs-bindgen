@@ -470,11 +470,10 @@ varDecl info = simpleFold $ \curr -> do
               recordTrace $ ParsePotentialDuplicateGlobal info
             return [mkDecl $ C.DeclGlobal typ]
           VarConst _isExternOrStatic -> do
-            recordTrace $ ParseUnsupportedConst info
-            return []
+            -- TODO: should be enabled by PR #926
             --unless isExternOrStatic $
             --  recordTrace $ PotentialDuplicateGlobal info
-            --return [mkDecl $ C.DeclConst typ]
+            return [mkDecl $ C.DeclConst typ]
           VarThreadLocal -> do
             recordTrace $ ParseUnsupportedTLS info
             return []

@@ -437,6 +437,10 @@ testCases = [
               "selected FileOperationRecord"
             , "selected FileOperationStatus"
             , "selected read_file_chunk"
+              -- Macro redefines a global variable
+            , "NsPrelimDeclIdNamed \"stdin\" TypeNamespaceOrdinary"
+            , "NsPrelimDeclIdNamed \"stdout\" TypeNamespaceOrdinary"
+            , "NsPrelimDeclIdNamed \"stderr\" TypeNamespaceOrdinary"
             ] $ \case
             TraceFrontend (FrontendParse msg) -> case msg of
               -- TODO: Ideally, we do not see this warnings because they affect
@@ -445,7 +449,6 @@ testCases = [
               ParseUnsupportedType _ UnsupportedLongDouble       -> Just Tolerated
               ParseUnsupportedType _ UnsupportedVariadicFunction -> Just Tolerated
               ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
-              ParseUnsupportedConst _                            -> Just Tolerated
               _other                                             -> Nothing
             TraceFrontend (FrontendSelect (SelectSelected info)) ->
               expectSelected info $ Set.fromList [
@@ -454,6 +457,8 @@ testCases = [
                 , "read_file_chunk"
                 ]
             TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
+            TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
+              Just $ Expected (show x)
             _otherwise ->
               Nothing
           -- TODO: Also, we may want to specify an allow list; see

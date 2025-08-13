@@ -20,12 +20,14 @@ import HsBindgen.Language.C qualified as C
 showsFunctionType ::
      HasCallStack
   => ShowS            -- ^ function name
+  -> TypeQualifier    -- ^ return type qualifier
   -> FunctionPurity   -- ^ function purity
   -> [(ShowS, Type)]  -- ^ arguments, names and types
   -> Type             -- ^ return type
   -> ShowS
-showsFunctionType n pur args res =
+showsFunctionType n qual pur args res  =
       showsFunctionPurity pur . showsFunctionPurityWhitespace pur
+    . showsTypeQualifier qual . showsTypeQualifierWhitespace qual
     . showsType functionDeclarator res
   where
     -- When functions return more complicated types, placing parentheses becomes
@@ -71,7 +73,7 @@ showsVariableType n ty = showsType variableDeclarator ty
 --
 -- === Examples
 --
--- >>> import HsBindgen.Frontend.AST.External (Type (..))
+-- >>> import HsBindgen.Frontend.AST.External (Type (..), TypeQualifier (..))
 -- >>> import HsBindgen.Language.C qualified as C
 -- >>> import HsBindgen.Frontend.AST.Internal (FunctionPurity (..))
 --
@@ -115,6 +117,7 @@ showsVariableType n ty = showsType variableDeclarator ty
 -- >>> :{
 --  showsFunctionType
 --    (showString "foo")
+--    TypeQualifierNone
 --    ImpureFunction
 --    []
 --    (TypePointer (TypePrim (C.PrimIntegral C.PrimInt C.Signed)))
@@ -127,6 +130,7 @@ showsVariableType n ty = showsType variableDeclarator ty
 -- >>> :{
 --  showsFunctionType
 --    (showString "bar")
+--    TypeQualifierNone
 --    ImpureFunction
 --    [(showString "arg1", TypePrim (C.PrimIntegral C.PrimInt C.Signed))]
 --    (TypePointer (TypeConstArray 2 (TypeConstArray 3 (TypePrim (C.PrimIntegral C.PrimInt C.Signed)))))
@@ -152,7 +156,7 @@ showsType x (TypeFun args res)      =
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
     -- declarations.
-    showsFunctionType (showParen True (x 0)) ImpureFunction (zipWith named [1..] args) res
+    showsFunctionType (showParen True (x 0)) TypeQualifierNone ImpureFunction (zipWith named [1..] args) res
   where
     named :: Int -> Type -> (ShowS, Type)
     named i t = (showString "arg" . shows i, t)
@@ -171,6 +175,16 @@ arrayPrec = 10
 -- NOTE: picked somewhat arbitrarily to be smaller than 'arrayPrec'
 pointerPrec :: CTypePrecedence
 pointerPrec = 5
+
+showsTypeQualifier :: TypeQualifier -> ShowS
+showsTypeQualifier qual = case qual of
+    TypeQualifierNone -> id
+    TypeQualifierConst -> showString "const"
+
+showsTypeQualifierWhitespace :: TypeQualifier -> ShowS
+showsTypeQualifierWhitespace qual = case qual of
+    TypeQualifierNone -> id
+    TypeQualifierConst -> showChar ' '
 
 -- | Show function purity in C syntax.
 --
