@@ -26,11 +26,10 @@ import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..),
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Guasi
 import HsBindgen.Lib
-import HsBindgen.Pipeline.TH qualified as PipelineTH
+import HsBindgen.TH.Internal
 
 import Text.SimplePrettyPrint
 
-import HsBindgen.Pipeline.TH (getExtensions)
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
@@ -51,7 +50,7 @@ check testResources test =
           runTestHsBindgen testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
-            thDecls = PipelineTH.genBindingsFromCHeader deps decls requiredExts
+            thDecls = genBindingsFromCHeader deps decls requiredExts
 
             (QuState{..}, thdecs) = runQu thDecls
 

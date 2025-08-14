@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedLabels #-}
 
-module HsBindgen.Pipeline.TH (
+module HsBindgen.TH.Internal (
     -- * Template Haskell API
     IncludeDir (..)
   , BindgenOpts ( extraIncludeDirs

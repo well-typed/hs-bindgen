@@ -163,9 +163,9 @@ library internal
       HsBindgen.Language.Haskell
       HsBindgen.NameHint
       HsBindgen.Orphans
-      HsBindgen.Pipeline.TH
       HsBindgen.PrettyC
       HsBindgen.Resolve
+      HsBindgen.TH.Internal
       HsBindgen.TraceMsg
       HsBindgen.Util.List
       HsBindgen.Util.Monad
