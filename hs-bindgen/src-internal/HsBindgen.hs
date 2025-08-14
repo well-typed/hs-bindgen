@@ -117,19 +117,19 @@ hsBindgen'
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
-  HashIncludArgs :: Artefact [HashIncludeArg]
+  HashIncludeArgs :: Artefact [HashIncludeArg]
   -- * Frontend
-  IncludeGraph   :: Artefact IncludeGraph.IncludeGraph
-  DeclIndex      :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph   :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph   :: Artefact DeclUseGraph.DeclUseGraph
-  ReifiedC       :: Artefact [C.Decl]
-  Dependencies   :: Artefact [SourcePath]
+  IncludeGraph    :: Artefact IncludeGraph.IncludeGraph
+  DeclIndex       :: Artefact DeclIndex.DeclIndex
+  UseDeclGraph    :: Artefact UseDeclGraph.UseDeclGraph
+  DeclUseGraph    :: Artefact DeclUseGraph.DeclUseGraph
+  ReifiedC        :: Artefact [C.Decl]
+  Dependencies    :: Artefact [SourcePath]
   -- * Backend
-  HsDecls        :: Artefact [Hs.Decl]
-  FinalDecls     :: Artefact [SHs.SDecl]
+  HsDecls         :: Artefact [Hs.Decl]
+  FinalDecls      :: Artefact [SHs.SDecl]
   -- * Lift
-  Lift :: Artefacts as -> (NP I as -> IO b) -> Artefact b
+  Lift            :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
 instance Functor Artefact where
   fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
@@ -178,7 +178,7 @@ writeBindings config mfile =
 writeBindingSpec :: Config -> FilePath -> Artefact ()
 writeBindingSpec config file =
   Lift
-    (HashIncludArgs :* HsDecls :* Nil)
+    (HashIncludeArgs :* HsDecls :* Nil)
     (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
        genBindingSpec config hashIncludeArgs file hsDecls
     )
@@ -187,7 +187,7 @@ writeBindingSpec config file =
 writeTests :: Config -> FilePath -> Artefact ()
 writeTests Config{..} testDir =
   Lift
-    (HashIncludArgs :* HsDecls :* Nil)
+    (HashIncludeArgs :* HsDecls :* Nil)
     (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
        genTests
          hashIncludeArgs
@@ -221,7 +221,7 @@ runArtefacts
     runArtefact :: MonadIO m => Artefact a -> m a
     runArtefact = \case
       --Boot.
-      HashIncludArgs -> pure bootHashIncludeArgs
+      HashIncludeArgs -> pure bootHashIncludeArgs
       -- Frontend.
       IncludeGraph -> pure frontendIncludeGraph
       DeclIndex    -> pure frontendIndex
