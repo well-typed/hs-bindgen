@@ -18,7 +18,7 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenEDiff "hs" fixture $ \_report -> do
-      (I hsDecls :* Nil) <- runTestArtefacts testResources test (HsDecls :* Nil)
+      (I hsDecls :* Nil) <- runTestHsBindgen testResources test (HsDecls :* Nil)
       pure $ ActualValue hsDecls
   where
     fixture :: FilePath

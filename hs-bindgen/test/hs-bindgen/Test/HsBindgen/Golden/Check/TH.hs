@@ -47,7 +47,8 @@ check testResources test =
       if ghcAtLeast904 then do
         pkgroot <- getTestPackageRoot testResources
         let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
-        (I deps :* I decls :* I requiredExts :* Nil) <- runTestArtefacts testResources test artefacts
+        (I deps :* I decls :* I requiredExts :* Nil) <-
+          runTestHsBindgen testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
             thDecls = PipelineTH.genBindingsFromCHeader deps decls requiredExts

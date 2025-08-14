@@ -8,7 +8,6 @@ module Test.HsBindgen.Resources (
   , getTestPackageRoot
   , getTestDefaultClangArgs
   , getTestDefaultConfig
-  , getTestDefaultExtSpec
     -- ** rust-bindgen
   , RustBindgenResult(..)
   , callRustBindgen
@@ -20,7 +19,6 @@ import Test.Tasty
 import Clang.Args
 import HsBindgen.Lib
 
-import Test.Common.HsBindgen.TracePredicate
 import Test.Common.Util.Cabal
 import Test.HsBindgen.Resources.Rust
 
@@ -37,9 +35,6 @@ data TestResources = TestResources {
       -- NOTE: Individual tests will need to add their required include dirs.
     , testClangArgs :: ClangArgs
 
-      -- | Default external binding specification
-    , testExtSpec :: BindingSpec
-
       -- | Path to @rust-bindgen@, if available
     , testRustBindgen :: RustBindgen
     }
@@ -55,7 +50,6 @@ initTestResources :: IO TestResources
 initTestResources = do
     testPackageRoot <- findPackageDirectory "hs-bindgen"
     let testClangArgs = mkTestClangArgs testPackageRoot
-    testExtSpec     <- initExtBindingSpec testClangArgs
     testRustBindgen <- initRustBindgen
     return TestResources{..}
 
@@ -104,29 +98,18 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
   Test configuration
 -------------------------------------------------------------------------------}
 
-getTestDefaultConfig :: IO TestResources -> [FilePath] -> IO Config
-getTestDefaultConfig testResources extraIncludeDirs = do
+getTestDefaultConfig :: IO TestResources -> TestName -> [FilePath] -> IO Config
+getTestDefaultConfig testResources testName extraIncludeDirs = do
     aux <$> getTestDefaultClangArgs testResources extraIncludeDirs
   where
     aux :: ClangArgs -> Config
     aux clangArgs = def{
           configClangArgs    = clangArgs
+        , configTranslation  = def {
+            translationUniqueId = UniqueId $ "test." ++ testName
+          }
         , configHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
         }
-
-{-------------------------------------------------------------------------------
-  Binding specifications
--------------------------------------------------------------------------------}
-
-initExtBindingSpec :: ClangArgs -> IO BindingSpec
-initExtBindingSpec clangArgs =
-    -- This trace predicate is used only during resolution of the default
-    -- binding specifications.
-    withTracePredicate defaultTracePredicate $ \tracer ->
-      loadExtBindingSpecs tracer clangArgs EnableStdlibBindingSpec []
-
-getTestDefaultExtSpec :: IO TestResources -> IO BindingSpec
-getTestDefaultExtSpec = fmap testExtSpec
 
 {-------------------------------------------------------------------------------
   rust-bindgen

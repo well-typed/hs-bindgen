@@ -296,6 +296,7 @@ data ShowCallStack = EnableCallStack | DisableCallStack
 data AnsiColor = EnableAnsiColor | DisableAnsiColor
   deriving stock (Show, Eq)
 
+-- TODO.
 -- | The report function needs to know about the log level. For example, with
 -- Template Haskell, errors and warnings are treated differently compared to
 -- debug and info messages.

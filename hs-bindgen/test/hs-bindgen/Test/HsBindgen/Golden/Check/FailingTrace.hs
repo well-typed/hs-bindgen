@@ -20,4 +20,4 @@ check testResources test = testCase (testName test) $ do
     -- We ignore any declarations that might have been successful
 
     let artefacts = FinalDecls :* Nil
-    void $ runTestArtefacts testResources test artefacts
+    void $ runTestHsBindgen testResources test artefacts

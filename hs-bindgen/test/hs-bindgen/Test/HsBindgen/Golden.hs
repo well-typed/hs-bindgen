@@ -23,6 +23,7 @@ import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 
+import HsBindgen.BindingSpec (BindingSpecConfig (bindingSpecStdlibSpec))
 import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
 import Test.HsBindgen.Golden.Check.C qualified as C
 import Test.HsBindgen.Golden.Check.Exts qualified as Exts
@@ -488,18 +489,20 @@ testCases = [
             , configSelectPredicate = PIf (Left FromMainHeaders)
             , configProgramSlicing  = EnableProgramSlicing
             }
-        , testOnExtSpec = BindingSpec.deleteType C.QualName{
-              qualNameName = "uint32_t"
-            , qualNameKind = C.NameKindOrdinary
+        , testOnBindingSpecConfig = \cfg -> cfg{
+              bindingSpecStdlibSpec = BindingSpec.DisableStdlibBindingSpec
+              -- TODO: Use binding spec for UInt64
             }
         , testTracePredicate = customTracePredicate [
               "selected foo"
             , "selected uint32_t"
+            , "selected uint64_t"
             ] $ \case
             TraceFrontend (FrontendSelect (SelectSelected info)) ->
               expectSelected info $ Set.fromList [
                   "foo"
                 , "uint32_t"
+                , "uint64_t"
                 ]
             TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->

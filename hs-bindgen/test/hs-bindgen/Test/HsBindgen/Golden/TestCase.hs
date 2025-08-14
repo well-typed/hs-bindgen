@@ -19,23 +19,19 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestSimple
   , failingTestCustom
     -- * Execution
-  , runTestArtefacts
+  , runTestHsBindgen
   , runTestRustBindgen
     -- ** Low-level
   , getTestConfig
-  , getTestExtSpec
-  , withTestTracer
   ) where
 
+import Data.Default (def)
 import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
-import HsBindgen.Backend
-import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
-import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Boot
+import HsBindgen.BindingSpec
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
@@ -73,8 +69,8 @@ data TestCase = TestCase {
       -- | Modify the default test configuration
     , testOnConfig :: Config -> Config
 
-      -- | Modify the external binding specification
-    , testOnExtSpec :: ExternalBindingSpec -> ExternalBindingSpec
+      -- | Modify the default binding specification configuration
+    , testOnBindingSpecConfig :: BindingSpecConfig -> BindingSpecConfig
 
       -- | Should we expect rust-bindgen to throw an error on this test?
       --
@@ -98,9 +94,8 @@ data TestRustBindgen =
   Derived
 -------------------------------------------------------------------------------}
 
-testInputInclude :: TestCase -> HashIncludeArg
-testInputInclude TestCase{testName} =
-    HashIncludeArg $ testName ++ ".h"
+testInputInclude :: TestCase -> UncheckedHashIncludeArg
+testInputInclude TestCase{testName} = testName ++ ".h"
 
 testInputPath :: TestCase -> FilePath
 testInputPath TestCase{testDir, testName} =
@@ -114,14 +109,14 @@ defaultTest ::
      String --  ^ Filename without the @.h@ extension
   -> TestCase
 defaultTest filename = TestCase{
-      testName             = filename
-    , testDir              = "examples/golden"
-    , testTracePredicate   = defaultTracePredicate
-    , testHasOutput        = True
-    , testClangVersion     = Nothing
-    , testOnConfig         = id
-    , testOnExtSpec        = id
-    , testRustBindgen      = RustBindgenRun
+      testName                = filename
+    , testDir                 = "examples/golden"
+    , testTracePredicate      = defaultTracePredicate
+    , testHasOutput           = True
+    , testClangVersion        = Nothing
+    , testOnConfig            = id
+    , testOnBindingSpecConfig = id
+    , testRustBindgen         = RustBindgenRun
     }
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
@@ -189,52 +184,31 @@ failingTestCustom filename expected trace =
 -------------------------------------------------------------------------------}
 
 getTestConfig :: IO TestResources -> TestCase -> IO Config
-getTestConfig testResources TestCase{testOnConfig, testDir} =
-    testOnConfig <$> getTestDefaultConfig testResources [testDir]
+getTestConfig testResources TestCase{testOnConfig, testName, testDir} =
+    testOnConfig <$> getTestDefaultConfig testResources testName [testDir]
 
-getTestExtSpec :: IO TestResources -> TestCase -> IO ExternalBindingSpec
-getTestExtSpec testResources TestCase{testOnExtSpec} =
-    testOnExtSpec <$> getTestDefaultExtSpec testResources
+getTestBindingSpecConfig :: TestCase -> BindingSpecConfig
+getTestBindingSpecConfig TestCase{testOnBindingSpecConfig} =
+  testOnBindingSpecConfig def
 
--- | Get prescriptive binding specification for the test
---
--- TODO: We're not testing with prescriptive binding specifications yet.
-getTestPSpec :: IO TestResources -> TestCase -> IO PrescriptiveBindingSpec
-getTestPSpec _ _ = return BindingSpec.emptyBindingSpec
-
-withTestTracer ::
+withTestTracerMaybe ::
      TestCase
   -> (Tracer IO TraceMsg -> IO b)
-  -> IO b
-withTestTracer TestCase{testTracePredicate} =
-    withTracePredicate testTracePredicate
+  -> IO (Maybe b)
+withTestTracerMaybe TestCase{testTracePredicate} =
+    fmap Just . withTracePredicate testTracePredicate
 
-getTestBootArtefact :: IO TestResources -> TestCase -> IO BootArtefact
-getTestBootArtefact testResources test = do
-    extSpec <- getTestExtSpec testResources test
-    pSpec   <- getTestPSpec   testResources test
-    pure BootArtefact {
-          bootHashIncludeArgs         = [testInputInclude test]
-        , bootExternalBindingSpec     = extSpec
-        , bootPrescriptiveBindingSpec = pSpec
-        }
-
-runTestArtefacts :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
-runTestArtefacts testResources test artefacts = do
-    config           <- getTestConfig  testResources test
-    -- Boot.
-    bootArtefact     <- getTestBootArtefact testResources test
-    -- Frontend.
-    frontendArtefact <-
-      withTestTracer test $ \tracer ->
-        frontend
-          (contramap TraceFrontend tracer)
-          config
-          bootArtefact
-    -- Backend.
-    let backendArtefact = backend config frontendArtefact
-    -- Artefacts.
-    runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
+runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestHsBindgen testResources test artefacts = do
+    config <- getTestConfig  testResources test
+    let bindingSpecConfig = getTestBindingSpecConfig test
+    hsBindgen'
+      id
+      (withTestTracerMaybe test)
+      config
+      bindingSpecConfig
+      [testInputInclude test]
+      artefacts
 
 runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
 runTestRustBindgen testResources test = do
