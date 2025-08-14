@@ -49,13 +49,13 @@ data UniqueIdMsg =
 
 instance PrettyForTrace UniqueIdMsg where
   prettyForTrace = \case
-    UniqueIdEmpty -> PP.hcat [
+    UniqueIdEmpty -> PP.vcat [
         "empty unique identifier ('UniqueId'):"
       , "  C uses a global namespace."
       , "  We encourage using a unique identifier to avoid duplicate symbol names."
       , "  For example, use and adapt 'com.well-typed.your-package-name'."
       ]
-    UniqueIdTooLong (UniqueId val) -> PP.hcat $ map PP.string [
+    UniqueIdTooLong (UniqueId val) -> PP.vcat $ map PP.string [
         "unique identifier too long: " <> val
       , "  The maximum unique identifier length is " <> show maxUniqueIdLength <> "."
       , "  Your unique identifier has " <> show (length val) <> " characters."

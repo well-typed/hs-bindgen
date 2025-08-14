@@ -18,14 +18,12 @@ module HsBindgen.App.Common (
   , parseInputs
   , checkInputs
     -- * Auxiliary hs-bindgen functions
-  , fromMaybeWithFatalError
   , footerWith
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
   ) where
 
-import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap))
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
@@ -449,14 +447,6 @@ checkInputs tracer = mapM $
 {-------------------------------------------------------------------------------
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
-
--- | Extract the result or exit gracefully with an error message.
---
--- Helper function to be used in conjunction with 'withTracer'. We carefully
--- separate running actions from error handling; before we continue to process
--- the result.
-fromMaybeWithFatalError :: MonadIO m => Maybe b -> m b
-fromMaybeWithFatalError k = maybe fatalError pure k
 
 -- | Footer of command line help.
 footerWith :: ParserPrefs -> Doc

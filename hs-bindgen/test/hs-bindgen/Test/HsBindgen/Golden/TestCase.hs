@@ -20,12 +20,13 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestCustom
     -- * Execution
   , runTestHsBindgen
+  , runTestHsBindgen'
   , runTestRustBindgen
     -- ** Low-level
   , getTestConfig
   ) where
 
-import Data.Default (def)
+import Control.Exception (Exception (..), SomeException (..), handle, throwIO)
 import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
@@ -69,8 +70,11 @@ data TestCase = TestCase {
       -- | Modify the default test configuration
     , testOnConfig :: Config -> Config
 
+      -- | Configure if the @stdlib@ binding specification should be used
+    , testStdlibSpec :: EnableStdlibBindingSpec
+
       -- | Modify the default binding specification configuration
-    , testOnBindingSpecConfig :: BindingSpecConfig -> BindingSpecConfig
+    , testExtBindingSpecs :: [FilePath]
 
       -- | Should we expect rust-bindgen to throw an error on this test?
       --
@@ -115,7 +119,8 @@ defaultTest filename = TestCase{
     , testHasOutput           = True
     , testClangVersion        = Nothing
     , testOnConfig            = id
-    , testOnBindingSpecConfig = id
+    , testStdlibSpec          = EnableStdlibBindingSpec
+    , testExtBindingSpecs     = []
     , testRustBindgen         = RustBindgenRun
     }
 
@@ -187,28 +192,47 @@ getTestConfig :: IO TestResources -> TestCase -> IO Config
 getTestConfig testResources TestCase{testOnConfig, testName, testDir} =
     testOnConfig <$> getTestDefaultConfig testResources testName [testDir]
 
-getTestBindingSpecConfig :: TestCase -> BindingSpecConfig
-getTestBindingSpecConfig TestCase{testOnBindingSpecConfig} =
-  testOnBindingSpecConfig def
+getTestBindingSpecConfig :: IO TestResources -> TestCase -> IO BindingSpecConfig
+getTestBindingSpecConfig testResources TestCase{..} = do
+  root <- getTestPackageRoot testResources
+  pure $ BindingSpecConfig {
+        bindingSpecStdlibSpec              = testStdlibSpec
+      , bindingSpecExtBindingSpecs         = map (root </>) testExtBindingSpecs
+      , bindingSpecPrescriptiveBindingSpec = Nothing
+      }
 
-withTestTracerMaybe ::
+withTestTraceConfig ::
      TestCase
-  -> (Tracer IO TraceMsg -> IO b)
-  -> IO (Maybe b)
-withTestTracerMaybe TestCase{testTracePredicate} =
-    fmap Just . withTracePredicate testTracePredicate
+  -> (TracerConfig IO Level TraceMsg -> IO b)
+  -> IO b
+withTestTraceConfig TestCase{testTracePredicate} =
+    withTraceConfigPredicate testTracePredicate
 
+-- | Run 'hsBindgen'.
+--
+-- On trace exceptions, print error traces.
 runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
-runTestHsBindgen testResources test artefacts = do
-    config <- getTestConfig  testResources test
-    let bindingSpecConfig = getTestBindingSpecConfig test
-    hsBindgen'
-      id
-      (withTestTracerMaybe test)
-      config
-      bindingSpecConfig
-      [testInputInclude test]
-      artefacts
+runTestHsBindgen testResources test artefacts =
+    handle exceptionHandler $ runTestHsBindgen' testResources test artefacts
+  where
+    exceptionHandler :: SomeException -> IO a
+    exceptionHandler e@(SomeException e')
+      | Just (TraceException @TraceMsg es) <- fromException e =
+          mapM_ print es >> throwIO e'
+      | otherwise = throwIO e'
+
+-- | Like 'runTestHsBindgen', but do not print error traces.
+runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestHsBindgen' testResources test artefacts = do
+    config            <- getTestConfig testResources test
+    bindingSpecConfig <- getTestBindingSpecConfig testResources test
+    withTestTraceConfig test $ \traceConfig ->
+      hsBindgen
+        traceConfig
+        config
+        bindingSpecConfig
+        [testInputInclude test]
+        artefacts
 
 runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
 runTestRustBindgen testResources test = do

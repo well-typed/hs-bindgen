@@ -1,6 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards #-}
-
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     TranslationOpts(..)

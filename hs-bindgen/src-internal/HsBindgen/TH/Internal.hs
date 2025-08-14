@@ -1,5 +1,4 @@
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE OverloadedLabels #-}
 
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
@@ -22,7 +21,6 @@ module HsBindgen.TH.Internal (
 import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Optics (traverseOf, (%))
 import System.FilePath ((</>))
 
 import Clang.Args
@@ -30,6 +28,7 @@ import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Artefact.TH.Translation
 import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec (BindingSpecConfig)
@@ -43,7 +42,6 @@ import HsBindgen.Util.Tracer
 #ifdef MIN_VERSION_th_compat
 import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
 #else
-import HsBindgen.Backend.Hs.Translation (TranslationOpts (translationUniqueId))
 import Language.Haskell.TH.Syntax (getPackageRoot)
 #endif
 
@@ -142,11 +140,12 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
       pure $ map (toFilePath root) xs
 
     ensureUniqueId :: Config -> TH.Q Config
-    ensureUniqueId config =
-      traverseOf
-        (#configTranslation % #translationUniqueId)
-        updateUniqueId
-        config
+    ensureUniqueId config = do
+      let translationOpts = configTranslation config
+      uniqueId <- updateUniqueId $ translationUniqueId translationOpts
+      pure config{
+          configTranslation = translationOpts{ translationUniqueId = uniqueId }
+        }
 
     updateUniqueId :: UniqueId -> TH.Q UniqueId
     updateUniqueId uniqueId@(UniqueId val)

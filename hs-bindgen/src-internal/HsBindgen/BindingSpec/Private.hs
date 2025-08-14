@@ -73,7 +73,8 @@ import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (hang, string, textToCtxDoc, vcat, (><))
+
+import Text.SimplePrettyPrint (hang, hangs', string, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Types
@@ -252,8 +253,8 @@ instance PrettyForTrace BindingSpecReadMsg where
     BindingSpecReadAesonError path msg ->
       "error parsing JSON: " >< string path >< ": " >< string msg
     BindingSpecReadYamlError path msg ->
-      -- 'unlines' is used because the pretty-printed error includes newlines
-      vcat ["error parsing YAML: " >< string path, string msg]
+      -- 'lines' is used because the error includes newlines
+      hangs' ("error parsing YAML: " >< string path) 2 $ map string $ lines msg
     BindingSpecReadYamlWarning path msg ->
       "error parsing YAML: " >< string path >< ": " >< string msg
     BindingSpecReadInvalidCName path t ->

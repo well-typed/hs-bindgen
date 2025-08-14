@@ -17,9 +17,6 @@ module HsBindgen
     -- * Re-exports
   , I (..)
   , NP (..)
-
-    -- * Exported for tests
-  , hsBindgen'
   ) where
 
 import Generics.SOP (I (..), NP (..))
@@ -58,7 +55,7 @@ hsBindgen ::
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> IO (NP I as)
-hsBindgen tracerConfig = hsBindgen' id (withTracer tracerConfig)
+hsBindgen = hsBindgen' id
 
 -- TODO: Can we get rid of 'hsBindgenQ' and the need to use 'runQ'?
 -- https://github.com/well-typed/hs-bindgen/issues/865.
@@ -71,12 +68,12 @@ hsBindgenQ ::
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> Q (NP I as)
-hsBindgenQ tracerConfig = hsBindgen' runQ (withTracer tracerConfig)
+hsBindgenQ = hsBindgen' runQ
 
 hsBindgen' ::
      MonadIO m
   => (forall b. m b -> IO b)
-  -> (forall c. (Tracer m TraceMsg -> m c) -> m (Maybe c))
+  -> TracerConfig m Level TraceMsg
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -84,13 +81,13 @@ hsBindgen' ::
   -> m (NP I as)
 hsBindgen'
   unliftIO
-  withTracerCustom
+  tracerConfig
   config
   bindingSpecConfig
   uncheckedHashIncludeArgs
   artefacts = do
     -- Boot and frontend require unsafe tracer and `libclang`.
-    mArtefact <- withTracerCustom $ \tracerM -> do
+    eArtefact <- withTracer tracerConfig $ \tracerM -> do
       let tracer :: Tracer IO TraceMsg
           tracer = natTracer unliftIO tracerM
           tracerFrontend :: Tracer IO FrontendMsg
@@ -104,7 +101,7 @@ hsBindgen'
       frontendArtefact <- liftIO $
         frontend tracerFrontend config bootArtefact
       pure (bootArtefact, frontendArtefact)
-    (bootArtefact, frontendArtefact) <- maybe fatalError pure mArtefact
+    (bootArtefact, frontendArtefact) <- either (liftIO . throwIO) pure eArtefact
     -- 3. Backend.
     let backendArtefact = backend config frontendArtefact
     -- 4. Artefacts.

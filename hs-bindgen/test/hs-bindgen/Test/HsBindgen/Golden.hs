@@ -23,7 +23,6 @@ import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 
-import HsBindgen.BindingSpec (BindingSpecConfig (bindingSpecStdlibSpec))
 import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
 import Test.HsBindgen.Golden.Check.C qualified as C
 import Test.HsBindgen.Golden.Check.Exts qualified as Exts
@@ -482,27 +481,24 @@ testCases = [
           testClangVersion = Just (>= (19, 1, 0))
         }
     , (defaultTest "program_slicing_simple"){
-          -- Check that program slicing generates bindings for uint32_t if we
-          -- remove it from the standard external binding specification
+          -- Check that program slicing generates bindings for uint32_t and
+          -- uint64_t if we only provide external binding specifications for
+          -- uint64_t.
           testOnConfig = \cfg -> cfg{
               configParsePredicate  = PTrue
             , configSelectPredicate = PIf (Left FromMainHeaders)
             , configProgramSlicing  = EnableProgramSlicing
             }
-        , testOnBindingSpecConfig = \cfg -> cfg{
-              bindingSpecStdlibSpec = BindingSpec.DisableStdlibBindingSpec
-              -- TODO: Use binding spec for UInt64
-            }
+        , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
+        , testExtBindingSpecs = [ "examples/golden/program_slicing_simple.yaml" ]
         , testTracePredicate = customTracePredicate [
               "selected foo"
             , "selected uint32_t"
-            , "selected uint64_t"
             ] $ \case
             TraceFrontend (FrontendSelect (SelectSelected info)) ->
               expectSelected info $ Set.fromList [
                   "foo"
                 , "uint32_t"
-                , "uint64_t"
                 ]
             TraceFrontend (FrontendSelect (SelectExcluded _)) -> Just Tolerated
             _otherwise ->

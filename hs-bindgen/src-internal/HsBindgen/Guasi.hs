@@ -28,13 +28,6 @@ class TH.Quote g => Guasi g where
     --
     putFieldDoc :: TH.DocLoc -> Maybe Comment -> g ()
 
--- |
---
--- >>> :seti -XTemplateHaskell
--- >>> import Language.Haskell.TH.Syntax
--- >>> $(getModuleUnique >>= lift)
--- "interactive_Ghci"
---
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
     extsEnabled = TH.extsEnabled

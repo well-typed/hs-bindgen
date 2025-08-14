@@ -17,6 +17,7 @@ tested-with:      , GHC==9.2.8
                   , GHC==9.12.2
 extra-source-files: bootstrap/*.h
                     examples/**/*.h
+                    examples/**/*.yaml
                     fixtures/*.hs
                     fixtures/*.rs
                     fixtures/*.txt
@@ -263,9 +264,9 @@ executable hs-bindgen-cli
       -- Inherited dependencies
     , bytestring
     , containers
-    , optics
   build-depends:
       -- External dependencies
+    , optics               >= 0.4.2.1   && < 0.5
     , optparse-applicative >= 0.18      && < 0.19
     , prettyprinter        ^>=1.7.1
     , text                 >= 1.2       && < 2.2
@@ -294,9 +295,9 @@ executable hs-bindgen-dev
     , hs-bindgen
   build-depends:
       -- Inherited dependencies
-    , optics
   build-depends:
       -- External dependencies
+    , optics               >= 0.4.2.1   && < 0.5
     , optparse-applicative >= 0.18      && < 0.19
     , prettyprinter        ^>=1.7.1
     , text                 >= 1.2       && < 2.2
@@ -393,7 +394,6 @@ test-suite test-hs-bindgen
   build-depends:
       -- Inherited dependencies
     , containers
-    , data-default
     , debruijn
     , directory
     , filepath

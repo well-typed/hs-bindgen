@@ -81,7 +81,7 @@ execLiterate opts = do
 
 execBindingSpec :: GlobalOpts -> BindingSpecCmd -> IO ()
 execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
-    spec <- fromMaybeWithFatalError <=< withTracer tracerConfig $ \tracer ->
+    spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer ->
       getStdlibBindingSpec (contramap (TraceBoot . BootBindingSpec) tracer) clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
 
@@ -89,7 +89,7 @@ execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
 -- https://github.com/well-typed/hs-bindgen/issues/990.
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
 execResolve GlobalOpts{..} ResolveOpts{..} = do
-    mErr <- withTracer tracerConfig' $ \tracer -> do
+    eErr <- withTracer tracerConfig' $ \tracer -> do
       hashIncludeArgs <- checkInputs tracer inputs
       includes <-
         resolveHeaders
@@ -104,10 +104,10 @@ execResolve GlobalOpts{..} ResolveOpts{..} = do
           Nothing   -> (True  <$) . putStrLn $
             "#include <" ++ getHashIncludeArg header
               ++ "> could not be resolved (header not found)"
-    case mErr of
-      Just False -> exitSuccess
-      Just True  -> exitFailure
-      Nothing    -> fatalError
+    case eErr of
+      Right False -> exitSuccess
+      Right True  -> exitFailure
+      Left e      -> throwIO e
   where
     tracerConfig' :: TracerConfig IO Level TraceMsg
     tracerConfig' = tracerConfig{

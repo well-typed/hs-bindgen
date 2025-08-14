@@ -117,7 +117,6 @@ module HsBindgen.Lib (
   , Common.CustomLogLevelSetting(..)
     -- ** Tracers
   , Common.withTracer
-  , Tracer.fatalError
 
     -- * Re-exports
   , Common.Default (..)
