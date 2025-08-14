@@ -8,6 +8,8 @@ import Control.Monad
 import Control.Monad.IO.Class
 import Data.Bifunctor
 import Data.Default (Default (def))
+import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Data.Text (Text)
 import Data.Text qualified as T
 import Foreign.C.Types (CUInt)
@@ -24,7 +26,7 @@ import Clang.Paths
 import GHC.Generics (Generic)
 import HsBindgen.Clang
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Resolve (resolveHeader)
+import HsBindgen.Resolve (resolveHeaders)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -74,15 +76,14 @@ clangAstDump opts@Options{..} = do
     maybeRes <- withTracer tracerConf $ \tracer -> do
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
-      src <- maybe (throwIO HeaderNotFound) return
-          =<< resolveHeader tracerResolve cArgs optFile
+      src <- maybe (throwIO HeaderNotFound) return . Map.lookup optFile
+          =<< resolveHeaders tracerResolve cArgs (Set.singleton optFile)
       let setup :: ClangSetup
           setup = (defaultClangSetup cArgs $ ClangInputFile src) {
                 clangFlags = cOpts
               }
 
-      (>>= maybe (throwIO ClangError) return)
-          . withClang tracerClang setup $ \unit -> Just <$> do
+      maybe (throwIO ClangError) return <=< withClang tracerClang setup $ \unit -> Just <$> do
         rootCursor <- clang_getTranslationUnitCursor unit
         void . HighLevel.clang_visitChildren rootCursor $ simpleFold $ \cursor -> do
           loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor

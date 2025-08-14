@@ -167,6 +167,7 @@ library internal
       HsBindgen.PrettyC
       HsBindgen.Resolve
       HsBindgen.TraceMsg
+      HsBindgen.Util.List
       HsBindgen.Util.Monad
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
@@ -234,6 +235,7 @@ library
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , containers
     , filepath
 
 executable hs-bindgen-cli
@@ -258,6 +260,7 @@ executable hs-bindgen-cli
   build-depends:
       -- Inherited dependencies
     , bytestring
+    , containers
   build-depends:
       -- External dependencies
     , optics               >= 0.4.2.1   && < 0.5
@@ -310,6 +313,7 @@ executable clang-ast-dump
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , containers
     , data-default
     , text
   build-depends:

@@ -4,10 +4,12 @@ module Main (main) where
 
 import Control.Exception (Exception (..), SomeException (..), fromException,
                           handle, throwIO)
-import Control.Monad (forM_, void, (<=<))
+import Control.Monad (forM, void, (<=<))
 import Data.ByteString qualified as BS
+import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Optics
-import System.Exit (ExitCode, exitFailure)
+import System.Exit (ExitCode, exitFailure, exitSuccess)
 import Text.Read (readMaybe)
 
 import HsBindgen.Lib
@@ -90,15 +92,36 @@ execBindingSpec GlobalOpts{..} BindingSpecCmdStdlib{..} = do
 -- https://github.com/well-typed/hs-bindgen/issues/990.
 execResolve :: GlobalOpts -> ResolveOpts -> IO ()
 execResolve GlobalOpts{..} ResolveOpts{..} = do
-    mErr <- withTracer tracerConfig $ \tracer -> do
-      let tracerResolve = contramap TraceResolveHeader tracer
+    mErr <- withTracer tracerConfig' $ \tracer -> do
       hashIncludeArgs <- checkInputs tracer inputs
-      forM_ hashIncludeArgs $ \header -> do
-        mPath <- resolveHeader tracerResolve clangArgs header
-        putStrLn . unwords $ case mPath of
-          Just path -> [show header, "resolves to", show path]
-          Nothing   -> [show header, "not found"]
-    fromMaybeWithFatalError mErr
+      includes <-
+        resolveHeaders
+          (contramap TraceResolveHeader tracer)
+          clangArgs
+          (Set.fromList hashIncludeArgs)
+      fmap or . forM hashIncludeArgs $ \header ->
+        case Map.lookup header includes of
+          Just path -> (False <$) . putStrLn $
+            "#include <" ++ getHashIncludeArg header
+              ++ "> resolved to " ++ show path
+          Nothing   -> (True  <$) . putStrLn $
+            "#include <" ++ getHashIncludeArg header
+              ++ "> could not be resolved (header not found)"
+    case mErr of
+      Just False -> exitSuccess
+      Just True  -> exitFailure
+      Nothing    -> fatalError
+  where
+    tracerConfig' :: TracerConfig IO Level TraceMsg
+    tracerConfig' = tracerConfig{
+        tCustomLogLevel = customLogLevel <> tCustomLogLevel tracerConfig
+      }
+
+    customLogLevel :: CustomLogLevel Level TraceMsg
+    customLogLevel = CustomLogLevel $ \case
+      TraceResolveHeader ResolveHeaderFound{}    -> Just Debug
+      TraceResolveHeader ResolveHeaderNotFound{} -> Just Debug
+      _otherTrace -> Nothing
 
 {-------------------------------------------------------------------------------
   Exception handling

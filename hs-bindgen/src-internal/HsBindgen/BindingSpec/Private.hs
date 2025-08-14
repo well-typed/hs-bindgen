@@ -501,7 +501,8 @@ resolve ::
   -> UnresolvedBindingSpec
   -> IO ResolvedBindingSpec
 resolve tracer injResolveHeader args uSpec = do
-    headerMap <- Map.fromList <$> mapMaybeM resolveHeader' allHeaders
+    headerMap <-
+      resolveHeaders (contramap injResolveHeader tracer) args allHeaders
 
     let lookup' :: HashIncludeArg -> Maybe (HashIncludeArg, SourcePath)
         lookup' uHeader = (uHeader,) <$> Map.lookup uHeader headerMap
@@ -542,18 +543,8 @@ resolve tracer injResolveHeader args uSpec = do
       mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecTypes uSpec))
     return BindingSpec {..}
   where
-    allHeaders :: [HashIncludeArg]
-    allHeaders = Set.toAscList . mconcat $
-      fst <$> concat (Map.elems (bindingSpecTypes uSpec))
-
-    resolveTracer :: Tracer IO ResolveHeaderMsg
-    resolveTracer = contramap injResolveHeader tracer
-
-    resolveHeader' ::
-         HashIncludeArg
-      -> IO (Maybe (HashIncludeArg, SourcePath))
-    resolveHeader' uHeader =
-      fmap (uHeader,) <$> resolveHeader resolveTracer args uHeader
+    allHeaders :: Set HashIncludeArg
+    allHeaders = mconcat $ fst <$> concat (Map.elems (bindingSpecTypes uSpec))
 
 {-------------------------------------------------------------------------------
   Auxiliary: Specification files

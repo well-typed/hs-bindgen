@@ -25,7 +25,6 @@ module HsBindgen.Frontend.RootHeader (
   , HashIncludeArgMsg(..)
   ) where
 
-import Data.Maybe (listToMaybe)
 import Prelude hiding (lookup)
 import System.FilePath qualified as FilePath
 
@@ -33,6 +32,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Util.List ((!?))
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint qualified as PP
 
@@ -167,17 +167,3 @@ hashIncludeArgMsgs fp = catMaybes [
         then Nothing
         else Just (HashIncludeArgNotRelative fp)
     ]
-
-{-------------------------------------------------------------------------------
-  Auxiliary functions
--------------------------------------------------------------------------------}
-
--- | List index (subscript) operator, starting from 0
---
--- Returns 'Nothing' if the index is out of bounds
-(!?) :: [a] -> Int -> Maybe a
-xs !? n
-    | n < 0     = Nothing
-    | otherwise = listToMaybe $ drop n xs
-infixl 9 !?
-{-# INLINABLE (!?) #-}
