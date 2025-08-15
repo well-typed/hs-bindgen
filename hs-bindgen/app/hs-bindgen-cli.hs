@@ -52,7 +52,7 @@ execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
         let artefacts = writeBindings output :* writeBindingSpec file :* Nil
         in  void $ run $ artefacts
   where
-    run :: Artefacts as -> IO (NP I as)
+    run :: Artefacts IO as -> IO (NP I as)
     run = hsBindgen tracerConfig bindingSpecConfig frontendConfig backendConfig inputs
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()

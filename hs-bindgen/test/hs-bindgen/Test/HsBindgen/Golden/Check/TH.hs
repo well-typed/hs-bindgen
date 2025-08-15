@@ -23,10 +23,10 @@ import System.FilePath (makeRelative)
 
 import HsBindgen.Backend.Artefact.HsModule.Render (CommentKind (..),
                                                    prettyCommentKind)
+import HsBindgen.Backend.Artefact.TH
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Guasi
 import HsBindgen.Lib
-import HsBindgen.TH.Internal
 
 import Text.SimplePrettyPrint
 
@@ -46,6 +46,8 @@ check testResources test =
       if ghcAtLeast904 then do
         pkgroot <- getTestPackageRoot testResources
         let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
+        -- We do not have access to 'Q', and so have to compute the 'getThDecls'
+        -- artefact manually.
         (I deps :* I decls :* I requiredExts :* Nil) <-
           runTestHsBindgen testResources test artefacts
 

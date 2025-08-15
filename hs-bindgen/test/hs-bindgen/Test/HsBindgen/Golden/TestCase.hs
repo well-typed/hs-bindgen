@@ -213,7 +213,7 @@ withTestTraceConfig TestCase{testTracePredicate} =
 -- | Run 'hsBindgen'.
 --
 -- On trace exceptions, print error traces.
-runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts IO as -> IO (NP I as)
 runTestHsBindgen testResources test artefacts =
     handle exceptionHandler $ runTestHsBindgen' testResources test artefacts
   where
@@ -224,7 +224,7 @@ runTestHsBindgen testResources test artefacts =
       | otherwise = throwIO e'
 
 -- | Like 'runTestHsBindgen', but do not print error traces.
-runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts IO as -> IO (NP I as)
 runTestHsBindgen' testResources test artefacts = do
     bindingSpecConfig <- getTestBindingSpecConfig testResources test
     frontendConfig    <- getTestFrontendConfig testResources test

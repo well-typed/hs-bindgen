@@ -13,30 +13,21 @@ module HsBindgen.TH.Internal (
   , tracerConfigDefQ
   , withHsBindgen
   , hashInclude
-    -- * Artefacts
-  , getExtensions
-
-    -- * Internal
-  , genBindingsFromCHeader
   ) where
 
 import Control.Monad.State (State, execState, modify)
-import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
 
 import Clang.Args
 import Clang.Paths
 import HsBindgen
-import HsBindgen.Backend.Artefact.TH.Translation
-import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Artefact.TH (getThDecls)
 import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec (BindingSpecConfig)
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -128,8 +119,8 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
-    let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
-    (I deps :* I decls :* I requiredExts :* Nil) <-
+    let artefacts = getThDecls :* Nil
+    (I decls :* Nil) <-
       hsBindgenQ
         tracerConfig
         bindingSpecConfig
@@ -137,7 +128,7 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         backendConfig
         uncheckedHashIncludeArgs
         artefacts
-    genBindingsFromCHeader deps decls requiredExts
+    pure decls
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (RelativeToPkgRoot x) = root </> x
@@ -184,48 +175,6 @@ hashInclude arg = do
       prependArg :: BindgenState -> BindgenState
       prependArg = BindgenState . (arg :) . bindgenStateUncheckedHashIncludeArgs
   modify prependArg
-
-{-------------------------------------------------------------------------------
-  -- TODO_PR: Move to TH artefacts dir
-  Artefacts
--------------------------------------------------------------------------------}
-
--- | Get required extensions.
-getExtensions :: Artefact (Set TH.Extension)
-getExtensions =
-  Lift
-    (FinalDecls :* Nil)
-    (\(I decls :* Nil) -> pure $ foldMap requiredExtensions decls)
-
-{-------------------------------------------------------------------------------
-  -- TODO_PR: Move to TH artefacts dir
-  Internal
--------------------------------------------------------------------------------}
-
--- | Internal API; exported for testing; non-IO part of 'withHsBindgen'
-genBindingsFromCHeader
-    :: Guasi q
-    => [SourcePath]
-    -> [SHs.SDecl]
-    -> Set TH.Extension
-    -> q [TH.Dec]
-genBindingsFromCHeader deps decls requiredExts = do
-    -- Record dependencies, including transitively included headers.
-    mapM_ (addDependentFile . getSourcePath) deps
-
-    -- Check language extensions.
-    --
-    -- TODO: We could also check which enabled extension may interfere with the
-    -- generated code (e.g. Strict/Data).
-    enabledExts <- Set.fromList <$> extsEnabled
-    let missingExts  = requiredExts `Set.difference` enabledExts
-    -- TODO: The following error should be a trace.
-    unless (null missingExts) $ do
-      reportError $ "Missing LANGUAGE extensions: "
-        ++ unwords (map show (toList missingExts))
-
-    -- Generate TH declarations.
-    fmap concat $ traverse mkDecl decls
 
 {-------------------------------------------------------------------------------
   Helpers

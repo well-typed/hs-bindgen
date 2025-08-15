@@ -8,7 +8,7 @@ import Test.Tasty
 import HsBindgen.Imports
 
 import HsBindgen
-import HsBindgen.TH.Internal
+import HsBindgen.Backend.Artefact.TH
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase

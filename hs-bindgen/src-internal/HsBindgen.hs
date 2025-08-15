@@ -17,6 +17,9 @@ module HsBindgen
     -- * Re-exports
   , I (..)
   , NP (..)
+
+    -- * Internal
+  , hsBindgen'
   ) where
 
 import Generics.SOP (I (..), NP (..))
@@ -55,7 +58,7 @@ hsBindgen ::
   -> FrontendConfig
   -> BackendConfig
   -> [UncheckedHashIncludeArg]
-  -> Artefacts as
+  -> Artefacts IO as
   -> IO (NP I as)
 hsBindgen = hsBindgen' id
 
@@ -69,7 +72,7 @@ hsBindgenQ ::
   -> FrontendConfig
   -> BackendConfig
   -> [UncheckedHashIncludeArg]
-  -> Artefacts as
+  -> Artefacts Q as
   -> Q (NP I as)
 hsBindgenQ = hsBindgen' runQ
 
@@ -81,7 +84,7 @@ hsBindgen' ::
   -> FrontendConfig
   -> BackendConfig
   -> [UncheckedHashIncludeArg]
-  -> Artefacts as
+  -> Artefacts m as
   -> m (NP I as)
 hsBindgen'
   unliftIO
@@ -117,48 +120,49 @@ hsBindgen'
 -------------------------------------------------------------------------------}
 
 -- | Build artefact.
-data Artefact (a :: Star) where
+data Artefact m (a :: Star) where
   -- * Boot
-  HashIncludeArgs :: Artefact [HashIncludeArg]
+  HashIncludeArgs :: Artefact m [HashIncludeArg]
   -- * Frontend
-  IncludeGraph    :: Artefact IncludeGraph.IncludeGraph
-  DeclIndex       :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph    :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph    :: Artefact DeclUseGraph.DeclUseGraph
-  ReifiedC        :: Artefact [C.Decl]
-  Dependencies    :: Artefact [SourcePath]
+  IncludeGraph    :: Artefact m IncludeGraph.IncludeGraph
+  DeclIndex       :: Artefact m DeclIndex.DeclIndex
+  UseDeclGraph    :: Artefact m UseDeclGraph.UseDeclGraph
+  DeclUseGraph    :: Artefact m DeclUseGraph.DeclUseGraph
+  ReifiedC        :: Artefact m [C.Decl]
+  Dependencies    :: Artefact m [SourcePath]
   -- * Backend
-  HsDecls         :: Artefact [Hs.Decl]
-  FinalDecls      :: Artefact [SHs.SDecl]
-  FinalModuleName :: Artefact HsModuleName
-  FinalModule     :: Artefact HsModule
+  HsDecls         :: Artefact m [Hs.Decl]
+  FinalDecls      :: Artefact m [SHs.SDecl]
+  FinalModuleName :: Artefact m HsModuleName
+  FinalModule     :: Artefact m HsModule
   -- * Lift
-  Lift            :: Artefacts as -> (NP I as -> IO b) -> Artefact b
+  Lift            :: Artefacts m as -> (NP I as -> m b) -> Artefact m b
 
-instance Functor Artefact where
+instance Applicative m => Functor (Artefact m) where
   fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
 
 -- | A list of 'Artefact's.
-type Artefacts as = NP Artefact as
+type Artefacts m as = NP (Artefact m) as
 
 -- | Write the include graph to file.
-writeIncludeGraph :: FilePath -> Artefact ()
+writeIncludeGraph :: MonadIO m => FilePath -> Artefact m ()
 writeIncludeGraph file =
   Lift
     (IncludeGraph :* Nil)
-    (\(I includeGraph :* Nil) -> writeFile file (IncludeGraph.dumpMermaid includeGraph))
+    (\(I includeGraph :* Nil) ->
+       liftIO $ writeFile file (IncludeGraph.dumpMermaid includeGraph))
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: FilePath -> Artefact ()
+writeUseDeclGraph :: MonadIO m => FilePath -> Artefact m ()
 writeUseDeclGraph file =
   Lift
     (DeclIndex :* UseDeclGraph :* Nil)
     (\(I index :* I useDeclGraph :* Nil) ->
-       writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
+       liftIO $ writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
     )
 
 -- | Get bindings.
-getBindings :: Artefact String
+getBindings :: Applicative m => Artefact m String
 getBindings =
   Lift
     (FinalModule :* Nil)
@@ -167,28 +171,28 @@ getBindings =
     )
 
 -- | Write bindings to file. If no file is given, print to standard output.
-writeBindings :: Maybe FilePath -> Artefact ()
+writeBindings :: MonadIO m => Maybe FilePath -> Artefact m ()
 writeBindings mfile =
   Lift
     (getBindings :* Nil)
-    (\(I bindings :* Nil) -> write mfile bindings)
+    (\(I bindings :* Nil) -> liftIO $ write mfile bindings)
 
 -- | Write binding specifications to file.
-writeBindingSpec :: FilePath -> Artefact ()
+writeBindingSpec :: MonadIO m => FilePath -> Artefact m ()
 writeBindingSpec file =
   Lift
     (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
     (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-       genBindingSpec moduleName hashIncludeArgs file hsDecls
+       liftIO $ genBindingSpec moduleName hashIncludeArgs file hsDecls
     )
 
 -- | Create test suite in directory.
-writeTests :: FilePath -> Artefact ()
+writeTests :: MonadIO m => FilePath -> Artefact m ()
 writeTests testDir =
   Lift
     (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
     (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-       genTests
+       liftIO $ genTests
          hashIncludeArgs
          hsDecls
          moduleName
@@ -200,23 +204,22 @@ writeTests testDir =
 -------------------------------------------------------------------------------}
 
 -- | Compute the results of a list of artefacts.
-runArtefacts ::
-     MonadIO m
+runArtefacts :: Monad m
   => BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
-  -> Artefacts as
+  -> Artefacts m as
   -> m (NP I as)
 runArtefacts
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..} = go
   where
-    go :: MonadIO m => Artefacts as -> m (NP I as)
-    go Nil       = return Nil
+    go :: Monad m => Artefacts m as -> m (NP I as)
+    go Nil       = pure Nil
     go (a :* as) = (:*) . I <$> runArtefact a <*> go as
 
-    runArtefact :: MonadIO m => Artefact a -> m a
+    runArtefact :: Monad m => Artefact m a -> m a
     runArtefact = \case
       --Boot.
       HashIncludeArgs -> pure bootHashIncludeArgs
@@ -233,7 +236,7 @@ runArtefacts
       FinalModuleName -> pure backendFinalModuleName
       FinalModule     -> pure backendFinalModule
       -- Lift.
-      (Lift as' f)    -> go as' >>= liftIO . f
+      (Lift as' f)    -> go as' >>= f
 
 {-------------------------------------------------------------------------------
   Helpers
