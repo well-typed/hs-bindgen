@@ -16,13 +16,13 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
-import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Artefact.PP.Names
+import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
-import HsBindgen.Backend.SHs.AST
 
 {-------------------------------------------------------------------------------
   GhcPragma
@@ -77,7 +77,7 @@ data HsModule = HsModule {
 -------------------------------------------------------------------------------}
 
 newtype HsModuleOpts = HsModuleOpts {
-      hsModuleOptsName :: String
+      hsModuleOptsName :: HsModuleName
     }
   deriving stock (Show)
 
@@ -88,7 +88,7 @@ translateModule :: HsModuleOpts -> [SDecl] -> HsModule
 translateModule HsModuleOpts{..} hsModuleDecls =
     let hsModulePragmas = resolvePragmas hsModuleDecls
         hsModuleImports = resolveImports hsModuleDecls
-        hsModuleName    = hsModuleOptsName
+        hsModuleName    = Text.unpack $ getHsModuleName $ hsModuleOptsName
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------

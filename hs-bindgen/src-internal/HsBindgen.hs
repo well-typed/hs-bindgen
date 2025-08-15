@@ -17,15 +17,11 @@ module HsBindgen
     -- * Re-exports
   , I (..)
   , NP (..)
-
-    -- * Exported for tests
-  , runArtefacts
   ) where
 
 import Generics.SOP (I (..), NP (..))
 import Language.Haskell.TH (Q, runQ)
 
-import Clang.Args
 import Clang.Paths
 import HsBindgen.Backend
 import HsBindgen.Backend.Artefact.PP.Render qualified as PP
@@ -45,7 +41,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.ModuleUnique
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -55,7 +50,6 @@ import HsBindgen.Util.Tracer
 -- 'Artefact'.
 hsBindgen ::
      TracerConfig IO Level TraceMsg
-  -> ModuleUnique
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -69,7 +63,6 @@ hsBindgen = hsBindgen' id
 -- | Main entry point to run @hs-bindgen@ with Template Haskell.
 hsBindgenQ ::
      TracerConfig Q Level TraceMsg
-  -> ModuleUnique
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -81,7 +74,6 @@ hsBindgen' ::
      MonadIO m
   => (forall b. m b -> IO b)
   -> TracerConfig m Level TraceMsg
-  -> ModuleUnique
   -> Config
   -> BindingSpecConfig
   -> [UncheckedHashIncludeArg]
@@ -90,13 +82,12 @@ hsBindgen' ::
 hsBindgen'
   unliftIO
   tracerConfig
-  moduleUnique
   config
   bindingSpecConfig
   uncheckedHashIncludeArgs
   artefacts = do
     -- Boot and frontend require unsafe tracer and `libclang`.
-    mArtefact <- withTracer tracerConfig $ \tracerM -> do
+    eArtefact <- withTracer tracerConfig $ \tracerM -> do
       let tracer :: Tracer IO TraceMsg
           tracer = natTracer unliftIO tracerM
           tracerFrontend :: Tracer IO FrontendMsg
@@ -105,19 +96,16 @@ hsBindgen'
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <- liftIO $
-        boot tracerBoot clangArgs bindingSpecConfig uncheckedHashIncludeArgs
+        boot tracerBoot config bindingSpecConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
       frontendArtefact <- liftIO $
         frontend tracerFrontend config bootArtefact
       pure (bootArtefact, frontendArtefact)
-    (bootArtefact, frontendArtefact) <- maybe fatalError pure mArtefact
+    (bootArtefact, frontendArtefact) <- either (liftIO . throwIO) pure eArtefact
     -- 3. Backend.
-    let backendArtefact = backend moduleUnique config frontendArtefact
+    let backendArtefact = backend config frontendArtefact
     -- 4. Artefacts.
     runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
-  where
-    clangArgs :: ClangArgs
-    clangArgs = configClangArgs config
 
 {-------------------------------------------------------------------------------
   Build artefacts
@@ -126,19 +114,19 @@ hsBindgen'
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
-  HashIncludArgs :: Artefact [HashIncludeArg]
+  HashIncludeArgs :: Artefact [HashIncludeArg]
   -- * Frontend
-  IncludeGraph   :: Artefact IncludeGraph.IncludeGraph
-  DeclIndex      :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph   :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph   :: Artefact DeclUseGraph.DeclUseGraph
-  ReifiedC       :: Artefact [C.Decl]
-  Dependencies   :: Artefact [SourcePath]
+  IncludeGraph    :: Artefact IncludeGraph.IncludeGraph
+  DeclIndex       :: Artefact DeclIndex.DeclIndex
+  UseDeclGraph    :: Artefact UseDeclGraph.UseDeclGraph
+  DeclUseGraph    :: Artefact DeclUseGraph.DeclUseGraph
+  ReifiedC        :: Artefact [C.Decl]
+  Dependencies    :: Artefact [SourcePath]
   -- * Backend
-  HsDecls        :: Artefact [Hs.Decl]
-  FinalDecls     :: Artefact [SHs.SDecl]
+  HsDecls         :: Artefact [Hs.Decl]
+  FinalDecls      :: Artefact [SHs.SDecl]
   -- * Lift
-  Lift :: Artefacts as -> (NP I as -> IO b) -> Artefact b
+  Lift            :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
 instance Functor Artefact where
   fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
@@ -187,7 +175,7 @@ writeBindings config mfile =
 writeBindingSpec :: Config -> FilePath -> Artefact ()
 writeBindingSpec config file =
   Lift
-    (HashIncludArgs :* HsDecls :* Nil)
+    (HashIncludeArgs :* HsDecls :* Nil)
     (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
        genBindingSpec config hashIncludeArgs file hsDecls
     )
@@ -196,7 +184,7 @@ writeBindingSpec config file =
 writeTests :: Config -> FilePath -> Artefact ()
 writeTests Config{..} testDir =
   Lift
-    (HashIncludArgs :* HsDecls :* Nil)
+    (HashIncludeArgs :* HsDecls :* Nil)
     (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
        genTests
          hashIncludeArgs
@@ -230,7 +218,7 @@ runArtefacts
     runArtefact :: MonadIO m => Artefact a -> m a
     runArtefact = \case
       --Boot.
-      HashIncludArgs -> pure bootHashIncludeArgs
+      HashIncludeArgs -> pure bootHashIncludeArgs
       -- Frontend.
       IncludeGraph -> pure frontendIncludeGraph
       DeclIndex    -> pure frontendIndex

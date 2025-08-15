@@ -14,7 +14,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include <macro_in_fundecl_vs_typedef.h>\nchar test_internal_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }\nTC test_internal_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }\nMC *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *test_internal_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }\nvoid test_internal_struct_typedef1 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }\nvoid test_internal_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }\nvoid test_internal_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }\nvoid test_internal_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }\nvoid test_internal_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }\nvoid test_internal_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }\n")
+$(CAPI.addCSource "#include <macro_in_fundecl_vs_typedef.h>\nchar hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad (MC arg1, TC arg2) { return quux1(arg1, arg2); }\nTC hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2 (MC arg1, char arg2) { return quux2(arg1, arg2); }\nMC *hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0 (float arg1, TC *arg2) { return wam1(arg1, arg2); }\nTC *hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210 (float arg1, MC *arg2) { return wam2(arg1, arg2); }\nvoid hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }\nvoid hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }\nvoid hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }\nvoid hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }\nvoid hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }\nvoid hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }\n")
 
 newtype MC = MC
   { un_MC :: FC.CChar
@@ -28,13 +28,13 @@ newtype TC = TC
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "test_internal_quux1" quux1 :: MC -> TC -> IO FC.CChar
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad" quux1 :: MC -> TC -> IO FC.CChar
 
-foreign import ccall safe "test_internal_quux2" quux2 :: MC -> FC.CChar -> IO TC
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2" quux2 :: MC -> FC.CChar -> IO TC
 
-foreign import ccall safe "test_internal_wam1" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
 
-foreign import ccall safe "test_internal_wam2" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
 
 data Struct1 = Struct1
   { struct1_a :: FC.CInt
@@ -134,14 +134,14 @@ instance F.Storable Struct4 where
           Struct4 struct4_a2 ->
             F.pokeByteOff ptr0 (0 :: Int) struct4_a2
 
-foreign import ccall safe "test_internal_struct_typedef1" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
 
-foreign import ccall safe "test_internal_struct_typedef2" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
 
-foreign import ccall safe "test_internal_struct_typedef3" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
 
-foreign import ccall safe "test_internal_struct_name1" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
 
-foreign import ccall safe "test_internal_struct_name2" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
 
-foreign import ccall safe "test_internal_struct_name3" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()

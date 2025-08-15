@@ -7,21 +7,21 @@
 -- #include <doxygen_docs.h>
 -- __attribute__ ((const)) signed int *get_global_counter_ptr (void) { return &global_counter; } 
 -- __attribute__ ((const)) char **get_version_string_ptr (void) { return &version_string; } 
--- signed int test_internal_process_data (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
--- _Bool test_internal_process_file (char *arg1) { return process_file(arg1); }
--- signed int test_internal_calculate_value (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }
--- _Bool test_internal_html_example (signed int arg1) { return html_example(arg1); }
--- _Bool test_internal_list_example (char **arg1, size_t arg2) { return list_example(arg1, arg2); }
--- void *test_internal_dangerous_function (void *arg1) { return dangerous_function(arg1); }
--- signed int test_internal_detailed_return_codes (char *arg1) { return detailed_return_codes(arg1); }
--- signed int test_internal_old_function (signed int arg1) { return old_function(arg1); }
--- signed int test_internal_versioned_function (signed int arg1) { return versioned_function(arg1); }
--- signed int test_internal_process_buffer (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }
--- void *test_internal_my_memcpy (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
--- signed int test_internal_double_value (signed int arg1) { return double_value(arg1); }
--- status_code_t test_internal_complex_function (config_t *arg1, uint8_t *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }
--- signed int test_internal_hash (char *arg1) { return hash(arg1); }
--- signed int test_internal_square (signed int arg1) { return square(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
+-- _Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char *arg1) { return process_file(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_788bfbb9e824261c (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }
+-- _Bool hs_bindgen_test_doxygen_docs_3763cc54606bc611 (signed int arg1) { return html_example(arg1); }
+-- _Bool hs_bindgen_test_doxygen_docs_9d6d039971edcd60 (char **arg1, size_t arg2) { return list_example(arg1, arg2); }
+-- void *hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9 (void *arg1) { return dangerous_function(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_fb3e3158714e01f5 (char *arg1) { return detailed_return_codes(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_84140a44d1bd8380 (signed int arg1) { return old_function(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8 (signed int arg1) { return versioned_function(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }
+-- void *hs_bindgen_test_doxygen_docs_bcbe640b60445a4f (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
+-- signed int hs_bindgen_test_doxygen_docs_1c952f01cc07bb64 (signed int arg1) { return double_value(arg1); }
+-- status_code_t hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe (config_t *arg1, uint8_t *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }
+-- signed int hs_bindgen_test_doxygen_docs_71214e4420f53a0e (char *arg1) { return hash(arg1); }
+-- signed int hs_bindgen_test_doxygen_docs_8effe939268709e4 (signed int arg1) { return square(arg1); }
 mAX_NAME_LENGTH :: CInt
 mAX_NAME_LENGTH = 64 :: CInt
 {-| This is the comment __title__
@@ -163,10 +163,10 @@ pattern COLOR_BLUE = Color_enum 2
   __returns:__ Status code (0 = success, -1 = error)
 
 -}
-foreign import ccall safe "test_internal_process_data" process_data :: Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                       Ptr HsBindgen.Runtime.Prelude.CSize ->
-                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" process_data :: Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                          Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                          Ptr HsBindgen.Runtime.Prelude.CSize ->
+                                                                                          IO CInt
 {-|
 
   Function with inline commands and formatting
@@ -178,8 +178,8 @@ foreign import ccall safe "test_internal_process_data" process_data :: Ptr HsBin
   __returns:__ @true@ if successful, @false@ otherwise
 
 -}
-foreign import ccall safe "test_internal_process_file" process_file :: Ptr CChar ->
-                                                                       IO CBool
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_4e9b999ed81440c0" process_file :: Ptr CChar ->
+                                                                                          IO CBool
 {-|
 
   Function with verbatim code blocks
@@ -198,8 +198,9 @@ foreign import ccall safe "test_internal_process_file" process_file :: Ptr CChar
   __returns:__ Calculated result
 
 -}
-foreign import ccall safe "test_internal_calculate_value" calculate_value :: CInt ->
-                                                                             CInt -> IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_788bfbb9e824261c" calculate_value :: CInt ->
+                                                                                             CInt ->
+                                                                                             IO CInt
 {-|
 
   Function with HTML formatting
@@ -213,8 +214,8 @@ foreign import ccall safe "test_internal_calculate_value" calculate_value :: CIn
   __returns:__ Boolean result
 
 -}
-foreign import ccall safe "test_internal_html_example" html_example :: CInt ->
-                                                                       IO CBool
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_3763cc54606bc611" html_example :: CInt ->
+                                                                                          IO CBool
 {-|
 
   Function with lists and special formatting
@@ -256,9 +257,9 @@ foreign import ccall safe "test_internal_html_example" html_example :: CInt ->
   __returns:__ Success status
 
 -}
-foreign import ccall safe "test_internal_list_example" list_example :: Ptr (Ptr CChar) ->
-                                                                       HsBindgen.Runtime.Prelude.CSize ->
-                                                                       IO CBool
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_example :: Ptr (Ptr CChar) ->
+                                                                                          HsBindgen.Runtime.Prelude.CSize ->
+                                                                                          IO CBool
 {-|
 
   Function with warnings and notes
@@ -274,8 +275,8 @@ foreign import ccall safe "test_internal_list_example" list_example :: Ptr (Ptr 
   __returns:__ Modified pointer
 
 -}
-foreign import ccall safe "test_internal_dangerous_function" dangerous_function :: Ptr Void ->
-                                                                                   IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9" dangerous_function :: Ptr Void ->
+                                                                                                IO (Ptr Void)
 {-|
 
   Function with return value details
@@ -291,8 +292,8 @@ foreign import ccall safe "test_internal_dangerous_function" dangerous_function 
   __returns:__ -3 Processing error
 
 -}
-foreign import ccall safe "test_internal_detailed_return_codes" detailed_return_codes :: Ptr CChar ->
-                                                                                         IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_fb3e3158714e01f5" detailed_return_codes :: Ptr CChar ->
+                                                                                                   IO CInt
 {-|
 
   Function with deprecated annotation
@@ -304,8 +305,8 @@ foreign import ccall safe "test_internal_detailed_return_codes" detailed_return_
   __returns:__ Legacy result
 
 -}
-foreign import ccall safe "test_internal_old_function" old_function :: CInt ->
-                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_84140a44d1bd8380" old_function :: CInt ->
+                                                                                          IO CInt
 {-|
 
   Function with version information
@@ -317,8 +318,8 @@ foreign import ccall safe "test_internal_old_function" old_function :: CInt ->
   __returns:__ Processed data
 
 -}
-foreign import ccall safe "test_internal_versioned_function" versioned_function :: CInt ->
-                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8" versioned_function :: CInt ->
+                                                                                                IO CInt
 {-|
 
   Callback function type
@@ -785,9 +786,9 @@ newtype Filename_t
   __returns:__ Number of bytes written
 
 -}
-foreign import ccall safe "test_internal_process_buffer" process_buffer_wrapper :: Ptr CChar ->
-                                                                                   HsBindgen.Runtime.Prelude.CSize ->
-                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e" process_buffer_wrapper :: Ptr CChar ->
+                                                                                                    HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                    IO CInt
 process_buffer :: ConstantArray 64 CChar ->
                   HsBindgen.Runtime.Prelude.CSize -> IO CInt
 process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper ptr_2 x_1)
@@ -804,10 +805,10 @@ process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper p
   __returns:__ Destination pointer
 
 -}
-foreign import ccall safe "test_internal_my_memcpy" my_memcpy :: Ptr Void ->
-                                                                 Ptr Void ->
-                                                                 HsBindgen.Runtime.Prelude.CSize ->
-                                                                 IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f" my_memcpy :: Ptr Void ->
+                                                                                       Ptr Void ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO (Ptr Void)
 {-|
 
   Inline function
@@ -817,8 +818,8 @@ foreign import ccall safe "test_internal_my_memcpy" my_memcpy :: Ptr Void ->
   __returns:__ Doubled value
 
 -}
-foreign import ccall safe "test_internal_double_value" double_value :: CInt ->
-                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_1c952f01cc07bb64" double_value :: CInt ->
+                                                                                          IO CInt
 {-|
 
   Function with flexible array member
@@ -919,16 +920,16 @@ instance HasFlexibleArrayMember CInt Flexible_array
   __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
 
 -}
-foreign import ccall safe "test_internal_complex_function" complex_function :: Ptr Config_t ->
-                                                                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                               HsBindgen.Runtime.Prelude.CSize ->
-                                                                               IO Status_code_t
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" complex_function :: Ptr Config_t ->
+                                                                                              Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                              HsBindgen.Runtime.Prelude.CSize ->
+                                                                                              IO Status_code_t
 {-|
 
   Marked @__attribute((pure))__@
 
 -}
-foreign import ccall safe "test_internal_hash" hash :: Ptr CChar ->
-                                                       IO CInt
-foreign import ccall safe "test_internal_square" square :: CInt ->
-                                                           CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_71214e4420f53a0e" hash :: Ptr CChar ->
+                                                                                  IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_8effe939268709e4" square :: CInt ->
+                                                                                    CInt

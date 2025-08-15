@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 
-module HsBindgen.Pipeline.TH (
+module HsBindgen.TH.Internal (
     -- * Template Haskell API
     IncludeDir (..)
   , BindgenOpts ( extraIncludeDirs
@@ -28,7 +28,9 @@ import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Artefact.TH.Translation
 import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec (BindingSpecConfig)
 import HsBindgen.Config (Config (..))
 import HsBindgen.Frontend.RootHeader
@@ -108,10 +110,9 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         clangArgs = def {
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
-        config :: Config
-        config = def { configClangArgs = clangArgs }
+    config <- ensureUniqueId $ baseConfig { configClangArgs = clangArgs}
 
-        -- Traverse #include directives.
+    let -- Traverse #include directives.
         bindgenState :: BindgenState
         bindgenState = execState hashIncludes (BindgenState [])
 
@@ -119,12 +120,10 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
-    moduleUnique <- getModuleUnique
     let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
     (I deps :* I decls :* I requiredExts :* Nil) <-
       hsBindgenQ
         tracerConfig
-        moduleUnique
         config
         bindingSpecConfig
         uncheckedHashIncludeArgs
@@ -139,6 +138,22 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
     toFilePaths xs = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
+
+    ensureUniqueId :: Config -> TH.Q Config
+    ensureUniqueId config = do
+      let translationOpts = configTranslation config
+      uniqueId <- updateUniqueId $ translationUniqueId translationOpts
+      pure config{
+          configTranslation = translationOpts{ translationUniqueId = uniqueId }
+        }
+
+    updateUniqueId :: UniqueId -> TH.Q UniqueId
+    updateUniqueId uniqueId@(UniqueId val)
+      | null val  = getUniqueId
+      | otherwise = pure uniqueId
+
+    getUniqueId :: TH.Q UniqueId
+    getUniqueId = UniqueId . TH.loc_package <$> TH.location
 
 -- | @#include@ (i.e., generate bindings for) a C header.
 --

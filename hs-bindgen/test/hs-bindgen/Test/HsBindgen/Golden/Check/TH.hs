@@ -26,11 +26,10 @@ import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..),
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Guasi
 import HsBindgen.Lib
-import HsBindgen.Pipeline.TH qualified as PipelineTH
+import HsBindgen.TH.Internal
 
 import Text.SimplePrettyPrint
 
-import HsBindgen.Pipeline.TH (getExtensions)
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
@@ -47,10 +46,11 @@ check testResources test =
       if ghcAtLeast904 then do
         pkgroot <- getTestPackageRoot testResources
         let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
-        (I deps :* I decls :* I requiredExts :* Nil) <- runTestArtefacts testResources test artefacts
+        (I deps :* I decls :* I requiredExts :* Nil) <-
+          runTestHsBindgen testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
-            thDecls = PipelineTH.genBindingsFromCHeader deps decls requiredExts
+            thDecls = genBindingsFromCHeader deps decls requiredExts
 
             (QuState{..}, thdecs) = runQu thDecls
 
@@ -142,9 +142,6 @@ instance TH.Quote Qu where
         return $ TH.Name (TH.OccName n) (TH.NameU u)
 
 instance Guasi Qu where
-    -- we don't use unique string to have stable test results
-    getModuleUnique = return $ ModuleUnique "test_internal"
-
     addDependentFile fp = Qu $ do
         q@QuState{ dependencyFiles = depfiles } <- get
         put $! q { dependencyFiles = depfiles ++ [fp] }

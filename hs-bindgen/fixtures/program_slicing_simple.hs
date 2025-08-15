@@ -212,15 +212,14 @@
           fieldType = HsExtBinding
             ExtHsRef {
               extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
+                "Example",
               extHsRefIdentifier =
-              HsIdentifier "Word64"}
+              HsIdentifier "Uint64_t"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
+                (HsModuleName "Example"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word64"),
+                (HsIdentifier "Uint64_t"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -296,24 +295,6 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
                     Storable
                     (Require
                       InstanceSpec {
@@ -336,15 +317,14 @@
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
                     extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
+                      "Example",
                     extHsRefIdentifier =
-                    HsIdentifier "Word64"},
+                    HsIdentifier "Uint64_t"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
+                      (HsModuleName "Example"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word64"),
+                      (HsIdentifier "Uint64_t"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -415,24 +395,6 @@
                               instanceSpecConstraints = []}),
                         _×_
                           Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -510,15 +472,14 @@
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
                         extHsRefModule = HsModuleName
-                          "HsBindgen.Runtime.Prelude",
+                          "Example",
                         extHsRefIdentifier =
-                        HsIdentifier "Word64"},
+                        HsIdentifier "Uint64_t"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
-                            "HsBindgen.Runtime.Prelude"),
+                          (HsModuleName "Example"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word64"),
+                          (HsIdentifier "Uint64_t"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -594,24 +555,6 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              StaticSize
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              ReadRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              WriteRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
                               Storable
                               (Require
                                 InstanceSpec {
@@ -666,15 +609,14 @@
               fieldType = HsExtBinding
                 ExtHsRef {
                   extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
+                    "Example",
                   extHsRefIdentifier =
-                  HsIdentifier "Word64"}
+                  HsIdentifier "Uint64_t"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                    (HsModuleName "Example"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word64"),
+                    (HsIdentifier "Uint64_t"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -750,24 +692,6 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
                         Storable
                         (Require
                           InstanceSpec {
@@ -790,15 +714,14 @@
                         NameKindOrdinary},
                       extHsRef = ExtHsRef {
                         extHsRefModule = HsModuleName
-                          "HsBindgen.Runtime.Prelude",
+                          "Example",
                         extHsRefIdentifier =
-                        HsIdentifier "Word64"},
+                        HsIdentifier "Uint64_t"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
-                            "HsBindgen.Runtime.Prelude"),
+                          (HsModuleName "Example"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word64"),
+                          (HsIdentifier "Uint64_t"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -869,24 +792,6 @@
                                   instanceSpecConstraints = []}),
                             _×_
                               Real
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              StaticSize
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              ReadRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              WriteRaw
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -964,15 +869,14 @@
                             NameKindOrdinary},
                           extHsRef = ExtHsRef {
                             extHsRefModule = HsModuleName
-                              "HsBindgen.Runtime.Prelude",
+                              "Example",
                             extHsRefIdentifier =
-                            HsIdentifier "Word64"},
+                            HsIdentifier "Uint64_t"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
-                                "HsBindgen.Runtime.Prelude"),
+                              (HsModuleName "Example"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word64"),
+                              (HsIdentifier "Uint64_t"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -1048,24 +952,6 @@
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
-                                  StaticSize
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
-                                  ReadRaw
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
-                                  WriteRaw
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
                                   Storable
                                   (Require
                                     InstanceSpec {
@@ -1123,15 +1009,14 @@
                       fieldType = HsExtBinding
                         ExtHsRef {
                           extHsRefModule = HsModuleName
-                            "HsBindgen.Runtime.Prelude",
+                            "Example",
                           extHsRefIdentifier =
-                          HsIdentifier "Word64"}
+                          HsIdentifier "Uint64_t"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
-                              "HsBindgen.Runtime.Prelude"),
+                            (HsModuleName "Example"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word64"),
+                            (HsIdentifier "Uint64_t"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -1207,24 +1092,6 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                StaticSize
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                ReadRaw
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                WriteRaw
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
                                 Storable
                                 (Require
                                   InstanceSpec {
@@ -1247,15 +1114,14 @@
                                 NameKindOrdinary},
                               extHsRef = ExtHsRef {
                                 extHsRefModule = HsModuleName
-                                  "HsBindgen.Runtime.Prelude",
+                                  "Example",
                                 extHsRefIdentifier =
-                                HsIdentifier "Word64"},
+                                HsIdentifier "Uint64_t"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
-                                    "HsBindgen.Runtime.Prelude"),
+                                  (HsModuleName "Example"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word64"),
+                                  (HsIdentifier "Uint64_t"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -1326,24 +1192,6 @@
                                           instanceSpecConstraints = []}),
                                     _×_
                                       Real
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      StaticSize
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      ReadRaw
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      WriteRaw
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -1421,15 +1269,14 @@
                                     NameKindOrdinary},
                                   extHsRef = ExtHsRef {
                                     extHsRefModule = HsModuleName
-                                      "HsBindgen.Runtime.Prelude",
+                                      "Example",
                                     extHsRefIdentifier =
-                                    HsIdentifier "Word64"},
+                                    HsIdentifier "Uint64_t"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
-                                        "HsBindgen.Runtime.Prelude"),
+                                      (HsModuleName "Example"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word64"),
+                                      (HsIdentifier "Uint64_t"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -1500,24 +1347,6 @@
                                               instanceSpecConstraints = []}),
                                         _×_
                                           Real
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          StaticSize
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          ReadRaw
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          WriteRaw
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -1582,15 +1411,14 @@
                       fieldType = HsExtBinding
                         ExtHsRef {
                           extHsRefModule = HsModuleName
-                            "HsBindgen.Runtime.Prelude",
+                            "Example",
                           extHsRefIdentifier =
-                          HsIdentifier "Word64"}
+                          HsIdentifier "Uint64_t"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
-                              "HsBindgen.Runtime.Prelude"),
+                            (HsModuleName "Example"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word64"),
+                            (HsIdentifier "Uint64_t"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -1666,24 +1494,6 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                StaticSize
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                ReadRaw
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                WriteRaw
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
                                 Storable
                                 (Require
                                   InstanceSpec {
@@ -1706,15 +1516,14 @@
                                 NameKindOrdinary},
                               extHsRef = ExtHsRef {
                                 extHsRefModule = HsModuleName
-                                  "HsBindgen.Runtime.Prelude",
+                                  "Example",
                                 extHsRefIdentifier =
-                                HsIdentifier "Word64"},
+                                HsIdentifier "Uint64_t"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
-                                    "HsBindgen.Runtime.Prelude"),
+                                  (HsModuleName "Example"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word64"),
+                                  (HsIdentifier "Uint64_t"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -1785,24 +1594,6 @@
                                           instanceSpecConstraints = []}),
                                     _×_
                                       Real
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      StaticSize
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      ReadRaw
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      WriteRaw
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -1880,15 +1671,14 @@
                                     NameKindOrdinary},
                                   extHsRef = ExtHsRef {
                                     extHsRefModule = HsModuleName
-                                      "HsBindgen.Runtime.Prelude",
+                                      "Example",
                                     extHsRefIdentifier =
-                                    HsIdentifier "Word64"},
+                                    HsIdentifier "Uint64_t"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
-                                        "HsBindgen.Runtime.Prelude"),
+                                      (HsModuleName "Example"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word64"),
+                                      (HsIdentifier "Uint64_t"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -1959,24 +1749,6 @@
                                               instanceSpecConstraints = []}),
                                         _×_
                                           Real
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          StaticSize
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          ReadRaw
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          WriteRaw
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,

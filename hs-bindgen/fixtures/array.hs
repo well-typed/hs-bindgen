@@ -1238,7 +1238,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_1 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
+    "signed int hs_bindgen_test_array_c3dd28889d5b2858 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1250,7 +1250,7 @@
           (HsPtr (HsPrimType HsPrimCInt))
           (HsIO (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "test_internal_fun_1",
+      "hs_bindgen_test_array_c3dd28889d5b2858",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1279,7 +1279,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_2 (signed int *arg1) { return fun_2(arg1); }",
+    "signed int hs_bindgen_test_array_3a8794adaf677495 (signed int *arg1) { return fun_2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1289,7 +1289,7 @@
         (HsPtr (HsPrimType HsPrimCInt))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_2",
+      "hs_bindgen_test_array_3a8794adaf677495",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1318,7 +1318,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_3 (signed int *arg1) { return fun_3(arg1); }",
+    "signed int hs_bindgen_test_array_9d59f0f165a2f5cf (signed int *arg1) { return fun_3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1328,7 +1328,7 @@
         (HsPtr (HsPrimType HsPrimCInt))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_3",
+      "hs_bindgen_test_array_9d59f0f165a2f5cf",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1354,7 +1354,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_4 (signed int *arg1) { return fun_4(arg1); }",
+    "signed int hs_bindgen_test_array_c650da1d5d7cf63d (signed int *arg1) { return fun_4(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1364,7 +1364,7 @@
         (HsPtr (HsPrimType HsPrimCInt))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_4",
+      "hs_bindgen_test_array_c650da1d5d7cf63d",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1393,7 +1393,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_5 (signed int (*arg1)[3]) { return fun_5(arg1); }",
+    "signed int hs_bindgen_test_array_cfa709c8c74d1eb7 (signed int (*arg1)[3]) { return fun_5(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1406,7 +1406,7 @@
             (HsPrimType HsPrimCInt)))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_5",
+      "hs_bindgen_test_array_cfa709c8c74d1eb7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1437,7 +1437,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_6 (signed int (*arg1)[3]) { return fun_6(arg1); }",
+    "signed int hs_bindgen_test_array_0432f7eb5cf9a91a (signed int (*arg1)[3]) { return fun_6(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1450,7 +1450,7 @@
             (HsPrimType HsPrimCInt)))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_6",
+      "hs_bindgen_test_array_0432f7eb5cf9a91a",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1479,7 +1479,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_7 (signed int (*arg1)[3]) { return fun_7(arg1); }",
+    "signed int hs_bindgen_test_array_8dff35caae296df4 (signed int (*arg1)[3]) { return fun_7(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1492,7 +1492,7 @@
             (HsPrimType HsPrimCInt)))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_7",
+      "hs_bindgen_test_array_8dff35caae296df4",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1522,7 +1522,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int test_internal_fun_8 (signed int (*arg1)[3]) { return fun_8(arg1); }",
+    "signed int hs_bindgen_test_array_b7ed421e8d20e910 (signed int (*arg1)[3]) { return fun_8(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1535,7 +1535,7 @@
             (HsPrimType HsPrimCInt)))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_fun_8",
+      "hs_bindgen_test_array_b7ed421e8d20e910",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1564,7 +1564,7 @@
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int (*test_internal_fun_9 (void))[3] { return fun_9(); }",
+    "signed int (*hs_bindgen_test_array_c189d8ac4373a49e (void))[3] { return fun_9(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1576,7 +1576,7 @@
             3
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "test_internal_fun_9",
+      "hs_bindgen_test_array_c189d8ac4373a49e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1602,7 +1602,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "triplet *test_internal_fun_10 (void) { return fun_10(); }",
+    "triplet *hs_bindgen_test_array_8c628ce09b6680aa (void) { return fun_10(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1615,7 +1615,7 @@
               "@NsTypeConstr"
               "Triplet"))),
       foreignImportOrigName =
-      "test_internal_fun_10",
+      "hs_bindgen_test_array_8c628ce09b6680aa",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1641,7 +1641,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int (*test_internal_fun_11 (void))[] { return fun_11(); }",
+    "signed int (*hs_bindgen_test_array_1b95257f679dfafa (void))[] { return fun_11(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1652,7 +1652,7 @@
           (HsIncompleteArray
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "test_internal_fun_11",
+      "hs_bindgen_test_array_1b95257f679dfafa",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1677,7 +1677,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "list *test_internal_fun_12 (void) { return fun_12(); }",
+    "list *hs_bindgen_test_array_41c7417f447a711d (void) { return fun_12(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1690,7 +1690,7 @@
               "@NsTypeConstr"
               "List"))),
       foreignImportOrigName =
-      "test_internal_fun_12",
+      "hs_bindgen_test_array_41c7417f447a711d",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1716,7 +1716,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int (*test_internal_fun_13 (void))[4][3] { return fun_13(); }",
+    "signed int (*hs_bindgen_test_array_752ccb7f8f99f330 (void))[4][3] { return fun_13(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1730,7 +1730,7 @@
               3
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "test_internal_fun_13",
+      "hs_bindgen_test_array_752ccb7f8f99f330",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1758,7 +1758,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "matrix *test_internal_fun_14 (void) { return fun_14(); }",
+    "matrix *hs_bindgen_test_array_6f6335641a10b824 (void) { return fun_14(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1771,7 +1771,7 @@
               "@NsTypeConstr"
               "Matrix"))),
       foreignImportOrigName =
-      "test_internal_fun_14",
+      "hs_bindgen_test_array_6f6335641a10b824",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1797,7 +1797,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "signed int (*test_internal_fun_15 (void))[][3] { return fun_15(); }",
+    "signed int (*hs_bindgen_test_array_22a4737ff5651e15 (void))[][3] { return fun_15(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1810,7 +1810,7 @@
               3
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "test_internal_fun_15",
+      "hs_bindgen_test_array_22a4737ff5651e15",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1837,7 +1837,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "tripletlist *test_internal_fun_16 (void) { return fun_16(); }",
+    "tripletlist *hs_bindgen_test_array_bce26548e8519620 (void) { return fun_16(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1850,7 +1850,7 @@
               "@NsTypeConstr"
               "Tripletlist"))),
       foreignImportOrigName =
-      "test_internal_fun_16",
+      "hs_bindgen_test_array_bce26548e8519620",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

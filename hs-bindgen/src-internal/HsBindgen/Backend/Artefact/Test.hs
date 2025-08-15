@@ -4,6 +4,7 @@ module HsBindgen.Backend.Artefact.Test (
 
 import Data.Char qualified as Char
 import Data.List qualified as List
+import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
@@ -13,6 +14,7 @@ import HsBindgen.Backend.Artefact.Test.Readme (genTestsReadme)
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
 
 {-------------------------------------------------------------------------------
   Generation
@@ -22,17 +24,17 @@ import HsBindgen.Imports
 genTests ::
      [HashIncludeArg]
   -> [Hs.Decl]
-  -> String   -- ^ Generated Haskell module name
-  -> Int      -- ^ Maximum line length
-  -> FilePath -- ^ Test suite directory path
+  -> HsModuleName -- ^ Generated Haskell module name
+  -> Int          -- ^ Maximum line length
+  -> FilePath     -- ^ Test suite directory path
   -> IO ()
-genTests hashIncludeArgs decls moduleName lineLength testSuitePath = do
+genTests hashIncludeArgs decls hsModuleName lineLength testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
     genTestsReadme
       readmePath
-      moduleName
+      hsModuleName
       testSuitePath
       cTestHeaderPath
       cTestSourcePath
@@ -46,7 +48,7 @@ genTests hashIncludeArgs decls moduleName lineLength testSuitePath = do
       hsTestPath
       hsSpecPath
       hsMainPath
-      moduleName
+      hsModuleName
       cTestHeaderPath
       lineLength
       decls
@@ -67,6 +69,9 @@ genTests hashIncludeArgs decls moduleName lineLength testSuitePath = do
     hsTestPath                = FilePath.combine modulePath "Test.hs"
     hsSpecPath                = FilePath.combine srcPath "Spec.hs"
     hsMainPath                = FilePath.combine srcPath "Main.hs"
+
+    moduleName :: String
+    moduleName = Text.unpack $ getHsModuleName hsModuleName
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

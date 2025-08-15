@@ -16,7 +16,6 @@ module HsBindgen.Lib (
   , HsBindgen.writeTests
 
     -- * Options
-  , ModuleUnique.ModuleUnique(..)
   , Common.Config(..)
 
     -- ** Clang arguments
@@ -41,6 +40,7 @@ module HsBindgen.Lib (
   , BindingSpec.encodeBindingSpecYaml
 
     -- ** Translation options
+  , Common.UniqueId(..)
   , Common.TranslationOpts(..)
   , Common.Strategy(..)
   , Common.HsTypeClass(..)
@@ -117,7 +117,6 @@ module HsBindgen.Lib (
   , Common.CustomLogLevelSetting(..)
     -- ** Tracers
   , Common.withTracer
-  , Tracer.fatalError
 
     -- * Re-exports
   , Common.Default (..)
@@ -134,7 +133,6 @@ import HsBindgen qualified
 import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
 import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.ModuleUnique qualified as ModuleUnique
 import HsBindgen.Util.Tracer qualified as Tracer
 
 import Clang.Paths qualified as Paths

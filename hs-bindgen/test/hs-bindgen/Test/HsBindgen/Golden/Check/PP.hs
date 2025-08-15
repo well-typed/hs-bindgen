@@ -20,7 +20,7 @@ check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
       config <- getTestConfig testResources test
       let artefacts = getBindings config :* Nil
-      (I output :* Nil) <- runTestArtefacts testResources test artefacts
+      (I output :* Nil) <- runTestHsBindgen testResources test artefacts
       return $ ActualValue output
   where
     fixture :: FilePath

@@ -481,17 +481,16 @@ testCases = [
           testClangVersion = Just (>= (19, 1, 0))
         }
     , (defaultTest "program_slicing_simple"){
-          -- Check that program slicing generates bindings for uint32_t if we
-          -- remove it from the standard external binding specification
+          -- Check that program slicing generates bindings for uint32_t and
+          -- uint64_t if we only provide external binding specifications for
+          -- uint64_t.
           testOnConfig = \cfg -> cfg{
               configParsePredicate  = PTrue
             , configSelectPredicate = PIf (Left FromMainHeaders)
             , configProgramSlicing  = EnableProgramSlicing
             }
-        , testOnExtSpec = BindingSpec.deleteType C.QualName{
-              qualNameName = "uint32_t"
-            , qualNameKind = C.NameKindOrdinary
-            }
+        , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
+        , testExtBindingSpecs = [ "examples/golden/program_slicing_simple.yaml" ]
         , testTracePredicate = customTracePredicate [
               "selected foo"
             , "selected uint32_t"

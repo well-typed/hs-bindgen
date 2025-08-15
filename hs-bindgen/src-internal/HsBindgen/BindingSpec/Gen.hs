@@ -15,9 +15,10 @@ import Data.ByteString (ByteString)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 
 import HsBindgen.Backend.Artefact.PP.Translation (HsModuleOpts (..))
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.Config (Config (..))
@@ -25,8 +26,6 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 
@@ -52,8 +51,7 @@ genBindingSpec Config{..} hashIncludeArgs path =
     . genBindingSpec' hashIncludeArgs hsModuleName
   where
     hsModuleName :: HsModuleName
-    hsModuleName =
-      HsModuleName $ Text.pack (hsModuleOptsName configHsModuleOpts)
+    hsModuleName = hsModuleOptsName configHsModuleOpts
 
 {-------------------------------------------------------------------------------
   Internal API (for tests)

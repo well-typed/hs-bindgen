@@ -491,7 +491,7 @@
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
-    "void test_internal_normal (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+    "void hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -518,7 +518,7 @@
             (HsIO
               (HsPrimType HsPrimUnit)))),
       foreignImportOrigName =
-      "test_internal_normal",
+      "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1130,7 +1130,7 @@
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
-    "void test_internal_f1 (struct named_struct *arg1) { f1(*arg1); }",
+    "void hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1144,7 +1144,7 @@
               "Named_struct")))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "test_internal_f1",
+      "hs_bindgen_test_decls_in_signature_8b60d38de80093fa",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1341,7 +1341,7 @@
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
-    "void test_internal_f2 (union named_union *arg1) { f2(*arg1); }",
+    "void hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1355,7 +1355,7 @@
               "Named_union")))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "test_internal_f2",
+      "hs_bindgen_test_decls_in_signature_4a86b0420a250963",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

@@ -1,4 +1,6 @@
 {-# LANGUAGE ApplicativeDo #-}
+{-# LANGUAGE OverloadedLabels #-}
+
 module HsBindgen.App.Common (
     -- * Global options
     GlobalOpts(..)
@@ -16,22 +18,19 @@ module HsBindgen.App.Common (
   , parseInputs
   , checkInputs
     -- * Auxiliary hs-bindgen functions
-  , fromMaybeWithFatalError
   , footerWith
-  , getModuleUnique
     -- * Auxiliary optparse-applicative functions
   , cmd
   , cmd'
   ) where
 
-import Control.Monad.IO.Class (MonadIO)
 import Data.Bifunctor (Bifunctor (bimap))
-import Data.Char (isLetter)
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Text (Text)
 import Data.Text qualified as Text
+import Optics (set)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
@@ -132,9 +131,6 @@ parseConfig = Config
     <*> parseProgramSlicing
     <*> parseHsModuleOpts
     <*> parseHsRenderOpts
-  where
-    parseTranslationOpts :: Parser TranslationOpts
-    parseTranslationOpts = pure def
 
 {-------------------------------------------------------------------------------
   Clang arguments
@@ -258,6 +254,25 @@ parseOtherArgs = many . strOption $ mconcat [
 
 {-------------------------------------------------------------------------------
   Translation options
+-------------------------------------------------------------------------------}
+
+parseTranslationOpts :: Parser TranslationOpts
+parseTranslationOpts = aux <$> optional parseUniqueId
+  where
+    aux :: Maybe UniqueId -> TranslationOpts
+    aux mUniqueId = case mUniqueId of
+      Nothing       -> def
+      Just uniqueId -> set #translationUniqueId uniqueId def
+
+parseUniqueId :: Parser UniqueId
+parseUniqueId = fmap UniqueId $ strOption $ mconcat [
+      long "unique-id"
+    , metavar "ID"
+    , help "Use unique ID to discriminate global C identifiers (default: empty string)"
+    ]
+
+{-------------------------------------------------------------------------------
+  Pretty printer options
 -------------------------------------------------------------------------------}
 
 parseHsModuleOpts :: Parser HsModuleOpts
@@ -433,14 +448,6 @@ checkInputs tracer = mapM $
   Auxiliary hs-bindgen functions
 -------------------------------------------------------------------------------}
 
--- | Extract the result or exit gracefully with an error message.
---
--- Helper function to be used in conjunction with 'withTracer'. We carefully
--- separate running actions from error handling; before we continue to process
--- the result.
-fromMaybeWithFatalError :: MonadIO m => Maybe b -> m b
-fromMaybeWithFatalError k = maybe fatalError pure k
-
 -- | Footer of command line help.
 footerWith :: ParserPrefs -> Doc
 footerWith p = vcat [ environmentVariablesFooter p
@@ -489,12 +496,6 @@ environmentVariablesFooter p =
                  <> "; possible targets: "
                  <> Text.intercalate ", " (map Text.pack triples) )
               ]
-
--- TODO: To avoid potential issues it would be great to include the unit ID in
--- 'ModuleUnique' but AFAIK there is no way to get one for preprocessor
--- https://github.com/well-typed/hs-bindgen/issues/502
-getModuleUnique :: HsModuleOpts -> ModuleUnique
-getModuleUnique = ModuleUnique . filter isLetter . hsModuleOptsName
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

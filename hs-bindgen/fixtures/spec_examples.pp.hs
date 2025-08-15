@@ -17,7 +17,7 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
-$(CAPI.addCSource "#include <spec_examples.h>\nvoid test_internal_resample (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n")
+$(CAPI.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n")
 
 {-| Examples from the initial specification
 
@@ -122,7 +122,7 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
 
-foreign import ccall safe "test_internal_resample" resample_wrapper :: (F.Ptr Int32_T) -> (F.Ptr Cint16_T) -> Int64_T -> Int64_T -> (F.Ptr Cint16_T) -> IO ()
+foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper :: (F.Ptr Int32_T) -> (F.Ptr Cint16_T) -> Int64_T -> Int64_T -> (F.Ptr Cint16_T) -> IO ()
 
 resample :: (F.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()
 resample =

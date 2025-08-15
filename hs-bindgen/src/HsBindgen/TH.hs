@@ -7,14 +7,14 @@
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.TH (
     -- * Template Haskell API
-    PipelineTH.withHsBindgen
-  , PipelineTH.hashInclude
+    TH.withHsBindgen
+  , TH.hashInclude
 
     -- * Options
   , Common.Config(..)
-  , PipelineTH.IncludeDir(..)
-  , PipelineTH.BindgenOpts(..)
-  , PipelineTH.tracerConfigDefQ
+  , TH.IncludeDir(..)
+  , TH.BindgenOpts(..)
+  , TH.tracerConfigDefQ
 
     -- ** Clang arguments
   , Common.ClangArgs(..)
@@ -30,6 +30,7 @@ module HsBindgen.TH (
   , Common.BindingSpecConfig(..)
 
     -- ** Translation options
+  , Common.UniqueId(..)
   , Common.TranslationOpts(..)
   , Common.Strategy(..)
   , Common.HsTypeClass(..)
@@ -110,6 +111,6 @@ module HsBindgen.TH (
 
 import HsBindgen.Common qualified as Common
 
-import HsBindgen.Pipeline.TH qualified as PipelineTH
+import HsBindgen.TH.Internal qualified as TH
 
 import HsBindgen.Util.Tracer qualified as Tracer

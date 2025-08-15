@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "definitions.h",
   DeclInlineC
-    "signed int test_internal_foo (double arg1) { return foo(arg1); }",
+    "signed int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -12,7 +12,7 @@
         (HsPrimType HsPrimCDouble)
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_foo",
+      "hs_bindgen_test_definitions_a7d624773bb0585c",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

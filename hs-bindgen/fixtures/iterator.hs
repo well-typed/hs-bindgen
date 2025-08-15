@@ -50,7 +50,7 @@
       newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "Toggle test_internal_makeToggle (_Bool arg1) { return makeToggle(arg1); }",
+    "Toggle hs_bindgen_test_iterator_4f34fce61cc68c9f (_Bool arg1) { return makeToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -64,7 +64,7 @@
               "@NsTypeConstr"
               "Toggle"))),
       foreignImportOrigName =
-      "test_internal_makeToggle",
+      "hs_bindgen_test_iterator_4f34fce61cc68c9f",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -83,7 +83,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "_Bool test_internal_toggleNext (Toggle arg1) { return toggleNext(arg1); }",
+    "_Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -96,7 +96,7 @@
             "Toggle"))
         (HsIO (HsPrimType HsPrimCBool)),
       foreignImportOrigName =
-      "test_internal_toggleNext",
+      "hs_bindgen_test_iterator_bfb4e32e3a824c7e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -116,7 +116,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "void test_internal_releaseToggle (Toggle arg1) { releaseToggle(arg1); }",
+    "void hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -129,7 +129,7 @@
             "Toggle"))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "test_internal_releaseToggle",
+      "hs_bindgen_test_iterator_8d23fba933ba9584",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -200,7 +200,7 @@
       newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "Counter test_internal_makeCounter (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
+    "Counter hs_bindgen_test_iterator_5b455070cb6127b9 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -216,7 +216,7 @@
                 "@NsTypeConstr"
                 "Counter")))),
       foreignImportOrigName =
-      "test_internal_makeCounter",
+      "hs_bindgen_test_iterator_5b455070cb6127b9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -238,7 +238,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "signed int test_internal_counterNext (Counter arg1) { return counterNext(arg1); }",
+    "signed int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -251,7 +251,7 @@
             "Counter"))
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "test_internal_counterNext",
+      "hs_bindgen_test_iterator_1eb9473844c466c6",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -271,7 +271,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "void test_internal_releaseCounter (Counter arg1) { releaseCounter(arg1); }",
+    "void hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -284,7 +284,7 @@
             "Counter"))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "test_internal_releaseCounter",
+      "hs_bindgen_test_iterator_4bd3562b992f2f1c",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -359,7 +359,7 @@
       newtypeComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "VarCounter test_internal_makeVarCounter (signed int arg1) { return makeVarCounter(arg1); }",
+    "VarCounter hs_bindgen_test_iterator_0fc005ef62990438 (signed int arg1) { return makeVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -373,7 +373,7 @@
               "@NsTypeConstr"
               "VarCounter"))),
       foreignImportOrigName =
-      "test_internal_makeVarCounter",
+      "hs_bindgen_test_iterator_0fc005ef62990438",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -393,7 +393,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "signed int test_internal_varCounterNext (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
+    "signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -408,7 +408,7 @@
           (HsPrimType HsPrimCInt)
           (HsIO (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "test_internal_varCounterNext",
+      "hs_bindgen_test_iterator_a88cd5c9559b5d52",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -430,7 +430,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
-    "void test_internal_releaseVarCounter (VarCounter arg1) { releaseVarCounter(arg1); }",
+    "void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -443,7 +443,7 @@
             "VarCounter"))
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "test_internal_releaseVarCounter",
+      "hs_bindgen_test_iterator_2d2d26e60eea04a8",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

@@ -38,8 +38,6 @@ module HsBindgen.BindingSpec (
     -- ** Query
   , getTypes
   , lookupTypeSpec
-    -- ** Test API
-  , deleteType
   ) where
 
 import Data.ByteString qualified as BSS
@@ -208,18 +206,3 @@ lookupTypeSpec ::
   -> Maybe (BindingSpec.Omittable BindingSpec.TypeSpec)
 lookupTypeSpec cQualName headers =
     BindingSpec.lookupTypeSpec cQualName headers . bindingSpecResolved
-
--- | Delete a type from a binding specification
---
--- This is used in a test that should probably be refactored to not need this.
-deleteType :: C.QualName -> BindingSpec -> BindingSpec
-deleteType cQualName BindingSpec{..} = BindingSpec {
-      bindingSpecUnresolved = bindingSpecUnresolved {
-          BindingSpec.bindingSpecTypes = Map.delete cQualName $
-            BindingSpec.bindingSpecTypes bindingSpecUnresolved
-        }
-    , bindingSpecResolved = bindingSpecResolved {
-          BindingSpec.bindingSpecTypes = Map.delete cQualName $
-            BindingSpec.bindingSpecTypes bindingSpecResolved
-        }
-    }

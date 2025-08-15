@@ -1,7 +1,7 @@
 [
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_by (void) { by(); }",
+    "void hs_bindgen_test_names_a08e966b63669ba8 (void) { by(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10,7 +10,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_by",
+      "hs_bindgen_test_names_a08e966b63669ba8",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -23,7 +23,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_forall (void) { forall(); }",
+    "void hs_bindgen_test_names_946148697abf4575 (void) { forall(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -32,7 +32,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_forall",
+      "hs_bindgen_test_names_946148697abf4575",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -45,7 +45,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_mdo (void) { mdo(); }",
+    "void hs_bindgen_test_names_a1ece6a6fa8e9763 (void) { mdo(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -54,7 +54,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_mdo",
+      "hs_bindgen_test_names_a1ece6a6fa8e9763",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -67,7 +67,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_pattern (void) { pattern(); }",
+    "void hs_bindgen_test_names_1e48788938305e48 (void) { pattern(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -76,7 +76,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_pattern",
+      "hs_bindgen_test_names_1e48788938305e48",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -89,7 +89,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_proc (void) { proc(); }",
+    "void hs_bindgen_test_names_9bb16600c50998ed (void) { proc(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -98,7 +98,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_proc",
+      "hs_bindgen_test_names_9bb16600c50998ed",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -111,7 +111,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_rec (void) { rec(); }",
+    "void hs_bindgen_test_names_8dfd7fa26e360d8e (void) { rec(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -120,7 +120,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_rec",
+      "hs_bindgen_test_names_8dfd7fa26e360d8e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -133,7 +133,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_using (void) { using(); }",
+    "void hs_bindgen_test_names_57c5446244bcece1 (void) { using(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -142,7 +142,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_using",
+      "hs_bindgen_test_names_57c5446244bcece1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -155,7 +155,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_anyclass (void) { anyclass(); }",
+    "void hs_bindgen_test_names_a2a878b7e49c1a71 (void) { anyclass(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -164,7 +164,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_anyclass",
+      "hs_bindgen_test_names_a2a878b7e49c1a71",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -177,7 +177,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_capi (void) { capi(); }",
+    "void hs_bindgen_test_names_2f73a4347f70a468 (void) { capi(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -186,7 +186,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_capi",
+      "hs_bindgen_test_names_2f73a4347f70a468",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -199,7 +199,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_cases (void) { cases(); }",
+    "void hs_bindgen_test_names_cb2993ce15743783 (void) { cases(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -208,7 +208,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_cases",
+      "hs_bindgen_test_names_cb2993ce15743783",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -221,7 +221,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_ccall (void) { ccall(); }",
+    "void hs_bindgen_test_names_954c564a2bd129a5 (void) { ccall(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -230,7 +230,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_ccall",
+      "hs_bindgen_test_names_954c564a2bd129a5",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -243,7 +243,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_dynamic (void) { dynamic(); }",
+    "void hs_bindgen_test_names_3a96dcbee4c024e0 (void) { dynamic(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -252,7 +252,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_dynamic",
+      "hs_bindgen_test_names_3a96dcbee4c024e0",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -265,7 +265,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_export (void) { export(); }",
+    "void hs_bindgen_test_names_2e78d006337ea551 (void) { export(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -274,7 +274,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_export",
+      "hs_bindgen_test_names_2e78d006337ea551",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -287,7 +287,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_family (void) { family(); }",
+    "void hs_bindgen_test_names_10c8e433951b50a8 (void) { family(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -296,7 +296,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_family",
+      "hs_bindgen_test_names_10c8e433951b50a8",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -309,7 +309,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_group (void) { group(); }",
+    "void hs_bindgen_test_names_6217d85466fed7df (void) { group(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -318,7 +318,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_group",
+      "hs_bindgen_test_names_6217d85466fed7df",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -331,7 +331,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_interruptible (void) { interruptible(); }",
+    "void hs_bindgen_test_names_00164685ff44cb75 (void) { interruptible(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -340,7 +340,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_interruptible",
+      "hs_bindgen_test_names_00164685ff44cb75",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -353,7 +353,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_javascript (void) { javascript(); }",
+    "void hs_bindgen_test_names_c810b13a75ea93bc (void) { javascript(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -362,7 +362,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_javascript",
+      "hs_bindgen_test_names_c810b13a75ea93bc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -375,7 +375,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_label (void) { label(); }",
+    "void hs_bindgen_test_names_41d6d93a2614dff5 (void) { label(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -384,7 +384,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_label",
+      "hs_bindgen_test_names_41d6d93a2614dff5",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -397,7 +397,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_prim (void) { prim(); }",
+    "void hs_bindgen_test_names_bdfec7f41298a418 (void) { prim(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -406,7 +406,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_prim",
+      "hs_bindgen_test_names_bdfec7f41298a418",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -419,7 +419,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_role (void) { role(); }",
+    "void hs_bindgen_test_names_0d10aaa9ecbf0f2f (void) { role(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -428,7 +428,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_role",
+      "hs_bindgen_test_names_0d10aaa9ecbf0f2f",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -441,7 +441,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_safe (void) { safe(); }",
+    "void hs_bindgen_test_names_0ebc368c3818b18b (void) { safe(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -450,7 +450,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_safe",
+      "hs_bindgen_test_names_0ebc368c3818b18b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -463,7 +463,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_stdcall (void) { stdcall(); }",
+    "void hs_bindgen_test_names_764bfbe5fbb4fac9 (void) { stdcall(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -472,7 +472,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_stdcall",
+      "hs_bindgen_test_names_764bfbe5fbb4fac9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -485,7 +485,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_stock (void) { stock(); }",
+    "void hs_bindgen_test_names_6597a6eedc28f577 (void) { stock(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -494,7 +494,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_stock",
+      "hs_bindgen_test_names_6597a6eedc28f577",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -507,7 +507,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_unsafe (void) { unsafe(); }",
+    "void hs_bindgen_test_names_1aef1bdf2d1ba544 (void) { unsafe(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -516,7 +516,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_unsafe",
+      "hs_bindgen_test_names_1aef1bdf2d1ba544",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -529,7 +529,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "names.h",
   DeclInlineC
-    "void test_internal_via (void) { via(); }",
+    "void hs_bindgen_test_names_d428a3f008917f79 (void) { via(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -538,7 +538,7 @@
       foreignImportType = HsIO
         (HsPrimType HsPrimUnit),
       foreignImportOrigName =
-      "test_internal_via",
+      "hs_bindgen_test_names_d428a3f008917f79",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

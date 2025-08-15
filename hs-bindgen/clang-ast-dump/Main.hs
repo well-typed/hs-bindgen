@@ -73,7 +73,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
     putStrLn ""
 
-    maybeRes <- withTracer tracerConf $ \tracer -> do
+    eitherRes <- withTracer tracerConf $ \tracer -> do
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return . Map.lookup optFile
@@ -92,9 +92,9 @@ clangAstDump opts@Options{..} = do
               | optSameFile && SourcePath file /= src -> foldContinue
               | not optBuiltin && isBuiltIn file      -> foldContinue
               | otherwise                             -> runFold (foldDecls opts) cursor
-    case maybeRes of
-      Nothing -> fatalError
-      Just _  -> pure ()
+    case eitherRes of
+      Left  e  -> throwIO e
+      Right _  -> pure ()
   where
     tracerConf :: TracerConfig IO Level DumpTrace
     tracerConf = def {

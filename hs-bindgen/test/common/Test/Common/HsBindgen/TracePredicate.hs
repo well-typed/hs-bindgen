@@ -14,6 +14,7 @@ module Test.Common.HsBindgen.TracePredicate (
   , TraceExpectationException
     -- * Tracer
   , withTracePredicate
+  , withTraceConfigPredicate
   ) where
 
 import Control.Exception
@@ -28,6 +29,7 @@ import Data.Typeable (Typeable)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Imports (Default (def))
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
@@ -115,30 +117,38 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 -- | Run an action with a tracer that collects all trace messages.
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
---
--- NOTE: This would be nicer if we could use the 'Writer' monad, but we fix the
--- monad to 'IO' in many cases.
---
--- > mkWriterTracer :: MonadWriter [a] m => Tracer m a
--- > mkWriterTracer = Tracer $ emit (tell . singleton)
---
--- > withWriterTracer :: (MonadWriter [a] m1, Monad m2) => (Tracer m1 a -> m2 b) -> m2 (b, [a])
--- > withWriterTracer action = runWriterT (WriterT $ (, []) <$> (action mkWriterTracer))
 withTracePredicate
   :: forall m a b.
-     (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, Typeable a, Show a)
+     ( MonadIO m
+     , PrettyForTrace a, HasDefaultLogLevel a, HasSource a
+     , Typeable a, Show a
+     )
   => TracePredicate a -> (Tracer m a -> m b) -> m b
-withTracePredicate (TracePredicate predicate) action = do
+withTracePredicate predicate action = fmap fst $
+  withTraceConfigPredicate predicate $ \traceConfig ->
+    withTracer' traceConfig action
+
+-- | Run an action with a tracer configuration that collects all trace messages.
+--
+-- Use a 'Predicate' to decide whether traces are expected, or unexpected.
+withTraceConfigPredicate
+  :: forall m a b.
+     ( MonadIO m
+     , PrettyForTrace a, HasDefaultLogLevel a
+     , Typeable a, Show a
+     )
+  => TracePredicate a -> (TracerConfig m Level a -> m b) -> m b
+withTraceConfigPredicate (TracePredicate predicate) action = do
   tracesRef <- liftIO $ newIORef []
-  actionRes <- action $ mkWriterTracer tracesRef
+  let writer :: Report m a
+      writer _ trace _ = liftIO $ modifyIORef' tracesRef ((:) trace)
+  actionRes <- action $ def {
+      tOutputConfig = OutputCustom writer DisableAnsiColor
+    }
   traces <- liftIO $ readIORef tracesRef
   case runExcept (predicate traces) of
     Left  e -> liftIO $ throwIO e
     Right _ -> pure actionRes
-
-mkWriterTracer :: MonadIO m => IORef [a] -> Tracer m a
-mkWriterTracer tracesRef = simpleTracer addTrace
-  where addTrace trace = liftIO $ modifyIORef' tracesRef (\xs -> trace : xs)
 
 {-------------------------------------------------------------------------------
   Trace exception

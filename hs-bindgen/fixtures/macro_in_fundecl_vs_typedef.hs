@@ -391,7 +391,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "char test_internal_quux1 (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
+    "char hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -406,7 +406,7 @@
           (HsIO
             (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
-      "test_internal_quux1",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -433,7 +433,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "TC test_internal_quux2 (MC arg1, char arg2) { return quux2(arg1, arg2); }",
+    "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2 (MC arg1, char arg2) { return quux2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -450,7 +450,7 @@
                 "@NsTypeConstr"
                 "TC")))),
       foreignImportOrigName =
-      "test_internal_quux2",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -477,7 +477,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "MC *test_internal_wam1 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
+    "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -496,7 +496,7 @@
                   "@NsTypeConstr"
                   "MC"))))),
       foreignImportOrigName =
-      "test_internal_wam1",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -524,7 +524,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "TC *test_internal_wam2 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
+    "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -543,7 +543,7 @@
                   "@NsTypeConstr"
                   "TC"))))),
       foreignImportOrigName =
-      "test_internal_wam2",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1996,7 +1996,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void test_internal_struct_typedef1 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2013,7 +2013,7 @@
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_struct_typedef1",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -2044,7 +2044,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void test_internal_struct_typedef2 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2061,7 +2061,7 @@
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_struct_typedef2",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -2087,7 +2087,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void test_internal_struct_typedef3 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2104,7 +2104,7 @@
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_struct_typedef3",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -2133,7 +2133,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void test_internal_struct_name1 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2150,7 +2150,7 @@
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_struct_name1",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -2176,7 +2176,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void test_internal_struct_name2 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2193,7 +2193,7 @@
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_struct_name2",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -2219,7 +2219,7 @@
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
-    "void test_internal_struct_name3 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2236,7 +2236,7 @@
             (HsName "@NsTypeConstr" "MC"))
           (HsIO (HsPrimType HsPrimUnit))),
       foreignImportOrigName =
-      "test_internal_struct_name3",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

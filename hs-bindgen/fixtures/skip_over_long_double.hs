@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "skip_over_long_double.h",
   DeclInlineC
-    "void test_internal_fun2 (signed int arg1) { fun2(arg1); }",
+    "void hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -12,7 +12,7 @@
         (HsPrimType HsPrimCInt)
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "test_internal_fun2",
+      "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

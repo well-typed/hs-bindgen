@@ -460,7 +460,7 @@
       Nothing},
   DeclInlineCInclude "vector.h",
   DeclInlineC
-    "vector *test_internal_new_vector (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+    "vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -477,7 +477,7 @@
                   "@NsTypeConstr"
                   "Vector"))))),
       foreignImportOrigName =
-      "test_internal_new_vector",
+      "hs_bindgen_test_vector_72a6c90b1b14a9b0",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function

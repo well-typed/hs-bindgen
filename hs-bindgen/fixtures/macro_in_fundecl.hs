@@ -954,7 +954,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "char test_internal_quux (F arg1, char arg2) { return quux(arg1, arg2); }",
+    "char hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7 (F arg1, char arg2) { return quux(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -968,7 +968,7 @@
           (HsIO
             (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
-      "test_internal_quux",
+      "hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -992,7 +992,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "C *test_internal_wam (float arg1, C *arg2) { return wam(arg1, arg2); }",
+    "C *hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b (float arg1, C *arg2) { return wam(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1011,7 +1011,7 @@
                   "@NsTypeConstr"
                   "C"))))),
       foreignImportOrigName =
-      "test_internal_wam",
+      "hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1038,7 +1038,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "char *test_internal_foo1 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }",
+    "char *hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1055,7 +1055,7 @@
             (HsPtr
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
-      "test_internal_foo1",
+      "hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1084,7 +1084,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "char *test_internal_foo2 (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
+    "char *hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1102,7 +1102,7 @@
             (HsPtr
               (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
-      "test_internal_foo2",
+      "hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1133,7 +1133,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "C *test_internal_foo3 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
+    "C *hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1153,7 +1153,7 @@
                   "@NsTypeConstr"
                   "C"))))),
       foreignImportOrigName =
-      "test_internal_foo3",
+      "hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1183,7 +1183,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_bar1 (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0 (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1198,7 +1198,7 @@
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "test_internal_bar1",
+      "hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1222,7 +1222,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_bar2 (L arg1)) (signed short arg1) { return bar2(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5 (L arg1)) (signed short arg1) { return bar2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1238,7 +1238,7 @@
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "test_internal_bar2",
+      "hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1265,7 +1265,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_bar3 (signed long arg1)) (S arg1) { return bar3(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e (signed long arg1)) (S arg1) { return bar3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1281,7 +1281,7 @@
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "test_internal_bar3",
+      "hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1308,7 +1308,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "I (*test_internal_bar4 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
+    "I (*hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1326,7 +1326,7 @@
                     "@NsTypeConstr"
                     "I")))))),
       foreignImportOrigName =
-      "test_internal_bar4",
+      "hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1351,7 +1351,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_baz1 (signed int arg1))[2][3] { return baz1(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69 (signed int arg1))[2][3] { return baz1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1367,7 +1367,7 @@
                 3
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "test_internal_baz1",
+      "hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1391,7 +1391,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*test_internal_baz2 (I arg1))[2][3] { return baz2(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (I arg1))[2][3] { return baz2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1408,7 +1408,7 @@
                 3
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "test_internal_baz2",
+      "hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1435,7 +1435,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "I (*test_internal_baz3 (signed int arg1))[2][3] { return baz3(arg1); }",
+    "I (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int arg1))[2][3] { return baz3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1454,7 +1454,7 @@
                     "@NsTypeConstr"
                     "I")))))),
       foreignImportOrigName =
-      "test_internal_baz3",
+      "hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
@@ -1479,7 +1479,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "I test_internal_no_args_no_void (void) { return no_args_no_void(); }",
+    "I hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b (void) { return no_args_no_void(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1489,7 +1489,7 @@
         (HsTypRef
           (HsName "@NsTypeConstr" "I")),
       foreignImportOrigName =
-      "test_internal_no_args_no_void",
+      "hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Function
