@@ -7,7 +7,8 @@ module Test.HsBindgen.Resources (
     -- * Use the resources
   , getTestPackageRoot
   , getTestDefaultClangArgs
-  , getTestDefaultConfig
+  , getTestDefaultFrontendConfig
+  , getTestDefaultBackendConfig
     -- ** rust-bindgen
   , RustBindgenResult(..)
   , callRustBindgen
@@ -98,18 +99,25 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
   Test configuration
 -------------------------------------------------------------------------------}
 
-getTestDefaultConfig :: IO TestResources -> TestName -> [FilePath] -> IO Config
-getTestDefaultConfig testResources testName extraIncludeDirs = do
+-- TODO_PR: Maybe replace with getTestDefaultBindgenConfig?
+
+getTestDefaultFrontendConfig ::
+  IO TestResources -> [FilePath] -> IO FrontendConfig
+getTestDefaultFrontendConfig testResources extraIncludeDirs = do
     aux <$> getTestDefaultClangArgs testResources extraIncludeDirs
   where
-    aux :: ClangArgs -> Config
+    aux :: ClangArgs -> FrontendConfig
     aux clangArgs = def{
-          configClangArgs    = clangArgs
-        , configTranslation  = def {
-            translationUniqueId = UniqueId $ "test." ++ testName
-          }
-        , configHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
+          frontendConfigClangArgs    = clangArgs
         }
+
+getTestDefaultBackendConfig :: TestName -> BackendConfig
+getTestDefaultBackendConfig testName = def{
+      backendConfigTranslationOpts = def {
+        translationUniqueId = UniqueId $ "test." ++ testName
+      }
+    , backendConfigHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
+    }
 
 {-------------------------------------------------------------------------------
   rust-bindgen

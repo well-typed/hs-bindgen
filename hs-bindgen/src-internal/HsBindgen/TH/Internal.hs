@@ -3,11 +3,13 @@
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
     IncludeDir (..)
-  , BindgenOpts ( extraIncludeDirs
-                , baseConfig
-                , bindingSpecConfig
-                , tracerConfig
-                )
+  , BindgenOpts (
+      bindingSpecConfig
+    , extraIncludeDirs
+    , baseFrontendConfig
+    , baseBackendConfig
+    , tracerConfig
+    )
   , tracerConfigDefQ
   , withHsBindgen
   , hashInclude
@@ -32,7 +34,7 @@ import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec (BindingSpecConfig)
-import HsBindgen.Config (Config (..))
+import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -60,21 +62,24 @@ data IncludeDir =
 
 -- | Options (opaque, but with record selector functions exported).
 data BindgenOpts = BindgenOpts {
-    -- * General configuration
-    extraIncludeDirs  :: [IncludeDir]
-  , baseConfig        :: Config
     -- * Binding specifications
-  , bindingSpecConfig :: BindingSpecConfig
+    bindingSpecConfig  :: BindingSpecConfig
+    -- * Frontend configuration
+  , extraIncludeDirs   :: [IncludeDir]
+  , baseFrontendConfig :: FrontendConfig
+    -- * Backend configuration
+  , baseBackendConfig  :: BackendConfig
     -- * Tracer
-  , tracerConfig      :: TracerConfig TH.Q Level TraceMsg
+  , tracerConfig       :: TracerConfig TH.Q Level TraceMsg
   }
 
 instance Default BindgenOpts where
   def = BindgenOpts {
-      extraIncludeDirs  = []
-    , baseConfig        = def
-    , bindingSpecConfig = def
-    , tracerConfig      = tracerConfigDefQ
+      bindingSpecConfig  = def
+    , extraIncludeDirs   = []
+    , baseFrontendConfig = def
+    , baseBackendConfig  = def
+    , tracerConfig       = tracerConfigDefQ
     }
 
 -- | The default tracer configuration in Q has verbosity 'Notice' and uses
@@ -110,7 +115,10 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         clangArgs = def {
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
-    config <- ensureUniqueId $ baseConfig { configClangArgs = clangArgs}
+        frontendConfig =
+          baseFrontendConfig { frontendConfigClangArgs = clangArgs}
+
+    backendConfig <- ensureUniqueId baseBackendConfig
 
     let -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -124,8 +132,9 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
     (I deps :* I decls :* I requiredExts :* Nil) <-
       hsBindgenQ
         tracerConfig
-        config
         bindingSpecConfig
+        frontendConfig
+        backendConfig
         uncheckedHashIncludeArgs
         artefacts
     genBindingsFromCHeader deps decls requiredExts
@@ -139,12 +148,14 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
 
-    ensureUniqueId :: Config -> TH.Q Config
-    ensureUniqueId config = do
-      let translationOpts = configTranslation config
+    -- TODO_PR: Use optics.
+    ensureUniqueId :: BackendConfig -> TH.Q BackendConfig
+    ensureUniqueId backendConfig = do
+      let translationOpts = backendConfigTranslationOpts backendConfig
       uniqueId <- updateUniqueId $ translationUniqueId translationOpts
-      pure config{
-          configTranslation = translationOpts{ translationUniqueId = uniqueId }
+      pure backendConfig{
+          backendConfigTranslationOpts =
+            translationOpts{ translationUniqueId = uniqueId }
         }
 
     updateUniqueId :: UniqueId -> TH.Q UniqueId
@@ -175,6 +186,7 @@ hashInclude arg = do
   modify prependArg
 
 {-------------------------------------------------------------------------------
+  -- TODO_PR: Move to TH artefacts dir
   Artefacts
 -------------------------------------------------------------------------------}
 
@@ -186,6 +198,7 @@ getExtensions =
     (\(I decls :* Nil) -> pure $ foldMap requiredExtensions decls)
 
 {-------------------------------------------------------------------------------
+  -- TODO_PR: Move to TH artefacts dir
   Internal
 -------------------------------------------------------------------------------}
 

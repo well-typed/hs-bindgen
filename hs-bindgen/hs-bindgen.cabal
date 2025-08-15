@@ -73,9 +73,9 @@ library internal
       HsBindgen
       HsBindgen.Backend
       HsBindgen.Backend.Extensions
-      HsBindgen.Backend.Artefact.PP.Names
-      HsBindgen.Backend.Artefact.PP.Render
-      HsBindgen.Backend.Artefact.PP.Translation
+      HsBindgen.Backend.Artefact.HsModule.Names
+      HsBindgen.Backend.Artefact.HsModule.Render
+      HsBindgen.Backend.Artefact.HsModule.Translation
       HsBindgen.Backend.Artefact.TH.Translation
       HsBindgen.Backend.Artefact.Test
       HsBindgen.Backend.Artefact.Test.C

@@ -23,14 +23,20 @@ import HsBindgen.Util.Tracer
 -- - Load prescriptive binding specifications.
 boot ::
      Tracer IO BootMsg
-  -> Config
   -> BindingSpecConfig
+  -> FrontendConfig
+  -> BackendConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot tracer config bindingSpecConfig uncheckedHashIncludeArgs = do
-    let tracerConfig :: Tracer IO ConfigMsg
-        tracerConfig = contramap BootConfig tracer
-    checkConfig tracerConfig config
+boot
+  tracer
+  bindingSpecConfig
+  frontendConfig
+  backendConfig
+  uncheckedHashIncludeArgs = do
+    let tracerBackendConfig :: Tracer IO BackendConfigMsg
+        tracerBackendConfig = contramap BootBackendConfig tracer
+    checkBackendConfig tracerBackendConfig backendConfig
     let tracerHashInclude :: Tracer IO HashIncludeArgMsg
         tracerHashInclude = contramap BootHashIncludeArg tracer
     hashIncludeArgs <-
@@ -46,7 +52,7 @@ boot tracer config bindingSpecConfig uncheckedHashIncludeArgs = do
         }
   where
     clangArgs :: ClangArgs
-    clangArgs = configClangArgs config
+    clangArgs = frontendConfigClangArgs frontendConfig
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -64,7 +70,7 @@ data BootArtefact = BootArtefact {
 
 -- | Boot trace messages
 data BootMsg =
-    BootConfig         ConfigMsg
+    BootBackendConfig  BackendConfigMsg
   | BootHashIncludeArg HashIncludeArgMsg
   | BootBindingSpec    BindingSpecMsg
   deriving stock (Show, Eq, Generic)

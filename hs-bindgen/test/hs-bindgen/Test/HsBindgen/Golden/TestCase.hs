@@ -22,8 +22,6 @@ module Test.HsBindgen.Golden.TestCase (
   , runTestHsBindgen
   , runTestHsBindgen'
   , runTestRustBindgen
-    -- ** Low-level
-  , getTestConfig
   ) where
 
 import Control.Exception (Exception (..), SomeException (..), handle, throwIO)
@@ -33,7 +31,7 @@ import Test.Tasty (TestName)
 import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
 import HsBindgen.BindingSpec
-import HsBindgen.Config (Config (..))
+import HsBindgen.Config
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.TraceMsg
@@ -68,7 +66,7 @@ data TestCase = TestCase {
     , testClangVersion :: Maybe ((Int, Int, Int) -> Bool)
 
       -- | Modify the default test configuration
-    , testOnConfig :: Config -> Config
+    , testOnFrontendConfig :: FrontendConfig -> FrontendConfig
 
       -- | Configure if the @stdlib@ binding specification should be used
     , testStdlibSpec :: EnableStdlibBindingSpec
@@ -118,7 +116,7 @@ defaultTest filename = TestCase{
     , testTracePredicate      = defaultTracePredicate
     , testHasOutput           = True
     , testClangVersion        = Nothing
-    , testOnConfig            = id
+    , testOnFrontendConfig    = id
     , testStdlibSpec          = EnableStdlibBindingSpec
     , testExtBindingSpecs     = []
     , testRustBindgen         = RustBindgenRun
@@ -188,10 +186,6 @@ failingTestCustom filename expected trace =
   Execution
 -------------------------------------------------------------------------------}
 
-getTestConfig :: IO TestResources -> TestCase -> IO Config
-getTestConfig testResources TestCase{testOnConfig, testName, testDir} =
-    testOnConfig <$> getTestDefaultConfig testResources testName [testDir]
-
 getTestBindingSpecConfig :: IO TestResources -> TestCase -> IO BindingSpecConfig
 getTestBindingSpecConfig testResources TestCase{..} = do
   root <- getTestPackageRoot testResources
@@ -200,6 +194,14 @@ getTestBindingSpecConfig testResources TestCase{..} = do
       , bindingSpecExtBindingSpecs         = map (root </>) testExtBindingSpecs
       , bindingSpecPrescriptiveBindingSpec = Nothing
       }
+
+getTestFrontendConfig :: IO TestResources -> TestCase -> IO FrontendConfig
+getTestFrontendConfig testResources TestCase{..} =
+    testOnFrontendConfig <$>
+      getTestDefaultFrontendConfig testResources [testDir]
+
+getTestBackendConfig :: TestCase -> BackendConfig
+getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName
 
 withTestTraceConfig ::
      TestCase
@@ -224,20 +226,22 @@ runTestHsBindgen testResources test artefacts =
 -- | Like 'runTestHsBindgen', but do not print error traces.
 runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
 runTestHsBindgen' testResources test artefacts = do
-    config            <- getTestConfig testResources test
     bindingSpecConfig <- getTestBindingSpecConfig testResources test
+    frontendConfig    <- getTestFrontendConfig testResources test
+    let backendConfig = getTestBackendConfig test
     withTestTraceConfig test $ \traceConfig ->
       hsBindgen
         traceConfig
-        config
         bindingSpecConfig
+        frontendConfig
+        backendConfig
         [testInputInclude test]
         artefacts
 
 runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
 runTestRustBindgen testResources test = do
-    config <- getTestConfig testResources test
+    frontendConfig <- getTestFrontendConfig testResources test
     callRustBindgen
       testResources
-      (configClangArgs config)
+      (frontendConfigClangArgs frontendConfig)
       (testInputPath test)

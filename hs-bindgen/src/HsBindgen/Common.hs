@@ -1,37 +1,37 @@
 module HsBindgen.Common (
     -- * Options
-    Config.Config(..)
 
-    -- * Binding specifications
-  , BindingSpec.BindingSpec -- opaque
+    -- ** Binding specifications
+    BindingSpec.BindingSpecConfig(..)
   , BindingSpec.EnableStdlibBindingSpec(..)
-  , BindingSpec.BindingSpecConfig(..)
-  , BindingSpec.emptyBindingSpec
 
-    -- ** Clang arguments
+    -- ** Frontend
+  , Config.FrontendConfig(..)
+    -- *** Clang arguments
   , Args.ClangArgs(..)
   , Args.Target(..)
   , Args.TargetEnv(..)
   , Args.targetTriple
   , Args.CStandard(..)
-
-    -- ** Translation options
-  , Hs.UniqueId(..)
-  , Hs.TranslationOpts(..)
-  , Hs.Strategy(..)
-  , Hs.HsTypeClass(..)
-
-    -- ** Selection predicates
+    -- *** Predicates
   , Predicate.Predicate(..)
-  , Predicate.HeaderPathPredicate (..)
+  , Predicate.HeaderPathPredicate(..)
   , Predicate.DeclPredicate (..)
   , Predicate.ParsePredicate
   , Predicate.SelectPredicate
   , Predicate.Regex -- opaque
   , Predicate.mergePredicates
-
-    -- ** Program slicing
+    -- *** Program slicing
   , Select.ProgramSlicing(..)
+
+    -- ** Backend
+  , Config.BackendConfig(..)
+    -- *** Translation options
+  , Hs.UniqueId(..)
+  , Hs.TranslationOpts(..)
+  , Hs.Strategy(..)
+  , Hs.HsTypeClass(..)
+  , HsModule.HsModuleOpts(..)
 
     -- * Paths
   , RootHeader.HashIncludeArg(..)
@@ -99,6 +99,7 @@ import System.FilePath qualified as FilePath
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 
+import HsBindgen.Backend.Artefact.HsModule.Translation qualified as HsModule
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Translation qualified as Hs
 import HsBindgen.Backend.UniqueId qualified as Hs

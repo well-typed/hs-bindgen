@@ -25,7 +25,6 @@ genTestsHs ::
   -> FilePath     -- ^ Main module path
   -> HsModuleName -- ^ Generated Haskell module name
   -> FilePath     -- ^ C test header file path
-  -> Int          -- ^ Maximum line length
   -> [Hs.Decl]    -- ^ Declarations
   -> IO ()
 genTestsHs = throwPure_TODO 22 "generate test suite"

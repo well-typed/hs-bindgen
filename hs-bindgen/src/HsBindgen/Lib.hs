@@ -16,22 +16,14 @@ module HsBindgen.Lib (
   , HsBindgen.writeTests
 
     -- * Options
-  , Common.Config(..)
-
-    -- ** Clang arguments
-  , Common.ClangArgs(..)
-  , Common.Target(..)
-  , Common.TargetEnv(..)
-  , Common.targetTriple
-  , Common.CStandard(..)
 
     -- ** Binding specifications
-  , Common.BindingSpec -- opaque
-  , Common.emptyBindingSpec
+  , Common.BindingSpecConfig(..)
+  , Common.EnableStdlibBindingSpec(..)
   , BindingSpec.ExternalBindingSpec
   , BindingSpec.PrescriptiveBindingSpec
-  , Common.EnableStdlibBindingSpec(..)
-  , Common.BindingSpecConfig(..)
+  , BindingSpec.BindingSpec -- opaque
+  , BindingSpec.emptyBindingSpec
   , BindingSpec.loadExtBindingSpecs
   , BindingSpec.loadPrescriptiveBindingSpec
   , BindingSpec.loadBindingSpecs
@@ -39,13 +31,15 @@ module HsBindgen.Lib (
   , BindingSpec.encodeBindingSpecJson
   , BindingSpec.encodeBindingSpecYaml
 
-    -- ** Translation options
-  , Common.UniqueId(..)
-  , Common.TranslationOpts(..)
-  , Common.Strategy(..)
-  , Common.HsTypeClass(..)
-
-    -- ** Selection predicates
+    -- ** Frontend
+  , Common.FrontendConfig(..)
+    -- *** Clang arguments
+  , Common.ClangArgs(..)
+  , Common.Target(..)
+  , Common.TargetEnv(..)
+  , Common.targetTriple
+  , Common.CStandard(..)
+    -- *** Predicates
   , Common.Predicate(..)
   , Common.HeaderPathPredicate (..)
   , Common.DeclPredicate (..)
@@ -53,13 +47,17 @@ module HsBindgen.Lib (
   , Common.SelectPredicate
   , Common.Regex -- opaque
   , Common.mergePredicates
-
-    -- ** Program slicing
+    -- *** Program slicing
   , Common.ProgramSlicing(..)
 
-    -- ** Preprocessor
-  , Backend.PP.HsModuleOpts(..)
-  , Backend.PP.HsRenderOpts(..)
+    -- ** Backend
+  , Common.BackendConfig(..)
+    -- *** Translation options
+  , Common.UniqueId(..)
+  , Common.TranslationOpts(..)
+  , Common.Strategy(..)
+  , Common.HsTypeClass(..)
+  , Common.HsModuleOpts(..)
 
     -- * Paths
   , Common.HashIncludeArg(..)
@@ -130,8 +128,6 @@ import Data.Set (Set)
 import HsBindgen.Common qualified as Common
 
 import HsBindgen qualified
-import HsBindgen.Backend.Artefact.PP.Render qualified as Backend.PP
-import HsBindgen.Backend.Artefact.PP.Translation qualified as Backend.PP
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Util.Tracer qualified as Tracer
 

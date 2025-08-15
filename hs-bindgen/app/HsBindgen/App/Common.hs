@@ -7,8 +7,9 @@ module HsBindgen.App.Common (
   , parseGlobalOpts
     -- * Macro warnings
   , MacroLogLevel(..)
-    -- * HsBindgen 'Config'
-  , parseConfig
+    -- * HsBindgen configuration
+  , parseFrontendConfig
+  , parseBackendConfig
     -- * Clang-related options
   , parseClangArgs
     -- * Binding specifications
@@ -119,18 +120,20 @@ parseMacroWarnings = flag MacroLogInfo MacroLogWarning $ mconcat [
     ]
 
 {-------------------------------------------------------------------------------
-  HsBindgen Config
+  HsBindgen configuration
 -------------------------------------------------------------------------------}
 
-parseConfig :: Parser Config
-parseConfig = Config
+parseFrontendConfig :: Parser FrontendConfig
+parseFrontendConfig = FrontendConfig
     <$> parseClangArgs
-    <*> parseTranslationOpts
     <*> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
+
+parseBackendConfig :: Parser BackendConfig
+parseBackendConfig = BackendConfig
+    <$> parseTranslationOpts
     <*> parseHsModuleOpts
-    <*> parseHsRenderOpts
 
 {-------------------------------------------------------------------------------
   Clang arguments
@@ -284,20 +287,6 @@ parseHsModuleOpts =
             , long "module"
             , showDefault
             , value $ hsModuleOptsName def
-            ])
-
-{-------------------------------------------------------------------------------
-  Output options
--------------------------------------------------------------------------------}
-
-parseHsRenderOpts :: Parser HsRenderOpts
-parseHsRenderOpts =
-    HsRenderOpts
-      <$> option auto (mconcat [
-              help "Maximum length line"
-            , long "render-line-length"
-            , showDefault
-            , value $ hsLineLength def
             ])
 
 {-------------------------------------------------------------------------------

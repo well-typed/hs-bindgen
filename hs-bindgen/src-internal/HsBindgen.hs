@@ -24,8 +24,8 @@ import Language.Haskell.TH (Q, runQ)
 
 import Clang.Paths
 import HsBindgen.Backend
-import HsBindgen.Backend.Artefact.PP.Render qualified as PP
-import HsBindgen.Backend.Artefact.PP.Translation qualified as PP
+import HsBindgen.Backend.Artefact.HsModule.Render
+import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Artefact.Test (genTests)
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -41,6 +41,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -50,8 +51,9 @@ import HsBindgen.Util.Tracer
 -- 'Artefact'.
 hsBindgen ::
      TracerConfig IO Level TraceMsg
-  -> Config
   -> BindingSpecConfig
+  -> FrontendConfig
+  -> BackendConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> IO (NP I as)
@@ -63,8 +65,9 @@ hsBindgen = hsBindgen' id
 -- | Main entry point to run @hs-bindgen@ with Template Haskell.
 hsBindgenQ ::
      TracerConfig Q Level TraceMsg
-  -> Config
   -> BindingSpecConfig
+  -> FrontendConfig
+  -> BackendConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> Q (NP I as)
@@ -74,16 +77,18 @@ hsBindgen' ::
      MonadIO m
   => (forall b. m b -> IO b)
   -> TracerConfig m Level TraceMsg
-  -> Config
   -> BindingSpecConfig
+  -> FrontendConfig
+  -> BackendConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> m (NP I as)
 hsBindgen'
   unliftIO
   tracerConfig
-  config
   bindingSpecConfig
+  frontendConfig
+  backendConfig
   uncheckedHashIncludeArgs
   artefacts = do
     -- Boot and frontend require unsafe tracer and `libclang`.
@@ -95,15 +100,15 @@ hsBindgen'
           tracerBoot :: Tracer IO BootMsg
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
-      bootArtefact <- liftIO $
-        boot tracerBoot config bindingSpecConfig uncheckedHashIncludeArgs
+      bootArtefact <-
+        liftIO $ boot tracerBoot bindingSpecConfig frontendConfig backendConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
       frontendArtefact <- liftIO $
-        frontend tracerFrontend config bootArtefact
+        frontend tracerFrontend frontendConfig bootArtefact
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- either (liftIO . throwIO) pure eArtefact
     -- 3. Backend.
-    let backendArtefact = backend config frontendArtefact
+    let backendArtefact = backend backendConfig frontendArtefact
     -- 4. Artefacts.
     runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 
@@ -125,6 +130,8 @@ data Artefact (a :: Star) where
   -- * Backend
   HsDecls         :: Artefact [Hs.Decl]
   FinalDecls      :: Artefact [SHs.SDecl]
+  FinalModuleName :: Artefact HsModuleName
+  FinalModule     :: Artefact HsModule
   -- * Lift
   Lift            :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
@@ -151,46 +158,40 @@ writeUseDeclGraph file =
     )
 
 -- | Get bindings.
-getBindings :: Config -> Artefact String
-getBindings Config{..} =
+getBindings :: Artefact String
+getBindings =
   Lift
-    (FinalDecls :* Nil)
-    (\(I finalDecls :* Nil) ->
-      let translate :: [SHs.SDecl] -> PP.HsModule
-          translate = PP.translateModule configHsModuleOpts
-
-          render :: PP.HsModule -> String
-          render = PP.render configHsRenderOpts
-      in pure . render $ translate finalDecls
+    (FinalModule :* Nil)
+    (\(I finalModule :* Nil) ->
+       pure . render $ finalModule
     )
 
 -- | Write bindings to file. If no file is given, print to standard output.
-writeBindings :: Config -> Maybe FilePath -> Artefact ()
-writeBindings config mfile =
+writeBindings :: Maybe FilePath -> Artefact ()
+writeBindings mfile =
   Lift
-    (getBindings config :* Nil)
+    (getBindings :* Nil)
     (\(I bindings :* Nil) -> write mfile bindings)
 
 -- | Write binding specifications to file.
-writeBindingSpec :: Config -> FilePath -> Artefact ()
-writeBindingSpec config file =
+writeBindingSpec :: FilePath -> Artefact ()
+writeBindingSpec file =
   Lift
-    (HashIncludeArgs :* HsDecls :* Nil)
-    (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
-       genBindingSpec config hashIncludeArgs file hsDecls
+    (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
+    (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
+       genBindingSpec moduleName hashIncludeArgs file hsDecls
     )
 
 -- | Create test suite in directory.
-writeTests :: Config -> FilePath -> Artefact ()
-writeTests Config{..} testDir =
+writeTests :: FilePath -> Artefact ()
+writeTests testDir =
   Lift
-    (HashIncludeArgs :* HsDecls :* Nil)
-    (\(I hashIncludeArgs :* I hsDecls :* Nil) ->
+    (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
+    (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
        genTests
          hashIncludeArgs
          hsDecls
-         (PP.hsModuleOptsName configHsModuleOpts)
-         (PP.hsLineLength configHsRenderOpts)
+         moduleName
          testDir
     )
 
@@ -220,17 +221,19 @@ runArtefacts
       --Boot.
       HashIncludeArgs -> pure bootHashIncludeArgs
       -- Frontend.
-      IncludeGraph -> pure frontendIncludeGraph
-      DeclIndex    -> pure frontendIndex
-      UseDeclGraph -> pure frontendUseDeclGraph
-      DeclUseGraph -> pure frontendDeclUseGraph
-      ReifiedC     -> pure frontendCDecls
-      Dependencies -> pure frontendDependencies
+      IncludeGraph    -> pure frontendIncludeGraph
+      DeclIndex       -> pure frontendIndex
+      UseDeclGraph    -> pure frontendUseDeclGraph
+      DeclUseGraph    -> pure frontendDeclUseGraph
+      ReifiedC        -> pure frontendCDecls
+      Dependencies    -> pure frontendDependencies
       -- Backend.
-      HsDecls      -> pure backendHsDecls
-      FinalDecls   -> pure backendFinalDecls
+      HsDecls         -> pure backendHsDecls
+      FinalDecls      -> pure backendFinalDecls
+      FinalModuleName -> pure backendFinalModuleName
+      FinalModule     -> pure backendFinalModule
       -- Lift.
-      (Lift as' f) -> go as' >>= liftIO . f
+      (Lift as' f)    -> go as' >>= liftIO . f
 
 {-------------------------------------------------------------------------------
   Helpers
