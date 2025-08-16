@@ -3,38 +3,31 @@
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
     IncludeDir (..)
-  , BindgenOpts ( extraIncludeDirs
-                , baseConfig
-                , bindingSpecConfig
-                , tracerConfig
-                )
+  , BindgenOpts (
+      bindingSpecConfig
+    , extraIncludeDirs
+    , baseFrontendConfig
+    , baseBackendConfig
+    , tracerConfig
+    )
   , tracerConfigDefQ
   , withHsBindgen
   , hashInclude
-    -- * Artefacts
-  , getExtensions
-
-    -- * Internal
-  , genBindingsFromCHeader
   ) where
 
 import Control.Monad.State (State, execState, modify)
-import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
 
 import Clang.Args
 import Clang.Paths
 import HsBindgen
-import HsBindgen.Backend.Artefact.TH.Translation
-import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Artefact.TH (getThDecls)
 import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec (BindingSpecConfig)
-import HsBindgen.Config (Config (..))
+import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -60,21 +53,24 @@ data IncludeDir =
 
 -- | Options (opaque, but with record selector functions exported).
 data BindgenOpts = BindgenOpts {
-    -- * General configuration
-    extraIncludeDirs  :: [IncludeDir]
-  , baseConfig        :: Config
     -- * Binding specifications
-  , bindingSpecConfig :: BindingSpecConfig
+    bindingSpecConfig  :: BindingSpecConfig
+    -- * Frontend configuration
+  , extraIncludeDirs   :: [IncludeDir]
+  , baseFrontendConfig :: FrontendConfig
+    -- * Backend configuration
+  , baseBackendConfig  :: BackendConfig
     -- * Tracer
-  , tracerConfig      :: TracerConfig TH.Q Level TraceMsg
+  , tracerConfig       :: TracerConfig TH.Q Level TraceMsg
   }
 
 instance Default BindgenOpts where
   def = BindgenOpts {
-      extraIncludeDirs  = []
-    , baseConfig        = def
-    , bindingSpecConfig = def
-    , tracerConfig      = tracerConfigDefQ
+      bindingSpecConfig  = def
+    , extraIncludeDirs   = []
+    , baseFrontendConfig = def
+    , baseBackendConfig  = def
+    , tracerConfig       = tracerConfigDefQ
     }
 
 -- | The default tracer configuration in Q has verbosity 'Notice' and uses
@@ -110,7 +106,12 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         clangArgs = def {
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
-    config <- ensureUniqueId $ baseConfig { configClangArgs = clangArgs}
+        frontendConfig =
+          baseFrontendConfig { frontendClangArgs = clangArgs}
+    backendConfig <- ensureUniqueId baseBackendConfig
+
+    let bindgenConfig =
+          BindgenConfig bindingSpecConfig frontendConfig backendConfig
 
     let -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -120,15 +121,13 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
-    let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
-    (I deps :* I decls :* I requiredExts :* Nil) <-
-      hsBindgenQ
-        tracerConfig
-        config
-        bindingSpecConfig
-        uncheckedHashIncludeArgs
-        artefacts
-    genBindingsFromCHeader deps decls requiredExts
+
+        artefacts :: NP (Artefact TH.Q) '[[TH.Dec]]
+        artefacts = getThDecls :* Nil
+
+    (I decls :* Nil) <-
+      hsBindgenQ tracerConfig bindgenConfig uncheckedHashIncludeArgs artefacts
+    pure decls
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (RelativeToPkgRoot x) = root </> x
@@ -139,12 +138,13 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
 
-    ensureUniqueId :: Config -> TH.Q Config
-    ensureUniqueId config = do
-      let translationOpts = configTranslation config
+    ensureUniqueId :: BackendConfig -> TH.Q BackendConfig
+    ensureUniqueId backendConfig = do
+      let translationOpts = backendTranslationOpts backendConfig
       uniqueId <- updateUniqueId $ translationUniqueId translationOpts
-      pure config{
-          configTranslation = translationOpts{ translationUniqueId = uniqueId }
+      pure backendConfig{
+          backendTranslationOpts =
+            translationOpts{ translationUniqueId = uniqueId }
         }
 
     updateUniqueId :: UniqueId -> TH.Q UniqueId
@@ -173,46 +173,6 @@ hashInclude arg = do
       prependArg :: BindgenState -> BindgenState
       prependArg = BindgenState . (arg :) . bindgenStateUncheckedHashIncludeArgs
   modify prependArg
-
-{-------------------------------------------------------------------------------
-  Artefacts
--------------------------------------------------------------------------------}
-
--- | Get required extensions.
-getExtensions :: Artefact (Set TH.Extension)
-getExtensions =
-  Lift
-    (FinalDecls :* Nil)
-    (\(I decls :* Nil) -> pure $ foldMap requiredExtensions decls)
-
-{-------------------------------------------------------------------------------
-  Internal
--------------------------------------------------------------------------------}
-
--- | Internal API; exported for testing; non-IO part of 'withHsBindgen'
-genBindingsFromCHeader
-    :: Guasi q
-    => [SourcePath]
-    -> [SHs.SDecl]
-    -> Set TH.Extension
-    -> q [TH.Dec]
-genBindingsFromCHeader deps decls requiredExts = do
-    -- Record dependencies, including transitively included headers.
-    mapM_ (addDependentFile . getSourcePath) deps
-
-    -- Check language extensions.
-    --
-    -- TODO: We could also check which enabled extension may interfere with the
-    -- generated code (e.g. Strict/Data).
-    enabledExts <- Set.fromList <$> extsEnabled
-    let missingExts  = requiredExts `Set.difference` enabledExts
-    -- TODO: The following error should be a trace.
-    unless (null missingExts) $ do
-      reportError $ "Missing LANGUAGE extensions: "
-        ++ unwords (map show (toList missingExts))
-
-    -- Generate TH declarations.
-    fmap concat $ traverse mkDecl decls
 
 {-------------------------------------------------------------------------------
   Helpers

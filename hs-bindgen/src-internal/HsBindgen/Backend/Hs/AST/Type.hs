@@ -65,7 +65,7 @@ data HsType =
   | HsByteArray
   | HsSizedByteArray Natural Natural
   | HsBlock HsType
-  deriving stock (Generic, Show)
+  deriving stock (Generic, Show, Eq)
 
 hsPrimIntTy :: C.Type.IntegralType -> HsPrimType
 hsPrimIntTy = \case

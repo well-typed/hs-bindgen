@@ -25,10 +25,9 @@ genTests ::
      [HashIncludeArg]
   -> [Hs.Decl]
   -> HsModuleName -- ^ Generated Haskell module name
-  -> Int          -- ^ Maximum line length
   -> FilePath     -- ^ Test suite directory path
   -> IO ()
-genTests hashIncludeArgs decls hsModuleName lineLength testSuitePath = do
+genTests hashIncludeArgs decls hsModuleName testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
@@ -41,7 +40,6 @@ genTests hashIncludeArgs decls hsModuleName lineLength testSuitePath = do
     genTestsC
       cTestHeaderPath
       cTestSourcePath
-      lineLength
       hashIncludeArgs
       decls
     genTestsHs
@@ -50,7 +48,6 @@ genTests hashIncludeArgs decls hsModuleName lineLength testSuitePath = do
       hsMainPath
       hsModuleName
       cTestHeaderPath
-      lineLength
       decls
   where
     readmePath, cbitsPath, srcPath :: FilePath

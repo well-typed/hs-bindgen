@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
-module HsBindgen.Backend.Artefact.PP.Names (
+module HsBindgen.Backend.Artefact.HsModule.Names (
     -- * Imports
     HsImportModule(..)
   , HsImport(..)
@@ -20,34 +20,34 @@ import Data.Set qualified as Set
 
 import Language.Haskell.TH.Syntax qualified as TH
 
-import HsBindgen.Imports
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.SHs.AST
+import HsBindgen.Imports
 
-import C.Char ( CharValue(..), charValueFromAddr )
+import C.Char (CharValue (..), charValueFromAddr)
 
 import C.Expr.HostPlatform qualified
-import Data.Bits           qualified
-import Data.Ix             qualified
-import Data.Void           qualified
-import Foreign             qualified
-import Foreign.C           qualified
-import Foreign.C.String    qualified
-import GHC.Float           qualified
-import GHC.Ptr             qualified
-import System.IO.Unsafe    qualified
-import Text.Read           qualified
+import Data.Bits qualified
+import Data.Ix qualified
+import Data.Void qualified
+import Foreign qualified
+import Foreign.C qualified
+import Foreign.C.String qualified
+import GHC.Float qualified
+import GHC.Ptr qualified
+import System.IO.Unsafe qualified
+import Text.Read qualified
 
-import HsBindgen.Runtime.IncompleteArray     qualified
-import HsBindgen.Runtime.Bitfield            qualified
-import HsBindgen.Runtime.Block               qualified
-import HsBindgen.Runtime.ByteArray           qualified
-import HsBindgen.Runtime.CAPI                qualified
-import HsBindgen.Runtime.CEnum               qualified
-import HsBindgen.Runtime.ConstantArray       qualified
+import HsBindgen.Runtime.Bitfield qualified
+import HsBindgen.Runtime.Block qualified
+import HsBindgen.Runtime.ByteArray qualified
+import HsBindgen.Runtime.CAPI qualified
+import HsBindgen.Runtime.CEnum qualified
+import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.Marshal             qualified
-import HsBindgen.Runtime.SizedByteArray      qualified
+import HsBindgen.Runtime.IncompleteArray qualified
+import HsBindgen.Runtime.Marshal qualified
+import HsBindgen.Runtime.SizedByteArray qualified
 
 {-------------------------------------------------------------------------------
   Imports

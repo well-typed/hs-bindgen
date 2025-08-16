@@ -467,9 +467,9 @@ testCases = [
               Nothing
         }
     , (defaultTest "iterator") {
-          testClangVersion = Just (>= (15, 0, 0))
-        , testOnConfig     = \cfg -> cfg{
-              configClangArgs = (configClangArgs cfg) {
+          testClangVersion     = Just (>= (15, 0, 0))
+        , testOnFrontendConfig = \cfg -> cfg{
+              frontendClangArgs = (frontendClangArgs cfg) {
                   clangEnableBlocks = True
                 }
             }
@@ -484,10 +484,10 @@ testCases = [
           -- Check that program slicing generates bindings for uint32_t and
           -- uint64_t if we only provide external binding specifications for
           -- uint64_t.
-          testOnConfig = \cfg -> cfg{
-              configParsePredicate  = PTrue
-            , configSelectPredicate = PIf (Left FromMainHeaders)
-            , configProgramSlicing  = EnableProgramSlicing
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendParsePredicate  = PTrue
+            , frontendSelectPredicate = PIf (Left FromMainHeaders)
+            , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
         , testExtBindingSpecs = [ "examples/golden/program_slicing_simple.yaml" ]
@@ -505,12 +505,12 @@ testCases = [
               Nothing
         }
     , (defaultTest "program_slicing_selection"){
-          testOnConfig = \cfg -> cfg{
-              configParsePredicate  = PTrue
-            , configSelectPredicate = POr
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendParsePredicate  = PTrue
+            , frontendSelectPredicate = POr
                 (PIf . Right $ DeclNameMatches "FileOperationRecord")
                 (PIf . Right $ DeclNameMatches "read_file_chunk")
-            , configProgramSlicing  = EnableProgramSlicing
+            , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
               "selected FileOperationRecord"

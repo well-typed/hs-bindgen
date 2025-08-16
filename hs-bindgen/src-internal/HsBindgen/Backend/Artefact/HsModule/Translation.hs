@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module HsBindgen.Backend.Artefact.PP.Translation (
+module HsBindgen.Backend.Artefact.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
     -- * ImportListItem
@@ -16,7 +16,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
-import HsBindgen.Backend.Artefact.PP.Names
+import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
@@ -79,7 +79,7 @@ data HsModule = HsModule {
 newtype HsModuleOpts = HsModuleOpts {
       hsModuleOptsName :: HsModuleName
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
 
 instance Default HsModuleOpts where
   def = HsModuleOpts { hsModuleOptsName = "Generated" }
