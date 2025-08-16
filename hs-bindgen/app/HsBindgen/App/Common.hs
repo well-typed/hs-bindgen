@@ -8,12 +8,9 @@ module HsBindgen.App.Common (
     -- * Macro warnings
   , MacroLogLevel(..)
     -- * HsBindgen configuration
-  , parseFrontendConfig
-  , parseBackendConfig
+  , parseBindgenConfig
     -- * Clang-related options
   , parseClangArgs
-    -- * Binding specifications
-  , parseBindingSpecConfig
     -- * Input option
   , UncheckedHashIncludeArg
   , parseInputs
@@ -122,6 +119,12 @@ parseMacroWarnings = flag MacroLogInfo MacroLogWarning $ mconcat [
 {-------------------------------------------------------------------------------
   HsBindgen configuration
 -------------------------------------------------------------------------------}
+
+parseBindgenConfig :: Parser BindgenConfig
+parseBindgenConfig = BindgenConfig
+    <$> parseBindingSpecConfig
+    <*> parseFrontendConfig
+    <*> parseBackendConfig
 
 parseFrontendConfig :: Parser FrontendConfig
 parseFrontendConfig = FrontendConfig

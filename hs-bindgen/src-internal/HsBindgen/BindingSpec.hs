@@ -148,7 +148,7 @@ data BindingSpecConfig = BindingSpecConfig {
     , bindingSpecExtBindingSpecs         :: [FilePath]
     , bindingSpecPrescriptiveBindingSpec :: Maybe FilePath
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
 
 instance Default BindingSpecConfig where
   def = BindingSpecConfig {

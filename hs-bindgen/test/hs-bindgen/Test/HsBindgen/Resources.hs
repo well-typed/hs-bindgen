@@ -99,8 +99,6 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
   Test configuration
 -------------------------------------------------------------------------------}
 
--- TODO_PR: Maybe replace with getTestDefaultBindgenConfig?
-
 getTestDefaultFrontendConfig ::
   IO TestResources -> [FilePath] -> IO FrontendConfig
 getTestDefaultFrontendConfig testResources extraIncludeDirs = do
@@ -108,15 +106,15 @@ getTestDefaultFrontendConfig testResources extraIncludeDirs = do
   where
     aux :: ClangArgs -> FrontendConfig
     aux clangArgs = def{
-          frontendConfigClangArgs    = clangArgs
+          frontendClangArgs    = clangArgs
         }
 
 getTestDefaultBackendConfig :: TestName -> BackendConfig
 getTestDefaultBackendConfig testName = def{
-      backendConfigTranslationOpts = def {
+      backendTranslationOpts = def {
         translationUniqueId = UniqueId $ "test." ++ testName
       }
-    , backendConfigHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
+    , backendHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
     }
 
 {-------------------------------------------------------------------------------

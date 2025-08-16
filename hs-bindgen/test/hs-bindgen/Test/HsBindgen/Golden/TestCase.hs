@@ -229,12 +229,12 @@ runTestHsBindgen' testResources test artefacts = do
     bindingSpecConfig <- getTestBindingSpecConfig testResources test
     frontendConfig    <- getTestFrontendConfig testResources test
     let backendConfig = getTestBackendConfig test
+        bindgenConfig =
+          BindgenConfig bindingSpecConfig frontendConfig backendConfig
     withTestTraceConfig test $ \traceConfig ->
       hsBindgen
         traceConfig
-        bindingSpecConfig
-        frontendConfig
-        backendConfig
+        bindgenConfig
         [testInputInclude test]
         artefacts
 
@@ -243,5 +243,5 @@ runTestRustBindgen testResources test = do
     frontendConfig <- getTestFrontendConfig testResources test
     callRustBindgen
       testResources
-      (frontendConfigClangArgs frontendConfig)
+      (frontendClangArgs frontendConfig)
       (testInputPath test)

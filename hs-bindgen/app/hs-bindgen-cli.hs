@@ -53,12 +53,12 @@ execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
         in  void $ run $ artefacts
   where
     run :: Artefacts IO as -> IO (NP I as)
-    run = hsBindgen tracerConfig bindingSpecConfig frontendConfig backendConfig inputs
+    run = hsBindgen tracerConfig bindgenConfig inputs
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests GlobalOpts{..} GenTestsOpts{..} = do
   let artefacts = writeTests output :* Nil
-  void $ hsBindgen tracerConfig bindingSpecConfig frontendConfig backendConfig inputs artefacts
+  void $ hsBindgen tracerConfig bindgenConfig inputs artefacts
 
 execLiterate :: LiterateOpts -> IO ()
 execLiterate opts = do

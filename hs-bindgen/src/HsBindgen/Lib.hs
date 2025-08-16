@@ -16,6 +16,7 @@ module HsBindgen.Lib (
   , HsBindgen.writeTests
 
     -- * Options
+  , Config.BindgenConfig(..)
 
     -- ** Binding specifications
   , Common.BindingSpecConfig(..)
@@ -129,6 +130,7 @@ import HsBindgen.Common qualified as Common
 
 import HsBindgen qualified
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Config qualified as Config
 import HsBindgen.Util.Tracer qualified as Tracer
 
 import Clang.Paths qualified as Paths

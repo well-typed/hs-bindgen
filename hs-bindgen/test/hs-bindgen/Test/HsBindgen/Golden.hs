@@ -469,7 +469,7 @@ testCases = [
     , (defaultTest "iterator") {
           testClangVersion     = Just (>= (15, 0, 0))
         , testOnFrontendConfig = \cfg -> cfg{
-              frontendConfigClangArgs = (frontendConfigClangArgs cfg) {
+              frontendClangArgs = (frontendClangArgs cfg) {
                   clangEnableBlocks = True
                 }
             }
@@ -485,9 +485,9 @@ testCases = [
           -- uint64_t if we only provide external binding specifications for
           -- uint64_t.
           testOnFrontendConfig = \cfg -> cfg{
-              frontendConfigParsePredicate  = PTrue
-            , frontendConfigSelectPredicate = PIf (Left FromMainHeaders)
-            , frontendConfigProgramSlicing  = EnableProgramSlicing
+              frontendParsePredicate  = PTrue
+            , frontendSelectPredicate = PIf (Left FromMainHeaders)
+            , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
         , testExtBindingSpecs = [ "examples/golden/program_slicing_simple.yaml" ]
@@ -506,11 +506,11 @@ testCases = [
         }
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
-              frontendConfigParsePredicate  = PTrue
-            , frontendConfigSelectPredicate = POr
+              frontendParsePredicate  = PTrue
+            , frontendSelectPredicate = POr
                 (PIf . Right $ DeclNameMatches "FileOperationRecord")
                 (PIf . Right $ DeclNameMatches "read_file_chunk")
-            , frontendConfigProgramSlicing  = EnableProgramSlicing
+            , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
               "selected FileOperationRecord"

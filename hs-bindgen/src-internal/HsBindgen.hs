@@ -32,7 +32,6 @@ import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Artefact.Test (genTests)
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST qualified as SHs
-import HsBindgen.BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config
@@ -54,9 +53,7 @@ import HsBindgen.Util.Tracer
 -- 'Artefact'.
 hsBindgen ::
      TracerConfig IO Level TraceMsg
-  -> BindingSpecConfig
-  -> FrontendConfig
-  -> BackendConfig
+  -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts IO as
   -> IO (NP I as)
@@ -68,9 +65,7 @@ hsBindgen = hsBindgen' id
 -- | Main entry point to run @hs-bindgen@ with Template Haskell.
 hsBindgenQ ::
      TracerConfig Q Level TraceMsg
-  -> BindingSpecConfig
-  -> FrontendConfig
-  -> BackendConfig
+  -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts Q as
   -> Q (NP I as)
@@ -80,18 +75,14 @@ hsBindgen' ::
      MonadIO m
   => (forall b. m b -> IO b)
   -> TracerConfig m Level TraceMsg
-  -> BindingSpecConfig
-  -> FrontendConfig
-  -> BackendConfig
+  -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts m as
   -> m (NP I as)
 hsBindgen'
   unliftIO
   tracerConfig
-  bindingSpecConfig
-  frontendConfig
-  backendConfig
+  bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
     -- Boot and frontend require unsafe tracer and `libclang`.
@@ -104,14 +95,14 @@ hsBindgen'
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <-
-        liftIO $ boot tracerBoot bindingSpecConfig frontendConfig backendConfig uncheckedHashIncludeArgs
+        liftIO $ boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
       frontendArtefact <- liftIO $
-        frontend tracerFrontend frontendConfig bootArtefact
+        frontend tracerFrontend bindgenFrontendConfig bootArtefact
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- either (liftIO . throwIO) pure eArtefact
     -- 3. Backend.
-    let backendArtefact = backend backendConfig frontendArtefact
+    let backendArtefact = backend bindgenBackendConfig frontendArtefact
     -- 4. Artefacts.
     runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 

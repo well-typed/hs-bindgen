@@ -107,9 +107,11 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
         frontendConfig =
-          baseFrontendConfig { frontendConfigClangArgs = clangArgs}
-
+          baseFrontendConfig { frontendClangArgs = clangArgs}
     backendConfig <- ensureUniqueId baseBackendConfig
+
+    let bindgenConfig =
+          BindgenConfig bindingSpecConfig frontendConfig backendConfig
 
     let -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -119,15 +121,12 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
-    let artefacts = getThDecls :* Nil
+
+        artefacts :: NP (Artefact TH.Q) '[[TH.Dec]]
+        artefacts = getThDecls :* Nil
+
     (I decls :* Nil) <-
-      hsBindgenQ
-        tracerConfig
-        bindingSpecConfig
-        frontendConfig
-        backendConfig
-        uncheckedHashIncludeArgs
-        artefacts
+      hsBindgenQ tracerConfig bindgenConfig uncheckedHashIncludeArgs artefacts
     pure decls
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
@@ -139,13 +138,12 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
       root <- getPackageRoot
       pure $ map (toFilePath root) xs
 
-    -- TODO_PR: Use optics.
     ensureUniqueId :: BackendConfig -> TH.Q BackendConfig
     ensureUniqueId backendConfig = do
-      let translationOpts = backendConfigTranslationOpts backendConfig
+      let translationOpts = backendTranslationOpts backendConfig
       uniqueId <- updateUniqueId $ translationUniqueId translationOpts
       pure backendConfig{
-          backendConfigTranslationOpts =
+          backendTranslationOpts =
             translationOpts{ translationUniqueId = uniqueId }
         }
 

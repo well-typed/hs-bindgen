@@ -1,6 +1,8 @@
 module HsBindgen.Config
-  ( -- * Frontend
-    FrontendConfig (..)
+  ( -- * Bindgen
+    BindgenConfig (..)
+    -- * Frontend
+  , FrontendConfig (..)
     -- * Backend
   , BackendConfig (..)
   , BackendConfigMsg (..)
@@ -14,46 +16,63 @@ import Clang.Args
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
+import HsBindgen.BindingSpec
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
 import HsBindgen.Util.Tracer
 
--- TODO_PR: BindgenConfig
-
 -- | Configuration of @hs-bindgen@.
 --
--- 'FrontendConfig' determines the "how", not the "what". For example, it should state how
--- we process a header file, but not state which headers we want to process.
---
--- 'FrontendConfig' should contain user-provided data, not @hs-bindgen@-provided data.
-data FrontendConfig = FrontendConfig {
-      frontendConfigClangArgs       :: ClangArgs
-    , frontendConfigParsePredicate  :: ParsePredicate
-    , frontendConfigSelectPredicate :: SelectPredicate
-    , frontendConfigProgramSlicing  :: ProgramSlicing
+-- 'BindgenConfig' combines all configurable settings of @hs-bindgen@.
+data BindgenConfig = BindgenConfig {
+      bindgenBindingSpecConfig :: BindingSpecConfig
+    , bindgenFrontendConfig    :: FrontendConfig
+    , bindgenBackendConfig     :: BackendConfig
     }
-  deriving stock (Show, Generic)
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
 
-instance Default FrontendConfig
+-- | Configuration of frontend of @hs-bindgen@.
+--
+-- The frontend parses the C code and reifies the C declarations.
+--
+-- NOTE: 'FrontendConfig' determines the "how", not the "what". For example, it
+-- should state how we process a header file, but not state which headers we
+-- want to process.
+--
+-- NOTE: 'FrontendConfig' should contain user-provided data, not
+-- @hs-bindgen@-provided data.
+data FrontendConfig = FrontendConfig {
+      frontendClangArgs       :: ClangArgs
+    , frontendParsePredicate  :: ParsePredicate
+    , frontendSelectPredicate :: SelectPredicate
+    , frontendProgramSlicing  :: ProgramSlicing
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
 
 {-------------------------------------------------------------------------------
   Backend configuration
 -------------------------------------------------------------------------------}
 
+-- | Configuration of backend of @hs-bindgen@.
+--
+-- The backend translates the reified C declarations to Haskell declarations.
+--
+-- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      backendConfigTranslationOpts :: TranslationOpts
-    , backendConfigHsModuleOpts    :: HsModuleOpts
+      backendTranslationOpts :: TranslationOpts
+    , backendHsModuleOpts    :: HsModuleOpts
     }
-  deriving stock (Show, Generic)
-
-instance Default BackendConfig
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
 
 checkBackendConfig :: Tracer IO BackendConfigMsg -> BackendConfig -> IO ()
 checkBackendConfig tracer backendConfig =
     checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
   where
     uniqueId :: UniqueId
-    uniqueId = translationUniqueId $ backendConfigTranslationOpts backendConfig
+    uniqueId = translationUniqueId $ backendTranslationOpts backendConfig
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Eq, Ord, Generic)

@@ -22,7 +22,7 @@ backend BackendConfig{..} FrontendArtefact{..} =
   let -- 1. Reified C declarations to @Hs@ declarations.
       hsDecls :: [Hs.Decl]
       hsDecls = Hs.generateDeclarations
-                  backendConfigTranslationOpts
+                  backendTranslationOpts
                   moduleName
                   frontendCDecls
 
@@ -37,10 +37,10 @@ backend BackendConfig{..} FrontendArtefact{..} =
     backendHsDecls         = hsDecls
   , backendFinalDecls      = finalDecls
   , backendFinalModuleName = moduleName
-  , backendFinalModule     = translateModule backendConfigHsModuleOpts finalDecls
+  , backendFinalModule     = translateModule backendHsModuleOpts finalDecls
   }
   where
-    moduleName = hsModuleOptsName backendConfigHsModuleOpts
+    moduleName = hsModuleOptsName backendHsModuleOpts
 
 {-------------------------------------------------------------------------------
   Backend

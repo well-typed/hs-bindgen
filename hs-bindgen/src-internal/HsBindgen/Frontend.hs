@@ -104,7 +104,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
         reifiedUnit <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
-          frontendConfigParsePredicate
+          frontendParsePredicate
           includeGraph
           isMainHeader
           isInMainHeaderDir
@@ -166,7 +166,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     rootHeader = fromMainFiles bootHashIncludeArgs
 
     setup :: ClangSetup
-    setup = (defaultClangSetup frontendConfigClangArgs $
+    setup = (defaultClangSetup frontendClangArgs $
               ClangInputMemory hFilePath hContent) {
                 clangFlags = bitfieldEnum [
                     CXTranslationUnit_DetailedPreprocessingRecord
@@ -183,7 +183,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     selectConfig :: SelectConfig
     selectConfig =
-      SelectConfig frontendConfigProgramSlicing frontendConfigSelectPredicate
+      SelectConfig frontendProgramSlicing frontendSelectPredicate
 
     emptyTranslationUnit :: TranslationUnit Parse
     emptyTranslationUnit = TranslationUnit {

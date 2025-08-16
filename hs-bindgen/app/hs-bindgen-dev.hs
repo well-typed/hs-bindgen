@@ -20,11 +20,5 @@ execParse :: GlobalOpts -> ParseOpts -> IO ()
 execParse GlobalOpts{..} ParseOpts{..} = do
     let artefacts = ReifiedC :* Nil
     (I decls :* Nil) <-
-      hsBindgen
-        tracerConfig
-        bindingSpecConfig
-        frontendConfig
-        backendConfig
-        inputs
-        artefacts
+      hsBindgen tracerConfig bindgenConfig inputs artefacts
     print decls

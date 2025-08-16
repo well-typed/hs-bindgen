@@ -103,9 +103,7 @@ pureParseCmdPreprocess =
 -------------------------------------------------------------------------------}
 
 data PreprocessOpts = PreprocessOpts {
-      bindingSpecConfig :: BindingSpecConfig
-    , frontendConfig    :: FrontendConfig
-    , backendConfig     :: BackendConfig
+      bindgenConfig     :: BindgenConfig
     , output            :: Maybe FilePath
     , outputBindingSpec :: Maybe FilePath
     , inputs            :: [UncheckedHashIncludeArg]
@@ -115,9 +113,7 @@ data PreprocessOpts = PreprocessOpts {
 parsePreprocessOpts :: Parser PreprocessOpts
 parsePreprocessOpts =
     PreprocessOpts
-      <$> parseBindingSpecConfig
-      <*> parseFrontendConfig
-      <*> parseBackendConfig
+      <$> parseBindgenConfig
       <*> parseOutput
       <*> optional parseGenBindingSpec
       <*> parseInputs
@@ -127,20 +123,16 @@ parsePreprocessOpts =
 -------------------------------------------------------------------------------}
 
 data GenTestsOpts = GenTestsOpts {
-      bindingSpecConfig :: BindingSpecConfig
-    , frontendConfig    :: FrontendConfig
-    , backendConfig     :: BackendConfig
-    , output            :: FilePath
-    , inputs            :: [UncheckedHashIncludeArg]
+      bindgenConfig :: BindgenConfig
+    , output        :: FilePath
+    , inputs        :: [UncheckedHashIncludeArg]
     }
   deriving stock (Show, Generic)
 
 parseGenTestsOpts :: Parser GenTestsOpts
 parseGenTestsOpts =
     GenTestsOpts
-      <$> parseBindingSpecConfig
-      <*> parseFrontendConfig
-      <*> parseBackendConfig
+      <$> parseBindgenConfig
       <*> parseGenTestsOutput
       <*> parseInputs
 

@@ -79,7 +79,7 @@ data HsModule = HsModule {
 newtype HsModuleOpts = HsModuleOpts {
       hsModuleOptsName :: HsModuleName
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq, Generic)
 
 instance Default HsModuleOpts where
   def = HsModuleOpts { hsModuleOptsName = "Generated" }
