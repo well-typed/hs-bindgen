@@ -152,7 +152,8 @@ instance IsTrace Level DeclIndexError where
       -- Redeclarations can only happen for macros, so we issue a warning,
       -- rather than an error.
       Redeclaration{} -> Warning
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "decl-index-error"
 
 {-------------------------------------------------------------------------------
   Query

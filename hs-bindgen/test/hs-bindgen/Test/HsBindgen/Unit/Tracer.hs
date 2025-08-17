@@ -130,7 +130,8 @@ instance IsTrace Level TestTrace where
     TestNotice  _ -> Notice
     TestWarning _ -> Warning
     TestError   _ -> Error
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "test"
 
 assertMaxLevel :: [TestTrace] -> Level -> Assertion
 assertMaxLevel = assertMaxLevelWithCustomLogLevel mempty

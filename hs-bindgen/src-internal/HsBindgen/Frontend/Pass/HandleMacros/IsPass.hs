@@ -81,3 +81,4 @@ instance PrettyForTrace HandleMacrosMsg where
 instance IsTrace Level HandleMacrosMsg where
   getDefaultLogLevel = const Info
   getSource          = const HsBindgen
+  getTraceId         = const "handle-macros"

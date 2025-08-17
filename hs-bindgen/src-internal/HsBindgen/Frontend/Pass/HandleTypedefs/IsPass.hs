@@ -97,4 +97,5 @@ instance IsTrace Level HandleTypedefsMsg where
   getDefaultLogLevel = \case
       HandleTypedefsSquashed{}      -> Info
       HandleTypedefsRenamedTagged{} -> Info
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "handle-typedefs"

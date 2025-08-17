@@ -86,3 +86,4 @@ instance PrettyForTrace ResolveBindingSpecMsg where
 instance IsTrace Level ResolveBindingSpecMsg where
   getDefaultLogLevel = const Error
   getSource          = const HsBindgen
+  getTraceId         = const "resolve-binding-spec"

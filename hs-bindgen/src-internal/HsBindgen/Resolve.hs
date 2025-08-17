@@ -75,6 +75,7 @@ instance IsTrace Level ResolveHeaderMsg where
     ResolveHeaderFound{}        -> HsBindgen
     ResolveHeaderNotFound{}     -> HsBindgen
     ResolveHeaderNotAttempted{} -> HsBindgen
+  getTraceId = const "resolve-header"
 
 {-------------------------------------------------------------------------------
   API

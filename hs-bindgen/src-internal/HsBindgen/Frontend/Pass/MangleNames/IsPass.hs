@@ -128,3 +128,4 @@ instance PrettyForTrace MangleNamesMsg where
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = const Error
   getSource          = const HsBindgen
+  getTraceId         = const "mangle-names"

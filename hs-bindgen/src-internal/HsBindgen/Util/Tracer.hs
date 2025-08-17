@@ -222,30 +222,48 @@ class PrettyForTrace a => IsTrace l a | a -> l where
   getSource :: a -> Source
   default getSource :: (Generic a, GIsTrace l (Rep a)) => a -> Source
   getSource = gGetSource'
+  -- | The trace identifier does not necessarily have to be unique. For example,
+  -- an non-unique identifier may be used to collect multiple traces in a single
+  -- category.
+  --
+  -- The trace identifier usually starts with a letter and contains only letters
+  -- and dashes (e.g., @my-trace-id@). A good default is the constructor name in
+  -- kebab-case, leaving out potential "-trace" or "-msg" suffixes.
+  getTraceId :: a -> String
+  default getTraceId :: (Generic a, GIsTrace l (Rep a)) => a -> String
+  getTraceId = gGetTraceId'
 
 class GIsTrace l (r :: Type -> Type) | r -> l where
   gGetDefaultLogLevel :: r x -> l
   gGetSource          :: r x -> Source
+  gGetTraceId         :: r x -> String
 
 instance GIsTrace l r => GIsTrace l (M1 tag meta r) where
   gGetDefaultLogLevel (M1 x) = gGetDefaultLogLevel x
-  gGetSource (M1 x) = gGetSource x
+  gGetSource          (M1 x) = gGetSource          x
+  gGetTraceId         (M1 x) = gGetTraceId         x
 
 instance (GIsTrace l r1, GIsTrace l r2) => GIsTrace l (r1 :+: r2) where
   gGetDefaultLogLevel (L1 x) = gGetDefaultLogLevel x
   gGetDefaultLogLevel (R1 x) = gGetDefaultLogLevel x
-  gGetSource          (L1 x) = gGetSource x
-  gGetSource          (R1 x) = gGetSource x
+  gGetSource          (L1 x) = gGetSource          x
+  gGetSource          (R1 x) = gGetSource          x
+  gGetTraceId         (L1 x) = gGetTraceId         x
+  gGetTraceId         (R1 x) = gGetTraceId         x
 
 instance IsTrace l a => GIsTrace l (K1 tag a) where
   gGetDefaultLogLevel (K1 x) = getDefaultLogLevel x
-  gGetSource          (K1 x) = getSource x
+  gGetSource          (K1 x) = getSource  x
+  gGetTraceId         (K1 x) = getTraceId x
 
 gGetDefaultLogLevel' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> l
-gGetDefaultLogLevel' = gGetDefaultLogLevel .  GHC.from
+gGetDefaultLogLevel' = gGetDefaultLogLevel . GHC.from
 
 gGetSource' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> Source
-gGetSource' = gGetSource .  GHC.from
+gGetSource' = gGetSource . GHC.from
+
+gGetTraceId' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> String
+gGetTraceId' = gGetTraceId . GHC.from
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
@@ -481,6 +499,7 @@ instance PrettyForTrace a => PrettyForTrace (SafeTrace a) where
 instance IsTrace SafeLevel a => IsTrace Level (SafeTrace a) where
   getDefaultLogLevel = fromSafeLevel . getDefaultLogLevel . getSafeTrace
   getSource          = getSource                          . getSafeTrace
+  getTraceId         = getTraceId                         . getSafeTrace
 
 {-------------------------------------------------------------------------------
   Internal helpers

@@ -88,4 +88,5 @@ instance IsTrace Level SelectMsg where
     SelectTransitiveDependencyUnavailable{} -> Error
     SelectExcluded{}                        -> Info
     SelectSelected{}                        -> Info
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "select"

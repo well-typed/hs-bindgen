@@ -245,6 +245,7 @@ instance IsTrace Level BindingSpecReadMsg where
   getSource = \case
     x@BindingSpecReadHashIncludeArg{} -> getSource x
     _otherwise                        -> HsBindgen
+  getTraceId = const "binding-spec-read"
 
 instance PrettyForTrace BindingSpecReadMsg where
   prettyForTrace = \case
@@ -289,6 +290,7 @@ instance IsTrace Level BindingSpecResolveMsg where
     BindingSpecResolveExternalHeader     x -> getSource x
     BindingSpecResolvePrescriptiveHeader x -> getSource x
     BindingSpecResolveTypeDropped{}        -> HsBindgen
+  getTraceId = const "binding-spec-resolve"
 
 instance PrettyForTrace BindingSpecResolveMsg where
   prettyForTrace = \case
@@ -316,6 +318,7 @@ data BindingSpecMergeMsg =
 instance IsTrace Level BindingSpecMergeMsg where
   getDefaultLogLevel = const Error
   getSource          = const HsBindgen
+  getTraceId         = const "binding-spec-merge"
 
 instance PrettyForTrace BindingSpecMergeMsg where
   prettyForTrace = \case

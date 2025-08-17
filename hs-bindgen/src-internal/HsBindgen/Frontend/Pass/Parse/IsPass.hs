@@ -251,4 +251,5 @@ instance IsTrace Level ParseMsg where
       ParseUnknownStorageClass{}       -> Warning
       ParsePotentialDuplicateSymbol{}  -> Notice
       ParseNonPublicVisibility{}       -> Warning
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "parse"

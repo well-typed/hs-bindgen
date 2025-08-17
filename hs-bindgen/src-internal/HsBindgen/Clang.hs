@@ -169,6 +169,7 @@ instance IsTrace Level ClangMsg where
       ClangExtraArgs  x -> getSource x
       ClangErrorCode  _ -> Libclang
       ClangDiagnostic _ -> Libclang
+  getTraceId = const "clang"
 
 {-------------------------------------------------------------------------------
   @BINDGEN_EXTRA_CLANG_ARGS@ environment variable
@@ -195,7 +196,8 @@ instance IsTrace Level ExtraClangArgsMsg where
   getDefaultLogLevel = \case
     ExtraClangArgsNone -> Debug
     ExtraClangArgsParsed {} -> Info
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "extra-clang-args"
 
 -- | Run a continuation honoring @libclang@-specific environment variables.
 --

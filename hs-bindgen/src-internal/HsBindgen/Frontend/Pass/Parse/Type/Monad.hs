@@ -128,7 +128,8 @@ instance IsTrace Level ParseTypeException where
     UnsupportedVariadicFunction -> Warning
     UnsupportedLongDouble       -> Warning
     UnsupportedBuiltin{}        -> Warning
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "parse-type-exception"
 
 instance Exception ParseTypeException where
   displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace

@@ -155,6 +155,7 @@ instance PrettyForTrace HashIncludeArgMsg where
 instance IsTrace Level HashIncludeArgMsg where
   getDefaultLogLevel = const Notice
   getSource          = const HsBindgen
+  getTraceId         = const "hash-include-arg"
 
 hashIncludeArgMsgs :: FilePath -> [HashIncludeArgMsg]
 hashIncludeArgMsgs fp = catMaybes [
