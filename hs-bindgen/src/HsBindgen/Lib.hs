@@ -98,11 +98,11 @@ module HsBindgen.Lib (
   , Common.traceWith
   , Common.simpleTracer
     -- ** Data types and typeclasses useful for tracing
-  , Common.Level(..)
   , Common.PrettyForTrace(..)
-  , Common.HasDefaultLogLevel(..)
+  , Common.Level(..)
+  , Common.SafeLevel(..)
   , Common.Source(..)
-  , Common.HasSource(..)
+  , Common.IsTrace(..)
   , Common.Verbosity(..)
     -- ** Tracer configuration
   , Common.ShowTimeStamp(..)

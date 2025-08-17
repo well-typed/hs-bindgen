@@ -226,4 +226,4 @@ data FrontendMsg =
   | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
   deriving stock    (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)

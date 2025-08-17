@@ -123,15 +123,13 @@ instance PrettyForTrace TestTrace where
     TestWarning x -> PP.string x
     TestError   x -> PP.string x
 
-instance HasDefaultLogLevel TestTrace where
+instance IsTrace Level TestTrace where
   getDefaultLogLevel = \case
     TestDebug   _ -> Debug
     TestInfo    _ -> Info
     TestNotice  _ -> Notice
     TestWarning _ -> Warning
     TestError   _ -> Error
-
-instance HasSource TestTrace where
   getSource = const HsBindgen
 
 assertMaxLevel :: [TestTrace] -> Level -> Assertion

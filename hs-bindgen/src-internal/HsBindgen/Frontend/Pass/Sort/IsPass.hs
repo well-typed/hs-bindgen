@@ -60,4 +60,4 @@ data DeclMeta = DeclMeta {
 data SortMsg =
     SortErrorDeclIndex DeclIndexError
   deriving stock    (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)

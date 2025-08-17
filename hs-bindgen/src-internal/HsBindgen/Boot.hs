@@ -72,4 +72,4 @@ data BootMsg =
   | BootHashIncludeArg HashIncludeArgMsg
   | BootBindingSpec    BindingSpecMsg
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)

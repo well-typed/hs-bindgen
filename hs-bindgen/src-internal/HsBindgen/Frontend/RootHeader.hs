@@ -152,11 +152,9 @@ instance PrettyForTrace HashIncludeArgMsg where
     HashIncludeArgNotRelative arg ->
       PP.string $ "#include argument not relative: " ++ arg
 
-instance HasDefaultLogLevel HashIncludeArgMsg where
+instance IsTrace Level HashIncludeArgMsg where
   getDefaultLogLevel = const Notice
-
-instance HasSource HashIncludeArgMsg where
-  getSource = const HsBindgen
+  getSource          = const HsBindgen
 
 hashIncludeArgMsgs :: FilePath -> [HashIncludeArgMsg]
 hashIncludeArgMsgs fp = catMaybes [

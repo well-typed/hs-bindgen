@@ -47,19 +47,17 @@ newtype TracePredicate a = TracePredicate {
 
 -- | By default, we do not expect any warnings, nor errors ('Unexpected'). Info
 -- and debug messages are 'Tolerate'd.
-defaultTracePredicate
-  :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+defaultTracePredicate :: (IsTrace Level a, Show a)
   => TracePredicate a
 defaultTracePredicate = customTracePredicate [] (const Nothing)
 
 -- | 'Expect' a trace with given name exactly one time.
-singleTracePredicate :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+singleTracePredicate :: (IsTrace Level a, Show a)
   => (a -> Maybe (TraceExpectation ()))
   -> TracePredicate a
 singleTracePredicate predicate = customTracePredicate' [()] predicate
 
-customTracePredicate
-  :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+customTracePredicate :: (IsTrace Level a, Show a)
   => [String]
   -- ^ Names/identifiers of expected traces. If a trace is expected N times, add
   -- the name/identifier N times to the list.
@@ -68,8 +66,7 @@ customTracePredicate
   -> TracePredicate a
 customTracePredicate = customTracePredicate'
 
-customTracePredicate'
-  :: forall a b. (HasDefaultLogLevel a, Ord b, WrongCountMsg a b)
+customTracePredicate' :: forall a b. (IsTrace Level a, Ord b, WrongCountMsg a b)
   => [b]
   -> (a -> Maybe (TraceExpectation b))
   -> TracePredicate a
@@ -118,11 +115,7 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTracePredicate
-  :: forall m a b.
-     ( MonadIO m
-     , PrettyForTrace a, HasDefaultLogLevel a, HasSource a
-     , Typeable a, Show a
-     )
+  :: forall m a b. (MonadIO m , IsTrace Level a , Typeable a, Show a)
   => TracePredicate a -> (Tracer m a -> m b) -> m b
 withTracePredicate predicate action = fmap fst $
   withTraceConfigPredicate predicate $ \traceConfig ->
@@ -132,11 +125,7 @@ withTracePredicate predicate action = fmap fst $
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate
-  :: forall m a b.
-     ( MonadIO m
-     , PrettyForTrace a, HasDefaultLogLevel a
-     , Typeable a, Show a
-     )
+  :: forall m a b. (MonadIO m, IsTrace Level a , Typeable a, Show a)
   => TracePredicate a -> (TracerConfig m Level a -> m b) -> m b
 withTraceConfigPredicate (TracePredicate predicate) action = do
   tracesRef <- liftIO $ newIORef []
@@ -159,8 +148,7 @@ data TraceExpectationException a = TraceExpectationException {
     , expectedTracesWithWrongCounts :: [CtxDoc]
     }
 
-instance (PrettyForTrace a, HasDefaultLogLevel a, Show a)
-      => Show (TraceExpectationException a) where
+instance (IsTrace l a, Show l, Show a) => Show (TraceExpectationException a) where
   show (TraceExpectationException {..}) = PP.renderCtxDoc PP.defaultContext $
       PP.vcat $
            ( if null unexpectedTraces
@@ -181,7 +169,7 @@ instance (PrettyForTrace a, HasDefaultLogLevel a, Show a)
           (prettyAndShowTrace trace)
 
 
-instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a, Show a)
+instance (Typeable a, IsTrace l a, Show l, Show a)
   => Exception (TraceExpectationException a)
 
 {-------------------------------------------------------------------------------

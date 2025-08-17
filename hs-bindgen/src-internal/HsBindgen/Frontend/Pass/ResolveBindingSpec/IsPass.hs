@@ -83,8 +83,6 @@ instance PrettyForTrace ResolveBindingSpecMsg where
         "binding specification for type not used:"
           <+> prettyForTrace cQualName
 
-instance HasDefaultLogLevel ResolveBindingSpecMsg where
+instance IsTrace Level ResolveBindingSpecMsg where
   getDefaultLogLevel = const Error
-
-instance HasSource ResolveBindingSpecMsg where
-  getSource = const HsBindgen
+  getSource          = const HsBindgen

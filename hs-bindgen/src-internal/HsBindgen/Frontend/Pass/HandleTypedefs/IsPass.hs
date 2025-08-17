@@ -93,10 +93,8 @@ instance PrettyForTrace HandleTypedefsMsg where
         , prettyForTrace newName
         ]
 
-instance HasDefaultLogLevel HandleTypedefsMsg where
+instance IsTrace Level HandleTypedefsMsg where
   getDefaultLogLevel = \case
       HandleTypedefsSquashed{}      -> Info
       HandleTypedefsRenamedTagged{} -> Info
-
-instance HasSource HandleTypedefsMsg where
   getSource = const HsBindgen

@@ -121,13 +121,14 @@ instance PrettyForTrace ParseTypeException where
 --
 -- This ensures that for declarations that use known-to-be-unsupported types,
 -- we can just skip generating bindings for that declaration.
-instance HasDefaultLogLevel ParseTypeException where
+instance IsTrace Level ParseTypeException where
   getDefaultLogLevel = \case
     UnexpectedTypeKind{}        -> Error
     UnexpectedTypeDecl{}        -> Error
     UnsupportedVariadicFunction -> Warning
     UnsupportedLongDouble       -> Warning
     UnsupportedBuiltin{}        -> Warning
+  getSource = const HsBindgen
 
 instance Exception ParseTypeException where
   displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace

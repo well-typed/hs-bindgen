@@ -62,12 +62,10 @@ instance PrettyForTrace UniqueIdMsg where
       , "  Reason: The C standard only guarantees 63 significant initial characters."
       ]
 
-instance HasDefaultLogLevel UniqueIdMsg where
+instance IsTrace Level UniqueIdMsg where
   getDefaultLogLevel = \case
     UniqueIdEmpty     -> Warning
     UniqueIdTooLong _ -> Notice
-
-instance HasSource UniqueIdMsg where
   getSource = const HsBindgen
 
 checkUniqueId :: Tracer IO UniqueIdMsg -> UniqueId -> IO ()

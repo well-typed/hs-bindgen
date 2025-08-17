@@ -238,12 +238,10 @@ data BindingSpecReadMsg =
     BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
   deriving stock (Eq, Show)
 
-instance HasDefaultLogLevel BindingSpecReadMsg where
+instance IsTrace Level BindingSpecReadMsg where
   getDefaultLogLevel = \case
     x@BindingSpecReadHashIncludeArg{} -> getDefaultLogLevel x
     _otherwise                        -> Error
-
-instance HasSource BindingSpecReadMsg where
   getSource = \case
     x@BindingSpecReadHashIncludeArg{} -> getSource x
     _otherwise                        -> HsBindgen
@@ -274,7 +272,7 @@ data BindingSpecResolveMsg =
   | BindingSpecResolveTypeDropped C.QualName
   deriving stock (Show, Eq)
 
-instance HasDefaultLogLevel BindingSpecResolveMsg where
+instance IsTrace Level BindingSpecResolveMsg where
   getDefaultLogLevel = \case
     BindingSpecResolveExternalHeader _x ->
       -- Any errors that happen while resolving /external/ headers are 'Info'
@@ -287,8 +285,6 @@ instance HasDefaultLogLevel BindingSpecResolveMsg where
       -- truly are errors.
       getDefaultLogLevel x
     BindingSpecResolveTypeDropped{} -> Info
-
-instance HasSource BindingSpecResolveMsg where
   getSource = \case
     BindingSpecResolveExternalHeader     x -> getSource x
     BindingSpecResolvePrescriptiveHeader x -> getSource x
@@ -317,11 +313,9 @@ data BindingSpecMergeMsg =
     BindingSpecMergeConflict C.QualName
   deriving stock (Eq, Show)
 
-instance HasDefaultLogLevel BindingSpecMergeMsg where
+instance IsTrace Level BindingSpecMergeMsg where
   getDefaultLogLevel = const Error
-
-instance HasSource BindingSpecMergeMsg where
-  getSource = const HsBindgen
+  getSource          = const HsBindgen
 
 instance PrettyForTrace BindingSpecMergeMsg where
   prettyForTrace = \case
@@ -337,7 +331,7 @@ data BindingSpecMsg =
   | BindingSpecResolveMsg BindingSpecResolveMsg
   | BindingSpecMergeMsg   BindingSpecMergeMsg
   deriving stock    (Eq, Show, Generic)
-  deriving anyclass (HasDefaultLogLevel, HasSource, PrettyForTrace)
+  deriving anyclass (IsTrace Level, PrettyForTrace)
 
 {-------------------------------------------------------------------------------
   API

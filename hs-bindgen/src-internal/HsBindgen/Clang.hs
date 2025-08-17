@@ -160,13 +160,11 @@ instance PrettyForTrace ClangMsg where
           fmap (Text.dropWhile (== '\'') . Text.dropWhile (/= '\''))
         . Text.stripSuffix "' file not found with <angled> include; use \"quotes\" instead"
 
-instance HasDefaultLogLevel ClangMsg where
+instance IsTrace Level ClangMsg where
   getDefaultLogLevel = \case
       ClangExtraArgs  x -> getDefaultLogLevel x
       ClangErrorCode  _ -> Error
       ClangDiagnostic x -> if diagnosticIsError x then Error else Warning
-
-instance HasSource ClangMsg where
   getSource = \case
       ClangExtraArgs  x -> getSource x
       ClangErrorCode  _ -> Libclang
@@ -193,12 +191,10 @@ instance PrettyForTrace ExtraClangArgsMsg where
       "Picked up evironment variable " >< string envName ><
       "; parsed 'libclang' arguments: " >< showToCtxDoc envArgs
 
-instance HasDefaultLogLevel ExtraClangArgsMsg where
+instance IsTrace Level ExtraClangArgsMsg where
   getDefaultLogLevel = \case
     ExtraClangArgsNone -> Debug
     ExtraClangArgsParsed {} -> Info
-
-instance HasSource ExtraClangArgsMsg where
   getSource = const HsBindgen
 
 -- | Run a continuation honoring @libclang@-specific environment variables.

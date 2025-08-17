@@ -66,7 +66,7 @@ data TraceMsg =
   | TraceFrontend      FrontendMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)
 
 {-------------------------------------------------------------------------------
   Log level customization

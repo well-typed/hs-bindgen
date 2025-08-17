@@ -78,8 +78,6 @@ instance PrettyForTrace HandleMacrosMsg where
 -- library implementations.  Users may optionally make them 'Warning' instead.
 --
 -- Other errors are 'Info' because they are /always/ unsupported.
-instance HasDefaultLogLevel HandleMacrosMsg where
+instance IsTrace Level HandleMacrosMsg where
   getDefaultLogLevel = const Info
-
-instance HasSource HandleMacrosMsg where
-  getSource = const HsBindgen
+  getSource          = const HsBindgen

@@ -147,13 +147,11 @@ instance PrettyForTrace DeclIndexError where
       , ". No binding generated."
       ]
 
-instance HasDefaultLogLevel DeclIndexError where
+instance IsTrace Level DeclIndexError where
   getDefaultLogLevel = \case
       -- Redeclarations can only happen for macros, so we issue a warning,
       -- rather than an error.
       Redeclaration{} -> Warning
-
-instance HasSource DeclIndexError where
   getSource = const HsBindgen
 
 {-------------------------------------------------------------------------------

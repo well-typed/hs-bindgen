@@ -83,11 +83,9 @@ instance PrettyForTrace SelectMsg where
     SelectExcluded info -> prettyForTrace info >< " excluded"
     SelectSelected info -> "Selected " >< prettyForTrace info
 
-instance HasDefaultLogLevel SelectMsg where
+instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectTransitiveDependencyUnavailable{} -> Error
     SelectExcluded{}                        -> Info
     SelectSelected{}                        -> Info
-
-instance HasSource SelectMsg where
   getSource = const HsBindgen
