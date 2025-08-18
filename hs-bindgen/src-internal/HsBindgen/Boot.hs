@@ -25,10 +25,7 @@ boot ::
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot
-  tracer
-  BindgenConfig{..}
-  uncheckedHashIncludeArgs = do
+boot tracer BindgenConfig{..} uncheckedHashIncludeArgs = do
     let tracerBackendConfig :: Tracer IO BackendConfigMsg
         tracerBackendConfig = contramap BootBackendConfig tracer
     checkBackendConfig tracerBackendConfig bindgenBackendConfig

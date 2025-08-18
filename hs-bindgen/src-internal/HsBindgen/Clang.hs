@@ -215,9 +215,9 @@ instance IsTrace Level ExtraClangArgsMsg where
 --
 -- The values are split into separate command line arguments using
 -- 'splitArguments'.
-withExtraClangArgs :: (HasCallStack, MonadIO m)
-  => Tracer m ExtraClangArgsMsg
-  -> ClangArgs -> (ClangArgs -> m a) -> m a
+withExtraClangArgs :: HasCallStack
+  => Tracer IO ExtraClangArgsMsg
+  -> ClangArgs -> (ClangArgs -> IO a) -> IO a
 withExtraClangArgs tracer args k = do
   extraClangArgs <- getExtraClangArgs tracer (fst <$> clangTarget args)
   k $ args { clangOtherArgs = clangOtherArgs args <> extraClangArgs }
@@ -240,8 +240,8 @@ splitArguments = unescapeArgs
 -- | Get extra `clang` arguments from system environment.
 --
 -- For expectations, see 'Test.HsNindgen.C.Environment.envTests'.
-getExtraClangArgs :: (HasCallStack, MonadIO m)
-  => Tracer m ExtraClangArgsMsg -> Maybe Target -> m [String]
+getExtraClangArgs :: HasCallStack
+  => Tracer IO ExtraClangArgsMsg -> Maybe Target -> IO [String]
 getExtraClangArgs tracer mtarget = do
   extraClangArgsStr <- liftIO $ lookupEnv extraClangArgsEnvName
   case extraClangArgsStr of

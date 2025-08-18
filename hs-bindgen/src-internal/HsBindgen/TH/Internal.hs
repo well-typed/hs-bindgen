@@ -129,7 +129,6 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
 
-        artefacts :: NP Artefact [[SourcePath], [SHs.SDecl]]
         artefacts = Dependencies :* FinalDecls :* Nil
 
     (I deps :* I decls :* Nil) <- liftIO $

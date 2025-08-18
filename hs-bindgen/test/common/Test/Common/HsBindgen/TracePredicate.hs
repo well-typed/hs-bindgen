@@ -19,7 +19,6 @@ module Test.Common.HsBindgen.TracePredicate (
 
 import Control.Exception
 import Control.Monad.Except (Except, runExcept, throwError)
-import Control.Monad.IO.Class
 import Data.Foldable qualified as Foldable
 import Data.IORef
 import Data.Map.Strict (Map)
@@ -115,8 +114,8 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTracePredicate
-  :: forall m a b. (MonadIO m , IsTrace Level a , Typeable a, Show a)
-  => TracePredicate a -> (Tracer m a -> m b) -> m b
+  :: (IsTrace Level a , Typeable a, Show a)
+  => TracePredicate a -> (Tracer IO a -> IO b) -> IO b
 withTracePredicate predicate action = fmap fst $
   withTraceConfigPredicate predicate $ \traceConfig ->
     withTracer' traceConfig action
@@ -125,18 +124,19 @@ withTracePredicate predicate action = fmap fst $
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate
-  :: forall m a b. (MonadIO m, IsTrace Level a , Typeable a, Show a)
-  => TracePredicate a -> (TracerConfig m Level a -> m b) -> m b
+  :: forall a b. (IsTrace Level a , Typeable a, Show a)
+  => TracePredicate a -> (TracerConfig IO Level a -> IO b) -> IO b
 withTraceConfigPredicate (TracePredicate predicate) action = do
-  tracesRef <- liftIO $ newIORef []
-  let writer :: Report m a
-      writer _ trace _ = liftIO $ modifyIORef' tracesRef ((:) trace)
+  tracesRef <- newIORef []
+  let writer :: Report IO a
+      writer _ trace _ = modifyIORef' tracesRef ((:) trace)
   actionRes <- action $ def {
-      tOutputConfig = OutputCustom writer DisableAnsiColor
+      tVerbosity    = Verbosity Info
+    , tOutputConfig = OutputCustom writer DisableAnsiColor
     }
-  traces <- liftIO $ readIORef tracesRef
+  traces <- readIORef tracesRef
   case runExcept (predicate traces) of
-    Left  e -> liftIO $ throwIO e
+    Left  e -> throwIO e
     Right _ -> pure actionRes
 
 {-------------------------------------------------------------------------------

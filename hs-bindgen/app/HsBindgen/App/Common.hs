@@ -5,8 +5,6 @@ module HsBindgen.App.Common (
     -- * Global options
     GlobalOpts(..)
   , parseGlobalOpts
-    -- * Macro warnings
-  , MacroLogLevel(..)
     -- * HsBindgen configuration
   , parseBindgenConfig
     -- * Clang-related options
@@ -26,6 +24,7 @@ import Data.Bifunctor (Bifunctor (bimap))
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
+import Data.Maybe (catMaybes)
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Optics (set)
@@ -83,38 +82,71 @@ parseVerbosity =
       _otherwise -> Debug
 
 parseCustomLogLevel :: Parser (CustomLogLevel Level TraceMsg)
-parseCustomLogLevel = fromMacroWarnings <$> parseMacroWarnings
-    where
-      fromMacroWarnings macroWarnings =
-        let customLogLevelSettings = case macroWarnings of
-              MacroLogInfo    -> []
-              MacroLogWarning -> [MacroTracesAreWarnings]
-        in  customLogLevelFrom customLogLevelSettings
+parseCustomLogLevel = do
+    -- Generic setters.
+    makeTraceInfos    <- many $ parseMakeTrace Info
+    makeTraceWarnings <- many $ parseMakeTrace Warning
+    makeTraceErrors   <- many $ parseMakeTrace Error
+    -- Specific setters.
+    makeMacroTracesWarnings      <- optional parseMakeMacroTracesWarnings
+    makeUCharResolutionTraceInfo <- optional parseMakeUCharResolutionTraceInfo
+    -- Generic modifiers.
+    makeWarningsErrors <- optional parseMakeWarningsErrors
+    pure $ getCustomLogLevel $ catMaybes [
+        makeMacroTracesWarnings
+      , makeUCharResolutionTraceInfo
+      , makeWarningsErrors
+      ]
+      ++ makeTraceInfos
+      ++ makeTraceWarnings
+      ++ makeTraceErrors
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
-      long "show-time"
+      long "log-show-time"
     , help "Show time stamps in traces"
     ]
 
 parseShowCallStack :: Parser ShowCallStack
 parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
-      long "show-call-stack"
+      long "log-show-call-stack"
     , help "Show call stacks in traces"
     ]
 
 {-------------------------------------------------------------------------------
-  Macro warnings
+  Custom log level settings
 -------------------------------------------------------------------------------}
 
-data MacroLogLevel = MacroLogInfo | MacroLogWarning
-  deriving (Eq, Show)
+parseMakeMacroTracesWarnings :: Parser CustomLogLevelSetting
+parseMakeMacroTracesWarnings = flag' MakeMacroTracesWarnings $
+    mconcat [
+        long "log-as-warning-macro-traces"
+      , help "Set log level of macro reparse and typecheck errors to warning (default: info)"
+      ]
 
-parseMacroWarnings :: Parser MacroLogLevel
-parseMacroWarnings = flag MacroLogInfo MacroLogWarning $ mconcat [
-      long "macro-warnings"
-    , help "Make macro reparse and typecheck errors warnings (default info)"
-    ]
+parseMakeUCharResolutionTraceInfo :: Parser CustomLogLevelSetting
+parseMakeUCharResolutionTraceInfo = flag' MakeUCharResolutionTraceInfo $
+    mconcat [
+        long "log-as-info-uchar-header-resolution-trace"
+      , help "Set log level of `uchar.h` header resolution errors to info"
+      ]
+
+parseMakeTrace :: Level -> Parser CustomLogLevelSetting
+parseMakeTrace level = fmap (MakeTrace level) $ strOption $
+    mconcat [
+        long $ "log-as-" <> levelStr
+      , metavar "TRACE_ID"
+      , help $ "Set log level of traces with TRACE_ID to " <> levelStr
+      ]
+  where
+    levelStr = map Char.toLower $ show level
+
+parseMakeWarningsErrors :: Parser CustomLogLevelSetting
+parseMakeWarningsErrors = flag' MakeWarningsErrors $
+    mconcat [
+        long "log-as-error-warnings"
+      , help "Set log level of warnings to error"
+      ]
 
 {-------------------------------------------------------------------------------
   HsBindgen configuration

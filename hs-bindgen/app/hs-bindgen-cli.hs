@@ -113,9 +113,9 @@ execResolve GlobalOpts{..} ResolveOpts{..} = do
 
     customLogLevel :: CustomLogLevel Level TraceMsg
     customLogLevel = CustomLogLevel $ \case
-      TraceResolveHeader ResolveHeaderFound{}    -> Just Debug
-      TraceResolveHeader ResolveHeaderNotFound{} -> Just Debug
-      _otherTrace -> Nothing
+      TraceResolveHeader ResolveHeaderFound{}    -> const Debug
+      TraceResolveHeader ResolveHeaderNotFound{} -> const Debug
+      _otherTrace                                -> id
 
 {-------------------------------------------------------------------------------
   Exception handling

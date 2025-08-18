@@ -24,11 +24,9 @@ module HsBindgen.TraceMsg (
   , SortMsg(..)
   , TcMacroError(..)
   -- * Log level customization
-  , customLogLevelFrom
   , CustomLogLevelSetting (..)
+  , getCustomLogLevel
   ) where
-
-import GHC.Generics (Generic)
 
 import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
@@ -48,6 +46,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg 
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
 import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..), getHashIncludeArg)
+import HsBindgen.Imports
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
@@ -72,34 +71,68 @@ data TraceMsg =
   Log level customization
 -------------------------------------------------------------------------------}
 
--- | Get a custom log level function from a list of available settings.
---
--- NOTE: The order of settings matters. The first setting specifying a custom
--- log level for the emitted trace overrules later settings.
-customLogLevelFrom :: [CustomLogLevelSetting] -> CustomLogLevel Level TraceMsg
-customLogLevelFrom = mconcat . map fromCustomLogLevelSetting
-
 -- | List of predefined log level customization settings.
 data CustomLogLevelSetting =
-    -- | Change macro-related parsing traces to 'Warning's. By default, traces
-    -- emitted while parsing macros are 'Info' messages.
-    MacroTracesAreWarnings
-    -- | The header `uchar.h` is not available on MacOS.
-  | UCharHeaderResolutionTraceIsInfo
-  deriving stock (Eq, Show)
+    -- * Generic setters
+    MakeTrace Level TraceId
 
-fromCustomLogLevelSetting :: CustomLogLevelSetting -> CustomLogLevel Level TraceMsg
-fromCustomLogLevelSetting = \case
-  MacroTracesAreWarnings     -> macroTracesAreWarnings
-  UCharHeaderResolutionTraceIsInfo -> uCharResolutionTraceIsInfo
+    -- * Specific setters
+    -- | The header `uchar.h` is not available on MacOS. Set the log level to
+    -- 'Info'.
+  | MakeUCharResolutionTraceInfo
+    -- | Set the log level of macro-related parsing traces to 'Warning'. By
+    -- default, traces emitted while parsing macros have log level 'Info'.
+  | MakeMacroTracesWarnings
+
+    -- * Generic modifiers
+    -- | Modify traces with log level 'Warning' to be fatal 'Error's.
+  | MakeWarningsErrors
+  deriving stock (Eq, Show, Ord)
+
+-- | Get a custom log level function from a set of available settings.
+--
+-- NOTE: The order of custom log level settings is important because different
+-- custom log level settings may affect the same trace. For example, assume a
+-- trace @Trace@ has default log level 'Info', and two custom log level settings
+-- @SetTraceWarning@ and @SetTraceError@ set the default log level of @T@ to
+-- 'Warning' and 'Error', respectively. Then, if we apply @SetTraceWarning@
+-- before @SetTraceError@, the the final log level of @T@ will be 'Error'.
+getCustomLogLevel :: [CustomLogLevelSetting] -> CustomLogLevel Level TraceMsg
+getCustomLogLevel = mconcat . map fromSetting
+
+-- Internal.
+fromSetting ::
+     CustomLogLevelSetting
+  -> CustomLogLevel Level TraceMsg
+fromSetting = \case
+    -- Generic setters.
+    MakeTrace level traceId      -> makeTrace level traceId
+    -- Specific setters.
+    MakeMacroTracesWarnings      -> makeMacroTracesWarnings
+    MakeUCharResolutionTraceInfo -> makeUCharResolutionTraceInfo
+    -- Generic modifiers.
+    MakeWarningsErrors           -> makeWarningsErrors
   where
-    macroTracesAreWarnings :: CustomLogLevel Level TraceMsg
-    macroTracesAreWarnings = CustomLogLevel $ \case
-        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{})) -> Just Warning
-        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))      -> Just Warning
-        _otherTrace -> Nothing
-    uCharResolutionTraceIsInfo :: CustomLogLevel Level TraceMsg
-    uCharResolutionTraceIsInfo = CustomLogLevel $ \case
+    makeMacroTracesWarnings :: CustomLogLevel Level TraceMsg
+    makeMacroTracesWarnings = CustomLogLevel $ \case
+        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
+          -> const Warning
+        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))
+          -> const Warning
+        _otherTrace
+          -> id
+    makeUCharResolutionTraceInfo :: CustomLogLevel Level TraceMsg
+    makeUCharResolutionTraceInfo = CustomLogLevel $ \case
         TraceResolveHeader (ResolveHeaderNotFound h)
-          | getHashIncludeArg h == "uchar.h" -> Just Info
-        _otherTrace -> Nothing
+          | getHashIncludeArg h == "uchar.h" -> const Info
+        _otherTrace                          -> id
+    makeTrace :: Level -> TraceId -> CustomLogLevel Level TraceMsg
+    makeTrace desiredLevel traceId = CustomLogLevel $ \trace actualLevel ->
+      if getTraceId trace == traceId
+      then desiredLevel
+      else actualLevel
+    makeWarningsErrors :: CustomLogLevel Level TraceMsg
+    makeWarningsErrors = CustomLogLevel $ \_ lvl ->
+      if lvl == Warning
+      then Error
+      else lvl

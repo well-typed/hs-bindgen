@@ -89,6 +89,7 @@ module HsBindgen.TH (
   , Common.Level(..)
   , Common.SafeLevel(..)
   , Common.Source(..)
+  , Common.TraceId(..)
   , Common.IsTrace(..)
   , Common.Verbosity(..)
     -- ** Tracer configuration
@@ -101,8 +102,8 @@ module HsBindgen.TH (
   , Common.OutputConfig(..)
     -- *** Custom log levels
   , Common.CustomLogLevel(..)
-  , Common.customLogLevelFrom
   , Common.CustomLogLevelSetting(..)
+  , Common.getCustomLogLevel
     -- ** Tracers
   , Common.withTracer
 

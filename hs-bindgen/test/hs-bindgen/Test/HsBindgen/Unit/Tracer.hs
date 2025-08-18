@@ -1,9 +1,14 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
+
 module Test.HsBindgen.Unit.Tracer (tests) where
 
 import Data.Either (isLeft)
 import Data.Proxy (Proxy (Proxy))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?), (@?=))
+import Test.Tasty.QuickCheck (Arbitrary (..), CoArbitrary, Fun, Function, Gen,
+                              Property, elements, pattern Fn, testProperty,
+                              (===))
 
 import HsBindgen.Lib
 import HsBindgen.Util.Tracer
@@ -37,6 +42,11 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         , testCase "error1"   $ assertMaxLevelWithDegrade [wn, er] Info
         , testCase "error2"   $ assertMaxLevelWithDegrade [wn, er, wn] Info
         , testCase "error3"   $ assertMaxLevelWithDegrade [er, wn] Info
+        , testGroup "semigroup" [
+            testProperty "const-log-level-last-wins"   prop_constLevelLastWins
+          , testProperty "adapt-log-level-associative" prop_adaptLevelAssociative
+          , testProperty "adapt-log-level-unit"        prop_adaptLevelUnit
+          ]
         ]
     , testGroup "LeftOnError" [
           testCase "left" $ do
@@ -136,9 +146,12 @@ instance IsTrace Level TestTrace where
 assertMaxLevel :: [TestTrace] -> Level -> Assertion
 assertMaxLevel = assertMaxLevelWithCustomLogLevel mempty
 
+alwaysLevel :: Level -> CustomLogLevel Level a
+alwaysLevel level = CustomLogLevel $ const . const level
+
 assertMaxLevelWithDegrade :: [TestTrace] -> Level -> Assertion
 assertMaxLevelWithDegrade =
-  assertMaxLevelWithCustomLogLevel (CustomLogLevel $ const $ Just Info)
+  assertMaxLevelWithCustomLogLevel $ alwaysLevel Info
 
 assertMaxLevelWithCustomLogLevel
   :: CustomLogLevel Level TestTrace -> [TestTrace] -> Level -> Assertion
@@ -150,7 +163,7 @@ testTracerIO :: CustomLogLevel Level TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
   let noOutput :: Applicative m => Report m a
       noOutput _ _ _ = pure ()
-      tracerConfig = def {
+      tracerConfig = (def :: TracerConfig IO Level TestTrace) {
           tVerbosity      = Verbosity Debug
         , tOutputConfig   = OutputCustom noOutput DisableAnsiColor
         , tCustomLogLevel = customLogLevel
@@ -161,3 +174,58 @@ testTracerIO customLogLevel traces = do
     mapM_ (traceWith tracer) traces
   pure maxLogLevel
 
+{-------------------------------------------------------------------------------
+  Property-based
+-------------------------------------------------------------------------------}
+
+instance Arbitrary Level where
+  arbitrary = elements [minBound .. maxBound]
+instance CoArbitrary Level
+instance Function Level
+
+newtype ConstCustomLogLevel = ConstCustomLogLevel {
+    unConstCustomLogLevel :: (CustomLogLevel Level TestTrace)
+  }
+  -- deriving (Semigroup, Monoid) via (CustomLogLevel Level TestTrace)
+
+instance Show ConstCustomLogLevel where
+  show (ConstCustomLogLevel (CustomLogLevel f)) =
+    "ConstCustomLogLevel: " <> show (f (TestDebug "") Debug)
+
+instance Arbitrary ConstCustomLogLevel where
+  arbitrary = do
+    lvl <- arbitrary :: Gen Level
+    pure $ ConstCustomLogLevel $ CustomLogLevel $ \_ -> const lvl
+
+instance Arbitrary TestTrace where
+  arbitrary = do
+    c <- elements [TestDebug, TestInfo, TestNotice, TestWarning, TestError]
+    s <- arbitrary :: Gen String
+    pure $ c s
+
+apply :: IsTrace l a => CustomLogLevel l a -> a -> l
+apply (CustomLogLevel f) tr = f tr (getDefaultLogLevel tr)
+
+applys :: IsTrace l a => [CustomLogLevel l a] -> a -> l
+applys = apply . mconcat
+
+prop_constLevelLastWins ::
+  [ConstCustomLogLevel] -> ConstCustomLogLevel -> TestTrace -> Property
+prop_constLevelLastWins xs x tr =
+  applys (map unConstCustomLogLevel $ xs ++ [x]) tr
+  === apply (unConstCustomLogLevel x) tr
+
+prop_adaptLevelAssociative ::
+  Fun Level Level -> Fun Level Level -> Fun Level Level -> TestTrace -> Property
+prop_adaptLevelAssociative (Fn f1) (Fn f2) (Fn f3) tr =
+  apply (c1 <> (c2 <> c3)) tr === apply ((c1 <> c2) <> c3) tr
+  where toCustomLogLevel f = CustomLogLevel $ \_ lvl -> f lvl
+        c1 = toCustomLogLevel f1
+        c2 = toCustomLogLevel f2
+        c3 = toCustomLogLevel f3
+
+prop_adaptLevelUnit ::
+  Fun Level Level -> TestTrace -> Property
+prop_adaptLevelUnit (Fn f) tr =
+  apply (mconcat $ pure c) tr === apply c tr
+  where c = CustomLogLevel $ \_ lvl -> f lvl
