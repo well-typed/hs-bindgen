@@ -336,6 +336,10 @@ data Newtype = Newtype {
     }
   deriving stock (Show)
 
+-- | We might want to reconsider the decision of having 'functionParameterType'
+-- as well as 'foreignImportResultType' be a 'ClosedType' if we ever want to
+-- generate polymorphic type signatures.
+--
 data ForeignImport = ForeignImport
     { foreignImportName       :: HsName NsVar
     , foreignImportParameters :: [FunctionParameter]

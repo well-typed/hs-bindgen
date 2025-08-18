@@ -74,7 +74,8 @@ data HsType =
 --
 -- Result types can be heap types, which are types we can't return by value
 -- due to Haskell FFI limitation. Or they can be normal types supported by
--- Haskell FFI.
+-- Haskell FFI. This is also true for function arguments as well, result types
+-- are a special case where unsupported result types become arguments.
 --
 data ResultType a =
     NormalResultType a

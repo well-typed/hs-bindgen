@@ -144,11 +144,19 @@ prettyCommentKind includeCName commentKind =
         case commentTitle of
           Nothing -> empty
           Just ct -> hsep (map pretty ct)
-   in   vsep (string commentStart <+> firstContent
-             : map (nest indentation . pretty) commentChildren)
-    $+$ vcat [ fromCCtxDoc
-             , string commentEnd
-             ]
+      -- If the comment only has the the origin C Name then use that has the
+      -- title.
+   in case commentChildren of
+        [] | Nothing <- commentTitle ->
+              string commentStart
+          <+> fromCCtxDoc
+          <+> string commentEnd
+
+        _  -> vsep (string commentStart <+> firstContent
+                   : map (nest indentation . pretty) commentChildren)
+          $+$ vcat [ fromCCtxDoc
+                   , string commentEnd
+                   ]
 
 instance Pretty CommentKind where
   pretty = prettyCommentKind True

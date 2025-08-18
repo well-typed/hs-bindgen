@@ -1,18 +1,19 @@
 module HsBindgen.Backend.Hs.Haddock.Translation where
 
 import Data.Char (isDigit)
-import Data.List (partition)
-import Data.Text (Text)
-import Data.Text qualified as Text
-import Text.Read (readMaybe)
 import Data.Maybe (isJust)
+import Data.Text qualified as Text
+import Data.Text (Text)
+
+import Text.Read (readMaybe)
 
 import GHC.Natural (Natural)
 
 import Clang.HighLevel.Documentation qualified as C
 
-import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Language.Haskell (HsName(..))
 
 -- | Convert a Clang comment to a Haddock comment
@@ -32,7 +33,11 @@ generateHaddocksWithParams ::
      Maybe C.Comment
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])
-generateHaddocksWithParams Nothing params             = (Nothing, params)
+generateHaddocksWithParams Nothing params              =
+  -- If there's no C.Comment to associate with any function parameter we make
+  -- sure to at least add a comment that will show the function parameter name
+  --
+  (Nothing, map addFunctionParameterComment params)
 generateHaddocksWithParams (Just C.Comment{..}) params =
   let (commentTitle, commentChildren') =
         case commentChildren of
@@ -50,11 +55,16 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
       -- Separate 'ParamCommands' that match with provided parameters from
       -- other block content
       --
-      (paramCommands, otherContent) = partition isMatchingParamCommand commentChildren'
+      paramCommands = filterParamCommands commentChildren'
 
       -- Process parameter commands and update parameters
       --
-      updatedParams = processParamCommands paramCommands
+      -- If there's no C.Comment to associate with any function parameter we make
+      -- sure to at least add a comment that will show the function parameter name
+      --
+      updatedParams = map addFunctionParameterComment
+                    . processParamCommands
+                    $ paramCommands
 
       -- Convert remaining content (including unmatched param commands)
       finalChildren = concatMap ( convertBlockContent
@@ -68,7 +78,7 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
                                       cb             -> cb
                                   )
                                 )
-                    $ otherContent
+                    $ commentChildren'
 
    in ( Just Hs.Comment {
           commentTitle
@@ -80,30 +90,16 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
       , updatedParams
       )
   where
-    -- Matches only 'C.ParamCommand' blocks that match a function parameter.
-    --
-    isMatchingParamCommand :: C.CommentBlockContent -> Bool
-    isMatchingParamCommand C.ParamCommand{..} =
-      any ( (\paramName -> not (Text.null paramCommandName)
-                        && paramName == Just paramCommandName
-            )
-          . fmap getHsName
-          . Hs.functionParameterName
-          ) params
-    isMatchingParamCommand _ = False
-
-    -- Process 'C.ParamCommand and update matching parameter
-    --
-    processParamCommands :: [C.CommentBlockContent] -> [Hs.FunctionParameter]
-    processParamCommands paramCmds =
-      go paramCmds params
-      where
-        go :: [C.CommentBlockContent]
-           -> [Hs.FunctionParameter]
-           -> [Hs.FunctionParameter]
-        go [] currentParams = currentParams
-
-        go (blockContent@C.ParamCommand{..}:rest) currentParams =
+    filterParamCommands :: [C.CommentBlockContent]
+                           -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
+    filterParamCommands = \case
+      [] -> []
+      (blockContent@C.ParamCommand{..}:cmds)
+        | any ( (== Just paramCommandName)
+              . fmap getHsName
+              . Hs.functionParameterName
+              )
+        $ params ->
           let comment =
                 Hs.Comment {
                   commentTitle    = Nothing
@@ -112,17 +108,50 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
                                        else Just (Text.strip paramCommandName)
                 , commentChildren = convertBlockContent blockContent
                 }
-              updatedParams =
+           in (comment, paramCommandDirection):filterParamCommands cmds
+        | otherwise -> filterParamCommands cmds
+      (_:cmds) -> filterParamCommands cmds
+
+    -- Process 'C.ParamCommand and update matching parameter
+    --
+    processParamCommands :: [(Hs.Comment, Maybe C.CXCommentParamPassDirection)] -> [Hs.FunctionParameter]
+    processParamCommands paramCmds =
+      go paramCmds params
+      where
+        go :: [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
+           -> [Hs.FunctionParameter]
+           -> [Hs.FunctionParameter]
+        go [] currentParams = currentParams
+        go ((hsComment, _mbDirection):rest) currentParams =
+          let updatedParams =
                 map (\fp@Hs.FunctionParameter {..} ->
-                       if fmap getHsName functionParameterName == Hs.commentOrigin comment
-                          then fp { Hs.functionParameterComment = Just comment }
+                       if fmap getHsName functionParameterName == Hs.commentOrigin hsComment
+                          then fp { Hs.functionParameterComment = Just hsComment }
                           else fp
                     ) currentParams
            in go rest updatedParams
 
-        -- This case should not happen since we filter the
-        -- 'C.CommentBlockContent' to be only 'C.ParamCommand's
-        go (_:rest) currentParams = go rest currentParams
+
+-- | If the function parameter doesn't have any comments then add a simple
+-- comment with just its name (if exists).
+--
+addFunctionParameterComment :: Hs.FunctionParameter -> Hs.FunctionParameter
+addFunctionParameterComment fp@Hs.FunctionParameter {..} =
+  case functionParameterName of
+    Nothing -> fp
+    Just hsName
+      | Text.null (getHsName hsName) -> panicPure "function parameter name is null"
+      | otherwise ->
+        case functionParameterComment of
+          Nothing ->
+            fp { Hs.functionParameterComment =
+                   Just Hs.Comment {
+                          commentTitle    = Nothing
+                        , commentOrigin   = getHsName <$> functionParameterName
+                        , commentChildren = []
+                         }
+               }
+          _ -> fp
 
 -- | Convert Clang block content to Haddock block content
 --
