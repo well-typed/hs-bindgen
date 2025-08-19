@@ -33,6 +33,16 @@ $ hs-bindgen-cli preprocess \
     foo.h
 ```
 
+The order of arguments passed to Clang is:
+1. `--clang-option-before` options
+2. Clang options directly handled by `hs-bindgen` (e.g., `-I` options)"
+3. `--clang-option` options"
+4. `BINDGEN_EXTRA_CLANG_ARGS` options (see below)"
+5. `--clang-option-after` options"
+
+Pleaso also refer to the command line client documentation accessible with
+`hs-bindgen --help`.
+
 ## Environment variables
 
 Clang options may also be set using environment variables.  This is
