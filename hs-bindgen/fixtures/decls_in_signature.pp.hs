@@ -47,7 +47,14 @@ instance F.Storable Outside where
                F.pokeByteOff ptr0 (0 :: Int) outside_x2
             >> F.pokeByteOff ptr0 (4 :: Int) outside_y3
 
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper :: (F.Ptr Opaque) -> (F.Ptr Outside) -> (F.Ptr Outside) -> IO ()
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper
+  :: F.Ptr Opaque
+     {- ^ __from C:__ @ptr_to_opaque@ -}
+  -> F.Ptr Outside
+     {- ^ __from C:__ @ptr_to_defined@ -}
+  -> F.Ptr Outside
+     {- ^ __from C:__ @by_value@ -}
+  -> IO ()
 
 normal :: (F.Ptr Opaque) -> (F.Ptr Outside) -> Outside -> IO ()
 normal =
@@ -93,7 +100,10 @@ instance F.Storable Named_struct where
 
   __from C:__ @f1(struct named_struct)@
 -}
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" f1_wrapper :: (F.Ptr Named_struct) -> IO ()
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" f1_wrapper
+  :: F.Ptr Named_struct
+     {- ^ __from C:__ @arg@ -}
+  -> IO ()
 
 f1 :: Named_struct -> IO ()
 f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
@@ -140,7 +150,10 @@ set_named_union_y :: FC.CChar -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper :: (F.Ptr Named_union) -> IO ()
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper
+  :: F.Ptr Named_union
+     {- ^ __from C:__ @arg@ -}
+  -> IO ()
 
 f2 :: Named_union -> IO ()
 f2 = \x0 -> F.with x0 (\y1 -> f2_wrapper y1)

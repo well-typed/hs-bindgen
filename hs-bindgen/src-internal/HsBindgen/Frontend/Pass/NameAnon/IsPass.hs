@@ -25,13 +25,14 @@ type family AnnNameAnon ix where
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where
-  type Id         NameAnon = C.DeclId
-  type FieldName  NameAnon = C.Name
-  type TypedefRef NameAnon = C.Name
-  type MacroBody  NameAnon = C.CheckedMacro NameAnon
-  type ExtBinding NameAnon = Void
-  type Ann ix     NameAnon = AnnNameAnon ix
-  type Msg        NameAnon = NameAnonMsg
+  type Id           NameAnon = C.DeclId
+  type FieldName    NameAnon = C.Name
+  type ArgumentName NameAnon = Maybe C.Name
+  type TypedefRef   NameAnon = C.Name
+  type MacroBody    NameAnon = C.CheckedMacro NameAnon
+  type ExtBinding   NameAnon = Void
+  type Ann ix       NameAnon = AnnNameAnon ix
+  type Msg          NameAnon = NameAnonMsg
 
 {-------------------------------------------------------------------------------
   Trace messages

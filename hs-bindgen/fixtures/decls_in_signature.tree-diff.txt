@@ -88,26 +88,44 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "opaque",
+                  nameC = Name "ptr_to_opaque",
                   nameHsIdent = HsIdentifier
-                    "Opaque"}
-                NameOriginInSource),
-            TypePointer
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = HsIdentifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = HsIdentifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = HsIdentifier
+                    "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
                   nameHsIdent = HsIdentifier
                     "Outside"}
-                NameOriginInSource),
-            TypeStruct
-              NamePair {
-                nameC = Name "outside",
-                nameHsIdent = HsIdentifier
-                  "Outside"}
-              NameOriginInSource],
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -209,12 +227,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeStruct
-              NamePair {
-                nameC = Name "named_struct",
-                nameHsIdent = HsIdentifier
-                  "Named_struct"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = HsIdentifier
+                    "Named_struct"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -294,12 +318,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeUnion
-              NamePair {
-                nameC = Name "named_union",
-                nameHsIdent = HsIdentifier
-                  "Named_union"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = HsIdentifier
+                    "Named_union"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

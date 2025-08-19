@@ -960,13 +960,30 @@
       foreignImportName = HsName
         "@NsVar"
         "quux",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "F"))
-        (HsFun
-          (HsPrimType HsPrimCChar)
-          (HsIO
-            (HsPrimType HsPrimCChar))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "F"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCChar,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCChar)),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7",
       foreignImportCallConv =
@@ -974,14 +991,24 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "F",
+                  nameHsIdent = HsIdentifier "F"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -998,18 +1025,34 @@
       foreignImportName = HsName
         "@NsVar"
         "wam",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCFloat)
-        (HsFun
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "C")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
           (HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "C")))
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "C"))))),
+              (HsName "@NsTypeConstr" "C")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b",
       foreignImportCallConv =
@@ -1017,14 +1060,24 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "C",
-                  nameHsIdent = HsIdentifier "C"}
-                NameOriginInSource)],
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "C",
+                    nameHsIdent = HsIdentifier "C"}
+                  NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1044,16 +1097,34 @@
       foreignImportName = HsName
         "@NsVar"
         "foo1",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCFloat)
-        (HsFun
-          (HsFunPtr
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "g"),
+          functionParameterType = HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))))
-          (HsIO
-            (HsPtr
-              (HsPrimType HsPrimCChar)))),
+              (HsIO (HsPrimType HsPrimCInt))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "g",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833",
       foreignImportCallConv =
@@ -1061,17 +1132,27 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1090,17 +1171,34 @@
       foreignImportName = HsName
         "@NsVar"
         "foo2",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "F"))
-        (HsFun
-          (HsFunPtr
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "F"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "g"),
+          functionParameterType = HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))))
-          (HsIO
-            (HsPtr
-              (HsPrimType HsPrimCChar)))),
+              (HsIO (HsPrimType HsPrimCInt))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "g",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b",
       foreignImportCallConv =
@@ -1108,20 +1206,30 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "F",
+                  nameHsIdent = HsIdentifier "F"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1139,19 +1247,35 @@
       foreignImportName = HsName
         "@NsVar"
         "foo3",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCFloat)
-        (HsFun
-          (HsFunPtr
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "g"),
+          functionParameterType = HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))))
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "C"))))),
+              (HsIO (HsPrimType HsPrimCInt))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "g",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "C")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07",
       foreignImportCallConv =
@@ -1159,17 +1283,27 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1189,8 +1323,19 @@
       foreignImportName = HsName
         "@NsVar"
         "bar1",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCLong)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCLong,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsFunPtr
             (HsFun
@@ -1204,8 +1349,15 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimLong Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1228,9 +1380,15 @@
       foreignImportName = HsName
         "@NsVar"
         "bar2",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "L"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "L"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsFunPtr
             (HsFun
@@ -1244,11 +1402,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "L",
-                nameHsIdent = HsIdentifier "L"}
-              NameOriginInSource],
+            _×_
+              Nothing
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "L",
+                  nameHsIdent = HsIdentifier "L"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1271,8 +1431,15 @@
       foreignImportName = HsName
         "@NsVar"
         "bar3",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCLong)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCLong,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsFunPtr
             (HsFun
@@ -1287,8 +1454,12 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimLong Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1314,8 +1485,15 @@
       foreignImportName = HsName
         "@NsVar"
         "bar4",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCLong)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCLong,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsFunPtr
             (HsFun
@@ -1332,8 +1510,12 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimLong Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1357,8 +1539,19 @@
       foreignImportName = HsName
         "@NsVar"
         "baz1",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "i"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "i",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPtr
             (HsConstArray
@@ -1373,8 +1566,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1391,15 +1589,25 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (I arg1))[2][3] { return baz2(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int arg1))[2][3] { return baz2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
         "baz2",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName "@NsTypeConstr" "I"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "i"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "i",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPtr
             (HsConstArray
@@ -1414,11 +1622,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "I",
-                nameHsIdent = HsIdentifier "I"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1435,24 +1645,32 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "I (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int arg1))[2][3] { return baz3(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int arg1))[2][3] { return baz3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
         "baz3",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "i"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "i",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPtr
             (HsConstArray
               2
               (HsConstArray
                 3
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "I")))))),
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d",
       foreignImportCallConv =
@@ -1460,8 +1678,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1470,11 +1693,10 @@
               2
               (TypeConstArray
                 3
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "I",
-                    nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource)))},
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1485,9 +1707,12 @@
       foreignImportName = HsName
         "@NsVar"
         "no_args_no_void",
-      foreignImportType = HsIO
-        (HsTypRef
-          (HsName "@NsTypeConstr" "I")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName "@NsTypeConstr" "I"))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b",
       foreignImportCallConv =

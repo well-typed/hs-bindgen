@@ -8,8 +8,19 @@
       foreignImportName = HsName
         "@NsVar"
         "erf",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCDouble)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPrimType HsPrimCDouble)),
       foreignImportOrigName =
@@ -19,8 +30,14 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -36,14 +53,41 @@
       foreignImportName = HsName
         "@NsVar"
         "bad_fma",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCDouble)
-        (HsFun
-          (HsPrimType HsPrimCDouble)
-          (HsFun
-            (HsPrimType HsPrimCDouble)
-            (HsIO
-              (HsPrimType HsPrimCDouble)))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "z"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "z",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPrimType HsPrimCDouble)),
       foreignImportOrigName =
       "hs_bindgen_test_simple_func_6be780963284c499",
       foreignImportCallConv =
@@ -51,12 +95,27 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -72,8 +131,10 @@
       foreignImportName = HsName
         "@NsVar"
         "no_args",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_simple_func_63e35f316cc0a04e",
       foreignImportCallConv =
@@ -95,8 +156,10 @@
       foreignImportName = HsName
         "@NsVar"
         "no_args_no_void",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_simple_func_9d7e58d4e189732b",
       foreignImportCallConv =
@@ -118,11 +181,30 @@
       foreignImportName = HsName
         "@NsVar"
         "fun",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCChar)
-        (HsFun
-          (HsPrimType HsPrimCDouble)
-          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCChar,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_simple_func_a2c97786cd1ecc82",
       foreignImportCallConv =
@@ -130,12 +212,22 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

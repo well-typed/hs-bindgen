@@ -208,7 +208,7 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs    :: [Type]
+      functionArgs    :: [(Maybe MangleNames.NamePair, Type)]
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
     }

@@ -16,8 +16,10 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

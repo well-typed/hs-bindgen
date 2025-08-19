@@ -47,57 +47,106 @@ newtype Size_t = Size_t
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_d2d46ab14aa4b1f9" __f1 :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_d2d46ab14aa4b1f9" __f1
+  :: IO ()
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_8b60d38de80093fa" f1 :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8b60d38de80093fa" f1
+  :: IO ()
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_72e7e9398b70632a" my_memalign :: Size_t -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_72e7e9398b70632a" my_memalign
+  :: Size_t
+  -> Size_t
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_1e1fd866f4d88373" my_calloc :: Size_t -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_1e1fd866f4d88373" my_calloc
+  :: Size_t
+  -> Size_t
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_3c7e2f0546d7f0f8" my_realloc :: (F.Ptr Void) -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_3c7e2f0546d7f0f8" my_realloc
+  :: F.Ptr Void
+  -> Size_t
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_4cb3f4400795f3dc" my_alloc1 :: Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_4cb3f4400795f3dc" my_alloc1
+  :: Size_t
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_e3dd92fe5b87fb45" my_alloc2 :: Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_e3dd92fe5b87fb45" my_alloc2
+  :: Size_t
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_8effe939268709e4" square :: FC.CInt -> FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8effe939268709e4" square
+  :: FC.CInt
+  -> FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_1dddc7f5a16104d4" old_fn :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_1dddc7f5a16104d4" old_fn
+  :: IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_77f81f76a170977e" my_dgettext :: (F.Ptr FC.CChar) -> (F.Ptr FC.CChar) -> IO (F.Ptr FC.CChar)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_77f81f76a170977e" my_dgettext
+  :: F.Ptr FC.CChar
+     {- ^ __from C:__ @my_domain@ -}
+  -> F.Ptr FC.CChar
+     {- ^ __from C:__ @my_format@ -}
+  -> IO (F.Ptr FC.CChar)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d" fdopen :: FC.CInt -> (F.Ptr FC.CChar) -> IO (F.Ptr FILE)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d" fdopen
+  :: FC.CInt
+  -> F.Ptr FC.CChar
+  -> IO (F.Ptr FILE)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_4a86b0420a250963" f2 :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_4a86b0420a250963" f2
+  :: IO ()
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_bcbe640b60445a4f" my_memcpy :: (F.Ptr Void) -> (F.Ptr Void) -> Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_bcbe640b60445a4f" my_memcpy
+  :: F.Ptr Void
+     {- ^ __from C:__ @dest@ -}
+  -> F.Ptr Void
+     {- ^ __from C:__ @src@ -}
+  -> Size_t
+     {- ^ __from C:__ @len@ -}
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9" fatal :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9" fatal
+  :: IO ()
 
 {-|
 
   Marked @__attribute((pure))__@
 
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_71214e4420f53a0e" hash :: (F.Ptr FC.CChar) -> IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_71214e4420f53a0e" hash
+  :: F.Ptr FC.CChar
+  -> IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_a71e3488215ca2b1" mymalloc :: Size_t -> IO (F.Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_a71e3488215ca2b1" mymalloc
+  :: Size_t
+     {- ^ __from C:__ @len@ -}
+  -> IO (F.Ptr Void)
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88" foobar :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88" foobar
+  :: IO ()
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_ab8f0d32c1f84295" core2_func :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_ab8f0d32c1f84295" core2_func
+  :: IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_f50d1e8063148c18" sse3_func :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_f50d1e8063148c18" sse3_func
+  :: IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_1b95ce9d55223970" f3 :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_1b95ce9d55223970" f3
+  :: IO ()
 
-foreign import ccall safe "get_i_ptr" i_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_i_ptr" i_ptr
+  :: F.Ptr FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_43b222bddec511f3" fn :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_43b222bddec511f3" fn
+  :: IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_fd90ce98862f93f3" y :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_fd90ce98862f93f3" y
+  :: IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_8dadf866461c7be6" x1 :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8dadf866461c7be6" x1
+  :: IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_31759f8ffef2c6b0" x2 :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_31759f8ffef2c6b0" x2
+  :: IO FC.CInt

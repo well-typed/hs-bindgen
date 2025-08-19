@@ -173,7 +173,7 @@ instance NameUseSites C.CheckedMacroType where
 
 instance NameUseSites C.Function where
   nameUseSites env C.Function{..} = C.Function{
-        functionArgs = map (nameUseSites env) functionArgs
+        functionArgs = map (bimap id (nameUseSites env)) functionArgs
       , functionRes  = nameUseSites env functionRes
       , ..
       }

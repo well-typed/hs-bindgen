@@ -8,8 +8,19 @@
       foreignImportName = HsName
         "@NsVar"
         "foo",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCDouble)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_definitions_a7d624773bb0585c",
@@ -18,8 +29,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -35,8 +51,10 @@
       foreignImportName = HsName
         "@NsVar"
         "n_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_n_ptr",
       foreignImportCallConv =

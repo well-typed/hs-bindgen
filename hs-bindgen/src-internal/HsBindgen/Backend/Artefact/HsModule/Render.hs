@@ -22,7 +22,7 @@ import Numeric (showHex)
 import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
+import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.SHs.AST
@@ -144,11 +144,19 @@ prettyCommentKind includeCName commentKind =
         case commentTitle of
           Nothing -> empty
           Just ct -> hsep (map pretty ct)
-   in   vsep (string commentStart <+> firstContent
-             : map (nest indentation . pretty) commentChildren)
-    $+$ vcat [ fromCCtxDoc
-             , string commentEnd
-             ]
+      -- If the comment only has the the origin C Name then use that has the
+      -- title.
+   in case commentChildren of
+        [] | Nothing <- commentTitle ->
+              string commentStart
+          <+> fromCCtxDoc
+          <+> string commentEnd
+
+        _  -> vsep (string commentStart <+> firstContent
+                   : map (nest indentation . pretty) commentChildren)
+          $+$ vcat [ fromCCtxDoc
+                   , string commentEnd
+                   ]
 
 instance Pretty CommentKind where
   pretty = prettyCommentKind True
@@ -298,16 +306,19 @@ instance Pretty SDecl where
                     ImportAsPtr   -> "&"
                 , string $ Text.unpack foreignImportOrigName
                 ])
+
           prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
-      in  prettyFunctionComment
-       $$ hsep [ "foreign import"
-               , callconv
-               , safety
-               , "\"" >< impent >< "\""
-               , pretty foreignImportName
-               , "::"
-               , pretty foreignImportType
-               ]
+
+      in   prettyFunctionComment
+       $$  hsep [ "foreign import"
+                , callconv
+                , safety
+                , "\"" >< impent >< "\""
+                , pretty foreignImportName
+                ]
+       $$  nest 2 "::"
+       <+> prettyForeignImportType foreignImportResultType
+                                   foreignImportParameters
 
     DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment
                                             $$ "deriving" <+> strategy derivingInstanceStrategy
@@ -356,6 +367,28 @@ pragma (NOINLINE n) = "{-# NOINLINE" <+> pretty n <+> "#-}"
 
 instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
+
+prettyForeignImportType :: ResultType ClosedType -> [FunctionParameter] -> CtxDoc
+prettyForeignImportType resultType params =
+  case params of
+    [] -> prettyResultType resultType
+    _  -> prettyParams params
+  where
+    prettyParam FunctionParameter{..} =
+         prettyType EmptyEnv 0 functionParameterType
+      $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
+
+    prettyResultType = \case
+      NormalResultType t -> prettyType EmptyEnv 0 t
+      HeapResultType t   ->
+        let finalResType = TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit))
+         in prettyType EmptyEnv 0 t
+         $$ nest (-3) ("->" <+> prettyType EmptyEnv 0 finalResType)
+
+    prettyParams []     = prettyResultType resultType
+    prettyParams (p:ps) =
+         prettyParam p
+      $$ nest (-3) ("->" <+> prettyParams ps)
 
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case

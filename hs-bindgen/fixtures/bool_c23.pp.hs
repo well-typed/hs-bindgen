@@ -10,4 +10,5 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 
 $(CAPI.addCSource "#include <bool_c23.h>\n__attribute__ ((const)) _Bool *get_b_ptr (void) { return &b; } \n")
 
-foreign import ccall safe "get_b_ptr" b_ptr :: F.Ptr FC.CBool
+foreign import ccall safe "get_b_ptr" b_ptr
+  :: F.Ptr FC.CBool

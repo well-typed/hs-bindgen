@@ -27,10 +27,11 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocks)
+import HsBindgen.Backend.Hs.Haddock.Translation ( generateHaddocks, generateHaddocksWithParams )
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
+import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
@@ -46,7 +47,6 @@ import HsBindgen.PrettyC qualified as PC
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), Idx (..), pattern I1, pattern I2,
                  sizeEnv, tabulateEnv, weaken, zipWithEnv)
-import HsBindgen.Backend.UniqueId
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -368,7 +368,7 @@ structDecs opts info struct spec fields = do
         fieldName    = C.nameHs (C.structFieldName f)
       , fieldType    = typ (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
-      , fieldComment = fmap generateHaddocks (C.structFieldComment f)
+      , fieldComment = generateHaddocks (C.structFieldComment f)
       }
 
     candidateInsts :: Set HsTypeClass
@@ -395,7 +395,7 @@ structDecs opts info struct spec fields = do
               , declKind = Origin.Struct struct
               , declSpec = spec
               }
-          , structComment = fmap generateHaddocks (C.declComment info)
+          , structComment = generateHaddocks (C.declComment info)
           }
 
         structDecl :: Hs.Decl
@@ -484,7 +484,7 @@ opaqueDecs origin info spec = do
           , declKind = origin
           , declSpec = spec
           }
-      , emptyDataComment = fmap generateHaddocks (C.declComment info)
+      , emptyDataComment = generateHaddocks (C.declComment info)
       }
 
 opaqueStructDecs ::
@@ -546,7 +546,7 @@ unionDecs info union spec = do
           , declKind = Origin.Union union
           , declSpec = spec
           }
-      , newtypeComment = fmap generateHaddocks (C.declComment info)
+      , newtypeComment = generateHaddocks (C.declComment info)
       }
 
     newtypeDecl :: Hs.Decl
@@ -600,7 +600,7 @@ unionDecs info union spec = do
                         unionGetterName    = getterName
                       , unionGetterType    = hsType
                       , unionGetterConstr  = newtypeName
-                      , unionGetterComment = fmap generateHaddocks unionFieldComment
+                      , unionGetterComment = generateHaddocks unionFieldComment
                                           <> commentRefName (getHsName setterName)
                       }
                   , Hs.DeclUnionSetter
@@ -657,7 +657,7 @@ enumDecs opts info e spec = do
           , declKind = Origin.Enum e
           , declSpec = spec
           }
-      , newtypeComment = fmap generateHaddocks (C.declComment info)
+      , newtypeComment = generateHaddocks (C.declComment info)
       }
 
     newtypeDecl :: Hs.Decl
@@ -709,7 +709,7 @@ enumDecs opts info e spec = do
           , patSynConstr  = newtypeConstr
           , patSynValue   = enumConstantValue
           , patSynOrigin  = Origin.EnumConstant enumValue
-          , patSynComment = fmap generateHaddocks enumConstantComment
+          , patSynComment = generateHaddocks enumConstantComment
           }
         | enumValue@C.EnumConstant{..} <- C.enumConstants e
         ]
@@ -810,7 +810,7 @@ typedefDecs opts info typedef spec = do
               , declKind = Origin.Typedef typedef
               , declSpec = spec
               }
-          , newtypeComment = fmap generateHaddocks (C.declComment info)
+          , newtypeComment = generateHaddocks (C.declComment info)
           }
 
         newtypeDecl :: Hs.Decl
@@ -904,7 +904,7 @@ macroDecsTypedef opts info macroType spec = do
               , declKind = Origin.Macro macroType
               , declSpec = spec
               }
-          , newtypeComment = fmap generateHaddocks (C.declComment info)
+          , newtypeComment = generateHaddocks (C.declComment info)
           }
 
         newtypeDecl :: Hs.Decl
@@ -1183,25 +1183,25 @@ functionDecs ::
   -> [Hs.Decl]
 functionDecs opts moduleName typedefs info f _spec =
     [ Hs.DeclInlineCInclude $ getHashIncludeArg $ C.declHeader info
-    , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res args) ""
+    , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res wrappedArgTypes) ""
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = importName
-        , foreignImportType     = importType
+        , foreignImportResultType = resType
+        , foreignImportParameters = parsedArgs
         , foreignImportOrigName = T.pack wrapperName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Function f
-        , foreignImportComment  = fmap generateHaddocks
-                                       (C.declComment info)
+        , foreignImportComment  = mbFIComment
                                <> ioComment
         }
     ] ++
-    [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res args
+    [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
     | anyFancy
     ]
   where
     -- fancy types are heap types or constant arrays,
     -- i.e. ones we create high-level wrapper.
-    anyFancy = any p (res : args) where
+    anyFancy = any p (res : wrappedArgTypes) where
         p WrapType {} = False
         p HeapType {} = True
         p CAType {}   = True
@@ -1213,8 +1213,18 @@ functionDecs opts moduleName typedefs info f _spec =
         | otherwise  = highlevelName
 
     res = wrapType $ C.functionRes f
-    args = wrapType <$> C.functionArgs f
-    attrs = C.functionAttrs f
+    (mbFIComment, parsedArgs) = generateHaddocksWithParams (C.declComment info) args
+    args = [ Hs.FunctionParameter
+              { functionParameterName    = fmap C.nameHs mbName
+              , functionParameterType    = typ' CFunArg (unwrapType (wrapType ty))
+              , functionParameterComment = Nothing
+              }
+           | (mbName, ty) <- C.functionArgs f
+           ]
+    wrappedArgTypes =
+      [ wrapType ty
+      | (_, ty) <- C.functionArgs f
+      ]
 
     -- types which we cannot pass directly using C FFI.
     wrapType :: C.Type -> WrappedType
@@ -1232,13 +1242,12 @@ functionDecs opts moduleName typedefs info f _spec =
             go ty'
         go _ = WrapType oty
 
-    importType :: HsType
-    importType = case res of
-        HeapType {} ->
-            foldr HsFun (HsIO $ typ' CFunRes C.TypeVoid) (typ' CFunArg . unwrapType <$> (args ++ [res]))
+    resType :: ResultType HsType
+    resType =
+      case res of
+        HeapType {} -> HeapResultType $ typ' CFunRes $ unwrapType res
 
-        WrapType {} ->
-            foldr HsFun (hsIO $ typ' CFunRes $ unwrapType res) (typ' CFunArg . unwrapType <$> args)
+        WrapType {} -> NormalResultType $ hsIO $ typ' CFunRes $ unwrapType res
 
         CAType {} ->
             panicPure "ConstantArray cannot occur as a result type"
@@ -1253,12 +1262,12 @@ functionDecs opts moduleName typedefs info f _spec =
     -- An exception to the rules: the foreign import function returns @void@
     -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
     -- does not make much sense, and so we just return the result in 'IO'.
-    hsIO :: HsType -> HsType
+    hsIO :: Hs.HsType -> Hs.HsType
     -- | C-pure functions can be safely encapsulated using 'unsafePerformIO' to
     -- create a Haskell-pure functions. We include a comment in the generated
     -- bindings to this effect.
     ioComment :: Maybe Hs.Comment
-    (hsIO, ioComment) = case C.functionPurity attrs of
+    (hsIO, ioComment) = case C.functionPurity (C.functionAttrs f) of
         C.HaskellPureFunction -> (id  , Nothing)
         C.CPureFunction       -> (HsIO, Just pureComment)
         C.ImpureFunction      -> (HsIO, Nothing)
@@ -1362,11 +1371,12 @@ mkGlobal mInstsMap info ty _spec =
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = stubImportName
-        , foreignImportType     = stubImportType
+        , foreignImportParameters = []
+        , foreignImportResultType = stubImportType
         , foreignImportOrigName = T.pack stubName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = fmap generateHaddocks (C.declComment info)
+        , foreignImportComment  = generateHaddocks (C.declComment info)
         }
     ] ++ concat [
       [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
@@ -1394,8 +1404,8 @@ mkGlobal mInstsMap info ty _spec =
     stubImportName :: HsName 'NsVar
     stubImportName = HsName $ T.pack (varName ++ "_ptr")
 
-    stubImportType :: HsType
-    stubImportType = typ stubType
+    stubImportType :: ResultType HsType
+    stubImportType = NormalResultType $ typ stubType
 
     -- TODO: the stub name should go through the name mangler. See #946.
     stubName :: String
@@ -1449,7 +1459,7 @@ macroVarDecs info macroExpr = [
           { varDeclName    = hsVarName
           , varDeclType    = quantTyHsTy macroExprType
           , varDeclBody    = hsBody
-          , varDeclComment = fmap generateHaddocks (C.declComment info)
+          , varDeclComment = generateHaddocks (C.declComment info)
           }
     | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
     ]

@@ -80,17 +80,27 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"})],
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -119,14 +129,24 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -158,15 +178,25 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
-                      "TC"}))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = HsIdentifier
+                        "TC"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -198,14 +228,24 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource)],
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "MC",
+                    nameHsIdent = HsIdentifier "MC"}
+                  NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -431,23 +471,33 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct2")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct2",
-                      nameHsIdent = HsIdentifier
-                        "Struct2"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct2")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct2",
+                        nameHsIdent = HsIdentifier
+                          "Struct2"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -474,18 +524,28 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct3_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct3_t"})),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct3_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct3_t"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -512,21 +572,31 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct4")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct4",
-                      nameHsIdent = HsIdentifier
-                        "Struct4"}
-                    NameOriginInSource))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct4")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct4",
+                        nameHsIdent = HsIdentifier
+                          "Struct4"}
+                      NameOriginInSource)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -553,18 +623,28 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
-                    "Struct1"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct1",
+                    nameHsIdent = HsIdentifier
+                      "Struct1"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -591,18 +671,28 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
-                    "Struct3"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct3",
+                    nameHsIdent = HsIdentifier
+                      "Struct3"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -629,18 +719,28 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeStruct
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct4",
-                  nameHsIdent = HsIdentifier
-                    "Struct4"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource],
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct4",
+                    nameHsIdent = HsIdentifier
+                      "Struct4"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

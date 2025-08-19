@@ -36,13 +36,20 @@ instance F.Storable Thing where
           Thing thing_x2 ->
             F.pokeByteOff ptr0 (0 :: Int) thing_x2
 
-foreign import ccall safe "hs_bindgen_test_struct_arg_be997777eb388096" thing_fun_1_wrapper :: (F.Ptr Thing) -> IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_struct_arg_be997777eb388096" thing_fun_1_wrapper
+  :: F.Ptr Thing
+     {- ^ __from C:__ @x@ -}
+  -> IO FC.CInt
 
 thing_fun_1 :: Thing -> IO FC.CInt
 thing_fun_1 =
   \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
 
-foreign import ccall safe "hs_bindgen_test_struct_arg_c719e5e844a53956" thing_fun_2_wrapper :: FC.CInt -> (F.Ptr Thing) -> IO ()
+foreign import ccall safe "hs_bindgen_test_struct_arg_c719e5e844a53956" thing_fun_2_wrapper
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> F.Ptr Thing
+  -> IO ()
 
 thing_fun_2 :: FC.CInt -> IO Thing
 thing_fun_2 =
@@ -50,7 +57,15 @@ thing_fun_2 =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             thing_fun_2_wrapper x0 z1)
 
-foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fun_3a_wrapper :: FC.CInt -> (F.Ptr Thing) -> FC.CDouble -> (F.Ptr Thing) -> IO ()
+foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fun_3a_wrapper
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> F.Ptr Thing
+     {- ^ __from C:__ @y@ -}
+  -> FC.CDouble
+     {- ^ __from C:__ @z@ -}
+  -> F.Ptr Thing
+  -> IO ()
 
 thing_fun_3a :: FC.CInt -> Thing -> FC.CDouble -> IO Thing
 thing_fun_3a =
@@ -61,7 +76,14 @@ thing_fun_3a =
                      HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                              thing_fun_3a_wrapper x0 y3 x2 z4))
 
-foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fun_3b_wrapper :: FC.CInt -> (F.Ptr Thing) -> FC.CDouble -> IO FC.CChar
+foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fun_3b_wrapper
+  :: FC.CInt
+     {- ^ __from C:__ @x@ -}
+  -> F.Ptr Thing
+     {- ^ __from C:__ @y@ -}
+  -> FC.CDouble
+     {- ^ __from C:__ @z@ -}
+  -> IO FC.CChar
 
 thing_fun_3b :: FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar
 thing_fun_3b =

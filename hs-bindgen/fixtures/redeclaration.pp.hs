@@ -23,7 +23,8 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 
 $(CAPI.addCSource "#include <redeclaration.h>\n__attribute__ ((const)) signed int *get_x_ptr (void) { return &x; } \n")
 
-foreign import ccall safe "get_x_ptr" x_ptr :: F.Ptr FC.CInt
+foreign import ccall safe "get_x_ptr" x_ptr
+  :: F.Ptr FC.CInt
 
 newtype Int_t = Int_t
   { un_Int_t :: FC.CInt

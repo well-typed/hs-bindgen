@@ -8,8 +8,10 @@
       foreignImportName = HsName
         "@NsVar"
         "i1_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_i1_ptr",
       foreignImportCallConv =
@@ -27,8 +29,10 @@
       foreignImportName = HsName
         "@NsVar"
         "i2_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_i2_ptr",
       foreignImportCallConv =
@@ -46,8 +50,10 @@
       foreignImportName = HsName
         "@NsVar"
         "i3_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_i3_ptr",
       foreignImportCallConv =

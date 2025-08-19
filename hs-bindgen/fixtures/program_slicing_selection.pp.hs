@@ -124,4 +124,11 @@ instance F.Storable FileOperationRecord where
                  F.pokeByteOff ptr0 (0 :: Int) fileOperationRecord_status2
               >> F.pokeByteOff ptr0 (8 :: Int) fileOperationRecord_bytes_processed3
 
-foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk :: (F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
+foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk
+  :: F.Ptr HsBindgen.Runtime.Prelude.CFile
+     {- ^ __from C:__ @file_ptr@ -}
+  -> F.Ptr Void
+     {- ^ __from C:__ @buffer@ -}
+  -> HsBindgen.Runtime.Prelude.CSize
+     {- ^ __from C:__ @bytes_to_read@ -}
+  -> IO FileOperationStatus

@@ -302,7 +302,14 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (F.Ptr HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper
+  :: F.Ptr A_type_t
+     {- ^ __from C:__ @i@ -}
+  -> HsBindgen.Runtime.Prelude.Word32
+     {- ^ __from C:__ @j@ -}
+  -> F.Ptr HsBindgen.Runtime.Prelude.Word8
+     {- ^ __from C:__ @k@ -}
+  -> IO HsBindgen.Runtime.Prelude.Int32
 
 some_fun :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 some_fun =
@@ -318,4 +325,5 @@ newtype Callback_t = Callback_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-foreign import ccall safe "get_v_ptr" v_ptr :: F.Ptr Var_t
+foreign import ccall safe "get_v_ptr" v_ptr
+  :: F.Ptr Var_t

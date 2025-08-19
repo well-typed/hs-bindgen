@@ -42,6 +42,7 @@ module HsBindgen.Backend.Hs.AST (
   , HsTypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
+  , FunctionParameter(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -118,13 +119,21 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName     :: HsName NsVar
-    , foreignImportType     :: HsType
-    , foreignImportOrigName :: Text
-    , foreignImportCallConv :: CallConv
-    , foreignImportOrigin   :: Origin.ForeignImport
-    , foreignImportComment  :: Maybe Comment
+    { foreignImportName       :: HsName NsVar
+    , foreignImportParameters :: [FunctionParameter]
+    , foreignImportResultType :: ResultType HsType
+    , foreignImportOrigName   :: Text
+    , foreignImportCallConv   :: CallConv
+    , foreignImportOrigin     :: Origin.ForeignImport
+    , foreignImportComment    :: Maybe Comment
     }
+  deriving stock (Generic, Show)
+
+data FunctionParameter = FunctionParameter
+  { functionParameterName    :: Maybe (HsName NsVar)
+  , functionParameterType    :: HsType
+  , functionParameterComment :: Maybe Comment
+  }
   deriving stock (Generic, Show)
 
 data UnionGetter = UnionGetter

@@ -466,16 +466,35 @@
       foreignImportName = HsName
         "@NsVar"
         "new_vector",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCDouble)
-        (HsFun
-          (HsPrimType HsPrimCDouble)
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Vector"))))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Vector")))),
       foreignImportOrigName =
       "hs_bindgen_test_vector_72a6c90b1b14a9b0",
       foreignImportCallConv =
@@ -483,10 +502,20 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

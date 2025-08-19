@@ -389,8 +389,10 @@
       foreignImportName = HsName
         "@NsVar"
         "c\978",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_adios_8e1936b23d816eb2",
       foreignImportCallConv =
@@ -411,8 +413,10 @@
       foreignImportName = HsName
         "@NsVar"
         "\25308\25308",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_adios_5c74896d56245684",
       foreignImportCallConv =
@@ -433,8 +437,10 @@
       foreignImportName = HsName
         "@NsVar"
         "say\25308\25308",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_adios_e8498bfc0fabc9e9",
       foreignImportCallConv =

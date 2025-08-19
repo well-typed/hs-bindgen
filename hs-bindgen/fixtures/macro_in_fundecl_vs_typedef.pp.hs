@@ -28,13 +28,33 @@ newtype TC = TC
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad" quux1 :: MC -> TC -> IO FC.CChar
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad" quux1
+  :: MC
+     {- ^ __from C:__ @x@ -}
+  -> TC
+     {- ^ __from C:__ @y@ -}
+  -> IO FC.CChar
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2" quux2 :: MC -> FC.CChar -> IO TC
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2" quux2
+  :: MC
+     {- ^ __from C:__ @x@ -}
+  -> FC.CChar
+     {- ^ __from C:__ @y@ -}
+  -> IO TC
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0" wam1 :: FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0" wam1
+  :: FC.CFloat
+     {- ^ __from C:__ @x@ -}
+  -> F.Ptr TC
+     {- ^ __from C:__ @y@ -}
+  -> IO (F.Ptr MC)
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210" wam2 :: FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210" wam2
+  :: FC.CFloat
+     {- ^ __from C:__ @x@ -}
+  -> F.Ptr MC
+     {- ^ __from C:__ @y@ -}
+  -> IO (F.Ptr TC)
 
 data Struct1 = Struct1
   { struct1_a :: FC.CInt
@@ -134,14 +154,44 @@ instance F.Storable Struct4 where
           Struct4 struct4_a2 ->
             F.pokeByteOff ptr0 (0 :: Int) struct4_a2
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0" struct_typedef1 :: (F.Ptr Struct2) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0" struct_typedef1
+  :: F.Ptr Struct2
+     {- ^ __from C:__ @s@ -}
+  -> MC
+     {- ^ __from C:__ @x@ -}
+  -> IO ()
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d" struct_typedef2 :: (F.Ptr Struct3_t) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d" struct_typedef2
+  :: F.Ptr Struct3_t
+     {- ^ __from C:__ @s@ -}
+  -> MC
+     {- ^ __from C:__ @x@ -}
+  -> IO ()
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94" struct_typedef3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94" struct_typedef3
+  :: F.Ptr Struct4
+     {- ^ __from C:__ @s@ -}
+  -> MC
+     {- ^ __from C:__ @x@ -}
+  -> IO ()
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26" struct_name1 :: (F.Ptr Struct1) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26" struct_name1
+  :: F.Ptr Struct1
+     {- ^ __from C:__ @s@ -}
+  -> MC
+     {- ^ __from C:__ @x@ -}
+  -> IO ()
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449" struct_name2 :: (F.Ptr Struct3) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449" struct_name2
+  :: F.Ptr Struct3
+     {- ^ __from C:__ @s@ -}
+  -> MC
+     {- ^ __from C:__ @x@ -}
+  -> IO ()
 
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf" struct_name3 :: (F.Ptr Struct4) -> MC -> IO ()
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf" struct_name3
+  :: F.Ptr Struct4
+     {- ^ __from C:__ @s@ -}
+  -> MC
+     {- ^ __from C:__ @x@ -}
+  -> IO ()

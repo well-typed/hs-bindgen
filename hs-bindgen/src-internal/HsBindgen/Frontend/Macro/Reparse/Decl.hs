@@ -93,7 +93,7 @@ reparseFieldDecl tyEnv = do
     Right ( ty, DeclName nm ) -> return ( ty, nm )
 
 -- | Reparse a C function declaration.
-reparseFunDecl :: Macro.TypeEnv -> Reparse (([C.Type],C.Type), C.Name)
+reparseFunDecl :: Macro.TypeEnv -> Reparse (([(Maybe C.Name, C.Type)],C.Type), C.Name)
 reparseFunDecl tyEnv = do
   ( specs, decl ) <- reparseDeclaration @Concrete tyEnv
   eof
@@ -101,9 +101,33 @@ reparseFunDecl tyEnv = do
     Left err -> unexpected err
     Right ( ty, DeclName nm )
       | C.TypeFun args res <- ty
-      -> return ( (args, res), nm )
+      , FunctionDirectDeclarator FunctionDeclarator {..} <- directDeclarator decl
+      , let mbArgNames =
+              fmap ( extractNameFromDeclator
+                   . parameterDeclarator
+                   )
+                   functionParameters
+      -> return ( (zip mbArgNames args, res), nm )
       | otherwise
       -> unexpected $ "expected a function type, but got: " ++ show ty
+  where
+    extractNameFromDeclator :: ParameterDeclarator -> Maybe C.Name
+    extractNameFromDeclator decl =
+        case decl of
+          ParameterAbstractDeclarator _       -> Nothing
+          ParameterDeclarator Declarator {..} ->
+            extractNameFromDirectDeclator directDeclarator
+
+    extractNameFromDirectDeclator :: DirectDeclarator 'Concrete -> Maybe C.Name
+    extractNameFromDirectDeclator ddecl =
+      case ddecl of
+        IdentifierDeclarator (DeclName t) _              -> Just t
+        ParenDeclarator Declarator {..}                  ->
+          extractNameFromDirectDeclator directDeclarator
+        ArrayDirectDeclarator ArrayDeclarator {..}       ->
+          extractNameFromDirectDeclator arrayDirectDeclarator
+        FunctionDirectDeclarator FunctionDeclarator {..} ->
+          extractNameFromDirectDeclator functionDirectDeclarator
 
 -- | Reparse a C @typedef@ declaration.
 reparseTypedef :: Macro.TypeEnv -> Reparse C.Type

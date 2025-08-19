@@ -54,7 +54,7 @@ depsOfDecl (DeclMacro _ts) =
     -- having /any/ dependencies, and will rely instead on source ordering.
     []
 depsOfDecl (DeclFunction (Function {..})) =
-    map (uncurry aux) $ concatMap depsOfType (functionRes : functionArgs)
+    map (uncurry aux) $ concatMap depsOfType (functionRes : map snd functionArgs)
   where
     aux :: ValOrRef -> C.NsPrelimDeclId -> (Usage, C.NsPrelimDeclId)
     aux isPtr nsid = (UsedInFunction isPtr, nsid)

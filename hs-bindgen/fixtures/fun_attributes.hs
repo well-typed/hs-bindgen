@@ -501,8 +501,10 @@
       foreignImportName = HsName
         "@NsVar"
         "__f1",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_d2d46ab14aa4b1f9",
       foreignImportCallConv =
@@ -524,8 +526,10 @@
       foreignImportName = HsName
         "@NsVar"
         "f1",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_8b60d38de80093fa",
       foreignImportCallConv =
@@ -547,19 +551,28 @@
       foreignImportName = HsName
         "@NsVar"
         "my_memalign",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Size_t"))
-        (HsFun
-          (HsTypRef
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
             (HsName
               "@NsTypeConstr"
-              "Size_t"))
-          (HsIO
-            (HsPtr
-              (HsPrimType HsPrimVoid)))),
+              "Size_t"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Size_t"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_72e7e9398b70632a",
       foreignImportCallConv =
@@ -567,18 +580,22 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -594,19 +611,28 @@
       foreignImportName = HsName
         "@NsVar"
         "my_calloc",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Size_t"))
-        (HsFun
-          (HsTypRef
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
             (HsName
               "@NsTypeConstr"
-              "Size_t"))
-          (HsIO
-            (HsPtr
-              (HsPrimType HsPrimVoid)))),
+              "Size_t"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Size_t"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_1e1fd866f4d88373",
       foreignImportCallConv =
@@ -614,18 +640,22 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -641,16 +671,26 @@
       foreignImportName = HsName
         "@NsVar"
         "my_realloc",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimVoid))
-        (HsFun
-          (HsTypRef
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
             (HsName
               "@NsTypeConstr"
-              "Size_t"))
-          (HsIO
-            (HsPtr
-              (HsPrimType HsPrimVoid)))),
+              "Size_t"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_3c7e2f0546d7f0f8",
       foreignImportCallConv =
@@ -658,13 +698,17 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypePointer TypeVoid),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -680,11 +724,17 @@
       foreignImportName = HsName
         "@NsVar"
         "my_alloc1",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Size_t"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Size_t"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPtr
             (HsPrimType HsPrimVoid))),
@@ -695,12 +745,14 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -716,11 +768,17 @@
       foreignImportName = HsName
         "@NsVar"
         "my_alloc2",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Size_t"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Size_t"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPtr
             (HsPrimType HsPrimVoid))),
@@ -731,12 +789,14 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})],
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -752,8 +812,15 @@
       foreignImportName = HsName
         "@NsVar"
         "square",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsPrimType HsPrimCInt),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_8effe939268709e4",
@@ -762,8 +829,10 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             HaskellPureFunction,
@@ -779,8 +848,10 @@
       foreignImportName = HsName
         "@NsVar"
         "old_fn",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_1dddc7f5a16104d4",
       foreignImportCallConv =
@@ -803,13 +874,34 @@
       foreignImportName = HsName
         "@NsVar"
         "my_dgettext",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimCChar))
-        (HsFun
-          (HsPtr (HsPrimType HsPrimCChar))
-          (HsIO
-            (HsPtr
-              (HsPrimType HsPrimCChar)))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "my_domain"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "my_domain",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "my_format"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "my_format",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_77f81f76a170977e",
       foreignImportCallConv =
@@ -817,16 +909,28 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "my_domain",
+                  nameHsIdent = HsIdentifier
+                    "my_domain"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "my_format",
+                  nameHsIdent = HsIdentifier
+                    "my_format"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -845,16 +949,27 @@
       foreignImportName = HsName
         "@NsVar"
         "fdopen",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
-        (HsFun
-          (HsPtr (HsPrimType HsPrimCChar))
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "FILE"))))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "FILE")))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d",
       foreignImportCallConv =
@@ -862,13 +977,17 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePointer
+            _×_
+              Nothing
               (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              Nothing
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -894,8 +1013,10 @@
       foreignImportName = HsName
         "@NsVar"
         "f2",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_4a86b0420a250963",
       foreignImportCallConv =
@@ -917,18 +1038,44 @@
       foreignImportName = HsName
         "@NsVar"
         "my_memcpy",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimVoid))
-        (HsFun
-          (HsPtr (HsPrimType HsPrimVoid))
-          (HsFun
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Size_t"))
-            (HsIO
-              (HsPtr
-                (HsPrimType HsPrimVoid))))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "dest"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "dest",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "src"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "src",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "len"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Size_t"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "len",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_bcbe640b60445a4f",
       foreignImportCallConv =
@@ -936,14 +1083,32 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer TypeVoid,
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "size_t",
+                  nameC = Name "dest",
                   nameHsIdent = HsIdentifier
-                    "Size_t"})],
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = HsIdentifier
+                    "src"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "len",
+                  nameHsIdent = HsIdentifier
+                    "len"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -959,8 +1124,10 @@
       foreignImportName = HsName
         "@NsVar"
         "fatal",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9",
       foreignImportCallConv =
@@ -982,8 +1149,15 @@
       foreignImportName = HsName
         "@NsVar"
         "hash",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimCChar))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_71214e4420f53a0e",
@@ -992,11 +1166,13 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+            _×_
+              Nothing
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             CPureFunction,
@@ -1025,11 +1201,21 @@
       foreignImportName = HsName
         "@NsVar"
         "mymalloc",
-      foreignImportType = HsFun
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Size_t"))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "len"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Size_t"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "len",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO
           (HsPtr
             (HsPrimType HsPrimVoid))),
@@ -1040,12 +1226,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "size_t",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
-                    "Size_t"})],
+                    "len"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1061,8 +1253,10 @@
       foreignImportName = HsName
         "@NsVar"
         "foobar",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88",
       foreignImportCallConv =
@@ -1084,8 +1278,10 @@
       foreignImportName = HsName
         "@NsVar"
         "core2_func",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_ab8f0d32c1f84295",
       foreignImportCallConv =
@@ -1108,8 +1304,10 @@
       foreignImportName = HsName
         "@NsVar"
         "sse3_func",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_f50d1e8063148c18",
       foreignImportCallConv =
@@ -1132,8 +1330,10 @@
       foreignImportName = HsName
         "@NsVar"
         "f3",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimUnit),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_1b95ce9d55223970",
       foreignImportCallConv =
@@ -1155,8 +1355,10 @@
       foreignImportName = HsName
         "@NsVar"
         "i_ptr",
-      foreignImportType = HsPtr
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "get_i_ptr",
       foreignImportCallConv =
@@ -1174,8 +1376,10 @@
       foreignImportName = HsName
         "@NsVar"
         "fn",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_43b222bddec511f3",
       foreignImportCallConv =
@@ -1198,8 +1402,10 @@
       foreignImportName = HsName
         "@NsVar"
         "y",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_fd90ce98862f93f3",
       foreignImportCallConv =
@@ -1222,8 +1428,10 @@
       foreignImportName = HsName
         "@NsVar"
         "x1",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_8dadf866461c7be6",
       foreignImportCallConv =
@@ -1246,8 +1454,10 @@
       foreignImportName = HsName
         "@NsVar"
         "x2",
-      foreignImportType = HsIO
-        (HsPrimType HsPrimCInt),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_31759f8ffef2c6b0",
       foreignImportCallConv =

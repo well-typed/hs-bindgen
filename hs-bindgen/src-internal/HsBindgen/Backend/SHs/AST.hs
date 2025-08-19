@@ -19,6 +19,7 @@ module HsBindgen.Backend.SHs.AST (
     DerivingInstance (..),
     Newtype (..),
     ForeignImport (..),
+    FunctionParameter (..),
     PatternSynonym (..),
 ) where
 
@@ -335,14 +336,26 @@ data Newtype = Newtype {
     }
   deriving stock (Show)
 
+-- | We might want to reconsider the decision of having 'functionParameterType'
+-- as well as 'foreignImportResultType' be a 'ClosedType' if we ever want to
+-- generate polymorphic type signatures.
+--
 data ForeignImport = ForeignImport
-    { foreignImportName     :: HsName NsVar
-    , foreignImportType     :: ClosedType
-    , foreignImportOrigName :: Text
-    , foreignImportCallConv :: CallConv
-    , foreignImportOrigin   :: Origin.ForeignImport
-    , foreignImportComment  :: Maybe Comment
+    { foreignImportName       :: HsName NsVar
+    , foreignImportParameters :: [FunctionParameter]
+    , foreignImportResultType :: ResultType ClosedType
+    , foreignImportOrigName   :: Text
+    , foreignImportCallConv   :: CallConv
+    , foreignImportOrigin     :: Origin.ForeignImport
+    , foreignImportComment    :: Maybe Comment
     }
+  deriving stock (Show)
+
+data FunctionParameter = FunctionParameter
+  { functionParameterName    :: Maybe (HsName NsVar)
+  , functionParameterType    :: ClosedType
+  , functionParameterComment :: Maybe Comment
+  }
   deriving stock (Show)
 
 data PatternSynonym = PatternSynonym

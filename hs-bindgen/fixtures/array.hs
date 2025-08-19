@@ -7,10 +7,13 @@
       foreignImportName = HsName
         "@NsVar"
         "arr0_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          3
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            3
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr0_ptr",
       foreignImportCallConv =
@@ -36,10 +39,13 @@
       foreignImportName = HsName
         "@NsVar"
         "arr1_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          3
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            3
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr1_ptr",
       foreignImportCallConv =
@@ -65,10 +71,13 @@
       foreignImportName = HsName
         "@NsVar"
         "arr2_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          3
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            3
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr2_ptr",
       foreignImportCallConv =
@@ -94,10 +103,13 @@
       foreignImportName = HsName
         "@NsVar"
         "arr3_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          3
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            3
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr3_ptr",
       foreignImportCallConv =
@@ -123,10 +135,13 @@
       foreignImportName = HsName
         "@NsVar"
         "arr6_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          1
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            1
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr6_ptr",
       foreignImportCallConv =
@@ -152,9 +167,12 @@
       foreignImportName = HsName
         "@NsVar"
         "arr7_ptr",
-      foreignImportType = HsPtr
-        (HsIncompleteArray
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsIncompleteArray
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr7_ptr",
       foreignImportCallConv =
@@ -992,10 +1010,13 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_1_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          3
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsConstArray
+            3
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr_1_ptr",
       foreignImportCallConv =
@@ -1021,11 +1042,14 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_2_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Triplet")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Triplet"))),
       foreignImportOrigName =
       "get_arr_2_ptr",
       foreignImportCallConv =
@@ -1053,9 +1077,12 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_3_ptr",
-      foreignImportType = HsPtr
-        (HsIncompleteArray
-          (HsPrimType HsPrimCInt)),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsIncompleteArray
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "get_arr_3_ptr",
       foreignImportCallConv =
@@ -1080,11 +1107,14 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_4_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "List")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "List"))),
       foreignImportOrigName =
       "get_arr_4_ptr",
       foreignImportCallConv =
@@ -1112,12 +1142,15 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_5_ptr",
-      foreignImportType = HsPtr
-        (HsConstArray
-          4
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
           (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+            4
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "get_arr_5_ptr",
       foreignImportCallConv =
@@ -1147,11 +1180,14 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_6_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Matrix")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Matrix"))),
       foreignImportOrigName =
       "get_arr_6_ptr",
       foreignImportCallConv =
@@ -1179,11 +1215,14 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_7_ptr",
-      foreignImportType = HsPtr
-        (HsIncompleteArray
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsIncompleteArray
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "get_arr_7_ptr",
       foreignImportCallConv =
@@ -1212,11 +1251,14 @@
       foreignImportName = HsName
         "@NsVar"
         "arr_8_ptr",
-      foreignImportType = HsPtr
-        (HsTypRef
-          (HsName
-            "@NsTypeConstr"
-            "Tripletlist")),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Tripletlist"))),
       foreignImportOrigName =
       "get_arr_8_ptr",
       foreignImportCallConv =
@@ -1244,11 +1286,30 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_1_wrapper",
-      foreignImportType = HsFun
-        (HsPrimType HsPrimCInt)
-        (HsFun
-          (HsPtr (HsPrimType HsPrimCInt))
-          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_c3dd28889d5b2858",
       foreignImportCallConv =
@@ -1256,12 +1317,25 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypeConstArray
-              3
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
-                (PrimIntegral PrimInt Signed))],
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1285,8 +1359,19 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_2_wrapper",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimCInt))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_3a8794adaf677495",
@@ -1295,12 +1380,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "triplet",
+                  nameC = Name "xs",
                   nameHsIdent = HsIdentifier
-                    "Triplet"})],
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = HsIdentifier
+                      "Triplet"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1324,8 +1415,19 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_3_wrapper",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimCInt))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_9d59f0f165a2f5cf",
@@ -1334,9 +1436,17 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeIncompleteArray
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeIncompleteArray
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1360,8 +1470,19 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_4_wrapper",
-      foreignImportType = HsFun
-        (HsPtr (HsPrimType HsPrimCInt))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_c650da1d5d7cf63d",
@@ -1370,12 +1491,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "list",
+                  nameC = Name "xs",
                   nameHsIdent = HsIdentifier
-                    "List"})],
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = HsIdentifier
+                      "List"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1399,11 +1526,21 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_5_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt)))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_cfa709c8c74d1eb7",
@@ -1412,14 +1549,20 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeConstArray
-              4
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
               (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+                4
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1443,11 +1586,21 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_6_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt)))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_0432f7eb5cf9a91a",
@@ -1456,12 +1609,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "matrix",
+                  nameC = Name "xss",
                   nameHsIdent = HsIdentifier
-                    "Matrix"})],
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = HsIdentifier
+                      "Matrix"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1485,11 +1644,21 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_7_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt)))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_8dff35caae296df4",
@@ -1498,13 +1667,19 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeIncompleteArray
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1528,11 +1703,21 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_8_wrapper",
-      foreignImportType = HsFun
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt)))
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
       "hs_bindgen_test_array_b7ed421e8d20e910",
@@ -1541,12 +1726,18 @@
       foreignImportOrigin = Function
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "tripletlist",
+                  nameC = Name "xss",
                   nameHsIdent = HsIdentifier
-                    "Tripletlist"})],
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = HsIdentifier
+                      "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1570,11 +1761,14 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_9",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_c189d8ac4373a49e",
       foreignImportCallConv =
@@ -1608,12 +1802,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_10",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Triplet"))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Triplet")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_8c628ce09b6680aa",
       foreignImportCallConv =
@@ -1647,10 +1844,13 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_11",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsIncompleteArray
-            (HsPrimType HsPrimCInt))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_1b95257f679dfafa",
       foreignImportCallConv =
@@ -1683,12 +1883,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_12",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "List"))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "List")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_41c7417f447a711d",
       foreignImportCallConv =
@@ -1722,13 +1925,16 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_13",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsConstArray
-            4
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
             (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
+              4
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_array_752ccb7f8f99f330",
       foreignImportCallConv =
@@ -1764,12 +1970,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_14",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Matrix"))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Matrix")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_6f6335641a10b824",
       foreignImportCallConv =
@@ -1803,12 +2012,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_15",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsIncompleteArray
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_array_22a4737ff5651e15",
       foreignImportCallConv =
@@ -1843,12 +2055,15 @@
       foreignImportName = HsName
         "@NsVar"
         "fun_16",
-      foreignImportType = HsIO
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Tripletlist"))),
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Tripletlist")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_bce26548e8519620",
       foreignImportCallConv =

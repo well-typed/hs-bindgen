@@ -122,7 +122,18 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
 
-foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper :: (F.Ptr Int32_T) -> (F.Ptr Cint16_T) -> Int64_T -> Int64_T -> (F.Ptr Cint16_T) -> IO ()
+foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper
+  :: F.Ptr Int32_T
+     {- ^ __from C:__ @res_m_num_valid_samples@ -}
+  -> F.Ptr Cint16_T
+     {- ^ __from C:__ @res_m_iq_int@ -}
+  -> Int64_T
+     {- ^ __from C:__ @res_m_old_rate@ -}
+  -> Int64_T
+     {- ^ __from C:__ @res_m_new_rate@ -}
+  -> F.Ptr Cint16_T
+     {- ^ __from C:__ @res_m_iq_resampled_int@ -}
+  -> IO ()
 
 resample :: (F.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()
 resample =

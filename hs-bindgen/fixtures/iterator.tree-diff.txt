@@ -44,7 +44,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim PrimBool],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim PrimBool)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -74,12 +80,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Toggle",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Toggle"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -105,12 +117,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Toggle",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Toggle"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -168,10 +186,22 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "increment",
+                  nameHsIdent = HsIdentifier
+                    "increment"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -201,12 +231,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Counter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Counter"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -232,12 +268,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Counter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Counter"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -297,8 +339,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -328,14 +376,26 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "VarCounter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "VarCounter"}),
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "increment",
+                  nameHsIdent = HsIdentifier
+                    "increment"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -362,12 +422,18 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeTypedef
-              (TypedefRegular
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "VarCounter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "VarCounter"})],
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

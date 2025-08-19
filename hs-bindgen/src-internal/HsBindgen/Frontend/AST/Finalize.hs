@@ -222,7 +222,7 @@ instance Finalize Int.Function where
   type Finalized Int.Function = Ext.Function
 
   finalize function = Ext.Function{
-        functionArgs = map finalize functionArgs
+        functionArgs = map (bimap id finalize) functionArgs
       , functionAttrs
       , functionRes  = finalize functionRes
       }

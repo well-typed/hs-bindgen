@@ -484,357 +484,375 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "uint8_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}}),
-            TypePointer
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "uint8_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}}),
-            TypePointer
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "size_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}})],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input_data",
+                  nameHsIdent = HsIdentifier
+                    "input_data"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "output_data",
+                  nameHsIdent = HsIdentifier
+                    "output_data"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "size_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "CSize"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "CSize"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -937,10 +955,16 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing)))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "filename",
+                  nameHsIdent = HsIdentifier
+                    "filename"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1014,10 +1038,22 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "base",
+                  nameHsIdent = HsIdentifier
+                    "base"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "multiplier",
+                  nameHsIdent = HsIdentifier
+                    "multiplier"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1173,8 +1209,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = HsIdentifier
+                    "value"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1277,128 +1319,140 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "items",
+                  nameHsIdent = HsIdentifier
+                    "items"})
               (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed))))),
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}],
+                (TypePointer
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = HsIdentifier
+                    "count"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1474,7 +1528,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer TypeVoid],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr",
+                  nameHsIdent = HsIdentifier
+                    "ptr"})
+              (TypePointer TypeVoid)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1548,11 +1608,17 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input",
+                  nameHsIdent = HsIdentifier
+                    "input"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1612,8 +1678,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "old_param",
+                  nameHsIdent = HsIdentifier
+                    "old_param"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1680,8 +1752,14 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "data'"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3241,128 +3319,140 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypeConstArray
-              64
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "buffer",
+                  nameHsIdent = HsIdentifier
+                    "buffer"})
+              (TypeConstArray
+                64
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3442,124 +3532,141 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer TypeVoid,
-            TypePointer TypeVoid,
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "dest",
+                  nameHsIdent = HsIdentifier
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = HsIdentifier
+                    "src"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "n",
+                  nameHsIdent = HsIdentifier "n"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3611,8 +3718,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -4019,36 +4131,170 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "config_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "config_t",
-                      nameHsIdent = HsIdentifier
-                        "Config_t"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "doxygen_docs.h:232:9"))))),
-            TypePointer
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "config",
+                  nameHsIdent = HsIdentifier
+                    "config"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "config_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "config_t",
+                        nameHsIdent = HsIdentifier
+                          "Config_t"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "doxygen_docs.h:232:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "data'"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
-                    qualNameName = Name "uint8_t",
+                    qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
                   extHsRef = ExtHsRef {
                     extHsRefModule = HsModuleName
                       "HsBindgen.Runtime.Prelude",
                     extHsRefIdentifier =
-                    HsIdentifier "Word8"},
+                    HsIdentifier "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
                       (HsModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (HsIdentifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -4147,123 +4393,7 @@ TranslationUnit {
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = [
-                                ]})]}}),
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}],
+                                ]})]}})],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -4299,11 +4429,16 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
           functionAttrs =
           FunctionAttributes
             CPureFunction,
@@ -4330,8 +4465,13 @@ TranslationUnit {
       declKind = DeclFunction
         Function {
           functionArgs = [
-            TypePrim
-              (PrimIntegral PrimInt Signed)],
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
           functionAttrs =
           FunctionAttributes
             HaskellPureFunction,

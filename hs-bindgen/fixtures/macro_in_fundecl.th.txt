@@ -10,8 +10,8 @@
 -- signed int (*hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e (signed long arg1)) (S arg1) { return bar3(arg1); }
 -- I (*hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801 (signed long arg1)) (signed short arg1) { return bar4(arg1); }
 -- signed int (*hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69 (signed int arg1))[2][3] { return baz1(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (I arg1))[2][3] { return baz2(arg1); }
--- I (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int arg1))[2][3] { return baz3(arg1); }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int arg1))[2][3] { return baz2(arg1); }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int arg1))[2][3] { return baz3(arg1); }
 -- I hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b (void) { return no_args_no_void(); }
 newtype I
     = I {un_I :: CInt}
@@ -106,12 +106,12 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69" ba
                                                                                       IO (Ptr (ConstantArray 2
                                                                                                              (ConstantArray 3
                                                                                                                             CInt)))
-foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c" baz2 :: I ->
+foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c" baz2 :: CInt ->
                                                                                       IO (Ptr (ConstantArray 2
                                                                                                              (ConstantArray 3
                                                                                                                             CInt)))
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d" baz3 :: CInt ->
                                                                                       IO (Ptr (ConstantArray 2
                                                                                                              (ConstantArray 3
-                                                                                                                            I)))
+                                                                                                                            CInt)))
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b" no_args_no_void :: IO I
