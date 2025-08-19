@@ -6,7 +6,6 @@
 module Test.HsBindgen.Golden.Check.TH (check) where
 
 import Data.Generics qualified as SYB
-import Data.Map (Map)
 import Data.Map.Strict qualified as Map
 
 import Control.Monad (join)
@@ -21,10 +20,11 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import System.FilePath (makeRelative)
 
-import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..),
-                                             prettyCommentKind)
+import HsBindgen.Backend.Artefact.HsModule.Render (CommentKind (..),
+                                                   prettyCommentKind)
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
 import HsBindgen.Guasi
+import HsBindgen.Imports
 import HsBindgen.Lib
 import HsBindgen.TH.Internal
 
@@ -45,12 +45,17 @@ check testResources test =
     goldenAnsiDiff "th" fixture $ \_report ->
       if ghcAtLeast904 then do
         pkgroot <- getTestPackageRoot testResources
-        let artefacts = Dependencies :* FinalDecls :* getExtensions :* Nil
-        (I deps :* I decls :* I requiredExts :* Nil) <-
+        let artefacts = Dependencies :* FinalDecls :* Nil
+        -- We do not have access to 'Q', and so have to compute the 'getThDecls'
+        -- artefact manually.
+        (I deps :* I decls :* Nil) <-
           runTestHsBindgen testResources test artefacts
 
-        let thDecls :: Qu [TH.Dec]
-            thDecls = genBindingsFromCHeader deps decls requiredExts
+        let requiredExts :: Set TH.Extension
+            requiredExts = getExtensions decls
+
+            thDecls :: Qu [TH.Dec]
+            thDecls = getThDecls deps decls requiredExts
 
             (QuState{..}, thdecs) = runQu thDecls
 
@@ -283,8 +288,8 @@ thCompatPprBody docMap eq body =
 -- | Compatible guarded expression pretty-printing
 --
 thCompatPprGuarded :: Map TH.DocLoc (Maybe Comment) -> TH.Doc -> (TH.Guard, TH.Exp) -> TH.Doc
-thCompatPprGuarded docMap eqDoc (guard, expr) =
-  case guard of
+thCompatPprGuarded docMap eqDoc (guard', expr) =
+  case guard' of
     TH.NormalG guardExpr -> TH.bar
                      TH.<+> thCompatPprExp docMap guardExpr
                      TH.<+> eqDoc

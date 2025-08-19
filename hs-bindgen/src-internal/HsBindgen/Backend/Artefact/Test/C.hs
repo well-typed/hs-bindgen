@@ -31,7 +31,6 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 genTestsC ::
      FilePath             -- ^ C test header file path
   -> FilePath             -- ^ C test source file path
-  -> Int                  -- ^ Maximum line length
   -> [HashIncludeArg] -- ^ C header paths
   -> [Hs.Decl]            -- ^ Declarations
   -> IO ()

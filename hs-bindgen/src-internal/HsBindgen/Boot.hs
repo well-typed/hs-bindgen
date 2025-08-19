@@ -4,12 +4,11 @@ module HsBindgen.Boot
   , BootMsg (..)
   ) where
 
-import GHC.Generics (Generic)
-
 import Clang.Args
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -23,14 +22,16 @@ import HsBindgen.Util.Tracer
 -- - Load prescriptive binding specifications.
 boot ::
      Tracer IO BootMsg
-  -> Config
-  -> BindingSpecConfig
+  -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot tracer config bindingSpecConfig uncheckedHashIncludeArgs = do
-    let tracerConfig :: Tracer IO ConfigMsg
-        tracerConfig = contramap BootConfig tracer
-    checkConfig tracerConfig config
+boot
+  tracer
+  BindgenConfig{..}
+  uncheckedHashIncludeArgs = do
+    let tracerBackendConfig :: Tracer IO BackendConfigMsg
+        tracerBackendConfig = contramap BootBackendConfig tracer
+    checkBackendConfig tracerBackendConfig bindgenBackendConfig
     let tracerHashInclude :: Tracer IO HashIncludeArgMsg
         tracerHashInclude = contramap BootHashIncludeArg tracer
     hashIncludeArgs <-
@@ -46,7 +47,10 @@ boot tracer config bindingSpecConfig uncheckedHashIncludeArgs = do
         }
   where
     clangArgs :: ClangArgs
-    clangArgs = configClangArgs config
+    clangArgs = frontendClangArgs bindgenFrontendConfig
+
+    bindingSpecConfig :: BindingSpecConfig
+    bindingSpecConfig = bootBindingSpecConfig bindgenBootConfig
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -64,7 +68,7 @@ data BootArtefact = BootArtefact {
 
 -- | Boot trace messages
 data BootMsg =
-    BootConfig         ConfigMsg
+    BootBackendConfig  BackendConfigMsg
   | BootHashIncludeArg HashIncludeArgMsg
   | BootBindingSpec    BindingSpecMsg
   deriving stock (Show, Eq, Generic)

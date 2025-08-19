@@ -92,10 +92,10 @@ import HsBindgen.Util.Tracer
 --   the 'Hs' phase, but we have to draw the line somewhere.
 frontend ::
      Tracer IO FrontendMsg
-  -> Config
+  -> FrontendConfig
   -> BootArtefact
   -> IO FrontendArtefact
-frontend tracer Config{..} BootArtefact{..} = do
+frontend tracer FrontendConfig{..} BootArtefact{..} = do
     -- Frontend: Impure parse pass
     (afterParse, isMainHeader, isInMainHeaderDir) <- fmap (fromMaybe emptyParseResult) $
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
@@ -104,7 +104,7 @@ frontend tracer Config{..} BootArtefact{..} = do
         reifiedUnit <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
-          configParsePredicate
+          frontendParsePredicate
           includeGraph
           isMainHeader
           isInMainHeaderDir
@@ -166,13 +166,14 @@ frontend tracer Config{..} BootArtefact{..} = do
     rootHeader = fromMainFiles bootHashIncludeArgs
 
     setup :: ClangSetup
-    setup = (defaultClangSetup configClangArgs $ ClangInputMemory hFilePath hContent) {
-          clangFlags = bitfieldEnum [
-              CXTranslationUnit_DetailedPreprocessingRecord
-            , CXTranslationUnit_IncludeAttributedTypes
-            , CXTranslationUnit_VisitImplicitAttributes
-            ]
-        }
+    setup = (defaultClangSetup frontendClangArgs $
+              ClangInputMemory hFilePath hContent) {
+                clangFlags = bitfieldEnum [
+                    CXTranslationUnit_DetailedPreprocessingRecord
+                  , CXTranslationUnit_IncludeAttributedTypes
+                  , CXTranslationUnit_VisitImplicitAttributes
+                  ]
+              }
 
     hFilePath :: FilePath
     hFilePath = getSourcePath name
@@ -181,7 +182,8 @@ frontend tracer Config{..} BootArtefact{..} = do
     hContent = content rootHeader
 
     selectConfig :: SelectConfig
-    selectConfig = SelectConfig configProgramSlicing configSelectPredicate
+    selectConfig =
+      SelectConfig frontendProgramSlicing frontendSelectPredicate
 
     emptyTranslationUnit :: TranslationUnit Parse
     emptyTranslationUnit = TranslationUnit {

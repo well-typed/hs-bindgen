@@ -5,7 +5,7 @@ module HsBindgen.Guasi (
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 
-import HsBindgen.Backend.Artefact.PP.Render (CommentKind (..))
+import HsBindgen.Backend.Artefact.HsModule.Render (CommentKind (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 
 import Text.SimplePrettyPrint (pretty)

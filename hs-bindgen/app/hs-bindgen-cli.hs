@@ -46,22 +46,19 @@ execPreprocess GlobalOpts{..} PreprocessOpts{..} = do
       -- evaluating `hsBindgen`. The types don't line up. (We even have to pull
       -- 'void' inside the case statement).
       Nothing ->
-        let artefacts =    writeBindings config output
-                        :* Nil
+        let artefacts = writeBindings output :* Nil
         in  void $ run artefacts
       Just file ->
-        let artefacts =    writeBindings config output
-                        :* writeBindingSpec config file
-                        :* Nil
+        let artefacts = writeBindings output :* writeBindingSpec file :* Nil
         in  void $ run $ artefacts
   where
     run :: Artefacts as -> IO (NP I as)
-    run = hsBindgen tracerConfig config bindingSpecConfig inputs
+    run = hsBindgen tracerConfig bindgenConfig inputs
 
 execGenTests :: GlobalOpts -> GenTestsOpts -> IO ()
 execGenTests GlobalOpts{..} GenTestsOpts{..} = do
-  let artefacts = writeTests config output :* Nil
-  void $ hsBindgen tracerConfig config bindingSpecConfig inputs artefacts
+  let artefacts = writeTests output :* Nil
+  void $ hsBindgen tracerConfig bindgenConfig inputs artefacts
 
 execLiterate :: LiterateOpts -> IO ()
 execLiterate opts = do

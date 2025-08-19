@@ -10,32 +10,26 @@ module HsBindgen.TH (
     TH.withHsBindgen
   , TH.hashInclude
 
-    -- * Options
-  , Common.Config(..)
+    -- * Configuration
   , TH.IncludeDir(..)
   , TH.BindgenOpts(..)
-  , TH.tracerConfigDefQ
+  , TH.tracerConfigDefTH
 
-    -- ** Clang arguments
+    -- ** Boot
+  , Common.BootConfig
+    -- *** Binding specifications
+  , Common.BindingSpecConfig(..)
+  , Common.EnableStdlibBindingSpec(..)
+
+    -- ** Frontend
+  , Common.FrontendConfig(..)
+    -- *** Clang arguments
   , Common.ClangArgs(..)
   , Common.Target(..)
   , Common.TargetEnv(..)
   , Common.targetTriple
   , Common.CStandard(..)
-
-    -- ** Binding specifications
-  , Common.BindingSpec -- opaque
-  , Common.emptyBindingSpec
-  , Common.EnableStdlibBindingSpec(..)
-  , Common.BindingSpecConfig(..)
-
-    -- ** Translation options
-  , Common.UniqueId(..)
-  , Common.TranslationOpts(..)
-  , Common.Strategy(..)
-  , Common.HsTypeClass(..)
-
-    -- ** Selection predicates
+    -- *** Predicates
   , Common.Predicate(..)
   , Common.HeaderPathPredicate (..)
   , Common.DeclPredicate (..)
@@ -43,9 +37,17 @@ module HsBindgen.TH (
   , Common.SelectPredicate
   , Common.Regex -- opaque
   , Common.mergePredicates
-
-    -- ** Program slicing
+    -- *** Program slicing
   , Common.ProgramSlicing(..)
+
+    -- ** Backend
+  , Common.BackendConfig(..)
+    -- *** Translation options
+  , Common.UniqueId(..)
+  , Common.TranslationOpts(..)
+  , Common.Strategy(..)
+  , Common.HsTypeClass(..)
+  , Common.HsModuleOpts(..)
 
     -- * Paths
   , Common.HashIncludeArg(..)
@@ -97,7 +99,6 @@ module HsBindgen.TH (
   , Common.AnsiColor(..)
   , Common.Report
   , Common.OutputConfig(..)
-  , Tracer.outputConfigQ
     -- *** Custom log levels
   , Common.CustomLogLevel(..)
   , Common.customLogLevelFrom
@@ -112,5 +113,3 @@ module HsBindgen.TH (
 import HsBindgen.Common qualified as Common
 
 import HsBindgen.TH.Internal qualified as TH
-
-import HsBindgen.Util.Tracer qualified as Tracer

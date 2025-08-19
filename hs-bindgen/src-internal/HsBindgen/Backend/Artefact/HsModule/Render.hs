@@ -2,11 +2,9 @@
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module HsBindgen.Backend.Artefact.PP.Render (
+module HsBindgen.Backend.Artefact.HsModule.Render (
     -- * Rendering
-    HsRenderOpts(..)
-  , render
-  , renderIO
+    render
     -- * Rendering comments
   , prettyCommentKind
   , CommentKind (..)
@@ -20,19 +18,18 @@ import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Numeric (showHex)
-import System.IO
 
-import HsBindgen.Backend.Artefact.PP.Names
-import HsBindgen.Backend.Artefact.PP.Translation
+import HsBindgen.Backend.Artefact.HsModule.Names
+import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import HsBindgen.Backend.SHs.AST
 import Text.SimplePrettyPrint
 
 import C.Char (CharValue (..))
@@ -42,26 +39,9 @@ import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
   Rendering
 -------------------------------------------------------------------------------}
 
--- | Rendering options
-newtype HsRenderOpts = HsRenderOpts {
-      hsLineLength :: Int
-    }
-  deriving stock (Show)
-
-instance Default HsRenderOpts where
-  def = HsRenderOpts {
-      hsLineLength = 80
-    }
-
 -- | Render generated bindings
-render :: HsRenderOpts -> HsModule -> String
-render HsRenderOpts{..} = (++ "\n") . renderPretty (mkContext hsLineLength)
-
--- | Write rendered bindings to the specified file (or @stdout@)
-renderIO :: HsRenderOpts -> Maybe FilePath -> HsModule -> IO ()
-renderIO opts Nothing   modl = putStr $ render opts modl
-renderIO opts (Just fp) modl = withFile fp WriteMode $ \h ->
-    hPutStr h $ render opts modl
+render :: HsModule -> String
+render = (++ "\n") . renderPretty (mkContext 80)
 
 {-------------------------------------------------------------------------------
   Module pretty-printing

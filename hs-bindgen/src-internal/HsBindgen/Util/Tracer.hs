@@ -25,7 +25,7 @@ module HsBindgen.Util.Tracer (
   , AnsiColor (..)
   , Report
   , OutputConfig (..)
-  , outputConfigQ
+  , outputConfigTH
   , CustomLogLevel (..)
   , TracerConfig (..)
     -- * Tracers
@@ -51,7 +51,7 @@ import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
 import GHC.Generics as GHC
 import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
-import Language.Haskell.TH (Q, reportError, reportWarning)
+import Language.Haskell.TH (reportError, reportWarning, runQ)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
                             ConsoleLayer (Foreground),
@@ -346,14 +346,16 @@ instance Default (OutputConfig m a) where
 -- Propagate warnings and errors to GHC.
 --
 -- Report traces with other log levels to `stdout`.
-outputConfigQ :: OutputConfig Q a
-outputConfigQ = OutputCustom report DisableAnsiColor
+outputConfigTH :: OutputConfig IO a
+outputConfigTH = OutputCustom report DisableAnsiColor
   where
-    report :: Report Q a
+    report :: Report IO a
     report level _ = case level of
-      Warning -> reportWarning
-      Error   -> reportError
-      _level  -> liftIO . putStr
+      -- NOTE: In general, 'runQ' is a bad idea, but it supports 'reportWarning'
+      -- and 'reportError'.
+      Warning -> runQ . reportWarning
+      Error   -> runQ . reportError
+      _level  -> putStr
 
 -- | Sometimes, we want to change log levels. For example, we want to suppress
 -- specific traces in tests.

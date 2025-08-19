@@ -16,12 +16,10 @@ import Data.Map.Strict qualified as Map
 import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 
-import HsBindgen.Backend.Artefact.PP.Translation (HsModuleOpts (..))
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private qualified as BindingSpec
-import HsBindgen.Config (Config (..))
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -41,17 +39,14 @@ import HsBindgen.Language.Haskell
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 genBindingSpec ::
-     Config
+     HsModuleName
   -> [HashIncludeArg]
   -> FilePath
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec Config{..} hashIncludeArgs path =
+genBindingSpec hsModuleName hashIncludeArgs path =
       BindingSpec.writeFile path
     . genBindingSpec' hashIncludeArgs hsModuleName
-  where
-    hsModuleName :: HsModuleName
-    hsModuleName = hsModuleOptsName configHsModuleOpts
 
 {-------------------------------------------------------------------------------
   Internal API (for tests)

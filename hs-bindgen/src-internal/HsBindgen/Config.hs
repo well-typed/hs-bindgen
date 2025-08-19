@@ -1,49 +1,94 @@
 module HsBindgen.Config
-  ( Config (..)
-  , ConfigMsg (..)
-  , checkConfig
+  ( -- * Bindgen
+    BindgenConfig (..)
+    -- * Boot
+  , BootConfig (..)
+    -- * Frontend
+  , FrontendConfig (..)
+    -- * Backend
+  , BackendConfig (..)
+  , BackendConfigMsg (..)
+  , checkBackendConfig
   ) where
 
-import Data.Default (Default)
-import GHC.Generics (Generic)
-
 import Clang.Args
-import HsBindgen.Backend.Artefact.PP.Render
-import HsBindgen.Backend.Artefact.PP.Translation
+import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
+import HsBindgen.BindingSpec
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
 --
--- 'Config' determines the "how", not the "what". For example, it should state how
--- we process a header file, but not state which headers we want to process.
+-- 'BindgenConfig' combines all configurable settings of @hs-bindgen@.
 --
--- 'Config' should contain user-provided data, not @hs-bindgen@-provided data.
-data Config = Config {
-      -- Translation
-      configClangArgs       :: ClangArgs
-    , configTranslation     :: TranslationOpts
-    , configParsePredicate  :: ParsePredicate
-    , configSelectPredicate :: SelectPredicate
-    , configProgramSlicing  :: ProgramSlicing
-      -- Pretty printing
-    , configHsModuleOpts    :: HsModuleOpts
-    , configHsRenderOpts    :: HsRenderOpts
+-- NOTE: Configuration types determine the "how", not the "what". For example,
+-- it should state how we process a header file, but not state which headers we
+-- want to process.
+--
+-- NOTE: Configuration types should contain user-provided data, not
+-- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
+-- artefacts.
+data BindgenConfig = BindgenConfig {
+      bindgenBootConfig     :: BootConfig
+    , bindgenFrontendConfig :: FrontendConfig
+    , bindgenBackendConfig  :: BackendConfig
     }
-  deriving stock (Show, Generic)
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
 
-instance Default Config
+{-------------------------------------------------------------------------------
+  Boot configuration
+-------------------------------------------------------------------------------}
 
-checkConfig :: Tracer IO ConfigMsg -> Config -> IO ()
-checkConfig tracer config =
-    checkUniqueId (contramap ConfigUniqueId tracer) uniqueId
+data BootConfig = BootConfig {
+      bootBindingSpecConfig :: BindingSpecConfig
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
+
+{-------------------------------------------------------------------------------
+  Frontend configuration
+-------------------------------------------------------------------------------}
+
+-- | Configuration of frontend of @hs-bindgen@.
+--
+-- The frontend parses the C code and reifies the C declarations.
+data FrontendConfig = FrontendConfig {
+      frontendClangArgs       :: ClangArgs
+    , frontendParsePredicate  :: ParsePredicate
+    , frontendSelectPredicate :: SelectPredicate
+    , frontendProgramSlicing  :: ProgramSlicing
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
+
+{-------------------------------------------------------------------------------
+  Backend configuration
+-------------------------------------------------------------------------------}
+
+-- | Configuration of backend of @hs-bindgen@.
+--
+-- The backend translates the reified C declarations to Haskell declarations.
+--
+-- See also the notes at 'FrontendConfig'.
+data BackendConfig = BackendConfig {
+      backendTranslationOpts :: TranslationOpts
+    , backendHsModuleOpts    :: HsModuleOpts
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
+
+checkBackendConfig :: Tracer IO BackendConfigMsg -> BackendConfig -> IO ()
+checkBackendConfig tracer backendConfig =
+    checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
   where
     uniqueId :: UniqueId
-    uniqueId = translationUniqueId $ configTranslation config
+    uniqueId = translationUniqueId $ backendTranslationOpts backendConfig
 
-data ConfigMsg = ConfigUniqueId UniqueIdMsg
+data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Eq, Ord, Generic)
   deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
