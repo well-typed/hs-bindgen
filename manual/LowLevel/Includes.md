@@ -314,6 +314,13 @@ $ gcc -xc -E -v - </dev/null
 The `hs-bindgen-cli resolve` command may be used debug `hs-bindgen` header
 resolution.
 
+The `hs-bindgen-dev clang` command may be used to query Clang options such as
+`-v` using `libclang`, to confirm `libclang` C include search paths.
+
+```
+$ hs-bindgen-dev clang --clang-option=-v
+```
+
 ### Common issues
 
 * __`stddef.h` not found__ - This error usually indicates that a compiler

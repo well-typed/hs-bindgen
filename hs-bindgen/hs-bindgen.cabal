@@ -293,6 +293,7 @@ executable hs-bindgen-dev
   build-depends:
       -- Internal dependencies
     , hs-bindgen
+    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
   build-depends:

@@ -44,13 +44,16 @@ parseDev =
       <*> parseDevCmd
 
 data DevCmd =
-    -- | Just parse the C headers
-    DevCmdParse ParseOpts
+    DevCmdClang ClangArgs
+  | DevCmdParse ParseOpts
   deriving (Show)
 
 parseDevCmd :: Parser DevCmd
 parseDevCmd = subparser $ mconcat [
-      cmd "parse" (DevCmdParse <$> parseParseOpts) $ mconcat [
+      cmd "clang" (DevCmdClang <$> parseClangArgs) $ mconcat [
+          progDesc "Run Clang with empty input (to debug with options such as -v)"
+        ]
+    , cmd "parse" (DevCmdParse <$> parseParseOpts) $ mconcat [
           progDesc "Parse C header (primarily for debugging hs-bindgen itself)"
         ]
     ]
