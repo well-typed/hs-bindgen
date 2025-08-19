@@ -240,7 +240,7 @@ instance PrettyForTrace ParseMsg where
           ]
 
 -- | Unsupported features are warnings, because we skip over them
-instance HasDefaultLogLevel ParseMsg where
+instance IsTrace Level ParseMsg where
   getDefaultLogLevel = \case
       ParseExcluded{}                  -> Info
       ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
@@ -251,6 +251,5 @@ instance HasDefaultLogLevel ParseMsg where
       ParseUnknownStorageClass{}       -> Warning
       ParsePotentialDuplicateSymbol{}  -> Notice
       ParseNonPublicVisibility{}       -> Warning
-
-instance HasSource ParseMsg where
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "parse"

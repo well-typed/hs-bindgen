@@ -25,10 +25,7 @@ boot ::
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot
-  tracer
-  BindgenConfig{..}
-  uncheckedHashIncludeArgs = do
+boot tracer BindgenConfig{..} uncheckedHashIncludeArgs = do
     let tracerBackendConfig :: Tracer IO BackendConfigMsg
         tracerBackendConfig = contramap BootBackendConfig tracer
     checkBackendConfig tracerBackendConfig bindgenBackendConfig
@@ -72,4 +69,4 @@ data BootMsg =
   | BootHashIncludeArg HashIncludeArgMsg
   | BootBindingSpec    BindingSpecMsg
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)

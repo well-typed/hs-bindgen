@@ -160,17 +160,16 @@ instance PrettyForTrace ClangMsg where
           fmap (Text.dropWhile (== '\'') . Text.dropWhile (/= '\''))
         . Text.stripSuffix "' file not found with <angled> include; use \"quotes\" instead"
 
-instance HasDefaultLogLevel ClangMsg where
+instance IsTrace Level ClangMsg where
   getDefaultLogLevel = \case
       ClangExtraArgs  x -> getDefaultLogLevel x
       ClangErrorCode  _ -> Error
       ClangDiagnostic x -> if diagnosticIsError x then Error else Warning
-
-instance HasSource ClangMsg where
   getSource = \case
       ClangExtraArgs  x -> getSource x
       ClangErrorCode  _ -> Libclang
       ClangDiagnostic _ -> Libclang
+  getTraceId = const "clang"
 
 {-------------------------------------------------------------------------------
   @BINDGEN_EXTRA_CLANG_ARGS@ environment variable
@@ -193,13 +192,12 @@ instance PrettyForTrace ExtraClangArgsMsg where
       "Picked up evironment variable " >< string envName ><
       "; parsed 'libclang' arguments: " >< showToCtxDoc envArgs
 
-instance HasDefaultLogLevel ExtraClangArgsMsg where
+instance IsTrace Level ExtraClangArgsMsg where
   getDefaultLogLevel = \case
     ExtraClangArgsNone -> Debug
     ExtraClangArgsParsed {} -> Info
-
-instance HasSource ExtraClangArgsMsg where
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "extra-clang-args"
 
 -- | Run a continuation honoring @libclang@-specific environment variables.
 --
@@ -217,9 +215,9 @@ instance HasSource ExtraClangArgsMsg where
 --
 -- The values are split into separate command line arguments using
 -- 'splitArguments'.
-withExtraClangArgs :: (HasCallStack, MonadIO m)
-  => Tracer m ExtraClangArgsMsg
-  -> ClangArgs -> (ClangArgs -> m a) -> m a
+withExtraClangArgs :: HasCallStack
+  => Tracer IO ExtraClangArgsMsg
+  -> ClangArgs -> (ClangArgs -> IO a) -> IO a
 withExtraClangArgs tracer args k = do
   extraClangArgs <- getExtraClangArgs tracer (fst <$> clangTarget args)
   k $ args { clangOtherArgs = clangOtherArgs args <> extraClangArgs }
@@ -242,8 +240,8 @@ splitArguments = unescapeArgs
 -- | Get extra `clang` arguments from system environment.
 --
 -- For expectations, see 'Test.HsNindgen.C.Environment.envTests'.
-getExtraClangArgs :: (HasCallStack, MonadIO m)
-  => Tracer m ExtraClangArgsMsg -> Maybe Target -> m [String]
+getExtraClangArgs :: HasCallStack
+  => Tracer IO ExtraClangArgsMsg -> Maybe Target -> IO [String]
 getExtraClangArgs tracer mtarget = do
   extraClangArgsStr <- liftIO $ lookupEnv extraClangArgsEnvName
   case extraClangArgsStr of

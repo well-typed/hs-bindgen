@@ -85,11 +85,12 @@ module HsBindgen.TH (
   , Common.traceWith
   , Common.simpleTracer
     -- ** Data types and typeclasses useful for tracing
-  , Common.Level(..)
   , Common.PrettyForTrace(..)
-  , Common.HasDefaultLogLevel(..)
+  , Common.Level(..)
+  , Common.SafeLevel(..)
   , Common.Source(..)
-  , Common.HasSource(..)
+  , Common.TraceId(..)
+  , Common.IsTrace(..)
   , Common.Verbosity(..)
     -- ** Tracer configuration
   , Common.ShowTimeStamp(..)
@@ -101,8 +102,8 @@ module HsBindgen.TH (
   , Common.OutputConfig(..)
     -- *** Custom log levels
   , Common.CustomLogLevel(..)
-  , Common.customLogLevelFrom
   , Common.CustomLogLevelSetting(..)
+  , Common.getCustomLogLevel
     -- ** Tracers
   , Common.withTracer
 

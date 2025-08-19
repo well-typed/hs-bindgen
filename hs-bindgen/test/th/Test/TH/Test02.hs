@@ -10,7 +10,7 @@ import HsBindgen.TH
 let opts = def {
       extraIncludeDirs   = [ RelativeToPkgRoot "examples"]
     , tracerConfig = tracerConfigDefTH {
-          tCustomLogLevel = customLogLevelFrom [UCharHeaderResolutionTraceIsInfo]
+          tCustomLogLevel = getCustomLogLevel [MakeUCharResolutionTraceInfo]
         }
     }
  in withHsBindgen opts $ hashInclude "test_02.h"

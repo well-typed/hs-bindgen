@@ -19,7 +19,6 @@ module Test.Common.HsBindgen.TracePredicate (
 
 import Control.Exception
 import Control.Monad.Except (Except, runExcept, throwError)
-import Control.Monad.IO.Class
 import Data.Foldable qualified as Foldable
 import Data.IORef
 import Data.Map.Strict (Map)
@@ -47,19 +46,17 @@ newtype TracePredicate a = TracePredicate {
 
 -- | By default, we do not expect any warnings, nor errors ('Unexpected'). Info
 -- and debug messages are 'Tolerate'd.
-defaultTracePredicate
-  :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+defaultTracePredicate :: (IsTrace Level a, Show a)
   => TracePredicate a
 defaultTracePredicate = customTracePredicate [] (const Nothing)
 
 -- | 'Expect' a trace with given name exactly one time.
-singleTracePredicate :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+singleTracePredicate :: (IsTrace Level a, Show a)
   => (a -> Maybe (TraceExpectation ()))
   -> TracePredicate a
 singleTracePredicate predicate = customTracePredicate' [()] predicate
 
-customTracePredicate
-  :: (PrettyForTrace a, HasDefaultLogLevel a, Show a)
+customTracePredicate :: (IsTrace Level a, Show a)
   => [String]
   -- ^ Names/identifiers of expected traces. If a trace is expected N times, add
   -- the name/identifier N times to the list.
@@ -68,8 +65,7 @@ customTracePredicate
   -> TracePredicate a
 customTracePredicate = customTracePredicate'
 
-customTracePredicate'
-  :: forall a b. (HasDefaultLogLevel a, Ord b, WrongCountMsg a b)
+customTracePredicate' :: forall a b. (IsTrace Level a, Ord b, WrongCountMsg a b)
   => [b]
   -> (a -> Maybe (TraceExpectation b))
   -> TracePredicate a
@@ -118,12 +114,8 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTracePredicate
-  :: forall m a b.
-     ( MonadIO m
-     , PrettyForTrace a, HasDefaultLogLevel a, HasSource a
-     , Typeable a, Show a
-     )
-  => TracePredicate a -> (Tracer m a -> m b) -> m b
+  :: (IsTrace Level a , Typeable a, Show a)
+  => TracePredicate a -> (Tracer IO a -> IO b) -> IO b
 withTracePredicate predicate action = fmap fst $
   withTraceConfigPredicate predicate $ \traceConfig ->
     withTracer' traceConfig action
@@ -132,22 +124,19 @@ withTracePredicate predicate action = fmap fst $
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate
-  :: forall m a b.
-     ( MonadIO m
-     , PrettyForTrace a, HasDefaultLogLevel a
-     , Typeable a, Show a
-     )
-  => TracePredicate a -> (TracerConfig m Level a -> m b) -> m b
+  :: forall a b. (IsTrace Level a , Typeable a, Show a)
+  => TracePredicate a -> (TracerConfig IO Level a -> IO b) -> IO b
 withTraceConfigPredicate (TracePredicate predicate) action = do
-  tracesRef <- liftIO $ newIORef []
-  let writer :: Report m a
-      writer _ trace _ = liftIO $ modifyIORef' tracesRef ((:) trace)
+  tracesRef <- newIORef []
+  let writer :: Report IO a
+      writer _ trace _ = modifyIORef' tracesRef ((:) trace)
   actionRes <- action $ def {
-      tOutputConfig = OutputCustom writer DisableAnsiColor
+      tVerbosity    = Verbosity Info
+    , tOutputConfig = OutputCustom writer DisableAnsiColor
     }
-  traces <- liftIO $ readIORef tracesRef
+  traces <- readIORef tracesRef
   case runExcept (predicate traces) of
-    Left  e -> liftIO $ throwIO e
+    Left  e -> throwIO e
     Right _ -> pure actionRes
 
 {-------------------------------------------------------------------------------
@@ -159,8 +148,7 @@ data TraceExpectationException a = TraceExpectationException {
     , expectedTracesWithWrongCounts :: [CtxDoc]
     }
 
-instance (PrettyForTrace a, HasDefaultLogLevel a, Show a)
-      => Show (TraceExpectationException a) where
+instance (IsTrace l a, Show l, Show a) => Show (TraceExpectationException a) where
   show (TraceExpectationException {..}) = PP.renderCtxDoc PP.defaultContext $
       PP.vcat $
            ( if null unexpectedTraces
@@ -181,7 +169,7 @@ instance (PrettyForTrace a, HasDefaultLogLevel a, Show a)
           (prettyAndShowTrace trace)
 
 
-instance (Typeable a, PrettyForTrace a, HasDefaultLogLevel a, Show a)
+instance (Typeable a, IsTrace l a, Show l, Show a)
   => Exception (TraceExpectationException a)
 
 {-------------------------------------------------------------------------------

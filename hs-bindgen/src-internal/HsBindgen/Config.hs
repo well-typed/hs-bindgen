@@ -91,4 +91,4 @@ checkBackendConfig tracer backendConfig =
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Eq, Ord, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)

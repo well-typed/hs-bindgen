@@ -53,9 +53,8 @@ instance PrettyForTrace NameAnonMsg where
         , prettyForTrace info
         ]
 
-instance HasDefaultLogLevel NameAnonMsg where
+instance IsTrace Level NameAnonMsg where
   getDefaultLogLevel = \case
       NameAnonSkipped{} -> Debug -- clang already warned
-
-instance HasSource NameAnonMsg where
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
+  getTraceId = const "name-anon"

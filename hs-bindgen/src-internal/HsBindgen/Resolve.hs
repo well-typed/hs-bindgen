@@ -64,19 +64,18 @@ instance PrettyForTrace ResolveHeaderMsg where
       , "not attempted to be resolved"
       ]
 
-instance HasDefaultLogLevel ResolveHeaderMsg where
+instance IsTrace Level ResolveHeaderMsg where
   getDefaultLogLevel = \case
     ResolveHeaderClang x        -> getDefaultLogLevel x
     ResolveHeaderFound{}        -> Info
     ResolveHeaderNotFound{}     -> Error
     ResolveHeaderNotAttempted{} -> Error
-
-instance HasSource ResolveHeaderMsg where
   getSource = \case
     ResolveHeaderClang x        -> getSource x
     ResolveHeaderFound{}        -> HsBindgen
     ResolveHeaderNotFound{}     -> HsBindgen
     ResolveHeaderNotAttempted{} -> HsBindgen
+  getTraceId = const "resolve-header"
 
 {-------------------------------------------------------------------------------
   API

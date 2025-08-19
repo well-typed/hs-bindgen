@@ -12,12 +12,12 @@ module HsBindgen.Util.Tracer (
   , nullTracer
   , natTracer
     -- * Data types and typeclasses useful for tracing
-  , Level (..)
   , PrettyForTrace (..)
-  , HasDefaultLogLevel (..)
-  , HasDefaultSafeLogLevel (..)
+  , Level (..)
+  , SafeLevel (..)
   , Source (..)
-  , HasSource (..)
+  , TraceId (..)
+  , IsTrace (..)
   , Verbosity (..)
     -- * Tracer configuration
   , ShowTimeStamp (..)
@@ -39,18 +39,15 @@ module HsBindgen.Util.Tracer (
   ) where
 
 import Control.Exception (Exception (..))
-import Control.Monad (MonadPlus (mplus))
-import Control.Monad.IO.Class (MonadIO (liftIO))
 import Control.Tracer (Contravariant (..))
 import Control.Tracer qualified as ContraTracer
 import Data.Data (Typeable)
-import Data.Default (Default (..))
 import Data.IORef (IORef, modifyIORef', newIORef, readIORef)
 import Data.Kind (Type)
 import Data.Time (UTCTime, defaultTimeLocale, formatTime, getCurrentTime)
 import Data.Time.Format (FormatTime)
 import GHC.Generics as GHC
-import GHC.Stack (CallStack, HasCallStack, callStack, prettyCallStack)
+import GHC.Stack (CallStack, callStack, prettyCallStack)
 import Language.Haskell.TH (reportError, reportWarning, runQ)
 import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleIntensity (BoldIntensity),
@@ -60,10 +57,10 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
 import System.IO (Handle, hPutStr, stdout)
 
 import HsBindgen.Errors
+import HsBindgen.Imports
 
 import Text.SimplePrettyPrint (Context, CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
-
 
 {-------------------------------------------------------------------------------
   Definition and main API
@@ -125,6 +122,28 @@ natTracer f =
   Data types and type classes useful for tracing
 -------------------------------------------------------------------------------}
 
+-- | Convert values to textual representations used in traces.
+class PrettyForTrace a where
+  prettyForTrace :: a -> CtxDoc
+  default prettyForTrace :: (Generic a, GPrettyForTrace (Rep a)) => a -> CtxDoc
+  prettyForTrace = gPrettyForTrace'
+
+class GPrettyForTrace (r :: Type -> Type) where
+  gPrettyForTrace :: r x -> CtxDoc
+
+instance GPrettyForTrace r => GPrettyForTrace (M1 tag meta r) where
+  gPrettyForTrace (M1 x) = gPrettyForTrace x
+
+instance (GPrettyForTrace r1, GPrettyForTrace r2) => GPrettyForTrace (r1 :+: r2) where
+  gPrettyForTrace (L1 x) = gPrettyForTrace x
+  gPrettyForTrace (R1 x) = gPrettyForTrace x
+
+instance PrettyForTrace a => GPrettyForTrace (K1 tag a) where
+  gPrettyForTrace (K1 x) = prettyForTrace x
+
+gPrettyForTrace' :: (GHC.Generic a, GPrettyForTrace (GHC.Rep a)) => a -> CtxDoc
+gPrettyForTrace' = gPrettyForTrace .  GHC.from
+
 -- | Log or verbosity level.
 --
 -- Careful, the derived 'Ord' instance is used when determining if a trace
@@ -148,7 +167,7 @@ data Level =
 
     -- | We are unable to produce /any/ bindings at all
   | Error
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
 
 alignLevel :: Level -> String
 alignLevel = \case
@@ -173,88 +192,24 @@ getColorForLevel = \case
 --
 -- Traces with safe log levels can not abort the program.
 data SafeLevel = SafeDebug | SafeInfo | SafeNotice
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord, Bounded)
 
 fromSafeLevel :: SafeLevel -> Level
-fromSafeLevel = \ case
+fromSafeLevel = \case
   SafeDebug  -> Debug
   SafeInfo   -> Info
   SafeNotice -> Notice
 
--- | Convert values to textual representations used in traces.
-class PrettyForTrace a where
-  prettyForTrace :: a -> CtxDoc
-  default prettyForTrace :: (Generic a, GPrettyForTrace (Rep a)) => a -> CtxDoc
-  prettyForTrace = gPrettyForTrace'
-
-class GPrettyForTrace (r :: Type -> Type) where
-  gPrettyForTrace :: r x -> CtxDoc
-
-instance GPrettyForTrace r => GPrettyForTrace (M1 tag meta r) where
-  gPrettyForTrace (M1 x) = gPrettyForTrace x
-
-instance (GPrettyForTrace r1, GPrettyForTrace r2) => GPrettyForTrace (r1 :+: r2) where
-  gPrettyForTrace (L1 x) = gPrettyForTrace x
-  gPrettyForTrace (R1 x) = gPrettyForTrace x
-
-instance PrettyForTrace a => GPrettyForTrace (K1 tag a) where
-  gPrettyForTrace (K1 x) = prettyForTrace x
-
-gPrettyForTrace' :: (GHC.Generic a, GPrettyForTrace (GHC.Rep a)) => a -> CtxDoc
-gPrettyForTrace' = gPrettyForTrace .  GHC.from
-
--- | Get default (or suggested) log level of a trace.
-class HasDefaultLogLevel a where
-  getDefaultLogLevel :: a -> Level
-  default getDefaultLogLevel :: (Generic a, GHasDefaultLogLevel (Rep a)) => a -> Level
-  getDefaultLogLevel = gGetDefaultLogLevel'
-
-class GHasDefaultLogLevel (r :: Type -> Type) where
-  gGetDefaultLogLevel :: r x -> Level
-
-instance GHasDefaultLogLevel r => GHasDefaultLogLevel (M1 tag meta r) where
-  gGetDefaultLogLevel (M1 x) = gGetDefaultLogLevel x
-
-instance (GHasDefaultLogLevel r1, GHasDefaultLogLevel r2) => GHasDefaultLogLevel (r1 :+: r2) where
-  gGetDefaultLogLevel (L1 x) = gGetDefaultLogLevel x
-  gGetDefaultLogLevel (R1 x) = gGetDefaultLogLevel x
-
-instance HasDefaultLogLevel a => GHasDefaultLogLevel (K1 tag a) where
-  gGetDefaultLogLevel (K1 x) = getDefaultLogLevel x
-
-gGetDefaultLogLevel' :: (GHC.Generic a, GHasDefaultLogLevel (GHC.Rep a)) => a -> Level
-gGetDefaultLogLevel' = gGetDefaultLogLevel .  GHC.from
-
--- | Get default (or suggested) safe log level.
-class HasDefaultSafeLogLevel a where
-  getDefaultSafeLogLevel :: a -> SafeLevel
-  default getDefaultSafeLogLevel
-    :: (Generic a, GHasDefaultSafeLogLevel (Rep a))
-    => a -> SafeLevel
-  getDefaultSafeLogLevel = gGetDefaultSafeLogLevel'
-
-class GHasDefaultSafeLogLevel (r :: Type -> Type) where
-  gGetDefaultSafeLogLevel :: r x -> SafeLevel
-
-instance GHasDefaultSafeLogLevel r => GHasDefaultSafeLogLevel (M1 tag meta r) where
-  gGetDefaultSafeLogLevel (M1 x) = gGetDefaultSafeLogLevel x
-
-instance
-     (GHasDefaultSafeLogLevel r1, GHasDefaultSafeLogLevel r2)
-  => GHasDefaultSafeLogLevel (r1 :+: r2) where
-  gGetDefaultSafeLogLevel (L1 x) = gGetDefaultSafeLogLevel x
-  gGetDefaultSafeLogLevel (R1 x) = gGetDefaultSafeLogLevel x
-
-instance HasDefaultSafeLogLevel a => GHasDefaultSafeLogLevel (K1 tag a) where
-  gGetDefaultSafeLogLevel (K1 x) = getDefaultSafeLogLevel x
-
-gGetDefaultSafeLogLevel'
-  :: (GHC.Generic a, GHasDefaultSafeLogLevel (GHC.Rep a))
-  => a -> SafeLevel
-gGetDefaultSafeLogLevel' = gGetDefaultSafeLogLevel .  GHC.from
+toSafeLevel :: Level -> Maybe SafeLevel
+toSafeLevel = \case
+  Debug  -> Just SafeDebug
+  Info   -> Just SafeInfo
+  Notice -> Just SafeNotice
+  _      -> Nothing
 
 -- | Possible sources of traces. The 'Source' is shown by default in traces, and
--- so should be useful to users of @hs-bindgen@.
+-- so should be useful to users of @hs-bindgen@. At the moment, we only
+-- distinguish between 'Libclang' and 'HsBindgen'.
 data Source = Libclang | HsBindgen
   deriving stock (Show, Eq)
 
@@ -263,27 +218,61 @@ alignSource = \case
   Libclang  -> "Libclang "
   HsBindgen -> "HsBindgen"
 
--- | Get source or context of values used in traces.
-class HasSource a where
+newtype TraceId = TraceId { unTraceId :: String }
+  deriving stock (Show, Eq, Ord)
+  deriving IsString via String
+
+class PrettyForTrace a => IsTrace l a | a -> l where
+  -- | Get default (or suggested) log level of a trace.
+  getDefaultLogLevel :: a -> l
+  default getDefaultLogLevel :: (Generic a, GIsTrace l (Rep a)) => a -> l
+  getDefaultLogLevel = gGetDefaultLogLevel'
+  -- | Get source or context of trace.
   getSource :: a -> Source
-  default getSource :: (Generic a, GHasSource (Rep a)) => a -> Source
+  default getSource :: (Generic a, GIsTrace l (Rep a)) => a -> Source
   getSource = gGetSource'
+  -- | The trace identifier does not necessarily have to be unique. For example,
+  -- an non-unique identifier may be used to collect multiple traces in a single
+  -- category.
+  --
+  -- The trace identifier usually starts with a letter and contains only letters
+  -- and dashes (e.g., @my-trace-id@). A good default is the constructor name in
+  -- kebab-case, leaving out potential "-trace" or "-msg" suffixes.
+  getTraceId :: a -> TraceId
+  default getTraceId :: (Generic a, GIsTrace l (Rep a)) => a -> TraceId
+  getTraceId = gGetTraceId'
 
-class GHasSource (r :: Type -> Type) where
-  gGetSource :: r x -> Source
+class GIsTrace l (r :: Type -> Type) | r -> l where
+  gGetDefaultLogLevel :: r x -> l
+  gGetSource          :: r x -> Source
+  gGetTraceId         :: r x -> TraceId
 
-instance GHasSource r => GHasSource (M1 tag meta r) where
-  gGetSource (M1 x) = gGetSource x
+instance GIsTrace l r => GIsTrace l (M1 tag meta r) where
+  gGetDefaultLogLevel (M1 x) = gGetDefaultLogLevel x
+  gGetSource          (M1 x) = gGetSource          x
+  gGetTraceId         (M1 x) = gGetTraceId         x
 
-instance (GHasSource r1, GHasSource r2) => GHasSource (r1 :+: r2) where
-  gGetSource (L1 x) = gGetSource x
-  gGetSource (R1 x) = gGetSource x
+instance (GIsTrace l r1, GIsTrace l r2) => GIsTrace l (r1 :+: r2) where
+  gGetDefaultLogLevel (L1 x) = gGetDefaultLogLevel x
+  gGetDefaultLogLevel (R1 x) = gGetDefaultLogLevel x
+  gGetSource          (L1 x) = gGetSource          x
+  gGetSource          (R1 x) = gGetSource          x
+  gGetTraceId         (L1 x) = gGetTraceId         x
+  gGetTraceId         (R1 x) = gGetTraceId         x
 
-instance HasSource a => GHasSource (K1 tag a) where
-  gGetSource (K1 x) = getSource x
+instance IsTrace l a => GIsTrace l (K1 tag a) where
+  gGetDefaultLogLevel (K1 x) = getDefaultLogLevel x
+  gGetSource          (K1 x) = getSource  x
+  gGetTraceId         (K1 x) = getTraceId x
 
-gGetSource' :: (GHC.Generic a, GHasSource (GHC.Rep a)) => a -> Source
-gGetSource' = gGetSource .  GHC.from
+gGetDefaultLogLevel' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> l
+gGetDefaultLogLevel' = gGetDefaultLogLevel . GHC.from
+
+gGetSource' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> Source
+gGetSource' = gGetSource . GHC.from
+
+gGetTraceId' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> TraceId
+gGetTraceId' = gGetTraceId . GHC.from
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
@@ -360,19 +349,17 @@ outputConfigTH = OutputCustom report DisableAnsiColor
 -- | Sometimes, we want to change log levels. For example, we want to suppress
 -- specific traces in tests.
 --
--- The custom log level function takes a trace and either returns 'Just' a
--- custom log level, or 'Nothing', if it does not customize the log level of the
--- trace.
-newtype CustomLogLevel l a = CustomLogLevel { getCustomLogLevel :: a -> Maybe l }
+-- The custom log level function takes a trace and returns a function
+-- customizing the log level.
+newtype CustomLogLevel l a = CustomLogLevel { unCustomLogLevel :: a -> l -> l }
 
--- | NOTE: Custom log levels on the left-hand-side overrule custom log levels on
--- the right-hand-side.
+-- | First apply the left custom log level, then the right one.
 instance Semigroup (CustomLogLevel l a) where
-  (CustomLogLevel l) <> (CustomLogLevel r) =
-    CustomLogLevel $ \x -> l x `mplus` r x
+  (CustomLogLevel left) <> (CustomLogLevel right) =
+    CustomLogLevel $ \trc -> right trc . left trc
 
 instance Monoid (CustomLogLevel l a) where
-  mempty = CustomLogLevel $ const Nothing
+  mempty = CustomLogLevel $ const id
 
 instance Contravariant (CustomLogLevel l) where
   contramap f (CustomLogLevel g) = CustomLogLevel $ g . f
@@ -396,7 +383,7 @@ instance Contravariant (TracerConfig m l) where
 
 instance Default (TracerConfig m l a) where
   def = TracerConfig
-    { tVerbosity      = (Verbosity Info)
+    { tVerbosity      = Verbosity Notice
     , tOutputConfig   = def
     , tCustomLogLevel = mempty
     , tShowTimeStamp  = DisableTimeStamp
@@ -415,9 +402,7 @@ instance Default (TracerConfig m l a) where
 -- - uses ANSI colors, if available.
 --
 -- Return 'Nothing' if an 'Error' trace was emitted.
-withTracer
-  :: forall m a b.
-     (MonadIO m , PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
+withTracer :: forall m a b. (MonadIO m , IsTrace Level a)
   => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (Either (TraceException a) b)
@@ -426,8 +411,8 @@ withTracer tracerConf action = leftOnError <$> (withTracer' tracerConf action)
 -- | Internal. The tracer stores the maximum log level of emitted traces and all
 -- emitted error traces.
 data TracerState a = TracerState {
-      tracerMaxLevel    :: Level
-    , tracerErrorTraces :: [a]
+      tracerMaxLevel :: Level
+    , tracerErrors   :: [a]
     }
 
 emptyTracerState :: TracerState a
@@ -439,8 +424,7 @@ emptyTracerState = TracerState Debug []
 --
 -- We do not export this function from the public interface, but use it in
 -- tests.
-withTracer' :: forall m a b.
-     (MonadIO m , PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
+withTracer' :: forall m a b. (MonadIO m, IsTrace Level a)
   => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (b, TracerState a)
@@ -488,8 +472,7 @@ instance (Show a, Typeable a) => Exception (TraceException a) where
 -- Always returns a result (if the action does not panic).
 --
 -- See 'SafeLevel'.
-withTracerSafe :: forall m a b.
-     (MonadIO m, PrettyForTrace a, HasDefaultSafeLogLevel a, HasSource a)
+withTracerSafe :: forall m a b. (MonadIO m, IsTrace SafeLevel a)
   => TracerConfig m SafeLevel a
   -> (Tracer m a -> m b)
   -> m b
@@ -499,12 +482,17 @@ withTracerSafe tracerConf action =
     action' :: Tracer m (SafeTrace a) -> m b
     action' = action . contramap SafeTrace
 
-    changeLevel :: (l -> l') -> CustomLogLevel l c -> CustomLogLevel l' c
-    changeLevel f = CustomLogLevel . (fmap . fmap) f . getCustomLogLevel
+    toCustomLogLevelUnsafe :: CustomLogLevel SafeLevel c -> CustomLogLevel Level c
+    toCustomLogLevelUnsafe (CustomLogLevel f) = CustomLogLevel $ \trc lvl ->
+      -- NOTE: Only customize safe levels, and do not change unsafe levels.
+      -- However, the latter case should never happen!
+      case toSafeLevel lvl of
+        Just safeLvl -> fromSafeLevel $ f trc safeLvl
+        Nothing      -> lvl
 
     customLogLevel :: CustomLogLevel Level (SafeTrace a)
     customLogLevel =
-      changeLevel fromSafeLevel $
+      toCustomLogLevelUnsafe $
         contramap getSafeTrace $
         tCustomLogLevel tracerConf
 
@@ -514,17 +502,17 @@ withTracerSafe tracerConf action =
       , tCustomLogLevel = customLogLevel
       }
 
-data SafeTrace a = SafeTrace { getSafeTrace :: a }
+-- Internal; ensure a trace has a safe log level.
+newtype SafeTrace a = SafeTrace { getSafeTrace :: a }
   deriving (Show, Eq, Generic)
 
 instance PrettyForTrace a => PrettyForTrace (SafeTrace a) where
   prettyForTrace = prettyForTrace . getSafeTrace
 
-instance HasDefaultSafeLogLevel a => HasDefaultLogLevel (SafeTrace a) where
-  getDefaultLogLevel x = fromSafeLevel $ getDefaultSafeLogLevel (getSafeTrace x)
-
-instance HasSource a => HasSource (SafeTrace a) where
-  getSource = getSource . getSafeTrace
+instance IsTrace SafeLevel a => IsTrace Level (SafeTrace a) where
+  getDefaultLogLevel = fromSafeLevel . getDefaultLogLevel . getSafeTrace
+  getSource          = getSource                          . getSafeTrace
+  getTraceId         = getTraceId                         . getSafeTrace
 
 {-------------------------------------------------------------------------------
   Internal helpers
@@ -536,8 +524,7 @@ instance HasSource a => HasSource (SafeTrace a) where
 -- - the time,
 -- - the log level, and
 -- - the source.
-mkTracer :: forall m a.
-     (MonadIO m, PrettyForTrace a, HasDefaultLogLevel a, HasSource a)
+mkTracer :: forall m a. (MonadIO m, IsTrace Level a)
   => CustomLogLevel Level a
   -> IORef (TracerState a)
   -> Verbosity
@@ -573,13 +560,11 @@ mkTracer
 
     updateTracerState :: Level -> a -> TracerState a -> TracerState a
     updateTracerState level trace TracerState{..} = case level of
-      Error  -> TracerState Error                      (trace:tracerErrorTraces)
-      _other -> TracerState (max level tracerMaxLevel) tracerErrorTraces
+      Error  -> TracerState Error                      (trace:tracerErrors)
+      _other -> TracerState (max level tracerMaxLevel) tracerErrors
 
     getLogLevel :: a -> Level
-    getLogLevel x = case getCustomLogLevel customLogLevel x of
-      Nothing  -> getDefaultLogLevel x
-      Just lvl -> lvl
+    getLogLevel x = unCustomLogLevel customLogLevel x (getDefaultLogLevel x)
 
 -- | Render a string in bold and a specified color.
 --
@@ -623,7 +608,7 @@ type Format m a = AnsiColor -> ShowTimeStamp -> Level -> a -> m String
 -- [OPTIONAL TIMESTAMP] [LEVEL] [SOURCE] Message.
 --   Indent subsequent lines.
 --   OPTION CALL STACK.
-formatTrace :: (MonadIO m, PrettyForTrace a, HasSource a) => Format m a
+formatTrace :: (MonadIO m, IsTrace l a) => Format m a
 formatTrace ansiColor showTimeStamp level trace = do
     mTime <- case showTimeStamp of
       DisableTimeStamp -> pure Nothing
@@ -635,6 +620,9 @@ formatTrace ansiColor showTimeStamp level trace = do
 
     source :: Source
     source = getSource trace
+
+    traceId :: TraceId
+    traceId = getTraceId trace
 
     showTime :: FormatTime t => t -> String
     showTime = formatTime defaultTimeLocale "%Y-%m-%d %H:%M:%S%3QZ"
@@ -650,9 +638,13 @@ formatTrace ansiColor showTimeStamp level trace = do
     prependSource x =
       withColor ansiColor level ("[" <> alignSource source <> "]") <> " " <> x
 
+    prependTraceId :: String -> String
+    prependTraceId x =
+      withColor ansiColor level ("[" <> unTraceId traceId <> "]") <> " " <> x
+
     prependLabels :: Maybe UTCTime -> String -> String
     prependLabels mTime =
-      maybePrependTime . prependLevel . prependSource
+      maybePrependTime . prependLevel . prependSource . prependTraceId
       where maybePrependTime = case mTime of
               Nothing   -> id
               Just time -> prependTime time

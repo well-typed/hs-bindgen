@@ -125,8 +125,7 @@ instance PrettyForTrace MangleNamesMsg where
         , "'; did you select the declaration?"
         ]
 
-instance HasDefaultLogLevel MangleNamesMsg where
+instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = const Error
-
-instance HasSource MangleNamesMsg where
-  getSource = const HsBindgen
+  getSource          = const HsBindgen
+  getTraceId         = const "mangle-names"

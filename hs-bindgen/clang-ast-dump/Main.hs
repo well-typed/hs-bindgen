@@ -66,7 +66,7 @@ data DumpTrace =
     DumpTraceResolveHeader ResolveHeaderMsg
   | DumpTraceClang         ClangMsg
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (PrettyForTrace, HasDefaultLogLevel, HasSource)
+  deriving anyclass (PrettyForTrace, IsTrace Level)
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts@Options{..} = do
