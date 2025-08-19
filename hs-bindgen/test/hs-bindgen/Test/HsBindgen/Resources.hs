@@ -7,7 +7,6 @@ module Test.HsBindgen.Resources (
     -- * Use the resources
   , getTestPackageRoot
   , getTestDefaultClangArgs
-  , getTestDefaultFrontendConfig
   , getTestDefaultBackendConfig
     -- ** rust-bindgen
   , RustBindgenResult(..)
@@ -98,16 +97,6 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
 {-------------------------------------------------------------------------------
   Test configuration
 -------------------------------------------------------------------------------}
-
-getTestDefaultFrontendConfig ::
-  IO TestResources -> [FilePath] -> IO FrontendConfig
-getTestDefaultFrontendConfig testResources extraIncludeDirs = do
-    aux <$> getTestDefaultClangArgs testResources extraIncludeDirs
-  where
-    aux :: ClangArgs -> FrontendConfig
-    aux clangArgs = def{
-          frontendClangArgs    = clangArgs
-        }
 
 getTestDefaultBackendConfig :: TestName -> BackendConfig
 getTestDefaultBackendConfig testName = def{

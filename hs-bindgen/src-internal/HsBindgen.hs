@@ -2,7 +2,6 @@
 
 module HsBindgen
   ( hsBindgen
-  , hsBindgenQ
 
     -- * Artefacts
   , Artefact (..)
@@ -17,13 +16,9 @@ module HsBindgen
     -- * Re-exports
   , I (..)
   , NP (..)
-
-    -- * Internal
-  , hsBindgen'
   ) where
 
 import Generics.SOP (I (..), NP (..))
-import Language.Haskell.TH (Q, runQ)
 
 import Clang.Paths
 import HsBindgen.Backend
@@ -55,52 +50,27 @@ hsBindgen ::
      TracerConfig IO Level TraceMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
-  -> Artefacts IO as
+  -> Artefacts as
   -> IO (NP I as)
-hsBindgen = hsBindgen' id
-
--- TODO: Can we get rid of 'hsBindgenQ' and the need to use 'runQ'?
--- https://github.com/well-typed/hs-bindgen/issues/865.
-
--- | Main entry point to run @hs-bindgen@ with Template Haskell.
-hsBindgenQ ::
-     TracerConfig Q Level TraceMsg
-  -> BindgenConfig
-  -> [UncheckedHashIncludeArg]
-  -> Artefacts Q as
-  -> Q (NP I as)
-hsBindgenQ = hsBindgen' runQ
-
-hsBindgen' ::
-     MonadIO m
-  => (forall b. m b -> IO b)
-  -> TracerConfig m Level TraceMsg
-  -> BindgenConfig
-  -> [UncheckedHashIncludeArg]
-  -> Artefacts m as
-  -> m (NP I as)
-hsBindgen'
-  unliftIO
+hsBindgen
   tracerConfig
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
     -- Boot and frontend require unsafe tracer and `libclang`.
-    eArtefact <- withTracer tracerConfig $ \tracerM -> do
-      let tracer :: Tracer IO TraceMsg
-          tracer = natTracer unliftIO tracerM
-          tracerFrontend :: Tracer IO FrontendMsg
+    eArtefact <- withTracer tracerConfig $ \tracer -> do
+      let tracerFrontend :: Tracer IO FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
           tracerBoot :: Tracer IO BootMsg
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <-
-        liftIO $ boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
+        boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
-      frontendArtefact <- liftIO $
+      frontendArtefact <-
         frontend tracerFrontend bindgenFrontendConfig bootArtefact
       pure (bootArtefact, frontendArtefact)
-    (bootArtefact, frontendArtefact) <- either (liftIO . throwIO) pure eArtefact
+    (bootArtefact, frontendArtefact) <- either throwIO pure eArtefact
     -- 3. Backend.
     let backendArtefact = backend bindgenBackendConfig frontendArtefact
     -- 4. Artefacts.
@@ -111,49 +81,49 @@ hsBindgen'
 -------------------------------------------------------------------------------}
 
 -- | Build artefact.
-data Artefact m (a :: Star) where
+data Artefact (a :: Star) where
   -- * Boot
-  HashIncludeArgs :: Artefact m [HashIncludeArg]
+  HashIncludeArgs :: Artefact [HashIncludeArg]
   -- * Frontend
-  IncludeGraph    :: Artefact m IncludeGraph.IncludeGraph
-  DeclIndex       :: Artefact m DeclIndex.DeclIndex
-  UseDeclGraph    :: Artefact m UseDeclGraph.UseDeclGraph
-  DeclUseGraph    :: Artefact m DeclUseGraph.DeclUseGraph
-  ReifiedC        :: Artefact m [C.Decl]
-  Dependencies    :: Artefact m [SourcePath]
+  IncludeGraph    :: Artefact IncludeGraph.IncludeGraph
+  DeclIndex       :: Artefact DeclIndex.DeclIndex
+  UseDeclGraph    :: Artefact UseDeclGraph.UseDeclGraph
+  DeclUseGraph    :: Artefact DeclUseGraph.DeclUseGraph
+  ReifiedC        :: Artefact [C.Decl]
+  Dependencies    :: Artefact [SourcePath]
   -- * Backend
-  HsDecls         :: Artefact m [Hs.Decl]
-  FinalDecls      :: Artefact m [SHs.SDecl]
-  FinalModuleName :: Artefact m HsModuleName
-  FinalModule     :: Artefact m HsModule
+  HsDecls         :: Artefact [Hs.Decl]
+  FinalDecls      :: Artefact [SHs.SDecl]
+  FinalModuleName :: Artefact HsModuleName
+  FinalModule     :: Artefact HsModule
   -- * Lift
-  Lift            :: Artefacts m as -> (NP I as -> m b) -> Artefact m b
+  Lift            :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
-instance Applicative m => Functor (Artefact m) where
+instance Functor Artefact where
   fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
 
 -- | A list of 'Artefact's.
-type Artefacts m as = NP (Artefact m) as
+type Artefacts as = NP Artefact as
 
 -- | Write the include graph to file.
-writeIncludeGraph :: MonadIO m => FilePath -> Artefact m ()
+writeIncludeGraph :: FilePath -> Artefact ()
 writeIncludeGraph file =
   Lift
     (IncludeGraph :* Nil)
     (\(I includeGraph :* Nil) ->
-       liftIO $ writeFile file (IncludeGraph.dumpMermaid includeGraph))
+       writeFile file (IncludeGraph.dumpMermaid includeGraph))
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: MonadIO m => FilePath -> Artefact m ()
+writeUseDeclGraph :: FilePath -> Artefact ()
 writeUseDeclGraph file =
   Lift
     (DeclIndex :* UseDeclGraph :* Nil)
     (\(I index :* I useDeclGraph :* Nil) ->
-       liftIO $ writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
+       writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
     )
 
 -- | Get bindings.
-getBindings :: Applicative m => Artefact m String
+getBindings :: Artefact String
 getBindings =
   Lift
     (FinalModule :* Nil)
@@ -162,28 +132,28 @@ getBindings =
     )
 
 -- | Write bindings to file. If no file is given, print to standard output.
-writeBindings :: MonadIO m => Maybe FilePath -> Artefact m ()
+writeBindings :: Maybe FilePath -> Artefact ()
 writeBindings mfile =
   Lift
     (getBindings :* Nil)
-    (\(I bindings :* Nil) -> liftIO $ write mfile bindings)
+    (\(I bindings :* Nil) -> write mfile bindings)
 
 -- | Write binding specifications to file.
-writeBindingSpec :: MonadIO m => FilePath -> Artefact m ()
+writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec file =
   Lift
     (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
     (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-       liftIO $ genBindingSpec moduleName hashIncludeArgs file hsDecls
+       genBindingSpec moduleName hashIncludeArgs file hsDecls
     )
 
 -- | Create test suite in directory.
-writeTests :: MonadIO m => FilePath -> Artefact m ()
+writeTests :: FilePath -> Artefact ()
 writeTests testDir =
   Lift
     (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
     (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-       liftIO $ genTests
+       genTests
          hashIncludeArgs
          hsDecls
          moduleName
@@ -195,22 +165,22 @@ writeTests testDir =
 -------------------------------------------------------------------------------}
 
 -- | Compute the results of a list of artefacts.
-runArtefacts :: Monad m
-  => BootArtefact
+runArtefacts ::
+     BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
-  -> Artefacts m as
-  -> m (NP I as)
+  -> Artefacts as
+  -> IO (NP I as)
 runArtefacts
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..} = go
   where
-    go :: Monad m => Artefacts m as -> m (NP I as)
+    go :: Artefacts as -> IO (NP I as)
     go Nil       = pure Nil
     go (a :* as) = (:*) . I <$> runArtefact a <*> go as
 
-    runArtefact :: Monad m => Artefact m a -> m a
+    runArtefact :: Artefact a -> IO a
     runArtefact = \case
       --Boot.
       HashIncludeArgs -> pure bootHashIncludeArgs

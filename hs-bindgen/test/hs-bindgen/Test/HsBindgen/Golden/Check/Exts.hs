@@ -8,7 +8,9 @@ import Test.Tasty
 import HsBindgen.Imports
 
 import HsBindgen
-import HsBindgen.Backend.Artefact.TH
+import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.TH.Internal
+import Language.Haskell.TH qualified as TH
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -21,9 +23,13 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "exts" fixture $ \_report -> do
-      let artefacts = getExtensions :* Nil
-      (I requiredExts :* Nil) <- runTestHsBindgen testResources test artefacts
-      let output :: String
+      let artefacts :: NP Artefact '[[SHs.SDecl]]
+          artefacts = FinalDecls :* Nil
+      (I decls :* Nil) <- runTestHsBindgen testResources test artefacts
+      let requiredExts :: Set TH.Extension
+          requiredExts = getExtensions decls
+
+          output :: String
           output = unlines $ map show $ List.sort $ toList $ requiredExts
 
       return $ ActualValue output

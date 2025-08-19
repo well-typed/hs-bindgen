@@ -1,6 +1,8 @@
 module HsBindgen.Config
   ( -- * Bindgen
     BindgenConfig (..)
+    -- * Boot
+  , BootConfig (..)
     -- * Frontend
   , FrontendConfig (..)
     -- * Backend
@@ -9,9 +11,6 @@ module HsBindgen.Config
   , checkBackendConfig
   ) where
 
-import Data.Default (Default)
-import GHC.Generics (Generic)
-
 import Clang.Args
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Translation
@@ -19,29 +18,45 @@ import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
 --
 -- 'BindgenConfig' combines all configurable settings of @hs-bindgen@.
+--
+-- NOTE: Configuration types determine the "how", not the "what". For example,
+-- it should state how we process a header file, but not state which headers we
+-- want to process.
+--
+-- NOTE: Configuration types should contain user-provided data, not
+-- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
+-- artefacts.
 data BindgenConfig = BindgenConfig {
-      bindgenBindingSpecConfig :: BindingSpecConfig
-    , bindgenFrontendConfig    :: FrontendConfig
-    , bindgenBackendConfig     :: BackendConfig
+      bindgenBootConfig     :: BootConfig
+    , bindgenFrontendConfig :: FrontendConfig
+    , bindgenBackendConfig  :: BackendConfig
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
 
+{-------------------------------------------------------------------------------
+  Boot configuration
+-------------------------------------------------------------------------------}
+
+data BootConfig = BootConfig {
+      bootBindingSpecConfig :: BindingSpecConfig
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass Default
+
+{-------------------------------------------------------------------------------
+  Frontend configuration
+-------------------------------------------------------------------------------}
+
 -- | Configuration of frontend of @hs-bindgen@.
 --
 -- The frontend parses the C code and reifies the C declarations.
---
--- NOTE: 'FrontendConfig' determines the "how", not the "what". For example, it
--- should state how we process a header file, but not state which headers we
--- want to process.
---
--- NOTE: 'FrontendConfig' should contain user-provided data, not
--- @hs-bindgen@-provided data.
 data FrontendConfig = FrontendConfig {
       frontendClangArgs       :: ClangArgs
     , frontendParsePredicate  :: ParsePredicate

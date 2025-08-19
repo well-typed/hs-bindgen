@@ -24,16 +24,18 @@ module Test.HsBindgen.Golden.TestCase (
   , runTestRustBindgen
   ) where
 
-import Control.Exception (Exception (..), SomeException (..), handle, throwIO)
+import Control.Exception (Exception (..), SomeException (..), handle)
 import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
+import Clang.Args
 import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -186,10 +188,10 @@ failingTestCustom filename expected trace =
   Execution
 -------------------------------------------------------------------------------}
 
-getTestBindingSpecConfig :: IO TestResources -> TestCase -> IO BindingSpecConfig
-getTestBindingSpecConfig testResources TestCase{..} = do
+getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
+getTestBootConfig testResources TestCase{..} = do
   root <- getTestPackageRoot testResources
-  pure $ BindingSpecConfig {
+  pure $ BootConfig $ BindingSpecConfig {
         bindingSpecStdlibSpec              = testStdlibSpec
       , bindingSpecExtBindingSpecs         = map (root </>) testExtBindingSpecs
       , bindingSpecPrescriptiveBindingSpec = Nothing
@@ -198,7 +200,12 @@ getTestBindingSpecConfig testResources TestCase{..} = do
 getTestFrontendConfig :: IO TestResources -> TestCase -> IO FrontendConfig
 getTestFrontendConfig testResources TestCase{..} =
     testOnFrontendConfig <$>
-      getTestDefaultFrontendConfig testResources [testDir]
+      aux <$> getTestDefaultClangArgs testResources [testDir]
+  where
+    aux :: ClangArgs -> FrontendConfig
+    aux clangArgs = def{
+        frontendClangArgs = clangArgs
+      }
 
 getTestBackendConfig :: TestCase -> BackendConfig
 getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName
@@ -213,7 +220,7 @@ withTestTraceConfig TestCase{testTracePredicate} =
 -- | Run 'hsBindgen'.
 --
 -- On trace exceptions, print error traces.
-runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts IO as -> IO (NP I as)
+runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
 runTestHsBindgen testResources test artefacts =
     handle exceptionHandler $ runTestHsBindgen' testResources test artefacts
   where
@@ -224,13 +231,12 @@ runTestHsBindgen testResources test artefacts =
       | otherwise = throwIO e'
 
 -- | Like 'runTestHsBindgen', but do not print error traces.
-runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts IO as -> IO (NP I as)
+runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
 runTestHsBindgen' testResources test artefacts = do
-    bindingSpecConfig <- getTestBindingSpecConfig testResources test
+    bootConfig <- getTestBootConfig testResources test
     frontendConfig    <- getTestFrontendConfig testResources test
     let backendConfig = getTestBackendConfig test
-        bindgenConfig =
-          BindgenConfig bindingSpecConfig frontendConfig backendConfig
+        bindgenConfig = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig test $ \traceConfig ->
       hsBindgen
         traceConfig

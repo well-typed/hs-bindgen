@@ -9,7 +9,7 @@ import HsBindgen.TH
 
 let opts = def {
       extraIncludeDirs   = [ RelativeToPkgRoot "examples"]
-    , tracerConfig = tracerConfigDefQ {
+    , tracerConfig = tracerConfigDefTH {
           tCustomLogLevel = customLogLevelFrom [UCharHeaderResolutionTraceIsInfo]
         }
     }

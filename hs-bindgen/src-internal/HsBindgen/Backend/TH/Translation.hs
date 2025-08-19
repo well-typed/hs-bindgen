@@ -1,10 +1,12 @@
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
 
-module HsBindgen.Backend.Artefact.TH.Translation (
+module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
 
+import C.Char (CharValue (..), charValueFromAddr)
+import C.Expr.HostPlatform qualified as C
 import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Ix qualified
@@ -12,50 +14,45 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
 import Data.Void qualified
+import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 import Foreign qualified
-import Foreign.C.Types qualified
 import Foreign.C.String qualified
+import Foreign.C.Types qualified
 import Foreign.Ptr qualified
 import Foreign.Storable qualified
+import GHC.Exts (Int (..), sizeofByteArray#)
+import GHC.Exts qualified as IsList (IsList (..))
+import GHC.Float (castDoubleToWord64, castFloatToWord32, castWord32ToFloat,
+                  castWord64ToDouble)
+import GHC.Ptr (Ptr (Ptr))
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import GHC.Exts qualified as IsList(IsList(..))
-import GHC.Ptr ( Ptr(Ptr) )
 import System.IO.Unsafe qualified
 import Text.Read qualified
 
-import GHC.Float
-  ( castWord64ToDouble, castDoubleToWord64
-  , castWord32ToFloat , castFloatToWord32 )
-
-import C.Char (CharValue(..), charValueFromAddr)
-import C.Expr.HostPlatform qualified as C
-import HsBindgen.Errors
-import HsBindgen.Guasi
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.SHs.AST
+import HsBindgen.Errors
+import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import HsBindgen.Backend.SHs.AST
 
-import HsBindgen.Runtime.IncompleteArray     qualified
-import HsBindgen.Runtime.Bitfield            qualified
-import HsBindgen.Runtime.Block               qualified
-import HsBindgen.Runtime.ByteArray           qualified
-import HsBindgen.Runtime.CAPI                qualified
-import HsBindgen.Runtime.CEnum               qualified
-import HsBindgen.Runtime.ConstantArray       qualified
+import HsBindgen.Runtime.Bitfield qualified
+import HsBindgen.Runtime.Block qualified
+import HsBindgen.Runtime.ByteArray qualified
+import HsBindgen.Runtime.CAPI qualified
+import HsBindgen.Runtime.CEnum qualified
+import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.Marshal             qualified
-import HsBindgen.Runtime.SizedByteArray      qualified
-
-import DeBruijn (Env (..), lookupEnv, EmptyCtx, Add (..))
-import GHC.Exts (Int(..), sizeofByteArray#)
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Runtime.IncompleteArray qualified
+import HsBindgen.Runtime.Marshal qualified
+import HsBindgen.Runtime.SizedByteArray qualified
 
 {-------------------------------------------------------------------------------
   Backend definition

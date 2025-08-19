@@ -25,7 +25,7 @@ module Clang.HighLevel.Fold (
   , clang_visitChildren
   ) where
 
-import Control.Exception (SomeException, Exception(..))
+import Control.Exception (Exception (..), SomeException)
 import Control.Exception qualified as Base
 import Control.Monad (forM_)
 import Control.Monad.IO.Class (MonadIO, liftIO)

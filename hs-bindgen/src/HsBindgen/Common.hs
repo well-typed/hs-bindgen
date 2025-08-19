@@ -1,8 +1,10 @@
 module HsBindgen.Common (
-    -- * Options
+    -- * Configuration
 
-    -- ** Binding specifications
-    BindingSpec.BindingSpecConfig(..)
+    -- ** Boot
+    Config.BootConfig(..)
+    -- *** Binding specifications
+  , BindingSpec.BindingSpecConfig(..)
   , BindingSpec.EnableStdlibBindingSpec(..)
 
     -- ** Frontend

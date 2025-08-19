@@ -10,12 +10,14 @@ module HsBindgen.TH (
     TH.withHsBindgen
   , TH.hashInclude
 
-    -- * Options
+    -- * Configuration
   , TH.IncludeDir(..)
   , TH.BindgenOpts(..)
-  , TH.tracerConfigDefQ
+  , TH.tracerConfigDefTH
 
-    -- ** Binding specifications
+    -- ** Boot
+  , Common.BootConfig
+    -- *** Binding specifications
   , Common.BindingSpecConfig(..)
   , Common.EnableStdlibBindingSpec(..)
 
@@ -97,7 +99,6 @@ module HsBindgen.TH (
   , Common.AnsiColor(..)
   , Common.Report
   , Common.OutputConfig(..)
-  , Tracer.outputConfigQ
     -- *** Custom log levels
   , Common.CustomLogLevel(..)
   , Common.customLogLevelFrom
@@ -112,5 +113,3 @@ module HsBindgen.TH (
 import HsBindgen.Common qualified as Common
 
 import HsBindgen.TH.Internal qualified as TH
-
-import HsBindgen.Util.Tracer qualified as Tracer

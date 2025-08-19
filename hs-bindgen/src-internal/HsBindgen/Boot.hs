@@ -4,12 +4,11 @@ module HsBindgen.Boot
   , BootMsg (..)
   ) where
 
-import GHC.Generics (Generic)
-
 import Clang.Args
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -40,7 +39,7 @@ boot
     let tracerBindingSpec :: Tracer IO BindingSpecMsg
         tracerBindingSpec = contramap BootBindingSpec tracer
     (extSpec, pSpec) <-
-      loadBindingSpecs tracerBindingSpec clangArgs bindgenBindingSpecConfig
+      loadBindingSpecs tracerBindingSpec clangArgs bindingSpecConfig
     pure BootArtefact {
           bootHashIncludeArgs         = hashIncludeArgs
         , bootExternalBindingSpec     = extSpec
@@ -49,6 +48,9 @@ boot
   where
     clangArgs :: ClangArgs
     clangArgs = frontendClangArgs bindgenFrontendConfig
+
+    bindingSpecConfig :: BindingSpecConfig
+    bindingSpecConfig = bootBindingSpecConfig bindgenBootConfig
 
 {-------------------------------------------------------------------------------
   Artefact

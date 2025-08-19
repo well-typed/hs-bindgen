@@ -122,9 +122,13 @@ parseMacroWarnings = flag MacroLogInfo MacroLogWarning $ mconcat [
 
 parseBindgenConfig :: Parser BindgenConfig
 parseBindgenConfig = BindgenConfig
-    <$> parseBindingSpecConfig
+    <$> parseBootConfig
     <*> parseFrontendConfig
     <*> parseBackendConfig
+
+parseBootConfig :: Parser BootConfig
+parseBootConfig = BootConfig
+    <$> parseBindingSpecConfig
 
 parseFrontendConfig :: Parser FrontendConfig
 parseFrontendConfig = FrontendConfig

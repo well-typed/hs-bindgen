@@ -76,8 +76,6 @@ library internal
       HsBindgen.Backend.Artefact.HsModule.Names
       HsBindgen.Backend.Artefact.HsModule.Render
       HsBindgen.Backend.Artefact.HsModule.Translation
-      HsBindgen.Backend.Artefact.TH
-      HsBindgen.Backend.Artefact.TH.Translation
       HsBindgen.Backend.Artefact.Test
       HsBindgen.Backend.Artefact.Test.C
       HsBindgen.Backend.Artefact.Test.Hs
@@ -95,6 +93,7 @@ library internal
       HsBindgen.Backend.SHs.AST
       HsBindgen.Backend.SHs.Simplify
       HsBindgen.Backend.SHs.Translation
+      HsBindgen.Backend.TH.Translation
       HsBindgen.Backend.UniqueId
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen

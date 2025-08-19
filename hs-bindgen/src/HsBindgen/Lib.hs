@@ -15,10 +15,12 @@ module HsBindgen.Lib (
   , HsBindgen.writeBindingSpec
   , HsBindgen.writeTests
 
-    -- * Options
+    -- * Configuration
   , Config.BindgenConfig(..)
 
-    -- ** Binding specifications
+    -- ** Boot
+  , Common.BootConfig(..)
+    -- *** Binding specifications
   , Common.BindingSpecConfig(..)
   , Common.EnableStdlibBindingSpec(..)
   , BindingSpec.ExternalBindingSpec
