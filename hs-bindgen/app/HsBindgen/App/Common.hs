@@ -178,7 +178,6 @@ parseClangArgs = do
     clangCStandard        <- Just <$> parseCStandard
     clangEnableGnu        <- parseGnuOption
     clangEnableBlocks     <- parseEnableBlocks
-    clangStdInc           <- not <$> parseNoStdInc
     clangExtraIncludeDirs <- parseIncludeDirOptions
     clangDefineMacros     <- parseDefineMacroOptions
     clangArgsBefore       <- parseClangArgsBefore
@@ -245,12 +244,6 @@ parseCStandard = option (eitherReader readCStandard) $ mconcat [
     readCStandard s = case List.lookup s cStandards of
       Just cStandard -> Right cStandard
       Nothing -> Left $ "unknown C standard: " ++ s
-
-parseNoStdInc :: Parser Bool
-parseNoStdInc = switch $ mconcat [
-      long "no-stdinc"
-    , help "Disable standard include directories"
-    ]
 
 parseGnuOption :: Parser Bool
 parseGnuOption = switch $ mconcat [
