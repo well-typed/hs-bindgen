@@ -87,14 +87,12 @@ parseCustomLogLevel = do
     makeTraceInfos    <- many $ parseMakeTrace Info
     makeTraceWarnings <- many $ parseMakeTrace Warning
     makeTraceErrors   <- many $ parseMakeTrace Error
-    -- Specific setters.
-    makeMacroTracesWarnings      <- optional parseMakeMacroTracesWarnings
-    makeUCharResolutionTraceInfo <- optional parseMakeUCharResolutionTraceInfo
     -- Generic modifiers.
     makeWarningsErrors <- optional parseMakeWarningsErrors
+    -- Specific setters.
+    makeMacroTracesWarnings <- optional parseMakeMacroTracesWarnings
     pure $ getCustomLogLevel $ catMaybes [
         makeMacroTracesWarnings
-      , makeUCharResolutionTraceInfo
       , makeWarningsErrors
       ]
       ++ makeTraceInfos
@@ -122,13 +120,6 @@ parseMakeMacroTracesWarnings = flag' MakeMacroTracesWarnings $
     mconcat [
         long "log-as-warning-macro-traces"
       , help "Set log level of macro reparse and typecheck errors to warning (default: info)"
-      ]
-
-parseMakeUCharResolutionTraceInfo :: Parser CustomLogLevelSetting
-parseMakeUCharResolutionTraceInfo = flag' MakeUCharResolutionTraceInfo $
-    mconcat [
-        long "log-as-info-uchar-header-resolution-trace"
-      , help "Set log level of `uchar.h` header resolution errors to info"
       ]
 
 parseMakeTrace :: Level -> Parser CustomLogLevelSetting

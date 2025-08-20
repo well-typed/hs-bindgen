@@ -45,7 +45,7 @@ import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpecMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass (SortMsg (..))
-import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..), getHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..))
 import HsBindgen.Imports
 import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
@@ -77,9 +77,6 @@ data CustomLogLevelSetting =
     MakeTrace Level TraceId
 
     -- * Specific setters
-    -- | The header `uchar.h` is not available on MacOS. Set the log level to
-    -- 'Info'.
-  | MakeUCharResolutionTraceInfo
     -- | Set the log level of macro-related parsing traces to 'Warning'. By
     -- default, traces emitted while parsing macros have log level 'Info'.
   | MakeMacroTracesWarnings
@@ -109,7 +106,6 @@ fromSetting = \case
     MakeTrace level traceId      -> makeTrace level traceId
     -- Specific setters.
     MakeMacroTracesWarnings      -> makeMacroTracesWarnings
-    MakeUCharResolutionTraceInfo -> makeUCharResolutionTraceInfo
     -- Generic modifiers.
     MakeWarningsErrors           -> makeWarningsErrors
   where
@@ -121,11 +117,6 @@ fromSetting = \case
           -> const Warning
         _otherTrace
           -> id
-    makeUCharResolutionTraceInfo :: CustomLogLevel Level TraceMsg
-    makeUCharResolutionTraceInfo = CustomLogLevel $ \case
-        TraceResolveHeader (ResolveHeaderNotFound h)
-          | getHashIncludeArg h == "uchar.h" -> const Info
-        _otherTrace                          -> id
     makeTrace :: Level -> TraceId -> CustomLogLevel Level TraceMsg
     makeTrace desiredLevel traceId = CustomLogLevel $ \trace actualLevel ->
       if getTraceId trace == traceId

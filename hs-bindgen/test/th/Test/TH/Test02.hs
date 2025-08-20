@@ -8,9 +8,6 @@ import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
 let opts = def {
-      extraIncludeDirs   = [ RelativeToPkgRoot "examples"]
-    , tracerConfig = tracerConfigDefTH {
-          tCustomLogLevel = getCustomLogLevel [MakeUCharResolutionTraceInfo]
-        }
+      extraIncludeDirs = [ RelativeToPkgRoot "examples"]
     }
  in withHsBindgen opts $ hashInclude "test_02.h"
