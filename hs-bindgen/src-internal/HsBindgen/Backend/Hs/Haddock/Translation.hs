@@ -186,9 +186,6 @@ convertBlockContent = \case
      in -- Only commands that can be associated with declarations are supported.
         -- Other commands are ignored.
         case Text.toLower (Text.strip blockCommandName) of
-          -- Anchor
-          "anchor" -> [Hs.Paragraph [Hs.Anchor unwordsInlineCommentWithArgs]]
-
           -- Headers
           "section"       -> [Hs.Header Hs.Level1 inlineCommentWithArgs]
           "subsection"    -> [Hs.Header Hs.Level2 inlineCommentWithArgs]
@@ -198,15 +195,29 @@ convertBlockContent = \case
           "code"     -> [Hs.CodeBlock textInlineCommentWithArgs]
           "verbatim" -> [Hs.CodeBlock textInlineCommentWithArgs]
 
-          -- Examples
-          "example" -> [Hs.Example unwordsInlineCommentWithArgs]
-
           -- Properties
           "property" -> [Hs.Property unwordsInlineCommentWithArgs]
 
-          -- Links / URLs
-          "dir" -> [Hs.Paragraph [Hs.Link inlineCommentWithArgs unwordsInlineCommentWithArgs]]
-          "ref" -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          -- Example
+          "example" -> [Hs.Example unwordsInlineCommentWithArgs]
+
+          -- inline commands
+          "anchor"     -> [Hs.Paragraph [Hs.Anchor unwordsInlineCommentWithArgs]]
+          "ref"        -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+
+          -- Supported References
+          "sa"         -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
+          "see"        -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
+          "link"       -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+
+          -- Not yet fully supported references
+          "dir"        -> [Hs.Paragraph [Hs.Link inlineCommentWithArgs unwordsInlineCommentWithArgs]]
+          "headerfile" -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "image"      -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "include"    -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "refitem"    -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "snippet"    -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "xrefitem"   -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
 
           -- List item
           "li" -> [Hs.ListItem Hs.BulletList [Hs.Paragraph inlineCommentWithArgs]]
@@ -236,8 +247,6 @@ convertBlockContent = \case
           "return"          -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "returns:"] : inlineCommentWithArgs)]
           "returns"         -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "returns:"] : inlineCommentWithArgs)]
           "retval"          -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "returns:"] : inlineCommentWithArgs)]
-          "sa"              -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
-          "see"             -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
           "short"           -> [Hs.Paragraph inlineCommentWithArgs]
           "subparagraph"    -> Hs.Paragraph [Hs.Bold [Hs.TextContent unwordsArgs]]
                              : formatParagraphContent blockCommandParagraph
@@ -245,7 +254,8 @@ convertBlockContent = \case
                              : formatParagraphContent blockCommandParagraph
           "throw"           -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "exception:"] : inlineCommentWithArgs)]
           "throws"          -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "exception:"] : inlineCommentWithArgs)]
-          "todo"            -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "TODO:"] : inlineCommentWithArgs)]
+          "todo"            -> Hs.Paragraph [Hs.Bold [Hs.TextContent "TODO:"]]
+                             : formatParagraphContent blockCommandParagraph
           "warning"         -> [Hs.Paragraph (Hs.Bold [Hs.Emph [Hs.TextContent "WARNING:"]] : inlineCommentWithArgs)]
 
           -- Everything else becomes an empty paragraph
