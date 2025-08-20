@@ -71,7 +71,6 @@ withClang :: forall a.
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)
 withClang tracer setup k = withClang' tracer setup $ \unit -> do
-    traceWith tracer $ ClangSetupMsg setup
     anyIsError <- traceDiagnostics unit
     if anyIsError
       then return Nothing
@@ -100,24 +99,25 @@ withClang' :: forall a.
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)
 withClang' tracer setup k =
-    withExtraClangArgs (contramap ClangExtraArgs tracer) clangArgs $ \args  ->
-    HighLevel.withIndex clangDiagnostics $ \index -> do
-      let withUnit :: SourcePath -> [CXUnsavedFile] -> IO (Maybe a)
-          withUnit path unsaved =
-             HighLevel.withTranslationUnit2
-               index
-               (Just path)
-               args
-               unsaved
-               clangFlags
-               onErrorCode
-               k
-      case clangInput of
-        ClangInputFile path ->
-          withUnit path []
-        ClangInputMemory path contents -> do
-          HighLevel.withUnsavedFile path contents $ \file  ->
-            withUnit (SourcePath $ Text.pack path) [file]
+    withExtraClangArgs (contramap ClangExtraArgs tracer) clangArgs $ \args  -> do
+      traceWith tracer $ ClangSetupMsg setup
+      HighLevel.withIndex clangDiagnostics $ \index -> do
+        let withUnit :: SourcePath -> [CXUnsavedFile] -> IO (Maybe a)
+            withUnit path unsaved =
+               HighLevel.withTranslationUnit2
+                 index
+                 (Just path)
+                 args
+                 unsaved
+                 clangFlags
+                 onErrorCode
+                 k
+        case clangInput of
+          ClangInputFile path ->
+            withUnit path []
+          ClangInputMemory path contents -> do
+            HighLevel.withUnsavedFile path contents $ \file  ->
+              withUnit (SourcePath $ Text.pack path) [file]
   where
     ClangSetup{
         clangArgs

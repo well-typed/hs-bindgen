@@ -275,12 +275,15 @@ data BindingSpecResolveMsg =
 
 instance IsTrace Level BindingSpecResolveMsg where
   getDefaultLogLevel = \case
-    BindingSpecResolveExternalHeader _x ->
-      -- Any errors that happen while resolving /external/ headers are 'Info'
-      -- only: the only consequence is that those headers will then not match
-      -- against anything (and we might generate separate warnings/errors for
-      -- that anyway while resolving the binding specification).
-      Info
+    BindingSpecResolveExternalHeader x
+      -- Any warnings/errors that happen while resolving /external/ headers are
+      -- 'Info' only: the only consequence is that those headers will then not
+      -- match against anything (and we might generate separate warnings/errors
+      -- for that anyway while resolving the binding specification).
+      | lvl > Info -> Info
+      | otherwise  -> lvl
+      where
+        lvl = getDefaultLogLevel x
     BindingSpecResolvePrescriptiveHeader x ->
       -- However, any errors that happen during /prescriptive/ binding specs
       -- truly are errors.
