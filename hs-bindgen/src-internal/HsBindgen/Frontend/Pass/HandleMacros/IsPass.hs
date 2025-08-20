@@ -72,13 +72,6 @@ instance PrettyForTrace HandleMacrosMsg where
         "Unsupported type: " >< string err
 
 -- | Default log level
---
--- Reparse and typechecking errors may indicate that something went wrong, or
--- they may be caused by macro syntax that we do not yet support.  They are
--- 'Info' by default because there are many unsupported macros in standard
--- library implementations.  Users may optionally make them 'Warning' instead.
---
--- Other errors are 'Info' because they are /always/ unsupported.
 instance IsTrace Level HandleMacrosMsg where
   getDefaultLogLevel = const Info
   getSource          = const HsBindgen

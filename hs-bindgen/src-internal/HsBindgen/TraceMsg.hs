@@ -76,14 +76,22 @@ data CustomLogLevelSetting =
     -- * Generic setters
     MakeTrace Level TraceId
 
-    -- * Specific setters
-    -- | Set the log level of macro-related parsing traces to 'Warning'. By
-    -- default, traces emitted while parsing macros have log level 'Info'.
-  | MakeMacroTracesWarnings
-
     -- * Generic modifiers
     -- | Modify traces with log level 'Warning' to be fatal 'Error's.
   | MakeWarningsErrors
+
+    -- * Specific setters
+    -- | Set the log level of macro-related parsing traces to 'Warning'.
+    --
+    -- Reparse and typechecking errors may indicate that something went
+    -- wrong, or they may be caused by macro syntax that we do not yet
+    -- support.
+    --
+    -- By default, traces emitted while parsing macros have log level 'Info'.
+    -- because there are many unsupported macros in standard library
+    -- implementations. Using this custom log level setting, users make them
+    -- 'Warning' instead.
+  | EnableMacroWarnings
   deriving stock (Eq, Show, Ord)
 
 -- | Get a custom log level function from a set of available settings.
@@ -103,25 +111,28 @@ fromSetting ::
   -> CustomLogLevel Level TraceMsg
 fromSetting = \case
     -- Generic setters.
-    MakeTrace level traceId      -> makeTrace level traceId
-    -- Specific setters.
-    MakeMacroTracesWarnings      -> makeMacroTracesWarnings
+    MakeTrace level traceId -> makeTrace level traceId
     -- Generic modifiers.
-    MakeWarningsErrors           -> makeWarningsErrors
+    MakeWarningsErrors      -> makeWarningsErrors
+    -- Specific setters.
+    EnableMacroWarnings     -> enableMacroWarnings
   where
-    makeMacroTracesWarnings :: CustomLogLevel Level TraceMsg
-    makeMacroTracesWarnings = CustomLogLevel $ \case
+    makeTrace :: Level -> TraceId -> CustomLogLevel Level TraceMsg
+    makeTrace desiredLevel traceId = CustomLogLevel $ \trace actualLevel ->
+      if getTraceId trace == traceId
+      then desiredLevel
+      else actualLevel
+
+    enableMacroWarnings :: CustomLogLevel Level TraceMsg
+    enableMacroWarnings = CustomLogLevel $ \case
+        -- Other errors are 'Info' because they are /always/ unsupported.
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
           -> const Warning
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))
           -> const Warning
         _otherTrace
           -> id
-    makeTrace :: Level -> TraceId -> CustomLogLevel Level TraceMsg
-    makeTrace desiredLevel traceId = CustomLogLevel $ \trace actualLevel ->
-      if getTraceId trace == traceId
-      then desiredLevel
-      else actualLevel
+
     makeWarningsErrors :: CustomLogLevel Level TraceMsg
     makeWarningsErrors = CustomLogLevel $ \_ lvl ->
       if lvl == Warning

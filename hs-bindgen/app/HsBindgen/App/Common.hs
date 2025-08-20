@@ -90,9 +90,9 @@ parseCustomLogLevel = do
     -- Generic modifiers.
     makeWarningsErrors <- optional parseMakeWarningsErrors
     -- Specific setters.
-    makeMacroTracesWarnings <- optional parseMakeMacroTracesWarnings
+    enableMacroWarnings <- optional parseEnableMacroWarnings
     pure $ getCustomLogLevel $ catMaybes [
-        makeMacroTracesWarnings
+        enableMacroWarnings
       , makeWarningsErrors
       ]
       ++ makeTraceInfos
@@ -115,10 +115,10 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
   Custom log level settings
 -------------------------------------------------------------------------------}
 
-parseMakeMacroTracesWarnings :: Parser CustomLogLevelSetting
-parseMakeMacroTracesWarnings = flag' MakeMacroTracesWarnings $
+parseEnableMacroWarnings :: Parser CustomLogLevelSetting
+parseEnableMacroWarnings = flag' EnableMacroWarnings $
     mconcat [
-        long "log-as-warning-macro-traces"
+        long "log-enable-macro-warnings"
       , help "Set log level of macro reparse and typecheck errors to warning (default: info)"
       ]
 
