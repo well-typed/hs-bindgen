@@ -407,6 +407,48 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
+    "__attribute__ ((const)) signed int *get_\978\978_ptr (void) { return &\978\978; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "c\978\978_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "get_\978\978_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude "adios.h",
+  DeclInlineC
+    "__attribute__ ((const)) const signed int *get_\978\978\978_ptr (void) { return &\978\978\978; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "c\978\978\978_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsPtr (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "get_\978\978\978_ptr",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Nothing},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "adios.h",
+  DeclInlineC
     "void hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {

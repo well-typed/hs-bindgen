@@ -1432,7 +1432,7 @@ addressStubDecs info tyQual ty _spec = (,stubImportName) $
     ]
   where
     stubImportName :: HsName 'NsVar
-    stubImportName = HsName $ T.pack (varName ++ "_ptr")
+    stubImportName = HsName $ getHsIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"
 
     stubImportType :: ResultType HsType
     stubImportType = NormalResultType $ typ stubType

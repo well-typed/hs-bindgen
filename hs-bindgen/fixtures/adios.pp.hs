@@ -11,10 +11,11 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
-$(CAPI.addCSource "#include <adios.h>\nvoid hs_bindgen_test_adios_8e1936b23d816eb2 (void) { \978(); }\nvoid hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }\nvoid hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }\n")
+$(CAPI.addCSource "#include <adios.h>\nvoid hs_bindgen_test_adios_8e1936b23d816eb2 (void) { \978(); }\n__attribute__ ((const)) signed int *get_\978\978_ptr (void) { return &\978\978; } \n__attribute__ ((const)) const signed int *get_\978\978\978_ptr (void) { return &\978\978\978; } \nvoid hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }\nvoid hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }\n")
 
 newtype Adio'0301s = Adio'0301s
   { un_Adio'0301s :: FC.CInt
@@ -30,6 +31,18 @@ newtype C数字 = C数字
 
 foreign import ccall safe "hs_bindgen_test_adios_8e1936b23d816eb2" cϒ
   :: IO ()
+
+foreign import ccall safe "get_ϒϒ_ptr" cϒϒ_ptr
+  :: F.Ptr FC.CInt
+
+foreign import ccall safe "get_ϒϒϒ_ptr" cϒϒϒ_ptr
+  :: F.Ptr FC.CInt
+
+{-# NOINLINE cϒϒϒ #-}
+
+cϒϒϒ :: FC.CInt
+cϒϒϒ =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek cϒϒϒ_ptr)
 
 foreign import ccall safe "hs_bindgen_test_adios_5c74896d56245684" 拜拜
   :: IO ()
