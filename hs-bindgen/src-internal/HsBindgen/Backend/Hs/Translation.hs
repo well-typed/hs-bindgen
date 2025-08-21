@@ -332,9 +332,9 @@ generateDecs opts moduleName typedefs (C.Decl info kind spec) =
       C.DeclMacro macro ->
         macroDecs opts info macro spec
       C.DeclGlobal ty ->
-        return $ global info ty spec
+        return $ global opts moduleName info ty spec
       C.DeclConst ty ->
-        State.get >>= \instsMap -> return $ globalConst instsMap info ty spec
+        State.get >>= \instsMap -> return $ globalConst opts moduleName instsMap info ty spec
 
 {-------------------------------------------------------------------------------
   Structs
@@ -1321,23 +1321,31 @@ functionDecs opts moduleName typedefs info f _spec =
 -- So, instead we generate a /stub/ function that simply returns the address of
 -- the global variable ...
 --
--- > __attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) {
+-- > /* get_simpleGlobal_ptr */
+-- > __attribute__ ((const)) signed int *abc949ab (void) {
 -- >   return &simpleGlobal;
 -- > }
 --
--- ... and then create a foreign import for the stub.
+-- ... and then create a foreign import for the stub. Note that the name of the
+-- stub function is mangled, though the original name of the stub function is
+-- included in a comment before the stub.
 --
--- > foreign import capi safe "get_simpleGlobal_ptr" simpleGlobal_ptr :: Ptr CInt
+-- > foreign import capi safe "abc949ab" simpleGlobal_ptr :: Ptr CInt
 --
 -- Note that stub function also has a @const@ function attribute to emphasise
 -- that the function always returns the same address throughout the lifetime of
 -- the program, which means we can omit the 'IO' from the foreign import.
---
-global :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-global info ty _spec = stubDecs
+global ::
+     TranslationOpts
+  -> HsModuleName
+  -> C.DeclInfo
+  -> C.Type
+  -> C.DeclSpec
+  -> [Hs.Decl]
+global opts moduleName info ty _spec = stubDecs
   where
     -- *** Stub ***
-    (stubDecs, _stubImportName) = addressStubDecs info C.TypeQualifierNone ty _spec
+    (stubDecs, _stubImportName) = addressStubDecs opts moduleName info C.TypeQualifierNone ty _spec
 
 -- | Global /constant/ variables
 --
@@ -1354,12 +1362,14 @@ global info ty _spec = stubDecs
 -- use the foreign import of the stub function instead. Most notably, arrays of
 -- unknown size do not have a 'Storable' instance.
 globalConst ::
-     InstanceMap
+     TranslationOpts
+  -> HsModuleName
+  -> InstanceMap
   -> C.DeclInfo
   -> C.Type
   -> C.DeclSpec
   -> [Hs.Decl]
-globalConst instsMap info ty _spec =
+globalConst opts moduleName instsMap info ty _spec =
     stubDecs ++ concat [
         [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
         , getterDecl
@@ -1381,7 +1391,7 @@ globalConst instsMap info ty _spec =
       ]
   where
     -- *** Stub ***
-    (stubDecs, stubImportName) = addressStubDecs info C.TypeQualifierConst ty _spec
+    (stubDecs, stubImportName) = addressStubDecs opts moduleName info C.TypeQualifierConst ty _spec
 
     -- *** Getter ***
     getterDecl :: Hs.Decl
@@ -1410,21 +1420,23 @@ globalConst instsMap info ty _spec =
 -- * @stubImportName@: the identifier of the foreign import targetting the stub
 --   C function.
 addressStubDecs ::
-     C.DeclInfo -- ^ The given declaration
+     TranslationOpts
+  -> HsModuleName
+  -> C.DeclInfo -- ^ The given declaration
   -> C.TypeQualifier -- ^ Outermost qualifier of the type of the given declaration
   -> C.Type -- ^ The type of the given declaration
   -> C.DeclSpec
   -> ( [Hs.Decl]
      , HsName 'NsVar
      )
-addressStubDecs info tyQual ty _spec = (,stubImportName) $
+addressStubDecs opts moduleName info tyQual ty _spec = (,stubImportName) $
     [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = stubImportName
         , foreignImportParameters = []
         , foreignImportResultType = stubImportType
-        , foreignImportOrigName = T.pack stubName
+        , foreignImportOrigName = T.pack stubNameMangled
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
         , foreignImportComment  = generateHaddocks (C.declComment info)
@@ -1437,7 +1449,10 @@ addressStubDecs info tyQual ty _spec = (,stubImportName) $
     stubImportType :: ResultType HsType
     stubImportType = NormalResultType $ typ stubType
 
-    -- TODO: the stub name should go through the name mangler. See #946.
+    stubNameMangled :: String
+    stubNameMangled = unUniqueSymbolId $
+        getUniqueSymbolId (translationUniqueId opts) moduleName stubName
+
     stubName :: String
     stubName = "get_" ++ varName ++ "_ptr"
 
@@ -1451,12 +1466,15 @@ addressStubDecs info tyQual ty _spec = (,stubImportName) $
     stubTypeQualifier = tyQual
 
     prettyStub :: String
-    prettyStub = PC.prettyDecl stubDecl " "
+    prettyStub = concat [
+          "/* ", stubName, " */ "
+        , PC.prettyDecl stubDecl " "
+        ]
 
     stubDecl :: PC.Decl
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubName stubType stubTypeQualifier C.HaskellPureFunction args'
+          PC.FunDefn stubNameMangled stubType stubTypeQualifier C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
 {-------------------------------------------------------------------------------

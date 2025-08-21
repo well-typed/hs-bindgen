@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/redeclaration.h
 -- #include <redeclaration.h>
--- __attribute__ ((const)) signed int *get_x_ptr (void) { return &x; } 
-foreign import ccall safe "get_x_ptr" x_ptr :: Ptr CInt
+-- /* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } 
+foreign import ccall safe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" x_ptr :: Ptr CInt
 newtype Int_t
     = Int_t {un_Int_t :: CInt}
     deriving stock (Eq, Ord, Read, Show)

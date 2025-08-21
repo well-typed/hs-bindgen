@@ -20,7 +20,7 @@
 -- signed int hs_bindgen_test_fun_attributes_ab8f0d32c1f84295 (void) { return core2_func(); }
 -- signed int hs_bindgen_test_fun_attributes_f50d1e8063148c18 (void) { return sse3_func(); }
 -- void hs_bindgen_test_fun_attributes_1b95ce9d55223970 (void) { f3(); }
--- __attribute__ ((const)) signed int *get_i_ptr (void) { return &i; } 
+-- /* get_i_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_fun_attributes_fe81510d355aff25 (void) { return &i; } 
 -- signed int hs_bindgen_test_fun_attributes_43b222bddec511f3 (void) { return fn(); }
 -- signed int hs_bindgen_test_fun_attributes_fd90ce98862f93f3 (void) { return y(); }
 -- signed int hs_bindgen_test_fun_attributes_8dadf866461c7be6 (void) { return x1(); }
@@ -99,7 +99,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88" foob
 foreign import ccall safe "hs_bindgen_test_fun_attributes_ab8f0d32c1f84295" core2_func :: IO CInt
 foreign import ccall safe "hs_bindgen_test_fun_attributes_f50d1e8063148c18" sse3_func :: IO CInt
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1b95ce9d55223970" f3 :: IO Unit
-foreign import ccall safe "get_i_ptr" i_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_fe81510d355aff25" i_ptr :: Ptr CInt
 foreign import ccall safe "hs_bindgen_test_fun_attributes_43b222bddec511f3" fn :: IO CInt
 foreign import ccall safe "hs_bindgen_test_fun_attributes_fd90ce98862f93f3" y :: IO CInt
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8dadf866461c7be6" x1 :: IO CInt

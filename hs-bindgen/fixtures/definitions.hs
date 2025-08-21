@@ -45,7 +45,7 @@
   DeclInlineCInclude
     "definitions.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_n_ptr (void) { return &n; } ",
+    "/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -56,7 +56,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_n_ptr",
+      "hs_bindgen_test_definitions_fc2aad2af9befead",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global

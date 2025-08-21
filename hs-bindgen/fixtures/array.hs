@@ -1,7 +1,7 @@
 [
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr0_ptr (void))[3] { return &arr0; } ",
+    "/* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_5c54826466f2e87b (void))[3] { return &arr0; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -15,7 +15,7 @@
             3
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr0_ptr",
+      "hs_bindgen_test_array_5c54826466f2e87b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -33,7 +33,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr1_ptr (void))[3] { return &arr1; } ",
+    "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ec6a481a47ca4eb1 (void))[3] { return &arr1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -47,7 +47,7 @@
             3
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr1_ptr",
+      "hs_bindgen_test_array_ec6a481a47ca4eb1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -65,7 +65,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr2_ptr (void))[3] { return &arr2; } ",
+    "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_34db8d8b69220fcc (void))[3] { return &arr2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -79,7 +79,7 @@
             3
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr2_ptr",
+      "hs_bindgen_test_array_34db8d8b69220fcc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -97,7 +97,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr3_ptr (void))[3] { return &arr3; } ",
+    "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_f4e746193b856003 (void))[3] { return &arr3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -111,7 +111,7 @@
             3
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr3_ptr",
+      "hs_bindgen_test_array_f4e746193b856003",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -129,7 +129,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr6_ptr (void))[1] { return &arr6; } ",
+    "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bf91904b3049fdd2 (void))[1] { return &arr6; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -143,7 +143,7 @@
             1
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr6_ptr",
+      "hs_bindgen_test_array_bf91904b3049fdd2",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -161,7 +161,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr7_ptr (void))[] { return &arr7; } ",
+    "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9be06c66ecc3a933 (void))[] { return &arr7; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -174,7 +174,7 @@
           (HsIncompleteArray
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr7_ptr",
+      "hs_bindgen_test_array_9be06c66ecc3a933",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1004,7 +1004,7 @@
       Nothing},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr_1_ptr (void))[3] { return &arr_1; } ",
+    "/* get_arr_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_16bca3ac468967d9 (void))[3] { return &arr_1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1018,7 +1018,7 @@
             3
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr_1_ptr",
+      "hs_bindgen_test_array_16bca3ac468967d9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1036,7 +1036,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) triplet *get_arr_2_ptr (void) { return &arr_2; } ",
+    "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_07e58c5432be4a35 (void) { return &arr_2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1051,7 +1051,7 @@
               "@NsTypeConstr"
               "Triplet"))),
       foreignImportOrigName =
-      "get_arr_2_ptr",
+      "hs_bindgen_test_array_07e58c5432be4a35",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1071,7 +1071,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr_3_ptr (void))[] { return &arr_3; } ",
+    "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_63e072530b04d3b9 (void))[] { return &arr_3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1084,7 +1084,7 @@
           (HsIncompleteArray
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "get_arr_3_ptr",
+      "hs_bindgen_test_array_63e072530b04d3b9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1101,7 +1101,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) list *get_arr_4_ptr (void) { return &arr_4; } ",
+    "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_3db8d1257bc10233 (void) { return &arr_4; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1116,7 +1116,7 @@
               "@NsTypeConstr"
               "List"))),
       foreignImportOrigName =
-      "get_arr_4_ptr",
+      "hs_bindgen_test_array_3db8d1257bc10233",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1136,7 +1136,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr_5_ptr (void))[4][3] { return &arr_5; } ",
+    "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0f74917ee2000dc5 (void))[4][3] { return &arr_5; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1152,7 +1152,7 @@
               3
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "get_arr_5_ptr",
+      "hs_bindgen_test_array_0f74917ee2000dc5",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1174,7 +1174,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) matrix *get_arr_6_ptr (void) { return &arr_6; } ",
+    "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_a48940bd219530d0 (void) { return &arr_6; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1189,7 +1189,7 @@
               "@NsTypeConstr"
               "Matrix"))),
       foreignImportOrigName =
-      "get_arr_6_ptr",
+      "hs_bindgen_test_array_a48940bd219530d0",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1209,7 +1209,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int (*get_arr_7_ptr (void))[][3] { return &arr_7; } ",
+    "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1196efca365094f7 (void))[][3] { return &arr_7; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1224,7 +1224,7 @@
               3
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "get_arr_7_ptr",
+      "hs_bindgen_test_array_1196efca365094f7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1245,7 +1245,7 @@
           commentChildren = []}},
   DeclInlineCInclude "array.h",
   DeclInlineC
-    "__attribute__ ((const)) tripletlist *get_arr_8_ptr (void) { return &arr_8; } ",
+    "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_31b6cf83380518c3 (void) { return &arr_8; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1260,7 +1260,7 @@
               "@NsTypeConstr"
               "Tripletlist"))),
       foreignImportOrigName =
-      "get_arr_8_ptr",
+      "hs_bindgen_test_array_31b6cf83380518c3",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global

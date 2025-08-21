@@ -30,26 +30,26 @@
 -- void hs_bindgen_test_visibility_attributes_d40140ee49300df1 (void) { f27(); }
 -- void hs_bindgen_test_visibility_attributes_358fecb39951c1ed (void) { f28(); }
 -- void hs_bindgen_test_visibility_attributes_8255bfc1a96b601c (void) { f29(); }
--- __attribute__ ((const)) signed int *get_i0_ptr (void) { return &i0; } 
--- __attribute__ ((const)) signed int *get_i1_ptr (void) { return &i1; } 
--- __attribute__ ((const)) signed int *get_i2_ptr (void) { return &i2; } 
--- __attribute__ ((const)) signed int *get_i3_ptr (void) { return &i3; } 
--- __attribute__ ((const)) signed int *get_i4_ptr (void) { return &i4; } 
--- __attribute__ ((const)) signed int *get_i5_ptr (void) { return &i5; } 
--- __attribute__ ((const)) signed int *get_i6_ptr (void) { return &i6; } 
--- __attribute__ ((const)) signed int *get_i7_ptr (void) { return &i7; } 
--- __attribute__ ((const)) signed int *get_i8_ptr (void) { return &i8; } 
--- __attribute__ ((const)) signed int *get_i9_ptr (void) { return &i9; } 
--- __attribute__ ((const)) signed int *get_i10_ptr (void) { return &i10; } 
--- __attribute__ ((const)) signed int *get_i11_ptr (void) { return &i11; } 
--- __attribute__ ((const)) signed int *get_i12_ptr (void) { return &i12; } 
--- __attribute__ ((const)) signed int *get_i13_ptr (void) { return &i13; } 
--- __attribute__ ((const)) signed int *get_i14_ptr (void) { return &i14; } 
--- __attribute__ ((const)) signed int *get_i15_ptr (void) { return &i15; } 
--- __attribute__ ((const)) signed int *get_i16_ptr (void) { return &i16; } 
--- __attribute__ ((const)) signed int *get_i17_ptr (void) { return &i17; } 
--- __attribute__ ((const)) signed int *get_i18_ptr (void) { return &i18; } 
--- __attribute__ ((const)) signed int *get_i19_ptr (void) { return &i19; } 
+-- /* get_i0_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_724fd59489c94c9f (void) { return &i0; } 
+-- /* get_i1_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_736e69defba46ab4 (void) { return &i1; } 
+-- /* get_i2_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_210c547ae5abcc02 (void) { return &i2; } 
+-- /* get_i3_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_d6bb66d7f7107274 (void) { return &i3; } 
+-- /* get_i4_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_8c4485c2eb6e1434 (void) { return &i4; } 
+-- /* get_i5_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_6ff6b816265f91d3 (void) { return &i5; } 
+-- /* get_i6_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3bd2208d8e850002 (void) { return &i6; } 
+-- /* get_i7_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_a3aa6eb624f2c014 (void) { return &i7; } 
+-- /* get_i8_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_696700c5194eb184 (void) { return &i8; } 
+-- /* get_i9_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_27bb5845debfdd10 (void) { return &i9; } 
+-- /* get_i10_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_254dda0b2c3c245d (void) { return &i10; } 
+-- /* get_i11_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_5ca63f16dc0b48e7 (void) { return &i11; } 
+-- /* get_i12_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_75789ceaef5e5feb (void) { return &i12; } 
+-- /* get_i13_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_6e3778cc97c78a2e (void) { return &i13; } 
+-- /* get_i14_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_9ec03118dd66d7c5 (void) { return &i14; } 
+-- /* get_i15_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_4b5a349cc99cdac9 (void) { return &i15; } 
+-- /* get_i16_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_56cec68bd1e37a44 (void) { return &i16; } 
+-- /* get_i17_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_e60a43107858a2bc (void) { return &i17; } 
+-- /* get_i18_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_86247c32f4f34e6f (void) { return &i18; } 
+-- /* get_i19_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1 (void) { return &i19; } 
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_beeef9b61fad5466" f0 :: IO Unit
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_8b60d38de80093fa" f1 :: IO Unit
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_4a86b0420a250963" f2 :: IO Unit
@@ -80,23 +80,23 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_d54b2fb5a87420f
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_d40140ee49300df1" f27 :: IO Unit
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_358fecb39951c1ed" f28 :: IO Unit
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_8255bfc1a96b601c" f29 :: IO Unit
-foreign import ccall safe "get_i0_ptr" i0_ptr :: Ptr CInt
-foreign import ccall safe "get_i1_ptr" i1_ptr :: Ptr CInt
-foreign import ccall safe "get_i2_ptr" i2_ptr :: Ptr CInt
-foreign import ccall safe "get_i3_ptr" i3_ptr :: Ptr CInt
-foreign import ccall safe "get_i4_ptr" i4_ptr :: Ptr CInt
-foreign import ccall safe "get_i5_ptr" i5_ptr :: Ptr CInt
-foreign import ccall safe "get_i6_ptr" i6_ptr :: Ptr CInt
-foreign import ccall safe "get_i7_ptr" i7_ptr :: Ptr CInt
-foreign import ccall safe "get_i8_ptr" i8_ptr :: Ptr CInt
-foreign import ccall safe "get_i9_ptr" i9_ptr :: Ptr CInt
-foreign import ccall safe "get_i10_ptr" i10_ptr :: Ptr CInt
-foreign import ccall safe "get_i11_ptr" i11_ptr :: Ptr CInt
-foreign import ccall safe "get_i12_ptr" i12_ptr :: Ptr CInt
-foreign import ccall safe "get_i13_ptr" i13_ptr :: Ptr CInt
-foreign import ccall safe "get_i14_ptr" i14_ptr :: Ptr CInt
-foreign import ccall safe "get_i15_ptr" i15_ptr :: Ptr CInt
-foreign import ccall safe "get_i16_ptr" i16_ptr :: Ptr CInt
-foreign import ccall safe "get_i17_ptr" i17_ptr :: Ptr CInt
-foreign import ccall safe "get_i18_ptr" i18_ptr :: Ptr CInt
-foreign import ccall safe "get_i19_ptr" i19_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_724fd59489c94c9f" i0_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_736e69defba46ab4" i1_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_210c547ae5abcc02" i2_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_d6bb66d7f7107274" i3_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_8c4485c2eb6e1434" i4_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_6ff6b816265f91d3" i5_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_3bd2208d8e850002" i6_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_a3aa6eb624f2c014" i7_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_696700c5194eb184" i8_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_27bb5845debfdd10" i9_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_254dda0b2c3c245d" i10_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_5ca63f16dc0b48e7" i11_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_75789ceaef5e5feb" i12_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_6e3778cc97c78a2e" i13_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_9ec03118dd66d7c5" i14_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_4b5a349cc99cdac9" i15_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_56cec68bd1e37a44" i16_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_e60a43107858a2bc" i17_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_86247c32f4f34e6f" i18_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1" i19_ptr :: Ptr CInt

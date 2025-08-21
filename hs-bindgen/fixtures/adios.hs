@@ -407,7 +407,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_\978\978_ptr (void) { return &\978\978; } ",
+    "/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_52f5e750c2f31c7b (void) { return &\978\978; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -418,7 +418,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_\978\978_ptr",
+      "hs_bindgen_test_adios_52f5e750c2f31c7b",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -427,7 +427,7 @@
       foreignImportComment = Nothing},
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "__attribute__ ((const)) const signed int *get_\978\978\978_ptr (void) { return &\978\978\978; } ",
+    "/* get_\978\978\978_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -438,7 +438,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_\978\978\978_ptr",
+      "hs_bindgen_test_adios_13030842ed540098",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
