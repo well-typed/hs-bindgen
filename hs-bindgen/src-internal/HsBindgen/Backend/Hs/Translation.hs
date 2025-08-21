@@ -1334,7 +1334,10 @@ functionDecs opts moduleName typedefs info f _spec =
 -- the program, which means we can omit the 'IO' from the foreign import.
 --
 global :: C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-global = mkGlobal Nothing
+global info ty _spec = stubDecs
+  where
+    -- *** Stub ***
+    (stubDecs, _stubImportName) = addressStubDecs info C.TypeQualifierNone ty _spec
 
 -- | Global /constant/ variables
 --
@@ -1356,17 +1359,65 @@ globalConst ::
   -> C.Type
   -> C.DeclSpec
   -> [Hs.Decl]
-globalConst instsMap = mkGlobal (Just instsMap)
+globalConst instsMap info ty _spec =
+    stubDecs ++ concat [
+        [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
+        , getterDecl
+        ]
+      | -- We must have a storable instance available without any constraints.
+        --
+        -- We are generating a binding for a global variable here. This binding
+        -- must be marked NOINLINE, so that it will be evaluated at most once.
+        -- /If/ we have a Storable instance, but that storable instance has a
+        -- superclass constraint, then we could _in principle_ add that superclass
+        -- constraint to as a constraint to the type of the global, but this would
+        -- then turn the global into a function instead.
+        --
+        -- TODO: we don't yet check whether the Storable instance has no
+        -- superclass constraints. See issue #993.
+        Hs.Storable
+          `elem`
+            getInstances instsMap "unused" (Set.singleton Hs.Storable) [typ ty]
+      ]
+  where
+    -- *** Stub ***
+    (stubDecs, stubImportName) = addressStubDecs info C.TypeQualifierConst ty _spec
 
--- | Generate decls for global variables\/constants.
+    -- *** Getter ***
+    getterDecl :: Hs.Decl
+    getterDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
+          varName    = getterName
+        , varType    = getterType
+        , varExpr    = getterExpr
+        , varComment = Nothing
+        }
+
+    getterName = C.nameHs (C.declId info)
+    getterType = SHs.translateType (typ ty)
+    getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
+                `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
+                `SHs.EApp` SHs.EFree stubImportName)
+
+-- | Create a stub C function that returns the address of a given declaration,
+-- and create a binding to that stub C function.
 --
--- If the 'Maybe InstanceMap' argument is 'Nothing', then 'mkGlobal' generates a
--- decl for a global variable. If it is @'Just' _@, 'mkGlobal' generates a decl
--- for a global constant.
+-- See 'global' and 'globalConst' for example uses.
 --
--- See 'global' and 'globalConst' for more information.
-mkGlobal :: Maybe InstanceMap -> C.DeclInfo -> C.Type -> C.DeclSpec -> [Hs.Decl]
-mkGlobal mInstsMap info ty _spec =
+-- This function returns a pair @(stubDecs, stubImportName)@:
+--
+-- * @stubDecs@: a list of declarations for the stub C function.
+--
+-- * @stubImportName@: the identifier of the foreign import targetting the stub
+--   C function.
+addressStubDecs ::
+     C.DeclInfo -- ^ The given declaration
+  -> C.TypeQualifier -- ^ Outermost qualifier of the type of the given declaration
+  -> C.Type -- ^ The type of the given declaration
+  -> C.DeclSpec
+  -> ( [Hs.Decl]
+     , HsName 'NsVar
+     )
+addressStubDecs info tyQual ty _spec = (,stubImportName) $
     [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
@@ -1378,29 +1429,8 @@ mkGlobal mInstsMap info ty _spec =
         , foreignImportOrigin   = Origin.Global ty
         , foreignImportComment  = generateHaddocks (C.declComment info)
         }
-    ] ++ concat [
-      [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
-      , getterDecl
-      ]
-    | instsMap <- toList mInstsMap
-      -- We must have a storable instance available without any constraints.
-      --
-      -- We are generating a binding for a global variable here. This binding
-      -- must be marked NOINLINE, so that it will be evaluated at most once.
-      -- /If/ we have a Storable instance, but that storable instance has a
-      -- superclass constraint, then we could _in principle_ add that superclass
-      -- constraint to as a constraint to the type of the global, but this would
-      -- then turn the global into a function instead.
-      --
-      -- TODO: we don't yet check whether the Storable instance has no
-      -- superclass constraints. See issue #993.
-    , Hs.Storable
-        `elem`
-          getInstances instsMap "unused" (Set.singleton Hs.Storable) [typ ty]
     ]
   where
-    -- *** Stub ***
-
     stubImportName :: HsName 'NsVar
     stubImportName = HsName $ T.pack (varName ++ "_ptr")
 
@@ -1418,7 +1448,7 @@ mkGlobal mInstsMap info ty _spec =
     stubType = C.TypePointer ty
 
     stubTypeQualifier :: C.TypeQualifier
-    stubTypeQualifier = maybe C.TypeQualifierNone (const C.TypeQualifierConst) mInstsMap
+    stubTypeQualifier = tyQual
 
     prettyStub :: String
     prettyStub = PC.prettyDecl stubDecl " "
@@ -1428,22 +1458,6 @@ mkGlobal mInstsMap info ty _spec =
         PC.withArgs [] $ \args' ->
           PC.FunDefn stubName stubType stubTypeQualifier C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
-
-    -- *** Getter ***
-
-    getterDecl :: Hs.Decl
-    getterDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
-          varName    = getterName
-        , varType    = getterType
-        , varExpr    = getterExpr
-        , varComment = Nothing
-        }
-
-    getterName = C.nameHs (C.declId info)
-    getterType = SHs.translateType (typ ty)
-    getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
-                `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
-                `SHs.EApp` SHs.EFree stubImportName)
 
 {-------------------------------------------------------------------------------
   Macro
