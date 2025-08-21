@@ -181,8 +181,10 @@ parseClangArgs = do
     clangStdInc           <- not <$> parseNoStdInc
     clangExtraIncludeDirs <- parseIncludeDirOptions
     clangDefineMacros     <- parseDefineMacroOptions
-    clangOtherArgs        <- parseOtherArgs
-    pure ClangArgs {..}
+    clangArgsBefore       <- parseClangArgsBefore
+    clangArgsInner        <- parseClangArgsInner
+    clangArgsAfter        <- parseClangArgsAfter
+    pure $ ClangArgs {..}
 
 parseTarget :: Parser (Target, TargetEnv)
 parseTarget = option (maybeReader readTarget) $ mconcat [
@@ -271,19 +273,34 @@ parseDefineMacroOptions = many . strOption $ mconcat [
     , help "Define <macro> to <value> (or 1 if <value> omitted)"
     ]
 
--- TODO: Perhaps we should mimick clang's @-f@ parameter?
+-- TODO: Perhaps we should mimick Clang's @-f@ parameter?
 parseEnableBlocks :: Parser Bool
 parseEnableBlocks = switch $ mconcat [
       long "enable-blocks"
     , help "Enable the 'blocks' language feature"
     ]
 
-parseOtherArgs :: Parser [String]
-parseOtherArgs = many . strOption $ mconcat [
+parseClangArgsBefore :: Parser [String]
+parseClangArgsBefore = many . strOption $ mconcat [
+      long "clang-option-before"
+    , metavar "OPTION"
+    , help "Prepend option when calling Clang; see also --clang-option"
+    ]
+
+parseClangArgsInner :: Parser [String]
+parseClangArgsInner = many . strOption $ mconcat [
       long "clang-option"
     , metavar "OPTION"
-    , help "Pass option to libclang"
+    , help "Pass option to Clang"
     ]
+
+parseClangArgsAfter :: Parser [String]
+parseClangArgsAfter = many . strOption $ mconcat [
+      long "clang-option-after"
+    , metavar "OPTION"
+    , help "Append option when calling Clang; see also --clang-option"
+    ]
+
 
 {-------------------------------------------------------------------------------
   Translation options
@@ -471,22 +488,10 @@ checkInputs tracer = mapM $
 footerWith :: ParserPrefs -> Doc
 footerWith p = vcat [ environmentVariablesFooter p
                     , ""
+                    , clangArgsFooter p
+                    , ""
                     , selectSliceFooter p
                     ]
-
-selectSliceFooter :: ParserPrefs -> Doc
-selectSliceFooter _ =
-   vcat [ pretty ("Selection and program slicing:" :: String)
-        , "-" <+> align (reflow $ mconcat [
-            "Program slicing disabled (default): "
-          , "Only select declarations according to the selection predicate."
-          ])
-        , "-" <+> align (reflow $ mconcat [
-            "Program slicing enabled ('--enable-program-slicing'): "
-            , "Select declarations using the selection predicate, "
-            , "and also select their transitive dependencies."
-          ])
-        ]
 
 environmentVariablesFooter :: ParserPrefs -> Doc
 environmentVariablesFooter p =
@@ -508,13 +513,38 @@ environmentVariablesFooter p =
 
     envVars :: [(Text, Text)]
     envVars = [ ("BINDGEN_EXTRA_CLANG_ARGS",
-                 "Extra command line arguments passed to `libclang`")
+                 "Arguments passed to Clang")
               , ("BINDGEN_EXTRA_CLANG_ARGS_<TARGET>",
-                 "Per-target arguments passed to `libclang`"
-                 <> ", precedes BINDGEN_EXTRA_CLANG_ARGS if using a specific target"
+                 "Target-specific arguments passed to Clang"
+                 <> "; precedes BINDGEN_EXTRA_CLANG_ARGS"
                  <> "; possible targets: "
                  <> Text.intercalate ", " (map Text.pack triples) )
               ]
+
+clangArgsFooter :: ParserPrefs -> Doc
+clangArgsFooter _ =
+    vcat [
+        "Options passed to Clang and their order:"
+      , "  1. --clang-option-before options "
+      , "  2. Clang options directly handled by hs-bindgen (e.g., -I options)"
+      , "  3. --clang-option options"
+      , "  4. BINDGEN_EXTRA_CLANG_ARGS options"
+      , "  5. --clang-option-after options"
+      ]
+
+selectSliceFooter :: ParserPrefs -> Doc
+selectSliceFooter _ =
+   vcat [ pretty ("Selection and program slicing:" :: String)
+        , "  -" <+> align (reflow $ mconcat [
+            "Program slicing disabled (default): "
+          , "Only select declarations according to the selection predicate."
+          ])
+        , "  -" <+> align (reflow $ mconcat [
+            "Program slicing enabled ('--enable-program-slicing'): "
+            , "Select declarations using the selection predicate, "
+            , "and also select their transitive dependencies."
+          ])
+        ]
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

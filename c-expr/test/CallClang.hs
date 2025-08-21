@@ -307,8 +307,8 @@ clangWithTranslationUnit userClangArgs srcContents k =
 
     args :: Clang.ClangArgs
     args = userClangArgs
-      { Clang.clangOtherArgs =
-          Clang.clangOtherArgs userClangArgs
+      { Clang.clangArgsBefore =
+          Clang.clangArgsBefore userClangArgs
             ++
             [ "-Werror=pointer-integer-compare"
             , "-Werror=compare-distinct-pointer-types"

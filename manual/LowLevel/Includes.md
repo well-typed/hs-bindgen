@@ -173,9 +173,10 @@ Clang environment variables, described above.
 * `--no-stdinc` disables the default include directories.  (Clang option:
   `-nostdinc`)
 
-Clang has many more include options, which may be passed via `--clang-option`
-options.  For example, Clang option `-idirafter` may be used to add a directory
-to the end of the bracket C include search path.
+Clang has many more include options, which may be passed via
+`--clang-option-before`, `--clang-option`, or `--clang-opion-after` options. For
+example, Clang option `-idirafter` may be used to add a directory to the end of
+the bracket C include search path.
 
 ```
 $ hs-bindgen-cli preprocess \
@@ -193,7 +194,8 @@ As described in [Clang options][], environment variable
 `BINDGEN_EXTRA_CLANG_ARGS` may be used to specify arbitrary Clang options.
 Precedence is as follows:
 
-1. `hs-bindgen` command-line options
+1. `hs-bindgen` command-line options `--clang-option-before` and
+   `--clang-option`
 2. `BINDGEN_EXTRA_CLANG_ARGS`
 3. Clang environment variables (such as `C_INCLUDE_PATH`)
 

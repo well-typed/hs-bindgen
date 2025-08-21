@@ -75,10 +75,27 @@ data ClangArgs = ClangArgs {
       -- @Block.h@ header.
     , clangEnableBlocks :: Bool
 
-      -- | Other arguments
+      -- | Prepend these arguments when calling @clang@. See also
+      -- 'clangArgsInner'.
+    , clangArgsBefore :: [String]
+
+      -- | Arguments passed to @clang@.
+      --
+      -- The complete list of arguments passed to @clang@ is
+      --
+      -- @
+      --   'clangArgsBefore' ++ internalArgs ++ 'clangArgsInner' ++ 'clangArgsAfter'
+      -- @
+      --
+      -- where we assemble @internalArgs@ using the specialized 'ClangArgs'
+      -- records above.
       --
       -- See https://clang.llvm.org/docs/ClangCommandLineReference.html
-    , clangOtherArgs :: [String]
+    , clangArgsInner :: [String]
+
+      -- | Append these arguments when calling @clang@. See also
+      -- 'clangArgsInner'.
+    , clangArgsAfter :: [String]
     }
   deriving stock (Show, Eq)
 
@@ -91,7 +108,9 @@ instance Default ClangArgs where
     , clangExtraIncludeDirs = []
     , clangDefineMacros     = []
     , clangEnableBlocks     = False
-    , clangOtherArgs        = []
+    , clangArgsBefore       = []
+    , clangArgsInner        = []
+    , clangArgsAfter        = []
     }
 
 -- | C standard
@@ -122,8 +141,19 @@ newtype InvalidClangArgs = InvalidClangArgs String
   deriving newtype (IsString)
   deriving anyclass (Exception)
 
+
+-- NOTE: The order of command line arguments is significant. For example,
+-- include directory specifications are parsed from left to right.
 fromClangArgs :: ClangArgs -> Either InvalidClangArgs [String]
-fromClangArgs ClangArgs{..} = aux [
+fromClangArgs args = squeezeIn <$> getClangInternalArgs args
+  where
+    before = clangArgsBefore args
+    inner  = clangArgsInner args
+    after  = clangArgsAfter args
+    squeezeIn xs = before ++ xs ++ inner ++ after
+
+getClangInternalArgs :: ClangArgs -> Either InvalidClangArgs [String]
+getClangInternalArgs ClangArgs{..} = aux [
       ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
         return ["-target", target]
 
@@ -186,8 +216,6 @@ fromClangArgs ClangArgs{..} = aux [
           ["-D" ++ defn]
         | defn <- clangDefineMacros
         ]
-
-    , return clangOtherArgs
     ]
   where
     aux :: [Except InvalidClangArgs [String]] -> Either InvalidClangArgs [String]
