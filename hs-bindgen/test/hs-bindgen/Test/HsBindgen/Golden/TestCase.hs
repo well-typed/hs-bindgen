@@ -39,6 +39,7 @@ import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
+import Test.Common.HsBindgen.Trace (reportTrace)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
 
@@ -219,7 +220,7 @@ withTestTraceConfig TestCase{testTracePredicate} =
 
 -- | Run 'hsBindgen'.
 --
--- On trace exceptions, print error traces.
+-- On 'TraceException's, print error traces.
 runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
 runTestHsBindgen testResources test artefacts =
     handle exceptionHandler $ runTestHsBindgen' testResources test artefacts
@@ -227,8 +228,9 @@ runTestHsBindgen testResources test artefacts =
     exceptionHandler :: SomeException -> IO a
     exceptionHandler e@(SomeException e')
       | Just (TraceException @TraceMsg es) <- fromException e =
-          mapM_ print es >> throwIO e'
+          mapM_  printTrace es >> throwIO e'
       | otherwise = throwIO e'
+    printTrace = print . reportTrace
 
 -- | Like 'runTestHsBindgen', but do not print error traces.
 runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)

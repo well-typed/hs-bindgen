@@ -329,6 +329,7 @@ library test-common
   hs-source-dirs: test/common
 
   exposed-modules:
+      Test.Common.HsBindgen.Trace
       Test.Common.HsBindgen.TracePredicate
       Test.Common.Util.Cabal
       Test.Common.Util.Tasty

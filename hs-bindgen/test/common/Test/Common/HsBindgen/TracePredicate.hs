@@ -17,10 +17,10 @@ module Test.Common.HsBindgen.TracePredicate (
   , withTraceConfigPredicate
   ) where
 
-import Control.Exception
+import Control.Exception (Exception, finally, throwIO)
 import Control.Monad.Except (Except, runExcept, throwError)
 import Data.Foldable qualified as Foldable
-import Data.IORef
+import Data.IORef (modifyIORef', newIORef, readIORef)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
@@ -30,7 +30,9 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports (Default (def))
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (CtxDoc, (><))
+
+import Test.Common.HsBindgen.Trace
+import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
@@ -130,14 +132,14 @@ withTraceConfigPredicate (TracePredicate predicate) action = do
   tracesRef <- newIORef []
   let writer :: Report IO a
       writer _ trace _ = modifyIORef' tracesRef ((:) trace)
-  actionRes <- action $ def {
+  (action $ def {
       tVerbosity    = Verbosity Info
     , tOutputConfig = OutputCustom writer DisableAnsiColor
-    }
-  traces <- readIORef tracesRef
-  case runExcept (predicate traces) of
-    Left  e -> throwIO e
-    Right _ -> pure actionRes
+    }) `finally` do
+      traces <- readIORef tracesRef
+      case runExcept (predicate traces) of
+        Left  e -> throwIO e
+        Right _ -> pure ()
 
 {-------------------------------------------------------------------------------
   Trace exception
@@ -148,25 +150,19 @@ data TraceExpectationException a = TraceExpectationException {
     , expectedTracesWithWrongCounts :: [CtxDoc]
     }
 
-instance (IsTrace l a, Show l, Show a) => Show (TraceExpectationException a) where
+instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
   show (TraceExpectationException {..}) = PP.renderCtxDoc PP.defaultContext $
       PP.vcat $
            ( if null unexpectedTraces
                then []
                else "Unexpected traces:"
-                  : map formatTrace unexpectedTraces
+                  : map reportTrace unexpectedTraces
            )
         ++ ( if null expectedTracesWithWrongCounts
                then []
                else "Expected traces with wrong counts:"
                   : expectedTracesWithWrongCounts
            )
-    where
-      formatTrace trace =
-        PP.hangs'
-          (PP.showToCtxDoc (getDefaultLogLevel trace) >< ":")
-          2
-          (prettyAndShowTrace trace)
 
 
 instance (Typeable a, IsTrace l a, Show l, Show a)
@@ -185,9 +181,9 @@ class WrongCountMsg a b where
     -> CtxDoc
 
 -- | The general case, with user-defined labels as documents
-instance (PrettyForTrace a, Show a) => WrongCountMsg a CtxDoc where
+instance (IsTrace l a, Show a) => WrongCountMsg a CtxDoc where
   wrongCount name expectedCount actualCount traces =
-    PP.hangs' intro 2 $ concatMap prettyAndShowTrace traces
+    PP.hangs' intro 2 $ map reportTrace traces
     where
       intro = PP.hcat
         [ "Name: ",             name
@@ -196,15 +192,15 @@ instance (PrettyForTrace a, Show a) => WrongCountMsg a CtxDoc where
         ]
 
 -- | Traces with multiple outcome, with user-defined labels
-instance (PrettyForTrace a, Show a) => WrongCountMsg a String where
+instance (IsTrace l a, Show a) => WrongCountMsg a String where
   wrongCount = wrongCount . PP.string
 
 -- | It is often useful to check for warnings/errors for specific declarations
-instance (PrettyForTrace a, Show a) => WrongCountMsg a C.PrelimDeclId where
+instance (IsTrace l a, Show a) => WrongCountMsg a C.PrelimDeclId where
   wrongCount = wrongCount . prettyForTrace
 
 -- | The most common case: traces with just one outcome
-instance (PrettyForTrace a, Show a) => WrongCountMsg a () where
+instance (IsTrace l a, Show a) => WrongCountMsg a () where
   wrongCount _ 1 n _      = case compare n 1 of
     LT -> "Expected a single trace but no trace was emitted"
     EQ -> panicPure "error: received correct count"
@@ -222,7 +218,7 @@ instance PrettyForTrace a => PrettyForTrace (Labelled a) where
       , prettyForTrace x
       ]
 
-instance (PrettyForTrace a, PrettyForTrace b, Show a)
+instance (IsTrace l a, PrettyForTrace b, Show a)
   => WrongCountMsg a (Labelled b) where
   wrongCount = wrongCount . prettyForTrace
 
@@ -237,15 +233,3 @@ addN n m k = Map.insertWith (const (+ n)) k n m
 
 count :: (Foldable f, Ord a) => f a -> Counter a
 count = Foldable.foldl' (addN 1) Map.empty
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
--- Seeing both, the pretty trace and the 'Show' instance greatly simplifies test
--- design and debugging.
-prettyAndShowTrace :: (PrettyForTrace a, Show a) => a -> [CtxDoc]
-prettyAndShowTrace trace =
-          [ "prettyForTrace: " >< prettyForTrace trace
-          , "show:           " >< PP.showToCtxDoc trace
-          ]
