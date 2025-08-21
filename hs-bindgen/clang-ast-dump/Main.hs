@@ -35,14 +35,15 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data Options = Options {
-      optBuiltin     :: !Bool
-    , optComments    :: !Bool
-    , optExtents     :: !Bool
-    , optFile        :: !HashIncludeArg
-    , optKind        :: !Bool
-    , optIncludePath :: [CIncludeDir]
-    , optSameFile    :: !Bool
-    , optType        :: !Bool
+      optBuiltin         :: !Bool
+    , optComments        :: !Bool
+    , optExtents         :: !Bool
+    , optFile            :: !HashIncludeArg
+    , optKind            :: !Bool
+    , optIncludePath     :: [CIncludeDir]
+    , optClangArgsInner  :: [String]
+    , optSameFile        :: !Bool
+    , optType            :: !Bool
     }
 
 {-------------------------------------------------------------------------------
@@ -98,12 +99,13 @@ clangAstDump opts@Options{..} = do
   where
     tracerConf :: TracerConfig IO Level DumpTrace
     tracerConf = def {
-        tVerbosity = Verbosity Notice
+        tVerbosity = Verbosity Debug
       }
 
     cArgs :: ClangArgs
     cArgs = def {
         clangExtraIncludeDirs = optIncludePath
+      , clangArgsInner        = optClangArgsInner
       }
 
     cOpts :: BitfieldEnum CXTranslationUnit_Flags
@@ -164,14 +166,20 @@ foldDecls opts@Options{..} = simpleFold $ \cursor -> do
       Right CXCursor_TypedefDecl -> do
         dumpType cursor cursorType isDecl
         traceU 1 "typedef name" =<< clang_getTypedefName cursorType
-        pure True -- results in repeated information unless typedef is decl
+        -- Results in repeated information unless the `typedef` is a
+        -- declaration.
+        pure True
       Right CXCursor_MacroDefinition ->
-        -- TODO not defined yet
+        -- TODO: Not defined yet.
         pure True
       Right CXCursor_InclusionDirective ->
         pure False -- does not matter
       Right CXCursor_UnionDecl -> do
         dumpType cursor cursorType isDecl
+        pure True
+      Right CXCursor_LinkageSpec -> do
+        -- NOTE: The linkage specification has no display name, and so the
+        -- parents of the children are unknown, that is, the empty string "".
         pure True
       Right{} -> False <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
       Left n  -> False <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
@@ -446,17 +454,18 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
     parseOptions :: OA.Parser (Bool, Options)
     parseOptions = do
       -- flags enabled by all flag
-      optComments <- mkFlag "comments"  "show comments"
-      optExtents  <- mkFlag "extents"   "show extents"
-      optKind     <- mkFlag "kind"      "show kind details"
-      optType     <- mkFlag "type"      "show type details"
+      optComments        <- mkFlag "comments"  "show comments"
+      optExtents         <- mkFlag "extents"   "show extents"
+      optKind            <- mkFlag "kind"      "show kind details"
+      optType            <- mkFlag "type"      "show type details"
       -- all flag
-      optAll      <- mkFlag "all"       "enable all above flags"
+      optAll             <- mkFlag "all"       "enable all above flags"
       -- other options/arguments
-      optBuiltin  <- mkFlag "builtin"   "show builtin macros"
-      optSameFile <- mkFlag "same-file" "only show from specified file"
-      optIncludePath <- includeDirOptions
-      optFile        <- fileArgument
+      optBuiltin         <- mkFlag "builtin"   "show builtin macros"
+      optSameFile        <- mkFlag "same-file" "only show from specified file"
+      optIncludePath     <- includeDirOptions
+      optClangArgsInner  <- clangArgsInnerOption
+      optFile            <- fileArgument
       pure (optAll, Options{..})
 
     includeDirOptions :: OA.Parser [CIncludeDir]
@@ -464,6 +473,13 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       [ OA.short 'I'
       , OA.metavar "DIR"
       , OA.help "Include search path directory"
+      ]
+
+    clangArgsInnerOption :: OA.Parser [String]
+    clangArgsInnerOption = OA.many . OA.strOption $ mconcat [
+        OA.long "clang-option"
+      , OA.metavar "OPTION"
+      , OA.help "Pass option to clang"
       ]
 
     fileArgument :: OA.Parser HashIncludeArg

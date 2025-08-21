@@ -11,6 +11,8 @@ import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
+import Text.SimplePrettyPrint qualified as PP
+
 -- | Boot phase.
 --
 -- Basic setup and checks.
@@ -25,7 +27,9 @@ boot ::
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot tracer BindgenConfig{..} uncheckedHashIncludeArgs = do
+boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
+    let tracerBootStatus = contramap BootStatus tracer
+    traceWith tracerBootStatus $ BootStart bindgenConfig
     let tracerBackendConfig :: Tracer IO BackendConfigMsg
         tracerBackendConfig = contramap BootBackendConfig tracer
     checkBackendConfig tracerBackendConfig bindgenBackendConfig
@@ -37,11 +41,13 @@ boot tracer BindgenConfig{..} uncheckedHashIncludeArgs = do
         tracerBindingSpec = contramap BootBindingSpec tracer
     (extSpec, pSpec) <-
       loadBindingSpecs tracerBindingSpec clangArgs bindingSpecConfig
-    pure BootArtefact {
+    let bootArtefact = BootArtefact {
           bootHashIncludeArgs         = hashIncludeArgs
         , bootExternalBindingSpec     = extSpec
         , bootPrescriptiveBindingSpec = pSpec
         }
+    traceWith tracerBootStatus $ BootEnd bootArtefact
+    pure bootArtefact
   where
     clangArgs :: ClangArgs
     clangArgs = frontendClangArgs bindgenFrontendConfig
@@ -58,15 +64,34 @@ data BootArtefact = BootArtefact {
   , bootExternalBindingSpec     :: ExternalBindingSpec
   , bootPrescriptiveBindingSpec :: PrescriptiveBindingSpec
   }
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Trace
 -------------------------------------------------------------------------------}
 
+data BootStatusMsg =
+    BootStart BindgenConfig
+  | BootEnd BootArtefact
+  deriving stock (Show, Eq, Generic)
+
+instance PrettyForTrace BootStatusMsg where
+  prettyForTrace = \case
+    BootStart x -> PP.hang "Booting with configuration" 2 $
+                     PP.showToCtxDoc x
+    BootEnd   x -> PP.hang "Booted  up; returning boot artefact" 2 $
+                     PP.showToCtxDoc x
+
+instance IsTrace Level BootStatusMsg where
+  getDefaultLogLevel = const Debug
+  getSource          = const HsBindgen
+  getTraceId         = const "boot-status"
+
 -- | Boot trace messages
 data BootMsg =
     BootBackendConfig  BackendConfigMsg
-  | BootHashIncludeArg HashIncludeArgMsg
   | BootBindingSpec    BindingSpecMsg
+  | BootHashIncludeArg HashIncludeArgMsg
+  | BootStatus         BootStatusMsg
   deriving stock (Show, Eq, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

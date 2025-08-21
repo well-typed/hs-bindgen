@@ -71,7 +71,7 @@ data BindingSpec = BindingSpec {
       bindingSpecUnresolved :: BindingSpec.UnresolvedBindingSpec
     , bindingSpecResolved   :: BindingSpec.ResolvedBindingSpec
     }
-  deriving stock (Show)
+  deriving stock (Show, Eq)
 
 -- | Empty binding specification
 emptyBindingSpec :: BindingSpec
