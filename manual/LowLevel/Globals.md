@@ -130,7 +130,8 @@ The approach to generating foreign imports for global variables is as follows:
 * But first, we generate a stub C function that returns the address of the
   global variable. This stub is necessary to prevent linker errors on Windows.
   For more information about the error, see [issue #898][issue-898] and [PR
-  #927][pr-927].
+  #927][pr-927]. The stub is given a unique, mangled name to prevent duplicate
+  symbols.
 
 * Then, we create a foreign import of that stub C function.
 
@@ -155,18 +156,12 @@ int x;
 
 Stub:
 ```c
-// The x_ptr_c indirection is just here to give the pointer a name that we
-// can refer to in the memory layout. It is not included in the stub that we
-// actually generate
-__attribute__ ((const)) int* get_x_ptr(void) {
-    int *x_ptr_c = &x;
-    return x_ptr_c;
-}
+/* get_x_ptr */ __attribute__ ((const)) int* fe8f4js8(void) { return &x; }
 ```
 
 Import:
 ```hs
-foreign import ccall safe "get_x_ptr" x_ptr :: Ptr CInt
+foreign import ccall safe "fe8f4js8" x_ptr :: Ptr CInt
 ```
 
 Memory layout:
@@ -175,9 +170,7 @@ Memory layout:
 | ------------------------ | ------------- | ------- | ------- |
 | int                      | x             | 1000    | 17      |
 |                          |               | ...     |         |
-| int*                     | x_ptr_c       | 2000    | 1000    |
-|                          |               | ...     |         |
-| Ptr CInt                 | x_ptr         | 3000    | 1000    |
+| int* ; Ptr CInt          | x_ptr         | 2000    | 1000    |
 
 Constant:
 ```hs
@@ -203,18 +196,12 @@ int* x;
 
 Stub:
 ```c
-// The x_ptr_c indirection is just here to give the pointer a name that we
-// can refer to in the memory layout. It is not included in the stub that we
-// actually generate
-int** get_x() {
-  int** x_ptr_c = &x;
-  return x_ptr_c;
-}
+/* get_x_ptr */ int** ae8fae8() { return &x; }
 ```
 
 Import:
 ```hs
-foreign import ccall safe "get_x_ptr" x_ptr :: Ptr (Ptr CInt)
+foreign import ccall safe "ae8fae8" x_ptr :: Ptr (Ptr CInt)
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
@@ -237,9 +224,7 @@ Memory layout:
 |                          |               | ...     |         |
 | int*                     | x             | 2000    | 1000    |
 |                          |               | ...     |         |
-| int**                    | x_ptr_c       | 3000    | 2000    |
-|                          |               | ...     |         |
-| Ptr (Ptr CInt)           | x_ptr         | 4000    | 2000    |
+| int**; Ptr (Ptr CInt)    | x_ptr         | 3000    | 2000    |
 
 Constant:
 ```hs
@@ -278,19 +263,13 @@ triplet x;
 
 Stub:
 ```c
-// The x_ptr_c indirection is just here to give the pointer a name that we
-// can refer to in the memory layout. It is not included in the stub that we
-// actually generate
-__attribute__ ((const)) triplet *get_x_ptr(void) {
-  x_ptr_c = &x;
-  return x_ptr_c;
-}
+/* get_x_ptr */ __attribute__ ((const)) triplet *f94u3030(void) { return &x; }
 ```
 
 Import:
 ```hs
 newtype Triplet = Triplet (ConstantArray 3 CInt)
-foreign import ccall safe "get_x_ptr" x_ptr :: Ptr Triplet
+foreign import ccall safe "f94u3030" x_ptr :: Ptr Triplet
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
@@ -302,15 +281,13 @@ x_elem_ptr = snd $ ConstantArray.isFirstElem x_ptr
 
 Memory layout:
 
-| type                       | name          | address | value   |
-| -------------------------- | ------------- | ------- | ------- |
-| int[3]                     | x             | 1000    | 1       |
-|                            |               | 1004    | 2       |
-|                            |               | 1008    | 3       |
-|                            |               | ...     |         |
-| (*int)[3]                  | x_ptr_c       | 2000    | 1000    |
-|                            |               | ...     |         |
-| Ptr (ConstantArray 3 CInt) | x_ptr         | 3000    | 1000    |
+| type                                   | name          | address | value   |
+| -------------------------------------- | ------------- | ------- | ------- |
+| int[3]                                 | x             | 1000    | 1       |
+|                                        |               | 1004    | 2       |
+|                                        |               | 1008    | 3       |
+|                                        |               | ...     |         |
+| (*int)[3] ; Ptr (ConstantArray 3 CInt) | x_ptr         | 2000    | 1000    |
 
 Constant:
 ```hs
@@ -334,19 +311,13 @@ list x;
 
 Stub:
 ```c
-// The x_ptr_c indirection is just here to give the pointer a name that we
-// can refer to in the memory layout. It is not included in the stub that we
-// actually generate
-__attribute__ ((const)) list *get_x_ptr(void) {
-  x_ptr_c = &x;
-  return x_ptr_c;
-}
+/* get_x_ptr */ __attribute__ ((const)) list *poeyrb8a(void) { return &x; }
 ```
 
 Import:
 ```hs
 newtype List = List (IncompleteArray CInt)
-foreign import ccall safe "get_x_ptr" x_ptr :: Ptr List
+foreign import ccall safe "poeyrb8a" x_ptr :: Ptr List
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
@@ -358,15 +329,13 @@ x_elem_ptr = IncompleteArray.isFirstElem x_ptr
 
 Memory layout:
 
-| type                       | name          | address | value   |
-| -------------------------- | ------------- | ------- | ------- |
-| int[]                      | x             | 1000    | 1       |
-|                            |               | 1004    | 2       |
-|                            |               | 1008    | 3       |
-|                            |               | ...     |         |
-| (*int)[]                   | x_ptr_c       | 2000    | 1000    |
-|                            |               | ...     |         |
-| Ptr (IncompleteArray CInt) | x_ptr         | 3000    | 1000    |
+| type                                  | name          | address | value   |
+| ------------------------------------- | ------------- | ------- | ------- |
+| int[]                                 | x             | 1000    | 1       |
+|                                       |               | 1004    | 2       |
+|                                       |               | 1008    | 3       |
+|                                       |               | ...     |         |
+| (*int)[] ; Ptr (IncompleteArray CInt) | x_ptr         | 2000    | 1000    |
 
 Constant:
 ```hs

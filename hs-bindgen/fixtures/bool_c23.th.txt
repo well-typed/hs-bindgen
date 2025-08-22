@@ -1,4 +1,4 @@
 -- addDependentFile examples/golden/bool_c23.h
 -- #include <bool_c23.h>
--- __attribute__ ((const)) _Bool *get_b_ptr (void) { return &b; } 
-foreign import ccall safe "get_b_ptr" b_ptr :: Ptr CBool
+-- /* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_401ecb7e80957164 (void) { return &b; } 
+foreign import ccall safe "hs_bindgen_test_bool_c23_401ecb7e80957164" b_ptr :: Ptr CBool

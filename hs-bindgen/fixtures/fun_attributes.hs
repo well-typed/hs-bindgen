@@ -1349,7 +1349,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i_ptr (void) { return &i; } ",
+    "/* get_i_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_fun_attributes_fe81510d355aff25 (void) { return &i; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1360,7 +1360,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i_ptr",
+      "hs_bindgen_test_fun_attributes_fe81510d355aff25",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global

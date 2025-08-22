@@ -5,8 +5,8 @@
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/doxygen_docs.h
 -- #include <doxygen_docs.h>
--- __attribute__ ((const)) signed int *get_global_counter_ptr (void) { return &global_counter; } 
--- __attribute__ ((const)) char **get_version_string_ptr (void) { return &version_string; } 
+-- /* get_global_counter_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742 (void) { return &global_counter; } 
+-- /* get_version_string_ptr */ __attribute__ ((const)) char **hs_bindgen_test_doxygen_docs_a8499810bd5203c6 (void) { return &version_string; } 
 -- signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
 -- _Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char *arg1) { return process_file(arg1); }
 -- signed int hs_bindgen_test_doxygen_docs_788bfbb9e824261c (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }
@@ -59,7 +59,7 @@ newtype Size_type
   This variable tracks the number of operations performed.
 
 -}
-foreign import ccall safe "get_global_counter_ptr" global_counter_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742" global_counter_ptr :: Ptr CInt
 {-|
 
   > extern const char* version_string
@@ -67,7 +67,7 @@ foreign import ccall safe "get_global_counter_ptr" global_counter_ptr :: Ptr CIn
   Version string constant
 
 -}
-foreign import ccall safe "get_version_string_ptr" version_string_ptr :: Ptr (Ptr CChar)
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_a8499810bd5203c6" version_string_ptr :: Ptr (Ptr CChar)
 {-| This is the comment @title@
 
   Forward declaration with documentation

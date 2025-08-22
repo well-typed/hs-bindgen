@@ -6,6 +6,12 @@ unsafe extern "C" {
     pub fn ϒ();
 }
 unsafe extern "C" {
+    pub static mut ϒϒ: ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    pub static ϒϒϒ: ::std::os::raw::c_int;
+}
+unsafe extern "C" {
     pub fn 拜拜();
 }
 unsafe extern "C" {

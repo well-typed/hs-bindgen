@@ -11,11 +11,17 @@ typedef int adiós;
 // * cannot be made uppercase
 typedef int 数字;
 
-// Variable name which starts with a character which
+// Function name which starts with a character which
 // * is uppercase
 // * cannot be made lowercase
 // These delightful characters are very rare!
 void ϒ(void);
+
+// Like the function ϒ, but now a global variable.
+extern int ϒϒ;
+
+// Like the function ϒ, but now a global constant.
+extern const int ϒϒϒ;
 
 // Variable name which is valid in both C and Haskell as-is
 void 拜拜(void);
@@ -23,6 +29,3 @@ void 拜拜(void);
 // Function name which is contains only "Haskell-valid" characters but starts
 // with an uppercase letter
 void Say拜拜(void);
-
-
-

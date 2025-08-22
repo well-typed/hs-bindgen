@@ -2,7 +2,7 @@
   DeclInlineCInclude
     "redeclaration.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_x_ptr (void) { return &x; } ",
+    "/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -13,7 +13,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_x_ptr",
+      "hs_bindgen_test_redeclaration_59f22ffbb8d28119",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global

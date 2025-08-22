@@ -752,7 +752,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i0_ptr (void) { return &i0; } ",
+    "/* get_i0_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_724fd59489c94c9f (void) { return &i0; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -763,7 +763,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i0_ptr",
+      "hs_bindgen_test_visibility_attributes_724fd59489c94c9f",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -773,7 +773,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i1_ptr (void) { return &i1; } ",
+    "/* get_i1_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_736e69defba46ab4 (void) { return &i1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -784,7 +784,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i1_ptr",
+      "hs_bindgen_test_visibility_attributes_736e69defba46ab4",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -794,7 +794,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i2_ptr (void) { return &i2; } ",
+    "/* get_i2_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_210c547ae5abcc02 (void) { return &i2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -805,7 +805,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i2_ptr",
+      "hs_bindgen_test_visibility_attributes_210c547ae5abcc02",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -815,7 +815,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i3_ptr (void) { return &i3; } ",
+    "/* get_i3_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_d6bb66d7f7107274 (void) { return &i3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -826,7 +826,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i3_ptr",
+      "hs_bindgen_test_visibility_attributes_d6bb66d7f7107274",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -836,7 +836,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i4_ptr (void) { return &i4; } ",
+    "/* get_i4_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_8c4485c2eb6e1434 (void) { return &i4; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -847,7 +847,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i4_ptr",
+      "hs_bindgen_test_visibility_attributes_8c4485c2eb6e1434",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -857,7 +857,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i5_ptr (void) { return &i5; } ",
+    "/* get_i5_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_6ff6b816265f91d3 (void) { return &i5; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -868,7 +868,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i5_ptr",
+      "hs_bindgen_test_visibility_attributes_6ff6b816265f91d3",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -878,7 +878,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i6_ptr (void) { return &i6; } ",
+    "/* get_i6_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3bd2208d8e850002 (void) { return &i6; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -889,7 +889,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i6_ptr",
+      "hs_bindgen_test_visibility_attributes_3bd2208d8e850002",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -899,7 +899,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i7_ptr (void) { return &i7; } ",
+    "/* get_i7_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_a3aa6eb624f2c014 (void) { return &i7; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -910,7 +910,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i7_ptr",
+      "hs_bindgen_test_visibility_attributes_a3aa6eb624f2c014",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -920,7 +920,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i8_ptr (void) { return &i8; } ",
+    "/* get_i8_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_696700c5194eb184 (void) { return &i8; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -931,7 +931,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i8_ptr",
+      "hs_bindgen_test_visibility_attributes_696700c5194eb184",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -941,7 +941,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i9_ptr (void) { return &i9; } ",
+    "/* get_i9_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_27bb5845debfdd10 (void) { return &i9; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -952,7 +952,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i9_ptr",
+      "hs_bindgen_test_visibility_attributes_27bb5845debfdd10",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -962,7 +962,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i10_ptr (void) { return &i10; } ",
+    "/* get_i10_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_254dda0b2c3c245d (void) { return &i10; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -973,7 +973,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i10_ptr",
+      "hs_bindgen_test_visibility_attributes_254dda0b2c3c245d",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -983,7 +983,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i11_ptr (void) { return &i11; } ",
+    "/* get_i11_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_5ca63f16dc0b48e7 (void) { return &i11; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -994,7 +994,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i11_ptr",
+      "hs_bindgen_test_visibility_attributes_5ca63f16dc0b48e7",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1004,7 +1004,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i12_ptr (void) { return &i12; } ",
+    "/* get_i12_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_75789ceaef5e5feb (void) { return &i12; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1015,7 +1015,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i12_ptr",
+      "hs_bindgen_test_visibility_attributes_75789ceaef5e5feb",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1025,7 +1025,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i13_ptr (void) { return &i13; } ",
+    "/* get_i13_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_6e3778cc97c78a2e (void) { return &i13; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1036,7 +1036,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i13_ptr",
+      "hs_bindgen_test_visibility_attributes_6e3778cc97c78a2e",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1046,7 +1046,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i14_ptr (void) { return &i14; } ",
+    "/* get_i14_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_9ec03118dd66d7c5 (void) { return &i14; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1057,7 +1057,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i14_ptr",
+      "hs_bindgen_test_visibility_attributes_9ec03118dd66d7c5",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1067,7 +1067,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i15_ptr (void) { return &i15; } ",
+    "/* get_i15_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_4b5a349cc99cdac9 (void) { return &i15; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1078,7 +1078,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i15_ptr",
+      "hs_bindgen_test_visibility_attributes_4b5a349cc99cdac9",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1088,7 +1088,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i16_ptr (void) { return &i16; } ",
+    "/* get_i16_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_56cec68bd1e37a44 (void) { return &i16; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1099,7 +1099,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i16_ptr",
+      "hs_bindgen_test_visibility_attributes_56cec68bd1e37a44",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1109,7 +1109,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i17_ptr (void) { return &i17; } ",
+    "/* get_i17_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_e60a43107858a2bc (void) { return &i17; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1120,7 +1120,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i17_ptr",
+      "hs_bindgen_test_visibility_attributes_e60a43107858a2bc",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1130,7 +1130,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i18_ptr (void) { return &i18; } ",
+    "/* get_i18_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_86247c32f4f34e6f (void) { return &i18; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1141,7 +1141,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i18_ptr",
+      "hs_bindgen_test_visibility_attributes_86247c32f4f34e6f",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
@@ -1151,7 +1151,7 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
-    "__attribute__ ((const)) signed int *get_i19_ptr (void) { return &i19; } ",
+    "/* get_i19_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1 (void) { return &i19; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1162,7 +1162,7 @@
       NormalResultType
         (HsPtr (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "get_i19_ptr",
+      "hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global

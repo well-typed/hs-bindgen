@@ -5,7 +5,7 @@
 -- addDependentFile examples/golden/distilled_lib_1.h
 -- #include <distilled_lib_1.h>
 -- int32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
--- __attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } 
+-- /* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } 
 data Another_typedef_struct_t
     = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
                                 another_typedef_struct_t_bar :: CChar}
@@ -175,4 +175,4 @@ newtype Callback_t
                                             IO HsBindgen.Runtime.Prelude.Word32))}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
-foreign import ccall safe "get_v_ptr" v_ptr :: Ptr Var_t
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" v_ptr :: Ptr Var_t
