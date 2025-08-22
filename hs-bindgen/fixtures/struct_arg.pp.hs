@@ -2,6 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -Wno-dodgy-foreign-imports #-}
 
 module Example where
 
@@ -11,7 +12,7 @@ import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <struct_arg.h>\nsigned int hs_bindgen_test_struct_arg_be997777eb388096 (struct thing *arg1) { return thing_fun_1(*arg1); }\nvoid hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }\nvoid hs_bindgen_test_struct_arg_9540300ca2ef6349 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }\nchar hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }\n")
+$(CAPI.addCSource "#include <struct_arg.h>\nsigned int hs_bindgen_test_struct_arg_be997777eb388096 (struct thing *arg1) { return thing_fun_1(*arg1); }\n/* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_d5cf000d627eba66 (void)) (struct thing arg1) { return &thing_fun_1; } \nvoid hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }\n/* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_c5543d9dadeca704 (void)) (signed int arg1) { return &thing_fun_2; } \nvoid hs_bindgen_test_struct_arg_9540300ca2ef6349 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }\n/* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_6f4d585feed7ca5e (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } \nchar hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }\n/* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_ef6a607b6432889d (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } \n")
 
 data Thing = Thing
   { thing_x :: FC.CInt
@@ -45,6 +46,9 @@ thing_fun_1 :: Thing -> IO FC.CInt
 thing_fun_1 =
   \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
 
+foreign import ccall safe "hs_bindgen_test_struct_arg_d5cf000d627eba66" thing_fun_1_ptr
+  :: F.FunPtr (Thing -> IO FC.CInt)
+
 foreign import ccall safe "hs_bindgen_test_struct_arg_c719e5e844a53956" thing_fun_2_wrapper
   :: FC.CInt
      {- ^ __from C:__ @x@ -}
@@ -56,6 +60,9 @@ thing_fun_2 =
   \x0 ->
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             thing_fun_2_wrapper x0 z1)
+
+foreign import ccall safe "hs_bindgen_test_struct_arg_c5543d9dadeca704" thing_fun_2_ptr
+  :: F.FunPtr (FC.CInt -> IO Thing)
 
 foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fun_3a_wrapper
   :: FC.CInt
@@ -76,6 +83,9 @@ thing_fun_3a =
                      HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                              thing_fun_3a_wrapper x0 y3 x2 z4))
 
+foreign import ccall safe "hs_bindgen_test_struct_arg_6f4d585feed7ca5e" thing_fun_3a_ptr
+  :: F.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
+
 foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fun_3b_wrapper
   :: FC.CInt
      {- ^ __from C:__ @x@ -}
@@ -91,3 +101,6 @@ thing_fun_3b =
     \x1 ->
       \x2 ->
         F.with x1 (\y3 -> thing_fun_3b_wrapper x0 y3 x2)
+
+foreign import ccall safe "hs_bindgen_test_struct_arg_ef6a607b6432889d" thing_fun_3b_ptr
+  :: F.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)

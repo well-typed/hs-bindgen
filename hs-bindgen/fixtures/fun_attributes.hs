@@ -520,6 +520,27 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get___f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_2e369f5f60ff28c5 (void)) (void) { return &__f1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "__f1_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_2e369f5f60ff28c5",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_fun_attributes_8b60d38de80093fa (void) { f1(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -541,6 +562,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_a1b79fe9af8e18b8 (void)) (void) { return &f1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f1_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_a1b79fe9af8e18b8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -605,6 +647,53 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_my_memalign_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_df18e1ec526fabcf (void)) (size_t arg1, size_t arg2) { return &my_memalign; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_memalign_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Size_t"))
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Size_t"))
+              (HsIO
+                (HsPtr
+                  (HsPrimType HsPrimVoid)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_df18e1ec526fabcf",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"}),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void *hs_bindgen_test_fun_attributes_1e1fd866f4d88373 (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -665,6 +754,53 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_my_calloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_1371a36b12f9bdfc (void)) (size_t arg1, size_t arg2) { return &my_calloc; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_calloc_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Size_t"))
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Size_t"))
+              (HsIO
+                (HsPtr
+                  (HsPrimType HsPrimVoid)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_1371a36b12f9bdfc",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"}),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void *hs_bindgen_test_fun_attributes_3c7e2f0546d7f0f8 (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -718,6 +854,45 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_my_realloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_149f0ffc9a274b08 (void)) (void *arg1, size_t arg2) { return &my_realloc; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_realloc_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Size_t"))
+              (HsIO
+                (HsPtr
+                  (HsPrimType HsPrimVoid)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_149f0ffc9a274b08",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer TypeVoid,
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void *hs_bindgen_test_fun_attributes_4cb3f4400795f3dc (size_t arg1) { return my_alloc1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -758,6 +933,42 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_my_alloc1_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_8764901d3de7c252 (void)) (size_t arg1) { return &my_alloc1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_alloc1_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Size_t"))
+            (HsIO
+              (HsPtr
+                (HsPrimType HsPrimVoid))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_8764901d3de7c252",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -806,6 +1017,42 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_my_alloc2_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_0e2a7c466f494b53 (void)) (size_t arg1) { return &my_alloc2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_alloc2_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Size_t"))
+            (HsIO
+              (HsPtr
+                (HsPrimType HsPrimVoid))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_0e2a7c466f494b53",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "signed int hs_bindgen_test_fun_attributes_8effe939268709e4 (signed int arg1) { return square(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -842,6 +1089,35 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_631c7b52d4d4fe3a (void)) (signed int arg1) { return &square; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "square_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_631c7b52d4d4fe3a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "signed int hs_bindgen_test_fun_attributes_1dddc7f5a16104d4 (void) { return old_fn(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -864,6 +1140,30 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_old_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_407cc567cd7ef4a1 (void)) (void) { return &old_fn; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "old_fn_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_407cc567cd7ef4a1",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -943,6 +1243,49 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_my_dgettext_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_fun_attributes_60702a9764046d9e (void)) (char *arg1, char *arg2) { return &my_dgettext; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_dgettext_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPtr (HsPrimType HsPrimCChar))
+            (HsFun
+              (HsPtr (HsPrimType HsPrimCChar))
+              (HsIO
+                (HsPtr
+                  (HsPrimType HsPrimCChar)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_60702a9764046d9e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
+            TypePointer
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))))]
+          (TypePointer
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "FILE *hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d (signed int arg1, char *arg2) { return fdopen(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1007,6 +1350,56 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_fdopen_ptr */ __attribute__ ((const)) FILE *(*hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4 (void)) (signed int arg1, char *arg2) { return &fdopen; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fdopen_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimCChar))
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "FILE"))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))))]
+          (TypePointer
+            (TypeTypedef
+              (TypedefSquashed
+                (Name "FILE")
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "FILE",
+                    nameHsIdent = HsIdentifier
+                      "FILE"}
+                  (NameOriginGenerated
+                    (AnonId
+                      "fun_attributes.h:7:9"))))))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_fun_attributes_4a86b0420a250963 (void) { f2(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1028,6 +1421,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_74cfd16f2b7e27ba (void)) (void) { return &f2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f2_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_74cfd16f2b7e27ba",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1118,6 +1532,48 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_de9d3228e8bac25c (void)) (void *arg1, void *arg2, size_t arg3) { return &my_memcpy; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_memcpy_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsFun
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Size_t"))
+                (HsIO
+                  (HsPtr
+                    (HsPrimType HsPrimVoid))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_de9d3228e8bac25c",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer TypeVoid,
+            TypePointer TypeVoid,
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9 (void) { fatal(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1139,6 +1595,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_fatal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_4a9c795c1867222e (void)) (void) { return &fatal; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fatal_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_4a9c795c1867222e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1195,6 +1672,38 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_241bedb74b8016f3 (void)) (char *arg1) { return &hash; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hash_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPtr (HsPrimType HsPrimCChar))
+            (HsIO
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_241bedb74b8016f3",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))))]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void *hs_bindgen_test_fun_attributes_a71e3488215ca2b1 (size_t arg1) { return mymalloc(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1247,6 +1756,42 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_mymalloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_adfbe41965d544a3 (void)) (size_t arg1) { return &mymalloc; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mymalloc_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Size_t"))
+            (HsIO
+              (HsPtr
+                (HsPrimType HsPrimVoid))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_adfbe41965d544a3",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "size_t",
+                  nameHsIdent = HsIdentifier
+                    "Size_t"})]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88 (void) { foobar(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1268,6 +1813,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_foobar_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_730ef6ad01273b1d (void)) (void) { return &foobar; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "foobar_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_730ef6ad01273b1d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1298,6 +1864,30 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_core2_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_abb5c394ed250f25 (void)) (void) { return &core2_func; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "core2_func_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_abb5c394ed250f25",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "signed int hs_bindgen_test_fun_attributes_f50d1e8063148c18 (void) { return sse3_func(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1324,6 +1914,30 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_sse3_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_12616d0501d14a7a (void)) (void) { return &sse3_func; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "sse3_func_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_12616d0501d14a7a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_fun_attributes_1b95ce9d55223970 (void) { f3(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1345,6 +1959,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_08809dca6bfda237 (void)) (void) { return &f3; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f3_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_08809dca6bfda237",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1396,6 +2031,30 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_9d0d1087d0fa4b10 (void)) (void) { return &fn; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fn_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_9d0d1087d0fa4b10",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "signed int hs_bindgen_test_fun_attributes_fd90ce98862f93f3 (void) { return y(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1418,6 +2077,30 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_y_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_2d9291944d890d18 (void)) (void) { return &y; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "y_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_2d9291944d890d18",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1448,6 +2131,30 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
+    "/* get_x1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_8839814efdc23f88 (void)) (void) { return &x1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "x1_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_8839814efdc23f88",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
     "signed int hs_bindgen_test_fun_attributes_31759f8ffef2c6b0 (void) { return x2(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1470,4 +2177,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "fun_attributes.h",
+  DeclInlineC
+    "/* get_x2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_c63d8c58f9a27a01 (void)) (void) { return &x2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "x2_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_fun_attributes_c63d8c58f9a27a01",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing}]

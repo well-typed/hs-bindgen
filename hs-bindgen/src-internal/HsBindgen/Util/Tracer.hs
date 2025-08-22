@@ -36,6 +36,9 @@ module HsBindgen.Util.Tracer (
   , TraceException (..)
     -- * Safe tracers
   , withTracerSafe
+
+    -- TODO: remove?
+  , withColor
   ) where
 
 import Control.Exception (Exception (..))

@@ -597,6 +597,67 @@
           functionRes = TypeVoid},
       foreignImportComment = Nothing},
   DeclSimple,
+  DeclInlineCInclude
+    "decls_in_signature.h",
+  DeclInlineC
+    "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "normal_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPtr
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Opaque")))
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Outside")))
+              (HsFun
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Outside"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "opaque",
+                  nameHsIdent = HsIdentifier
+                    "Opaque"}
+                NameOriginInSource),
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "outside",
+                  nameHsIdent = HsIdentifier
+                    "Outside"}
+                NameOriginInSource),
+            TypeStruct
+              NamePair {
+                nameC = Name "outside",
+                nameHsIdent = HsIdentifier
+                  "Outside"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Nothing},
   DeclData
     Struct {
       structName = HsName
@@ -1239,6 +1300,55 @@
                 TextContent
                   "and the edge cases below)."]]}},
   DeclSimple,
+  DeclInlineCInclude
+    "decls_in_signature.h",
+  DeclInlineC
+    "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f1_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_struct"))
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeStruct
+              NamePair {
+                nameC = Name "named_struct",
+                nameHsIdent = HsIdentifier
+                  "Named_struct"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just
+            "f1(struct named_struct)",
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1451,4 +1561,39 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Nothing},
-  DeclSimple]
+  DeclSimple,
+  DeclInlineCInclude
+    "decls_in_signature.h",
+  DeclInlineC
+    "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f2_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_union"))
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeUnion
+              NamePair {
+                nameC = Name "named_union",
+                nameHsIdent = HsIdentifier
+                  "Named_union"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Nothing}]

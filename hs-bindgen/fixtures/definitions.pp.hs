@@ -5,6 +5,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -Wno-dodgy-foreign-imports #-}
 
 module Example where
 
@@ -16,12 +17,15 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } \n")
+$(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_fb3e409881d8c524 (void)) (double arg1) { return &foo; } \n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } \n")
 
 foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
   :: FC.CDouble
      {- ^ __from C:__ @x@ -}
   -> IO FC.CInt
+
+foreign import ccall safe "hs_bindgen_test_definitions_fb3e409881d8c524" foo_ptr
+  :: F.FunPtr (FC.CDouble -> IO FC.CInt)
 
 foreign import ccall safe "hs_bindgen_test_definitions_fc2aad2af9befead" n_ptr
   :: F.Ptr FC.CInt

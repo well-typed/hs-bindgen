@@ -100,7 +100,17 @@ resolvePragmas ds =
     Set.toAscList . mconcat $ constPragmas : map resolveDeclPragmas ds
   where
     constPragmas :: Set GhcPragma
-    constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
+    constPragmas = Set.fromList [
+          "LANGUAGE NoImplicitPrelude"
+          -- We use a stub to return the address of a function. For example,
+          -- given a C function @foo@ we will create a stub function
+          -- @get_foo_ptr@ and a foreign import of that stub with a @FunPtr@
+          -- type. @-Wdodgy-foreign-imports@ would then complain that the
+          -- foreign import might be missing an @&@ operator, but since we use
+          -- stub that /returns/ a pointer to a function, we don't have to use a
+          -- @&@. So, we always disable the warning.
+        , "OPTIONS_GHC -Wno-dodgy-foreign-imports"
+        ]
 
 resolveDeclPragmas :: SDecl -> Set GhcPragma
 resolveDeclPragmas decl =
