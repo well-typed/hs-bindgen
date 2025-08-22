@@ -251,8 +251,18 @@ executable hs-bindgen-cli
   hs-source-dirs: app
 
   other-modules:
-      HsBindgen.App.Cli
-      HsBindgen.App.Common
+      HsBindgen.App
+      HsBindgen.Cli
+      HsBindgen.Cli.Dev
+      HsBindgen.Cli.Dev.BindingSpec
+      HsBindgen.Cli.Dev.BindingSpec.StdLib
+      HsBindgen.Cli.Dev.Clang
+      HsBindgen.Cli.Dev.Parse
+      HsBindgen.Cli.Dev.Resolve
+      HsBindgen.Cli.Internal
+      HsBindgen.Cli.Internal.Literate
+      HsBindgen.Cli.GenTests
+      HsBindgen.Cli.Preprocess
       Paths_hs_bindgen
   autogen-modules:
       Paths_hs_bindgen
@@ -260,41 +270,11 @@ executable hs-bindgen-cli
       -- Internal dependencies
     , clang
     , hs-bindgen
+    , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
     , bytestring
     , containers
-  build-depends:
-      -- External dependencies
-    , optics               >= 0.4.2.1   && < 0.5
-    , optparse-applicative >= 0.18      && < 0.19
-    , prettyprinter        ^>=1.7.1
-    , text                 >= 1.2       && < 2.2
-
-executable hs-bindgen-dev
-  import:         lang
-  default-extensions:
-      DuplicateRecordFields
-      NoFieldSelectors
-      OverloadedRecordDot
-  main-is:        hs-bindgen-dev.hs
-  hs-source-dirs: app
-  if flag(dev)
-    buildable: True
-  else
-    buildable: False
-
-  other-modules:
-      HsBindgen.App.Common
-      HsBindgen.App.Dev
-      Paths_hs_bindgen
-  autogen-modules:
-      Paths_hs_bindgen
-  build-depends:
-      -- Internal dependencies
-    , hs-bindgen
-  build-depends:
-      -- Inherited dependencies
   build-depends:
       -- External dependencies
     , optics               >= 0.4.2.1   && < 0.5
@@ -459,7 +439,7 @@ test-suite test-pp
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
-  ghc-options: -pgmL hs-bindgen-cli -optL literate
+  ghc-options: -pgmL hs-bindgen-cli -optL internal -optL literate
   cpp-options: -DTEST_PP
 
   build-tool-depends: hs-bindgen:hs-bindgen-cli

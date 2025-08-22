@@ -43,14 +43,6 @@ data ClangArgs = ClangArgs {
       -- | Enable GNU extensions when 'True'
     , clangEnableGnu :: Bool
 
-      -- | Enable default standard system directories
-      --
-      -- Note that @libclang@ does not configure compiler builtin directories by
-      -- default.
-      --
-      -- Setting this value to @False@ passes the @-nostdinc@ Clang option.
-    , clangStdInc :: Bool
-
       -- | Directories that will be added to the include search path
       --
       -- This corresponds to the @-I@ clang argument.  See
@@ -104,7 +96,6 @@ instance Default ClangArgs where
       clangTarget           = Nothing
     , clangCStandard        = Nothing
     , clangEnableGnu        = False
-    , clangStdInc           = True
     , clangExtraIncludeDirs = []
     , clangDefineMacros     = []
     , clangEnableBlocks     = False
@@ -203,8 +194,7 @@ getClangInternalArgs ClangArgs{..} = aux [
                else return ["-std=c23"]
 
     , return $ concat $ [
-          [ "-nostdinc" | not clangStdInc   ]
-        , [ "-fblocks"  | clangEnableBlocks ]
+          [ "-fblocks"  | clangEnableBlocks ]
         ]
 
     , return $ concat [

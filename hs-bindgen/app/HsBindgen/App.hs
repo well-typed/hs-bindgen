@@ -1,43 +1,42 @@
 {-# LANGUAGE ApplicativeDo #-}
 {-# LANGUAGE OverloadedLabels #-}
 
-module HsBindgen.App.Common (
+-- | @hs-bindgen@ application common types and functions
+module HsBindgen.App (
     -- * Global options
     GlobalOpts(..)
   , parseGlobalOpts
-    -- * HsBindgen configuration
+
+    -- * Argument/option parsers
+    -- ** Bindgen configuration
   , parseBindgenConfig
-    -- * Clang-related options
+    -- ** Clang Arguments
   , parseClangArgs
-    -- * Input option
-  , UncheckedHashIncludeArg
+    -- ** Output options
+  , parseOutput
+  , parseGenBindingSpec
+  , parseGenTestsOutput
+    -- ** Input arguments
   , parseInputs
-  , checkInputs
-    -- * Auxiliary hs-bindgen functions
-  , footerWith
+
     -- * Auxiliary optparse-applicative functions
   , cmd
-  , cmd'
+  , cmd_
   ) where
 
-import Data.Bifunctor (Bifunctor (bimap))
 import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Maybe (catMaybes)
-import Data.Text (Text)
-import Data.Text qualified as Text
 import Optics (set)
+
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
-import Options.Applicative.Help (Doc, align, extractChunk, pretty, tabulate,
-                                 vcat, (<+>))
-import Prettyprinter.Util (reflow)
 
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
-  Options and arguments
+  Global options
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
@@ -61,17 +60,14 @@ parseTracerConfig =
       <*> parseShowCallStack
 
 parseVerbosity :: Parser Verbosity
-parseVerbosity =
-  nToVerbosity <$>
-    (option auto $
-      mconcat [ short 'v'
-              , long "verbosity"
-              , metavar "INT"
-              , value 2
-              , help "Specify verbosity (0: error, 1: warning, 2: notice, 3: info, 4: debug);"
-              , showDefault
-              ])
-
+parseVerbosity = fmap nToVerbosity . option auto $ mconcat [
+      short 'v'
+    , long "verbosity"
+    , metavar "INT"
+    , value 2
+    , help "Verbosity (0: error, 1: warning, 2: notice, 3: info, 4: debug)"
+    , showDefault
+    ]
   where
     nToVerbosity :: Int -> Verbosity
     nToVerbosity = Verbosity . \case
@@ -83,13 +79,13 @@ parseVerbosity =
 
 parseCustomLogLevel :: Parser (CustomLogLevel Level TraceMsg)
 parseCustomLogLevel = do
-    -- Generic setters.
+    -- Generic setters
     makeTraceInfos    <- many $ parseMakeTrace Info
     makeTraceWarnings <- many $ parseMakeTrace Warning
     makeTraceErrors   <- many $ parseMakeTrace Error
-    -- Generic modifiers.
+    -- Generic modifiers
     makeWarningsErrors <- optional parseMakeWarningsErrors
-    -- Specific setters.
+    -- Specific setters
     enableMacroWarnings <- optional parseEnableMacroWarnings
     pure $ getCustomLogLevel $ catMaybes [
         enableMacroWarnings
@@ -98,6 +94,30 @@ parseCustomLogLevel = do
       ++ makeTraceInfos
       ++ makeTraceWarnings
       ++ makeTraceErrors
+  where
+    parseMakeTrace :: Level -> Parser CustomLogLevelSetting
+    parseMakeTrace level =
+      let levelStr = map Char.toLower $ show level
+      in  fmap (MakeTrace level) . strOption $ mconcat [
+              long $ "log-as-" <> levelStr
+            , metavar "TRACE_ID"
+            , help $ "Set log level of traces with TRACE_ID to " <> levelStr
+            ]
+
+    parseMakeWarningsErrors :: Parser CustomLogLevelSetting
+    parseMakeWarningsErrors = flag' MakeWarningsErrors $ mconcat [
+        long "log-as-error-warnings"
+      , help "Set log level of warnings to error"
+      ]
+
+    parseEnableMacroWarnings :: Parser CustomLogLevelSetting
+    parseEnableMacroWarnings = flag' EnableMacroWarnings $ mconcat [
+        long "log-enable-macro-warnings"
+      , help $ concat [
+            "Set log level of macro reparse and typecheck errors to warning"
+          , " (default: info)"
+          ]
+      ]
 
 parseShowTimeStamp :: Parser ShowTimeStamp
 parseShowTimeStamp = flag DisableTimeStamp EnableTimeStamp $ mconcat [
@@ -112,35 +132,7 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
     ]
 
 {-------------------------------------------------------------------------------
-  Custom log level settings
--------------------------------------------------------------------------------}
-
-parseEnableMacroWarnings :: Parser CustomLogLevelSetting
-parseEnableMacroWarnings = flag' EnableMacroWarnings $
-    mconcat [
-        long "log-enable-macro-warnings"
-      , help "Set log level of macro reparse and typecheck errors to warning (default: info)"
-      ]
-
-parseMakeTrace :: Level -> Parser CustomLogLevelSetting
-parseMakeTrace level = fmap (MakeTrace level) $ strOption $
-    mconcat [
-        long $ "log-as-" <> levelStr
-      , metavar "TRACE_ID"
-      , help $ "Set log level of traces with TRACE_ID to " <> levelStr
-      ]
-  where
-    levelStr = map Char.toLower $ show level
-
-parseMakeWarningsErrors :: Parser CustomLogLevelSetting
-parseMakeWarningsErrors = flag' MakeWarningsErrors $
-    mconcat [
-        long "log-as-error-warnings"
-      , help "Set log level of warnings to error"
-      ]
-
-{-------------------------------------------------------------------------------
-  HsBindgen configuration
+  Bindgen configuration
 -------------------------------------------------------------------------------}
 
 parseBindgenConfig :: Parser BindgenConfig
@@ -166,6 +158,38 @@ parseBackendConfig = BackendConfig
     <*> parseHsModuleOpts
 
 {-------------------------------------------------------------------------------
+  Binding specifications
+-------------------------------------------------------------------------------}
+
+parseBindingSpecConfig :: Parser BindingSpecConfig
+parseBindingSpecConfig =
+    BindingSpecConfig
+      <$> parseEnableStdlibBindingSpec
+      <*> many parseExtBindingSpec
+      <*> optional parsePrescriptiveBindingSpec
+
+parseEnableStdlibBindingSpec :: Parser EnableStdlibBindingSpec
+parseEnableStdlibBindingSpec =
+    flag EnableStdlibBindingSpec DisableStdlibBindingSpec $ mconcat [
+        long "no-stdlib"
+      , help "Do not automatically use stdlib external binding specification"
+      ]
+
+parseExtBindingSpec :: Parser FilePath
+parseExtBindingSpec = strOption $ mconcat [
+      long "external-binding-spec"
+    , metavar "FILE"
+    , help "External binding specification (YAML file)"
+    ]
+
+parsePrescriptiveBindingSpec :: Parser FilePath
+parsePrescriptiveBindingSpec = strOption $ mconcat [
+      long "prescriptive-binding-spec"
+    , metavar "FILE"
+    , help "Prescriptive binding specification (YAML file)"
+    ]
+
+{-------------------------------------------------------------------------------
   Clang arguments
 -------------------------------------------------------------------------------}
 
@@ -176,14 +200,13 @@ parseClangArgs = do
     -- instead of positional one.
     clangTarget           <- optional parseTarget
     clangCStandard        <- Just <$> parseCStandard
-    clangEnableGnu        <- parseGnuOption
+    clangEnableGnu        <- parseGnu
     clangEnableBlocks     <- parseEnableBlocks
-    clangStdInc           <- not <$> parseNoStdInc
-    clangExtraIncludeDirs <- parseIncludeDirOptions
-    clangDefineMacros     <- parseDefineMacroOptions
-    clangArgsBefore       <- parseClangArgsBefore
-    clangArgsInner        <- parseClangArgsInner
-    clangArgsAfter        <- parseClangArgsAfter
+    clangExtraIncludeDirs <- many parseIncludeDir
+    clangDefineMacros     <- many parseDefineMacro
+    clangArgsBefore       <- many parseClangOptionBefore
+    clangArgsInner        <- many parseClangOptionInner
+    clangArgsAfter        <- many parseClangOptionAfter
     pure $ ClangArgs {..}
 
 parseTarget :: Parser (Target, TargetEnv)
@@ -246,31 +269,10 @@ parseCStandard = option (eitherReader readCStandard) $ mconcat [
       Just cStandard -> Right cStandard
       Nothing -> Left $ "unknown C standard: " ++ s
 
-parseNoStdInc :: Parser Bool
-parseNoStdInc = switch $ mconcat [
-      long "no-stdinc"
-    , help "Disable standard include directories"
-    ]
-
-parseGnuOption :: Parser Bool
-parseGnuOption = switch $ mconcat [
+parseGnu :: Parser Bool
+parseGnu = switch $ mconcat [
       long "gnu"
     , help "Enable GNU extensions"
-    ]
-
-parseIncludeDirOptions :: Parser [CIncludeDir]
-parseIncludeDirOptions = many . strOption $ mconcat [
-      short 'I'
-    , metavar "DIR"
-    , help "Include search path directory"
-    ]
-
-parseDefineMacroOptions :: Parser [String]
-parseDefineMacroOptions = many . strOption $ mconcat [
-      short 'D'
-    , long "define-macro"
-    , metavar "<macro>=<value>"
-    , help "Define <macro> to <value> (or 1 if <value> omitted)"
     ]
 
 -- TODO: Perhaps we should mimick Clang's @-f@ parameter?
@@ -280,96 +282,44 @@ parseEnableBlocks = switch $ mconcat [
     , help "Enable the 'blocks' language feature"
     ]
 
-parseClangArgsBefore :: Parser [String]
-parseClangArgsBefore = many . strOption $ mconcat [
+parseIncludeDir :: Parser CIncludeDir
+parseIncludeDir = strOption $ mconcat [
+      short 'I'
+    , metavar "DIR"
+    , help "Include search path directory"
+    ]
+
+parseDefineMacro :: Parser String
+parseDefineMacro = strOption $ mconcat [
+      short 'D'
+    , long "define-macro"
+    , metavar "<macro>=<value>"
+    , help "Define <macro> to <value> (or 1 if <value> omitted)"
+    ]
+
+parseClangOptionBefore :: Parser String
+parseClangOptionBefore = strOption $ mconcat [
       long "clang-option-before"
     , metavar "OPTION"
     , help "Prepend option when calling Clang; see also --clang-option"
     ]
 
-parseClangArgsInner :: Parser [String]
-parseClangArgsInner = many . strOption $ mconcat [
+parseClangOptionInner :: Parser String
+parseClangOptionInner = strOption $ mconcat [
       long "clang-option"
     , metavar "OPTION"
     , help "Pass option to Clang"
     ]
 
-parseClangArgsAfter :: Parser [String]
-parseClangArgsAfter = many . strOption $ mconcat [
+parseClangOptionAfter :: Parser String
+parseClangOptionAfter = strOption $ mconcat [
       long "clang-option-after"
     , metavar "OPTION"
     , help "Append option when calling Clang; see also --clang-option"
     ]
 
-
 {-------------------------------------------------------------------------------
-  Translation options
--------------------------------------------------------------------------------}
-
-parseTranslationOpts :: Parser TranslationOpts
-parseTranslationOpts = aux <$> optional parseUniqueId
-  where
-    aux :: Maybe UniqueId -> TranslationOpts
-    aux mUniqueId = case mUniqueId of
-      Nothing       -> def
-      Just uniqueId -> set #translationUniqueId uniqueId def
-
-parseUniqueId :: Parser UniqueId
-parseUniqueId = fmap UniqueId $ strOption $ mconcat [
-      long "unique-id"
-    , metavar "ID"
-    , help "Use unique ID to discriminate global C identifiers (default: empty string)"
-    ]
-
-{-------------------------------------------------------------------------------
-  Pretty printer options
--------------------------------------------------------------------------------}
-
-parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts =
-    HsModuleOpts
-      <$> strOption (mconcat [
-              help "Name of the generated Haskell module"
-            , metavar "NAME"
-            , long "module"
-            , showDefault
-            , value $ hsModuleOptsName def
-            ])
-
-{-------------------------------------------------------------------------------
-  Binding specifications
--------------------------------------------------------------------------------}
-
-parseBindingSpecConfig :: Parser BindingSpecConfig
-parseBindingSpecConfig =
-    BindingSpecConfig
-    <$> parseEnableStdlibBindingSpec
-    <*> parseExtBindingSpecs
-    <*> parsePrescriptiveBindingSpec
-
-parseEnableStdlibBindingSpec :: Parser EnableStdlibBindingSpec
-parseEnableStdlibBindingSpec = flag EnableStdlibBindingSpec DisableStdlibBindingSpec $
-    mconcat [
-        long "no-stdlib"
-      , help "Do not automatically use stdlib external binding specification"
-      ]
-
-parseExtBindingSpecs :: Parser [FilePath]
-parseExtBindingSpecs = many . strOption $ mconcat [
-      long "external-binding-spec"
-    , metavar "FILE"
-    , help "External binding specification (YAML file)"
-    ]
-
-parsePrescriptiveBindingSpec :: Parser (Maybe FilePath)
-parsePrescriptiveBindingSpec = optional $ strOption $ mconcat [
-      long "prescriptive-binding-spec"
-    , metavar "FILE"
-    , help "Prescriptive binding specification (YAML file)"
-    ]
-
-{-------------------------------------------------------------------------------
-  Other options and command line arguments
+  Predicates and slicing
 -------------------------------------------------------------------------------}
 
 parseParsePredicate :: Parser ParsePredicate
@@ -388,13 +338,13 @@ parseParsePredicate = fmap aux . many . asum $ [
         ]
     , fmap (Right . PIf . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-by-header-path"
-        , help "Parse declarations in headers with paths that match PCRE"
         , metavar "PCRE"
+        , help "Parse declarations in headers with paths that match PCRE"
         ]
     , fmap (Left . PIf . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-except-by-header-path"
-        , help "Parse except declarations in headers with paths that match PCRE"
         , metavar "PCRE"
+        , help "Parse except declarations in headers with paths that match PCRE"
         ]
     ]
   where
@@ -422,23 +372,26 @@ parseSelectPredicate = fmap aux . many . asum $ [
         ]
     , fmap (Right . PIf . Left . HeaderPathMatches) $ strOption $ mconcat [
           long "select-by-header-path"
-        , help "Select declarations in headers with paths that match PCRE"
         , metavar "PCRE"
+        , help "Select declarations in headers with paths that match PCRE"
         ]
     , fmap (Left . PIf . Left . HeaderPathMatches) $ strOption $ mconcat [
           long "select-except-by-header-path"
-        , help "Select except declarations in headers with paths that match PCRE"
         , metavar "PCRE"
+        , help $ concat [
+              "Select except declarations in headers with paths that match"
+            , " PCRE"
+            ]
         ]
     , fmap (Right . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
           long "select-by-decl-name"
-        , help "Select declarations with C names that match PCRE"
         , metavar "PCRE"
+        , help "Select declarations with C names that match PCRE"
         ]
     , fmap (Left . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
           long "select-except-by-decl-name"
-        , help "Select except declarations with C names that match PCRE"
         , metavar "PCRE"
+        , help "Select except declarations with C names that match PCRE"
         ]
     ]
   where
@@ -451,11 +404,78 @@ parseSelectPredicate = fmap aux . many . asum $ [
       ps -> ps
 
 parseProgramSlicing :: Parser ProgramSlicing
-parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat [
-      long "enable-program-slicing"
-    , help $ "Enable program slicing: "
-        <> "Select declarations using the selection predicate, "
-        <> "and also select their transitive dependencies"
+parseProgramSlicing =
+    flag DisableProgramSlicing EnableProgramSlicing $ mconcat [
+        long "enable-program-slicing"
+      , help $ concat [
+            "Enable program slicing:"
+          , " Select declarations using the selection predicate,"
+          , " and also select their transitive dependencies"
+          ]
+      ]
+
+{-------------------------------------------------------------------------------
+  Translation options
+-------------------------------------------------------------------------------}
+
+parseTranslationOpts :: Parser TranslationOpts
+parseTranslationOpts = aux <$> optional parseUniqueId
+  where
+    aux :: Maybe UniqueId -> TranslationOpts
+    aux mUniqueId = case mUniqueId of
+      Nothing       -> def
+      Just uniqueId -> set #translationUniqueId uniqueId def
+
+parseUniqueId :: Parser UniqueId
+parseUniqueId = fmap UniqueId . strOption $ mconcat [
+      long "unique-id"
+    , metavar "ID"
+    , help $ concat [
+          "Use unique ID to discriminate global C identifiers"
+        , " (default: empty string)"
+        ]
+    ]
+
+{-------------------------------------------------------------------------------
+  Pretty printer options
+-------------------------------------------------------------------------------}
+
+parseHsModuleOpts :: Parser HsModuleOpts
+parseHsModuleOpts = fmap HsModuleOpts . strOption $ mconcat [
+      long "module"
+    , metavar "NAME"
+    , showDefault
+    , value $ hsModuleOptsName def
+    , help "Name of the generated Haskell module"
+    ]
+
+{-------------------------------------------------------------------------------
+  Output options
+-------------------------------------------------------------------------------}
+
+parseOutput :: Parser FilePath
+parseOutput = strOption $ mconcat [
+      short 'o'
+    , long "output"
+    , metavar "PATH"
+    , help "Output path for the Haskell module"
+    ]
+
+parseGenBindingSpec :: Parser FilePath
+parseGenBindingSpec = strOption $ mconcat [
+      long "gen-binding-spec"
+    , metavar "PATH"
+    , help "Binding specification to generate"
+    ]
+
+parseGenTestsOutput :: Parser FilePath
+parseGenTestsOutput = strOption $ mconcat [
+      short 'o'
+    , long "output"
+    , metavar "PATH"
+    , showDefault
+    , value "test-hs-bindgen"
+    , help "Output directory for the test suite"
     ]
 
 {-------------------------------------------------------------------------------
@@ -468,97 +488,34 @@ parseProgramSlicing = flag DisableProgramSlicing EnableProgramSlicing $ mconcat 
 -- @optparse-applicative@ does not get right when just using 'some'.
 parseInputs :: Parser [UncheckedHashIncludeArg]
 parseInputs = some . strArgument $ mconcat [
-      help "Input C header(s), relative to an include path directory"
-    , metavar "HEADER..."
+      metavar "HEADER..."
+    , help "Input C header(s), relative to an include path directory"
     ]
-
--- | Check the @#include@ arguments, emitting trace messages
-checkInputs ::
-     Tracer IO TraceMsg
-  -> [UncheckedHashIncludeArg]
-  -> IO [HashIncludeArg]
-checkInputs tracer = mapM $
-    hashIncludeArgWithTrace (contramap (TraceBoot . BootHashIncludeArg) tracer)
-
-{-------------------------------------------------------------------------------
-  Auxiliary hs-bindgen functions
--------------------------------------------------------------------------------}
-
--- | Footer of command line help.
-footerWith :: ParserPrefs -> Doc
-footerWith p = vcat [ environmentVariablesFooter p
-                    , ""
-                    , clangArgsFooter p
-                    , ""
-                    , selectSliceFooter p
-                    ]
-
-environmentVariablesFooter :: ParserPrefs -> Doc
-environmentVariablesFooter p =
-  vcat [ pretty ("Environment variables:" :: String)
-       , prettyEnvVars
-       ]
-  where
-    prettyEnvVars :: Doc
-    prettyEnvVars = extractChunk $ tabulate (prefTabulateFill p) envVarsDocs
-
-    targets :: [Target]
-    targets = [ minBound .. maxBound ]
-
-    triples :: [String]
-    triples = map (`targetTriple` TargetEnvDefault) targets
-
-    envVarsDocs :: [(Doc, Doc)]
-    envVarsDocs = map (bimap pretty (align . reflow)) envVars
-
-    envVars :: [(Text, Text)]
-    envVars = [ ("BINDGEN_EXTRA_CLANG_ARGS",
-                 "Arguments passed to Clang")
-              , ("BINDGEN_EXTRA_CLANG_ARGS_<TARGET>",
-                 "Target-specific arguments passed to Clang"
-                 <> "; precedes BINDGEN_EXTRA_CLANG_ARGS"
-                 <> "; possible targets: "
-                 <> Text.intercalate ", " (map Text.pack triples) )
-              ]
-
-clangArgsFooter :: ParserPrefs -> Doc
-clangArgsFooter _ =
-    vcat [
-        "Options passed to Clang and their order:"
-      , "  1. --clang-option-before options "
-      , "  2. Clang options directly handled by hs-bindgen (e.g., -I options)"
-      , "  3. --clang-option options"
-      , "  4. BINDGEN_EXTRA_CLANG_ARGS options"
-      , "  5. --clang-option-after options"
-      ]
-
-selectSliceFooter :: ParserPrefs -> Doc
-selectSliceFooter _ =
-   vcat [ pretty ("Selection and program slicing:" :: String)
-        , "  -" <+> align (reflow $ mconcat [
-            "Program slicing disabled (default): "
-          , "Only select declarations according to the selection predicate."
-          ])
-        , "  -" <+> align (reflow $ mconcat [
-            "Program slicing enabled ('--enable-program-slicing'): "
-            , "Select declarations using the selection predicate, "
-            , "and also select their transitive dependencies."
-          ])
-        ]
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions
 -------------------------------------------------------------------------------}
 
-cmd :: String -> Parser a -> InfoMod a -> Mod CommandFields a
-cmd name p = command name . info (p <**> helper)
+-- | Command with @-h@ and @--help@
+cmd ::
+     String     -- ^ Name
+  -> (a -> c)   -- ^ Constructor
+  -> Parser a   -- ^ Options parser
+  -> InfoMod c  -- ^ Information
+  -> Mod CommandFields c
+cmd name mk parser = command name . info (helper <*> (mk <$> parser))
 
--- | Like cmd but without '-h'
-cmd' :: String -> Parser a -> InfoMod a -> Mod CommandFields a
-cmd' name p = command name . info (p <**> helper') where
-  helper' :: Parser (a -> a)
-  helper' =
-    helperWith (mconcat [
-      long "help",
-      help "Show this help text"
-    ])
+-- | Command with @--help@ (but no @-h@)
+cmd_ ::
+     String     -- ^ Name
+  -> (a -> c)   -- ^ Constructor
+  -> Parser a   -- ^ Options parser
+  -> InfoMod c  -- ^ Information
+  -> Mod CommandFields c
+cmd_ name mk parser = command name . info (helper' <*> (mk <$> parser))
+  where
+    helper' :: Parser (a -> a)
+    helper' = helperWith $ mconcat [
+        long "help"
+      , help "Show this help text"
+      ]

@@ -170,13 +170,10 @@ Clang environment variables, described above.
 * `-I <directory>` adds a directory to the bracket C include search path.
   (Clang option: `-I`)
 
-* `--no-stdinc` disables the default include directories.  (Clang option:
-  `-nostdinc`)
-
 Clang has many more include options, which may be passed via
-`--clang-option-before`, `--clang-option`, or `--clang-opion-after` options. For
-example, Clang option `-idirafter` may be used to add a directory to the end of
-the bracket C include search path.
+`--clang-option-before`, `--clang-option`, or `--clang-option-after` options.
+For example, Clang option `-idirafter` may be used to add a directory to the end
+of the bracket C include search path.
 
 ```
 $ hs-bindgen-cli preprocess \
@@ -192,12 +189,10 @@ $ hs-bindgen-cli preprocess \
 
 As described in [Clang options][], environment variable
 `BINDGEN_EXTRA_CLANG_ARGS` may be used to specify arbitrary Clang options.
-Precedence is as follows:
 
-1. `hs-bindgen` command-line options `--clang-option-before` and
-   `--clang-option`
-2. `BINDGEN_EXTRA_CLANG_ARGS`
-3. Clang environment variables (such as `C_INCLUDE_PATH`)
+Options that `hs-bindgen` passes to Clang, including those specified in
+`BINDGEN_EXTRA_CLANG_ARGS` take precedence over Clang environment variables
+such as `C_INCLUDE_PATH`.
 
 ### `hs-bindgen` header resolution
 
@@ -311,8 +306,15 @@ configuration and confirm precedence.
 $ gcc -xc -E -v - </dev/null
 ```
 
-The `hs-bindgen-cli resolve` command may be used debug `hs-bindgen` header
+The `hs-bindgen-cli dev resolve` command may be used debug `hs-bindgen` header
 resolution.
+
+The `hs-bindgen-cli dev clang` command may be used to query Clang options such
+as `-v` using `libclang`, to confirm `libclang` C include search paths.
+
+```
+$ hs-bindgen-dev clang --clang-option=-v
+```
 
 ### Common issues
 
