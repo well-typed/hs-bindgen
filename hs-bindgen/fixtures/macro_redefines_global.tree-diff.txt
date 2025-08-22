@@ -1,0 +1,34 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "macro_redefines_global.h:7:13",
+        declId = NamePair {
+          nameC = Name "FILE",
+          nameHsIdent = HsIdentifier
+            "FILE"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "macro_redefines_global.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "FILE",
+            newtypeField = HsName
+              "@NsVar"
+              "un_FILE"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "macro_redefines_global"]}
