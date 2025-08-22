@@ -81,7 +81,7 @@ instance Default BindgenOpts where
     }
 
 -- | The default tracer configuration in Q has verbosity 'Notice' and uses
--- 'outputConfigQ'.
+-- 'outputConfigTH'.
 tracerConfigDefTH :: TracerConfig IO Level TraceMsg
 tracerConfigDefTH = def {
         tVerbosity = Verbosity Notice
@@ -133,6 +133,14 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
 
     (I deps :* I decls :* Nil) <- liftIO $
       hsBindgen tracerConfig bindgenConfig uncheckedHashIncludeArgs artefacts
+
+    -- TODO: this is not the proper way to trace a message, but there is no
+    -- tracer in scope here. How should we approach this?
+    traceM $ withColor EnableAnsiColor Notice $ concat [
+        "If warnings for dodgy foreign imports are preventing compilation, "
+      , "disable them using the GHC option \"-Wno-dodgy-foreign-imports\""
+      ]
+
     getThDecls deps decls (getExtensions decls)
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath

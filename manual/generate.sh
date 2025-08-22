@@ -51,6 +51,13 @@ cabal run hs-bindgen-cli -- \
     --module Arrays \
     arrays.h
 
+cabal run hs-bindgen-cli -- \
+  preprocess \
+    -I c \
+    -o hs/manual/generated/FunctionPointers.hs \
+    --module FunctionPointers \
+    function_pointers.h
+
 echo "# "
 echo "# External bindings: vector example"
 echo "# "

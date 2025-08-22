@@ -27,6 +27,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f0_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_062fb354632b879a (void)) (void) { return &f0; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f0_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_062fb354632b879a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_8b60d38de80093fa (void) { f1(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -48,6 +69,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_a1b79fe9af8e18b8 (void)) (void) { return &f1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f1_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_a1b79fe9af8e18b8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -77,6 +119,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_74cfd16f2b7e27ba (void)) (void) { return &f2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f2_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_74cfd16f2b7e27ba",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_1b95ce9d55223970 (void) { f3(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -98,6 +161,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_08809dca6bfda237 (void)) (void) { return &f3; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f3_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_08809dca6bfda237",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -127,6 +211,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_bd64bfbfcdfa6624 (void)) (void) { return &f4; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f4_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_bd64bfbfcdfa6624",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_3bc585c51fec9721 (void) { f5(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -148,6 +253,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_0bfaa7955f34f9bf (void)) (void) { return &f5; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f5_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_0bfaa7955f34f9bf",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -177,6 +303,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_4733471689f1bb70 (void)) (void) { return &f6; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f6_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_4733471689f1bb70",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_2fc1219d73636d66 (void) { f7(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -198,6 +345,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_9c959c1281029571 (void)) (void) { return &f7; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f7_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_9c959c1281029571",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -227,6 +395,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_e12a5a5d01dd5a47 (void)) (void) { return &f8; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f8_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_e12a5a5d01dd5a47",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_3a6334fe1abf229c (void) { f9(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -248,6 +437,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f9_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_3d87310c41d7398e (void)) (void) { return &f9; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f9_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_3d87310c41d7398e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -277,6 +487,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f10_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_1143dfcfb90def8a (void)) (void) { return &f10; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f10_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_1143dfcfb90def8a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_052232f3a6ecd42e (void) { f11(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -298,6 +529,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f11_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_5d68570d79a6b4fb (void)) (void) { return &f11; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f11_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_5d68570d79a6b4fb",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -327,6 +579,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f12_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_46c1e11ee341b116 (void)) (void) { return &f12; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f12_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_46c1e11ee341b116",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_241ea65011175c11 (void) { f13(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -348,6 +621,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f13_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_bb797b66bcb7e8e2 (void)) (void) { return &f13; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f13_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_bb797b66bcb7e8e2",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -377,6 +671,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f14_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_8969f1de409a19ee (void)) (void) { return &f14; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f14_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_8969f1de409a19ee",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_c9cc679279218ae9 (void) { f15(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -398,6 +713,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f15_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_454ccc61fb5125af (void)) (void) { return &f15; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f15_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_454ccc61fb5125af",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -427,6 +763,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f16_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_023fcc82fef21765 (void)) (void) { return &f16; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f16_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_023fcc82fef21765",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_e72feade6b631a5f (void) { f17(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -448,6 +805,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f17_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_7036d26aaf2d397f (void)) (void) { return &f17; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f17_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_7036d26aaf2d397f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -477,6 +855,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f18_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_e6705f5e2f6359d8 (void)) (void) { return &f18; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f18_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_e6705f5e2f6359d8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_5414de7b815a8658 (void) { f19(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -498,6 +897,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f19_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_5b804a3dc8077495 (void)) (void) { return &f19; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f19_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_5b804a3dc8077495",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -527,6 +947,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f20_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_763bb37c71b6d9a4 (void)) (void) { return &f20; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f20_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_763bb37c71b6d9a4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_32c47e20171aaeee (void) { f21(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -548,6 +989,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f21_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_8661e763dca1c8a0 (void)) (void) { return &f21; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f21_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_8661e763dca1c8a0",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -577,6 +1039,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f22_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b39debd724f07945 (void)) (void) { return &f22; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f22_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_b39debd724f07945",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_005b979e638f474b (void) { f23(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -598,6 +1081,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f23_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_5d6336e1a6bfd80a (void)) (void) { return &f23; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f23_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_5d6336e1a6bfd80a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -627,6 +1131,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f24_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_cde5aeae243421cd (void)) (void) { return &f24; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f24_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_cde5aeae243421cd",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_c5c883717d0048e8 (void) { f25(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -648,6 +1173,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f25_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_c07253e5bc2ad1a2 (void)) (void) { return &f25; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f25_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_c07253e5bc2ad1a2",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -677,6 +1223,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f26_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_e86ffdca3bb71235 (void)) (void) { return &f26; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f26_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_e86ffdca3bb71235",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_d40140ee49300df1 (void) { f27(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -698,6 +1265,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f27_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_7668e339533a6fb4 (void)) (void) { return &f27; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f27_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_7668e339533a6fb4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -727,6 +1315,27 @@
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
+    "/* get_f28_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_bf3df5c08da1121b (void)) (void) { return &f28; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f28_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_bf3df5c08da1121b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
     "void hs_bindgen_test_visibility_attributes_8255bfc1a96b601c (void) { f29(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -748,6 +1357,27 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
+      foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "visibility_attributes.h",
+  DeclInlineC
+    "/* get_f29_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_fb811ac22d16d2c6 (void)) (void) { return &f29; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f29_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "hs_bindgen_test_visibility_attributes_fb811ac22d16d2c6",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
       foreignImportComment = Nothing},
   DeclInlineCInclude
     "visibility_attributes.h",

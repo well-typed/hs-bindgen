@@ -1,6 +1,7 @@
 {-# LANGUAGE LambdaCase         #-}
 {-# LANGUAGE TemplateHaskell    #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# OPTIONS_GHC -Wno-dodgy-foreign-imports #-}
 
 module Test.TH.Test02 where
 

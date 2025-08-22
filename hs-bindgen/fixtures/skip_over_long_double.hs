@@ -34,6 +34,34 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Nothing},
+  DeclInlineCInclude
+    "skip_over_long_double.h",
+  DeclInlineC
+    "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_94047676e402a0bf (void)) (signed int arg1) { return &fun2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun2_ptr",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsFunPtr
+          (HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_skip_over_long_double_94047676e402a0bf",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          TypeVoid),
+      foreignImportComment = Nothing},
   DeclData
     Struct {
       structName = HsName

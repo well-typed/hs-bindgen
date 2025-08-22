@@ -2,6 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -Wno-dodgy-foreign-imports #-}
 
 module Example where
 
@@ -10,7 +11,7 @@ import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <vector.h>\nvector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n")
+$(CAPI.addCSource "#include <vector.h>\nvector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } \n")
 
 data Vector = Vector
   { vector_x :: FC.CDouble
@@ -44,3 +45,6 @@ foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
   -> FC.CDouble
      {- ^ __from C:__ @y@ -}
   -> IO (F.Ptr Vector)
+
+foreign import ccall safe "hs_bindgen_test_vector_94a1e2e4670c0a3e" new_vector_ptr
+  :: F.FunPtr (FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector))

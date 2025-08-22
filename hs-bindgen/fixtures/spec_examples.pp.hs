@@ -5,6 +5,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -Wno-dodgy-foreign-imports #-}
 
 module Example where
 
@@ -17,7 +18,7 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
-$(CAPI.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n")
+$(CAPI.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } \n")
 
 {-| Examples from the initial specification
 
@@ -145,3 +146,6 @@ resample =
             HsBindgen.Runtime.ConstantArray.withPtr x4 (\ptr5 ->
                                                           HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr6 ->
                                                                                                         resample_wrapper x0 ptr6 x2 x3 ptr5))
+
+foreign import ccall safe "hs_bindgen_test_spec_examples_215c42c65ae193a6" resample_ptr
+  :: F.FunPtr ((F.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())

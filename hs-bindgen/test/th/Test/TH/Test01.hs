@@ -1,4 +1,3 @@
--- {-# OPTIONS_GHC -ddump-splices #-}
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
@@ -11,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_GHC -Wno-dodgy-foreign-imports #-}
 
 module Test.TH.Test01 where
 
