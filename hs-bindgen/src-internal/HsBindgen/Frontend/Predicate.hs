@@ -88,6 +88,29 @@ instance Default ParsePredicate where
 
 -- | Predicates for the @Select@ pass select based on header file paths or the
 -- declarations themselves
+--
+-- NOTE: The 'ParsePredicate' and the 'SelectPredicate' both allow matching
+-- against header paths but serve different purposes. The parse predicate
+-- dictates which declarations @hs-bindgen@ knows about at all, the selection
+-- predicate dictates which declarations @hs-bindgen@ generates bindings for.
+--
+-- Example 1: Assume program slicing is enabled. All of the following scenarios
+-- are different:
+--
+-- - Parse @library/*.h@, select @library/main.h@.
+--
+-- - Parse @library/main.h@, select all.
+--
+-- - Parse @library/*.h@, select all.
+--
+-- Example 2: Assume we have external binding specifications for @dependency.h@.
+-- Only the first scenario works out:
+--
+-- - Parse @dependency.h@ and @main.h@, select @main.h@; the external binding
+--   specifications for @dependency.h@ can be applied.
+--
+-- - Parse @main.h@, select all; the external binding specifications for
+--   declarations in @dependency.h@ __can not__ be applied.
 type SelectPredicate = Predicate (Either HeaderPathPredicate DeclPredicate)
 
 instance Default SelectPredicate where
