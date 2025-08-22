@@ -1210,8 +1210,16 @@ functionDecs opts moduleName typedefs info f _spec =
     | let (stubDecs, _stubImportName) =
             addressStubDecs opts moduleName
               info
-              -- TODO: can a function type be const-qualified?
-              C.TypeQualifierNone (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
+              -- Function types can not be const-qualified, so we use
+              -- TypeQualifierNone.
+              --
+              -- To quote the C reference: "If a function type is declared with
+              -- the const type qualifier (through the use of typedef), the
+              -- behavior is undefined."
+              --
+              -- <https://en.cppreference.com/w/c/language/const.html>
+              C.TypeQualifierNone
+              (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
               _spec
     ]
   where
