@@ -24,12 +24,12 @@ library and thus should be fixed in the C library.
 There are [3 types of linkage][linkage]: **external**,
 **internal**, or **none**.
 
-* **External**: the symbol is visibile outside the translation unit it's defined in.
+* **External**: the symbol is visible outside the translation unit it's defined in.
 
-* **Internal**: the symbol is *not* visibile outside the translation unit it's
+* **Internal**: the symbol is *not* visible outside the translation unit it's
   defined in.
 
-* **None**: only applies to local objecs, such as local variables and function
+* **None**: only applies to local objects, such as local variables and function
   parameters.
 
 Since we only generate bindings for top-level declarations, we will only
@@ -78,7 +78,7 @@ instead of functions. Swap out `foo` for an `extern` variable, and similar
 linker errors are observed
 
 Let's say we have a header file `A.h` that declares a function `foo` with hidden
-visiblity (and external linkage by default):
+visibility (and external linkage by default):
 
 ```c
 void __attribute__ ((visibility ("hidden"))) foo (void);
@@ -132,7 +132,7 @@ Header files typically declare non-static functions and global variables
 *without* providing a definition in the header file. Instead, the definition is
 included in a body file. If such a header file declaration has a non-public
 visibility attribute, then the Haskell program will not be able to find the
-definition in the C library because it is not visibile to the linker.
+definition in the C library because it is not visible to the linker.
 
 To conclude, it does not make much sense at all to put non-public functions in
 header files, because header files should typically expose the public interface.
@@ -150,7 +150,7 @@ experiment much with statically linking Haskell bindings with static C libraries
 
 ### Guidelines
 
-Concretely, a linker error can occur for a declarated symbol in a header file if
+Concretely, a linker error can occur for a declared symbol in a header file if
 it:
 
 1. has non-public visibility,
@@ -185,10 +185,10 @@ belongs to a shared library, not a static library.
 ### Potential duplicates
 
 Duplicate symbols can also exist across multiple shared libraries as long as
-these symbols have public visiblity. However, in such cases the linker will pick
-one according to the rules of linker symbol interposition, rather than throw a
-linker error. It can be suprising for users if the linker picks an unexpected
-definition for the symbol they are referencing. So, if a symbol has non-public
-visibility, the risk of such surprises is mitigated somewhat. This is also
-reflected in the warning message that is emitted for potential duplicate
+these symbols have public visibility. However, in such cases the linker will
+pick one according to the rules of linker symbol interposition, rather than
+throw a linker error. It can be surprising for users if the linker picks an
+unexpected definition for the symbol they are referencing. So, if a symbol has
+non-public visibility, the risk of such surprises is mitigated somewhat. This is
+also reflected in the warning message that is emitted for potential duplicate
 globals.
