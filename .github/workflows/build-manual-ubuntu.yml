@@ -140,6 +140,9 @@ jobs:
       - name: Build hs-bindgen
         run: cabal build all
 
+      - name: Debug package dir (temporary)
+        run: cabal run hs-bindgen-cli dev package-dir
+
       - name: Build the C libraries
         working-directory: ./manual/c
         run: make

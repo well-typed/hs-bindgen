@@ -18,6 +18,7 @@ import Options.Applicative hiding (info)
 import HsBindgen.App
 import HsBindgen.Cli.Dev.BindingSpec qualified as BindingSpec
 import HsBindgen.Cli.Dev.Clang qualified as Clang
+import HsBindgen.Cli.Dev.PackageDir qualified as PackageDir
 import HsBindgen.Cli.Dev.Parse qualified as Parse
 import HsBindgen.Cli.Dev.Resolve qualified as Resolve
 
@@ -36,6 +37,7 @@ info = progDesc "Development commands, used for debugging"
 data Cmd =
     CmdBindingSpec BindingSpec.Cmd
   | CmdClang       Clang.Opts
+  | CmdPackageDir  PackageDir.Opts
   | CmdParse       Parse.Opts
   | CmdResolve     Resolve.Opts
 
@@ -43,6 +45,7 @@ parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
       cmd "binding-spec" CmdBindingSpec BindingSpec.parseCmd BindingSpec.info
     , cmd "clang"        CmdClang       Clang.parseOpts      Clang.info
+    , cmd "package-dir"  CmdPackageDir  PackageDir.parseOpts PackageDir.info
     , cmd "parse"        CmdParse       Parse.parseOpts      Parse.info
     , cmd "resolve"      CmdResolve     Resolve.parseOpts    Resolve.info
     ]
@@ -55,5 +58,6 @@ exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
     CmdBindingSpec cmd' -> BindingSpec.exec gopts cmd'
     CmdClang       opts -> Clang.exec       gopts opts
+    CmdPackageDir  opts -> PackageDir.exec        opts
     CmdParse       opts -> Parse.exec       gopts opts
     CmdResolve     opts -> Resolve.exec     gopts opts
