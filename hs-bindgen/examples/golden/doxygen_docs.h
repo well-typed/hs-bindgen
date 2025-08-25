@@ -239,7 +239,11 @@ typedef struct {
     /** @brief Configuration flags */
     uint32_t flags;
 
-    /** @brief Optional callback function */
+    /** @brief Optional callback function
+     *
+     * See also: \ref event_callback_t
+     *
+     * */
     event_callback_t callback;
 
     /** @brief User data for callback */
@@ -404,7 +408,7 @@ struct flexible_array {
  * }
  * @endcode
  *
- * @param config Configuration structure
+ * @param config Configuration structure (see \ref config_t)
  * @param data Input data buffer
  * @param size Size of input data
  * @return Status code indicating success or failure

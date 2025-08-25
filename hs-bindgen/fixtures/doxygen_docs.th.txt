@@ -378,6 +378,8 @@ data Config_t
 
                    Optional callback function
 
+                   See also: 'Event_callback_t'
+
                 -},
                 config_t_user_data :: (Ptr Void)
                 {- ^
@@ -901,7 +903,7 @@ instance HasFlexibleArrayMember CInt Flexible_array
   }
   @
 
-  [__@config@ /(input)/__]: Configuration structure
+  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
 
   [__@data@ /(input)/__]: Input data buffer
 
