@@ -199,6 +199,11 @@ module Clang.LowLevel.Core (
   , clang_breakpoint
     -- * Exceptions
   , CallFailed(..)
+    -- * Rewrite API
+  , clang_CXRewriter_create
+  , clang_CXRewriter_insertTextBefore
+  , clang_CXRewriter_writeMainFileToStdOut
+  , clang_CXRewriter_dispose
     -- * Auxiliary
   , nullCursor
   ) where
@@ -2195,6 +2200,53 @@ foreign import capi "clang_wrappers.h clang_breakpoint"
 -- > ignore 1 12
 clang_breakpoint :: MonadIO m => m ()
 clang_breakpoint = liftIO $ nowrapper_breakpoint
+
+{-------------------------------------------------------------------------------
+  Rewrite API
+-------------------------------------------------------------------------------}
+
+-- | An opaque type representing a Clang rewriter
+--
+-- <https://clang.llvm.org/doxygen/Rewrite_8h.html>
+newtype {-# CType "CXRewriter" #-} CXRewriter = CXRewriter (Ptr ())
+  deriving stock (Show)
+
+foreign import capi unsafe "rewrite_wrappers.h clang_CXRewriter_create"
+  nowrapper_CXRewriter_create :: CXTranslationUnit -> IO CXRewriter
+
+foreign import capi unsafe "rewrite_wrappers.h wrap_CXRewriter_insertTextBefore"
+  wrap_CXRewriter_insertTextBefore ::
+       CXRewriter
+    -> R CXSourceLocation_
+    -> CString
+    -> IO ()
+
+foreign import capi unsafe "rewrite_wrappers.h clang_CXRewriter_writeMainFileToStdOut"
+  nowrapper_CXRewriter_writeMainFileToStdOut :: CXRewriter -> IO ()
+
+foreign import capi unsafe "rewrite_wrappers.h clang_CXRewriter_dispose"
+  nowrapper_CXRewriter_dispose :: CXRewriter -> IO ()
+
+clang_CXRewriter_create :: MonadIO m => CXTranslationUnit -> m CXRewriter
+clang_CXRewriter_create = liftIO . nowrapper_CXRewriter_create
+
+clang_CXRewriter_insertTextBefore ::
+     MonadIO m
+  => CXRewriter
+  -> CXSourceLocation
+  -> Text
+  -> m ()
+clang_CXRewriter_insertTextBefore rewriter loc text = liftIO $
+    onHaskellHeap loc $ \loc' ->
+      withCString (Text.unpack text) $
+        wrap_CXRewriter_insertTextBefore rewriter loc'
+
+clang_CXRewriter_writeMainFileToStdOut :: MonadIO m => CXRewriter -> m ()
+clang_CXRewriter_writeMainFileToStdOut =
+    liftIO . nowrapper_CXRewriter_writeMainFileToStdOut
+
+clang_CXRewriter_dispose :: MonadIO m => CXRewriter -> m ()
+clang_CXRewriter_dispose = liftIO . nowrapper_CXRewriter_dispose
 
 {-------------------------------------------------------------------------------
   Auxiliary
