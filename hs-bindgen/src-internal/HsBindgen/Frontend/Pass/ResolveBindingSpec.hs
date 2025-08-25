@@ -170,7 +170,7 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- If a declaration is omitted, then the declaration is dropped and the omission
 -- is recorded.
 --
--- Otherwise, the declaration is kept and is associated with an type
+-- Otherwise, the declaration is kept and is associated with a type
 -- specification when applicable.
 resolveTop ::
      C.Decl NameAnon

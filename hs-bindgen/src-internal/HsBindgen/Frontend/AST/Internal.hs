@@ -446,6 +446,8 @@ deriving stock instance ValidPass p => Eq (Typedef          p)
 deriving stock instance ValidPass p => Eq (Union            p)
 deriving stock instance ValidPass p => Eq (UnionField       p)
 
+deriving stock instance ValidPass p => Ord (DeclInfo p)
+
 {-------------------------------------------------------------------------------
   Pretty-printing
 -------------------------------------------------------------------------------}

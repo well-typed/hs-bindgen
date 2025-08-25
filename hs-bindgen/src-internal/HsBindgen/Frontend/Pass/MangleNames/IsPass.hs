@@ -31,8 +31,8 @@ type MangleNames :: Pass
 data MangleNames a deriving anyclass (ValidPass)
 
 type family AnnMangleNames ix where
-  AnnMangleNames "Decl"             = DeclSpec
   AnnMangleNames "TranslationUnit"  = DeclMeta
+  AnnMangleNames "Decl"             = DeclSpec
   AnnMangleNames "Struct"           = RecordNames
   AnnMangleNames "Union"            = NewtypeNames
   AnnMangleNames "Enum"             = NewtypeNames

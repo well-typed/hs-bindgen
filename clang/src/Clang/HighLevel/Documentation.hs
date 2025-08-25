@@ -44,7 +44,7 @@ data Comment = Comment {
       -- | Children of a the comment
     , commentChildren :: [CommentBlockContent]
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 -- | Reified Clang comment block content
 data CommentBlockContent =
@@ -74,7 +74,7 @@ data CommentBlockContent =
     | VerbatimLine {
         verbatimLine :: Text
       }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 -- | Reified Clang comment inline content
 data CommentInlineContent =
@@ -94,7 +94,7 @@ data CommentInlineContent =
     | HtmlEndTag {
         htmlEndTagName :: Text
       }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Top-level

@@ -43,6 +43,9 @@ mkDeclMeta unit =
     C.TranslationUnit{
         unitDecls
       , unitIncludeGraph
-      , unitAnn = declNonParsed
+      , unitAnn = parseUnitAnn
       } = unit
-
+    ParseDeclMeta{
+        parseDeclNonParsed = declNonParsed
+      , parseDeclParseMsg  = declParseMsgs
+      } = parseUnitAnn

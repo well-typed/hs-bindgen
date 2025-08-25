@@ -29,8 +29,8 @@ type Select :: Pass
 data Select a deriving anyclass ValidPass
 
 type family AnnSelect ix where
-  AnnSelect "Decl"            = BindingSpec.TypeSpec
   AnnSelect "TranslationUnit" = DeclMeta
+  AnnSelect "Decl"            = BindingSpec.TypeSpec
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where

@@ -1,12 +1,21 @@
 module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
+  , ParseDeclMeta(..)
+  , emptyParseDeclMeta
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
   , getUnparsedMacro
     -- * Trace messages
   , ParseMsg(..)
+  , ParseMsgs
+  , emptyParseMsgs
+  , recordParseMsg
+  , getParseMsgs
   ) where
+
+import Data.Map qualified as Map
+import Data.Set qualified as Set
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -16,11 +25,13 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
+import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint (CtxDoc, (><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -30,7 +41,7 @@ type Parse :: Pass
 data Parse a deriving anyclass ValidPass
 
 type family AnnParse (ix :: Symbol) :: Star where
-  AnnParse "TranslationUnit" = NonParsedDecls
+  AnnParse "TranslationUnit" = ParseDeclMeta
   AnnParse "StructField"     = ReparseInfo
   AnnParse "UnionField"      = ReparseInfo
   AnnParse "Typedef"         = ReparseInfo
@@ -46,6 +57,23 @@ instance IsPass Parse where
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
   type Msg          Parse = ParseMsg
+
+{-------------------------------------------------------------------------------
+  Information about the declarations
+-------------------------------------------------------------------------------}
+
+-- TODO: Maybe rename. 'Sort' uses 'DeclMeta'.
+data ParseDeclMeta = ParseDeclMeta {
+      parseDeclNonParsed :: NonParsedDecls
+    , parseDeclParseMsg  :: ParseMsgs
+    }
+  deriving stock (Show, Eq)
+
+emptyParseDeclMeta :: ParseDeclMeta
+emptyParseDeclMeta = ParseDeclMeta {
+      parseDeclNonParsed = NonParsedDecls.empty
+    , parseDeclParseMsg  = emptyParseMsgs
+    }
 
 {-------------------------------------------------------------------------------
   Macros
@@ -210,11 +238,11 @@ instance PrettyForTrace ParseMsg where
           "unexpected anonymous declaration in global variable"
       ParseUnsupportedTLS info -> noBindingsGenerated info $
           "unsupported thread-local variable"
-      ParseUnknownStorageClass info storage -> noBindingsGenerated info $ hsep [
+      ParseUnknownStorageClass info storage -> noBindingsGenerated info $ PP.hsep [
           "unsupported storage class"
-        , showToCtxDoc storage
+        , PP.showToCtxDoc storage
         ]
-      ParsePotentialDuplicateSymbol info isPublic -> hcat $ concat [
+      ParsePotentialDuplicateSymbol info isPublic -> PP.hcat $ concat [
           [ "Bindings generated for "
           , prettyForTrace info
           , " may result in duplicate symbols; "
@@ -226,14 +254,14 @@ instance PrettyForTrace ParseMsg where
           | isPublic
           ]
         ]
-      ParseNonPublicVisibility info  -> hcat [
+      ParseNonPublicVisibility info  -> PP.hcat [
           "Bindings generated for "
         , prettyForTrace info
         , " may result in linker errors because the symbol has non-public visibility"
         ]
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
-      noBindingsGenerated info reason = hcat [
+      noBindingsGenerated info reason = PP.hcat [
             "No bindings generated for "
           , prettyForTrace info
           , ": "
@@ -254,3 +282,33 @@ instance IsTrace Level ParseMsg where
       ParseNonPublicVisibility{}       -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse"
+
+{-------------------------------------------------------------------------------
+  Location-specific parse messages
+-------------------------------------------------------------------------------}
+
+-- | Opaque. By default, we emit parse traces only when we select the
+-- corresponding declaration.
+newtype ParseMsgs = ParseMsgs { unParseMsgs :: Map SingleLoc [ParseMsg] }
+  deriving (Show, Eq)
+
+emptyParseMsgs :: ParseMsgs
+emptyParseMsgs = ParseMsgs $ Map.empty
+
+recordParseMsg :: C.DeclInfo Parse -> ParseMsg -> ParseMsgs -> ParseMsgs
+recordParseMsg info trace =
+   ParseMsgs . Map.alter (Just <$> add trace) (C.declLoc info) . unParseMsgs
+  where
+    add x Nothing   = [x]
+    add x (Just xs) = x:xs
+
+getParseMsgs :: [C.DeclInfo p] -> ParseMsgs -> ([Msg Parse], [Msg Parse])
+getParseMsgs xs (ParseMsgs allMsgs) = (concat delayedMsgs, concat omittedMsgs)
+  where keys :: Set SingleLoc
+        keys = Set.fromList $ map C.declLoc xs
+
+        delayedMsgs :: Map SingleLoc [ParseMsg]
+        delayedMsgs = Map.restrictKeys allMsgs keys
+
+        omittedMsgs :: Map SingleLoc [ParseMsg]
+        omittedMsgs = allMsgs Map.\\ delayedMsgs
