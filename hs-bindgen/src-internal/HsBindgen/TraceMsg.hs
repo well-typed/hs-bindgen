@@ -32,6 +32,7 @@ import Clang.HighLevel.Types (Diagnostic (..))
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
+import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
 import HsBindgen.Frontend.Macro.Reparse.Infra (ReparseError (..))
@@ -63,6 +64,7 @@ import HsBindgen.Util.Tracer
 data TraceMsg =
     TraceBoot          BootMsg
   | TraceFrontend      FrontendMsg
+  | TraceBuiltinIncDir BuiltinIncDirMsg
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Eq, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
