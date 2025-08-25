@@ -59,9 +59,9 @@ instance ToExpr C.CheckedMacro
 instance ToExpr C.CheckedMacroExpr
 instance ToExpr C.CheckedMacroType
 instance ToExpr C.CXCommentParamPassDirection
-instance ToExpr C.CommentInlineContent
+instance ToExpr ref => ToExpr (C.CommentInlineContent ref)
 instance ToExpr C.CXCommentInlineCommandRenderKind
-instance ToExpr C.CommentBlockContent
+instance ToExpr ref => ToExpr (C.CommentBlockContent ref)
 
 -- | If there are unnamed structures in the parsed C header files, then
 -- 'C.Comment.commentCName' is going to point to an absolute path and line
@@ -71,7 +71,7 @@ instance ToExpr C.CommentBlockContent
 -- from the picture.
 --
 -- Once #947 is done this won't be needed
-instance ToExpr C.Comment where
+instance ToExpr ref => ToExpr (C.Comment ref) where
   toExpr C.Comment{..} =
     toExpr commentChildren
 
@@ -97,6 +97,7 @@ instance ToExpr C.PrimType
 instance ToExpr C.QualName
 instance ToExpr C.RecordNames
 instance ToExpr C.ResolvedExtBinding
+instance ToExpr C.Reference
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TagKind

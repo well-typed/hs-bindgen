@@ -11,14 +11,16 @@ import GHC.Natural (Natural)
 
 import Clang.HighLevel.Documentation qualified as C
 
+import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..))
+
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Language.Haskell (HsName(..))
+import HsBindgen.Language.Haskell (HsName(..), HsIdentifier (..))
 
 -- | Convert a Clang comment to a Haddock comment
 --
-generateHaddocks :: Maybe C.Comment -> Maybe Hs.Comment
+generateHaddocks :: Maybe (C.Comment Reference) -> Maybe Hs.Comment
 generateHaddocks comment = fst $ generateHaddocksWithParams comment []
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
@@ -30,7 +32,7 @@ generateHaddocks comment = fst $ generateHaddocksWithParams comment []
 -- Returns the processed comment and the updated parameters list
 --
 generateHaddocksWithParams ::
-     Maybe C.Comment
+     Maybe (C.Comment Reference)
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])
 generateHaddocksWithParams Nothing params              =
@@ -90,7 +92,7 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
       , updatedParams
       )
   where
-    filterParamCommands :: [C.CommentBlockContent]
+    filterParamCommands :: [C.CommentBlockContent Reference]
                            -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
     filterParamCommands = \case
       [] -> []
@@ -166,7 +168,7 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
 --
 -- For now only \dir, \link and \see  are naively supported.
 --
-convertBlockContent :: C.CommentBlockContent -> [Hs.CommentBlockContent]
+convertBlockContent :: C.CommentBlockContent Reference -> [Hs.CommentBlockContent]
 convertBlockContent = \case
   C.Paragraph{..} ->
     formatParagraphContent paragraphContent
@@ -297,22 +299,36 @@ convertBlockContent = \case
 
 -- | Convert inline content
 --
-convertInlineContent :: C.CommentInlineContent -> [Hs.CommentInlineContent]
+convertInlineContent :: C.CommentInlineContent Reference -> [Hs.CommentInlineContent]
 convertInlineContent = \case
   C.TextContent{..}
     | Text.null textContent -> []
     | otherwise             -> [Hs.TextContent (Text.strip textContent)]
 
   C.InlineCommand{..} ->
-    let args     = map (Hs.TextContent . Text.strip) inlineCommandArgs
-        argsText = Text.unwords (map Text.strip inlineCommandArgs)
-    in pure
-     $ case inlineCommandRenderKind of
-        C.CXCommentInlineCommandRenderKind_Normal     -> Hs.TextContent argsText
-        C.CXCommentInlineCommandRenderKind_Bold       -> Hs.Bold args
-        C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace args
-        C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph args
-        C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
+    let args     = map (\case
+                          Left t -> Left
+                                  $ Text.strip t
+                          Right (ById r) -> Right
+                                          . Text.strip
+                                          . getHsIdentifier
+                                          $ nameHsIdent r
+                       ) inlineCommandArgs
+        argsInlineContent = map (either Hs.TextContent Hs.Identifier) args
+        argsText = Text.unwords
+                 $ map (either id id) args
+     in case Text.toLower (Text.strip inlineCommandName) of
+          -- Inline reference to some definition
+          "ref"    -> argsInlineContent
+          _        -> pure $
+            case inlineCommandRenderKind of
+                  C.CXCommentInlineCommandRenderKind_Normal     -> Hs.TextContent argsText
+                  C.CXCommentInlineCommandRenderKind_Bold       -> Hs.Bold argsInlineContent
+                  C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace argsInlineContent
+                  C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph argsInlineContent
+                  C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor argsText
+    -- in pure
+
 
   -- HTML is not currently supported
   --
@@ -356,7 +372,7 @@ extractTextLines = filter (not . Text.null)
 -- since we have information about whitespaces and indentation. TODO: See issue
 -- #949.
 --
-formatParagraphContent :: [C.CommentInlineContent] -> [Hs.CommentBlockContent]
+formatParagraphContent :: [C.CommentInlineContent Reference] -> [Hs.CommentBlockContent]
 formatParagraphContent = processGroups 1 []
                        . groupListParagraphs
                        -- Filter unnecessary spaces that will lead to excess
@@ -371,7 +387,7 @@ formatParagraphContent = processGroups 1 []
     -- If the paragraphs contains list items, each list item and its content
     -- will be in a separate group. Otherwise, returns a singleton list.
     --
-    groupListParagraphs :: [C.CommentInlineContent] -> [[C.CommentInlineContent]]
+    groupListParagraphs :: [C.CommentInlineContent Reference] -> [[C.CommentInlineContent Reference]]
     groupListParagraphs [] = []
     -- Check if first item is a list marker
     groupListParagraphs (h : rest)
@@ -387,7 +403,7 @@ formatParagraphContent = processGroups 1 []
 
     processGroups :: Natural
                   -> [Hs.CommentBlockContent]
-                  -> [[C.CommentInlineContent]]
+                  -> [[C.CommentInlineContent Reference]]
                   -> [Hs.CommentBlockContent]
     processGroups _ acc [] = reverse acc
     processGroups n acc (group:rest) =
@@ -411,7 +427,7 @@ formatParagraphContent = processGroups 1 []
         _ -> processGroups n (Hs.Paragraph (concatMap convertInlineContent group) : acc) rest
 
     -- | Check if text starts with a list marker
-    isListMarker :: C.CommentInlineContent -> Bool
+    isListMarker :: C.CommentInlineContent Reference -> Bool
     isListMarker (C.TextContent t) = isJust $ detectListMarker 0 t
     isListMarker _                 = False
 
