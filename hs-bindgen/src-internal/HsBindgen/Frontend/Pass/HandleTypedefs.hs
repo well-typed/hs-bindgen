@@ -67,6 +67,7 @@ handleDecl td decl =
                      Just $ HandleTypedefsRenamedTagged declInfo' newName
                    , declInfo {
                        C.declId = C.DeclId newName newOrigin
+                     , C.declComment = fmap (handleUseSites td) declComment
                      }
                    )
         in ( mMsg
@@ -78,7 +79,7 @@ handleDecl td decl =
            )
   where
     C.Decl{
-        declInfo = declInfo@C.DeclInfo{declId = C.DeclId{declIdName = curName}}
+        declInfo = declInfo@C.DeclInfo{declId = C.DeclId{declIdName = curName}, declComment}
       , declKind
       , declAnn
       } = decl
@@ -107,6 +108,13 @@ instance HandleUseSites C.DeclKind where
       C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
       C.DeclConst ty        -> C.DeclConst (handleUseSites td ty)
 
+instance HandleUseSites C.Reference where
+  handleUseSites _ (C.ById i)   = C.ById i
+
+instance HandleUseSites C.CommentReference where
+  handleUseSites td (C.CommentReference comment) =
+    C.CommentReference (fmap (handleUseSites td) comment)
+
 instance HandleUseSites C.Struct where
   handleUseSites td C.Struct{..} = C.Struct{
         structFields = map (handleUseSites td) structFields
@@ -116,6 +124,7 @@ instance HandleUseSites C.Struct where
 instance HandleUseSites C.StructField where
   handleUseSites td C.StructField{..} = C.StructField{
         structFieldType = handleUseSites td structFieldType
+      , structFieldComment = fmap (handleUseSites td) structFieldComment
       , ..
       }
 
@@ -128,6 +137,7 @@ instance HandleUseSites C.Union where
 instance HandleUseSites C.UnionField where
   handleUseSites td C.UnionField{..} = C.UnionField{
         unionFieldType = handleUseSites td unionFieldType
+      , unionFieldComment = fmap (handleUseSites td) unionFieldComment
       , ..
       }
 

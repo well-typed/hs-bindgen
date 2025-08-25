@@ -13,6 +13,7 @@ module Clang.HighLevel.Documentation (
 
 import Control.Monad
 import Control.Monad.IO.Class
+import Data.Char (isPunctuation)
 import Data.Either
 import Data.Text (Text)
 import Data.Text qualified as Text
@@ -34,7 +35,13 @@ import GHC.Generics (Generic)
 -- The @CXComment_Null@ kind is not represented by this type.
 -- @'Maybe' 'Comment'@ is used instead, where a @CXComment_Null@ comment is
 -- represented by 'Nothing'.
-data Comment = Comment {
+--
+-- The 'ref' type parameter is to be filled on the hs-bindgen
+-- so that we can have a type that is able to go through all the name mangling
+-- passes. This data type will allow one to cross reference C identifiers when
+-- translating from Doxygen to Haddocks.
+--
+data Comment ref = Comment {
       -- | Clang display name of the cursor
       --
       -- This is included so the original C name can be included in the
@@ -42,31 +49,31 @@ data Comment = Comment {
       commentCName :: Text
 
       -- | Children of a the comment
-    , commentChildren :: [CommentBlockContent]
+    , commentChildren :: [CommentBlockContent ref]
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Functor, Show, Eq, Generic)
 
 -- | Reified Clang comment block content
-data CommentBlockContent =
+data CommentBlockContent ref =
       Paragraph {
-        paragraphContent :: [CommentInlineContent]
+        paragraphContent :: [CommentInlineContent ref]
       }
     | BlockCommand {
         blockCommandName :: Text
       , blockCommandArgs :: [Text]
-      , blockCommandParagraph :: [CommentInlineContent]
+      , blockCommandParagraph :: [CommentInlineContent ref]
       }
     | ParamCommand {
         paramCommandName                :: Text
       , paramCommandIndex               :: Maybe Int
       , paramCommandDirection           :: Maybe CXCommentParamPassDirection
       , paramCommandIsDirectionExplicit :: Bool
-      , paramCommandContent             :: [CommentBlockContent]
+      , paramCommandContent             :: [CommentBlockContent ref]
       }
     | TParamCommand {
         tParamCommandName     :: Text
       , tParamCommandPosition :: Maybe [(Int, Int)]
-      , tParamCommandContent  :: [CommentBlockContent]
+      , tParamCommandContent  :: [CommentBlockContent ref]
       }
     | VerbatimBlockCommand {
         verbatimBlockLines :: [Text]
@@ -74,17 +81,17 @@ data CommentBlockContent =
     | VerbatimLine {
         verbatimLine :: Text
       }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Functor, Show, Eq, Generic)
 
 -- | Reified Clang comment inline content
-data CommentInlineContent =
+data CommentInlineContent ref =
       TextContent {
         textContent :: Text
       }
     | InlineCommand {
         inlineCommandName       :: Text
       , inlineCommandRenderKind :: CXCommentInlineCommandRenderKind
-      , inlineCommandArgs       :: [Text]
+      , inlineCommandArgs       :: [Either Text ref]
       }
     | HtmlStartTag {
         htmlStartTagName          :: Text
@@ -94,7 +101,7 @@ data CommentInlineContent =
     | HtmlEndTag {
         htmlEndTagName :: Text
       }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Functor, Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -104,7 +111,7 @@ data CommentInlineContent =
 --
 -- An error is thrown when an unexpected comment kind is encountered, such as
 -- block content within inline content.
-clang_getComment :: MonadIO m => CXCursor -> m (Maybe Comment)
+clang_getComment :: MonadIO m => CXCursor -> m (Maybe (Comment ref))
 clang_getComment cursor = do
     comment <- clang_Cursor_getParsedComment cursor
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
@@ -126,7 +133,7 @@ getBlockContent ::
      MonadIO m
   => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> m CommentBlockContent
+  -> m (CommentBlockContent ref)
 getBlockContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
@@ -199,7 +206,7 @@ getInlineContent ::
      MonadIO m
   => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> m CommentInlineContent
+  -> m (CommentInlineContent ref)
 getInlineContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
@@ -214,7 +221,7 @@ getInlineContent cursor comment = do
             <$> clang_InlineCommandComment_getRenderKind comment
         idxs <- getIdxs <$> clang_InlineCommandComment_getNumArgs comment
         inlineCommandArgs <-
-              fmap Text.strip
+              fmap (Left . Text.strip) . sanitize
           <$> mapM (clang_InlineCommandComment_getArgText comment) idxs
         pure InlineCommand{..}
 
@@ -238,6 +245,21 @@ getInlineContent cursor comment = do
 
       Left n ->
         errorWithContext cursor $ "child comment with invalid kind " ++ show n
+  where
+    -- | Splits strings to separate punctuation from alphanumeric text.
+    --
+    -- Example: ["foo,", "bar!"] becomes ["foo", ",", "bar", "!"]
+    --          ["test_function,"] becomes ["test_function", ","]
+    sanitize :: [Text] -> [Text]
+    sanitize = concatMap (map Text.pack . splitPunctuation . Text.unpack)
+      where
+        splitPunctuation [] = []
+        splitPunctuation (c:cs)
+          | isPunctuation c
+          , c /= '_'  = [c] : splitPunctuation cs
+          | otherwise =
+              case break (\x -> isPunctuation x && x /= '_')  (c:cs) of
+                (word, rest) -> word : splitPunctuation rest
 
 -- | Get a verbatim block line as 'Text'
 --

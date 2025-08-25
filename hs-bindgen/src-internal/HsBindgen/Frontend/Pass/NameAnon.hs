@@ -80,7 +80,7 @@ nameDecl env decl = do
           , declAliases = findAliasesOf env nsid
           , declLoc
           , declHeader
-          , declComment
+          , declComment = fmap (nameUseSites env) declComment
           }
       , declKind = nameUseSites env declKind
       , declAnn
@@ -124,6 +124,21 @@ instance NameUseSites C.DeclKind where
       C.DeclGlobal ty        -> C.DeclGlobal (nameUseSites env ty)
       C.DeclConst ty         -> C.DeclConst (nameUseSites env ty)
 
+
+instance NameUseSites C.Reference where
+  nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
+    where
+      nameUseSite :: C.PrelimDeclId -> C.DeclId
+      nameUseSite nsid = case nsid of
+        C.PrelimDeclIdNamed name   -> C.DeclId name C.NameOriginInSource
+        C.PrelimDeclIdBuiltin name -> C.DeclId name C.NameOriginBuiltin
+        C.PrelimDeclIdAnon _       -> panicPure "Anonymous reference"
+
+
+instance NameUseSites C.CommentReference where
+  nameUseSites env (C.CommentReference comment) =
+    C.CommentReference (fmap (nameUseSites env) comment)
+
 instance NameUseSites C.Struct where
   nameUseSites env C.Struct{..} = C.Struct{
         structFields = map (nameUseSites env) structFields
@@ -132,7 +147,8 @@ instance NameUseSites C.Struct where
 
 instance NameUseSites C.StructField where
   nameUseSites env C.StructField{..} = C.StructField{
-        structFieldType = nameUseSites env structFieldType
+      structFieldType      = nameUseSites env structFieldType
+      , structFieldComment = fmap (nameUseSites env) structFieldComment
       , ..
       }
 
@@ -144,14 +160,21 @@ instance NameUseSites C.Union where
 
 instance NameUseSites C.UnionField where
   nameUseSites env C.UnionField{..} = C.UnionField{
-        unionFieldType = nameUseSites env unionFieldType
+      unionFieldType      = nameUseSites env unionFieldType
+      , unionFieldComment = fmap (nameUseSites env) unionFieldComment
+      , ..
+      }
+
+instance NameUseSites C.EnumConstant where
+  nameUseSites env C.EnumConstant{..} = C.EnumConstant{
+        enumConstantComment = fmap (nameUseSites env) enumConstantComment
       , ..
       }
 
 instance NameUseSites C.Enum where
   nameUseSites env C.Enum{..} = C.Enum{
         enumType      = nameUseSites env enumType
-      , enumConstants = map coercePass enumConstants
+      , enumConstants = map (nameUseSites env) enumConstants
       , ..
       }
 

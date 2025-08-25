@@ -28,6 +28,7 @@ import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.Util.Monad (mapMaybeM)
+import Clang.HighLevel.Documentation qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -233,6 +234,36 @@ instance Resolve C.DeclKind where
       C.DeclGlobal ty       -> fmap C.DeclGlobal   <$> resolve ty
       C.DeclConst ty        -> fmap C.DeclConst    <$> resolve ty
 
+instance Resolve C.Reference where
+  resolve (C.ById i)  = pure $ (Set.empty, C.ById i)
+
+instance Resolve C.CommentReference where
+  resolve (C.CommentReference C.Comment{..}) = do
+    x <- C.CommentReference
+       . C.Comment commentCName
+       <$> traverse resolveCommentBlockContent commentChildren
+    pure (Set.empty, x)
+    where
+      resolveCommentInlineContent = \case
+        C.TextContent{..}        -> pure $ C.TextContent {..}
+        C.InlineCommand n r args -> do
+          args' <- traverse ( (\case
+                                Left t  -> pure (Left t)
+                                Right t -> fmap (Right . snd) t
+                              )
+                            . fmap resolve) args
+          pure (C.InlineCommand n r args')
+        C.HtmlStartTag{..}       -> pure $ C.HtmlStartTag{..}
+        C.HtmlEndTag{..}         -> pure $ C.HtmlEndTag{..}
+
+      resolveCommentBlockContent = \case
+        C.Paragraph p              -> C.Paragraph <$> traverse resolveCommentInlineContent p
+        C.BlockCommand n args p    -> C.BlockCommand n args <$> (traverse resolveCommentInlineContent p)
+        C.ParamCommand n i d e p   -> C.ParamCommand n i d e <$> (traverse resolveCommentBlockContent p)
+        C.TParamCommand n p c      -> C.TParamCommand n p <$> (traverse resolveCommentBlockContent c)
+        C.VerbatimBlockCommand{..} -> pure C.VerbatimBlockCommand{..}
+        C.VerbatimLine{..}         -> pure C.VerbatimLine{..}
+
 instance Resolve C.Struct where
   resolve C.Struct{..} =
       bimap Set.unions reassemble . unzip <$> mapM resolve structFields
@@ -246,14 +277,20 @@ instance Resolve C.Struct where
         }
 
 instance Resolve C.StructField where
-  resolve C.StructField{..} =
-      fmap reassemble <$> resolve structFieldType
+  resolve C.StructField{..} = do
+      (x, ty) <- resolve structFieldType
+      mbResolvedComment <- mapM resolve structFieldComment
+      pure $ case mbResolvedComment of
+        Nothing                    -> (x, reassemble ty Nothing)
+        Just (x', resolvedComment) -> (x <> x', reassemble ty (Just resolvedComment))
     where
       reassemble ::
            C.Type ResolveBindingSpec
+        -> Maybe (C.CommentReference ResolveBindingSpec)
         -> C.StructField ResolveBindingSpec
-      reassemble structFieldType' = C.StructField {
+      reassemble structFieldType' structFieldComment' = C.StructField {
           structFieldType = structFieldType'
+        , structFieldComment = structFieldComment'
         , ..
         }
 
@@ -270,12 +307,19 @@ instance Resolve C.Union where
         }
 
 instance Resolve C.UnionField where
-  resolve C.UnionField{..} =
-      fmap reassemble <$> resolve unionFieldType
+  resolve C.UnionField{..} = do
+      (x, ty) <- resolve unionFieldType
+      mbResolvedComment <- mapM resolve unionFieldComment
+      pure $ case mbResolvedComment of
+        Nothing                    -> (x, reassemble ty Nothing)
+        Just (x', resolvedComment) -> (x <> x', reassemble ty (Just resolvedComment))
     where
-      reassemble :: C.Type ResolveBindingSpec -> C.UnionField ResolveBindingSpec
-      reassemble unionFieldType' = C.UnionField {
+      reassemble :: C.Type ResolveBindingSpec
+                 -> Maybe (C.CommentReference ResolveBindingSpec)
+                 -> C.UnionField ResolveBindingSpec
+      reassemble unionFieldType' unionFieldComment' = C.UnionField {
           unionFieldType = unionFieldType'
+        , unionFieldComment = unionFieldComment'
         , ..
         }
 

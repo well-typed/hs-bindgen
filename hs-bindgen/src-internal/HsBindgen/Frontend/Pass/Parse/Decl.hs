@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import Data.Text qualified as Text
+import Data.Char (isPunctuation)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -86,7 +87,7 @@ getDeclInfo = \curr -> do
     declId     <- C.getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
-    declComment <- clang_getComment curr
+    declComment <- fmap parseCommentReferences <$> clang_getComment curr
     -- TODO: We might want a NameOriginBuiltin
     return C.DeclInfo{
         declId
@@ -261,7 +262,7 @@ structFieldDecl = \curr -> do
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
-    structFieldComment <- clang_getComment curr
+    structFieldComment <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.StructField{
         structFieldLoc
       , structFieldName
@@ -285,7 +286,7 @@ unionFieldDecl = \curr -> do
     unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
     unionFieldType <- fromCXType =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
-    unionFieldComment   <- clang_getComment curr
+    unionFieldComment   <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.UnionField{
         unionFieldLoc
       , unionFieldName
@@ -362,7 +363,7 @@ enumConstantDecl curr = do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
     enumConstantName  <- C.Name <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
-    enumConstantComment <- clang_getComment curr
+    enumConstantComment <- fmap parseCommentReferences <$> clang_getComment curr
     foldContinueWith C.EnumConstant {
         enumConstantLoc
       , enumConstantName
@@ -591,6 +592,48 @@ varDecl info = simpleFold $ \curr -> do
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
+
+-- | Take a C 'Comment' and parse unparsed references to generate a
+-- 'C.CommentReference'.
+--
+-- This will look in all 'CommentInlineContent' for all \\ref commands and
+-- make them into an Id that can go through the name mangler and cross
+-- reference its previous C name.
+--
+parseCommentReferences :: Comment (C.Reference Parse) -> C.CommentReference Parse
+parseCommentReferences Comment{..} =
+  C.CommentReference Comment
+    { commentCName
+    , commentChildren = map parseCommentBlockReferences commentChildren
+    }
+  where
+    parseCommentBlockReferences :: CommentBlockContent (C.Reference Parse)
+                                -> CommentBlockContent (C.Reference Parse)
+    parseCommentBlockReferences = \case
+      Paragraph p            -> Paragraph (map parseCommentInlineReferences p)
+      BlockCommand n args p  -> BlockCommand n args (map parseCommentInlineReferences p)
+      ParamCommand n i d e c -> ParamCommand n i d e (map parseCommentBlockReferences c)
+      TParamCommand n p c    -> TParamCommand n p (map parseCommentBlockReferences c)
+      x                      -> x
+
+    parseCommentInlineReferences :: CommentInlineContent (C.Reference Parse)
+                                 -> CommentInlineContent (C.Reference Parse)
+    parseCommentInlineReferences = \case
+      -- | If we find a \ref inline command we convert its arguments into
+      -- References if and only if they are not punctuation marks.
+      --
+      InlineCommand n k args
+        | "ref" <- n ->
+            InlineCommand n k (fmap (\case
+                                        Left t
+                                          | all isPunctuation (Text.unpack t) ->
+                                            Left t
+                                          | otherwise                         ->
+                                            Right (C.ById (C.PrelimDeclIdNamed (C.Name t)))
+                                        Right r -> Right r
+                                    ) args)
+        | otherwise  -> InlineCommand n k args
+      x                      -> x
 
 -- | Partition declarations into anonymous and non-anonymous
 --
