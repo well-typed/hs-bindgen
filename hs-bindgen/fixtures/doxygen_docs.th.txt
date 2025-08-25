@@ -173,7 +173,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" proces
 
   This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
 
-  [__@filename@ /(input)/__]: The @char*@ filename to process
+  [__@filename@ /(input)/__]: The @char *@ filename to process
 
   __returns:__ @true@ if successful, @false@ otherwise
 

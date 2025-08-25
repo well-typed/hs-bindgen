@@ -51,7 +51,8 @@ TranslationUnit {
                   inlineCommandName = "b",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Bold,
-                  inlineCommandArgs = ["title"]},
+                  inlineCommandArgs = [
+                    Left "title"]},
                 TextContent ""],
             VerbatimLine "size_type",
             Paragraph [TextContent ""],
@@ -290,7 +291,8 @@ TranslationUnit {
                   inlineCommandName = "c",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Monospaced,
-                  inlineCommandArgs = ["title"]},
+                  inlineCommandArgs = [
+                    Left "title"]},
                 TextContent ""],
             BlockCommand {
               blockCommandName = "brief",
@@ -892,19 +894,22 @@ TranslationUnit {
                   inlineCommandName = "c",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Monospaced,
-                  inlineCommandArgs = ["inline"]},
+                  inlineCommandArgs = [
+                    Left "inline"]},
                 TextContent "",
                 InlineCommand {
                   inlineCommandName = "c",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Monospaced,
-                  inlineCommandArgs = ["code"]},
+                  inlineCommandArgs = [
+                    Left "code"]},
                 TextContent "formatting and",
                 InlineCommand {
                   inlineCommandName = "b",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Bold,
-                  inlineCommandArgs = ["bold"]},
+                  inlineCommandArgs = [
+                    Left "bold"]},
                 TextContent "text.",
                 TextContent
                   "It also demonstrates",
@@ -913,7 +918,7 @@ TranslationUnit {
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Emphasized,
                   inlineCommandArgs = [
-                    "emphasized"]},
+                    Left "emphasized"]},
                 TextContent "text."],
             Paragraph [TextContent ""],
             ParamCommand {
@@ -931,7 +936,9 @@ TranslationUnit {
                       inlineCommandName = "c",
                       inlineCommandRenderKind =
                       CXCommentInlineCommandRenderKind_Monospaced,
-                      inlineCommandArgs = ["char*"]},
+                      inlineCommandArgs = [
+                        Left "char",
+                        Left "*"]},
                     TextContent
                       "filename to process",
                     TextContent ""]]},
@@ -944,13 +951,15 @@ TranslationUnit {
                   inlineCommandName = "c",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Monospaced,
-                  inlineCommandArgs = ["true"]},
+                  inlineCommandArgs = [
+                    Left "true"]},
                 TextContent "if successful,",
                 InlineCommand {
                   inlineCommandName = "c",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Monospaced,
-                  inlineCommandArgs = ["false"]},
+                  inlineCommandArgs = [
+                    Left "false"]},
                 TextContent "otherwise"]}]},
       declKind = DeclFunction
         Function {
@@ -1269,14 +1278,16 @@ TranslationUnit {
                   inlineCommandName = "c",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Monospaced,
-                  inlineCommandArgs = ["item"]},
+                  inlineCommandArgs = [
+                    Left "item"]},
                 TextContent "1. item",
                 TextContent "2. Second",
                 InlineCommand {
                   inlineCommandName = "b",
                   inlineCommandRenderKind =
                   CXCommentInlineCommandRenderKind_Bold,
-                  inlineCommandArgs = ["item"]},
+                  inlineCommandArgs = [
+                    Left "item"]},
                 TextContent "3. Third item"],
             Paragraph
               [
