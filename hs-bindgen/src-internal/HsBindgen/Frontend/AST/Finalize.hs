@@ -1,6 +1,8 @@
 -- | Construct the final (external) form of the AST
 module HsBindgen.Frontend.AST.Finalize (finalize) where
 
+import Clang.HighLevel.Documentation qualified as C
+
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
@@ -66,7 +68,7 @@ instance Finalize Int.DeclInfo where
       , declOrigin = nameOrigin
       , declAliases
       , declHeader
-      , declComment
+      , declComment = fmap finalize declComment
       }
     where
       Int.DeclInfo{
@@ -91,6 +93,17 @@ instance Finalize Int.DeclKind where
   finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
   finalize (Int.DeclGlobal ty)       = Ext.DeclGlobal (finalize ty)
   finalize (Int.DeclConst ty)        = Ext.DeclConst (finalize ty)
+
+instance Finalize Int.Reference where
+  type Finalized Int.Reference = Ext.Reference
+
+  finalize (Int.ById (x, _)) = Ext.ById x
+
+
+instance Finalize Int.CommentReference where
+  type Finalized Int.CommentReference = C.Comment Ext.Reference
+
+  finalize (Int.CommentReference comment) = fmap finalize comment
 
 instance Finalize Int.Struct where
   type Finalized Int.Struct = Ext.Struct
@@ -121,7 +134,7 @@ instance Finalize Int.StructField where
       , structFieldType = finalize structFieldType
       , structFieldOffset
       , structFieldWidth
-      , structFieldComment
+      , structFieldComment = fmap finalize structFieldComment
       }
     where
       Int.StructField {
@@ -158,7 +171,7 @@ instance Finalize Int.UnionField where
         unionFieldLoc
       , unionFieldName
       , unionFieldType = finalize unionFieldType
-      , unionFieldComment
+      , unionFieldComment = fmap finalize unionFieldComment
       }
     where
       Int.UnionField {
@@ -195,7 +208,7 @@ instance Finalize Int.EnumConstant where
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
-      , enumConstantComment
+      , enumConstantComment = fmap finalize enumConstantComment
       }
     where
       Int.EnumConstant {

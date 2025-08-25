@@ -7,6 +7,8 @@ import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
 
+import Clang.HighLevel.Documentation qualified as C
+
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
@@ -247,9 +249,13 @@ instance Mangle C.TranslationUnit where
 instance Mangle C.Decl where
   mangle decl = do
       declId' <- mangleQualName (C.declQualName decl) (C.declIdOrigin declId)
+      declComment' <- traverse mangle declComment
 
       let info :: C.DeclInfo MangleNames
-          info = C.DeclInfo{declId = declId', ..}
+          info = C.DeclInfo{ declId = declId'
+                           , declComment = declComment'
+                           , ..
+                           }
 
           mk :: C.DeclKind MangleNames -> C.Decl MangleNames
           mk declKind' = C.Decl{
@@ -286,6 +292,52 @@ instance MangleDecl C.DeclKind where
   mangleDecl _ (C.DeclConst ty) =
       C.DeclConst <$> mangle ty
 
+instance Mangle C.Reference where
+  mangle (C.ById C.DeclId{..}) = do
+    nm <- asks envNameMap
+    let lookupResults =
+          catMaybes [ Map.lookup (C.QualName declIdName nameKind) nm
+                    | nameKind <- [minBound .. maxBound]
+                    ]
+    case lookupResults of
+      (hsName:_) -> return $ C.ById (NamePair declIdName hsName, declIdOrigin)
+      []         -> do
+        -- NB: If we hit this case it means that we tried all possible name
+        -- kinds and still didn't find any result. This might be because of a
+        -- typo on the docs or a miss reference.
+        --
+        modify (MangleNamesMissingDeclaration (C.QualName declIdName C.NameKindOrdinary) :)
+        --
+        -- Use the fake Haskell ID.
+        return $ C.ById $ (NamePair declIdName (HsIdentifier "Missing declaration"), declIdOrigin)
+
+instance Mangle C.CommentReference where
+  mangle (C.CommentReference C.Comment{..}) =
+        C.CommentReference
+    .   C.Comment commentCName
+    <$> traverse mangleCommentBlockContent commentChildren
+
+    where
+      mangleCommentInlineContent = \case
+        C.TextContent{..}        -> pure $ C.TextContent {..}
+        C.InlineCommand n r args -> do
+          args' <- traverse ( (\case
+                                Left t -> pure (Left t)
+                                Right t -> fmap Right t
+                              )
+                            . fmap mangle) args
+          pure (C.InlineCommand n r args')
+        C.HtmlStartTag{..}       -> pure $ C.HtmlStartTag{..}
+        C.HtmlEndTag{..}         -> pure $ C.HtmlEndTag{..}
+
+      mangleCommentBlockContent = \case
+        C.Paragraph p              -> C.Paragraph <$> traverse mangleCommentInlineContent p
+        C.BlockCommand n args p    -> C.BlockCommand n args <$> (traverse mangleCommentInlineContent p)
+        C.ParamCommand n i d e p   -> C.ParamCommand n i d e <$> (traverse mangleCommentBlockContent p)
+        C.TParamCommand n p c      -> C.TParamCommand n p <$> (traverse mangleCommentBlockContent c)
+        C.VerbatimBlockCommand{..} -> pure C.VerbatimBlockCommand{..}
+        C.VerbatimLine{..}         -> pure C.VerbatimLine{..}
+
 instance MangleDecl C.Struct where
   mangleDecl info C.Struct{..} = do
       let mk :: [C.StructField MangleNames] -> C.Struct MangleNames
@@ -301,14 +353,18 @@ instance MangleDecl C.StructField where
       let mk ::
                FieldName MangleNames
             -> C.Type MangleNames
+            -> Maybe (C.CommentReference MangleNames)
             -> C.StructField MangleNames
-          mk   structFieldName' structFieldType' = C.StructField{
+          mk   structFieldName' structFieldType' structFieldComment' =
+            C.StructField {
                 structFieldName = structFieldName'
               , structFieldType = structFieldType'
+              , structFieldComment = structFieldComment'
               , ..
               }
       mk <$> mangleFieldName info structFieldName
          <*> mangle structFieldType
+         <*> traverse mangle structFieldComment
 
 instance MangleDecl C.Union where
   mangleDecl info C.Union{..} = do
@@ -325,14 +381,18 @@ instance MangleDecl C.UnionField where
       let mk ::
                FieldName MangleNames
             -> C.Type MangleNames
+            -> Maybe (C.CommentReference MangleNames)
             -> C.UnionField MangleNames
-          mk unionFieldName' unionFieldType' = C.UnionField{
+          mk unionFieldName' unionFieldType' unionFieldComment' =
+            C.UnionField {
                 unionFieldName = unionFieldName'
               , unionFieldType = unionFieldType'
+              , unionFieldComment = unionFieldComment'
               , ..
               }
       mk <$> mangleFieldName info unionFieldName
          <*> mangle unionFieldType
+         <*> traverse mangle unionFieldComment
 
 instance MangleDecl C.Enum where
   mangleDecl info C.Enum{..} = do
@@ -351,12 +411,16 @@ instance MangleDecl C.Enum where
 
 instance MangleDecl C.EnumConstant where
   mangleDecl info C.EnumConstant{..} = do
-      let mk :: NamePair -> C.EnumConstant MangleNames
-          mk enumConstantName' = C.EnumConstant{
+      let mk :: NamePair
+             -> Maybe (C.CommentReference MangleNames)
+             -> C.EnumConstant MangleNames
+          mk enumConstantName' enumConstantComment' = C.EnumConstant{
                 enumConstantName = enumConstantName'
+              , enumConstantComment = enumConstantComment'
               , ..
               }
       mk <$> mangleEnumConstant info enumConstantName
+         <*> traverse mangle enumConstantComment
 
 instance MangleDecl C.Typedef where
   mangleDecl info C.Typedef{..} = do
