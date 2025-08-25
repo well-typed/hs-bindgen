@@ -23,6 +23,8 @@ module HsBindgen.Frontend.AST.External (
     -- ** Typedefs
   , Typedef(..)
   , TypedefRef(..)
+    -- ** Comment
+  , Reference(..)
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -106,7 +108,7 @@ data DeclInfo = DeclInfo{
     , declOrigin  :: C.NameOrigin
     , declAliases :: [C.Name]
     , declHeader  :: HashIncludeArg
-    , declComment :: Maybe Comment
+    , declComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -147,7 +149,7 @@ data StructField = StructField {
     , structFieldType    :: Type
     , structFieldOffset  :: Int -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
-    , structFieldComment :: Maybe Comment
+    , structFieldComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -168,7 +170,7 @@ data UnionField = UnionField {
       unionFieldLoc     :: SingleLoc
     , unionFieldName    :: MangleNames.NamePair
     , unionFieldType    :: Type
-    , unionFieldComment :: Maybe Comment
+    , unionFieldComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -189,7 +191,7 @@ data EnumConstant = EnumConstant {
       enumConstantLoc     :: SingleLoc
     , enumConstantName    :: MangleNames.NamePair
     , enumConstantValue   :: Integer
-    , enumConstantComment :: Maybe Comment
+    , enumConstantComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -212,6 +214,18 @@ data Function = Function {
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
     }
+  deriving stock (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
+  Comments
+-------------------------------------------------------------------------------}
+
+-- | Needed for cross referencing identifiers when translating to Haddocks.
+-- When parsing a referencing command, e.g. \\ref, we need an identifier that
+-- passes through all the name mangling passes so that in the end we have
+-- access to the right name to reference.
+--
+data Reference = ById MangleNames.NamePair
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
