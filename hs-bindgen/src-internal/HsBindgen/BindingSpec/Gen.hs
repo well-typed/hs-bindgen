@@ -18,8 +18,8 @@ import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
-import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader

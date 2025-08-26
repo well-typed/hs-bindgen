@@ -47,8 +47,8 @@ import Data.Map.Strict qualified as Map
 import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
 
-import HsBindgen.BindingSpec.Private qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer

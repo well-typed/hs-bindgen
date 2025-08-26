@@ -101,8 +101,8 @@ library internal
       HsBindgen.Backend.UniqueId
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
-      HsBindgen.BindingSpec.Private
       HsBindgen.BindingSpec.Private.Stdlib
+      HsBindgen.BindingSpec.Private.V1
       HsBindgen.Boot
       HsBindgen.Cache
       HsBindgen.Clang

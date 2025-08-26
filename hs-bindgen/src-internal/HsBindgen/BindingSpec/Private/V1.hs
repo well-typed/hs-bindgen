@@ -5,8 +5,14 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.BindingSpec.Private qualified as BindingSpec
-module HsBindgen.BindingSpec.Private (
+-- When defining the current public interface:
+--
+-- > import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+--
+-- When distinguishing separate versions:
+--
+-- > import HsBindgen.BindingSpec.Private.V1 qualified as V1
+module HsBindgen.BindingSpec.Private.V1 (
     -- * Types
     BindingSpec(..)
   , UnresolvedBindingSpec
@@ -440,14 +446,14 @@ encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
 encodeYaml = encodeYaml' . toABindingSpec
 
 -- | Write a binding specification to a file
+--
+-- The format is determined by the filename extension.
 writeFile :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFile path = case getFormat path of
     FormatYAML -> writeFileYaml path
     FormatJSON -> writeFileJson path
 
 -- | Write a binding specification to a JSON file
---
--- The format is determined by the filename extension.
 writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileJson path = BSL.writeFile path . encodeJson
 
