@@ -51,11 +51,8 @@ check testResources test =
         (I deps :* I decls :* Nil) <-
           runTestHsBindgen testResources test artefacts
 
-        let requiredExts :: Set TH.Extension
-            requiredExts = getExtensions decls
-
-            thDecls :: Qu [TH.Dec]
-            thDecls = getThDecls deps decls requiredExts
+        let thDecls :: Qu [TH.Dec]
+            thDecls = getThDecls deps decls
 
             (QuState{..}, thdecs) = runQu thDecls
 
