@@ -460,3 +460,22 @@ test-suite test-pp
     , vector ^>=0.13.2.0
   if impl(ghc < 9.4)
     build-depends: data-array-byte
+
+benchmark hs-bindgen-bench
+  import:         lang
+  default-extensions:
+  main-is:        hs-bindgen-bench.hs
+  hs-source-dirs: bench
+  type:           exitcode-stdio-1.0
+  other-modules:
+  autogen-modules:
+  build-depends:
+      -- Internal dependencies
+    , hs-bindgen
+  build-depends:
+      -- Inherited dependencies
+    , containers
+  build-depends:
+      -- External dependencies
+    , criterion >= 1.6.4.0 && < 1.7
+    , deepseq   >= 1.5.1.0 && < 1.6
