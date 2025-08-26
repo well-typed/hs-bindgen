@@ -16,6 +16,7 @@ module HsBindgen.BindingSpec.Private.Stdlib (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
@@ -38,7 +39,7 @@ bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
     bindingSpecTypes ::
       Map
         C.QualName
-        [(Set HashIncludeArg, BindingSpec.Omittable BindingSpec.TypeSpec)]
+        [(Set HashIncludeArg, Omittable BindingSpec.TypeSpec)]
     bindingSpecTypes = Map.fromList [
         -- Integral types
         mkT "int8_t"         "Int8"     intI inttypesH
@@ -172,10 +173,10 @@ mkT ::
   -> [HsTypeClass]
   -> Set HashIncludeArg
   -> ( C.QualName
-     , [(Set HashIncludeArg , BindingSpec.Omittable BindingSpec.TypeSpec)]
+     , [(Set HashIncludeArg , Omittable BindingSpec.TypeSpec)]
      )
 mkT t hsId insts headers = case C.parseQualName t of
-    Just cQualName -> (cQualName, [(headers, BindingSpec.Require typeSpec)])
+    Just cQualName -> (cQualName, [(headers, Require typeSpec)])
     Nothing -> panicPure $ "invalid qualified name: " ++ show t
   where
     typeSpec :: BindingSpec.TypeSpec
@@ -183,7 +184,7 @@ mkT t hsId insts headers = case C.parseQualName t of
         typeSpecModule     = Just "HsBindgen.Runtime.Prelude"
       , typeSpecIdentifier = Just hsId
       , typeSpecInstances  = Map.fromList [
-            (inst, BindingSpec.Require instanceSpec)
+            (inst, Require instanceSpec)
           | inst <- insts
           ]
       }

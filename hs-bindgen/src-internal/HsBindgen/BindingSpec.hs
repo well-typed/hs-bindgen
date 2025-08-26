@@ -22,14 +22,14 @@ module HsBindgen.BindingSpec (
   , encodeBindingSpecJson
   , encodeBindingSpecYaml
     -- ** Trace messages
-  , BindingSpec.BindingSpecReadMsg(..)
-  , BindingSpec.BindingSpecResolveMsg(..)
-  , BindingSpec.BindingSpecMergeMsg(..)
-  , BindingSpec.BindingSpecMsg(..)
+  , Common.BindingSpecReadMsg(..)
+  , Common.BindingSpecResolveMsg(..)
+  , Common.BindingSpecMergeMsg(..)
+  , Common.BindingSpecMsg(..)
 
     -- * Internal API
     -- ** Types
-  , BindingSpec.Omittable(..)
+  , Common.Omittable(..)
   , BindingSpec.TypeSpec(..)
   , BindingSpec.defaultTypeSpec
   , BindingSpec.InstanceSpec(..)
@@ -47,6 +47,7 @@ import Data.Map.Strict qualified as Map
 import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
 
+import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Frontend.Naming qualified as C
@@ -106,7 +107,7 @@ data EnableStdlibBindingSpec =
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 loadExtBindingSpecs ::
-     Tracer IO BindingSpec.BindingSpecMsg
+     Tracer IO Common.BindingSpecMsg
   -> ClangArgs
   -> EnableStdlibBindingSpec
   -> [FilePath]
@@ -115,7 +116,7 @@ loadExtBindingSpecs tracer args enableStdlib =
       fmap (uncurry BindingSpec)
     . BindingSpec.load
         tracer
-        BindingSpec.BindingSpecResolveExternalHeader
+        Common.BindingSpecResolveExternalHeader
         args
         stdSpec
   where
@@ -132,14 +133,14 @@ loadExtBindingSpecs tracer args enableStdlib =
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 loadPrescriptiveBindingSpec ::
-     Tracer IO BindingSpec.BindingSpecMsg
+     Tracer IO Common.BindingSpecMsg
   -> ClangArgs
   -> FilePath
   -> IO BindingSpec
 loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
     BindingSpec.load
       tracer
-      BindingSpec.BindingSpecResolvePrescriptiveHeader
+      Common.BindingSpecResolvePrescriptiveHeader
       args
       BindingSpec.empty
       [path]
@@ -160,7 +161,7 @@ instance Default BindingSpecConfig where
 
 -- | A combination of 'loadExtBindingSpecs' and 'loadPrescriptiveBindingSpec'.
 loadBindingSpecs ::
-     Tracer IO BindingSpec.BindingSpecMsg
+     Tracer IO Common.BindingSpecMsg
   -> ClangArgs
   -> BindingSpecConfig
   -> IO (ExternalBindingSpec, PrescriptiveBindingSpec)
@@ -177,7 +178,7 @@ loadBindingSpecs tracer clangArgs BindingSpecConfig{..} = do
 
 -- | Get the standard library external binding specification
 getStdlibBindingSpec ::
-     Tracer IO BindingSpec.BindingSpecMsg
+     Tracer IO Common.BindingSpecMsg
   -> ClangArgs
   -> IO BindingSpec
 getStdlibBindingSpec tracer args =
@@ -199,11 +200,11 @@ encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
 getTypes :: BindingSpec -> Set C.QualName
 getTypes = Map.keysSet . BindingSpec.bindingSpecTypes . bindingSpecResolved
 
--- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
+-- | Lookup the @'Common.Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::
      C.QualName
   -> Set SourcePath
   -> BindingSpec
-  -> Maybe (BindingSpec.Omittable BindingSpec.TypeSpec)
+  -> Maybe (Common.Omittable BindingSpec.TypeSpec)
 lookupTypeSpec cQualName headers =
     BindingSpec.lookupTypeSpec cQualName headers . bindingSpecResolved
