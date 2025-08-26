@@ -45,19 +45,6 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
-      # The GHC installation on Windows already comes with a compatible
-      # CLANG and LLVM.
-      - name: Set up LLVM_PATH
-        shell: bash
-        run: |
-          echo "LLVM_PATH=/c/ghcup/ghc/${{matrix.ghc}}/mingw" >> "$GITHUB_ENV"
-
-      - name: Set LLVM_CONFIG and LIBCLANG_PATH Environment Variable
-        shell: bash
-        run: |
-          echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
-          echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
-
       # Windows doesn't require to set BINDGEN_CLANG_ARGS in the same way Linux
       # does.
       #
@@ -76,12 +63,47 @@ jobs:
       #
       # [^1]: It would work in all OSs except Windows.
 
+      # The GHC installed by GHCup includes an LLVM/Clang installation.
       - name: Set up Haskell
         id: setup-haskell
         uses: haskell-actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: 'latest'
+
+      # Environment variables:
+      #
+      # * PATH - The PATH is used for locating DLLs, so it is critical that the
+      #   LLVM/Clang bin directory is prepended to the system PATH.  Otherwise,
+      #   hs-bindgen will dynamically load the libclang.dll for a different
+      #   version of LLVM/Clang.  Note that this is a change to the system path,
+      #   using Windows path syntax.
+      #
+      # * LLVM_PATH - This is not used to configure our Haskell clang package
+      #   when building because LLVM_CONFIG (configured below) takes precedence.
+      #   It is used when determining the builtin include directory, however.
+      #   It is not necessary with the above PATH configuration.
+      #
+      # * LLVM_CONFIG - This is used to configure our Haskell clang package when
+      #   building.  It is not necessary with the above PATH configuration.
+      #
+      # * LIBCLANG_PATH - This is used by the Rust clang-sys package that
+      #   rust-bindgen uses.  It is likely not needed in this job because we do
+      #   not run the Rust tests.
+      #
+      # * C_INCLUDE_PATH - This is used to configure the builtin include
+      #   directory.  It is temporary and hard-codes the LLVM/Clang version.  It
+      #   will no longer be needed once automatic configuration of the builtin
+      #   include directory is working.
+      - name: Configure environment variables
+        shell: bash
+        run: |
+          echo "C:\ghcup\ghc\${{matrix.ghc}}\mingw\bin" >> "$GITHUB_PATH"
+          LLVM_PATH="/c/ghcup/ghc/${{matrix.ghc}}/mingw"
+          echo "LLVM_PATH=$LLVM_PATH" >> "$GITHUB_ENV"
+          echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config.exe" >> "$GITHUB_ENV"
+          echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+          echo "C_INCLUDE_PATH=C:\ghcup\ghc\${{matrix.ghc}}\mingw\lib\clang\14.0.6\include" >> "$GITHUB_ENV"
 
       # This file only the first part of this file ('package *') is needed to
       # build the whole project, the others are needed to build the manual as
@@ -149,7 +171,7 @@ jobs:
       - name: Add manual/c to the PATH
         shell: bash
         run: |
-          echo "PATH=${{ github.workspace }}\\manual\\c;$PATH" >> "$GITHUB_ENV"
+          echo "${{github.workspace}}\\manual\\c" >> "$GITHUB_PATH"
 
       - name: Run the manual executable
         working-directory: ./manual/hs
@@ -157,4 +179,3 @@ jobs:
         run: |
           cp ../../cabal.project.local .
           cabal run manual
-

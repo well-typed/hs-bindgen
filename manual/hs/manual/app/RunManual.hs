@@ -89,11 +89,7 @@ showCursorKind = \case
 
 -- On Windows the underlying data type generated for `Index` is FC.CInt
 -- instead of FC.CUInt.
-#if defined(mingw32_HOST_OS)
-readEitherIndexWith :: FC.CInt -> String -> Either String Index
-#else
 readEitherIndexWith :: FC.CUInt -> String -> Either String Index
-#endif
 readEitherIndexWith upperBound x = case readEither x of
   Right (Index v) | v > upperBound -> Left $ "index out of bounds: " <> show v
   other                            -> other
