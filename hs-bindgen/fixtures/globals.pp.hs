@@ -19,13 +19,13 @@ import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include <globals.h>\n__attribute__ ((const)) signed int *get_simpleGlobal_ptr (void) { return &simpleGlobal; } \n__attribute__ ((const)) struct config *get_compoundGlobal1_ptr (void) { return &compoundGlobal1; } \n__attribute__ ((const)) struct inline_struct *get_compoundGlobal2_ptr (void) { return &compoundGlobal2; } \n__attribute__ ((const)) signed int *get_nesInteger_ptr (void) { return &nesInteger; } \n__attribute__ ((const)) float *get_nesFloating_ptr (void) { return &nesFloating; } \n__attribute__ ((const)) char **get_nesString1_ptr (void) { return &nesString1; } \n__attribute__ ((const)) char (*get_nesString2_ptr (void))[3] { return &nesString2; } \n__attribute__ ((const)) char *get_nesCharacter_ptr (void) { return &nesCharacter; } \n__attribute__ ((const)) signed int *get_nesParen_ptr (void) { return &nesParen; } \n__attribute__ ((const)) signed int *get_nesUnary_ptr (void) { return &nesUnary; } \n__attribute__ ((const)) signed int *get_nesBinary_ptr (void) { return &nesBinary; } \n__attribute__ ((const)) signed int *get_nesConditional_ptr (void) { return &nesConditional; } \n__attribute__ ((const)) float *get_nesCast_ptr (void) { return &nesCast; } \n__attribute__ ((const)) signed int **get_nesCompound_ptr (void) { return &nesCompound; } \n__attribute__ ((const)) uint8_t (*get_nesInitList_ptr (void))[4] { return &nesInitList; } \n__attribute__ ((const)) _Bool *get_nesBool_ptr (void) { return &nesBool; } \n__attribute__ ((const)) uint8_t (*get_streamBinary_ptr (void))[4096] { return &streamBinary; } \n__attribute__ ((const)) uint32_t *get_streamBinary_len_ptr (void) { return &streamBinary_len; } \n__attribute__ ((const)) struct2_t *get_some_global_struct_ptr (void) { return &some_global_struct; } \n__attribute__ ((const)) const signed int *get_globalConstant_ptr (void) { return &globalConstant; } \n__attribute__ ((const)) const ConstInt *get_anotherGlobalConstant_ptr (void) { return &anotherGlobalConstant; } \n__attribute__ ((const)) const signed int *get_staticConst_ptr (void) { return &staticConst; } \n__attribute__ ((const)) const signed int *get_classless_ptr (void) { return &classless; } \n__attribute__ ((const)) const signed int (*get_constArray1_ptr (void))[4] { return &constArray1; } \n__attribute__ ((const)) const ConstIntArray *get_constArray2_ptr (void) { return &constArray2; } \n__attribute__ ((const)) const struct tuple *get_constTuple_ptr (void) { return &constTuple; } \n__attribute__ ((const)) struct tuple *get_nonConstTuple_ptr (void) { return &nonConstTuple; } \n__attribute__ ((const)) signed int **get_ptrToConstInt_ptr (void) { return &ptrToConstInt; } \n__attribute__ ((const)) const signed int **get_constPtrToInt_ptr (void) { return &constPtrToInt; } \n__attribute__ ((const)) const signed int **get_constPtrToConstInt_ptr (void) { return &constPtrToConstInt; } \n")
+$(CAPI.addCSource "#include <globals.h>\n/* get_simpleGlobal_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_9e13cdab849fd6a3 (void) { return &simpleGlobal; } \n/* get_compoundGlobal1_ptr */ __attribute__ ((const)) struct config *hs_bindgen_test_globals_9093ee3b5b63dbb9 (void) { return &compoundGlobal1; } \n/* get_compoundGlobal2_ptr */ __attribute__ ((const)) struct inline_struct *hs_bindgen_test_globals_35cfb530c6e3b540 (void) { return &compoundGlobal2; } \n/* get_nesInteger_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_d0e555bab6218b45 (void) { return &nesInteger; } \n/* get_nesFloating_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_620d3eeb41be6814 (void) { return &nesFloating; } \n/* get_nesString1_ptr */ __attribute__ ((const)) char **hs_bindgen_test_globals_58609a874bbd4939 (void) { return &nesString1; } \n/* get_nesString2_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_globals_d24d15726a247083 (void))[3] { return &nesString2; } \n/* get_nesCharacter_ptr */ __attribute__ ((const)) char *hs_bindgen_test_globals_472e8cff06767166 (void) { return &nesCharacter; } \n/* get_nesParen_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3535fbeb41ad5a41 (void) { return &nesParen; } \n/* get_nesUnary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_c2e1dc65064ad658 (void) { return &nesUnary; } \n/* get_nesBinary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3d0448526008a072 (void) { return &nesBinary; } \n/* get_nesConditional_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_6733c2e7c59bc620 (void) { return &nesConditional; } \n/* get_nesCast_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_d6e6e72f287d9b41 (void) { return &nesCast; } \n/* get_nesCompound_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_032905c6b7a5e39f (void) { return &nesCompound; } \n/* get_nesInitList_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_4012de1fec3423a7 (void))[4] { return &nesInitList; } \n/* get_nesBool_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_globals_f9fb23513d064767 (void) { return &nesBool; } \n/* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_92e68af3ae2ed3fb (void))[4096] { return &streamBinary; } \n/* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_8d6f9f3043208163 (void) { return &streamBinary_len; } \n/* get_some_global_struct_ptr */ __attribute__ ((const)) struct2_t *hs_bindgen_test_globals_88ad1f87a451c285 (void) { return &some_global_struct; } \n/* get_globalConstant_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } \n/* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) const ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } \n/* get_staticConst_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } \n/* get_classless_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } \n/* get_constArray1_ptr */ __attribute__ ((const)) const signed int (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } \n/* get_constArray2_ptr */ __attribute__ ((const)) const ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } \n/* get_constTuple_ptr */ __attribute__ ((const)) const struct tuple *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } \n/* get_nonConstTuple_ptr */ __attribute__ ((const)) struct tuple *hs_bindgen_test_globals_e8e62512a4e5d162 (void) { return &nonConstTuple; } \n/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } \n/* get_constPtrToInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } \n/* get_constPtrToConstInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } \n")
 
 {-| Global variables
 
   __from C:__ @simpleGlobal@
 -}
-foreign import ccall safe "get_simpleGlobal_ptr" simpleGlobal_ptr
+foreign import ccall safe "hs_bindgen_test_globals_9e13cdab849fd6a3" simpleGlobal_ptr
   :: F.Ptr FC.CInt
 
 data Config = Config
@@ -54,7 +54,7 @@ instance F.Storable Config where
                F.pokeByteOff ptr0 (0 :: Int) config_x2
             >> F.pokeByteOff ptr0 (4 :: Int) config_y3
 
-foreign import ccall safe "get_compoundGlobal1_ptr" compoundGlobal1_ptr
+foreign import ccall safe "hs_bindgen_test_globals_9093ee3b5b63dbb9" compoundGlobal1_ptr
   :: F.Ptr Config
 
 data Inline_struct = Inline_struct
@@ -83,7 +83,7 @@ instance F.Storable Inline_struct where
                F.pokeByteOff ptr0 (0 :: Int) inline_struct_x2
             >> F.pokeByteOff ptr0 (4 :: Int) inline_struct_y3
 
-foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2_ptr
+foreign import ccall safe "hs_bindgen_test_globals_35cfb530c6e3b540" compoundGlobal2_ptr
   :: F.Ptr Inline_struct
 
 {-| Non-extern non-static global variables
@@ -96,43 +96,43 @@ foreign import ccall safe "get_compoundGlobal2_ptr" compoundGlobal2_ptr
 
   __from C:__ @nesInteger@
 -}
-foreign import ccall safe "get_nesInteger_ptr" nesInteger_ptr
+foreign import ccall safe "hs_bindgen_test_globals_d0e555bab6218b45" nesInteger_ptr
   :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesFloating_ptr" nesFloating_ptr
+foreign import ccall safe "hs_bindgen_test_globals_620d3eeb41be6814" nesFloating_ptr
   :: F.Ptr FC.CFloat
 
-foreign import ccall safe "get_nesString1_ptr" nesString1_ptr
+foreign import ccall safe "hs_bindgen_test_globals_58609a874bbd4939" nesString1_ptr
   :: F.Ptr (F.Ptr FC.CChar)
 
-foreign import ccall safe "get_nesString2_ptr" nesString2_ptr
+foreign import ccall safe "hs_bindgen_test_globals_d24d15726a247083" nesString2_ptr
   :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
 
-foreign import ccall safe "get_nesCharacter_ptr" nesCharacter_ptr
+foreign import ccall safe "hs_bindgen_test_globals_472e8cff06767166" nesCharacter_ptr
   :: F.Ptr FC.CChar
 
-foreign import ccall safe "get_nesParen_ptr" nesParen_ptr
+foreign import ccall safe "hs_bindgen_test_globals_3535fbeb41ad5a41" nesParen_ptr
   :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesUnary_ptr" nesUnary_ptr
+foreign import ccall safe "hs_bindgen_test_globals_c2e1dc65064ad658" nesUnary_ptr
   :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesBinary_ptr" nesBinary_ptr
+foreign import ccall safe "hs_bindgen_test_globals_3d0448526008a072" nesBinary_ptr
   :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesConditional_ptr" nesConditional_ptr
+foreign import ccall safe "hs_bindgen_test_globals_6733c2e7c59bc620" nesConditional_ptr
   :: F.Ptr FC.CInt
 
-foreign import ccall safe "get_nesCast_ptr" nesCast_ptr
+foreign import ccall safe "hs_bindgen_test_globals_d6e6e72f287d9b41" nesCast_ptr
   :: F.Ptr FC.CFloat
 
-foreign import ccall safe "get_nesCompound_ptr" nesCompound_ptr
+foreign import ccall safe "hs_bindgen_test_globals_032905c6b7a5e39f" nesCompound_ptr
   :: F.Ptr (F.Ptr FC.CInt)
 
-foreign import ccall safe "get_nesInitList_ptr" nesInitList_ptr
+foreign import ccall safe "hs_bindgen_test_globals_4012de1fec3423a7" nesInitList_ptr
   :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
 
-foreign import ccall safe "get_nesBool_ptr" nesBool_ptr
+foreign import ccall safe "hs_bindgen_test_globals_f9fb23513d064767" nesBool_ptr
   :: F.Ptr FC.CBool
 
 {-| Additional examples of global variables, abstracted from real examples
@@ -143,10 +143,10 @@ foreign import ccall safe "get_nesBool_ptr" nesBool_ptr
 
   __from C:__ @streamBinary@
 -}
-foreign import ccall safe "get_streamBinary_ptr" streamBinary_ptr
+foreign import ccall safe "hs_bindgen_test_globals_92e68af3ae2ed3fb" streamBinary_ptr
   :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
 
-foreign import ccall safe "get_streamBinary_len_ptr" streamBinary_len_ptr
+foreign import ccall safe "hs_bindgen_test_globals_8d6f9f3043208163" streamBinary_len_ptr
   :: F.Ptr HsBindgen.Runtime.Prelude.Word32
 
 data Version_t = Version_t
@@ -230,7 +230,7 @@ instance F.Storable Struct2_t where
           Struct2_t struct2_t_field12 ->
             F.pokeByteOff ptr0 (0 :: Int) struct2_t_field12
 
-foreign import ccall safe "get_some_global_struct_ptr" some_global_struct_ptr
+foreign import ccall safe "hs_bindgen_test_globals_88ad1f87a451c285" some_global_struct_ptr
   :: F.Ptr Struct2_t
 
 {-| Constant
@@ -239,7 +239,7 @@ foreign import ccall safe "get_some_global_struct_ptr" some_global_struct_ptr
 
   __from C:__ @globalConstant@
 -}
-foreign import ccall safe "get_globalConstant_ptr" globalConstant_ptr
+foreign import ccall safe "hs_bindgen_test_globals_2875ba0f7feba4fd" globalConstant_ptr
   :: F.Ptr FC.CInt
 
 {-# NOINLINE globalConstant #-}
@@ -258,7 +258,7 @@ newtype ConstInt = ConstInt
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-foreign import ccall safe "get_anotherGlobalConstant_ptr" anotherGlobalConstant_ptr
+foreign import ccall safe "hs_bindgen_test_globals_6ebecf881bce1334" anotherGlobalConstant_ptr
   :: F.Ptr ConstInt
 
 {-# NOINLINE anotherGlobalConstant #-}
@@ -273,7 +273,7 @@ anotherGlobalConstant =
 
   __from C:__ @staticConst@
 -}
-foreign import ccall safe "get_staticConst_ptr" staticConst_ptr
+foreign import ccall safe "hs_bindgen_test_globals_2eea936ed4beec74" staticConst_ptr
   :: F.Ptr FC.CInt
 
 {-# NOINLINE staticConst #-}
@@ -286,7 +286,7 @@ staticConst =
 
   __from C:__ @classless@
 -}
-foreign import ccall safe "get_classless_ptr" classless_ptr
+foreign import ccall safe "hs_bindgen_test_globals_5d631acbb16c0e7e" classless_ptr
   :: F.Ptr FC.CInt
 
 {-# NOINLINE classless #-}
@@ -299,7 +299,7 @@ classless =
 
   __from C:__ @constArray1@
 -}
-foreign import ccall safe "get_constArray1_ptr" constArray1_ptr
+foreign import ccall safe "hs_bindgen_test_globals_0d7a9340f4ef8b2e" constArray1_ptr
   :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
 
 {-# NOINLINE constArray1 #-}
@@ -317,7 +317,7 @@ newtype ConstIntArray = ConstIntArray
   }
   deriving stock (Eq, Show)
 
-foreign import ccall safe "get_constArray2_ptr" constArray2_ptr
+foreign import ccall safe "hs_bindgen_test_globals_7e09340985caec8d" constArray2_ptr
   :: F.Ptr ConstIntArray
 
 data Tuple = Tuple
@@ -350,7 +350,7 @@ instance F.Storable Tuple where
 
   __from C:__ @constTuple@
 -}
-foreign import ccall safe "get_constTuple_ptr" constTuple_ptr
+foreign import ccall safe "hs_bindgen_test_globals_6f2e1968e15f0b9b" constTuple_ptr
   :: F.Ptr Tuple
 
 {-# NOINLINE constTuple #-}
@@ -363,21 +363,21 @@ constTuple =
 
   __from C:__ @nonConstTuple@
 -}
-foreign import ccall safe "get_nonConstTuple_ptr" nonConstTuple_ptr
+foreign import ccall safe "hs_bindgen_test_globals_e8e62512a4e5d162" nonConstTuple_ptr
   :: F.Ptr Tuple
 
 {-| A pointer to const int
 
   __from C:__ @ptrToConstInt@
 -}
-foreign import ccall safe "get_ptrToConstInt_ptr" ptrToConstInt_ptr
+foreign import ccall safe "hs_bindgen_test_globals_e41146f6df20fe0d" ptrToConstInt_ptr
   :: F.Ptr (F.Ptr FC.CInt)
 
 {-| A const pointer to int
 
   __from C:__ @constPtrToInt@
 -}
-foreign import ccall safe "get_constPtrToInt_ptr" constPtrToInt_ptr
+foreign import ccall safe "hs_bindgen_test_globals_83b0d0f5488b6a03" constPtrToInt_ptr
   :: F.Ptr (F.Ptr FC.CInt)
 
 {-# NOINLINE constPtrToInt #-}
@@ -390,7 +390,7 @@ constPtrToInt =
 
   __from C:__ @constPtrToConstInt@
 -}
-foreign import ccall safe "get_constPtrToConstInt_ptr" constPtrToConstInt_ptr
+foreign import ccall safe "hs_bindgen_test_globals_247c0c91ce28a18d" constPtrToConstInt_ptr
   :: F.Ptr (F.Ptr FC.CInt)
 
 {-# NOINLINE constPtrToConstInt #-}

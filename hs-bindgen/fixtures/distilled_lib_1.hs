@@ -10780,7 +10780,7 @@
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
-    "__attribute__ ((const)) var_t *get_v_ptr (void) { return &v; } ",
+    "/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10795,7 +10795,7 @@
               "@NsTypeConstr"
               "Var_t"))),
       foreignImportOrigName =
-      "get_v_ptr",
+      "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365",
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global

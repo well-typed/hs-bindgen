@@ -82,7 +82,47 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "adios.h:21:6",
+        declLoc = "adios.h:21:12",
+        declId = NamePair {
+          nameC = Name "\978\978",
+          nameHsIdent = HsIdentifier
+            "c\978\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "adios.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:24:18",
+        declId = NamePair {
+          nameC = Name "\978\978\978",
+          nameHsIdent = HsIdentifier
+            "c\978\978\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "adios.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:27:6",
         declId = NamePair {
           nameC = Name "\25308\25308",
           nameHsIdent = HsIdentifier
@@ -106,7 +146,7 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "adios.h:25:6",
+        declLoc = "adios.h:31:6",
         declId = NamePair {
           nameC = Name "Say\25308\25308",
           nameHsIdent = HsIdentifier
