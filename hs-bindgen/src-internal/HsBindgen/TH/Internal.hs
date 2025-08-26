@@ -14,7 +14,7 @@ module HsBindgen.TH.Internal (
   , withHsBindgen
   , hashInclude
 
-   -- * Internal
+   -- * Internal artefacts
   , getExtensions
   , getThDecls
   ) where
@@ -133,7 +133,9 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
 
     (I deps :* I decls :* Nil) <- liftIO $
       hsBindgen tracerConfig bindgenConfig uncheckedHashIncludeArgs artefacts
-    getThDecls deps decls (getExtensions decls)
+    let requiredExts = getExtensions decls
+    checkLanguageExtensions requiredExts
+    getThDecls deps decls
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (RelativeToPkgRoot x) = root </> x
@@ -181,6 +183,28 @@ hashInclude arg = do
   modify prependArg
 
 {-------------------------------------------------------------------------------
+  Internal artefacts
+-------------------------------------------------------------------------------}
+
+-- | Get required extensions.
+getExtensions :: [SHs.SDecl] -> Set TH.Extension
+getExtensions decls = foldMap requiredExtensions decls
+
+-- | Internal; Get Template Haskell declarations; non-IO part of
+-- 'withHsBindgen'.
+getThDecls
+    :: Guasi q
+    => [SourcePath]
+    -> [SHs.SDecl]
+    -> q [TH.Dec]
+getThDecls deps decls = do
+    -- Record dependencies, including transitively included headers.
+    mapM_ (addDependentFile . getSourcePath) deps
+
+    -- Generate TH declarations.
+    fmap concat $ traverse mkDecl decls
+
+{-------------------------------------------------------------------------------
   Helpers
 -------------------------------------------------------------------------------}
 
@@ -206,32 +230,14 @@ checkHsBindgenRuntimePreludeIsInScope = do
       , "      import qualified HsBindgen.Runtime.Prelude"
       ]
 
--- | Get required extensions.
-getExtensions :: [SHs.SDecl] -> Set TH.Extension
-getExtensions decls = foldMap requiredExtensions decls
-
--- | Internal; Get Template Haskell declarations; non-IO part of
--- 'withHsBindgen'.
-getThDecls
-    :: Guasi q
-    => [SourcePath]
-    -> [SHs.SDecl]
-    -> Set TH.Extension
-    -> q [TH.Dec]
-getThDecls deps decls requiredExts = do
-    -- Record dependencies, including transitively included headers.
-    mapM_ (addDependentFile . getSourcePath) deps
-
-    -- Check language extensions.
-    --
-    -- TODO: We could also check which enabled extension may interfere with the
-    -- generated code (e.g. Strict/Data).
+-- NOTE: We could also check which enabled extension may interfere with the
+-- generated code (e.g. Strict/Data).
+checkLanguageExtensions :: Set TH.Extension -> TH.Q ()
+checkLanguageExtensions requiredExts = do
     enabledExts <- Set.fromList <$> extsEnabled
     let missingExts  = requiredExts `Set.difference` enabledExts
-    -- TODO: The following error should be a trace.
-    unless (null missingExts) $ do
-      reportError $ "Missing LANGUAGE extensions: "
-        ++ unwords (map show (toList missingExts))
 
-    -- Generate TH declarations.
-    fmap concat $ traverse mkDecl decls
+    unless (null missingExts) $ do
+      fail $ unlines $
+        "Missing language extension(s): " :
+          (map (("    - " ++) . show) (toList missingExts))

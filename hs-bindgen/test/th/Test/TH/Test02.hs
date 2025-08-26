@@ -1,6 +1,5 @@
-{-# LANGUAGE LambdaCase         #-}
-{-# LANGUAGE TemplateHaskell    #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE TemplateHaskell    #-}
 
 module Test.TH.Test02 where
 
