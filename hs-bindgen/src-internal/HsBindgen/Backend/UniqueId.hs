@@ -53,7 +53,7 @@ instance PrettyForTrace UniqueIdMsg where
         "empty unique identifier ('UniqueId'):"
       , "  C uses a global namespace."
       , "  We encourage using a unique identifier to avoid duplicate symbol names."
-      , "  For example, use and adapt 'com.well-typed.your-package-name'."
+      , "  For example, use and adapt 'com.example.package'."
       ]
     UniqueIdTooLong (UniqueId val) -> PP.vcat $ map PP.string [
         "unique identifier too long: " <> val
