@@ -48,7 +48,6 @@ module HsBindgen.BindingSpec.Private.V1 (
 
 import Prelude hiding (readFile, writeFile)
 
-import Control.Applicative (asum)
 import Control.Monad ((<=<))
 import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
@@ -61,7 +60,6 @@ import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Typeable (Typeable, typeRep)
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
 import Data.Yaml.Pretty qualified
@@ -424,21 +422,6 @@ resolve tracer injResolveHeader args uSpec = do
   Auxiliary: Specification files
 -------------------------------------------------------------------------------}
 
--- | Supported specification file formats
-data Format =
-    FormatJSON
-  | FormatYAML
-
--- | Get format based on filename
---
--- YAML is used if the extension is unknown.
-getFormat :: FilePath -> Format
-getFormat path
-    | ".json" `List.isSuffixOf` path = FormatJSON
-    | otherwise                      = FormatYAML
-
---------------------------------------------------------------------------------
-
 data ABindingSpec = ABindingSpec {
       aBindingSpecVersion :: Version
     , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
@@ -710,49 +693,3 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "strategy"    ->  9  -- AInstanceSpecMapping:2
       "constraints" -> 10  -- AInstanceSpecMapping:3
       key -> panicPure $ "Unknown key: " ++ show key
-
-{-------------------------------------------------------------------------------
-  Auxiliary: Aeson helpers
--------------------------------------------------------------------------------}
-
--- | Omit empty lists, for use with 'objectWithOptionalFields' and '(.=?)'
-omitWhenNull :: [a] -> Maybe [a]
-omitWhenNull xs
-    | null xs   = Nothing
-    | otherwise = Just xs
-
--- | Convert list to JSON, with special case for the singleton list
---
--- This results in format that is somewhat more friendly for human consumption.
--- It can however not be used for lists-of-lists.
---
--- See also 'listFromJSON'.
-listToJSON :: Aeson.ToJSON a => [a] -> Aeson.Value
-listToJSON [x] = Aeson.toJSON x
-listToJSON xs  = Aeson.toJSON xs
-
--- | Inverse to 'listToJSON'
-listFromJSON :: forall a.
-     (Aeson.FromJSON a, Typeable a)
-  => Aeson.Value
-  -> Aeson.Parser [a]
-listFromJSON value = asum [
-      Aeson.withArray (show (typeRep (Proxy @[a]))) parseList value
-    , parseSingleton
-    ]
-  where
-    parseList :: Aeson.Array -> Aeson.Parser [a]
-    parseList = mapM Aeson.parseJSON . toList
-
-    parseSingleton :: Aeson.Parser [a]
-    parseSingleton = List.singleton <$> Aeson.parseJSON value
-
--- | 'Aeson.Value' constructor name, for use in error messages
-typeOf :: Aeson.Value -> String
-typeOf = \case
-    Aeson.Object{} -> "Object"
-    Aeson.Array{}  -> "Array"
-    Aeson.String{} -> "String"
-    Aeson.Number{} -> "Number"
-    Aeson.Bool{}   -> "Bool"
-    Aeson.Null     -> "Null"
