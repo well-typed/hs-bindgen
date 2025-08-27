@@ -111,9 +111,9 @@ instance HandleUseSites C.DeclKind where
 instance HandleUseSites C.Reference where
   handleUseSites _ (C.ById i)   = C.ById i
 
-instance HandleUseSites C.CommentReference where
-  handleUseSites td (C.CommentReference comment) =
-    C.CommentReference (fmap (handleUseSites td) comment)
+instance HandleUseSites C.Comment where
+  handleUseSites td (C.Comment comment) =
+    C.Comment (fmap (handleUseSites td) comment)
 
 instance HandleUseSites C.Struct where
   handleUseSites td C.Struct{..} = C.Struct{

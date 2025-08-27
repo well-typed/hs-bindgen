@@ -100,10 +100,10 @@ instance Finalize Int.Reference where
   finalize (Int.ById (x, _)) = Ext.ById x
 
 
-instance Finalize Int.CommentReference where
-  type Finalized Int.CommentReference = C.Comment Ext.Reference
+instance Finalize Int.Comment where
+  type Finalized Int.Comment = C.Comment Ext.Reference
 
-  finalize (Int.CommentReference comment) = fmap finalize comment
+  finalize (Int.Comment comment) = fmap finalize comment
 
 instance Finalize Int.Struct where
   type Finalized Int.Struct = Ext.Struct

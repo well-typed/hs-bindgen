@@ -225,7 +225,7 @@ data Function = Function {
 -- passes through all the name mangling passes so that in the end we have
 -- access to the right name to reference.
 --
-data Reference = ById MangleNames.NamePair
+newtype Reference = ById MangleNames.NamePair
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

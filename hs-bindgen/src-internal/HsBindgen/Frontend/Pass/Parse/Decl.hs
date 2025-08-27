@@ -21,7 +21,6 @@ import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
 import Data.Text qualified as Text
-import Data.Char (isPunctuation)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -593,47 +592,12 @@ varDecl info = simpleFold $ \curr -> do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Take a C 'Comment' and parse unparsed references to generate a
--- 'C.CommentReference'.
---
--- This will look in all 'CommentInlineContent' for all \\ref commands and
--- make them into an Id that can go through the name mangler and cross
--- reference its previous C name.
---
-parseCommentReferences :: Comment (C.Reference Parse) -> C.CommentReference Parse
-parseCommentReferences Comment{..} =
-  C.CommentReference Comment
-    { commentCName
-    , commentChildren = map parseCommentBlockReferences commentChildren
-    }
-  where
-    parseCommentBlockReferences :: CommentBlockContent (C.Reference Parse)
-                                -> CommentBlockContent (C.Reference Parse)
-    parseCommentBlockReferences = \case
-      Paragraph p            -> Paragraph (map parseCommentInlineReferences p)
-      BlockCommand n args p  -> BlockCommand n args (map parseCommentInlineReferences p)
-      ParamCommand n i d e c -> ParamCommand n i d e (map parseCommentBlockReferences c)
-      TParamCommand n p c    -> TParamCommand n p (map parseCommentBlockReferences c)
-      x                      -> x
-
-    parseCommentInlineReferences :: CommentInlineContent (C.Reference Parse)
-                                 -> CommentInlineContent (C.Reference Parse)
-    parseCommentInlineReferences = \case
-      -- | If we find a \ref inline command we convert its arguments into
-      -- References if and only if they are not punctuation marks.
-      --
-      InlineCommand n k args
-        | "ref" <- n ->
-            InlineCommand n k (fmap (\case
-                                        Left t
-                                          | all isPunctuation (Text.unpack t) ->
-                                            Left t
-                                          | otherwise                         ->
-                                            Right (C.ById (C.PrelimDeclIdNamed (C.Name t)))
-                                        Right r -> Right r
-                                    ) args)
-        | otherwise  -> InlineCommand n k args
-      x                      -> x
+parseCommentReferences :: Comment Text -> C.Comment Parse
+parseCommentReferences = C.Comment
+                       . fmap ( C.ById
+                              . C.PrelimDeclIdNamed
+                              . C.Name
+                              )
 
 -- | Partition declarations into anonymous and non-anonymous
 --

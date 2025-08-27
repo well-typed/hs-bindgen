@@ -135,9 +135,9 @@ instance NameUseSites C.Reference where
         C.PrelimDeclIdAnon _       -> panicPure "Anonymous reference"
 
 
-instance NameUseSites C.CommentReference where
-  nameUseSites env (C.CommentReference comment) =
-    C.CommentReference (fmap (nameUseSites env) comment)
+instance NameUseSites C.Comment where
+  nameUseSites env (C.Comment comment) =
+    C.Comment (fmap (nameUseSites env) comment)
 
 instance NameUseSites C.Struct where
   nameUseSites env C.Struct{..} = C.Struct{

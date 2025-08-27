@@ -7,8 +7,6 @@ import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
 
-import Clang.HighLevel.Documentation qualified as C
-
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
@@ -306,37 +304,14 @@ instance Mangle C.Reference where
         -- kinds and still didn't find any result. This might be because of a
         -- typo on the docs or a miss reference.
         --
-        modify (MangleNamesMissingDeclaration (C.QualName declIdName C.NameKindOrdinary) :)
+        modify (MangleNamesMissingIdentifier (C.getName declIdName) :)
         --
         -- Use the fake Haskell ID.
-        return $ C.ById $ (NamePair declIdName (HsIdentifier "Missing declaration"), declIdOrigin)
+        return $ C.ById $ (NamePair declIdName (HsIdentifier (C.getName declIdName)), declIdOrigin)
 
-instance Mangle C.CommentReference where
-  mangle (C.CommentReference C.Comment{..}) =
-        C.CommentReference
-    .   C.Comment commentCName
-    <$> traverse mangleCommentBlockContent commentChildren
-
-    where
-      mangleCommentInlineContent = \case
-        C.TextContent{..}        -> pure $ C.TextContent {..}
-        C.InlineCommand n r args -> do
-          args' <- traverse ( (\case
-                                Left t -> pure (Left t)
-                                Right t -> fmap Right t
-                              )
-                            . fmap mangle) args
-          pure (C.InlineCommand n r args')
-        C.HtmlStartTag{..}       -> pure $ C.HtmlStartTag{..}
-        C.HtmlEndTag{..}         -> pure $ C.HtmlEndTag{..}
-
-      mangleCommentBlockContent = \case
-        C.Paragraph p              -> C.Paragraph <$> traverse mangleCommentInlineContent p
-        C.BlockCommand n args p    -> C.BlockCommand n args <$> (traverse mangleCommentInlineContent p)
-        C.ParamCommand n i d e p   -> C.ParamCommand n i d e <$> (traverse mangleCommentBlockContent p)
-        C.TParamCommand n p c      -> C.TParamCommand n p <$> (traverse mangleCommentBlockContent c)
-        C.VerbatimBlockCommand{..} -> pure C.VerbatimBlockCommand{..}
-        C.VerbatimLine{..}         -> pure C.VerbatimLine{..}
+instance Mangle C.Comment where
+  mangle (C.Comment comment) =
+    C.Comment <$> traverse mangle comment
 
 instance MangleDecl C.Struct where
   mangleDecl info C.Struct{..} = do
@@ -353,7 +328,7 @@ instance MangleDecl C.StructField where
       let mk ::
                FieldName MangleNames
             -> C.Type MangleNames
-            -> Maybe (C.CommentReference MangleNames)
+            -> Maybe (C.Comment MangleNames)
             -> C.StructField MangleNames
           mk   structFieldName' structFieldType' structFieldComment' =
             C.StructField {
@@ -381,7 +356,7 @@ instance MangleDecl C.UnionField where
       let mk ::
                FieldName MangleNames
             -> C.Type MangleNames
-            -> Maybe (C.CommentReference MangleNames)
+            -> Maybe (C.Comment MangleNames)
             -> C.UnionField MangleNames
           mk unionFieldName' unionFieldType' unionFieldComment' =
             C.UnionField {
@@ -412,7 +387,7 @@ instance MangleDecl C.Enum where
 instance MangleDecl C.EnumConstant where
   mangleDecl info C.EnumConstant{..} = do
       let mk :: NamePair
-             -> Maybe (C.CommentReference MangleNames)
+             -> Maybe (C.Comment MangleNames)
              -> C.EnumConstant MangleNames
           mk enumConstantName' enumConstantComment' = C.EnumConstant{
                 enumConstantName = enumConstantName'

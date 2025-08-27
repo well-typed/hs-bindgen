@@ -1,5 +1,8 @@
 {-# LANGUAGE RecordWildCards #-}
 
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use panicIO" #-}
+
 module Clang.HighLevel.Documentation (
     -- * Definition
     Comment(..)
@@ -51,7 +54,7 @@ data Comment ref = Comment {
       -- | Children of a the comment
     , commentChildren :: [CommentBlockContent ref]
     }
-  deriving stock (Functor, Show, Eq, Generic)
+  deriving stock (Functor, Foldable, Traversable, Show, Eq, Generic)
 
 -- | Reified Clang comment block content
 data CommentBlockContent ref =
@@ -81,7 +84,7 @@ data CommentBlockContent ref =
     | VerbatimLine {
         verbatimLine :: Text
       }
-  deriving stock (Functor, Show, Eq, Generic)
+  deriving stock (Functor, Foldable, Traversable, Show, Eq, Generic)
 
 -- | Reified Clang comment inline content
 data CommentInlineContent ref =
@@ -91,7 +94,10 @@ data CommentInlineContent ref =
     | InlineCommand {
         inlineCommandName       :: Text
       , inlineCommandRenderKind :: CXCommentInlineCommandRenderKind
-      , inlineCommandArgs       :: [Either Text ref]
+      , inlineCommandArgs       :: [Text]
+      }
+    | InlineRefCommand {
+        inlineCommandArg :: ref
       }
     | HtmlStartTag {
         htmlStartTagName          :: Text
@@ -101,7 +107,7 @@ data CommentInlineContent ref =
     | HtmlEndTag {
         htmlEndTagName :: Text
       }
-  deriving stock (Functor, Show, Eq, Generic)
+  deriving stock (Functor, Foldable, Traversable, Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -111,7 +117,7 @@ data CommentInlineContent ref =
 --
 -- An error is thrown when an unexpected comment kind is encountered, such as
 -- block content within inline content.
-clang_getComment :: MonadIO m => CXCursor -> m (Maybe (Comment ref))
+clang_getComment :: MonadIO m => CXCursor -> m (Maybe (Comment Text))
 clang_getComment cursor = do
     comment <- clang_Cursor_getParsedComment cursor
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
@@ -133,12 +139,12 @@ getBlockContent ::
      MonadIO m
   => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> m (CommentBlockContent ref)
+  -> m (CommentBlockContent Text)
 getBlockContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_Paragraph -> do
-        paragraphContent <- getChildren (getInlineContent cursor) comment
+        paragraphContent <- concat <$> getChildren (getInlineContent cursor) comment
         pure Paragraph{..}
 
       Right CXComment_BlockCommand -> do
@@ -147,7 +153,7 @@ getBlockContent cursor comment = do
         blockCommandArgs <-
               fmap Text.strip
           <$> mapM (clang_BlockCommandComment_getArgText comment) idxs
-        blockCommandParagraph <- getChildren (getInlineContent cursor)
+        blockCommandParagraph <- fmap concat $ getChildren (getInlineContent cursor)
           =<< clang_BlockCommandComment_getParagraph comment
         pure BlockCommand{..}
 
@@ -206,13 +212,13 @@ getInlineContent ::
      MonadIO m
   => CXCursor -- ^ cursor to provide context in error messages
   -> CXComment
-  -> m (CommentInlineContent ref)
+  -> m [CommentInlineContent Text]
 getInlineContent cursor comment = do
     eCommentKind <- fromSimpleEnum <$> clang_Comment_getKind comment
     case eCommentKind of
       Right CXComment_Text -> do
         textContent <- Text.strip <$> clang_TextComment_getText comment
-        pure TextContent{..}
+        pure [TextContent{..}]
 
       Right CXComment_InlineCommand -> do
         inlineCommandName <- Text.strip <$> clang_InlineCommandComment_getCommandName comment
@@ -221,9 +227,11 @@ getInlineContent cursor comment = do
             <$> clang_InlineCommandComment_getRenderKind comment
         idxs <- getIdxs <$> clang_InlineCommandComment_getNumArgs comment
         inlineCommandArgs <-
-              fmap (Left . Text.strip) . sanitize
+              fmap (Text.strip)
           <$> mapM (clang_InlineCommandComment_getArgText comment) idxs
-        pure InlineCommand{..}
+        case Text.unpack inlineCommandName of
+          "ref" -> pure $ sanitize inlineCommandArgs
+          _     -> pure [InlineCommand{..}]
 
       Right CXComment_HTMLStartTag -> do
         htmlStartTagName <- Text.strip <$> clang_HTMLTagComment_getTagName comment
@@ -234,11 +242,11 @@ getInlineContent cursor comment = do
           attrName  <- Text.strip <$> clang_HTMLStartTag_getAttrName  comment idx
           attrValue <- Text.strip <$> clang_HTMLStartTag_getAttrValue comment idx
           pure (attrName, attrValue)
-        pure HtmlStartTag{..}
+        pure [HtmlStartTag{..}]
 
       Right CXComment_HTMLEndTag -> do
         htmlEndTagName <- Text.strip <$> clang_HTMLTagComment_getTagName comment
-        pure HtmlEndTag{..}
+        pure [HtmlEndTag{..}]
 
       Right commentKind -> errorWithContext cursor $
         "child comment of non-inline kind " ++ show commentKind
@@ -247,19 +255,27 @@ getInlineContent cursor comment = do
         errorWithContext cursor $ "child comment with invalid kind " ++ show n
   where
     -- | Splits strings to separate punctuation from alphanumeric text.
+    -- for every word, create an InlineRefCommand and for every punctuation
+    -- mark create a TextContent.
     --
-    -- Example: ["foo,", "bar!"] becomes ["foo", ",", "bar", "!"]
-    --          ["test_function,"] becomes ["test_function", ","]
-    sanitize :: [Text] -> [Text]
-    sanitize = concatMap (map Text.pack . splitPunctuation . Text.unpack)
+    -- Example: ["foo,", "bar!"] becomes
+    --          [ InlineRefCommand "foo"
+    --          , TextContent ","
+    --          , InlineRefCommand "bar"
+    --          , TextContent "!"
+    --          ]
+    --          ["test_function,"] becomes
+    --          [InlineRefCommand "test_function", TextContent ","]
+    sanitize :: [Text] -> [CommentInlineContent Text]
+    sanitize = concatMap (splitPunctuation . Text.unpack)
       where
         splitPunctuation [] = []
         splitPunctuation (c:cs)
           | isPunctuation c
-          , c /= '_'  = [c] : splitPunctuation cs
+          , c /= '_'  = TextContent (Text.pack [c]) : splitPunctuation cs
           | otherwise =
               case break (\x -> isPunctuation x && x /= '_')  (c:cs) of
-                (word, rest) -> word : splitPunctuation rest
+                (word, rest) -> InlineRefCommand (Text.pack word) : splitPunctuation rest
 
 -- | Get a verbatim block line as 'Text'
 --

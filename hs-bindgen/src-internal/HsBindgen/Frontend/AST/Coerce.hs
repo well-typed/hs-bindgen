@@ -4,7 +4,7 @@ import Prelude hiding (Enum)
 
 import Data.Bifunctor (bimap)
 
-import Clang.HighLevel.Documentation (Comment(..))
+import Clang.HighLevel.Documentation qualified as C
 
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
@@ -33,14 +33,14 @@ instance (
 
 instance (
       Id p ~ Id p'
-    ) => CoercePass Comment (Reference p) (Reference p') where
+    ) => CoercePass C.Comment (Reference p) (Reference p') where
   coercePass comment = fmap coercePass comment
 
 instance (
-      CoercePass Comment (Reference p) (Reference p')
-    ) => CoercePass CommentReference p p' where
-  coercePass (CommentReference c) =
-    CommentReference (coercePass c)
+      CoercePass C.Comment (Reference p) (Reference p')
+    ) => CoercePass Comment p p' where
+  coercePass (Comment c) =
+    Comment (coercePass c)
 
 instance (
       CoercePass DeclInfo p p'
@@ -55,7 +55,7 @@ instance (
 
 instance (
       Id p ~ Id p'
-    , CoercePass CommentReference p p'
+    , CoercePass Comment p p'
     ) => CoercePass DeclInfo p p' where
   coercePass info = DeclInfo{ declComment = fmap coercePass declComment
                             , ..
@@ -98,7 +98,7 @@ instance (
 
 instance (
       CoercePass Type p p'
-    , CoercePass CommentReference p p'
+    , CoercePass Comment p p'
     , FieldName p ~ FieldName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass StructField p p' where
@@ -126,7 +126,7 @@ instance (
 instance (
       CoercePass Type p p'
     , FieldName p ~ FieldName p'
-    , CoercePass CommentReference p p'
+    , CoercePass Comment p p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass UnionField p p' where
   coercePass UnionField{..} = UnionField {
@@ -161,7 +161,7 @@ instance (
 
 instance (
       FieldName p ~ FieldName p'
-    , CoercePass Comment (Reference p) (Reference p')
+    , CoercePass C.Comment (Reference p) (Reference p')
     ) => CoercePass EnumConstant p p' where
   coercePass EnumConstant{..} = EnumConstant {
         enumConstantLoc

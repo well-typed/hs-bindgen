@@ -22,7 +22,7 @@ module HsBindgen.Frontend.AST.Internal (
   , FunctionPurity(..)
   , decideFunctionPurity
     -- ** Comments
-  , CommentReference(..)
+  , Comment(..)
   , Reference(..)
     -- ** Macros
   , CheckedMacro(..)
@@ -121,7 +121,7 @@ data DeclInfo p = DeclInfo{
       -- This means that there is always a /single/ header to choose here.
     , declHeader :: HashIncludeArg
 
-    , declComment :: Maybe (CommentReference p)
+    , declComment :: Maybe (Comment p)
     }
 
 data DeclKind p =
@@ -152,7 +152,7 @@ data StructField p = StructField {
     , structFieldOffset  :: Int     -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
     , structFieldAnn     :: Ann "StructField" p
-    , structFieldComment :: Maybe (CommentReference p)
+    , structFieldComment :: Maybe (Comment p)
     }
 
 data Union p = Union {
@@ -167,7 +167,7 @@ data UnionField p = UnionField {
     , unionFieldName    :: FieldName p
     , unionFieldType    :: Type p
     , unionFieldAnn     :: Ann "UnionField" p
-    , unionFieldComment :: Maybe (CommentReference p)
+    , unionFieldComment :: Maybe (Comment p)
     }
 
 data Typedef p = Typedef {
@@ -187,7 +187,7 @@ data EnumConstant p = EnumConstant {
       enumConstantLoc     :: SingleLoc
     , enumConstantName    :: FieldName p
     , enumConstantValue   :: Integer
-    , enumConstantComment :: Maybe (CommentReference p)
+    , enumConstantComment :: Maybe (Comment p)
     }
 
 data Function p = Function {
@@ -296,16 +296,16 @@ decideFunctionPurity = foldr prefer ImpureFunction
   Comments
 -------------------------------------------------------------------------------}
 
-newtype CommentReference p =
-  CommentReference
-    { unInternalComment :: C.Comment (Reference p) }
+newtype Comment p =
+  Comment
+    { unComment :: C.Comment (Reference p) }
 
 -- | Needed for cross referencing identifiers when translating to Haddocks.
 -- When parsing a referencing command, e.g. \\ref, we need an identifier that
 -- passes through all the name mangling passes so that in the end we have
 -- access to the right name to reference.
 --
-data Reference p = ById (Id p)
+newtype Reference p = ById (Id p)
 
 {-------------------------------------------------------------------------------
   Macros
@@ -447,7 +447,7 @@ deriving stock instance ValidPass p => Show (Type             p)
 deriving stock instance ValidPass p => Show (Typedef          p)
 deriving stock instance ValidPass p => Show (Union            p)
 deriving stock instance ValidPass p => Show (UnionField       p)
-deriving stock instance ValidPass p => Show (CommentReference p)
+deriving stock instance ValidPass p => Show (Comment          p)
 deriving stock instance ValidPass p => Show (Reference        p)
 
 deriving stock instance ValidPass p => Eq (CheckedMacro     p)
@@ -465,7 +465,7 @@ deriving stock instance ValidPass p => Eq (Type             p)
 deriving stock instance ValidPass p => Eq (Typedef          p)
 deriving stock instance ValidPass p => Eq (Union            p)
 deriving stock instance ValidPass p => Eq (UnionField       p)
-deriving stock instance ValidPass p => Eq (CommentReference p)
+deriving stock instance ValidPass p => Eq (Comment          p)
 deriving stock instance ValidPass p => Eq (Reference        p)
 
 {-------------------------------------------------------------------------------

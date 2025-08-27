@@ -306,29 +306,17 @@ convertInlineContent = \case
     | otherwise             -> [Hs.TextContent (Text.strip textContent)]
 
   C.InlineCommand{..} ->
-    let args     = map (\case
-                          Left t -> Left
-                                  $ Text.strip t
-                          Right (ById r) -> Right
-                                          . Text.strip
-                                          . getHsIdentifier
-                                          $ nameHsIdent r
-                       ) inlineCommandArgs
-        argsInlineContent = map (either Hs.TextContent Hs.Identifier) args
-        argsText = Text.unwords
-                 $ map (either id id) args
-     in case Text.toLower (Text.strip inlineCommandName) of
-          -- Inline reference to some definition
-          "ref"    -> argsInlineContent
-          _        -> pure $
-            case inlineCommandRenderKind of
-                  C.CXCommentInlineCommandRenderKind_Normal     -> Hs.TextContent argsText
-                  C.CXCommentInlineCommandRenderKind_Bold       -> Hs.Bold argsInlineContent
-                  C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace argsInlineContent
-                  C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph argsInlineContent
-                  C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor argsText
-    -- in pure
+    let args     = map (Hs.TextContent . Text.strip) inlineCommandArgs
+        argsText = Text.unwords (map Text.strip inlineCommandArgs)
+    in pure
+     $ case inlineCommandRenderKind of
+        C.CXCommentInlineCommandRenderKind_Normal     -> Hs.TextContent argsText
+        C.CXCommentInlineCommandRenderKind_Bold       -> Hs.Bold args
+        C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace args
+        C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph args
+        C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
 
+  C.InlineRefCommand (ById arg) -> [Hs.Identifier (getHsIdentifier (nameHsIdent arg))]
 
   -- HTML is not currently supported
   --
