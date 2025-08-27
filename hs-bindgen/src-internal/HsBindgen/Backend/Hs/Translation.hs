@@ -1191,7 +1191,7 @@ functionDecs opts moduleName typedefs info f _spec =
         , foreignImportOrigName = T.pack wrapperName
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Function f
-        , foreignImportComment  = mbFIComment
+        , foreignImportComment  = mbFICommentWithOriginalCName
                                <> ioComment
         }
     ] ++
@@ -1214,6 +1214,23 @@ functionDecs opts moduleName typedefs info f _spec =
 
     res = wrapType $ C.functionRes f
     (mbFIComment, parsedArgs) = generateHaddocksWithParams (C.declComment info) args
+
+    -- If the declaration comment does not exist, attempt to attach at least
+    -- its original CName as a comment.
+    --
+    mbFICommentWithOriginalCName =
+      case mbFIComment of
+        Nothing ->
+          let cName = C.getName (C.nameC (C.declId info))
+           in if T.null cName
+                 then Nothing
+                 else Just Hs.Comment {
+                             Hs.commentTitle    = Nothing
+                           , Hs.commentOrigin   = Just cName
+                           , Hs.commentChildren = []
+                           }
+        x -> x
+
     args = [ Hs.FunctionParameter
               { functionParameterName    = fmap C.nameHs mbName
               , functionParameterType    = typ' CFunArg (unwrapType (wrapType ty))
