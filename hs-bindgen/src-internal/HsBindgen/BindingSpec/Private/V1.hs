@@ -439,22 +439,6 @@ getFormat path
 
 --------------------------------------------------------------------------------
 
-data AOmittable a = ARequire a | AOmit a
-  deriving stock Show
-
-instance Aeson.FromJSON a => Aeson.FromJSON (AOmittable a) where
-  parseJSON = \case
-    Aeson.Object o | KM.size o == 1 && KM.member "omit" o ->
-      AOmit <$> o .: "omit"
-    v -> ARequire <$> Aeson.parseJSON v
-
-instance Aeson.ToJSON a => Aeson.ToJSON (AOmittable a) where
-  toJSON = \case
-    ARequire x -> Aeson.toJSON x
-    AOmit    x -> Aeson.object ["omit" .= x]
-
---------------------------------------------------------------------------------
-
 data ABindingSpec = ABindingSpec {
       aBindingSpecVersion :: Version
     , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
