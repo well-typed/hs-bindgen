@@ -22,7 +22,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "by",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_946148697abf4575 (void) { forall(); }",
@@ -46,7 +50,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "forall",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_a1ece6a6fa8e9763 (void) { mdo(); }",
@@ -70,7 +78,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "mdo",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_1e48788938305e48 (void) { pattern(); }",
@@ -94,7 +106,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "pattern",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_9bb16600c50998ed (void) { proc(); }",
@@ -118,7 +134,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "proc",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_8dfd7fa26e360d8e (void) { rec(); }",
@@ -142,7 +162,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "rec",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_57c5446244bcece1 (void) { using(); }",
@@ -166,7 +190,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "using",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_a2a878b7e49c1a71 (void) { anyclass(); }",
@@ -190,7 +218,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "anyclass",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_2f73a4347f70a468 (void) { capi(); }",
@@ -214,7 +246,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "capi",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_cb2993ce15743783 (void) { cases(); }",
@@ -238,7 +274,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "cases",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_954c564a2bd129a5 (void) { ccall(); }",
@@ -262,7 +302,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "ccall",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_3a96dcbee4c024e0 (void) { dynamic(); }",
@@ -286,7 +330,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "dynamic",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_2e78d006337ea551 (void) { export(); }",
@@ -310,7 +358,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "export",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_10c8e433951b50a8 (void) { family(); }",
@@ -334,7 +386,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "family",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_6217d85466fed7df (void) { group(); }",
@@ -358,7 +414,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "group",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_00164685ff44cb75 (void) { interruptible(); }",
@@ -382,7 +442,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "interruptible",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_c810b13a75ea93bc (void) { javascript(); }",
@@ -406,7 +471,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "javascript",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_41d6d93a2614dff5 (void) { label(); }",
@@ -430,7 +500,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "label",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_bdfec7f41298a418 (void) { prim(); }",
@@ -454,7 +528,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "prim",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_0d10aaa9ecbf0f2f (void) { role(); }",
@@ -478,7 +556,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "role",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_0ebc368c3818b18b (void) { safe(); }",
@@ -502,7 +584,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "safe",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_764bfbe5fbb4fac9 (void) { stdcall(); }",
@@ -526,7 +612,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "stdcall",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_6597a6eedc28f577 (void) { stock(); }",
@@ -550,7 +640,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "stock",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_1aef1bdf2d1ba544 (void) { unsafe(); }",
@@ -574,7 +668,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "unsafe",
+          commentChildren = []}},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_d428a3f008917f79 (void) { via(); }",
@@ -598,4 +696,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "via",
+          commentChildren = []}}]

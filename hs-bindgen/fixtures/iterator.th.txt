@@ -10,26 +10,35 @@
 -- signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }
 -- void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }
 newtype Toggle = Toggle {un_Toggle :: (Block (IO CBool))}
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_4f34fce61cc68c9f" makeToggle :: CBool ->
                                                                                     IO Toggle
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_bfb4e32e3a824c7e" toggleNext :: Toggle ->
                                                                                     IO CBool
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_8d23fba933ba9584" releaseToggle :: Toggle ->
                                                                                        IO Unit
 newtype Counter = Counter {un_Counter :: (Block (IO CInt))}
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_5b455070cb6127b9" makeCounter :: CInt ->
                                                                                      CInt ->
                                                                                      IO Counter
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_1eb9473844c466c6" counterNext :: Counter ->
                                                                                      IO CInt
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_4bd3562b992f2f1c" releaseCounter :: Counter ->
                                                                                         IO Unit
 newtype VarCounter
     = VarCounter {un_VarCounter :: (Block (CInt -> IO CInt))}
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_0fc005ef62990438" makeVarCounter :: CInt ->
                                                                                         IO VarCounter
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounterNext :: VarCounter ->
                                                                                         CInt ->
                                                                                         IO CInt
+{-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_2d2d26e60eea04a8" releaseVarCounter :: VarCounter ->
                                                                                            IO Unit

@@ -595,7 +595,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentChildren = []}},
   DeclSimple,
   DeclData
     Struct {
@@ -1450,5 +1454,9 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentChildren = []}},
   DeclSimple]

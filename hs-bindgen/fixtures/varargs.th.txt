@@ -3,4 +3,5 @@
 -- addDependentFile examples/golden/varargs.h
 -- #include <varargs.h>
 -- void hs_bindgen_test_varargs_0fd77c5efa209398 (void) { h(); }
+{-| -}
 foreign import ccall safe "hs_bindgen_test_varargs_0fd77c5efa209398" h :: IO Unit

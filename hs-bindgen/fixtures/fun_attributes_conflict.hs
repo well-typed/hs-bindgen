@@ -99,7 +99,12 @@
             HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "square_pc",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -142,7 +147,12 @@
             HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "square_cc",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -188,7 +198,8 @@
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Nothing,
+          commentOrigin = Just
+            "square_pp",
           commentChildren = [
             Paragraph
               [

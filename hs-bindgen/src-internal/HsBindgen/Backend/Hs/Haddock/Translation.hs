@@ -38,6 +38,7 @@ generateHaddocksWithParams ::
 generateHaddocksWithParams Nothing params              =
   -- If there's no C.Comment to associate with any function parameter we make
   -- sure to at least add a comment that will show the function parameter name
+  -- if it exists.
   --
   (Nothing, map addFunctionParameterComment params)
 generateHaddocksWithParams (Just C.Comment{..}) params =
@@ -151,7 +152,7 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
                           commentTitle    = Nothing
                         , commentOrigin   = getHsName <$> functionParameterName
                         , commentChildren = []
-                         }
+                        }
                }
           _ -> fp
 

@@ -455,7 +455,11 @@
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -525,7 +529,11 @@
                 nameC = Name "TC",
                 nameHsIdent = HsIdentifier
                   "TC"})},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux2",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -600,7 +608,11 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -675,7 +687,11 @@
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
                     "TC"}))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam2",
+          commentChildren = []}},
   DeclData
     Struct {
       structName = HsName
@@ -2175,7 +2191,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2245,7 +2266,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef2",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2318,7 +2344,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef3",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2388,7 +2419,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2458,7 +2494,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name2",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2528,4 +2569,9 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name3",
+          commentChildren = []}}]

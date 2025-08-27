@@ -34,15 +34,19 @@ newtype TC
                       Ix,
                       Num,
                       Real)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad" quux1 :: MC ->
                                                                                                   TC ->
                                                                                                   IO CChar
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2" quux2 :: MC ->
                                                                                                   CChar ->
                                                                                                   IO TC
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0" wam1 :: CFloat ->
                                                                                                  Ptr TC ->
                                                                                                  IO (Ptr MC)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210" wam2 :: CFloat ->
                                                                                                  Ptr MC ->
                                                                                                  IO (Ptr TC)
@@ -86,21 +90,27 @@ instance Storable Struct4
           peek = \ptr_0 -> pure Struct4 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0" struct_typedef1 :: Ptr Struct2 ->
                                                                                                             MC ->
                                                                                                             IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d" struct_typedef2 :: Ptr Struct3_t ->
                                                                                                             MC ->
                                                                                                             IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94" struct_typedef3 :: Ptr Struct4 ->
                                                                                                             MC ->
                                                                                                             IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26" struct_name1 :: Ptr Struct1 ->
                                                                                                          MC ->
                                                                                                          IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449" struct_name2 :: Ptr Struct3 ->
                                                                                                          MC ->
                                                                                                          IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf" struct_name3 :: Ptr Struct4 ->
                                                                                                          MC ->
                                                                                                          IO Unit

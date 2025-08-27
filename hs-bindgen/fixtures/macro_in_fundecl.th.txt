@@ -72,46 +72,59 @@ newtype S
                       Ix,
                       Num,
                       Real)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7" quux :: F ->
                                                                                       CChar ->
                                                                                       IO CChar
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b" wam :: CFloat ->
                                                                                      Ptr C ->
                                                                                      IO (Ptr C)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833" foo1 :: CFloat ->
                                                                                       FunPtr (CInt ->
                                                                                               IO CInt) ->
                                                                                       IO (Ptr CChar)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b" foo2 :: F ->
                                                                                       FunPtr (CInt ->
                                                                                               IO CInt) ->
                                                                                       IO (Ptr CChar)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07" foo3 :: CFloat ->
                                                                                       FunPtr (CInt ->
                                                                                               IO CInt) ->
                                                                                       IO (Ptr C)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0" bar1 :: CLong ->
                                                                                       IO (FunPtr (CShort ->
                                                                                                   IO CInt))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5" bar2 :: L ->
                                                                                       IO (FunPtr (CShort ->
                                                                                                   IO CInt))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e" bar3 :: CLong ->
                                                                                       IO (FunPtr (S ->
                                                                                                   IO CInt))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801" bar4 :: CLong ->
                                                                                       IO (FunPtr (CShort ->
                                                                                                   IO I))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69" baz1 :: CInt ->
                                                                                       IO (Ptr (ConstantArray 2
                                                                                                              (ConstantArray 3
                                                                                                                             CInt)))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c" baz2 :: CInt ->
                                                                                       IO (Ptr (ConstantArray 2
                                                                                                              (ConstantArray 3
                                                                                                                             CInt)))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d" baz3 :: CInt ->
                                                                                       IO (Ptr (ConstantArray 2
                                                                                                              (ConstantArray 3
                                                                                                                             CInt)))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b" no_args_no_void :: IO I

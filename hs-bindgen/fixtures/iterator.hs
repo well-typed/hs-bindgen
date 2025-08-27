@@ -97,7 +97,12 @@
                 nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
                   "Toggle"})},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeToggle",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "_Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }",
@@ -146,7 +151,12 @@
             ImpureFunction,
           functionRes = TypePrim
             PrimBool},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "toggleNext",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }",
@@ -194,7 +204,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseToggle",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -316,7 +331,12 @@
                 nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
                   "Counter"})},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeCounter",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "signed int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }",
@@ -365,7 +385,12 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "counterNext",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }",
@@ -413,7 +438,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseCounter",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -520,7 +550,12 @@
                 nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
                   "VarCounter"})},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeVarCounter",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
@@ -588,7 +623,12 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "varCounterNext",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }",
@@ -636,4 +676,9 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseVarCounter",
+          commentChildren = []}}]

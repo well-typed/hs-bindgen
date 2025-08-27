@@ -10227,7 +10227,11 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}}},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "some_fun",
+          commentChildren = []}},
   DeclSimple,
   DeclNewtype
     Newtype {

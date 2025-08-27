@@ -33,7 +33,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun2",
+          commentChildren = []}},
   DeclData
     Struct {
       structName = HsName

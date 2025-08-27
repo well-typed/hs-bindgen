@@ -14,6 +14,7 @@ instance Storable Outside
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Outside outside_x_3
                                            outside_y_4 -> pokeByteOff ptr_1 (0 :: Int) outside_x_3 >> pokeByteOff ptr_1 (4 :: Int) outside_y_4
+{-| -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper :: Ptr Opaque ->
                                                                                                   Ptr Outside ->
                                                                                                   Ptr Outside ->
@@ -99,6 +100,7 @@ set_named_union_y :: CChar -> Named_union
 
 -}
 set_named_union_y = setUnionPayload
+{-| -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper :: Ptr Named_union ->
                                                                                               IO Unit
 f2 :: Named_union -> IO Unit

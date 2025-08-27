@@ -21,11 +21,13 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec
      {- ^ __from C:__ @x@ -}
   -> FC.CInt
 
+{-| __from C:__ @square_pc@ -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_d8e5dd6836af0ac7" square_pc
   :: FC.CInt
      {- ^ __from C:__ @x@ -}
   -> FC.CInt
 
+{-| __from C:__ @square_cc@ -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_9a60da065e6486ac" square_cc
   :: FC.CInt
      {- ^ __from C:__ @x@ -}
@@ -35,6 +37,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_9a60da065e648
 
   Marked @__attribute((pure))__@
 
+  __from C:__ @square_pp@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_1a2340fb8456aee3" square_pp
   :: FC.CInt

@@ -50,35 +50,65 @@
 -- /* get_i17_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_e60a43107858a2bc (void) { return &i17; } 
 -- /* get_i18_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_86247c32f4f34e6f (void) { return &i18; } 
 -- /* get_i19_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1 (void) { return &i19; } 
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_beeef9b61fad5466" f0 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_8b60d38de80093fa" f1 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_4a86b0420a250963" f2 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_1b95ce9d55223970" f3 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_cdd7cda26e655f5e" f4 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_3bc585c51fec9721" f5 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_ba28bdf96df05f32" f6 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_2fc1219d73636d66" f7 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_7a7ce833f71ec006" f8 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_3a6334fe1abf229c" f9 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_72e7a2a1e9f25000" f10 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_052232f3a6ecd42e" f11 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_792700b287b37bc9" f12 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_241ea65011175c11" f13 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_2c775e867f8ea914" f14 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_c9cc679279218ae9" f15 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_ea5c7e17063c74da" f16 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_e72feade6b631a5f" f17 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_171950f0c44f6f22" f18 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_5414de7b815a8658" f19 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_74ab404c9f6d501e" f20 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_32c47e20171aaeee" f21 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_ce04bbbd1ae9ec66" f22 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_005b979e638f474b" f23 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_e0225d72ee13bade" f24 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_c5c883717d0048e8" f25 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_d54b2fb5a87420f7" f26 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_d40140ee49300df1" f27 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_358fecb39951c1ed" f28 :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_8255bfc1a96b601c" f29 :: IO Unit
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_724fd59489c94c9f" i0_ptr :: Ptr CInt
 foreign import ccall safe "hs_bindgen_test_visibility_attributes_736e69defba46ab4" i1_ptr :: Ptr CInt

@@ -372,7 +372,12 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_1",
+          commentChildren = []}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -424,7 +429,12 @@
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_2",
+          commentChildren = []}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -517,7 +527,12 @@
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3a",
+          commentChildren = []}},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -604,5 +619,10 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed)))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3b",
+          commentChildren = []}},
   DeclSimple]

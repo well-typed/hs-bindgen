@@ -2673,4 +2673,9 @@
               nameHsIdent = HsIdentifier
                 "FileOperationStatus"}
             NameOriginInSource},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "read_file_chunk",
+          commentChildren = []}}]

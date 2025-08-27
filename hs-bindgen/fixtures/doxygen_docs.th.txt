@@ -933,5 +933,6 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" comple
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_71214e4420f53a0e" hash :: Ptr CChar ->
                                                                                   IO CInt
+{-| -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_8effe939268709e4" square :: CInt ->
                                                                                     CInt

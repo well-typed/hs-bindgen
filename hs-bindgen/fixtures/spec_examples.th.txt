@@ -78,6 +78,7 @@ instance Storable A
                                      a_samples_5
                                      a_b_6
                                      a_c_7 -> pokeByteOff ptr_1 (0 :: Int) a_x_3 >> (pokeByteOff ptr_1 (8 :: Int) a_label_4 >> (pokeByteOff ptr_1 (16 :: Int) a_samples_5 >> (pokeByteOff ptr_1 (144 :: Int) a_b_6 >> pokeByteOff ptr_1 (144 :: Int) a_c_7)))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper :: Ptr Int32_T ->
                                                                                                Ptr Cint16_T ->
                                                                                                Int64_T ->
