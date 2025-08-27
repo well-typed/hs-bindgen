@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: struct_arg.h
   cname: struct thing

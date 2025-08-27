@@ -1,3 +1,5 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 -- | Binding specification
 --
 -- This /private/ module may only be used by "HsBindgen.BindingSpec" and
@@ -13,8 +15,10 @@
 --
 -- > import HsBindgen.BindingSpec.Private.V1 qualified as V1
 module HsBindgen.BindingSpec.Private.V1 (
+    -- * Version
+    version
     -- * Types
-    BindingSpec(..)
+  , BindingSpec(..)
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
   , TypeSpec(..)
@@ -66,6 +70,7 @@ import Clang.Args
 import Clang.Paths
 
 import HsBindgen.BindingSpec.Private.Common
+import HsBindgen.BindingSpec.Private.Version
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
@@ -75,6 +80,14 @@ import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Version
+-------------------------------------------------------------------------------}
+
+-- | Binding specification version
+version :: Version
+version = $$(constVersion 1 0)
 
 {-------------------------------------------------------------------------------
   Types
@@ -402,7 +415,7 @@ resolve tracer injResolveHeader args uSpec = do
 
     bindingSpecTypes <- Map.fromList <$>
       mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecTypes uSpec))
-    return BindingSpec {..}
+    return BindingSpec{..}
   where
     allHeaders :: Set HashIncludeArg
     allHeaders = mconcat $ fst <$> concat (Map.elems (bindingSpecTypes uSpec))
@@ -442,19 +455,22 @@ instance Aeson.ToJSON a => Aeson.ToJSON (AOmittable a) where
 
 --------------------------------------------------------------------------------
 
-newtype ABindingSpec = ABindingSpec {
-      aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
+data ABindingSpec = ABindingSpec {
+      aBindingSpecVersion :: Version
+    , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
     }
   deriving stock Show
 
 instance Aeson.FromJSON ABindingSpec where
   parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
-    aBindingSpecTypes <- o .: "types"
+    aBindingSpecVersion <- o .: "version"
+    aBindingSpecTypes   <- o .: "types"
     return ABindingSpec{..}
 
 instance Aeson.ToJSON ABindingSpec where
   toJSON ABindingSpec{..} = Aeson.object [
-    "types" .= aBindingSpecTypes
+      "version" .= aBindingSpecVersion
+    , "types"   .= aBindingSpecTypes
     ]
 
 --------------------------------------------------------------------------------
@@ -645,6 +661,9 @@ fromABindingSpec path ABindingSpec{..} =
 toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
 toABindingSpec BindingSpec{..} = ABindingSpec{..}
   where
+    aBindingSpecVersion :: Version
+    aBindingSpecVersion = version
+
     aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
     aBindingSpecTypes = [
         case oType of
@@ -695,16 +714,17 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
 
     keyPosition :: Text -> Int
     keyPosition = \case
-      "omit"        -> 0  -- Omittable:1
-      "types"       -> 1  -- ABindingSpec:1
-      "class"       -> 2  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "headers"     -> 3  -- ATypeSpecMapping:1
-      "cname"       -> 4  -- ATypeSpecMapping:2
-      "module"      -> 5  -- ATypeSpecMapping:3, AConstraintSpec:2
-      "identifier"  -> 6  -- ATypeSpecMapping:4, AConstraintSpec:3
-      "instances"   -> 7  -- ATypeSpecMapping:5
-      "strategy"    -> 8  -- AInstanceSpecMapping:2
-      "constraints" -> 9  -- AInstanceSpecMapping:3
+      "version"     ->  0  -- ABindingSpec:1
+      "omit"        ->  1  -- Omittable:1
+      "types"       ->  2  -- ABindingSpec:2
+      "class"       ->  3  -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "headers"     ->  4  -- ATypeSpecMapping:1
+      "cname"       ->  5  -- ATypeSpecMapping:2
+      "module"      ->  6  -- ATypeSpecMapping:3, AConstraintSpec:2
+      "identifier"  ->  7  -- ATypeSpecMapping:4, AConstraintSpec:3
+      "instances"   ->  8  -- ATypeSpecMapping:5
+      "strategy"    ->  9  -- AInstanceSpecMapping:2
+      "constraints" -> 10  -- AInstanceSpecMapping:3
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------

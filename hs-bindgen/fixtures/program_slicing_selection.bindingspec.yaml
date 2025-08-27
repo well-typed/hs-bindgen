@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: program_slicing_selection.h
   cname: struct FileOperationRecord

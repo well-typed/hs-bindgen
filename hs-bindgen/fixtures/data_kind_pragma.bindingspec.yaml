@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: data_kind_pragma.h
   cname: triplet

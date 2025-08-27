@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: distilled_lib_1.h
   cname: a_type_t

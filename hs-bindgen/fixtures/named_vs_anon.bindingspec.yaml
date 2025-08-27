@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: named_vs_anon.h
   cname: struct a

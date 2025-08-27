@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: unions.h
   cname: union AnonA

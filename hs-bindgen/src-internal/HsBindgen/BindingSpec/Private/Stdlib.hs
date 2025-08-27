@@ -34,7 +34,7 @@ import HsBindgen.Language.Haskell
 -- @hs-bindgen-runtime@.  They are all re-exported from module
 -- @HsBindgen.Runtime.Prelude@ to simplify imports.
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
-bindingSpec = BindingSpec.BindingSpec{bindingSpecTypes}
+bindingSpec = BindingSpec.BindingSpec{..}
   where
     bindingSpecTypes ::
       Map

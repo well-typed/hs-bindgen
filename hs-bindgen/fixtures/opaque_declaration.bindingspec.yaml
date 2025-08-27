@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: opaque_declaration.h
   cname: struct bar

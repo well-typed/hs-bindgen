@@ -9,11 +9,14 @@ module HsBindgen.Errors (
     panicPure,
     panicIO,
     pleaseReport,
+    failCode,
+    failQ,
 ) where
 
 import Control.Exception (Exception (..), SomeException (..), throw)
 import Data.Typeable (cast)
 import GHC.Stack (CallStack, callStack, prettyCallStack)
+import Language.Haskell.TH.Syntax qualified as THS
 
 import HsBindgen.Imports
 
@@ -90,3 +93,19 @@ panicPure msg = throw (PanicException callStack msg)
 -- | Panic in IO
 panicIO :: (HasCallStack, MonadIO m) => String -> m a
 panicIO msg = liftIO (throwIO (PanicException callStack msg))
+
+-------------------------------------------------------------------------------
+-- Template Haskell
+-------------------------------------------------------------------------------
+
+-- | Fail with an error in 'THS.Code'
+--
+-- 'fail' is needed to abort computation with an error in Template Haskell.
+failCode :: MonadFail m => String -> THS.Code m a
+failCode = THS.Code . fail
+
+-- | Fail with an error in 'THS.Q'
+--
+-- 'fail' is needed to abort computation with an error in Template Haskell.
+failQ :: String -> THS.Q a
+failQ = fail

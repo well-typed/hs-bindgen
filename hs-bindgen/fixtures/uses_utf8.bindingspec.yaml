@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: uses_utf8.h
   cname: enum MyEnum

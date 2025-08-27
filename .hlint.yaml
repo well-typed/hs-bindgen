@@ -69,7 +69,7 @@
 
 # Add custom hints for this project
 #
-# We should use default 'error', but instead throw specialised exceptions.
+# We should not use 'error' or 'fail', but instead throw specialised exceptions.
 # See HsBindgen.Errors
 #
 # We could use -functions as above to forbid these, but the hlint message will be a bit confusing.
@@ -77,8 +77,8 @@
 - error: {lhs: "error", rhs: "panicPure"}
 - error: {lhs: "undefined", rhs: "panicPure"}
 - error: {lhs: "fail", rhs: "panicIO"}
-# 'fail' is the only way to abort in Q.
-- ignore: {name: "Use panicIO", within: "HsBindgen.TH.Internal" }
+# 'fail' is the only way to abort in TH, so helpers are defined in Errors.
+- ignore: {name: "Use panicIO", within: "HsBindgen.Errors" }
 # These cannot be used in hs-bindgen-runtime because they are defined in hs-bindgen.
 - ignore: {name: "Use panicIO",   within: "HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "HsBindgen.Runtime.**" }

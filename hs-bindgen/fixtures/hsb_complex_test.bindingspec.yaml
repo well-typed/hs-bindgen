@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: hsb_complex_test.h
   cname: complex_object_t

@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: macro_typedef_struct.h
   cname: MY_TYPE

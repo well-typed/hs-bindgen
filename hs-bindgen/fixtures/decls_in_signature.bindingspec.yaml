@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: decls_in_signature.h
   cname: struct named_struct

@@ -1,3 +1,4 @@
+version: '1.0'
 types:
 - headers: type_attributes.h
   cname: struct S
