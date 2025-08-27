@@ -2174,7 +2174,7 @@ TranslationUnit {
                         "Configuration flags"]}]},
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:243:22",
+              "doxygen_docs.h:247:22",
               structFieldName = NamePair {
                 nameC = Name "callback",
                 nameHsIdent = HsIdentifier
@@ -2195,10 +2195,20 @@ TranslationUnit {
                     blockCommandArgs = [],
                     blockCommandParagraph = [
                       TextContent
-                        "Optional callback function"]}]},
+                        "Optional callback function"]},
+                  Paragraph
+                    [
+                      TextContent "See also:",
+                      InlineRefCommand
+                        (ById
+                          NamePair {
+                            nameC = Name "event_callback_t",
+                            nameHsIdent = HsIdentifier
+                              "Event_callback_t"})],
+                  Paragraph [TextContent ""]]},
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:246:11",
+              "doxygen_docs.h:250:11",
               structFieldName = NamePair {
                 nameC = Name "user_data",
                 nameHsIdent = HsIdentifier
@@ -2226,13 +2236,13 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:254:9",
+        "doxygen_docs.h:258:9",
         declId = NamePair {
           nameC = Name "status_code_t",
           nameHsIdent = HsIdentifier
             "Status_code_t"},
         declOrigin = NameOriginGenerated
-          (AnonId "doxygen_docs.h:254:9"),
+          (AnonId "doxygen_docs.h:258:9"),
         declAliases = [
           Name "status_code_t"],
         declHeader = "doxygen_docs.h",
@@ -2265,7 +2275,7 @@ TranslationUnit {
           enumConstants = [
             EnumConstant {
               enumConstantLoc =
-              "doxygen_docs.h:256:5",
+              "doxygen_docs.h:260:5",
               enumConstantName = NamePair {
                 nameC = Name "STATUS_OK",
                 nameHsIdent = HsIdentifier
@@ -2282,7 +2292,7 @@ TranslationUnit {
                         "Operation successful"]}]},
             EnumConstant {
               enumConstantLoc =
-              "doxygen_docs.h:259:5",
+              "doxygen_docs.h:263:5",
               enumConstantName = NamePair {
                 nameC = Name
                   "STATUS_INVALID_PARAM",
@@ -2300,7 +2310,7 @@ TranslationUnit {
                         "Invalid parameter provided"]}]},
             EnumConstant {
               enumConstantLoc =
-              "doxygen_docs.h:262:5",
+              "doxygen_docs.h:266:5",
               enumConstantName = NamePair {
                 nameC = Name "STATUS_NO_MEMORY",
                 nameHsIdent = HsIdentifier
@@ -2317,7 +2327,7 @@ TranslationUnit {
                         "Memory allocation failed"]}]},
             EnumConstant {
               enumConstantLoc =
-              "doxygen_docs.h:265:5",
+              "doxygen_docs.h:269:5",
               enumConstantName = NamePair {
                 nameC = Name "STATUS_TIMEOUT",
                 nameHsIdent = HsIdentifier
@@ -2334,7 +2344,7 @@ TranslationUnit {
                         "Operation timed out"]}]},
             EnumConstant {
               enumConstantLoc =
-              "doxygen_docs.h:268:5",
+              "doxygen_docs.h:272:5",
               enumConstantName = NamePair {
                 nameC = Name "STATUS_ERROR",
                 nameHsIdent = HsIdentifier
@@ -2358,14 +2368,14 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:286:5",
+        "doxygen_docs.h:290:5",
         declId = NamePair {
           nameC = Name
             "data_union_t_as_parts",
           nameHsIdent = HsIdentifier
             "Data_union_t_as_parts"},
         declOrigin = NameOriginGenerated
-          (AnonId "doxygen_docs.h:286:5"),
+          (AnonId "doxygen_docs.h:290:5"),
         declAliases = [],
         declHeader = "doxygen_docs.h",
         declComment = Just
@@ -2395,7 +2405,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:287:18",
+              "doxygen_docs.h:291:18",
               structFieldName = NamePair {
                 nameC = Name "low",
                 nameHsIdent = HsIdentifier
@@ -2528,7 +2538,7 @@ TranslationUnit {
                       TextContent "Low 16 bits"]}]},
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:288:18",
+              "doxygen_docs.h:292:18",
               structFieldName = NamePair {
                 nameC = Name "high",
                 nameHsIdent = HsIdentifier
@@ -2669,13 +2679,13 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:277:9",
+        "doxygen_docs.h:281:9",
         declId = NamePair {
           nameC = Name "data_union_t",
           nameHsIdent = HsIdentifier
             "Data_union_t"},
         declOrigin = NameOriginGenerated
-          (AnonId "doxygen_docs.h:277:9"),
+          (AnonId "doxygen_docs.h:281:9"),
         declAliases = [
           Name "data_union_t"],
         declHeader = "doxygen_docs.h",
@@ -2708,7 +2718,7 @@ TranslationUnit {
           unionFields = [
             UnionField {
               unionFieldLoc =
-              "doxygen_docs.h:278:13",
+              "doxygen_docs.h:282:13",
               unionFieldName = NamePair {
                 nameC = Name "as_int",
                 nameHsIdent = HsIdentifier
@@ -2840,7 +2850,7 @@ TranslationUnit {
                         "Integer representation"]}]},
             UnionField {
               unionFieldLoc =
-              "doxygen_docs.h:279:11",
+              "doxygen_docs.h:283:11",
               unionFieldName = NamePair {
                 nameC = Name "as_float",
                 nameHsIdent = HsIdentifier
@@ -2858,7 +2868,7 @@ TranslationUnit {
                         "Float representation"]}]},
             UnionField {
               unionFieldLoc =
-              "doxygen_docs.h:280:13",
+              "doxygen_docs.h:284:13",
               unionFieldName = NamePair {
                 nameC = Name "as_bytes",
                 nameHsIdent = HsIdentifier
@@ -2992,7 +3002,7 @@ TranslationUnit {
                         "Byte array representation"]}]},
             UnionField {
               unionFieldLoc =
-              "doxygen_docs.h:289:30",
+              "doxygen_docs.h:293:30",
               unionFieldName = NamePair {
                 nameC = Name "as_parts",
                 nameHsIdent = HsIdentifier
@@ -3005,7 +3015,7 @@ TranslationUnit {
                     "Data_union_t_as_parts"}
                 (NameOriginGenerated
                   (AnonId
-                    "doxygen_docs.h:286:5")),
+                    "doxygen_docs.h:290:5")),
               unionFieldComment = Just
                 [
                   Paragraph
@@ -3021,13 +3031,13 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:298:9",
+        "doxygen_docs.h:302:9",
         declId = NamePair {
           nameC = Name "bitfield_t",
           nameHsIdent = HsIdentifier
             "Bitfield_t"},
         declOrigin = NameOriginGenerated
-          (AnonId "doxygen_docs.h:298:9"),
+          (AnonId "doxygen_docs.h:302:9"),
         declAliases = [
           Name "bitfield_t"],
         declHeader = "doxygen_docs.h",
@@ -3057,7 +3067,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:299:14",
+              "doxygen_docs.h:303:14",
               structFieldName = NamePair {
                 nameC = Name "flag1",
                 nameHsIdent = HsIdentifier
@@ -3077,7 +3087,7 @@ TranslationUnit {
                         "First flag (1 bit)"]}]},
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:300:14",
+              "doxygen_docs.h:304:14",
               structFieldName = NamePair {
                 nameC = Name "flag2",
                 nameHsIdent = HsIdentifier
@@ -3097,7 +3107,7 @@ TranslationUnit {
                         "Second flag (1 bit)"]}]},
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:301:14",
+              "doxygen_docs.h:305:14",
               structFieldName = NamePair {
                 nameC = Name "counter",
                 nameHsIdent = HsIdentifier
@@ -3117,7 +3127,7 @@ TranslationUnit {
                         "Counter value (6 bits)"]}]},
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:302:14",
+              "doxygen_docs.h:306:14",
               structFieldName = NamePair {
                 nameC = Name "reserved",
                 nameHsIdent = HsIdentifier
@@ -3145,7 +3155,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:313:15",
+        "doxygen_docs.h:317:15",
         declId = NamePair {
           nameC = Name "processor_fn_t",
           nameHsIdent = HsIdentifier
@@ -3223,7 +3233,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:319:14",
+        "doxygen_docs.h:323:14",
         declId = NamePair {
           nameC = Name "filename_t",
           nameHsIdent = HsIdentifier
@@ -3266,7 +3276,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:328:5",
+        "doxygen_docs.h:332:5",
         declId = NamePair {
           nameC = Name "process_buffer",
           nameHsIdent = HsIdentifier
@@ -3467,7 +3477,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:338:7",
+        "doxygen_docs.h:342:7",
         declId = NamePair {
           nameC = Name "my_memcpy",
           nameHsIdent = HsIdentifier
@@ -3681,7 +3691,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:346:19",
+        "doxygen_docs.h:350:19",
         declId = NamePair {
           nameC = Name "double_value",
           nameHsIdent = HsIdentifier
@@ -3739,7 +3749,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:356:8",
+        "doxygen_docs.h:360:8",
         declId = NamePair {
           nameC = Name "flexible_array",
           nameHsIdent = HsIdentifier
@@ -3787,7 +3797,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:357:12",
+              "doxygen_docs.h:361:12",
               structFieldName = NamePair {
                 nameC = Name "count",
                 nameHsIdent = HsIdentifier
@@ -3922,7 +3932,7 @@ TranslationUnit {
           structFlam = Just
             StructField {
               structFieldLoc =
-              "doxygen_docs.h:358:9",
+              "doxygen_docs.h:362:9",
               structFieldName = NamePair {
                 nameC = Name "data",
                 nameHsIdent = HsIdentifier
@@ -3950,7 +3960,7 @@ TranslationUnit {
       declInfo =
       DeclInfo {
         declLoc =
-        "doxygen_docs.h:419:15",
+        "doxygen_docs.h:423:15",
         declId = NamePair {
           nameC = Name "complex_function",
           nameHsIdent = HsIdentifier
@@ -4060,7 +4070,14 @@ TranslationUnit {
                 Paragraph
                   [
                     TextContent
-                      "Configuration structure",
+                      "Configuration structure (see",
+                    InlineRefCommand
+                      (ById
+                        NamePair {
+                          nameC = Name "config_t",
+                          nameHsIdent = HsIdentifier
+                            "Config_t"}),
+                    TextContent ")",
                     TextContent ""]]},
             ParamCommand {
               paramCommandName = "data",
@@ -4407,7 +4424,7 @@ TranslationUnit {
                     "Status_code_t"}
                 (NameOriginGenerated
                   (AnonId
-                    "doxygen_docs.h:254:9"))))},
+                    "doxygen_docs.h:258:9"))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -4417,7 +4434,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:423:5",
+        "doxygen_docs.h:427:5",
         declId = NamePair {
           nameC = Name "hash",
           nameHsIdent = HsIdentifier
@@ -4453,7 +4470,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "doxygen_docs.h:425:5",
+        "doxygen_docs.h:429:5",
         declId = NamePair {
           nameC = Name "square",
           nameHsIdent = HsIdentifier

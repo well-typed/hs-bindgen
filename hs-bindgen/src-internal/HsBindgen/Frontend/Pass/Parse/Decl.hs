@@ -86,7 +86,7 @@ getDeclInfo = \curr -> do
     declId     <- C.getPrelimDeclId curr
     declLoc    <- HighLevel.clang_getCursorLocation' curr
     declHeader <- evalGetMainHeader $ singleLocPath declLoc
-    declComment <- clang_getComment curr
+    declComment <- fmap parseCommentReferences <$> clang_getComment curr
     -- TODO: We might want a NameOriginBuiltin
     return C.DeclInfo{
         declId
@@ -261,7 +261,7 @@ structFieldDecl = \curr -> do
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
-    structFieldComment <- clang_getComment curr
+    structFieldComment <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.StructField{
         structFieldLoc
       , structFieldName
@@ -285,7 +285,7 @@ unionFieldDecl = \curr -> do
     unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
     unionFieldType <- fromCXType =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
-    unionFieldComment   <- clang_getComment curr
+    unionFieldComment   <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.UnionField{
         unionFieldLoc
       , unionFieldName
@@ -362,7 +362,7 @@ enumConstantDecl curr = do
     enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
     enumConstantName  <- C.Name <$> clang_getCursorDisplayName curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
-    enumConstantComment <- clang_getComment curr
+    enumConstantComment <- fmap parseCommentReferences <$> clang_getComment curr
     foldContinueWith C.EnumConstant {
         enumConstantLoc
       , enumConstantName
@@ -591,6 +591,13 @@ varDecl info = simpleFold $ \curr -> do
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
+
+parseCommentReferences :: Comment Text -> C.Comment Parse
+parseCommentReferences = C.Comment
+                       . fmap ( C.ById
+                              . C.PrelimDeclIdNamed
+                              . C.Name
+                              )
 
 -- | Partition declarations into anonymous and non-anonymous
 --

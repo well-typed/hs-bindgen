@@ -11,14 +11,16 @@ import GHC.Natural (Natural)
 
 import Clang.HighLevel.Documentation qualified as C
 
+import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..))
+
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Language.Haskell (HsName(..))
+import HsBindgen.Language.Haskell (HsName(..), HsIdentifier (..))
 
 -- | Convert a Clang comment to a Haddock comment
 --
-generateHaddocks :: Maybe C.Comment -> Maybe Hs.Comment
+generateHaddocks :: Maybe (C.Comment Reference) -> Maybe Hs.Comment
 generateHaddocks comment = fst $ generateHaddocksWithParams comment []
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
@@ -30,7 +32,7 @@ generateHaddocks comment = fst $ generateHaddocksWithParams comment []
 -- Returns the processed comment and the updated parameters list
 --
 generateHaddocksWithParams ::
-     Maybe C.Comment
+     Maybe (C.Comment Reference)
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])
 generateHaddocksWithParams Nothing params              =
@@ -90,7 +92,7 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
       , updatedParams
       )
   where
-    filterParamCommands :: [C.CommentBlockContent]
+    filterParamCommands :: [C.CommentBlockContent Reference]
                            -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
     filterParamCommands = \case
       [] -> []
@@ -166,7 +168,7 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
 --
 -- For now only \dir, \link and \see  are naively supported.
 --
-convertBlockContent :: C.CommentBlockContent -> [Hs.CommentBlockContent]
+convertBlockContent :: C.CommentBlockContent Reference -> [Hs.CommentBlockContent]
 convertBlockContent = \case
   C.Paragraph{..} ->
     formatParagraphContent paragraphContent
@@ -186,9 +188,6 @@ convertBlockContent = \case
      in -- Only commands that can be associated with declarations are supported.
         -- Other commands are ignored.
         case Text.toLower (Text.strip blockCommandName) of
-          -- Anchor
-          "anchor" -> [Hs.Paragraph [Hs.Anchor unwordsInlineCommentWithArgs]]
-
           -- Headers
           "section"       -> [Hs.Header Hs.Level1 inlineCommentWithArgs]
           "subsection"    -> [Hs.Header Hs.Level2 inlineCommentWithArgs]
@@ -198,15 +197,29 @@ convertBlockContent = \case
           "code"     -> [Hs.CodeBlock textInlineCommentWithArgs]
           "verbatim" -> [Hs.CodeBlock textInlineCommentWithArgs]
 
-          -- Examples
-          "example" -> [Hs.Example unwordsInlineCommentWithArgs]
-
           -- Properties
           "property" -> [Hs.Property unwordsInlineCommentWithArgs]
 
-          -- Links / URLs
-          "dir" -> [Hs.Paragraph [Hs.Link inlineCommentWithArgs unwordsInlineCommentWithArgs]]
-          "ref" -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          -- Example
+          "example" -> [Hs.Example unwordsInlineCommentWithArgs]
+
+          -- inline commands
+          "anchor"     -> [Hs.Paragraph [Hs.Anchor unwordsInlineCommentWithArgs]]
+          "ref"        -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+
+          -- Supported References
+          "sa"         -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
+          "see"        -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
+          "link"       -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+
+          -- Not yet fully supported references
+          "dir"        -> [Hs.Paragraph [Hs.Link inlineCommentWithArgs unwordsInlineCommentWithArgs]]
+          "headerfile" -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "image"      -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "include"    -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "refitem"    -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "snippet"    -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
+          "xrefitem"   -> [Hs.Paragraph [Hs.Link args unwordsInlineComment]]
 
           -- List item
           "li" -> [Hs.ListItem Hs.BulletList [Hs.Paragraph inlineCommentWithArgs]]
@@ -236,8 +249,6 @@ convertBlockContent = \case
           "return"          -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "returns:"] : inlineCommentWithArgs)]
           "returns"         -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "returns:"] : inlineCommentWithArgs)]
           "retval"          -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "returns:"] : inlineCommentWithArgs)]
-          "sa"              -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
-          "see"             -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "see:"] : inlineCommentWithArgs)]
           "short"           -> [Hs.Paragraph inlineCommentWithArgs]
           "subparagraph"    -> Hs.Paragraph [Hs.Bold [Hs.TextContent unwordsArgs]]
                              : formatParagraphContent blockCommandParagraph
@@ -245,7 +256,8 @@ convertBlockContent = \case
                              : formatParagraphContent blockCommandParagraph
           "throw"           -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "exception:"] : inlineCommentWithArgs)]
           "throws"          -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "exception:"] : inlineCommentWithArgs)]
-          "todo"            -> [Hs.Paragraph (Hs.Bold [Hs.TextContent "TODO:"] : inlineCommentWithArgs)]
+          "todo"            -> Hs.Paragraph [Hs.Bold [Hs.TextContent "TODO:"]]
+                             : formatParagraphContent blockCommandParagraph
           "warning"         -> [Hs.Paragraph (Hs.Bold [Hs.Emph [Hs.TextContent "WARNING:"]] : inlineCommentWithArgs)]
 
           -- Everything else becomes an empty paragraph
@@ -287,7 +299,7 @@ convertBlockContent = \case
 
 -- | Convert inline content
 --
-convertInlineContent :: C.CommentInlineContent -> [Hs.CommentInlineContent]
+convertInlineContent :: C.CommentInlineContent Reference -> [Hs.CommentInlineContent]
 convertInlineContent = \case
   C.TextContent{..}
     | Text.null textContent -> []
@@ -303,6 +315,8 @@ convertInlineContent = \case
         C.CXCommentInlineCommandRenderKind_Monospaced -> Hs.Monospace args
         C.CXCommentInlineCommandRenderKind_Emphasized -> Hs.Emph args
         C.CXCommentInlineCommandRenderKind_Anchor     -> Hs.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
+
+  C.InlineRefCommand (ById arg) -> [Hs.Identifier (getHsIdentifier (nameHsIdent arg))]
 
   -- HTML is not currently supported
   --
@@ -346,7 +360,7 @@ extractTextLines = filter (not . Text.null)
 -- since we have information about whitespaces and indentation. TODO: See issue
 -- #949.
 --
-formatParagraphContent :: [C.CommentInlineContent] -> [Hs.CommentBlockContent]
+formatParagraphContent :: [C.CommentInlineContent Reference] -> [Hs.CommentBlockContent]
 formatParagraphContent = processGroups 1 []
                        . groupListParagraphs
                        -- Filter unnecessary spaces that will lead to excess
@@ -361,7 +375,7 @@ formatParagraphContent = processGroups 1 []
     -- If the paragraphs contains list items, each list item and its content
     -- will be in a separate group. Otherwise, returns a singleton list.
     --
-    groupListParagraphs :: [C.CommentInlineContent] -> [[C.CommentInlineContent]]
+    groupListParagraphs :: [C.CommentInlineContent Reference] -> [[C.CommentInlineContent Reference]]
     groupListParagraphs [] = []
     -- Check if first item is a list marker
     groupListParagraphs (h : rest)
@@ -377,7 +391,7 @@ formatParagraphContent = processGroups 1 []
 
     processGroups :: Natural
                   -> [Hs.CommentBlockContent]
-                  -> [[C.CommentInlineContent]]
+                  -> [[C.CommentInlineContent Reference]]
                   -> [Hs.CommentBlockContent]
     processGroups _ acc [] = reverse acc
     processGroups n acc (group:rest) =
@@ -401,7 +415,7 @@ formatParagraphContent = processGroups 1 []
         _ -> processGroups n (Hs.Paragraph (concatMap convertInlineContent group) : acc) rest
 
     -- | Check if text starts with a list marker
-    isListMarker :: C.CommentInlineContent -> Bool
+    isListMarker :: C.CommentInlineContent Reference -> Bool
     isListMarker (C.TextContent t) = isJust $ detectListMarker 0 t
     isListMarker _                 = False
 

@@ -21,6 +21,9 @@ module HsBindgen.Frontend.AST.Internal (
   , FunctionAttributes(..)
   , FunctionPurity(..)
   , decideFunctionPurity
+    -- ** Comments
+  , Comment(..)
+  , Reference(..)
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -40,7 +43,7 @@ module HsBindgen.Frontend.AST.Internal (
 
 import Prelude hiding (Enum)
 
-import Clang.HighLevel.Documentation
+import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macro.AST.Syntax qualified as Macro
@@ -118,7 +121,7 @@ data DeclInfo p = DeclInfo{
       -- This means that there is always a /single/ header to choose here.
     , declHeader :: HashIncludeArg
 
-    , declComment :: Maybe Comment
+    , declComment :: Maybe (Comment p)
     }
 
 data DeclKind p =
@@ -149,7 +152,7 @@ data StructField p = StructField {
     , structFieldOffset  :: Int     -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
     , structFieldAnn     :: Ann "StructField" p
-    , structFieldComment :: Maybe Comment
+    , structFieldComment :: Maybe (Comment p)
     }
 
 data Union p = Union {
@@ -164,7 +167,7 @@ data UnionField p = UnionField {
     , unionFieldName    :: FieldName p
     , unionFieldType    :: Type p
     , unionFieldAnn     :: Ann "UnionField" p
-    , unionFieldComment :: Maybe Comment
+    , unionFieldComment :: Maybe (Comment p)
     }
 
 data Typedef p = Typedef {
@@ -184,7 +187,7 @@ data EnumConstant p = EnumConstant {
       enumConstantLoc     :: SingleLoc
     , enumConstantName    :: FieldName p
     , enumConstantValue   :: Integer
-    , enumConstantComment :: Maybe Comment
+    , enumConstantComment :: Maybe (Comment p)
     }
 
 data Function p = Function {
@@ -288,6 +291,21 @@ decideFunctionPurity = foldr prefer ImpureFunction
       ImpureFunction -> ()
       HaskellPureFunction -> ()
       CPureFunction -> ()
+
+{-------------------------------------------------------------------------------
+  Comments
+-------------------------------------------------------------------------------}
+
+newtype Comment p =
+  Comment
+    { unComment :: C.Comment (Reference p) }
+
+-- | Needed for cross referencing identifiers when translating to Haddocks.
+-- When parsing a referencing command, e.g. \\ref, we need an identifier that
+-- passes through all the name mangling passes so that in the end we have
+-- access to the right name to reference.
+--
+newtype Reference p = ById (Id p)
 
 {-------------------------------------------------------------------------------
   Macros
@@ -429,6 +447,8 @@ deriving stock instance ValidPass p => Show (Type             p)
 deriving stock instance ValidPass p => Show (Typedef          p)
 deriving stock instance ValidPass p => Show (Union            p)
 deriving stock instance ValidPass p => Show (UnionField       p)
+deriving stock instance ValidPass p => Show (Comment          p)
+deriving stock instance ValidPass p => Show (Reference        p)
 
 deriving stock instance ValidPass p => Eq (CheckedMacro     p)
 deriving stock instance ValidPass p => Eq (CheckedMacroType p)
@@ -445,6 +465,8 @@ deriving stock instance ValidPass p => Eq (Type             p)
 deriving stock instance ValidPass p => Eq (Typedef          p)
 deriving stock instance ValidPass p => Eq (Union            p)
 deriving stock instance ValidPass p => Eq (UnionField       p)
+deriving stock instance ValidPass p => Eq (Comment          p)
+deriving stock instance ValidPass p => Eq (Reference        p)
 
 {-------------------------------------------------------------------------------
   Pretty-printing

@@ -90,6 +90,7 @@ processStructField C.StructField{..} =
     withoutReparse = return C.StructField{
           structFieldType = coercePass structFieldType
         , structFieldAnn  = NoAnn
+        , structFieldComment = fmap coercePass structFieldComment
         , ..
         }
 
@@ -100,6 +101,7 @@ processStructField C.StructField{..} =
           structFieldName = name
         , structFieldType = ty
         , structFieldAnn  = NoAnn
+        , structFieldComment = fmap coercePass structFieldComment
         , ..
         }
 
@@ -129,6 +131,7 @@ processUnionField C.UnionField{..} =
     withoutReparse = return $ C.UnionField{
           unionFieldType = coercePass unionFieldType
         , unionFieldAnn  = NoAnn
+        , unionFieldComment = fmap coercePass unionFieldComment
         , ..
         }
 
@@ -139,6 +142,7 @@ processUnionField C.UnionField{..} =
           unionFieldName = name
         , unionFieldType = ty
         , unionFieldAnn  = NoAnn
+        , unionFieldComment = fmap coercePass unionFieldComment
         , ..
         }
 
@@ -174,7 +178,11 @@ processEnum info C.Enum{..} =
 processEnumConstant ::
      C.EnumConstant Sort
   -> M (C.EnumConstant HandleMacros)
-processEnumConstant C.EnumConstant{..} = return C.EnumConstant{..}
+processEnumConstant C.EnumConstant{..} = return
+  C.EnumConstant {
+    enumConstantComment = fmap coercePass enumConstantComment
+  , ..
+  }
 
 processTypedef ::
      C.DeclInfo HandleMacros

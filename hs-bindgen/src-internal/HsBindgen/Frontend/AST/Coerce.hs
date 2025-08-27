@@ -2,9 +2,12 @@ module HsBindgen.Frontend.AST.Coerce (CoercePass(..)) where
 
 import Prelude hiding (Enum)
 
+import Data.Bifunctor (bimap)
+
+import Clang.HighLevel.Documentation qualified as C
+
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Pass
-import Data.Bifunctor (bimap)
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -24,6 +27,22 @@ instance (
       }
 
 instance (
+      Id p ~ Id p'
+    ) => CoercePass Reference p p' where
+  coercePass (ById t) = ById t
+
+instance (
+      Id p ~ Id p'
+    ) => CoercePass C.Comment (Reference p) (Reference p') where
+  coercePass comment = fmap coercePass comment
+
+instance (
+      CoercePass C.Comment (Reference p) (Reference p')
+    ) => CoercePass Comment p p' where
+  coercePass (Comment c) =
+    Comment (coercePass c)
+
+instance (
       CoercePass DeclInfo p p'
     , CoercePass DeclKind p p'
     , Ann "Decl" p ~ Ann "Decl" p'
@@ -36,8 +55,11 @@ instance (
 
 instance (
       Id p ~ Id p'
+    , CoercePass Comment p p'
     ) => CoercePass DeclInfo p p' where
-  coercePass info = DeclInfo{..}
+  coercePass info = DeclInfo{ declComment = fmap coercePass declComment
+                            , ..
+                            }
     where
       DeclInfo{declLoc, declId, declAliases, declHeader, declComment} = info
 
@@ -76,6 +98,7 @@ instance (
 
 instance (
       CoercePass Type p p'
+    , CoercePass Comment p p'
     , FieldName p ~ FieldName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass StructField p p' where
@@ -86,7 +109,7 @@ instance (
       , structFieldOffset
       , structFieldWidth
       , structFieldAnn
-      , structFieldComment
+      , structFieldComment = fmap coercePass structFieldComment
       }
 
 instance (
@@ -103,6 +126,7 @@ instance (
 instance (
       CoercePass Type p p'
     , FieldName p ~ FieldName p'
+    , CoercePass Comment p p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass UnionField p p' where
   coercePass UnionField{..} = UnionField {
@@ -110,7 +134,7 @@ instance (
       , unionFieldName
       , unionFieldType = coercePass unionFieldType
       , unionFieldAnn
-      , unionFieldComment
+      , unionFieldComment = fmap coercePass unionFieldComment
       }
 
 instance (
@@ -137,12 +161,13 @@ instance (
 
 instance (
       FieldName p ~ FieldName p'
+    , CoercePass C.Comment (Reference p) (Reference p')
     ) => CoercePass EnumConstant p p' where
   coercePass EnumConstant{..} = EnumConstant {
         enumConstantLoc
       , enumConstantName
       , enumConstantValue
-      , enumConstantComment
+      , enumConstantComment = fmap coercePass enumConstantComment
       }
 
 instance (

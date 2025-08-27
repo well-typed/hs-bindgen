@@ -358,7 +358,10 @@ pub struct config_t {
     pub name: [::std::os::raw::c_char; 64usize],
     /// @brief Configuration flags
     pub flags: u32,
-    /// @brief Optional callback function
+    /** @brief Optional callback function
+
+ See also: \ref event_callback_t
+*/
     pub callback: event_callback_t,
     /// @brief User data for callback
     pub user_data: *mut ::std::os::raw::c_void,
@@ -756,7 +759,7 @@ unsafe extern "C" {
  }
  @endcode
 
- @param config Configuration structure
+ @param config Configuration structure (see \ref config_t)
  @param data Input data buffer
  @param size Size of input data
  @return Status code indicating success or failure
