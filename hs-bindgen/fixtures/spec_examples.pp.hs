@@ -122,6 +122,7 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
 
+{-| __from C:__ @resample@ -}
 foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper
   :: F.Ptr Int32_T
      {- ^ __from C:__ @res_m_num_valid_samples@ -}

@@ -530,4 +530,9 @@
                       "Vector"}
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9")))))},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "new_vector",
+          commentChildren = []}}]

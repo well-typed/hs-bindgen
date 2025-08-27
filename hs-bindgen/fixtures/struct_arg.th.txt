@@ -11,15 +11,18 @@ instance Storable Thing
           peek = \ptr_0 -> pure Thing <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Thing thing_x_3 -> pokeByteOff ptr_1 (0 :: Int) thing_x_3
+{-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_be997777eb388096" thing_fun_1_wrapper :: Ptr Thing ->
                                                                                                IO CInt
 thing_fun_1 :: Thing -> IO CInt
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_c719e5e844a53956" thing_fun_2_wrapper :: CInt ->
                                                                                                Ptr Thing ->
                                                                                                IO Unit
 thing_fun_2 :: CInt -> IO Thing
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
+{-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fun_3a_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
                                                                                                 CDouble ->
@@ -27,6 +30,7 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fu
                                                                                                 IO Unit
 thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
+{-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fun_3b_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
                                                                                                 CDouble ->

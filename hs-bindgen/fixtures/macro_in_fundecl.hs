@@ -1015,7 +1015,11 @@
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1087,7 +1091,11 @@
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1161,7 +1169,11 @@
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed))))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1237,7 +1249,11 @@
             (TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing)))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo2",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1313,7 +1329,11 @@
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo3",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1370,7 +1390,11 @@
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bar1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1421,7 +1445,11 @@
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bar2",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1475,7 +1503,11 @@
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bar3",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1529,7 +1561,11 @@
                   nameC = Name "I",
                   nameHsIdent = HsIdentifier "I"}
                 NameOriginInSource))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bar4",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1585,7 +1621,11 @@
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "baz1",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1641,7 +1681,11 @@
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "baz2",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1697,7 +1741,11 @@
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "baz3",
+          commentChildren = []}},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1728,4 +1776,9 @@
               nameC = Name "I",
               nameHsIdent = HsIdentifier "I"}
             NameOriginInSource},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "no_args_no_void",
+          commentChildren = []}}]

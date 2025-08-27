@@ -43,7 +43,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimFloating PrimDouble)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "erf",
+          commentChildren = []}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -121,7 +125,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimFloating PrimDouble)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bad_fma",
+          commentChildren = []}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -146,7 +154,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "no_args",
+          commentChildren = []}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -171,7 +183,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "no_args_no_void",
+          commentChildren = []}},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -233,4 +250,8 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun",
+          commentChildren = []}}]

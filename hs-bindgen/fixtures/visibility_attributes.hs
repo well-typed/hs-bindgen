@@ -23,7 +23,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f0",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -48,7 +52,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f1",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -73,7 +81,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -98,7 +110,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f3",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -123,7 +139,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f4",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -148,7 +168,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f5",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -173,7 +197,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f6",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -198,7 +226,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f7",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -223,7 +255,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f8",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -248,7 +284,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f9",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -273,7 +313,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f10",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -298,7 +342,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f11",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -323,7 +371,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f12",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -348,7 +400,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f13",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -373,7 +429,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f14",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -398,7 +458,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f15",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -423,7 +487,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f16",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -448,7 +516,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f17",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -473,7 +545,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f18",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -498,7 +574,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f19",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -523,7 +603,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f20",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -548,7 +632,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f21",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -573,7 +661,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f22",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -598,7 +690,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f23",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -623,7 +719,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f24",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -648,7 +748,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f25",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -673,7 +777,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f26",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -698,7 +806,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f27",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -723,7 +835,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f28",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -748,7 +864,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f29",
+          commentChildren = []}},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC

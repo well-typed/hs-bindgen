@@ -47,6 +47,7 @@ instance F.Storable Outside where
                F.pokeByteOff ptr0 (0 :: Int) outside_x2
             >> F.pokeByteOff ptr0 (4 :: Int) outside_y3
 
+{-| __from C:__ @normal@ -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper
   :: F.Ptr Opaque
      {- ^ __from C:__ @ptr_to_opaque@ -}
@@ -150,6 +151,7 @@ set_named_union_y :: FC.CChar -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+{-| __from C:__ @f2@ -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper
   :: F.Ptr Named_union
      {- ^ __from C:__ @arg@ -}

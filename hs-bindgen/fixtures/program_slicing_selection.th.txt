@@ -61,6 +61,7 @@ instance Storable FileOperationRecord
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    FileOperationRecord fileOperationRecord_status_3
                                                        fileOperationRecord_bytes_processed_4 -> pokeByteOff ptr_1 (0 :: Int) fileOperationRecord_status_3 >> pokeByteOff ptr_1 (8 :: Int) fileOperationRecord_bytes_processed_4
+{-| -}
 foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                           Ptr Void ->
                                                                                                           HsBindgen.Runtime.Prelude.CSize ->

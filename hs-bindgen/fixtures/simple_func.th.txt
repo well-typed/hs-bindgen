@@ -5,13 +5,18 @@
 -- void hs_bindgen_test_simple_func_63e35f316cc0a04e (void) { no_args(); }
 -- void hs_bindgen_test_simple_func_9d7e58d4e189732b (void) { no_args_no_void(); }
 -- signed int hs_bindgen_test_simple_func_a2c97786cd1ecc82 (char arg1, double arg2) { return fun(arg1, arg2); }
+{-| -}
 foreign import ccall safe "hs_bindgen_test_simple_func_3919a2f9a4498aaa" erf :: CDouble ->
                                                                                 IO CDouble
+{-| -}
 foreign import ccall safe "hs_bindgen_test_simple_func_6be780963284c499" bad_fma :: CDouble ->
                                                                                     CDouble ->
                                                                                     CDouble ->
                                                                                     IO CDouble
+{-| -}
 foreign import ccall safe "hs_bindgen_test_simple_func_63e35f316cc0a04e" no_args :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_simple_func_9d7e58d4e189732b" no_args_no_void :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_simple_func_a2c97786cd1ecc82" fun :: CChar ->
                                                                                 CDouble -> IO CInt

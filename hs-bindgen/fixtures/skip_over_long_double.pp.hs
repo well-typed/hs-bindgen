@@ -12,6 +12,7 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <skip_over_long_double.h>\nvoid hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }\n")
 
+{-| __from C:__ @fun2@ -}
 foreign import ccall safe "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed" fun2
   :: FC.CInt
   -> IO ()

@@ -29,6 +29,7 @@ newtype C数字 = C数字
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __from C:__ @ϒ@ -}
 foreign import ccall safe "hs_bindgen_test_adios_8e1936b23d816eb2" cϒ
   :: IO ()
 
@@ -44,8 +45,10 @@ cϒϒϒ :: FC.CInt
 cϒϒϒ =
   GHC.IO.Unsafe.unsafePerformIO (F.peek cϒϒϒ_ptr)
 
+{-| __from C:__ @拜拜@ -}
 foreign import ccall safe "hs_bindgen_test_adios_5c74896d56245684" 拜拜
   :: IO ()
 
+{-| __from C:__ @Say拜拜@ -}
 foreign import ccall safe "hs_bindgen_test_adios_e8498bfc0fabc9e9" say拜拜
   :: IO ()

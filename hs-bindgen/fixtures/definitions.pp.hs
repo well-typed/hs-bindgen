@@ -18,6 +18,7 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } \n")
 
+{-| __from C:__ @foo@ -}
 foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
   :: FC.CDouble
      {- ^ __from C:__ @x@ -}

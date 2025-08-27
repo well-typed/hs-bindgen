@@ -302,6 +302,7 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
+{-| __from C:__ @some_fun@ -}
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper
   :: F.Ptr A_type_t
      {- ^ __from C:__ @i@ -}

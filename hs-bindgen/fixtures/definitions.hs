@@ -41,7 +41,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentChildren = []}},
   DeclInlineCInclude
     "definitions.h",
   DeclInlineC

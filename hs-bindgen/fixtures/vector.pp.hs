@@ -38,6 +38,7 @@ instance F.Storable Vector where
                F.pokeByteOff ptr0 (0 :: Int) vector_x2
             >> F.pokeByteOff ptr0 (8 :: Int) vector_y3
 
+{-| __from C:__ @new_vector@ -}
 foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
   :: FC.CDouble
      {- ^ __from C:__ @x@ -}

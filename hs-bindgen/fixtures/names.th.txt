@@ -25,28 +25,53 @@
 -- void hs_bindgen_test_names_6597a6eedc28f577 (void) { stock(); }
 -- void hs_bindgen_test_names_1aef1bdf2d1ba544 (void) { unsafe(); }
 -- void hs_bindgen_test_names_d428a3f008917f79 (void) { via(); }
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_a08e966b63669ba8" by' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_946148697abf4575" forall' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_a1ece6a6fa8e9763" mdo' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_1e48788938305e48" pattern' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_9bb16600c50998ed" proc' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_8dfd7fa26e360d8e" rec' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_57c5446244bcece1" using' :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_a2a878b7e49c1a71" anyclass :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_2f73a4347f70a468" capi :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_cb2993ce15743783" cases :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_954c564a2bd129a5" ccall :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_3a96dcbee4c024e0" dynamic :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_2e78d006337ea551" export :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_10c8e433951b50a8" family :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_6217d85466fed7df" group :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_00164685ff44cb75" interruptible :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_c810b13a75ea93bc" javascript :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_41d6d93a2614dff5" label :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_bdfec7f41298a418" prim :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_0d10aaa9ecbf0f2f" role :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_0ebc368c3818b18b" safe :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_764bfbe5fbb4fac9" stdcall :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_6597a6eedc28f577" stock :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_1aef1bdf2d1ba544" unsafe :: IO Unit
+{-| -}
 foreign import ccall safe "hs_bindgen_test_names_d428a3f008917f79" via :: IO Unit

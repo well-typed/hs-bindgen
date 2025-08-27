@@ -516,7 +516,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "__f1",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -541,7 +545,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f1",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -601,7 +609,12 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memalign",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -661,7 +674,12 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_calloc",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -714,7 +732,12 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_realloc",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -758,7 +781,12 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_alloc1",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -802,7 +830,12 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_alloc2",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -838,7 +871,11 @@
             HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "square",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -864,7 +901,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "old_fn",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -939,7 +980,12 @@
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed))))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_dgettext",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1003,7 +1049,11 @@
                   (NameOriginGenerated
                     (AnonId
                       "fun_attributes.h:7:9")))))},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fdopen",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1028,7 +1078,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1114,7 +1168,12 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memcpy",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1139,7 +1198,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fatal",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1181,7 +1244,7 @@
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Nothing,
+          commentOrigin = Just "hash",
           commentChildren = [
             Paragraph
               [
@@ -1243,7 +1306,11 @@
             ImpureFunction,
           functionRes = TypePointer
             TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "mymalloc",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1268,7 +1335,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foobar",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1294,7 +1365,12 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "core2_func",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1320,7 +1396,12 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "sse3_func",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1345,7 +1426,11 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f3",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1392,7 +1477,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fn",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1418,7 +1507,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1444,7 +1537,11 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x1",
+          commentChildren = []}},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1470,4 +1567,8 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing}]
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x2",
+          commentChildren = []}}]
