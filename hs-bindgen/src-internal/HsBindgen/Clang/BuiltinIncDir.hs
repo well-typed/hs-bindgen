@@ -275,7 +275,7 @@ getBuiltinIncDir tracer = \case
 -- NOTE: A newline is printed to @STDOUT@ as a side effect.  This happens
 -- because the @outs@ buffer is only flushed when overfull.
 getResourceDir :: Tracer IO BuiltinIncDirMsg -> IO (Maybe FilePath)
-getResourceDir tracer = auxOut 0 0 >>= \case
+getResourceDir tracer = auxOut 0 >>= \case
     Just (out, numFillBytes) -> do
       let (mResourceDir, numPrintBytes) =
             case takeWhile isEOL <$> break isEOL out of
@@ -284,8 +284,7 @@ getResourceDir tracer = auxOut 0 0 >>= \case
                 | otherwise -> (Just s,  length s + length n)
           buffSize = length out
           numBytes = buffSize + buffSize - numPrintBytes - numFillBytes + 1
-      when (numBytes > 0) . void $
-        Silently.capture_ (auxFillBuffer 1 numBytes)
+      when (numBytes > 0) . void $ Silently.capture_ (auxFillBuffer numBytes)
       traceWith tracer $ BuiltinIncDirClangBufferSize buffSize
       traceWith tracer $
         maybe
@@ -300,42 +299,37 @@ getResourceDir tracer = auxOut 0 0 >>= \case
     -- This function repeatedly outputs filler content until the buffer is
     -- filled and flushed or the limit is reached.
     auxOut ::
-         Int  -- number of filler lines already output
-      -> Int  -- number of filler bytes already output
+         Int                       -- number of filler bytes already output
       -> IO (Maybe (String, Int))  -- captured output, number of filler bytes
-    auxOut !n !numBytes
-      | n == 0 = do
-          (out, numBytes') <- Silently.capture $ do
+    auxOut !numBytes
+      | numBytes == 0 = do
+          out <- Silently.capture_ $ do
             auxPrintResourceDir
-            auxFillBuffer initN numBytesN
+            auxFillBuffer initNumBytes
           if null out
-            then auxOut initN numBytes'
-            else return $ Just (out, numBytes')
-      | n < maxN = do
-          (out, numBytes') <- Silently.capture $ auxFillBuffer n numBytesN
+            then auxOut initNumBytes
+            else return $ Just (out, initNumBytes)
+      | numBytes < maxNumBytes = do
+          out <- Silently.capture_ $ auxFillBuffer numBytes
           if null out
-            then auxOut (n * 2) (numBytes + numBytes')
-            else return $ Just (out, numBytes + numBytes')
+            then auxOut (numBytes * 2)
+            else return $ Just (out, numBytes * 2)
       | otherwise = return Nothing
 
-    -- Number of bytes per full line, including the newline
-    numBytesN :: Int
-    numBytesN = 1024
-
-    -- Number of lines to initially output
+    -- Number of bytes to initially output
     --
     -- The default buffer size on Windows is 16KB.  The default buffer size on
     -- Linux and macOS is 4KB.
-    initN :: Int
+    initNumBytes :: Int
 #ifdef mingw32_HOST_OS
-    initN     = 16
+    initNumBytes = 16_384
 #else
-    initN     = 4
+    initNumBytes = 4_096
 #endif
 
-    -- Maximum number of lines to output
-    maxN :: Int
-    maxN = 32
+    -- Maximum number of bytes to output
+    maxNumBytes :: Int
+    maxNumBytes = 32_768
 
     -- This function gets @libclang@ to print the resource directory.
     -- @withClang'@ returns an error in this case, which is normal behaviour.
@@ -349,18 +343,18 @@ getResourceDir tracer = auxOut 0 0 >>= \case
       in  withClang' nullTracer clangSetup' $ const (return Nothing)
 
     -- This function gets @libclang@ to print to @STDOUT@ in order to fill the
-    -- @outs@ buffer.  It outputs visible characters (@.@) and limits line
-    -- length to minimize confusion if something goes wrong.
+    -- @outs@ buffer.  It outputs visible characters and limits line length to
+    -- minimize confusion if something goes wrong.
     --
     -- This function must not trace any output (to @STDOUT@).
-    auxFillBuffer ::
-         Int     -- number of lines
-      -> Int     -- number of bytes per line
-      -> IO Int  -- number of bytes output
-    auxFillBuffer reps numBytes = do
+    auxFillBuffer :: Int -> IO ()
+    auxFillBuffer numBytes =
       void . withClang' nullTracer clangSetup $ \unit -> do
-        let t = Text.pack . concat . replicate reps $
-              replicate (numBytes - 1) '.' ++ "\n"
+        let (numLines, numBytes') = numBytes `divMod` maxLineLength
+            lastLine
+              | numBytes' > 0 = [take (numBytes' - 1) filler ++ "\n"]
+              | otherwise     = []
+            t = Text.pack . concat $ replicate numLines filler ++ lastLine
         file <- clang_getFile unit filenameT
         sloc <- clang_getLocation unit file 1 1
         bracket
@@ -370,7 +364,6 @@ getResourceDir tracer = auxOut 0 0 >>= \case
               clang_CXRewriter_insertTextBefore rewriter sloc t
               clang_CXRewriter_writeMainFileToStdOut rewriter
         return Nothing
-      return $ reps * numBytes
 
     clangSetup :: ClangSetup
     clangSetup = defaultClangSetup def $ ClangInputMemory filename ""
@@ -383,6 +376,15 @@ getResourceDir tracer = auxOut 0 0 >>= \case
 
     isEOL :: Char -> Bool
     isEOL = (`elem` ("\r\n" :: [Char]))
+
+    -- Maximum line length, including newline
+    maxLineLength :: Int
+    maxLineLength = 1024
+
+    filler :: String
+    filler =
+      take (maxLineLength - 1) (cycle "--hs-bindgen-builtin-include-dir")
+        ++ "\n"
 
 -- | Normalise Windows paths
 --
