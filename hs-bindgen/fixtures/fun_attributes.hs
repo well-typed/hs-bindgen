@@ -520,7 +520,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "__f1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -549,7 +550,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -614,7 +616,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_memalign",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -679,7 +682,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_calloc",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -737,7 +741,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_realloc",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -786,7 +791,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_alloc1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -835,7 +841,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_alloc2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -875,7 +882,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "square",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -905,7 +913,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "old_fn",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -985,7 +994,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_dgettext",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1053,7 +1063,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "fdopen",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1082,7 +1093,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1173,7 +1185,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "my_memcpy",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1202,7 +1215,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "fatal",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1254,7 +1268,8 @@
                     Bold
                       [
                         TextContent
-                          "attribute((pure))"]]]]}},
+                          "attribute((pure))"]]]]},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1310,7 +1325,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "mymalloc",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1339,7 +1355,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "foobar",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1370,7 +1387,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "core2_func",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1401,7 +1419,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "sse3_func",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1430,7 +1449,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1451,7 +1471,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1481,7 +1502,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "fn",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1511,7 +1533,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "y",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1541,7 +1564,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "x1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
@@ -1571,4 +1595,5 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "x2",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

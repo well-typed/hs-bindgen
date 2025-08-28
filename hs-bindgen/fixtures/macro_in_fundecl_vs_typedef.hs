@@ -459,7 +459,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "quux1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -533,7 +534,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "quux2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -612,7 +614,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "wam1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -691,7 +694,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "wam2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName
@@ -2196,7 +2200,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "struct_typedef1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2271,7 +2276,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "struct_typedef2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2349,7 +2355,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "struct_typedef3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2424,7 +2431,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "struct_name1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2499,7 +2507,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "struct_name2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
   DeclInlineC
@@ -2574,4 +2583,5 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "struct_name3",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

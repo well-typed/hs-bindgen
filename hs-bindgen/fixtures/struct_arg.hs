@@ -377,7 +377,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -434,7 +435,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -532,7 +534,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_3a",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -624,5 +627,6 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_3b",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple]

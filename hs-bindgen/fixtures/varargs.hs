@@ -26,4 +26,5 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "h",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

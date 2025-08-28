@@ -535,4 +535,5 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "new_vector",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

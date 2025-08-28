@@ -408,7 +408,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "\978",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_52f5e750c2f31c7b (void) { return &\978\978; } ",
@@ -428,7 +429,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "/* get_\978\978\978_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
@@ -448,7 +450,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "adios.h",
@@ -479,7 +482,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "\25308\25308",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }",
@@ -508,4 +512,5 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "Say\25308\25308",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

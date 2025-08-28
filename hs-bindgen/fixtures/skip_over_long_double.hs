@@ -37,7 +37,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "fun2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName

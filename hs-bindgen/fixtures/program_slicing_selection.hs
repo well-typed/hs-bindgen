@@ -2678,4 +2678,5 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "read_file_chunk",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

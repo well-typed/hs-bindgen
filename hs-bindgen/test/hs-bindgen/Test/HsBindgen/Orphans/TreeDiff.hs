@@ -25,6 +25,7 @@ import HsBindgen.Backend.Hs.AST.Type qualified as HsType
 import HsBindgen.Backend.Hs.CallConv qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -221,6 +222,7 @@ instance ToExpr HsType.HsPrimType
 instance ToExpr Hs.EmptyData
 instance ToExpr Hs.Field
 instance ToExpr Hs.ForeignImportDecl
+instance ToExpr SHs.Safety
 instance ToExpr Hs.FunctionParameter
 instance ToExpr a => ToExpr (HsType.ResultType a)
 instance ToExpr Hs.Newtype

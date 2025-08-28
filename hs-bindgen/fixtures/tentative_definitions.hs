@@ -19,7 +19,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "tentative_definitions.h",
   DeclInlineC
@@ -40,7 +41,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "tentative_definitions.h",
   DeclInlineC
@@ -61,4 +63,5 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing}]
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe}]

@@ -19,6 +19,7 @@ module HsBindgen.Backend.SHs.AST (
     DerivingInstance (..),
     Newtype (..),
     ForeignImport (..),
+    Safety (..),
     FunctionParameter (..),
     PatternSynonym (..),
 ) where
@@ -348,8 +349,13 @@ data ForeignImport = ForeignImport
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
     , foreignImportComment    :: Maybe Comment
+    , foreignImportSafety     :: Safety
     }
   deriving stock (Show)
+
+-- | Safety of foreign import declarations.
+data Safety = Safe | Unsafe
+  deriving stock (Generic, Show)
 
 data FunctionParameter = FunctionParameter
   { functionParameterName    :: Maybe (HsName NsVar)

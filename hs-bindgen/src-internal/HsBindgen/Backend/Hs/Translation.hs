@@ -1193,6 +1193,7 @@ functionDecs opts moduleName typedefs info f _spec =
         , foreignImportOrigin   = Origin.Function f
         , foreignImportComment  = mbFICommentWithOriginalCName
                                <> ioComment
+        , foreignImportSafety   = SHs.Safe
         }
     ] ++
     [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
@@ -1457,6 +1458,7 @@ addressStubDecs opts moduleName info tyQual ty _spec = (,stubImportName) $
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
         , foreignImportComment  = generateHaddocks (C.declComment info)
+        , foreignImportSafety   = SHs.Safe
         }
     ]
   where

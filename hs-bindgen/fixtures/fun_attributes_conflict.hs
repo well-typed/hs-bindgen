@@ -56,7 +56,8 @@
             Paragraph
               [
                 TextContent
-                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -104,7 +105,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "square_pc",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -152,7 +154,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "square_cc",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
   DeclInlineC
@@ -209,4 +212,5 @@
                     Bold
                       [
                         TextContent
-                          "attribute((pure))"]]]]}}]
+                          "attribute((pure))"]]]]},
+      foreignImportSafety = Safe}]
