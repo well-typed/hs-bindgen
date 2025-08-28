@@ -18,7 +18,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "asm.h",
   DeclInlineC
     "signed int hs_bindgen_test_asm_54c5278e738a284f (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }",
@@ -82,4 +83,5 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "asm_labeled_function",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]
