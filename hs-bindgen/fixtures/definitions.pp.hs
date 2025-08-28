@@ -11,6 +11,7 @@ module Example where
 import qualified Data.Array.Byte
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -24,8 +25,14 @@ foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
      {- ^ __from C:__ @x@ -}
   -> IO FC.CInt
 
-foreign import ccall safe "hs_bindgen_test_definitions_fc2aad2af9befead" n_ptr
-  :: F.Ptr FC.CInt
+foreign import ccall unsafe "hs_bindgen_test_definitions_fc2aad2af9befead" hs_bindgen_test_definitions_fc2aad2af9befead
+  :: IO (F.Ptr FC.CInt)
+
+{-# NOINLINE n_ptr #-}
+
+n_ptr :: F.Ptr FC.CInt
+n_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_fc2aad2af9befead
 
 data X = X
   { x_n :: FC.CInt

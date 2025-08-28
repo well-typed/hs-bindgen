@@ -118,7 +118,10 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_ab8f0d32c1f84295" core
 foreign import ccall safe "hs_bindgen_test_fun_attributes_f50d1e8063148c18" sse3_func :: IO CInt
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1b95ce9d55223970" f3 :: IO Unit
-foreign import ccall safe "hs_bindgen_test_fun_attributes_fe81510d355aff25" i_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_fe81510d355aff25" hs_bindgen_test_fun_attributes_fe81510d355aff25 :: IO (Ptr CInt)
+{-# NOINLINE i_ptr #-}
+i_ptr :: Ptr CInt
+i_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_fe81510d355aff25
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_43b222bddec511f3" fn :: IO CInt
 {-| -}

@@ -6,14 +6,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr0_ptr",
+        "hs_bindgen_test_array_5c54826466f2e87b",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_5c54826466f2e87b",
       foreignImportCallConv =
@@ -31,7 +32,9 @@
                 "Global, complete, not initialised"],
           commentOrigin = Just "arr0",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ec6a481a47ca4eb1 (void))[3] { return &arr1; } ",
@@ -39,14 +42,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr1_ptr",
+        "hs_bindgen_test_array_ec6a481a47ca4eb1",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_ec6a481a47ca4eb1",
       foreignImportCallConv =
@@ -64,7 +68,9 @@
                 "Global, complete, initialised"],
           commentOrigin = Just "arr1",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_34db8d8b69220fcc (void))[3] { return &arr2; } ",
@@ -72,14 +78,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr2_ptr",
+        "hs_bindgen_test_array_34db8d8b69220fcc",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_34db8d8b69220fcc",
       foreignImportCallConv =
@@ -97,7 +104,9 @@
                 "Global, extern, complete, not initialised"],
           commentOrigin = Just "arr2",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_f4e746193b856003 (void))[3] { return &arr3; } ",
@@ -105,14 +114,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr3_ptr",
+        "hs_bindgen_test_array_f4e746193b856003",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_f4e746193b856003",
       foreignImportCallConv =
@@ -130,7 +140,9 @@
                 "Global, extern, complete, initialised"],
           commentOrigin = Just "arr3",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bf91904b3049fdd2 (void))[1] { return &arr6; } ",
@@ -138,14 +150,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr6_ptr",
+        "hs_bindgen_test_array_bf91904b3049fdd2",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            1
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              1
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_bf91904b3049fdd2",
       foreignImportCallConv =
@@ -163,7 +176,9 @@
                 "Global, incomplete"],
           commentOrigin = Just "arr6",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9be06c66ecc3a933 (void))[] { return &arr7; } ",
@@ -171,13 +186,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr7_ptr",
+        "hs_bindgen_test_array_9be06c66ecc3a933",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsIncompleteArray
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_9be06c66ecc3a933",
       foreignImportCallConv =
@@ -194,7 +210,9 @@
                 "Global, extern, incomplete"],
           commentOrigin = Just "arr7",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1015,14 +1033,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_1_ptr",
+        "hs_bindgen_test_array_16bca3ac468967d9",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_16bca3ac468967d9",
       foreignImportCallConv =
@@ -1040,7 +1059,9 @@
                 "Array of known size"],
           commentOrigin = Just "arr_1",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_07e58c5432be4a35 (void) { return &arr_2; } ",
@@ -1048,15 +1069,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_2_ptr",
+        "hs_bindgen_test_array_07e58c5432be4a35",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Triplet"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Triplet")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_07e58c5432be4a35",
       foreignImportCallConv =
@@ -1076,7 +1098,9 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "arr_2",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_63e072530b04d3b9 (void))[] { return &arr_3; } ",
@@ -1084,13 +1108,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_3_ptr",
+        "hs_bindgen_test_array_63e072530b04d3b9",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsIncompleteArray
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_array_63e072530b04d3b9",
       foreignImportCallConv =
@@ -1107,7 +1132,9 @@
                 "Array of unknown size"],
           commentOrigin = Just "arr_3",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_3db8d1257bc10233 (void) { return &arr_4; } ",
@@ -1115,15 +1142,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_4_ptr",
+        "hs_bindgen_test_array_3db8d1257bc10233",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "List"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "List")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_3db8d1257bc10233",
       foreignImportCallConv =
@@ -1143,7 +1171,9 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "arr_4",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0f74917ee2000dc5 (void))[4][3] { return &arr_5; } ",
@@ -1151,16 +1181,17 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_5_ptr",
+        "hs_bindgen_test_array_0f74917ee2000dc5",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            4
+        (HsIO
+          (HsPtr
             (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
+              4
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_array_0f74917ee2000dc5",
       foreignImportCallConv =
@@ -1182,7 +1213,9 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "arr_5",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_a48940bd219530d0 (void) { return &arr_6; } ",
@@ -1190,15 +1223,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_6_ptr",
+        "hs_bindgen_test_array_a48940bd219530d0",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Matrix"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Matrix")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_a48940bd219530d0",
       foreignImportCallConv =
@@ -1218,7 +1252,9 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "arr_6",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1196efca365094f7 (void))[][3] { return &arr_7; } ",
@@ -1226,15 +1262,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_7_ptr",
+        "hs_bindgen_test_array_1196efca365094f7",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsIncompleteArray
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_array_1196efca365094f7",
       foreignImportCallConv =
@@ -1255,7 +1292,9 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "arr_7",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_31b6cf83380518c3 (void) { return &arr_8; } ",
@@ -1263,15 +1302,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "arr_8_ptr",
+        "hs_bindgen_test_array_31b6cf83380518c3",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Tripletlist"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Tripletlist")))),
       foreignImportOrigName =
       "hs_bindgen_test_array_31b6cf83380518c3",
       foreignImportCallConv =
@@ -1291,7 +1331,9 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "arr_8",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
     "signed int hs_bindgen_test_array_c3dd28889d5b2858 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",

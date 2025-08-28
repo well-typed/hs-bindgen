@@ -55,11 +55,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "n_ptr",
+        "hs_bindgen_test_definitions_fc2aad2af9befead",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_definitions_fc2aad2af9befead",
       foreignImportCallConv =
@@ -68,7 +70,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclData
     Struct {
       structName = HsName

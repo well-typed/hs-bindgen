@@ -6,11 +6,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "asm_labeled_variable_ptr",
+        "hs_bindgen_test_asm_d2d42e5b0c00988a",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_asm_d2d42e5b0c00988a",
       foreignImportCallConv =
@@ -19,7 +21,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "asm.h",
   DeclInlineC
     "signed int hs_bindgen_test_asm_54c5278e738a284f (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }",

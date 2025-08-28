@@ -9,6 +9,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
@@ -20,43 +21,79 @@ $(CAPI.addCSource "#include <array.h>\n/* get_arr0_ptr */ __attribute__ ((const)
 
   __from C:__ @arr0@
 -}
-foreign import ccall safe "hs_bindgen_test_array_5c54826466f2e87b" arr0_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_5c54826466f2e87b" hs_bindgen_test_array_5c54826466f2e87b
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+
+{-# NOINLINE arr0_ptr #-}
+
+arr0_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr0_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_5c54826466f2e87b
 
 {-| Global, complete, initialised
 
   __from C:__ @arr1@
 -}
-foreign import ccall safe "hs_bindgen_test_array_ec6a481a47ca4eb1" arr1_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_ec6a481a47ca4eb1" hs_bindgen_test_array_ec6a481a47ca4eb1
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+
+{-# NOINLINE arr1_ptr #-}
+
+arr1_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr1_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_ec6a481a47ca4eb1
 
 {-| Global, extern, complete, not initialised
 
   __from C:__ @arr2@
 -}
-foreign import ccall safe "hs_bindgen_test_array_34db8d8b69220fcc" arr2_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_34db8d8b69220fcc" hs_bindgen_test_array_34db8d8b69220fcc
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+
+{-# NOINLINE arr2_ptr #-}
+
+arr2_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr2_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_34db8d8b69220fcc
 
 {-| Global, extern, complete, initialised
 
   __from C:__ @arr3@
 -}
-foreign import ccall safe "hs_bindgen_test_array_f4e746193b856003" arr3_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_f4e746193b856003" hs_bindgen_test_array_f4e746193b856003
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+
+{-# NOINLINE arr3_ptr #-}
+
+arr3_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr3_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_f4e746193b856003
 
 {-| Global, incomplete
 
   __from C:__ @arr6@
 -}
-foreign import ccall safe "hs_bindgen_test_array_bf91904b3049fdd2" arr6_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_bf91904b3049fdd2" hs_bindgen_test_array_bf91904b3049fdd2
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+
+{-# NOINLINE arr6_ptr #-}
+
+arr6_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
+arr6_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_bf91904b3049fdd2
 
 {-| Global, extern, incomplete
 
   __from C:__ @arr7@
 -}
-foreign import ccall safe "hs_bindgen_test_array_9be06c66ecc3a933" arr7_ptr
-  :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_9be06c66ecc3a933" hs_bindgen_test_array_9be06c66ecc3a933
+  :: IO (F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+
+{-# NOINLINE arr7_ptr #-}
+
+arr7_ptr :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+arr7_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_9be06c66ecc3a933
 
 newtype Triplet = Triplet
   { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
@@ -110,57 +147,105 @@ instance F.Storable Example where
 
   __from C:__ @arr_1@
 -}
-foreign import ccall safe "hs_bindgen_test_array_16bca3ac468967d9" arr_1_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_16bca3ac468967d9" hs_bindgen_test_array_16bca3ac468967d9
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+
+{-# NOINLINE arr_1_ptr #-}
+
+arr_1_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr_1_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_16bca3ac468967d9
 
 {-| Array of known size, typedef
 
   __from C:__ @arr_2@
 -}
-foreign import ccall safe "hs_bindgen_test_array_07e58c5432be4a35" arr_2_ptr
-  :: F.Ptr Triplet
+foreign import ccall unsafe "hs_bindgen_test_array_07e58c5432be4a35" hs_bindgen_test_array_07e58c5432be4a35
+  :: IO (F.Ptr Triplet)
+
+{-# NOINLINE arr_2_ptr #-}
+
+arr_2_ptr :: F.Ptr Triplet
+arr_2_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_07e58c5432be4a35
 
 {-| Array of unknown size
 
   __from C:__ @arr_3@
 -}
-foreign import ccall safe "hs_bindgen_test_array_63e072530b04d3b9" arr_3_ptr
-  :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_array_63e072530b04d3b9" hs_bindgen_test_array_63e072530b04d3b9
+  :: IO (F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+
+{-# NOINLINE arr_3_ptr #-}
+
+arr_3_ptr :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+arr_3_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_63e072530b04d3b9
 
 {-| Array of unknown size, typedef
 
   __from C:__ @arr_4@
 -}
-foreign import ccall safe "hs_bindgen_test_array_3db8d1257bc10233" arr_4_ptr
-  :: F.Ptr List
+foreign import ccall unsafe "hs_bindgen_test_array_3db8d1257bc10233" hs_bindgen_test_array_3db8d1257bc10233
+  :: IO (F.Ptr List)
+
+{-# NOINLINE arr_4_ptr #-}
+
+arr_4_ptr :: F.Ptr List
+arr_4_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_3db8d1257bc10233
 
 {-| Multi-dimensional array of known size
 
   __from C:__ @arr_5@
 -}
-foreign import ccall safe "hs_bindgen_test_array_0f74917ee2000dc5" arr_5_ptr
-  :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_array_0f74917ee2000dc5" hs_bindgen_test_array_0f74917ee2000dc5
+  :: IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
+{-# NOINLINE arr_5_ptr #-}
+
+arr_5_ptr :: F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+arr_5_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_0f74917ee2000dc5
 
 {-| Multi-dimensional array of known size, typedef
 
   __from C:__ @arr_6@
 -}
-foreign import ccall safe "hs_bindgen_test_array_a48940bd219530d0" arr_6_ptr
-  :: F.Ptr Matrix
+foreign import ccall unsafe "hs_bindgen_test_array_a48940bd219530d0" hs_bindgen_test_array_a48940bd219530d0
+  :: IO (F.Ptr Matrix)
+
+{-# NOINLINE arr_6_ptr #-}
+
+arr_6_ptr :: F.Ptr Matrix
+arr_6_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_a48940bd219530d0
 
 {-| Multi-dimensional array of unknown size
 
   __from C:__ @arr_7@
 -}
-foreign import ccall safe "hs_bindgen_test_array_1196efca365094f7" arr_7_ptr
-  :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_array_1196efca365094f7" hs_bindgen_test_array_1196efca365094f7
+  :: IO (F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
+{-# NOINLINE arr_7_ptr #-}
+
+arr_7_ptr :: F.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+arr_7_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_1196efca365094f7
 
 {-| Multi-dimensional array of unknown size, typedef
 
   __from C:__ @arr_8@
 -}
-foreign import ccall safe "hs_bindgen_test_array_31b6cf83380518c3" arr_8_ptr
-  :: F.Ptr Tripletlist
+foreign import ccall unsafe "hs_bindgen_test_array_31b6cf83380518c3" hs_bindgen_test_array_31b6cf83380518c3
+  :: IO (F.Ptr Tripletlist)
+
+{-# NOINLINE arr_8_ptr #-}
+
+arr_8_ptr :: F.Ptr Tripletlist
+arr_8_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_31b6cf83380518c3
 
 {-| Array of known size
 

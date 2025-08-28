@@ -12,6 +12,7 @@ import qualified Data.Ix as Ix
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
@@ -156,8 +157,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_f50d1e8063148c18" sse3
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1b95ce9d55223970" f3
   :: IO ()
 
-foreign import ccall safe "hs_bindgen_test_fun_attributes_fe81510d355aff25" i_ptr
-  :: F.Ptr FC.CInt
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_fe81510d355aff25" hs_bindgen_test_fun_attributes_fe81510d355aff25
+  :: IO (F.Ptr FC.CInt)
+
+{-# NOINLINE i_ptr #-}
+
+i_ptr :: F.Ptr FC.CInt
+i_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_fe81510d355aff25
 
 {-| __from C:__ @fn@ -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_43b222bddec511f3" fn

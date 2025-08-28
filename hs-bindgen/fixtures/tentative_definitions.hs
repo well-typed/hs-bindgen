@@ -7,11 +7,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i1_ptr",
+        "hs_bindgen_test_tentative_definitions_736e69defba46ab4",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_tentative_definitions_736e69defba46ab4",
       foreignImportCallConv =
@@ -20,7 +22,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "tentative_definitions.h",
   DeclInlineC
@@ -29,11 +33,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i2_ptr",
+        "hs_bindgen_test_tentative_definitions_210c547ae5abcc02",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_tentative_definitions_210c547ae5abcc02",
       foreignImportCallConv =
@@ -42,7 +48,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "tentative_definitions.h",
   DeclInlineC
@@ -51,11 +59,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i3_ptr",
+        "hs_bindgen_test_tentative_definitions_d6bb66d7f7107274",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_tentative_definitions_d6bb66d7f7107274",
       foreignImportCallConv =
@@ -64,4 +74,6 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

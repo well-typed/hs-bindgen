@@ -3,6 +3,15 @@
 -- /* get_i1_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_736e69defba46ab4 (void) { return &i1; } 
 -- /* get_i2_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_210c547ae5abcc02 (void) { return &i2; } 
 -- /* get_i3_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_d6bb66d7f7107274 (void) { return &i3; } 
-foreign import ccall safe "hs_bindgen_test_tentative_definitions_736e69defba46ab4" i1_ptr :: Ptr CInt
-foreign import ccall safe "hs_bindgen_test_tentative_definitions_210c547ae5abcc02" i2_ptr :: Ptr CInt
-foreign import ccall safe "hs_bindgen_test_tentative_definitions_d6bb66d7f7107274" i3_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_tentative_definitions_736e69defba46ab4" hs_bindgen_test_tentative_definitions_736e69defba46ab4 :: IO (Ptr CInt)
+{-# NOINLINE i1_ptr #-}
+i1_ptr :: Ptr CInt
+i1_ptr = unsafePerformIO hs_bindgen_test_tentative_definitions_736e69defba46ab4
+foreign import ccall safe "hs_bindgen_test_tentative_definitions_210c547ae5abcc02" hs_bindgen_test_tentative_definitions_210c547ae5abcc02 :: IO (Ptr CInt)
+{-# NOINLINE i2_ptr #-}
+i2_ptr :: Ptr CInt
+i2_ptr = unsafePerformIO hs_bindgen_test_tentative_definitions_210c547ae5abcc02
+foreign import ccall safe "hs_bindgen_test_tentative_definitions_d6bb66d7f7107274" hs_bindgen_test_tentative_definitions_d6bb66d7f7107274 :: IO (Ptr CInt)
+{-# NOINLINE i3_ptr #-}
+i3_ptr :: Ptr CInt
+i3_ptr = unsafePerformIO hs_bindgen_test_tentative_definitions_d6bb66d7f7107274

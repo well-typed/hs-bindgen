@@ -13,11 +13,15 @@ extern struct globalConfig globalConfig;
 void printGlobalConfig();
 ```
 
-This results in
+This results roughly in
 
 ```hs
 foreign import {-# details elided #-}
-  globalConfig_ptr :: Ptr GlobalConfig
+  get_globalConfig_ptr :: IO (Ptr GlobalConfig)
+
+{-# NOINLINE globalConfig_ptr #-}
+globalConfig_ptr :: Ptr GlobalConfig
+globalConfig_ptr = unsafePerformIO get_globalConfig_ptr
 ```
 
 along with the usual definitions for structs and functions:
@@ -55,7 +59,11 @@ The code `hs-bindgen` produces for this is the same as for extern globals.
 
 ```hs
 foreign import {-# details elided #-}
-  nonExternGlobalInt_ptr :: Ptr CInt
+  get_nonExternGlobalInt_ptr :: IO (Ptr CInt)
+
+{-# NOINLINE nonExternGlobalInt_ptr #-}
+nonExternGlobalInt_ptr :: Ptr CInt
+nonExternGlobalInt_ptr = unsafePerformIO get_nonExternGlobalInt_ptr
 ```
 
 However, such headers need to be treated with caution: if they are included more
@@ -104,7 +112,11 @@ The code `hs-bindgen` produces for this is the same as for non-constant global v
 
 ```hs
 foreign import {-# details elided #-}
-  globalConstant_ptr :: Ptr CInt
+  get_globalConstant_ptr :: IO (Ptr CInt)
+
+{-# NOINLINE globalConstant_ptr #-}
+globalConstant_ptr :: Ptr CInt
+globalConstant_ptr = unsafePerformIO get_globalConstant_ptr
 ```
 
 but `hs-bindgen` also produces a utility function that produces the value of the
@@ -133,7 +145,15 @@ The approach to generating foreign imports for global variables is as follows:
   #927][pr-927]. The stub is given a unique, mangled name to prevent duplicate
   symbols.
 
-* Then, we create a foreign import of that stub C function.
+* Then, we create a foreign import of that stub C function, returning a pointer
+  in `IO`. This foreign import is marked unsafe, since there is no possibility
+  of callbacks into Haskell code. The name of the foreign import is th same as
+  the mangled name of the stub C function. The import is meant to be internal,
+  so we do not have generate a descriptive name, and the mangled name prevents
+  name clashes with other Haskell identifiers.
+
+* Then, we create a pure Haskell function that safely unsafely performs the `IO`
+  and returns the pointer.
 
 * If the type of the global variable is `const`-qualified, then it is actually a
   global *constant*. If there is a `Storable` instance in scope for the variable
@@ -161,7 +181,11 @@ Stub:
 
 Import:
 ```hs
-foreign import ccall safe "fe8f4js8" x_ptr :: Ptr CInt
+foreign import ccall unsafe "fe8f4js8" fe8f4js8 :: IO (Ptr CInt)
+
+{-# NOINLINE x_ptr #-}
+x_ptr :: Ptr CInt
+x_ptr = unsafePerformIO fe8f4js8
 ```
 
 Memory layout:
@@ -201,7 +225,11 @@ Stub:
 
 Import:
 ```hs
-foreign import ccall safe "ae8fae8" x_ptr :: Ptr (Ptr CInt)
+foreign import ccall unsafe "ae8fae8" ae8fae8 :: IO (Ptr (Ptr CInt))
+
+{-# NOINLINE x_ptr #-}
+x_ptr :: Ptr (Ptr CInt)
+x_ptr = unsafePerformIO ae8fae8
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
@@ -269,7 +297,11 @@ Stub:
 Import:
 ```hs
 newtype Triplet = Triplet (ConstantArray 3 CInt)
-foreign import ccall safe "f94u3030" x_ptr :: Ptr Triplet
+foreign import ccall unsafe "f94u3030" f94u3030 :: IO (Ptr Triplet)
+
+{-# NOINLINE x_ptr #-}
+x_ptr :: Ptr Triplet
+x_ptr = unsafePerformIO f94u3030
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
@@ -317,7 +349,11 @@ Stub:
 Import:
 ```hs
 newtype List = List (IncompleteArray CInt)
-foreign import ccall safe "poeyrb8a" x_ptr :: Ptr List
+foreign import ccall unsafe "poeyrb8a" poeyrb8a :: IO (Ptr List)
+
+{-# NOINLINE x_ptr #-}
+x_ptr :: Ptr List
+x_ptr = unsafePerformIO poeyrb8a
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want

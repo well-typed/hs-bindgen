@@ -31,8 +31,14 @@ newtype C数字
                       Real)
 {-| -}
 foreign import ccall safe "hs_bindgen_test_adios_8e1936b23d816eb2" cϒ :: IO Unit
-foreign import ccall safe "hs_bindgen_test_adios_52f5e750c2f31c7b" cϒϒ_ptr :: Ptr CInt
-foreign import ccall safe "hs_bindgen_test_adios_13030842ed540098" cϒϒϒ_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_adios_52f5e750c2f31c7b" hs_bindgen_test_adios_52f5e750c2f31c7b :: IO (Ptr CInt)
+{-# NOINLINE cϒϒ_ptr #-}
+cϒϒ_ptr :: Ptr CInt
+cϒϒ_ptr = unsafePerformIO hs_bindgen_test_adios_52f5e750c2f31c7b
+foreign import ccall safe "hs_bindgen_test_adios_13030842ed540098" hs_bindgen_test_adios_13030842ed540098 :: IO (Ptr CInt)
+{-# NOINLINE cϒϒϒ_ptr #-}
+cϒϒϒ_ptr :: Ptr CInt
+cϒϒϒ_ptr = unsafePerformIO hs_bindgen_test_adios_13030842ed540098
 {-# NOINLINE cϒϒϒ #-}
 cϒϒϒ :: CInt
 cϒϒϒ = unsafePerformIO (peek cϒϒϒ_ptr)

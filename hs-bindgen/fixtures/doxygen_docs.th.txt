@@ -59,7 +59,10 @@ newtype Size_type
   This variable tracks the number of operations performed.
 
 -}
-foreign import ccall safe "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742" global_counter_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742" hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742 :: IO (Ptr CInt)
+{-# NOINLINE global_counter_ptr #-}
+global_counter_ptr :: Ptr CInt
+global_counter_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742
 {-|
 
   > extern const char* version_string
@@ -67,7 +70,10 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742" global
   Version string constant
 
 -}
-foreign import ccall safe "hs_bindgen_test_doxygen_docs_a8499810bd5203c6" version_string_ptr :: Ptr (Ptr CChar)
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_a8499810bd5203c6" hs_bindgen_test_doxygen_docs_a8499810bd5203c6 :: IO (Ptr (Ptr CChar))
+{-# NOINLINE version_string_ptr #-}
+version_string_ptr :: Ptr (Ptr CChar)
+version_string_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_a8499810bd5203c6
 {-| This is the comment @title@
 
   Forward declaration with documentation

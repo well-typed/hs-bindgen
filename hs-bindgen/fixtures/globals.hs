@@ -6,11 +6,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "simpleGlobal_ptr",
+        "hs_bindgen_test_globals_9e13cdab849fd6a3",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_9e13cdab849fd6a3",
       foreignImportCallConv =
@@ -26,7 +28,9 @@
           commentOrigin = Just
             "simpleGlobal",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -489,15 +493,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "compoundGlobal1_ptr",
+        "hs_bindgen_test_globals_9093ee3b5b63dbb9",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Config"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Config")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_9093ee3b5b63dbb9",
       foreignImportCallConv =
@@ -510,7 +515,9 @@
               "Config"}
           NameOriginInSource),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -981,15 +988,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "compoundGlobal2_ptr",
+        "hs_bindgen_test_globals_35cfb530c6e3b540",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Inline_struct"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Inline_struct")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_35cfb530c6e3b540",
       foreignImportCallConv =
@@ -1002,7 +1010,9 @@
               "Inline_struct"}
           NameOriginInSource),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesInteger_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_d0e555bab6218b45 (void) { return &nesInteger; } ",
@@ -1010,11 +1020,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesInteger_ptr",
+        "hs_bindgen_test_globals_d0e555bab6218b45",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_d0e555bab6218b45",
       foreignImportCallConv =
@@ -1053,7 +1065,9 @@
               [
                 TextContent
                   "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesFloating_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_620d3eeb41be6814 (void) { return &nesFloating; } ",
@@ -1061,12 +1075,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesFloating_ptr",
+        "hs_bindgen_test_globals_620d3eeb41be6814",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsPrimType HsPrimCFloat)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCFloat))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_620d3eeb41be6814",
       foreignImportCallConv =
@@ -1075,7 +1090,9 @@
         (TypePrim
           (PrimFloating PrimFloat)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesString1_ptr */ __attribute__ ((const)) char **hs_bindgen_test_globals_58609a874bbd4939 (void) { return &nesString1; } ",
@@ -1083,13 +1100,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesString1_ptr",
+        "hs_bindgen_test_globals_58609a874bbd4939",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
+        (HsIO
           (HsPtr
-            (HsPrimType HsPrimCChar))),
+            (HsPtr
+              (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_58609a874bbd4939",
       foreignImportCallConv =
@@ -1101,7 +1119,9 @@
               (PrimSignImplicit
                 (Just Signed))))),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesString2_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_globals_d24d15726a247083 (void))[3] { return &nesString2; } ",
@@ -1109,14 +1129,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesString2_ptr",
+        "hs_bindgen_test_globals_d24d15726a247083",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            3
-            (HsPrimType HsPrimCChar))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCChar)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_d24d15726a247083",
       foreignImportCallConv =
@@ -1129,7 +1150,9 @@
               (PrimSignImplicit
                 (Just Signed))))),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesCharacter_ptr */ __attribute__ ((const)) char *hs_bindgen_test_globals_472e8cff06767166 (void) { return &nesCharacter; } ",
@@ -1137,12 +1160,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesCharacter_ptr",
+        "hs_bindgen_test_globals_472e8cff06767166",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsPrimType HsPrimCChar)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCChar))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_472e8cff06767166",
       foreignImportCallConv =
@@ -1153,7 +1177,9 @@
             (PrimSignImplicit
               (Just Signed)))),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesParen_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3535fbeb41ad5a41 (void) { return &nesParen; } ",
@@ -1161,11 +1187,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesParen_ptr",
+        "hs_bindgen_test_globals_3535fbeb41ad5a41",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_3535fbeb41ad5a41",
       foreignImportCallConv =
@@ -1174,7 +1202,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesUnary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_c2e1dc65064ad658 (void) { return &nesUnary; } ",
@@ -1182,11 +1212,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesUnary_ptr",
+        "hs_bindgen_test_globals_c2e1dc65064ad658",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_c2e1dc65064ad658",
       foreignImportCallConv =
@@ -1195,7 +1227,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesBinary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3d0448526008a072 (void) { return &nesBinary; } ",
@@ -1203,11 +1237,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesBinary_ptr",
+        "hs_bindgen_test_globals_3d0448526008a072",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_3d0448526008a072",
       foreignImportCallConv =
@@ -1216,7 +1252,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesConditional_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_6733c2e7c59bc620 (void) { return &nesConditional; } ",
@@ -1224,11 +1262,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesConditional_ptr",
+        "hs_bindgen_test_globals_6733c2e7c59bc620",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_6733c2e7c59bc620",
       foreignImportCallConv =
@@ -1237,7 +1277,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesCast_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_d6e6e72f287d9b41 (void) { return &nesCast; } ",
@@ -1245,12 +1287,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesCast_ptr",
+        "hs_bindgen_test_globals_d6e6e72f287d9b41",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsPrimType HsPrimCFloat)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCFloat))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_d6e6e72f287d9b41",
       foreignImportCallConv =
@@ -1259,7 +1302,9 @@
         (TypePrim
           (PrimFloating PrimFloat)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesCompound_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_032905c6b7a5e39f (void) { return &nesCompound; } ",
@@ -1267,13 +1312,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesCompound_ptr",
+        "hs_bindgen_test_globals_032905c6b7a5e39f",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
+        (HsIO
           (HsPtr
-            (HsPrimType HsPrimCInt))),
+            (HsPtr
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_032905c6b7a5e39f",
       foreignImportCallConv =
@@ -1283,7 +1329,9 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesInitList_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_4012de1fec3423a7 (void))[4] { return &nesInitList; } ",
@@ -1291,124 +1339,125 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesInitList_ptr",
+        "hs_bindgen_test_globals_4012de1fec3423a7",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            4
-            (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
-                  "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
-              TypeSpec {
-                typeSpecModule = Just
-                  (HsModuleName
-                    "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
-                typeSpecInstances = Map.fromList
-                  [
-                    _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bounded
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Read
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      FiniteBits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Integral
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Num
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Real
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      StaticSize
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      ReadRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      WriteRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Storable
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = [
-                            ]})]}))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              4
+              (HsExtBinding
+                ExtHsRef {
+                  extHsRefModule = HsModuleName
+                    "HsBindgen.Runtime.Prelude",
+                  extHsRefIdentifier =
+                  HsIdentifier "Word8"}
+                TypeSpec {
+                  typeSpecModule = Just
+                    (HsModuleName
+                      "HsBindgen.Runtime.Prelude"),
+                  typeSpecIdentifier = Just
+                    (HsIdentifier "Word8"),
+                  typeSpecInstances = Map.fromList
+                    [
+                      _×_
+                        Eq
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ord
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Enum
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bounded
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Read
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        FiniteBits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Integral
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Num
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        ReadRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = [
+                              ]})]})))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_4012de1fec3423a7",
       foreignImportCallConv =
@@ -1533,7 +1582,9 @@
                           instanceSpecConstraints = [
                             ]})]}})),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesBool_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_globals_f9fb23513d064767 (void) { return &nesBool; } ",
@@ -1541,12 +1592,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nesBool_ptr",
+        "hs_bindgen_test_globals_f9fb23513d064767",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsPrimType HsPrimCBool)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCBool))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_f9fb23513d064767",
       foreignImportCallConv =
@@ -1554,7 +1606,9 @@
       foreignImportOrigin = Global
         (TypePrim PrimBool),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_92e68af3ae2ed3fb (void))[4096] { return &streamBinary; } ",
@@ -1562,124 +1616,125 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "streamBinary_ptr",
+        "hs_bindgen_test_globals_92e68af3ae2ed3fb",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            4096
-            (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
-                  "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
-              TypeSpec {
-                typeSpecModule = Just
-                  (HsModuleName
-                    "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
-                typeSpecInstances = Map.fromList
-                  [
-                    _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bounded
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Read
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      FiniteBits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Integral
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Num
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Real
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      StaticSize
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      ReadRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      WriteRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Storable
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = [
-                            ]})]}))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              4096
+              (HsExtBinding
+                ExtHsRef {
+                  extHsRefModule = HsModuleName
+                    "HsBindgen.Runtime.Prelude",
+                  extHsRefIdentifier =
+                  HsIdentifier "Word8"}
+                TypeSpec {
+                  typeSpecModule = Just
+                    (HsModuleName
+                      "HsBindgen.Runtime.Prelude"),
+                  typeSpecIdentifier = Just
+                    (HsIdentifier "Word8"),
+                  typeSpecInstances = Map.fromList
+                    [
+                      _×_
+                        Eq
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ord
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Enum
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bounded
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Read
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        FiniteBits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Integral
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Num
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        ReadRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = [
+                              ]})]})))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_92e68af3ae2ed3fb",
       foreignImportCallConv =
@@ -1830,7 +1885,9 @@
               [
                 TextContent
                   "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_8d6f9f3043208163 (void) { return &streamBinary_len; } ",
@@ -1838,122 +1895,123 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "streamBinary_len_ptr",
+        "hs_bindgen_test_globals_8d6f9f3043208163",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
-            TypeSpec {
-              typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
-              typeSpecInstances = Map.fromList
-                [
-                  _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bounded
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Read
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    FiniteBits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Integral
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Num
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Real
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Storable
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = [
-                          ]})]})),
+        (HsIO
+          (HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word32"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word32"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_8d6f9f3043208163",
       foreignImportCallConv =
@@ -2076,7 +2134,9 @@
                         instanceSpecConstraints = [
                           ]})]}}),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -9162,15 +9222,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "some_global_struct_ptr",
+        "hs_bindgen_test_globals_88ad1f87a451c285",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Struct2_t"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct2_t")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_88ad1f87a451c285",
       foreignImportCallConv =
@@ -9187,7 +9248,9 @@
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_globalConstant_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } ",
@@ -9195,11 +9258,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "globalConstant_ptr",
+        "hs_bindgen_test_globals_2875ba0f7feba4fd",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_2875ba0f7feba4fd",
       foreignImportCallConv =
@@ -9221,7 +9286,9 @@
                 TextContent
                   "Although this is a constant, we don't expect an initializer (since it's",
                 TextContent "`extern`)."]]},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclNewtype
@@ -9434,15 +9501,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "anotherGlobalConstant_ptr",
+        "hs_bindgen_test_globals_6ebecf881bce1334",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "ConstInt"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "ConstInt")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_6ebecf881bce1334",
       foreignImportCallConv =
@@ -9455,7 +9523,9 @@
               nameHsIdent = HsIdentifier
                 "ConstInt"})),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -9465,11 +9535,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "staticConst_ptr",
+        "hs_bindgen_test_globals_2eea936ed4beec74",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_2eea936ed4beec74",
       foreignImportCallConv =
@@ -9492,7 +9564,9 @@
               [
                 TextContent
                   "Unlike with `extern`, in this we _do_ expect an initializer."]]},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -9502,11 +9576,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "classless_ptr",
+        "hs_bindgen_test_globals_5d631acbb16c0e7e",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_5d631acbb16c0e7e",
       foreignImportCallConv =
@@ -9523,7 +9599,9 @@
           commentOrigin = Just
             "classless",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -9533,14 +9611,15 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "constArray1_ptr",
+        "hs_bindgen_test_globals_0d7a9340f4ef8b2e",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsConstArray
-            4
-            (HsPrimType HsPrimCInt))),
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              4
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_0d7a9340f4ef8b2e",
       foreignImportCallConv =
@@ -9559,7 +9638,9 @@
           commentOrigin = Just
             "constArray1",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclNewtype
@@ -9651,15 +9732,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "constArray2_ptr",
+        "hs_bindgen_test_globals_7e09340985caec8d",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "ConstIntArray"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "ConstIntArray")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_7e09340985caec8d",
       foreignImportCallConv =
@@ -9672,7 +9754,9 @@
               nameHsIdent = HsIdentifier
                 "ConstIntArray"})),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -10135,15 +10219,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "constTuple_ptr",
+        "hs_bindgen_test_globals_6f2e1968e15f0b9b",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Tuple"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Tuple")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_6f2e1968e15f0b9b",
       foreignImportCallConv =
@@ -10163,7 +10248,9 @@
           commentOrigin = Just
             "constTuple",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -10173,15 +10260,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "nonConstTuple_ptr",
+        "hs_bindgen_test_globals_e8e62512a4e5d162",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Tuple"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Tuple")))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_e8e62512a4e5d162",
       foreignImportCallConv =
@@ -10202,7 +10290,9 @@
           commentOrigin = Just
             "nonConstTuple",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } ",
@@ -10210,13 +10300,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "ptrToConstInt_ptr",
+        "hs_bindgen_test_globals_e41146f6df20fe0d",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
+        (HsIO
           (HsPtr
-            (HsPrimType HsPrimCInt))),
+            (HsPtr
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_e41146f6df20fe0d",
       foreignImportCallConv =
@@ -10234,7 +10325,9 @@
           commentOrigin = Just
             "ptrToConstInt",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_constPtrToInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } ",
@@ -10242,13 +10335,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "constPtrToInt_ptr",
+        "hs_bindgen_test_globals_83b0d0f5488b6a03",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
+        (HsIO
           (HsPtr
-            (HsPrimType HsPrimCInt))),
+            (HsPtr
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_83b0d0f5488b6a03",
       foreignImportCallConv =
@@ -10266,7 +10360,9 @@
           commentOrigin = Just
             "constPtrToInt",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -10276,13 +10372,14 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "constPtrToConstInt_ptr",
+        "hs_bindgen_test_globals_247c0c91ce28a18d",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
+        (HsIO
           (HsPtr
-            (HsPrimType HsPrimCInt))),
+            (HsPtr
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_globals_247c0c91ce28a18d",
       foreignImportCallConv =
@@ -10300,6 +10397,8 @@
           commentOrigin = Just
             "constPtrToConstInt",
           commentChildren = []},
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple]
