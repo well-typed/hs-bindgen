@@ -3,6 +3,7 @@ packages: c-expr-runtime
 packages: hs-bindgen
 packages: hs-bindgen-runtime
 packages: hs-bindgen-test-runtime
+packages: hs-pcap
 
 tests: True
 benchmarks: True
