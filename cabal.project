@@ -4,6 +4,7 @@ packages: clang
 packages: hs-bindgen
 packages: hs-bindgen-runtime
 packages: hs-bindgen-test-runtime
+packages: pcap
 
 tests: True
 benchmarks: True
