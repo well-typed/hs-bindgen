@@ -7,3 +7,5 @@ packages:
   hs-bindgen
   hs-bindgen-runtime
   hs-bindgen-test-runtime
+
+  hs-pcap
