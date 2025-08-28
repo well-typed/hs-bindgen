@@ -1,0 +1,64 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "asm.h:2:12",
+        declId = NamePair {
+          nameC = Name
+            "asm_labeled_variable",
+          nameHsIdent = HsIdentifier
+            "asm_labeled_variable"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "asm.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "asm.h:4:5",
+        declId = NamePair {
+          nameC = Name
+            "asm_labeled_function",
+          nameHsIdent = HsIdentifier
+            "asm_labeled_function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "asm.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["asm"]}
