@@ -126,6 +126,7 @@ data ForeignImportDecl = ForeignImportDecl
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
     , foreignImportComment    :: Maybe Comment
+    , foreignImportSafety     :: SHs.Safety
     }
   deriving stock (Generic, Show)
 

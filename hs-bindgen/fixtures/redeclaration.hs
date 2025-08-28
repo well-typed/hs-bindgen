@@ -19,7 +19,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclNewtype
     Newtype {
       newtypeName = HsName

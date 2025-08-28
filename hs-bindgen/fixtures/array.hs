@@ -30,7 +30,8 @@
               TextContent
                 "Global, complete, not initialised"],
           commentOrigin = Just "arr0",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ec6a481a47ca4eb1 (void))[3] { return &arr1; } ",
@@ -62,7 +63,8 @@
               TextContent
                 "Global, complete, initialised"],
           commentOrigin = Just "arr1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_34db8d8b69220fcc (void))[3] { return &arr2; } ",
@@ -94,7 +96,8 @@
               TextContent
                 "Global, extern, complete, not initialised"],
           commentOrigin = Just "arr2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_f4e746193b856003 (void))[3] { return &arr3; } ",
@@ -126,7 +129,8 @@
               TextContent
                 "Global, extern, complete, initialised"],
           commentOrigin = Just "arr3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bf91904b3049fdd2 (void))[1] { return &arr6; } ",
@@ -158,7 +162,8 @@
               TextContent
                 "Global, incomplete"],
           commentOrigin = Just "arr6",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9be06c66ecc3a933 (void))[] { return &arr7; } ",
@@ -188,7 +193,8 @@
               TextContent
                 "Global, extern, incomplete"],
           commentOrigin = Just "arr7",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1033,7 +1039,8 @@
               TextContent
                 "Array of known size"],
           commentOrigin = Just "arr_1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_07e58c5432be4a35 (void) { return &arr_2; } ",
@@ -1068,7 +1075,8 @@
               TextContent
                 "Array of known size, typedef"],
           commentOrigin = Just "arr_2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_63e072530b04d3b9 (void))[] { return &arr_3; } ",
@@ -1098,7 +1106,8 @@
               TextContent
                 "Array of unknown size"],
           commentOrigin = Just "arr_3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_3db8d1257bc10233 (void) { return &arr_4; } ",
@@ -1133,7 +1142,8 @@
               TextContent
                 "Array of unknown size, typedef"],
           commentOrigin = Just "arr_4",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0f74917ee2000dc5 (void))[4][3] { return &arr_5; } ",
@@ -1171,7 +1181,8 @@
               TextContent
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "arr_5",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_a48940bd219530d0 (void) { return &arr_6; } ",
@@ -1206,7 +1217,8 @@
               TextContent
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "arr_6",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1196efca365094f7 (void))[][3] { return &arr_7; } ",
@@ -1242,7 +1254,8 @@
               TextContent
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "arr_7",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_31b6cf83380518c3 (void) { return &arr_8; } ",
@@ -1277,7 +1290,8 @@
               TextContent
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "arr_8",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "signed int hs_bindgen_test_array_c3dd28889d5b2858 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
@@ -1349,7 +1363,8 @@
                 "Array of known size"],
           commentOrigin = Just
             "fun_1(int, int *)",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1405,7 +1420,8 @@
                 "Array of known size, typedef"],
           commentOrigin = Just
             "fun_2(int *)",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1460,7 +1476,8 @@
                 "Array of unknown size"],
           commentOrigin = Just
             "fun_3(int *)",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1516,7 +1533,8 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just
             "fun_4(int *)",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1576,7 +1594,8 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just
             "fun_5(int (*)[3])",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1634,7 +1653,8 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just
             "fun_6(int (*)[3])",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1693,7 +1713,8 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just
             "fun_7(int (*)[3])",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1751,7 +1772,8 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just
             "fun_8(int (*)[3])",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1793,7 +1815,8 @@
               TextContent
                 "Array of known size"],
           commentOrigin = Just "fun_9()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "triplet *hs_bindgen_test_array_8c628ce09b6680aa (void) { return fun_10(); }",
@@ -1835,7 +1858,8 @@
               TextContent
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_10()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "signed int (*hs_bindgen_test_array_1b95257f679dfafa (void))[] { return fun_11(); }",
@@ -1874,7 +1898,8 @@
               TextContent
                 "Array of unknown size"],
           commentOrigin = Just "fun_11()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "list *hs_bindgen_test_array_41c7417f447a711d (void) { return fun_12(); }",
@@ -1916,7 +1941,8 @@
               TextContent
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_12()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "signed int (*hs_bindgen_test_array_752ccb7f8f99f330 (void))[4][3] { return fun_13(); }",
@@ -1961,7 +1987,8 @@
               TextContent
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_13()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "matrix *hs_bindgen_test_array_6f6335641a10b824 (void) { return fun_14(); }",
@@ -2003,7 +2030,8 @@
               TextContent
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_14()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "signed int (*hs_bindgen_test_array_22a4737ff5651e15 (void))[][3] { return fun_15(); }",
@@ -2046,7 +2074,8 @@
               TextContent
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_15()",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
     "tripletlist *hs_bindgen_test_array_bce26548e8519620 (void) { return fun_16(); }",
@@ -2088,4 +2117,5 @@
               TextContent
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_16()",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

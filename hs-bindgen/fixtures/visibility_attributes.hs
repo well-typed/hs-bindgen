@@ -27,7 +27,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f0",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -56,7 +57,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -85,7 +87,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -114,7 +117,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -143,7 +147,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f4",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -172,7 +177,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f5",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -201,7 +207,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f6",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -230,7 +237,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f7",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -259,7 +267,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f8",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -288,7 +297,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f9",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -317,7 +327,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f10",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -346,7 +357,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f11",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -375,7 +387,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f12",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -404,7 +417,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f13",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -433,7 +447,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f14",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -462,7 +477,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f15",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -491,7 +507,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f16",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -520,7 +537,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f17",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -549,7 +567,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f18",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -578,7 +597,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f19",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -607,7 +627,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f20",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -636,7 +657,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f21",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -665,7 +687,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f22",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -694,7 +717,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f23",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -723,7 +747,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f24",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -752,7 +777,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f25",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -781,7 +807,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f26",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -810,7 +837,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f27",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -839,7 +867,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f28",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -868,7 +897,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f29",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -889,7 +919,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -910,7 +941,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -931,7 +963,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -952,7 +985,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -973,7 +1007,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -994,7 +1029,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1015,7 +1051,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1036,7 +1073,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1057,7 +1095,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1078,7 +1117,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1099,7 +1139,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1120,7 +1161,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1141,7 +1183,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1162,7 +1205,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1183,7 +1227,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1204,7 +1249,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1225,7 +1271,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1246,7 +1293,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1267,7 +1315,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1288,4 +1337,5 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing}]
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe}]

@@ -25,7 +25,8 @@
               TextContent "Global variables"],
           commentOrigin = Just
             "simpleGlobal",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName
@@ -508,7 +509,8 @@
             nameHsIdent = HsIdentifier
               "Config"}
           NameOriginInSource),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName
@@ -999,7 +1001,8 @@
             nameHsIdent = HsIdentifier
               "Inline_struct"}
           NameOriginInSource),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesInteger_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_d0e555bab6218b45 (void) { return &nesInteger; } ",
@@ -1049,7 +1052,8 @@
             Paragraph
               [
                 TextContent
-                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]}},
+                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesFloating_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_620d3eeb41be6814 (void) { return &nesFloating; } ",
@@ -1070,7 +1074,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesString1_ptr */ __attribute__ ((const)) char **hs_bindgen_test_globals_58609a874bbd4939 (void) { return &nesString1; } ",
@@ -1095,7 +1100,8 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesString2_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_globals_d24d15726a247083 (void))[3] { return &nesString2; } ",
@@ -1122,7 +1128,8 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesCharacter_ptr */ __attribute__ ((const)) char *hs_bindgen_test_globals_472e8cff06767166 (void) { return &nesCharacter; } ",
@@ -1145,7 +1152,8 @@
           (PrimChar
             (PrimSignImplicit
               (Just Signed)))),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesParen_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3535fbeb41ad5a41 (void) { return &nesParen; } ",
@@ -1165,7 +1173,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesUnary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_c2e1dc65064ad658 (void) { return &nesUnary; } ",
@@ -1185,7 +1194,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesBinary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3d0448526008a072 (void) { return &nesBinary; } ",
@@ -1205,7 +1215,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesConditional_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_6733c2e7c59bc620 (void) { return &nesConditional; } ",
@@ -1225,7 +1236,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesCast_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_d6e6e72f287d9b41 (void) { return &nesCast; } ",
@@ -1246,7 +1258,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesCompound_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_032905c6b7a5e39f (void) { return &nesCompound; } ",
@@ -1269,7 +1282,8 @@
         (TypePointer
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesInitList_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_4012de1fec3423a7 (void))[4] { return &nesInitList; } ",
@@ -1518,7 +1532,8 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_nesBool_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_globals_f9fb23513d064767 (void) { return &nesBool; } ",
@@ -1538,7 +1553,8 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim PrimBool),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_92e68af3ae2ed3fb (void))[4096] { return &streamBinary; } ",
@@ -1813,7 +1829,8 @@
             Paragraph
               [
                 TextContent
-                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]}},
+                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_8d6f9f3043208163 (void) { return &streamBinary_len; } ",
@@ -2058,7 +2075,8 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = [
                           ]})]}}),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName
@@ -9168,7 +9186,8 @@
                   "Struct2_t"}
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_globalConstant_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } ",
@@ -9201,7 +9220,8 @@
               [
                 TextContent
                   "Although this is a constant, we don't expect an initializer (since it's",
-                TextContent "`extern`)."]]}},
+                TextContent "`extern`)."]]},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclNewtype
@@ -9434,7 +9454,8 @@
               nameC = Name "ConstInt",
               nameHsIdent = HsIdentifier
                 "ConstInt"})),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -9470,7 +9491,8 @@
             Paragraph
               [
                 TextContent
-                  "Unlike with `extern`, in this we _do_ expect an initializer."]]}},
+                  "Unlike with `extern`, in this we _do_ expect an initializer."]]},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -9500,7 +9522,8 @@
                 "No storage class specified"],
           commentOrigin = Just
             "classless",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -9535,7 +9558,8 @@
                 "A an array of size 4 containing constant integers"],
           commentOrigin = Just
             "constArray1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclNewtype
@@ -9647,7 +9671,8 @@
               nameC = Name "ConstIntArray",
               nameHsIdent = HsIdentifier
                 "ConstIntArray"})),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName
@@ -10137,7 +10162,8 @@
               TextContent "A constant tuple"],
           commentOrigin = Just
             "constTuple",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -10175,7 +10201,8 @@
                 "A non-constant tuple with a constant member"],
           commentOrigin = Just
             "nonConstTuple",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } ",
@@ -10206,7 +10233,8 @@
                 "A pointer to const int"],
           commentOrigin = Just
             "ptrToConstInt",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "globals.h",
   DeclInlineC
     "/* get_constPtrToInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } ",
@@ -10237,7 +10265,8 @@
                 "A const pointer to int"],
           commentOrigin = Just
             "constPtrToInt",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "globals.h",
@@ -10270,6 +10299,7 @@
                 "A const pointer to const int"],
           commentOrigin = Just
             "constPtrToConstInt",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclSimple]

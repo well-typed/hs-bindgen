@@ -1019,7 +1019,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "quux",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1095,7 +1096,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "wam",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1173,7 +1175,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "foo1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1253,7 +1256,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "foo2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1333,7 +1337,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "foo3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1394,7 +1399,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "bar1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1449,7 +1455,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "bar2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1507,7 +1514,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "bar3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1565,7 +1573,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "bar4",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1625,7 +1634,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "baz1",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1685,7 +1695,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "baz2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1745,7 +1756,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "baz3",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1781,4 +1793,5 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "no_args_no_void",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

@@ -45,7 +45,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "foo",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "definitions.h",
   DeclInlineC
@@ -66,7 +67,8 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
   DeclData
     Struct {
       structName = HsName

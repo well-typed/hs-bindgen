@@ -10231,7 +10231,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "some_fun",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclNewtype
     Newtype {
@@ -10809,4 +10810,5 @@
               nameC = Name "var_t",
               nameHsIdent = HsIdentifier
                 "Var_t"})),
-      foreignImportComment = Nothing}]
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe}]

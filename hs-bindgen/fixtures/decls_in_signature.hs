@@ -599,7 +599,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "normal",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclData
     Struct {
@@ -1241,7 +1242,8 @@
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]]}},
+                  "and the edge cases below)."]]},
+      foreignImportSafety = Safe},
   DeclSimple,
   DeclNewtype
     Newtype {
@@ -1458,5 +1460,6 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f2",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple]

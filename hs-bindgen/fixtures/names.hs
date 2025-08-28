@@ -26,7 +26,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "by",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_946148697abf4575 (void) { forall(); }",
@@ -54,7 +55,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "forall",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_a1ece6a6fa8e9763 (void) { mdo(); }",
@@ -82,7 +84,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "mdo",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_1e48788938305e48 (void) { pattern(); }",
@@ -110,7 +113,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "pattern",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_9bb16600c50998ed (void) { proc(); }",
@@ -138,7 +142,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "proc",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_8dfd7fa26e360d8e (void) { rec(); }",
@@ -166,7 +171,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "rec",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_57c5446244bcece1 (void) { using(); }",
@@ -194,7 +200,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "using",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_a2a878b7e49c1a71 (void) { anyclass(); }",
@@ -222,7 +229,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "anyclass",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_2f73a4347f70a468 (void) { capi(); }",
@@ -250,7 +258,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "capi",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_cb2993ce15743783 (void) { cases(); }",
@@ -278,7 +287,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "cases",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_954c564a2bd129a5 (void) { ccall(); }",
@@ -306,7 +316,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "ccall",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_3a96dcbee4c024e0 (void) { dynamic(); }",
@@ -334,7 +345,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "dynamic",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_2e78d006337ea551 (void) { export(); }",
@@ -362,7 +374,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "export",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_10c8e433951b50a8 (void) { family(); }",
@@ -390,7 +403,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "family",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_6217d85466fed7df (void) { group(); }",
@@ -418,7 +432,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "group",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_00164685ff44cb75 (void) { interruptible(); }",
@@ -447,7 +462,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "interruptible",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_c810b13a75ea93bc (void) { javascript(); }",
@@ -476,7 +492,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "javascript",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_41d6d93a2614dff5 (void) { label(); }",
@@ -504,7 +521,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "label",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_bdfec7f41298a418 (void) { prim(); }",
@@ -532,7 +550,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "prim",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_0d10aaa9ecbf0f2f (void) { role(); }",
@@ -560,7 +579,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "role",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_0ebc368c3818b18b (void) { safe(); }",
@@ -588,7 +608,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "safe",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_764bfbe5fbb4fac9 (void) { stdcall(); }",
@@ -616,7 +637,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "stdcall",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_6597a6eedc28f577 (void) { stock(); }",
@@ -644,7 +666,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "stock",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_1aef1bdf2d1ba544 (void) { unsafe(); }",
@@ -672,7 +695,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "unsafe",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
     "void hs_bindgen_test_names_d428a3f008917f79 (void) { via(); }",
@@ -700,4 +724,5 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "via",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

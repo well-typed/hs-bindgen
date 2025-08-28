@@ -18,4 +18,5 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim PrimBool),
-      foreignImportComment = Nothing}]
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe}]

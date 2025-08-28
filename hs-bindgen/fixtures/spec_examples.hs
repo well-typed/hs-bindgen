@@ -2497,5 +2497,6 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "resample",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclSimple]

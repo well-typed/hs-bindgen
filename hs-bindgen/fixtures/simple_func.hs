@@ -47,7 +47,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "erf",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -129,7 +130,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "bad_fma",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -158,7 +160,8 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "no_args",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -188,7 +191,8 @@
           commentTitle = Nothing,
           commentOrigin = Just
             "no_args_no_void",
-          commentChildren = []}},
+          commentChildren = []},
+      foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -254,4 +258,5 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "fun",
-          commentChildren = []}}]
+          commentChildren = []},
+      foreignImportSafety = Safe}]

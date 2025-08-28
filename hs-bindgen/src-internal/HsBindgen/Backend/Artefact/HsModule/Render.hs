@@ -282,13 +282,7 @@ instance Pretty SDecl where
     DForeignImport ForeignImport{..} ->
       -- Variable names here refer to the syntax of foreign declarations at
       -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
-      --
-      -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
-      -- We should generate both safe and unsafe bindings.
-      let safety :: CtxDoc
-          safety = "safe"
-
-          -- TODO: We should escape special characters inside these import
+      let -- TODO: We should escape special characters inside these import
           -- strings (at the very least quotes in filenames?)
           callconv, impent :: CtxDoc
           (callconv, impent) =
@@ -312,7 +306,7 @@ instance Pretty SDecl where
       in   prettyFunctionComment
        $$  hsep [ "foreign import"
                 , callconv
-                , safety
+                , safety foreignImportSafety
                 , "\"" >< impent >< "\""
                 , pretty foreignImportName
                 ]
@@ -360,6 +354,12 @@ strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
 
 pragma :: Pragma -> CtxDoc
 pragma (NOINLINE n) = "{-# NOINLINE" <+> pretty n <+> "#-}"
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
+-- We should generate both safe and unsafe bindings.
+safety :: Safety -> CtxDoc
+safety Safe = "safe"
+safety Unsafe = "unsafe"
 
 {-------------------------------------------------------------------------------
   Type pretty-printing
