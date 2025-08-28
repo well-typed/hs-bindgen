@@ -12,7 +12,8 @@
 
 module Generated.Pcap where
 
-import C.Expr.HostPlatform ((.&.), (.|.), (<<), (>>))
+-- import C.Expr.HostPlatform ((.&.), (.|.), (<<), (>>))
+import C.Expr.HostPlatform ((.&.), (.|.), (<<))
 import C.Expr.HostPlatform qualified as C
 import Data.Bits (FiniteBits)
 import Data.Bits qualified as Bits
@@ -21,7 +22,6 @@ import Data.List.NonEmpty qualified
 import Data.Void (Void)
 import Foreign qualified as F
 import Foreign.C qualified as FC
-import Foreign.C.String qualified as FC
 import HsBindgen.Runtime.CAPI qualified as CAPI
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
@@ -372,7 +372,7 @@ lT_FCS_LENGTH_PRESENT =
 lT_FCS_LENGTH :: forall a0. (C.Bitwise a0) FC.CInt => (C.Shift ((C.BitsRes a0) FC.CInt)) FC.CInt => a0 -> C.ShiftRes ((C.BitsRes a0) FC.CInt)
 lT_FCS_LENGTH =
   \x0 ->
-    (>>) ((.&.) x0 (4026531840 :: FC.CInt)) (28 :: FC.CInt)
+    (C.>>) ((.&.) x0 (4026531840 :: FC.CInt)) (28 :: FC.CInt)
 
 lT_FCS_DATALINK_EXT :: forall a0. (C.Bitwise a0) FC.CInt => (C.Bitwise (C.ShiftRes ((C.BitsRes a0) FC.CInt))) FC.CInt => (C.Shift ((C.BitsRes a0) FC.CInt)) FC.CInt => a0 -> (C.BitsRes (C.ShiftRes ((C.BitsRes a0) FC.CInt))) FC.CInt
 lT_FCS_DATALINK_EXT =
@@ -1099,13 +1099,13 @@ pCAP_SRC_IFLOCAL = (3 :: FC.CInt)
 pCAP_SRC_IFREMOTE :: FC.CInt
 pCAP_SRC_IFREMOTE = (4 :: FC.CInt)
 
-pCAP_SRC_FILE_STRING :: ((,) (F.Ptr FC.CChar)) Int
-pCAP_SRC_FILE_STRING =
-  ((F.Ptr "file://"#, 7) :: FC.CStringLen)
+-- pCAP_SRC_FILE_STRING :: ((,) (F.Ptr FC.CChar)) Int
+-- pCAP_SRC_FILE_STRING =
+--   (((F.Ptr "file://"#), 7) :: FC.CStringLen)
 
-pCAP_SRC_IF_STRING :: ((,) (F.Ptr FC.CChar)) Int
-pCAP_SRC_IF_STRING =
-  ((F.Ptr "rpcap://"#, 8) :: FC.CStringLen)
+-- pCAP_SRC_IF_STRING :: ((,) (F.Ptr FC.CChar)) Int
+-- pCAP_SRC_IF_STRING =
+--   (((F.Ptr "rpcap://"#), 8) :: FC.CStringLen)
 
 pCAP_OPENFLAG_PROMISCUOUS :: FC.CInt
 pCAP_OPENFLAG_PROMISCUOUS = (1 :: FC.CInt)
