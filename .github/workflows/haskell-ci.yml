@@ -12,6 +12,10 @@
 #
 # REGENDATA ("0.19.20250605",["github","cabal.project.ci"])
 #
+# TODO: the merge_group trigger is be manually added, so that this workflow is
+# able to run in the merge queue. haskell-ci can not yet generate this trigger
+# as part of the workflow file. We are working on adding this feature to
+# haskell-ci.
 name: Haskell-CI
 on:
   push:
@@ -20,6 +24,7 @@ on:
   pull_request:
     branches:
       - main
+  merge_group:
 jobs:
   linux:
     name: Haskell-CI - Linux - ${{ matrix.compiler }}
