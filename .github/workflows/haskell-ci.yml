@@ -25,6 +25,8 @@ on:
     branches:
       - main
   merge_group:
+    branches:
+      - main
 jobs:
   linux:
     name: Haskell-CI - Linux - ${{ matrix.compiler }}
