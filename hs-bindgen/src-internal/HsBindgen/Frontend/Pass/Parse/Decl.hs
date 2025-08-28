@@ -6,10 +6,11 @@ import Data.List qualified as List
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types
 import Clang.HighLevel.Documentation
+import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import Data.Text qualified as Text
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -20,7 +21,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
 import HsBindgen.Imports
-import Data.Text qualified as Text
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -471,6 +471,9 @@ functionDecl info = simpleFold $ \curr -> do
           -- Function body
           Right CXCursor_CompoundStmt -> foldContinue
 
+          -- We are not interested in assembler labels.
+          Right CXCursor_AsmLabelAttr -> foldContinue
+
           -- Panic on anything we don't recognize
           -- We could instead use 'foldContinue' here, but this is safer.
           _otherwise -> do
@@ -582,6 +585,9 @@ varDecl info = simpleFold $ \curr -> do
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
           Right CXCursor_VisibilityAttr -> foldContinue
+
+          -- We are not interested in assembler labels.
+          Right CXCursor_AsmLabelAttr -> foldContinue
 
           -- Panic on anything we don't recognize
           _otherwise -> do

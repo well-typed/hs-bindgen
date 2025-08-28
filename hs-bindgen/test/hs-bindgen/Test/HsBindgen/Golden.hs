@@ -403,6 +403,13 @@ testCases = [
             _otherwise ->
                Nothing
         }
+    , (defaultTest "asm") {
+          testOnFrontendConfig = \cfg -> cfg {
+              frontendClangArgs = (frontendClangArgs cfg) {
+                  clangEnableGnu = True
+                }
+            }
+        }
     , (defaultTest "doxygen_docs") {
           testClangVersion = Just (>= (19, 0, 0))
         }
