@@ -1,4 +1,5 @@
 import: ./cabal.project.base
+import: ./cabal.project.base.dev
 
 packages:
   ansi-diff
