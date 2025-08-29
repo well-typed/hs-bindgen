@@ -1,0 +1,13 @@
+-- addDependentFile examples/golden/macro_redefines_global.h
+newtype FILE
+    = FILE {un_FILE :: CInt}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
