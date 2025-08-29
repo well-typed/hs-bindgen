@@ -1,23 +1,37 @@
 module HsBindgen.Backend.Hs.Haddock.Documentation where
 
 import Data.Text (Text)
+import Data.Semigroup (First(..))
 import GHC.Generics (Generic)
 import GHC.Natural (Natural)
+
+import Clang.HighLevel.Types
+
+import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 
 -- | Haddock documentation representation
 --
 data Comment = Comment
   { commentTitle    :: Maybe [CommentInlineContent] -- ^ Comment title
   , commentOrigin   :: Maybe Text                   -- ^ Original C name reference
+  , commentLocation :: Maybe SingleLoc              -- ^ The source location of
+                                                    --   the original C name reference
+  , commentHeader   :: Maybe HashIncludeArg         -- ^ Header file that exports the
+                                                    --   original C name reference
   , commentChildren :: [CommentBlockContent]        -- ^ Comment content
   }
   deriving (Show, Eq, Generic)
 
 instance Semigroup Comment where
-  Comment t o c <> Comment t' o' c' = Comment (t <> t') (o <> o') (c <> c')
+  Comment t o l h c <> Comment t' o' l' h' c' =
+    Comment (t <> t')
+            (fmap getFirst $ ((fmap First o) <> (fmap First o')))
+            (fmap getFirst $ ((fmap First l) <> (fmap First l')))
+            (fmap getFirst $ ((fmap First h) <> (fmap First h')))
+            (c <> c')
 
 instance Monoid Comment where
-  mempty = Comment Nothing Nothing []
+  mempty = Comment Nothing Nothing Nothing Nothing []
 
 -- | Block-level Haddock content
 --
