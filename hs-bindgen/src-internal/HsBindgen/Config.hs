@@ -16,6 +16,7 @@ import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
+import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirConfig)
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
 import HsBindgen.Imports
@@ -45,7 +46,8 @@ data BindgenConfig = BindgenConfig {
 -------------------------------------------------------------------------------}
 
 data BootConfig = BootConfig {
-      bootBindingSpecConfig :: BindingSpecConfig
+      bootBuiltinIncDirConfig :: BuiltinIncDirConfig
+    , bootBindingSpecConfig   :: BindingSpecConfig
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default

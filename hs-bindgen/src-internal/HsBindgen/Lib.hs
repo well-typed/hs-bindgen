@@ -23,6 +23,8 @@ module HsBindgen.Lib (
 
     -- ** Boot
   , Common.BootConfig(..)
+    -- *** Builtin include directory
+  , Common.BuiltinIncDirConfig(..)
     -- *** Binding specifications
   , Common.BindingSpecConfig(..)
   , Common.EnableStdlibBindingSpec(..)

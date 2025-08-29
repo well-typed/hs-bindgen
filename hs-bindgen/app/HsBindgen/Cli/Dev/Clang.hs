@@ -13,19 +13,16 @@ module HsBindgen.Cli.Dev.Clang (
   , exec
   ) where
 
-import Control.Monad (void)
 import Prettyprinter.Util qualified as PP
 
 import Options.Applicative hiding (info)
 
+import HsBindgen.Clang
+import HsBindgen.Clang.BuiltinIncDir
+import HsBindgen.Imports
 import HsBindgen.Lib
 
 import HsBindgen.App
-
--- NOTE: Internal API.
-import HsBindgen.Clang (ClangInput (..), ClangSetup, defaultClangSetup,
-                        withClang)
-import HsBindgen.Util.Tracer (natTracer)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -46,12 +43,16 @@ info = mconcat [
   Options
 -------------------------------------------------------------------------------}
 
-newtype Opts = Opts {
-      clangArgs :: ClangArgs
+data Opts = Opts {
+      builtinIncDirConfig :: BuiltinIncDirConfig
+    , clangArgs           :: ClangArgs
     }
 
 parseOpts :: Parser Opts
-parseOpts = Opts <$> parseClangArgs
+parseOpts =
+    Opts
+      <$> parseBuiltinIncDirConfig
+      <*> parseClangArgs
 
 {-------------------------------------------------------------------------------
   Execution
@@ -59,10 +60,14 @@ parseOpts = Opts <$> parseClangArgs
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
-    void . withTracer tracerConfig $ \tracerM ->
-      let tracer = contramap (TraceFrontend. FrontendClang) $
-            natTracer id tracerM
-      in  void $ withClang tracer setup (const (return Nothing))
-  where
-    setup :: ClangSetup
-    setup = defaultClangSetup clangArgs $ ClangInputMemory "hs-bindgen-nop.h" ""
+    void . withTracer tracerConfig $ \tracer -> do
+      clangArgs' <- applyBuiltinIncDir clangArgs <$>
+        getBuiltinIncDir
+          (contramap TraceBuiltinIncDir tracer)
+          builtinIncDirConfig
+      let setup = defaultClangSetup clangArgs' $
+            ClangInputMemory "hs-bindgen-nop.h" ""
+      withClang
+        (contramap (TraceFrontend . FrontendClang) tracer)
+        setup
+        (const (return Nothing))

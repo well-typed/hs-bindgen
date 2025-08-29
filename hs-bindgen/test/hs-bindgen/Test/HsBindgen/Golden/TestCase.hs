@@ -32,6 +32,7 @@ import Clang.Args
 import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
 import HsBindgen.BindingSpec
+import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Config
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
@@ -192,7 +193,7 @@ failingTestCustom filename expected trace =
 getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
 getTestBootConfig testResources TestCase{..} = do
   root <- getTestPackageRoot testResources
-  pure $ BootConfig $ BindingSpecConfig {
+  pure $ BootConfig BuiltinIncDirDisable $ BindingSpecConfig {
         bindingSpecStdlibSpec              = testStdlibSpec
       , bindingSpecExtBindingSpecs         = map (root </>) testExtBindingSpecs
       , bindingSpecPrescriptiveBindingSpec = Nothing

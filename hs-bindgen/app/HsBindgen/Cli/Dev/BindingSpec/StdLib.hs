@@ -13,12 +13,13 @@ module HsBindgen.Cli.Dev.BindingSpec.StdLib (
   , exec
   ) where
 
-import Control.Exception (throwIO)
 import Control.Monad ((<=<))
 import Data.ByteString qualified as BS
 
 import Options.Applicative hiding (info)
 
+import HsBindgen.Clang.BuiltinIncDir
+import HsBindgen.Imports
 import HsBindgen.Lib
 
 import HsBindgen.App
@@ -34,12 +35,16 @@ info = progDesc "Write stdlib external binding specification"
   Options
 -------------------------------------------------------------------------------}
 
-newtype Opts = Opts {
-      clangArgs :: ClangArgs
+data Opts = Opts {
+      builtinIncDirConfig :: BuiltinIncDirConfig
+    , clangArgs           :: ClangArgs
     }
 
 parseOpts :: Parser Opts
-parseOpts = Opts <$> parseClangArgs
+parseOpts =
+    Opts
+      <$> parseBuiltinIncDirConfig
+      <*> parseClangArgs
 
 {-------------------------------------------------------------------------------
   Execution
@@ -47,8 +52,12 @@ parseOpts = Opts <$> parseClangArgs
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer ->
+    spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
+      clangArgs' <- applyBuiltinIncDir clangArgs <$>
+        getBuiltinIncDir
+          (contramap TraceBuiltinIncDir tracer)
+          builtinIncDirConfig
       getStdlibBindingSpec
         (contramap (TraceBoot . BootBindingSpec) tracer)
-        clangArgs
+        clangArgs'
     BS.putStr $ encodeBindingSpecYaml spec
