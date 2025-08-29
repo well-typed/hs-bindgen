@@ -2038,18 +2038,19 @@ instance Eq TcMacroError where
   _ == _ = True
 
 pprTcMacroError :: TcMacroError -> Text
-pprTcMacroError tcMacroErr = Text.unlines . ( "Failed to typecheck macro:" : ) $
-  case tcMacroErr of
-    TcErrors errs ->
-      map ( \ ( err, _srcSpan ) -> pprTcError err ) ( NE.toList errs )
-    TcInconsistentConstraints ctss ->
-      "Constraints are inconsistent:"
-      : concat
-        [ ( "  - " <> Text.pack ( show i ) <> ":" )
-        : map ( \ ( ct, _orig ) -> "    '" <> Text.pack ( show ct ) <> "'" ) cts
-        | cts <- NE.toList ctss
-        | i <- [ ( 1 :: Int ) .. ]
-        ]
+pprTcMacroError tcMacroErr =
+  Text.intercalate "\n" . ( "Failed to typecheck macro:" : ) $
+    case tcMacroErr of
+      TcErrors errs ->
+        map ( \ ( err, _srcSpan ) -> pprTcError err ) ( NE.toList errs )
+      TcInconsistentConstraints ctss ->
+        "Constraints are inconsistent:"
+        : concat
+          [ ( "  - " <> Text.pack ( show i ) <> ":" )
+          : map ( \ ( ct, _orig ) -> "    '" <> Text.pack ( show ct ) <> "'" ) cts
+          | cts <- NE.toList ctss
+          | i <- [ ( 1 :: Int ) .. ]
+          ]
 
 mapMaybeA :: Applicative m => ( a -> m ( Maybe b ) ) -> [ a ] -> m [ b ]
 mapMaybeA f =

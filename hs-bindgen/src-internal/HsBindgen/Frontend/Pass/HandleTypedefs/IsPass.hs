@@ -10,7 +10,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
-import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
+import HsBindgen.Frontend.Pass.Select.IsPass (SelectDeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint qualified as PP
@@ -23,7 +23,7 @@ type HandleTypedefs :: Pass
 data HandleTypedefs a deriving anyclass ValidPass
 
 type family AnnHandleTypedefs ix where
-  AnnHandleTypedefs "TranslationUnit" = DeclMeta
+  AnnHandleTypedefs "TranslationUnit" = SelectDeclMeta
   AnnHandleTypedefs "Decl"            = BindingSpec.TypeSpec
   AnnHandleTypedefs _                 = NoAnn
 
@@ -70,7 +70,7 @@ data RenamedTypedefRef p =
     -- (without a corresponding Haskell name) as well as the type that replaced
     -- the reference with.
   | TypedefSquashed C.Name (C.Type p)
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Trace messages

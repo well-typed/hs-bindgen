@@ -21,7 +21,7 @@ type NameAnon :: Pass
 data NameAnon a deriving anyclass ValidPass
 
 type family AnnNameAnon ix where
-  AnnNameAnon "TranslationUnit" = DeclMeta
+  AnnNameAnon "TranslationUnit" = DeclMeta NameAnon
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where

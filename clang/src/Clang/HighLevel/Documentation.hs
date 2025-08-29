@@ -54,7 +54,7 @@ data Comment ref = Comment {
       -- | Children of a the comment
     , commentChildren :: [CommentBlockContent ref]
     }
-  deriving stock (Functor, Foldable, Traversable, Show, Eq, Generic)
+  deriving stock (Functor, Foldable, Traversable, Show, Eq, Ord, Generic)
 
 -- | Reified Clang comment block content
 data CommentBlockContent ref =
@@ -84,7 +84,7 @@ data CommentBlockContent ref =
     | VerbatimLine {
         verbatimLine :: Text
       }
-  deriving stock (Functor, Foldable, Traversable, Show, Eq, Generic)
+  deriving stock (Functor, Foldable, Traversable, Show, Eq, Ord, Generic)
 
 -- | Reified Clang comment inline content
 data CommentInlineContent ref =
@@ -107,7 +107,7 @@ data CommentInlineContent ref =
     | HtmlEndTag {
         htmlEndTagName :: Text
       }
-  deriving stock (Functor, Foldable, Traversable, Show, Eq, Generic)
+  deriving stock (Functor, Foldable, Traversable, Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Top-level

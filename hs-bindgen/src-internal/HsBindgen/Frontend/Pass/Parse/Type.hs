@@ -1,13 +1,15 @@
 -- | Fold types
 module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 
+import Control.Exception (Exception (..), SomeException (..), handle)
 import Control.Monad
 import Control.Monad.Error.Class
+import Data.Data (Typeable)
 import GHC.Stack
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types (CursorSpelling(..))
+import Clang.HighLevel.Types (CursorSpelling (..))
 import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -16,13 +18,22 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer (PrettyForTrace)
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-fromCXType :: (MonadIO m, HasCallStack) => CXType -> m (C.Type Parse)
-fromCXType = run . cxtype
+fromCXType :: forall m ctx.
+  (MonadIO m, PrettyForTrace ctx, Show ctx, Typeable ctx, HasCallStack)
+  => ctx -> CXType -> m (C.Type Parse)
+fromCXType context = liftIO . handle addContextHandler . run . cxtype
+  where
+    addContextHandler :: SomeException -> IO a
+    addContextHandler e
+      | Just e' <- (fromException @ParseTypeException e) =
+          throwIO (ParseTypeExceptionInContext context e')
+      | otherwise = throwIO e
 
 {-------------------------------------------------------------------------------
   Dispatch

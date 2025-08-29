@@ -14,12 +14,13 @@ import Data.Text qualified as Text
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming (NameKind (..), TagKind (..))
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
           -> C.NameKind
           -> ParseDecl (Next ParseDecl [C.Decl Parse])
         parseWith parser kind = do
-            selected <- evalPredicate info kind
+            selected <- evalPredicate info
             if selected
               then runFold (parser info) curr
               else recordNonParsedDecl info kind >> foldContinue
@@ -70,11 +71,12 @@ foldDecl = foldWithHandler handleTypeException $ \curr -> do
 
 handleTypeException ::
      CXCursor
-  -> ParseTypeException
+  -> ParseTypeExceptionInContext NameKind
   -> ParseDecl (Maybe [C.Decl Parse])
 handleTypeException curr err = do
     info <- getDeclInfo curr
-    recordTrace $ ParseUnsupportedType info err
+    recordTrace info (parseContext err) $
+      ParseUnsupportedType info (parseException err)
     return Nothing
 
 {-------------------------------------------------------------------------------
@@ -165,7 +167,8 @@ structDecl info = simpleFold $ \curr -> do
             partitionChildren xs
               | null unused = return $ Just (used, fields)
               | otherwise   = do
-                  recordTrace $ ParseUnsupportedImplicitFields info
+                  recordTrace info (NameKindTagged TagKindStruct)
+                    $ ParseUnsupportedImplicitFields info
                   return Nothing
               where
                 otherDecls :: [C.Decl Parse]
@@ -257,7 +260,8 @@ structFieldDecl :: CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl = \curr -> do
     structFieldLoc    <- HighLevel.clang_getCursorLocation' curr
     structFieldName   <- C.Name <$> clang_getCursorDisplayName curr
-    structFieldType   <- fromCXType =<< clang_getCursorType curr
+    structFieldType   <- fromCXType (NameKindTagged TagKindStruct)
+                           =<< clang_getCursorType curr
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
@@ -283,7 +287,8 @@ unionFieldDecl :: CXCursor -> ParseDecl (C.UnionField Parse)
 unionFieldDecl = \curr -> do
     unionFieldLoc  <- HighLevel.clang_getCursorLocation' curr
     unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
-    unionFieldType <- fromCXType =<< clang_getCursorType curr
+    unionFieldType <- fromCXType (NameKindTagged TagKindUnion)
+                        =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
     unionFieldComment   <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.UnionField{
@@ -296,7 +301,8 @@ unionFieldDecl = \curr -> do
 
 typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
 typedefDecl info = simpleFold $ \curr -> do
-    typedefType <- fromCXType =<< clang_getTypedefDeclUnderlyingType curr
+    typedefType <- fromCXType NameKindOrdinary
+                     =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
     let decl :: C.Decl Parse
         decl = C.Decl{
@@ -323,7 +329,8 @@ enumDecl info = simpleFold $ \curr -> do
         ty        <- clang_getCursorType curr
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
-        ety       <- fromCXType =<< clang_getEnumDeclIntegerType curr
+        ety       <- fromCXType (NameKindTagged TagKindEnum)
+                       =<< clang_getEnumDeclIntegerType curr
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
@@ -376,7 +383,7 @@ functionDecl info = simpleFold $ \curr -> do
     linkage <- getCursorLinkage curr
     declCls <- HighLevel.classifyDeclaration curr
 
-    typ  <- fromCXType =<< clang_getCursorType curr
+    typ  <- fromCXType NameKindOrdinary =<< clang_getCursorType curr
     (functionArgs, functionRes) <- guardTypeFunction curr typ
     functionAnn <- getReparseInfo curr
     let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -407,13 +414,14 @@ functionDecl info = simpleFold $ \curr -> do
         let isDefn = declCls == Definition
 
         if not (null anonDecls) then do
-          recordTrace $ ParseUnexpectedAnonInSignature info
+          recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInSignature info
           return []
         else do
           when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordTrace $ ParseNonPublicVisibility info
+            recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
           when (isDefn && linkage == ExternalLinkage) $
-            recordTrace $ ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+            recordTrace info NameKindOrdinary $
+              ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
           return $ otherDecls ++ [mkDecl purity]
   where
     guardTypeFunction ::
@@ -487,7 +495,7 @@ varDecl info = simpleFold $ \curr -> do
     linkage <- getCursorLinkage curr
     declCls <- HighLevel.classifyDeclaration curr
 
-    typ  <- fromCXType =<< clang_getCursorType curr
+    typ  <- fromCXType NameKindOrdinary =<< clang_getCursorType curr
     cls  <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{
@@ -515,23 +523,24 @@ varDecl info = simpleFold $ \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         if not (null anonDecls) then do
-          recordTrace $ ParseUnexpectedAnonInExtern info
+          recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInExtern info
           return []
         else (otherDecls ++) <$> do
           when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordTrace $ ParseNonPublicVisibility info
+            recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
           when (isDefn && linkage == ExternalLinkage) $
-            recordTrace $ ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+            recordTrace info NameKindOrdinary $
+              ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
           case cls of
             VarGlobal -> do
               return [mkDecl $ C.DeclGlobal typ]
             VarConst -> do
               return [mkDecl $ C.DeclConst typ]
             VarThreadLocal -> do
-              recordTrace $ ParseUnsupportedTLS info
+              recordTrace info NameKindOrdinary $ ParseUnsupportedTLS info
               return []
             VarUnsupported storage -> do
-              recordTrace $ ParseUnknownStorageClass info storage
+              recordTrace info NameKindOrdinary $ ParseUnknownStorageClass info storage
               return []
   where
     -- Look for nested declarations inside the global variable type

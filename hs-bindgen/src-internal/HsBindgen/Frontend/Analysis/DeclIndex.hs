@@ -37,7 +37,7 @@ import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 newtype DeclIndex = Wrap {
       unwrap :: Map C.NsPrelimDeclId (C.Decl Parse)
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Construction

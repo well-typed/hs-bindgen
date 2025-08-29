@@ -36,7 +36,7 @@ data PrimType =
 
     -- | @_Bool@
   | PrimBool
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 -- | An integral type, such as @int@ or @unsigned long int@.
 data PrimIntType
@@ -51,7 +51,7 @@ data PrimIntType
 
     -- | @[signed | unsigned] long long [int]@
   | PrimLongLong
-  deriving stock (Show, Eq, Enum, Generic)
+  deriving stock (Show, Eq, Ord, Enum, Generic)
 
 -- | Primitive floating point types
 --
@@ -93,7 +93,7 @@ data PrimSignChar =
     -- all cases. That's probably fixable but it's not trivial; at present we
     -- don't need the information and so we can leave this as a 'Maybe'.
   | PrimSignImplicit (Maybe PrimSign)
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Pretty-printing
