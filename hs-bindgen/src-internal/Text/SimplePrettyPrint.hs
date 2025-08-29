@@ -188,16 +188,16 @@ vcat = \case
     -- unneded whitespaces
     aux :: PP.Doc -> PP.Doc -> PP.Doc
     aux dL dR
-        | dL == "" && dR == "" = PP.nest minBound dL PP.$+$ PP.nest minBound dR
-        | dL == ""             = PP.nest minBound dL PP.$+$ dR
-        | dR == ""             = dL PP.$+$ PP.nest minBound dR
+        | dL == "" && dR == "" = PP.nest (-100) dL PP.$+$ PP.nest (-100) dR
+        | dL == ""             = PP.nest (-100) dL PP.$+$ dR
+        | dR == ""             = dL PP.$+$ PP.nest (-100) dR
         | otherwise            = dL PP.$+$ dR
 
 -- | Vertically join two documents, separating by a blank line
 infixl 5 $+$
 ($+$) :: CtxDoc -> CtxDoc -> CtxDoc
 dL $+$ dR = CtxDoc $ \ctx ->
-    runCtxDoc ctx dL PP.$+$ PP.nest minBound "" PP.$+$ runCtxDoc ctx dR
+    runCtxDoc ctx dL PP.$+$ PP.nest (-100) "" PP.$+$ runCtxDoc ctx dR
 
 -- | Vertically join documents, separating by blank lines
 --
@@ -212,7 +212,7 @@ vsep = \case
     aux dL dR
         | PP.isEmpty dL = dR
         | PP.isEmpty dR = dL
-        | otherwise     = dL PP.$+$ PP.nest minBound "" PP.$+$ dR
+        | otherwise     = dL PP.$+$ PP.nest (-100) "" PP.$+$ dR
 
 -- | Horizontally /or/ vertically join documents, depending on if there is
 -- room on the line
