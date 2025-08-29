@@ -11,13 +11,14 @@ import qualified Data.List.NonEmpty
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
-$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n")
+$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } \n")
 
 newtype FileOperationStatus = FileOperationStatus
   { un_FileOperationStatus :: FC.CInt
@@ -133,3 +134,12 @@ foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135
   -> HsBindgen.Runtime.Prelude.CSize
      {- ^ __from C:__ @bytes_to_read@ -}
   -> IO FileOperationStatus
+
+foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86" hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86
+  :: IO (F.FunPtr ((F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+
+{-# NOINLINE read_file_chunk_ptr #-}
+
+read_file_chunk_ptr :: F.FunPtr ((F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
+read_file_chunk_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86

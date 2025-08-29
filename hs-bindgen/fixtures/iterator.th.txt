@@ -1,44 +1,100 @@
 -- addDependentFile examples/golden/iterator.h
 -- #include <iterator.h>
 -- Toggle hs_bindgen_test_iterator_4f34fce61cc68c9f (_Bool arg1) { return makeToggle(arg1); }
+-- /* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_03950e0c09bdb508 (void)) (_Bool arg1) { return &makeToggle; } 
 -- _Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }
+-- /* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_9c2755ef750f5d45 (void)) (Toggle arg1) { return &toggleNext; } 
 -- void hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }
+-- /* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_2f7023ef559c7cdc (void)) (Toggle arg1) { return &releaseToggle; } 
 -- Counter hs_bindgen_test_iterator_5b455070cb6127b9 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }
+-- /* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_216174b924f641ef (void)) (signed int arg1, signed int arg2) { return &makeCounter; } 
 -- signed int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }
+-- /* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_9d967a23215cebaa (void)) (Counter arg1) { return &counterNext; } 
 -- void hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }
+-- /* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_315c7ff0ed90e2c8 (void)) (Counter arg1) { return &releaseCounter; } 
 -- VarCounter hs_bindgen_test_iterator_0fc005ef62990438 (signed int arg1) { return makeVarCounter(arg1); }
+-- /* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_a29c0a830311b22a (void)) (signed int arg1) { return &makeVarCounter; } 
 -- signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }
+-- /* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_cd9433fb0fa76d19 (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } 
 -- void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }
+-- /* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bad5305a8cb077b0 (void)) (VarCounter arg1) { return &releaseVarCounter; } 
 newtype Toggle = Toggle {un_Toggle :: (Block (IO CBool))}
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_4f34fce61cc68c9f" makeToggle :: CBool ->
                                                                                     IO Toggle
+foreign import ccall safe "hs_bindgen_test_iterator_03950e0c09bdb508" hs_bindgen_test_iterator_03950e0c09bdb508 :: IO (FunPtr (CBool ->
+                                                                                                                               IO Toggle))
+{-# NOINLINE makeToggle_ptr #-}
+makeToggle_ptr :: FunPtr (CBool -> IO Toggle)
+makeToggle_ptr = unsafePerformIO hs_bindgen_test_iterator_03950e0c09bdb508
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_bfb4e32e3a824c7e" toggleNext :: Toggle ->
                                                                                     IO CBool
+foreign import ccall safe "hs_bindgen_test_iterator_9c2755ef750f5d45" hs_bindgen_test_iterator_9c2755ef750f5d45 :: IO (FunPtr (Toggle ->
+                                                                                                                               IO CBool))
+{-# NOINLINE toggleNext_ptr #-}
+toggleNext_ptr :: FunPtr (Toggle -> IO CBool)
+toggleNext_ptr = unsafePerformIO hs_bindgen_test_iterator_9c2755ef750f5d45
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_8d23fba933ba9584" releaseToggle :: Toggle ->
                                                                                        IO Unit
+foreign import ccall safe "hs_bindgen_test_iterator_2f7023ef559c7cdc" hs_bindgen_test_iterator_2f7023ef559c7cdc :: IO (FunPtr (Toggle ->
+                                                                                                                               IO Unit))
+{-# NOINLINE releaseToggle_ptr #-}
+releaseToggle_ptr :: FunPtr (Toggle -> IO Unit)
+releaseToggle_ptr = unsafePerformIO hs_bindgen_test_iterator_2f7023ef559c7cdc
 newtype Counter = Counter {un_Counter :: (Block (IO CInt))}
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_5b455070cb6127b9" makeCounter :: CInt ->
                                                                                      CInt ->
                                                                                      IO Counter
+foreign import ccall safe "hs_bindgen_test_iterator_216174b924f641ef" hs_bindgen_test_iterator_216174b924f641ef :: IO (FunPtr (CInt ->
+                                                                                                                               CInt ->
+                                                                                                                               IO Counter))
+{-# NOINLINE makeCounter_ptr #-}
+makeCounter_ptr :: FunPtr (CInt -> CInt -> IO Counter)
+makeCounter_ptr = unsafePerformIO hs_bindgen_test_iterator_216174b924f641ef
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_1eb9473844c466c6" counterNext :: Counter ->
                                                                                      IO CInt
+foreign import ccall safe "hs_bindgen_test_iterator_9d967a23215cebaa" hs_bindgen_test_iterator_9d967a23215cebaa :: IO (FunPtr (Counter ->
+                                                                                                                               IO CInt))
+{-# NOINLINE counterNext_ptr #-}
+counterNext_ptr :: FunPtr (Counter -> IO CInt)
+counterNext_ptr = unsafePerformIO hs_bindgen_test_iterator_9d967a23215cebaa
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_4bd3562b992f2f1c" releaseCounter :: Counter ->
                                                                                         IO Unit
+foreign import ccall safe "hs_bindgen_test_iterator_315c7ff0ed90e2c8" hs_bindgen_test_iterator_315c7ff0ed90e2c8 :: IO (FunPtr (Counter ->
+                                                                                                                               IO Unit))
+{-# NOINLINE releaseCounter_ptr #-}
+releaseCounter_ptr :: FunPtr (Counter -> IO Unit)
+releaseCounter_ptr = unsafePerformIO hs_bindgen_test_iterator_315c7ff0ed90e2c8
 newtype VarCounter
     = VarCounter {un_VarCounter :: (Block (CInt -> IO CInt))}
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_0fc005ef62990438" makeVarCounter :: CInt ->
                                                                                         IO VarCounter
+foreign import ccall safe "hs_bindgen_test_iterator_a29c0a830311b22a" hs_bindgen_test_iterator_a29c0a830311b22a :: IO (FunPtr (CInt ->
+                                                                                                                               IO VarCounter))
+{-# NOINLINE makeVarCounter_ptr #-}
+makeVarCounter_ptr :: FunPtr (CInt -> IO VarCounter)
+makeVarCounter_ptr = unsafePerformIO hs_bindgen_test_iterator_a29c0a830311b22a
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounterNext :: VarCounter ->
                                                                                         CInt ->
                                                                                         IO CInt
+foreign import ccall safe "hs_bindgen_test_iterator_cd9433fb0fa76d19" hs_bindgen_test_iterator_cd9433fb0fa76d19 :: IO (FunPtr (VarCounter ->
+                                                                                                                               CInt ->
+                                                                                                                               IO CInt))
+{-# NOINLINE varCounterNext_ptr #-}
+varCounterNext_ptr :: FunPtr (VarCounter -> CInt -> IO CInt)
+varCounterNext_ptr = unsafePerformIO hs_bindgen_test_iterator_cd9433fb0fa76d19
 {-| -}
 foreign import ccall safe "hs_bindgen_test_iterator_2d2d26e60eea04a8" releaseVarCounter :: VarCounter ->
                                                                                            IO Unit
+foreign import ccall safe "hs_bindgen_test_iterator_bad5305a8cb077b0" hs_bindgen_test_iterator_bad5305a8cb077b0 :: IO (FunPtr (VarCounter ->
+                                                                                                                               IO Unit))
+{-# NOINLINE releaseVarCounter_ptr #-}
+releaseVarCounter_ptr :: FunPtr (VarCounter -> IO Unit)
+releaseVarCounter_ptr = unsafePerformIO hs_bindgen_test_iterator_bad5305a8cb077b0

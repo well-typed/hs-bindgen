@@ -1,9 +1,15 @@
 -- addDependentFile examples/golden/skip_over_long_double.h
 -- #include <skip_over_long_double.h>
 -- void hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }
+-- /* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_94047676e402a0bf (void)) (signed int arg1) { return &fun2; } 
 {-| -}
 foreign import ccall safe "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed" fun2 :: CInt ->
                                                                                            IO Unit
+foreign import ccall safe "hs_bindgen_test_skip_over_long_double_94047676e402a0bf" hs_bindgen_test_skip_over_long_double_94047676e402a0bf :: IO (FunPtr (CInt ->
+                                                                                                                                                         IO Unit))
+{-# NOINLINE fun2_ptr #-}
+fun2_ptr :: FunPtr (CInt -> IO Unit)
+fun2_ptr = unsafePerformIO hs_bindgen_test_skip_over_long_double_94047676e402a0bf
 data Struct2
     = Struct2 {struct2_x :: CInt}
     deriving stock (Eq, Show)

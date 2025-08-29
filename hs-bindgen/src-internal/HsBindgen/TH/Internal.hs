@@ -81,7 +81,7 @@ instance Default BindgenOpts where
     }
 
 -- | The default tracer configuration in Q has verbosity 'Notice' and uses
--- 'outputConfigQ'.
+-- 'outputConfigTH'.
 tracerConfigDefTH :: TracerConfig IO Level TraceMsg
 tracerConfigDefTH = def {
         tVerbosity = Verbosity Notice

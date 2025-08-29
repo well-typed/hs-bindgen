@@ -1024,6 +1024,49 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_quux_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_14c52c6a6a7242b5 (void)) (F arg1, char arg2) { return &quux; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_14c52c6a6a7242b5",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "F"))
+              (HsFun
+                (HsPrimType HsPrimCChar)
+                (HsIO
+                  (HsPrimType HsPrimCChar)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_14c52c6a6a7242b5",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "F",
+                nameHsIdent = HsIdentifier "F"}
+              NameOriginInSource,
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))]
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "C *hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b (float arg1, C *arg2) { return wam(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1098,6 +1141,57 @@
           commentOrigin = Just "wam",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
+    "/* get_wam_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_663b869ffc1f7213 (void)) (float arg1, C *arg2) { return &wam; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_663b869ffc1f7213",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCFloat)
+              (HsFun
+                (HsPtr
+                  (HsTypRef
+                    (HsName "@NsTypeConstr" "C")))
+                (HsIO
+                  (HsPtr
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "C")))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_663b869ffc1f7213",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "C",
+                  nameHsIdent = HsIdentifier "C"}
+                NameOriginInSource)]
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "C",
+                nameHsIdent = HsIdentifier "C"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1177,6 +1271,55 @@
           commentOrigin = Just "foo1",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
+    "/* get_foo1_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_4c474102032285f3 (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_4c474102032285f3",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCFloat)
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO (HsPrimType HsPrimCInt))))
+                (HsIO
+                  (HsPtr
+                    (HsPrimType HsPrimCChar))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_4c474102032285f3",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePointer
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1261,6 +1404,58 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_foo2_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_1d056e5b12d9c34a (void)) (F arg1, signed int (*arg2) (signed int arg1)) { return &foo2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_1d056e5b12d9c34a",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "F"))
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO (HsPrimType HsPrimCInt))))
+                (HsIO
+                  (HsPtr
+                    (HsPrimType HsPrimCChar))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_1d056e5b12d9c34a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "F",
+                nameHsIdent = HsIdentifier "F"}
+              NameOriginInSource,
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePointer
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "C *hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1342,6 +1537,59 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_foo3_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_7be3908af5c5e7b4 (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo3; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_7be3908af5c5e7b4",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCFloat)
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO (HsPrimType HsPrimCInt))))
+                (HsIO
+                  (HsPtr
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "C")))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_7be3908af5c5e7b4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeFun
+                [
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "C",
+                nameHsIdent = HsIdentifier "C"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "signed int (*hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0 (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1404,6 +1652,50 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_bar1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_a130943e7c1dc6d1 (void)) (signed long arg1)) (signed short arg1) { return &bar1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_a130943e7c1dc6d1",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCLong)
+              (HsIO
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCShort)
+                    (HsIO
+                      (HsPrimType HsPrimCInt)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_a130943e7c1dc6d1",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimLong Signed)]
+          (TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "signed int (*hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5 (L arg1)) (signed short arg1) { return bar2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1457,6 +1749,54 @@
           commentOrigin = Just "bar2",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
+    "/* get_bar2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_06fc2db95e4cd938 (void)) (L arg1)) (signed short arg1) { return &bar2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_06fc2db95e4cd938",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "L"))
+              (HsIO
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCShort)
+                    (HsIO
+                      (HsPrimType HsPrimCInt)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_06fc2db95e4cd938",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "L",
+                nameHsIdent = HsIdentifier "L"}
+              NameOriginInSource]
+          (TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1519,6 +1859,54 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_bar3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_d2fff4d202997609 (void)) (signed long arg1)) (S arg1) { return &bar3; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_d2fff4d202997609",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCLong)
+              (HsIO
+                (HsFunPtr
+                  (HsFun
+                    (HsTypRef
+                      (HsName "@NsTypeConstr" "S"))
+                    (HsIO
+                      (HsPrimType HsPrimCInt)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_d2fff4d202997609",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimLong Signed)]
+          (TypePointer
+            (TypeFun
+              [
+                TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "S",
+                    nameHsIdent = HsIdentifier "S"}
+                  NameOriginInSource]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "I (*hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1575,6 +1963,54 @@
           commentOrigin = Just "bar4",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
+    "/* get_bar4_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_e53d6f29f5ea7fcd (void)) (signed long arg1)) (signed short arg1) { return &bar4; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_e53d6f29f5ea7fcd",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCLong)
+              (HsIO
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCShort)
+                    (HsIO
+                      (HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "I"))))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_e53d6f29f5ea7fcd",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimLong Signed)]
+          (TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimShort Signed)]
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "I",
+                  nameHsIdent = HsIdentifier "I"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1639,6 +2075,51 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_fe6e07215634608f (void)) (signed int arg1))[2][3] { return &baz1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_fe6e07215634608f",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPtr
+                  (HsConstArray
+                    2
+                    (HsConstArray
+                      3
+                      (HsPrimType HsPrimCInt)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_fe6e07215634608f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePointer
+            (TypeConstArray
+              2
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int arg1))[2][3] { return baz2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1697,6 +2178,51 @@
           commentOrigin = Just "baz2",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
+    "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (signed int arg1))[2][3] { return &baz2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPtr
+                  (HsConstArray
+                    2
+                    (HsConstArray
+                      3
+                      (HsPrimType HsPrimCInt)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePointer
+            (TypeConstArray
+              2
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
@@ -1761,6 +2287,51 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
+    "/* get_baz3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int arg1))[2][3] { return &baz3; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPtr
+                  (HsConstArray
+                    2
+                    (HsConstArray
+                      3
+                      (HsPrimType HsPrimCInt)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePointer
+            (TypeConstArray
+              2
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
     "I hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b (void) { return no_args_no_void(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -1794,4 +2365,39 @@
           commentOrigin = Just
             "no_args_no_void",
           commentChildren = []},
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "macro_in_fundecl.h",
+  DeclInlineC
+    "/* get_no_args_no_void_ptr */ __attribute__ ((const)) I (*hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043 (void)) (void) { return &no_args_no_void; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "I"))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypeMacroTypedef
+            NamePair {
+              nameC = Name "I",
+              nameHsIdent = HsIdentifier "I"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

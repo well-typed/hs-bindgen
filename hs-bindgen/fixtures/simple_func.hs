@@ -52,6 +52,39 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
+    "/* get_erf_ptr */ __attribute__ ((const)) double (*hs_bindgen_test_simple_func_e3d5d1926d499ff8 (void)) (double arg1) { return &erf; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_simple_func_e3d5d1926d499ff8",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPrimType HsPrimCDouble))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_simple_func_e3d5d1926d499ff8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimFloating PrimDouble))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "simple_func.h",
+  DeclInlineC
     "double hs_bindgen_test_simple_func_6be780963284c499 (double arg1, double arg2, double arg3) { return bad_fma(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -135,6 +168,48 @@
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
+    "/* get_bad_fma_ptr */ __attribute__ ((const)) double (*hs_bindgen_test_simple_func_6e78b576543cf13e (void)) (double arg1, double arg2, double arg3) { return &bad_fma; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_simple_func_6e78b576543cf13e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsFun
+                (HsPrimType HsPrimCDouble)
+                (HsFun
+                  (HsPrimType HsPrimCDouble)
+                  (HsIO
+                    (HsPrimType
+                      HsPrimCDouble))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_simple_func_6e78b576543cf13e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimFloating PrimDouble))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "simple_func.h",
+  DeclInlineC
     "void hs_bindgen_test_simple_func_63e35f316cc0a04e (void) { no_args(); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -162,6 +237,32 @@
           commentOrigin = Just "no_args",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "simple_func.h",
+  DeclInlineC
+    "/* get_no_args_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_simple_func_a41af67e28348e9e (void)) (void) { return &no_args; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_simple_func_a41af67e28348e9e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_simple_func_a41af67e28348e9e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -193,6 +294,32 @@
             "no_args_no_void",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "simple_func.h",
+  DeclInlineC
+    "/* get_no_args_no_void_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_simple_func_1f43e6c47e963043 (void)) (void) { return &no_args_no_void; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_simple_func_1f43e6c47e963043",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_simple_func_1f43e6c47e963043",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "simple_func.h",
   DeclInlineC
@@ -259,4 +386,43 @@
           commentTitle = Nothing,
           commentOrigin = Just "fun",
           commentChildren = []},
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Safe},
+  DeclInlineCInclude
+    "simple_func.h",
+  DeclInlineC
+    "/* get_fun_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_simple_func_1400673a07a5e708 (void)) (char arg1, double arg2) { return &fun; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_simple_func_1400673a07a5e708",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCChar)
+              (HsFun
+                (HsPrimType HsPrimCDouble)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_simple_func_1400673a07a5e708",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

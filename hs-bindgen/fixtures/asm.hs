@@ -88,4 +88,40 @@
           commentOrigin = Just
             "asm_labeled_function",
           commentChildren = []},
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Safe},
+  DeclInlineCInclude "asm.h",
+  DeclInlineC
+    "/* get_asm_labeled_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_asm_6a616a08348f146e (void)) (signed int arg1, signed int arg2) { return &asm_labeled_function; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_asm_6a616a08348f146e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_asm_6a616a08348f146e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

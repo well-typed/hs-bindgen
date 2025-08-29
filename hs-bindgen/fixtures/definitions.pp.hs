@@ -17,13 +17,22 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } \n")
+$(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_fb3e409881d8c524 (void)) (double arg1) { return &foo; } \n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } \n")
 
 {-| __from C:__ @foo@ -}
 foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
   :: FC.CDouble
      {- ^ __from C:__ @x@ -}
   -> IO FC.CInt
+
+foreign import ccall unsafe "hs_bindgen_test_definitions_fb3e409881d8c524" hs_bindgen_test_definitions_fb3e409881d8c524
+  :: IO (F.FunPtr (FC.CDouble -> IO FC.CInt))
+
+{-# NOINLINE foo_ptr #-}
+
+foo_ptr :: F.FunPtr (FC.CDouble -> IO FC.CInt)
+foo_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_fb3e409881d8c524
 
 foreign import ccall unsafe "hs_bindgen_test_definitions_fc2aad2af9befead" hs_bindgen_test_definitions_fc2aad2af9befead
   :: IO (F.Ptr FC.CInt)

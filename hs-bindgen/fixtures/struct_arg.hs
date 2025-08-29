@@ -383,6 +383,46 @@
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
+    "/* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_d5cf000d627eba66 (void)) (struct thing arg1) { return &thing_fun_1; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_struct_arg_d5cf000d627eba66",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Thing"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_struct_arg_d5cf000d627eba66",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeStruct
+              NamePair {
+                nameC = Name "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"}
+              NameOriginInSource]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "struct_arg.h",
+  DeclInlineC
     "void hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -437,6 +477,46 @@
             "thing_fun_2",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
+  DeclInlineCInclude
+    "struct_arg.h",
+  DeclInlineC
+    "/* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_c5543d9dadeca704 (void)) (signed int arg1) { return &thing_fun_2; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_struct_arg_c5543d9dadeca704",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Thing")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_struct_arg_c5543d9dadeca704",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = HsIdentifier
+                "Thing"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclSimple,
   DeclInlineCInclude
     "struct_arg.h",
@@ -540,6 +620,61 @@
   DeclInlineCInclude
     "struct_arg.h",
   DeclInlineC
+    "/* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_6f4d585feed7ca5e (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_struct_arg_6f4d585feed7ca5e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsFun
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Thing"))
+                (HsFun
+                  (HsPrimType HsPrimCDouble)
+                  (HsIO
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Thing")))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_struct_arg_6f4d585feed7ca5e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypeStruct
+              NamePair {
+                nameC = Name "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"}
+              NameOriginInSource,
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = HsIdentifier
+                "Thing"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude
+    "struct_arg.h",
+  DeclInlineC
     "char hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -629,4 +764,54 @@
             "thing_fun_3b",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
+  DeclInlineCInclude
+    "struct_arg.h",
+  DeclInlineC
+    "/* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_ef6a607b6432889d (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_struct_arg_ef6a607b6432889d",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsFun
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Thing"))
+                (HsFun
+                  (HsPrimType HsPrimCDouble)
+                  (HsIO
+                    (HsPrimType HsPrimCChar))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_struct_arg_ef6a607b6432889d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypeStruct
+              NamePair {
+                nameC = Name "thing",
+                nameHsIdent = HsIdentifier
+                  "Thing"}
+              NameOriginInSource,
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclSimple]

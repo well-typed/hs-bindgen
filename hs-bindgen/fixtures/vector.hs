@@ -536,4 +536,53 @@
           commentOrigin = Just
             "new_vector",
           commentChildren = []},
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Safe},
+  DeclInlineCInclude "vector.h",
+  DeclInlineC
+    "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_vector_94a1e2e4670c0a3e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsFun
+                (HsPrimType HsPrimCDouble)
+                (HsIO
+                  (HsPtr
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Vector")))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_vector_94a1e2e4670c0a3e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimDouble),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeTypedef
+              (TypedefSquashed
+                (Name "vector")
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "vector",
+                    nameHsIdent = HsIdentifier
+                      "Vector"}
+                  (NameOriginGenerated
+                    (AnonId "vector.h:1:9"))))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

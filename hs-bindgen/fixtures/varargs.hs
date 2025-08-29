@@ -27,4 +27,29 @@
           commentTitle = Nothing,
           commentOrigin = Just "h",
           commentChildren = []},
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Safe},
+  DeclInlineCInclude "varargs.h",
+  DeclInlineC
+    "/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_0a93e926c5626347 (void)) (void) { return &h; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_varargs_0a93e926c5626347",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_varargs_0a93e926c5626347",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

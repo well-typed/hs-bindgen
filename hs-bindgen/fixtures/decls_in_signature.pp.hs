@@ -12,12 +12,13 @@ module Example where
 import qualified Data.Array.Byte
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <decls_in_signature.h>\nvoid hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\nvoid hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }\nvoid hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }\n")
+$(CAPI.addCSource "#include <decls_in_signature.h>\nvoid hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\n/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } \nvoid hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }\n/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } \nvoid hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }\n/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } \n")
 
 data Opaque
 
@@ -62,6 +63,15 @@ normal =
   \x0 ->
     \x1 ->
       \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
+
+foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93" hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93
+  :: IO (F.FunPtr ((F.Ptr Opaque) -> (F.Ptr Outside) -> Outside -> IO ()))
+
+{-# NOINLINE normal_ptr #-}
+
+normal_ptr :: F.FunPtr ((F.Ptr Opaque) -> (F.Ptr Outside) -> Outside -> IO ())
+normal_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93
 
 {-| Error cases
 
@@ -108,6 +118,21 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" 
 
 f1 :: Named_struct -> IO ()
 f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
+
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+  __from C:__ @f1(struct named_struct)@
+-}
+foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8" hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8
+  :: IO (F.FunPtr (Named_struct -> IO ()))
+
+{-# NOINLINE f1_ptr #-}
+
+f1_ptr :: F.FunPtr (Named_struct -> IO ())
+f1_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8
 
 newtype Named_union = Named_union
   { un_Named_union :: Data.Array.Byte.ByteArray
@@ -159,3 +184,12 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" 
 
 f2 :: Named_union -> IO ()
 f2 = \x0 -> F.with x0 (\y1 -> f2_wrapper y1)
+
+foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba" hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba
+  :: IO (F.FunPtr (Named_union -> IO ()))
+
+{-# NOINLINE f2_ptr #-}
+
+f2_ptr :: F.FunPtr (Named_union -> IO ())
+f2_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba

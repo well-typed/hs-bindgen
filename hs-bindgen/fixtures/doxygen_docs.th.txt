@@ -8,20 +8,35 @@
 -- /* get_global_counter_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742 (void) { return &global_counter; } 
 -- /* get_version_string_ptr */ __attribute__ ((const)) char **hs_bindgen_test_doxygen_docs_a8499810bd5203c6 (void) { return &version_string; } 
 -- signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
+-- /* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_36ecba874daa1325 (void)) (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } 
 -- _Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char *arg1) { return process_file(arg1); }
+-- /* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char *arg1) { return &process_file; } 
 -- signed int hs_bindgen_test_doxygen_docs_788bfbb9e824261c (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }
+-- /* get_calculate_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4 (void)) (signed int arg1, signed int arg2) { return &calculate_value; } 
 -- _Bool hs_bindgen_test_doxygen_docs_3763cc54606bc611 (signed int arg1) { return html_example(arg1); }
+-- /* get_html_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_be37db4c71dfaad8 (void)) (signed int arg1) { return &html_example; } 
 -- _Bool hs_bindgen_test_doxygen_docs_9d6d039971edcd60 (char **arg1, size_t arg2) { return list_example(arg1, arg2); }
+-- /* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_c40a51053a97fb29 (void)) (char **arg1, size_t arg2) { return &list_example; } 
 -- void *hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9 (void *arg1) { return dangerous_function(arg1); }
+-- /* get_dangerous_function_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_291c4151bd4c3637 (void)) (void *arg1) { return &dangerous_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_fb3e3158714e01f5 (char *arg1) { return detailed_return_codes(arg1); }
+-- /* get_detailed_return_codes_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b (void)) (char *arg1) { return &detailed_return_codes; } 
 -- signed int hs_bindgen_test_doxygen_docs_84140a44d1bd8380 (signed int arg1) { return old_function(arg1); }
+-- /* get_old_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_985c4be1f80d7557 (void)) (signed int arg1) { return &old_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8 (signed int arg1) { return versioned_function(arg1); }
+-- /* get_versioned_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_6b616614abe7d3f0 (void)) (signed int arg1) { return &versioned_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }
+-- /* get_process_buffer_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975 (void)) (char arg1[64], size_t arg2) { return &process_buffer; } 
 -- void *hs_bindgen_test_doxygen_docs_bcbe640b60445a4f (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
+-- /* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_de9d3228e8bac25c (void)) (void *arg1, void *arg2, size_t arg3) { return &my_memcpy; } 
 -- signed int hs_bindgen_test_doxygen_docs_1c952f01cc07bb64 (signed int arg1) { return double_value(arg1); }
+-- /* get_double_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_faec60e7f49d446c (void)) (signed int arg1) { return &double_value; } 
 -- status_code_t hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe (config_t *arg1, uint8_t *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }
+-- /* get_complex_function_ptr */ __attribute__ ((const)) status_code_t (*hs_bindgen_test_doxygen_docs_b7ae5186dd939781 (void)) (config_t *arg1, uint8_t *arg2, size_t arg3) { return &complex_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_71214e4420f53a0e (char *arg1) { return hash(arg1); }
+-- /* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_241bedb74b8016f3 (void)) (char *arg1) { return &hash; } 
 -- signed int hs_bindgen_test_doxygen_docs_8effe939268709e4 (signed int arg1) { return square(arg1); }
+-- /* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a (void)) (signed int arg1) { return &square; } 
 mAX_NAME_LENGTH :: CInt
 mAX_NAME_LENGTH = 64 :: CInt
 {-| This is the comment __title__
@@ -175,6 +190,30 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" proces
                                                                                           IO CInt
 {-|
 
+  Function with detailed parameter documentation
+
+  This function shows different parameter directions and types.
+
+  [__@input_data@ /(input)/__]: Input data buffer
+
+  [__@output_data@ /(output)/__]: Output data buffer
+
+  [__@size@ /(input,output)/__]: Size of data, updated on return
+
+  __returns:__ Status code (0 = success, -1 = error)
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_36ecba874daa1325" hs_bindgen_test_doxygen_docs_36ecba874daa1325 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                                                       Ptr HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE process_data_ptr #-}
+process_data_ptr :: FunPtr (Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                            Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                            Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt)
+process_data_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_36ecba874daa1325
+{-|
+
   Function with inline commands and formatting
 
   This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
@@ -186,6 +225,22 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" proces
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_4e9b999ed81440c0" process_file :: Ptr CChar ->
                                                                                           IO CBool
+{-|
+
+  Function with inline commands and formatting
+
+  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+
+  [__@filename@ /(input)/__]: The @char*@ filename to process
+
+  __returns:__ @true@ if successful, @false@ otherwise
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_25908c11fd21c934" hs_bindgen_test_doxygen_docs_25908c11fd21c934 :: IO (FunPtr (Ptr CChar ->
+                                                                                                                                       IO CBool))
+{-# NOINLINE process_file_ptr #-}
+process_file_ptr :: FunPtr (Ptr CChar -> IO CBool)
+process_file_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_25908c11fd21c934
 {-|
 
   Function with verbatim code blocks
@@ -209,6 +264,30 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_788bfbb9e824261c" calcul
                                                                                              IO CInt
 {-|
 
+  Function with verbatim code blocks
+
+  Example usage:
+
+  @
+  int result = calculate_value(10, 20);
+  printf("Result: %d@n", result);
+  @
+
+  [__@base@ /(input)/__]: Base value
+
+  [__@multiplier@ /(input)/__]: Multiplier value
+
+  __returns:__ Calculated result
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4" hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4 :: IO (FunPtr (CInt ->
+                                                                                                                                       CInt ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE calculate_value_ptr #-}
+calculate_value_ptr :: FunPtr (CInt -> CInt -> IO CInt)
+calculate_value_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4
+{-|
+
   Function with HTML formatting
 
   This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
@@ -222,6 +301,24 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_788bfbb9e824261c" calcul
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_3763cc54606bc611" html_example :: CInt ->
                                                                                           IO CBool
+{-|
+
+  Function with HTML formatting
+
+  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+
+  Input Output 0 false 1 true
+
+  [__@value@ /(input)/__]: Input value
+
+  __returns:__ Boolean result
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_be37db4c71dfaad8" hs_bindgen_test_doxygen_docs_be37db4c71dfaad8 :: IO (FunPtr (CInt ->
+                                                                                                                                       IO CBool))
+{-# NOINLINE html_example_ptr #-}
+html_example_ptr :: FunPtr (CInt -> IO CBool)
+html_example_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_be37db4c71dfaad8
 {-|
 
   Function with lists and special formatting
@@ -268,6 +365,54 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_e
                                                                                           IO CBool
 {-|
 
+  Function with lists and special formatting
+
+  This function demonstrates:
+
+  * Bullet point lists
+
+  * Nested list item 1
+
+  * Nested list item 2
+
+  * Multiple items
+
+  * Nested formatting
+
+  Numbered list:
+
+  1. First @item@
+
+  1. item
+
+  2. Second __item__
+
+  3. Third item
+
+  Other numbered list:
+
+  1. A
+
+  2. B
+
+  3. C
+
+  [__@items@ /(input)/__]: Array of items
+
+  [__@count@ /(input)/__]: Number of items
+
+  __returns:__ Success status
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_c40a51053a97fb29" hs_bindgen_test_doxygen_docs_c40a51053a97fb29 :: IO (FunPtr (Ptr (Ptr CChar) ->
+                                                                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                       IO CBool))
+{-# NOINLINE list_example_ptr #-}
+list_example_ptr :: FunPtr (Ptr (Ptr CChar) ->
+                            HsBindgen.Runtime.Prelude.CSize -> IO CBool)
+list_example_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_c40a51053a97fb29
+{-|
+
   Function with warnings and notes
 
   __/WARNING:/__ This function may cause side effects
@@ -283,6 +428,26 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_e
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9" dangerous_function :: Ptr Void ->
                                                                                                 IO (Ptr Void)
+{-|
+
+  Function with warnings and notes
+
+  __/WARNING:/__ This function may cause side effects
+
+  __Note:__ Use with caution in multithreaded environments
+
+  __see:__ related_function() for similar functionality
+
+  [__@ptr@ /(input)/__]: Pointer to data
+
+  __returns:__ Modified pointer
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_291c4151bd4c3637" hs_bindgen_test_doxygen_docs_291c4151bd4c3637 :: IO (FunPtr (Ptr Void ->
+                                                                                                                                       IO (Ptr Void)))
+{-# NOINLINE dangerous_function_ptr #-}
+dangerous_function_ptr :: FunPtr (Ptr Void -> IO (Ptr Void))
+dangerous_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_291c4151bd4c3637
 {-|
 
   Function with return value details
@@ -302,6 +467,26 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_fb3e3158714e01f5" detail
                                                                                                    IO CInt
 {-|
 
+  Function with return value details
+
+  [__@input@ /(input)/__]: Input string
+
+  __returns:__ 0 Success
+
+  __returns:__ -1 Invalid input
+
+  __returns:__ -2 Memory allocation failed
+
+  __returns:__ -3 Processing error
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b" hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b :: IO (FunPtr (Ptr CChar ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE detailed_return_codes_ptr #-}
+detailed_return_codes_ptr :: FunPtr (Ptr CChar -> IO CInt)
+detailed_return_codes_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b
+{-|
+
   Function with deprecated annotation
 
   __deprecated:__ Use new_function() instead
@@ -315,6 +500,22 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_84140a44d1bd8380" old_fu
                                                                                           IO CInt
 {-|
 
+  Function with deprecated annotation
+
+  __deprecated:__ Use new_function() instead
+
+  [__@old_param@ /(input)/__]: Legacy parameter
+
+  __returns:__ Legacy result
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_985c4be1f80d7557" hs_bindgen_test_doxygen_docs_985c4be1f80d7557 :: IO (FunPtr (CInt ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE old_function_ptr #-}
+old_function_ptr :: FunPtr (CInt -> IO CInt)
+old_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_985c4be1f80d7557
+{-|
+
   Function with version information
 
   @since:  1.0
@@ -326,6 +527,22 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_84140a44d1bd8380" old_fu
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8" versioned_function :: CInt ->
                                                                                                 IO CInt
+{-|
+
+  Function with version information
+
+  @since:  1.0
+
+  [__@data@ /(input)/__]: Input data
+
+  __returns:__ Processed data
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_6b616614abe7d3f0" hs_bindgen_test_doxygen_docs_6b616614abe7d3f0 :: IO (FunPtr (CInt ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE versioned_function_ptr #-}
+versioned_function_ptr :: FunPtr (CInt -> IO CInt)
+versioned_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_6b616614abe7d3f0
 {-|
 
   Callback function type
@@ -802,6 +1019,25 @@ process_buffer :: ConstantArray 64 CChar ->
 process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper ptr_2 x_1)
 {-|
 
+  Static array parameter
+
+  [__@buffer@ /(input)/__]: Buffer with minimum size
+
+  [__@size@ /(input)/__]: Actual buffer size
+
+  __returns:__ Number of bytes written
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975" hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975 :: IO (FunPtr (ConstantArray 64
+                                                                                                                                                     CChar ->
+                                                                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE process_buffer_ptr #-}
+process_buffer_ptr :: FunPtr (ConstantArray 64 CChar ->
+                              HsBindgen.Runtime.Prelude.CSize -> IO CInt)
+process_buffer_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975
+{-|
+
   Function with restrict pointers
 
   [__@dest@ /(input)/__]: Destination buffer (restrict)
@@ -819,6 +1055,27 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f" my_mem
                                                                                        IO (Ptr Void)
 {-|
 
+  Function with restrict pointers
+
+  [__@dest@ /(input)/__]: Destination buffer (restrict)
+
+  [__@src@ /(input)/__]: Source buffer (restrict)
+
+  [__@n@ /(input)/__]: Number of bytes
+
+  __returns:__ Destination pointer
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_de9d3228e8bac25c" hs_bindgen_test_doxygen_docs_de9d3228e8bac25c :: IO (FunPtr (Ptr Void ->
+                                                                                                                                       Ptr Void ->
+                                                                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                       IO (Ptr Void)))
+{-# NOINLINE my_memcpy_ptr #-}
+my_memcpy_ptr :: FunPtr (Ptr Void ->
+                         Ptr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void))
+my_memcpy_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_de9d3228e8bac25c
+{-|
+
   Inline function
 
   [__@x@ /(input)/__]: Input value
@@ -828,6 +1085,20 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f" my_mem
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_1c952f01cc07bb64" double_value :: CInt ->
                                                                                           IO CInt
+{-|
+
+  Inline function
+
+  [__@x@ /(input)/__]: Input value
+
+  __returns:__ Doubled value
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_faec60e7f49d446c" hs_bindgen_test_doxygen_docs_faec60e7f49d446c :: IO (FunPtr (CInt ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE double_value_ptr #-}
+double_value_ptr :: FunPtr (CInt -> IO CInt)
+double_value_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_faec60e7f49d446c
 {-|
 
   Function with flexible array member
@@ -934,11 +1205,96 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" comple
                                                                                               IO Status_code_t
 {-|
 
+  Function with complex documentation
+
+  This function demonstrates multiple documentation features:
+
+  __Description:__
+
+  Performs complex data processing with multiple steps.
+
+  __Algorithm:__
+
+  10. Validate input parameters
+
+  200. Allocate temporary buffers
+
+  3000. Process data in chunks
+
+  41235. Clean up resources
+
+  __Algorithm2:__
+
+  * Validate input parameters
+
+  * Allocate temporary buffers
+
+  * Process data in chunks
+
+  * Clean up resources
+
+  __Example:__
+
+  @
+  config_t cfg = {
+  .id = 1,
+  .name = "test",
+  .flags = 0,
+  .callback = my_callback,
+  .user_data = NULL
+  };
+
+  status_code_t result = complex_function(&cfg, data, size);
+  if (result != STATUS_OK) {
+  handle_error(result);
+  }
+  @
+
+  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+
+  [__@data@ /(input)/__]: Input data buffer
+
+  [__@size@ /(input)/__]: Size of input data
+
+  __returns:__ Status code indicating success or failure
+
+  __pre condition:__ config must not be NULL
+
+  __pre condition:__ data must not be NULL if size > 0
+
+  __post condition:__ Output data is written to config->user_data
+
+  __/WARNING:/__ May return NULL if memory allocation fails
+
+  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+
+-}
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_b7ae5186dd939781" hs_bindgen_test_doxygen_docs_b7ae5186dd939781 :: IO (FunPtr (Ptr Config_t ->
+                                                                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                       IO Status_code_t))
+{-# NOINLINE complex_function_ptr #-}
+complex_function_ptr :: FunPtr (Ptr Config_t ->
+                                Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t)
+complex_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_b7ae5186dd939781
+{-|
+
   Marked @__attribute((pure))__@
 
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_71214e4420f53a0e" hash :: Ptr CChar ->
                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_241bedb74b8016f3" hs_bindgen_test_doxygen_docs_241bedb74b8016f3 :: IO (FunPtr (Ptr CChar ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE hash_ptr #-}
+hash_ptr :: FunPtr (Ptr CChar -> IO CInt)
+hash_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_241bedb74b8016f3
 {-| -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_8effe939268709e4" square :: CInt ->
                                                                                     CInt
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a" hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a :: IO (FunPtr (CInt ->
+                                                                                                                                       IO CInt))
+{-# NOINLINE square_ptr #-}
+square_ptr :: FunPtr (CInt -> IO CInt)
+square_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a
