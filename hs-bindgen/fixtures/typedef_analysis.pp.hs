@@ -9,10 +9,6 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
-{-| Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
-
-  __from C:__ @struct1@
--}
 data Struct1_t = Struct1_t
   {}
   deriving stock (Eq, Show)
@@ -31,6 +27,14 @@ instance F.Storable Struct1_t where
         case s1 of
           Struct1_t -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct2_t@
+
+    __defined at:__ @typedef_analysis.h:11:16@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct2_t = Struct2_t
   {}
   deriving stock (Eq, Show)
@@ -49,10 +53,34 @@ instance F.Storable Struct2_t where
         case s1 of
           Struct2_t -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct3_t@
+
+    __defined at:__ @typedef_analysis.h:14:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct3_t
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct4_t@
+
+    __defined at:__ @typedef_analysis.h:18:16@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct4_t
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct5@
+
+    __defined at:__ @typedef_analysis.h:21:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct5 = Struct5
   {}
   deriving stock (Eq, Show)
@@ -71,12 +99,28 @@ instance F.Storable Struct5 where
         case s1 of
           Struct5 -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct5_t@
+
+    __defined at:__ @typedef_analysis.h:22:25@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct5_t = Struct5_t
   { un_Struct5_t :: F.Ptr Struct5
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct6_Deref@
+
+    __defined at:__ @typedef_analysis.h:25:16@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct6_Deref = Struct6_Deref
   {}
   deriving stock (Eq, Show)
@@ -95,12 +139,28 @@ instance F.Storable Struct6_Deref where
         case s1 of
           Struct6_Deref -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct6@
+
+    __defined at:__ @typedef_analysis.h:25:28@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct6 = Struct6
   { un_Struct6 :: F.Ptr Struct6_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct7@
+
+    __defined at:__ @typedef_analysis.h:28:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct7 = Struct7
   {}
   deriving stock (Eq, Show)
@@ -119,18 +179,42 @@ instance F.Storable Struct7 where
         case s1 of
           Struct7 -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct7a@
+
+    __defined at:__ @typedef_analysis.h:29:24@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct7a = Struct7a
   { un_Struct7a :: Struct7
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct7b@
+
+    __defined at:__ @typedef_analysis.h:30:24@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct7b = Struct7b
   { un_Struct7b :: Struct7
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct8@
+
+    __defined at:__ @typedef_analysis.h:33:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct8 = Struct8
   {}
   deriving stock (Eq, Show)
@@ -149,12 +233,28 @@ instance F.Storable Struct8 where
         case s1 of
           Struct8 -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct8b@
+
+    __defined at:__ @typedef_analysis.h:35:24@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct8b = Struct8b
   { un_Struct8b :: Struct8
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct9@
+
+    __defined at:__ @typedef_analysis.h:38:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct9 = Struct9
   {}
   deriving stock (Eq, Show)
@@ -173,12 +273,28 @@ instance F.Storable Struct9 where
         case s1 of
           Struct9 -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct9_t@
+
+    __defined at:__ @typedef_analysis.h:40:17@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct9_t = Struct9_t
   { un_Struct9_t :: Struct9
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct10_t@
+
+    __defined at:__ @typedef_analysis.h:46:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct10_t = Struct10_t
   {}
   deriving stock (Eq, Show)
@@ -197,15 +313,47 @@ instance F.Storable Struct10_t where
         case s1 of
           Struct10_t -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct10_t_t@
+
+    __defined at:__ @typedef_analysis.h:48:20@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 newtype Struct10_t_t = Struct10_t_t
   { un_Struct10_t_t :: Struct10_t
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct11_t@
+
+    __defined at:__ @typedef_analysis.h:51:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct11_t = Struct11_t
   { struct11_t_x :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @typedef_analysis.h:52:7@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , struct11_t_self :: F.Ptr Struct11_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @self@
+
+         __defined at:__ @typedef_analysis.h:53:20@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -229,9 +377,33 @@ instance F.Storable Struct11_t where
                F.pokeByteOff ptr0 (0 :: Int) struct11_t_x2
             >> F.pokeByteOff ptr0 (8 :: Int) struct11_t_self3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct12_t@
+
+    __defined at:__ @typedef_analysis.h:60:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Struct12_t = Struct12_t
   { struct12_t_x :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @typedef_analysis.h:61:7@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , struct12_t_self :: F.Ptr Struct12_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @self@
+
+         __defined at:__ @typedef_analysis.h:62:15@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -255,25 +427,177 @@ instance F.Storable Struct12_t where
                F.pokeByteOff ptr0 (0 :: Int) struct12_t_x2
             >> F.pokeByteOff ptr0 (8 :: Int) struct12_t_self3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @use_sites@
+
+    __defined at:__ @typedef_analysis.h:66:8@
+
+    __exported by:__ @typedef_analysis.h@
+-}
 data Use_sites = Use_sites
   { use_sites_useTypedef_struct1_t :: Struct1_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct1_t@
+
+         __defined at:__ @typedef_analysis.h:68:13@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct2_t :: Struct2_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct2_t@
+
+         __defined at:__ @typedef_analysis.h:71:13@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct3_t :: F.Ptr Struct3_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct3_t@
+
+         __defined at:__ @typedef_analysis.h:74:14@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct4_t :: F.Ptr Struct4_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct4_t@
+
+         __defined at:__ @typedef_analysis.h:75:14@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useStruct_struct5 :: Struct5
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useStruct_struct5@
+
+         __defined at:__ @typedef_analysis.h:78:18@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct5_t :: Struct5_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct5_t@
+
+         __defined at:__ @typedef_analysis.h:79:13@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useStruct_struct6 :: Struct6_Deref
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useStruct_struct6@
+
+         __defined at:__ @typedef_analysis.h:82:18@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct6 :: Struct6
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct6@
+
+         __defined at:__ @typedef_analysis.h:83:11@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct7a :: Struct7a
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct7a@
+
+         __defined at:__ @typedef_analysis.h:86:12@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct7b :: Struct7b
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct7b@
+
+         __defined at:__ @typedef_analysis.h:87:12@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct8 :: Struct8
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct8@
+
+         __defined at:__ @typedef_analysis.h:91:11@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct8b :: Struct8b
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct8b@
+
+         __defined at:__ @typedef_analysis.h:92:12@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct9 :: Struct9
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct9@
+
+         __defined at:__ @typedef_analysis.h:96:11@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct9_t :: Struct9_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct9_t@
+
+         __defined at:__ @typedef_analysis.h:97:13@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct10_t :: Struct10_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct10_t@
+
+         __defined at:__ @typedef_analysis.h:98:14@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct10_t_t :: Struct10_t_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct10_t_t@
+
+         __defined at:__ @typedef_analysis.h:99:16@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct11_t :: Struct11_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct11_t@
+
+         __defined at:__ @typedef_analysis.h:102:14@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   , use_sites_useTypedef_struct12_t :: Struct12_t
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @useTypedef_struct12_t@
+
+         __defined at:__ @typedef_analysis.h:103:14@
+
+         __exported by:__ @typedef_analysis.h@
+    -}
   }
   deriving stock (Eq, Show)
 

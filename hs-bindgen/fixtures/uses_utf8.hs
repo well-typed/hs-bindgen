@@ -67,7 +67,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "uses_utf8.h:4:6")
+          (Just "uses_utf8.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -319,7 +324,12 @@
               "Say\20320\22909"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "uses_utf8.h:5:9")
+          (Just "uses_utf8.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -342,4 +352,9 @@
               "Say\25308\25308"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing}]
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "uses_utf8.h:6:9")
+          (Just "uses_utf8.h")
+          [])}]

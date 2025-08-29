@@ -59,7 +59,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:5:9")
+          (Just "macro_in_fundecl.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -252,7 +257,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:6:9")
+          (Just "macro_in_fundecl.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -443,7 +453,12 @@
           RealFloat,
           RealFrac,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:7:9")
+          (Just "macro_in_fundecl.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -625,7 +640,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:8:9")
+          (Just "macro_in_fundecl.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -819,7 +839,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:9:9")
+          (Just "macro_in_fundecl.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -967,20 +992,22 @@
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "F"),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCChar,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCChar)),
@@ -1016,10 +1043,11 @@
             (PrimChar
               (PrimSignImplicit Nothing))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:12:6")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1037,10 +1065,11 @@
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
@@ -1048,10 +1077,11 @@
             (HsTypRef
               (HsName "@NsTypeConstr" "C")),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1093,10 +1123,11 @@
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:13:4")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1114,10 +1145,11 @@
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "g"),
@@ -1126,10 +1158,11 @@
               (HsPrimType HsPrimCInt)
               (HsIO (HsPrimType HsPrimCInt))),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "g",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1172,10 +1205,11 @@
                 (PrimSignImplicit
                   (Just Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:16:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1193,10 +1227,11 @@
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "F"),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "g"),
@@ -1205,10 +1240,11 @@
               (HsPrimType HsPrimCInt)
               (HsIO (HsPrimType HsPrimCInt))),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "g",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1253,10 +1289,11 @@
               (PrimChar
                 (PrimSignImplicit Nothing)))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:17:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1274,10 +1311,11 @@
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "g"),
@@ -1286,10 +1324,11 @@
               (HsPrimType HsPrimCInt)
               (HsIO (HsPrimType HsPrimCInt))),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "g",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1334,10 +1373,11 @@
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo3",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:18:4")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1355,10 +1395,11 @@
           functionParameterType =
           HsPrimType HsPrimCLong,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1396,10 +1437,11 @@
                   PrimInt
                   Signed)))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:21:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1452,10 +1494,11 @@
                   PrimInt
                   Signed)))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:22:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1511,10 +1554,11 @@
                   PrimInt
                   Signed)))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar3",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:23:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1570,10 +1614,11 @@
                   nameHsIdent = HsIdentifier "I"}
                 NameOriginInSource))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar4",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:24:5")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1591,10 +1636,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "i",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1631,10 +1677,11 @@
                     PrimInt
                     Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "baz1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:27:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1652,10 +1699,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "i",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1692,10 +1740,11 @@
                     PrimInt
                     Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "baz2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:35:7")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1713,10 +1762,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "i",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1753,10 +1803,11 @@
                     PrimInt
                     Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "baz3",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:43:5")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl.h",
@@ -1789,9 +1840,9 @@
               nameHsIdent = HsIdentifier "I"}
             NameOriginInSource},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "no_args_no_void",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "macro_in_fundecl.h:53:3")
+          (Just "macro_in_fundecl.h")
+          []),
       foreignImportSafety = Safe}]

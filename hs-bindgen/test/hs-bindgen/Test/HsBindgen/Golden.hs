@@ -63,10 +63,10 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
   | testName test == "doxygen_docs"
   = testGroup (testName test) [
         C.check           testResources test
-      -- , Hs.check          testResources test
+      , Hs.check          testResources test
       , Exts.check        testResources test
       , TH.check          testResources test
-      -- , PP.check          testResources test
+      , PP.check          testResources test
       , BindingSpec.check testResources test
       , Rust.check        testResources test
       ]

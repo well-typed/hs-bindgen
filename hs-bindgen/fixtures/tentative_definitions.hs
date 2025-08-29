@@ -21,7 +21,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "tentative_definitions.h:17:5")
+          (Just "tentative_definitions.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -47,7 +53,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "tentative_definitions.h:21:12")
+          (Just "tentative_definitions.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -73,7 +85,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "tentative_definitions.h:30:5")
+          (Just "tentative_definitions.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

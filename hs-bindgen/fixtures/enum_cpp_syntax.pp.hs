@@ -12,6 +12,14 @@ import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @foo_enum@
+
+    __defined at:__ @enum_cpp_syntax.h:4:9@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 newtype Foo_enum = Foo_enum
   { un_Foo_enum :: HsBindgen.Runtime.Prelude.Word32
   }
@@ -79,11 +87,35 @@ instance Read Foo_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @A@
+
+    __defined at:__ @enum_cpp_syntax.h:4:27@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern A :: Foo_enum
 pattern A = Foo_enum 0
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @B@
+
+    __defined at:__ @enum_cpp_syntax.h:4:30@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern B :: Foo_enum
 pattern B = Foo_enum 1
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @C@
+
+    __defined at:__ @enum_cpp_syntax.h:4:33@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern C :: Foo_enum
 pattern C = Foo_enum 2

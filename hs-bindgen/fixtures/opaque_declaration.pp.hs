@@ -7,11 +7,43 @@ module Example where
 import qualified Foreign as F
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @foo@
+
+    __defined at:__ @opaque_declaration.h:1:8@
+
+    __exported by:__ @opaque_declaration.h@
+-}
 data Foo
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @bar@
+
+    __defined at:__ @opaque_declaration.h:4:8@
+
+    __exported by:__ @opaque_declaration.h@
+-}
 data Bar = Bar
   { bar_ptrA :: F.Ptr Foo
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @ptrA@
+
+         __defined at:__ @opaque_declaration.h:5:17@
+
+         __exported by:__ @opaque_declaration.h@
+    -}
   , bar_ptrB :: F.Ptr Bar
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @ptrB@
+
+         __defined at:__ @opaque_declaration.h:6:17@
+
+         __exported by:__ @opaque_declaration.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -35,6 +67,14 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_ptrA2
             >> F.pokeByteOff ptr0 (8 :: Int) bar_ptrB3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @baz@
+
+    __defined at:__ @opaque_declaration.h:9:8@
+
+    __exported by:__ @opaque_declaration.h@
+-}
 data Baz = Baz
   {}
   deriving stock (Eq, Show)
@@ -53,6 +93,22 @@ instance F.Storable Baz where
         case s1 of
           Baz -> return ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @quu@
+
+    __defined at:__ @opaque_declaration.h:11:6@
+
+    __exported by:__ @opaque_declaration.h@
+-}
 data Quu
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @opaque_union@
+
+    __defined at:__ @opaque_declaration.h:13:7@
+
+    __exported by:__ @opaque_declaration.h@
+-}
 data Opaque_union

@@ -10,8 +10,11 @@ import Text.Read (readMaybe)
 import GHC.Natural (Natural)
 
 import Clang.HighLevel.Documentation qualified as C
+import Clang.HighLevel.Types qualified as C
 
-import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..))
+import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..), Name (..))
+import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
+import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
@@ -20,8 +23,14 @@ import HsBindgen.Language.Haskell (HsName(..), HsIdentifier (..))
 
 -- | Convert a Clang comment to a Haddock comment
 --
-generateHaddocks :: Maybe (C.Comment Reference) -> Maybe Hs.Comment
-generateHaddocks comment = fst $ generateHaddocksWithParams comment []
+generateHaddocks
+  :: C.SingleLoc
+  -> HashIncludeArg
+  -> MangleNames.NamePair
+  -> Maybe (C.Comment Reference)
+  -> Maybe Hs.Comment
+generateHaddocks declLoc declHeader declId comment =
+  fst $ generateHaddocksWithParams declLoc declHeader declId comment []
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
 --
@@ -32,16 +41,27 @@ generateHaddocks comment = fst $ generateHaddocksWithParams comment []
 -- Returns the processed comment and the updated parameters list
 --
 generateHaddocksWithParams ::
-     Maybe (C.Comment Reference)
+     C.SingleLoc
+  -> HashIncludeArg
+  -> MangleNames.NamePair
+  -> Maybe (C.Comment Reference)
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])
-generateHaddocksWithParams Nothing params              =
+generateHaddocksWithParams declLoc declHeader declId Nothing params              =
   -- If there's no C.Comment to associate with any function parameter we make
   -- sure to at least add a comment that will show the function parameter name
   -- if it exists.
   --
-  (Nothing, map addFunctionParameterComment params)
-generateHaddocksWithParams (Just C.Comment{..}) params =
+  ( Just
+     Hs.Comment {
+       Hs.commentTitle    = Nothing
+     , Hs.commentOrigin   = Just (getName (nameC declId))
+     , Hs.commentLocation = Just declLoc
+     , Hs.commentHeader   = Just declHeader
+     , Hs.commentChildren = []
+     }
+  , map addFunctionParameterComment params)
+generateHaddocksWithParams declLoc header declId (Just C.Comment{..}) params =
   let (commentTitle, commentChildren') =
         case commentChildren of
           (C.Paragraph [C.TextContent ""]:rest) -> (Nothing, rest)
@@ -86,15 +106,17 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
    in ( Just Hs.Comment {
           commentTitle
         , commentOrigin   = if Text.null commentCName
-                               then Nothing
+                               then Just (getName (nameC declId))
                                else Just (Text.strip commentCName)
+        , commentLocation = Just declLoc
+        , commentHeader   = Just header
         , commentChildren = finalChildren
         }
       , updatedParams
       )
   where
     filterParamCommands :: [C.CommentBlockContent Reference]
-                           -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
+                        -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
     filterParamCommands = \case
       [] -> []
       (blockContent@C.ParamCommand{..}:cmds)
@@ -109,6 +131,8 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
                 , commentOrigin   = if Text.null paramCommandName
                                        then Nothing
                                        else Just (Text.strip paramCommandName)
+                , commentLocation = Nothing
+                , commentHeader   = Nothing
                 , commentChildren = convertBlockContent blockContent
                 }
            in (comment, paramCommandDirection):filterParamCommands cmds
@@ -151,6 +175,8 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
                    Just Hs.Comment {
                           commentTitle    = Nothing
                         , commentOrigin   = getHsName <$> functionParameterName
+                        , commentLocation = Nothing
+                        , commentHeader   = Nothing
                         , commentChildren = []
                         }
                }

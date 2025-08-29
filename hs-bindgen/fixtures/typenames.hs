@@ -67,7 +67,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:14:6")
+          (Just "typenames.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -309,7 +314,12 @@
               "FOO1"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:15:2")
+          (Just "typenames.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -332,7 +342,12 @@
               "FOO2"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:16:2")
+          (Just "typenames.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -391,7 +406,12 @@
           RealFloat,
           RealFrac,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:19:16")
+          (Just "typenames.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

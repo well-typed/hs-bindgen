@@ -300,7 +300,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:9")
+          (Just "enum_cpp_syntax.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1415,7 +1420,12 @@
             nameHsIdent = HsIdentifier "A"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:27")
+          (Just "enum_cpp_syntax.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1437,7 +1447,12 @@
             nameHsIdent = HsIdentifier "B"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:30")
+          (Just "enum_cpp_syntax.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1459,4 +1474,9 @@
             nameHsIdent = HsIdentifier "C"},
           enumConstantValue = 2,
           enumConstantComment = Nothing},
-      patSynComment = Nothing}]
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:33")
+          (Just "enum_cpp_syntax.h")
+          [])}]

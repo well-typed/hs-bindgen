@@ -9,6 +9,13 @@ import Prelude (IO)
 
 $(CAPI.addCSource "#include <varargs.h>\nvoid hs_bindgen_test_varargs_0fd77c5efa209398 (void) { h(); }\n")
 
-{-| __from C:__ @h@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @h@
+
+    __defined at:__ @varargs.h:8:6@
+
+    __exported by:__ @varargs.h@
+-}
 foreign import ccall safe "hs_bindgen_test_varargs_0fd77c5efa209398" h
   :: IO ()

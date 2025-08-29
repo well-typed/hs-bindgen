@@ -26,7 +26,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:2:9")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -45,7 +50,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:3:9")
+              (Just "unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -96,7 +106,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:1:8")
+          (Just "unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -127,7 +142,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:2:9")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -146,7 +166,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:3:9")
+                  (Just "unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -197,7 +222,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:1:8")
+              (Just "unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -231,7 +261,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:2:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -250,7 +285,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:3:9")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -301,7 +341,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:1:8")
+                      (Just "unions.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -337,7 +382,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:2:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -356,7 +406,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:3:9")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -407,7 +462,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:1:8")
+                      (Just "unions.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -465,7 +525,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:7:9")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -484,7 +549,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:8:9")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -503,7 +573,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:9:9")
+              (Just "unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -565,7 +640,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:6:8")
+          (Just "unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -596,7 +676,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:7:9")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -615,7 +700,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:8:9")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -634,7 +724,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:9:9")
+                  (Just "unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -696,7 +791,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:6:8")
+              (Just "unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -730,7 +830,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:7:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -749,7 +854,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:8:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -768,7 +878,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:9:9")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -830,7 +945,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:6:8")
+                      (Just "unions.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4,
@@ -867,7 +987,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:7:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -886,7 +1011,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:8:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -905,7 +1035,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:9:9")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -967,7 +1102,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:6:8")
+                      (Just "unions.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -1073,7 +1213,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:12:7")
+          (Just "unions.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1096,15 +1241,16 @@
         "@NsTypeConstr"
         "DimPayload",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "unions.h:13:17")
+          (Just "unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_dimPayload_dim2"]]}},
+                  "set_dimPayload_dim2"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1116,15 +1262,16 @@
         "@NsTypeConstr"
         "DimPayload",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_dimPayload_dim2"]]}},
+                  "get_dimPayload_dim2"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -1136,15 +1283,16 @@
         "@NsTypeConstr"
         "DimPayload",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "unions.h:14:17")
+          (Just "unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_dimPayload_dim3"]]}},
+                  "set_dimPayload_dim3"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1156,15 +1304,16 @@
         "@NsTypeConstr"
         "DimPayload",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_dimPayload_dim3"]]}},
+                  "get_dimPayload_dim3"]])},
   DeclData
     Struct {
       structName = HsName
@@ -1193,7 +1342,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:18:9")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1219,7 +1373,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:19:22")
+              (Just "unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1276,7 +1435,12 @@
                 []}},
       structInstances = Set.fromList
         [Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:17:8")
+          (Just "unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1308,7 +1472,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:18:9")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1334,7 +1503,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:19:22")
+                  (Just "unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1391,7 +1565,12 @@
                     []}},
           structInstances = Set.fromList
             [Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:17:8")
+              (Just "unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -1426,7 +1605,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:18:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1452,7 +1636,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:19:22")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1509,7 +1698,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:17:8")
+                      (Just "unions.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -1546,7 +1740,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:18:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1572,7 +1771,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:19:22")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1629,7 +1833,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:17:8")
+                      (Just "unions.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1715,7 +1924,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:23:15")
+          (Just "unions.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1738,15 +1952,16 @@
         "@NsTypeConstr"
         "DimPayloadB",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "unions.h:24:17")
+          (Just "unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_dimPayloadB_dim2"]]}},
+                  "set_dimPayloadB_dim2"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1758,15 +1973,16 @@
         "@NsTypeConstr"
         "DimPayloadB",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_dimPayloadB_dim2"]]}},
+                  "get_dimPayloadB_dim2"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -1778,15 +1994,16 @@
         "@NsTypeConstr"
         "DimPayloadB",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "unions.h:25:17")
+          (Just "unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_dimPayloadB_dim3"]]}},
+                  "set_dimPayloadB_dim3"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1798,15 +2015,16 @@
         "@NsTypeConstr"
         "DimPayloadB",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_dimPayloadB_dim3"]]}},
+                  "get_dimPayloadB_dim3"]])},
   DeclData
     Struct {
       structName = HsName
@@ -1835,7 +2053,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:29:9")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1864,7 +2087,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:30:17")
+              (Just "unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1924,7 +2152,12 @@
                 []}},
       structInstances = Set.fromList
         [Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:28:8")
+          (Just "unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1956,7 +2189,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:29:9")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1985,7 +2223,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:30:17")
+                  (Just "unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2045,7 +2288,12 @@
                     []}},
           structInstances = Set.fromList
             [Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:28:8")
+              (Just "unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -2080,7 +2328,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:29:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2109,7 +2362,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:30:17")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2169,7 +2427,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:28:8")
+                      (Just "unions.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -2206,7 +2469,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:29:9")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2235,7 +2503,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:30:17")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2295,7 +2568,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:28:8")
+                      (Just "unions.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -2334,7 +2612,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:35:21")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2354,7 +2637,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:35:31")
+              (Just "unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2408,7 +2696,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:35:5")
+          (Just "unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2440,7 +2733,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:35:21")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2460,7 +2758,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:35:31")
+                  (Just "unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2514,7 +2817,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:35:5")
+              (Just "unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2549,7 +2857,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:35:21")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2569,7 +2882,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:35:31")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2623,7 +2941,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:35:5")
+                      (Just "unions.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2660,7 +2983,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:35:21")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2680,7 +3008,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:35:31")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2734,7 +3067,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:35:5")
+                      (Just "unions.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -2793,7 +3131,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:36:21")
+              (Just "unions.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2813,7 +3156,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:36:31")
+              (Just "unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2869,7 +3217,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:36:5")
+          (Just "unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2901,7 +3254,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:36:21")
+                  (Just "unions.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2921,7 +3279,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "unions.h:36:31")
+                  (Just "unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2977,7 +3340,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "unions.h:36:5")
+              (Just "unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -3012,7 +3380,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:36:21")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3032,7 +3405,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:36:31")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3088,7 +3466,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:36:5")
+                      (Just "unions.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -3125,7 +3508,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:36:21")
+                          (Just "unions.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3145,7 +3533,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "unions.h:36:31")
+                          (Just "unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3201,7 +3594,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "unions.h:36:5")
+                      (Just "unions.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3308,7 +3706,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "unions.h:34:7")
+          (Just "unions.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -3333,14 +3736,15 @@
         "@NsTypeConstr"
         "AnonA",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "unions.h:35:36")
+          (Just "unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_anonA_xy"]]}},
+                Identifier "set_anonA_xy"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -3354,14 +3758,15 @@
         "@NsTypeConstr"
         "AnonA",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_anonA_xy"]]}},
+                Identifier "get_anonA_xy"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -3375,15 +3780,16 @@
         "@NsTypeConstr"
         "AnonA",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "unions.h:36:36")
+          (Just "unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_anonA_polar"]]}},
+                  "set_anonA_polar"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -3397,12 +3803,13 @@
         "@NsTypeConstr"
         "AnonA",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_anonA_polar"]]}}]
+                  "get_anonA_polar"]])}]

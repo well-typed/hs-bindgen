@@ -27,7 +27,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:9:22")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -49,7 +54,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:9:32")
+              (Just "distilled_lib_1.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -113,7 +123,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:9:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -145,7 +160,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:9:22")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -167,7 +187,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:9:32")
+                  (Just "distilled_lib_1.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -231,7 +256,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:9:9")
+              (Just "distilled_lib_1.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -266,7 +296,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:22")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -288,7 +323,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:32")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -352,7 +392,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:9:9")
+                      (Just "distilled_lib_1.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -389,7 +434,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:22")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -411,7 +461,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:32")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -475,7 +530,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:9:9")
+                      (Just "distilled_lib_1.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -580,7 +640,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:10:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -822,7 +887,12 @@
               "FOO"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:10:16")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -845,7 +915,12 @@
               "BAR"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:10:21")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -871,7 +946,12 @@
       varDeclBody = VarDeclIntegral
         5
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:11:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -897,7 +977,12 @@
       varDeclBody = VarDeclIntegral
         3
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:12:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -923,7 +1008,12 @@
       varDeclBody = VarDeclIntegral
         4
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:13:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -985,7 +1075,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:14:13")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1178,7 +1273,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:15:13")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1338,7 +1438,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:37:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1581,7 +1686,12 @@
               structFieldOffset = 8,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:38:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1824,7 +1934,12 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:39:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2067,7 +2182,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:40:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2100,7 +2220,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:41:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2135,7 +2260,12 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:42:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2155,7 +2285,12 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:43:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2402,7 +2537,12 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:44:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2434,7 +2574,12 @@
               structFieldOffset = 480,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:45:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2470,7 +2615,12 @@
               structFieldOffset = 512,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:46:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2510,7 +2660,12 @@
               structFieldOffset = 640,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:47:31")
+              (Just "distilled_lib_1.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3196,7 +3351,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:35:16")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3228,7 +3388,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:37:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3471,7 +3636,12 @@
                   structFieldOffset = 8,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:38:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3714,7 +3884,12 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:39:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3957,7 +4132,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:40:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3990,7 +4170,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:41:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4025,7 +4210,12 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:42:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4045,7 +4235,12 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:43:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4292,7 +4487,12 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:44:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4324,7 +4524,12 @@
                   structFieldOffset = 480,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:45:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4360,7 +4565,12 @@
                   structFieldOffset = 512,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:46:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4400,7 +4610,12 @@
                   structFieldOffset = 640,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:47:31")
+                  (Just "distilled_lib_1.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -5086,7 +5301,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:35:16")
+              (Just "distilled_lib_1.h")
+              [])}
         StorableInstance {
           storableSizeOf = 140,
           storableAlignment = 1,
@@ -5121,7 +5341,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:37:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5364,7 +5589,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:38:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5607,7 +5837,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:39:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5850,7 +6085,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:40:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5883,7 +6123,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:41:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5918,7 +6163,12 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:42:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5938,7 +6188,12 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:43:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6185,7 +6440,12 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:44:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6217,7 +6477,12 @@
                           structFieldOffset = 480,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:45:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6253,7 +6518,12 @@
                           structFieldOffset = 512,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:46:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6293,7 +6563,12 @@
                           structFieldOffset = 640,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:47:31")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -6979,7 +7254,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:35:16")
+                      (Just "distilled_lib_1.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1,
@@ -7025,7 +7305,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:37:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7268,7 +7553,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:38:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7511,7 +7801,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:39:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7754,7 +8049,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:40:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7787,7 +8087,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:41:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7822,7 +8127,12 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:42:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7842,7 +8152,12 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:43:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8089,7 +8404,12 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:44:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8121,7 +8441,12 @@
                           structFieldOffset = 480,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:45:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8157,7 +8482,12 @@
                           structFieldOffset = 512,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:46:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8197,7 +8527,12 @@
                           structFieldOffset = 640,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:47:31")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -8883,7 +9218,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:35:16")
+                      (Just "distilled_lib_1.h")
+                      [])}
                 (Add 11)
                 (Seq
                   [
@@ -8948,7 +9288,12 @@
       varDeclBody = VarDeclIntegral
         0
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:53:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -8974,7 +9319,12 @@
       varDeclBody = VarDeclIntegral
         20560
         HsPrimCUInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:54:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -9000,7 +9350,12 @@
       varDeclBody = VarDeclIntegral
         2
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:55:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -9050,7 +9405,12 @@
           VarDeclIntegral
             30874
             HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:56:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -9143,7 +9503,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:61:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -9399,7 +9764,12 @@
               "ENUM_CASE_0"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:63:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9422,7 +9792,12 @@
               "ENUM_CASE_1"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:64:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9445,7 +9820,12 @@
               "ENUM_CASE_2"},
           enumConstantValue = 2,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:65:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9468,7 +9848,12 @@
               "ENUM_CASE_3"},
           enumConstantValue = 3,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:66:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
@@ -9488,10 +9873,11 @@
                 "@NsTypeConstr"
                 "A_type_t")),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "i",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "j"),
@@ -9608,10 +9994,11 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "j",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "k"),
@@ -9728,10 +10115,11 @@
                           instanceSpecConstraints = [
                             ]})]}),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "k",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -10228,10 +10616,11 @@
                           instanceSpecConstraints = [
                             ]})]}}},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "some_fun",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:72:9")
+          (Just "distilled_lib_1.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclNewtype
@@ -10741,7 +11130,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:77:19")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -10811,7 +11205,12 @@
               nameC = Name "var_t",
               nameHsIdent = HsIdentifier
                 "Var_t"})),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:91:14")
+          (Just "distilled_lib_1.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

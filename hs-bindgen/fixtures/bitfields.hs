@@ -29,7 +29,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:2:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -49,7 +54,12 @@
               structFieldOffset = 8,
               structFieldWidth = Just 1,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:3:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -69,7 +79,12 @@
               structFieldOffset = 9,
               structFieldWidth = Just 1,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:4:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -89,7 +104,12 @@
               structFieldOffset = 10,
               structFieldWidth = Just 1,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:5:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -111,7 +131,12 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:6:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -131,7 +156,12 @@
               structFieldOffset = 24,
               structFieldWidth = Just 2,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:7:9")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -236,7 +266,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:1:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -270,7 +305,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:2:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -290,7 +330,12 @@
                   structFieldOffset = 8,
                   structFieldWidth = Just 1,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:3:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -310,7 +355,12 @@
                   structFieldOffset = 9,
                   structFieldWidth = Just 1,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:4:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -330,7 +380,12 @@
                   structFieldOffset = 10,
                   structFieldWidth = Just 1,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:5:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -352,7 +407,12 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:6:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -372,7 +432,12 @@
                   structFieldOffset = 24,
                   structFieldWidth = Just 2,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:7:9")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -477,7 +542,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:1:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -514,7 +584,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:2:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -534,7 +609,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:3:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -554,7 +634,12 @@
                           structFieldOffset = 9,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:4:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -574,7 +659,12 @@
                           structFieldOffset = 10,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:5:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -596,7 +686,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:6:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -616,7 +711,12 @@
                           structFieldOffset = 24,
                           structFieldWidth = Just 2,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:7:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -721,7 +821,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:1:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekBitOffWidth (Idx 0) 8 1,
@@ -764,7 +869,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:2:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -784,7 +894,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:3:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -804,7 +919,12 @@
                           structFieldOffset = 9,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:4:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -824,7 +944,12 @@
                           structFieldOffset = 10,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:5:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -846,7 +971,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:6:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -866,7 +996,12 @@
                           structFieldOffset = 24,
                           structFieldWidth = Just 2,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:7:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -971,7 +1106,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:1:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 6)
                 (Seq
                   [
@@ -1047,7 +1187,12 @@
               structFieldOffset = 0,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:13:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1067,7 +1212,12 @@
               structFieldOffset = 32,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:14:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1087,7 +1237,12 @@
               structFieldOffset = 64,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:15:9")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1154,7 +1309,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:12:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1186,7 +1346,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:13:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1206,7 +1371,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:14:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1226,7 +1396,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:15:9")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1293,7 +1468,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:12:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -1328,7 +1508,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:13:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1348,7 +1533,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:14:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1368,7 +1558,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:15:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1435,7 +1630,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:12:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
                 PeekBitOffWidth (Idx 0) 32 17,
@@ -1473,7 +1673,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:13:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1493,7 +1698,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:14:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1513,7 +1723,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:15:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1580,7 +1795,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:12:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -1649,7 +1869,12 @@
               structFieldOffset = 0,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:19:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1669,7 +1894,12 @@
               structFieldOffset = 17,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:20:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1689,7 +1919,12 @@
               structFieldOffset = 34,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:21:10")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1756,7 +1991,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:18:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1788,7 +2028,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:19:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1808,7 +2053,12 @@
                   structFieldOffset = 17,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:20:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1828,7 +2078,12 @@
                   structFieldOffset = 34,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:21:10")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1895,7 +2150,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:18:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 8,
@@ -1930,7 +2190,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:19:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1950,7 +2215,12 @@
                           structFieldOffset = 17,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:20:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1970,7 +2240,12 @@
                           structFieldOffset = 34,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:21:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2037,7 +2312,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:18:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
                 PeekBitOffWidth (Idx 0) 17 17,
@@ -2075,7 +2355,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:19:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2095,7 +2380,12 @@
                           structFieldOffset = 17,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:20:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2115,7 +2405,12 @@
                           structFieldOffset = 34,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:21:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2182,7 +2477,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:18:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -2251,7 +2551,12 @@
               structFieldOffset = 0,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:25:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2271,7 +2576,12 @@
               structFieldOffset = 32,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:26:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2291,7 +2601,12 @@
               structFieldOffset = 64,
               structFieldWidth = Just 17,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:27:10")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2358,7 +2673,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:24:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2390,7 +2710,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:25:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2410,7 +2735,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:26:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2430,7 +2760,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Just 17,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:27:10")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2497,7 +2832,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:24:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2532,7 +2872,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:25:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2552,7 +2897,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:26:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2572,7 +2922,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:27:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2639,7 +2994,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:24:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
                 PeekBitOffWidth (Idx 0) 32 17,
@@ -2677,7 +3037,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:25:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2697,7 +3062,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:26:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2717,7 +3087,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Just 17,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:27:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2784,7 +3159,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:24:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -2853,7 +3233,12 @@
               structFieldOffset = 0,
               structFieldWidth = Just 33,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:31:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2873,7 +3258,12 @@
               structFieldOffset = 64,
               structFieldWidth = Just 33,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:32:10")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2928,7 +3318,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:30:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2960,7 +3355,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Just 33,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:31:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2980,7 +3380,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Just 33,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:32:10")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3035,7 +3440,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:30:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -3070,7 +3480,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 33,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:31:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3090,7 +3505,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Just 33,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:32:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3145,7 +3565,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:30:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 33,
                 PeekBitOffWidth (Idx 0) 64 33]),
@@ -3182,7 +3607,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 33,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:31:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3202,7 +3632,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Just 33,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:32:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3257,7 +3692,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:30:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3322,7 +3762,12 @@
               structFieldOffset = 0,
               structFieldWidth = Just 1,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:37:16")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3342,7 +3787,12 @@
               structFieldOffset = 1,
               structFieldWidth = Just 10,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:38:6")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3396,7 +3846,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:36:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3429,7 +3884,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Just 1,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:37:16")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3449,7 +3909,12 @@
                   structFieldOffset = 1,
                   structFieldWidth = Just 10,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:38:6")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3503,7 +3968,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:36:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -3539,7 +4009,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:37:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3559,7 +4034,12 @@
                           structFieldOffset = 1,
                           structFieldWidth = Just 10,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:38:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3613,7 +4093,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:36:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 1,
                 PeekBitOffWidth (Idx 0) 1 10]),
@@ -3651,7 +4136,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 1,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:37:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3671,7 +4161,12 @@
                           structFieldOffset = 1,
                           structFieldWidth = Just 10,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:38:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3725,7 +4220,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:36:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3790,7 +4290,12 @@
               structFieldOffset = 0,
               structFieldWidth = Just 7,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:42:16")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3810,7 +4315,12 @@
               structFieldOffset = 32,
               structFieldWidth = Just 31,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:43:6")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3864,7 +4374,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:41:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3897,7 +4412,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Just 7,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:42:16")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3917,7 +4437,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Just 31,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:43:6")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3971,7 +4496,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:41:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -4007,7 +4537,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 7,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:42:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4027,7 +4562,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Just 31,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:43:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4081,7 +4621,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:41:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 7,
                 PeekBitOffWidth (Idx 0) 32 31]),
@@ -4119,7 +4664,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Just 7,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:42:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4139,7 +4689,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Just 31,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:43:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4193,7 +4748,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:41:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

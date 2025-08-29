@@ -19,6 +19,14 @@ import qualified Text.Read
 
 $(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n")
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @FileOperationStatus@
+
+    __defined at:__ @program_slicing_selection.h:7:6@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 newtype FileOperationStatus = FileOperationStatus
   { un_FileOperationStatus :: FC.CInt
   }
@@ -78,27 +86,99 @@ instance Read FileOperationStatus where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @SUCCESS@
+
+    __defined at:__ @program_slicing_selection.h:8:3@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 pattern SUCCESS :: FileOperationStatus
 pattern SUCCESS = FileOperationStatus 0
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @NOT_FOUND@
+
+    __defined at:__ @program_slicing_selection.h:9:3@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 pattern NOT_FOUND :: FileOperationStatus
 pattern NOT_FOUND = FileOperationStatus 2
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @PERMISSION_DENIED@
+
+    __defined at:__ @program_slicing_selection.h:10:3@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 pattern PERMISSION_DENIED :: FileOperationStatus
 pattern PERMISSION_DENIED = FileOperationStatus 13
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @INVALID_ARGUMENT@
+
+    __defined at:__ @program_slicing_selection.h:11:3@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 pattern INVALID_ARGUMENT :: FileOperationStatus
 pattern INVALID_ARGUMENT = FileOperationStatus 22
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @OUT_OF_MEMORY@
+
+    __defined at:__ @program_slicing_selection.h:12:3@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 pattern OUT_OF_MEMORY :: FileOperationStatus
 pattern OUT_OF_MEMORY = FileOperationStatus 12
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @CUSTOM_ERROR_OTHER@
+
+    __defined at:__ @program_slicing_selection.h:13:3@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 pattern CUSTOM_ERROR_OTHER :: FileOperationStatus
 pattern CUSTOM_ERROR_OTHER = FileOperationStatus (-1)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @FileOperationRecord@
+
+    __defined at:__ @program_slicing_selection.h:16:8@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 data FileOperationRecord = FileOperationRecord
   { fileOperationRecord_status :: FileOperationStatus
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @status@
+
+         __defined at:__ @program_slicing_selection.h:17:28@
+
+         __exported by:__ @program_slicing_selection.h@
+    -}
   , fileOperationRecord_bytes_processed :: HsBindgen.Runtime.Prelude.CSize
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @bytes_processed@
+
+         __defined at:__ @program_slicing_selection.h:18:10@
+
+         __exported by:__ @program_slicing_selection.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -124,12 +204,28 @@ instance F.Storable FileOperationRecord where
                  F.pokeByteOff ptr0 (0 :: Int) fileOperationRecord_status2
               >> F.pokeByteOff ptr0 (8 :: Int) fileOperationRecord_bytes_processed3
 
-{-| __from C:__ @read_file_chunk@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program_slicing_selection.h:21:26@
+
+    __exported by:__ @program_slicing_selection.h@
+-}
 foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk
   :: F.Ptr HsBindgen.Runtime.Prelude.CFile
-     {- ^ __from C:__ @file_ptr@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @file_ptr@
+     -}
   -> F.Ptr Void
-     {- ^ __from C:__ @buffer@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @buffer@
+     -}
   -> HsBindgen.Runtime.Prelude.CSize
-     {- ^ __from C:__ @bytes_to_read@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @bytes_to_read@
+     -}
   -> IO FileOperationStatus

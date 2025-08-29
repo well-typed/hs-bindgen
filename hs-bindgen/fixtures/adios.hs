@@ -58,7 +58,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "adios.h:7:13")
+          (Just "adios.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -249,7 +254,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "adios.h:12:13")
+          (Just "adios.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -405,10 +415,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "\978",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "adios.h:18:6")
+          (Just "adios.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "adios.h",
   DeclInlineC
@@ -431,7 +442,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "adios.h:21:12")
+          (Just "adios.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -456,7 +472,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "adios.h:24:18")
+          (Just "adios.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -486,11 +507,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "\25308\25308",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "adios.h:27:6")
+          (Just "adios.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "adios.h",
   DeclInlineC
@@ -516,9 +537,9 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "Say\25308\25308",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "adios.h:31:6")
+          (Just "adios.h")
+          []),
       foreignImportSafety = Safe}]

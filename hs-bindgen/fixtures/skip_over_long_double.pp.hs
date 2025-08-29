@@ -12,13 +12,36 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <skip_over_long_double.h>\nvoid hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }\n")
 
-{-| __from C:__ @fun2@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @fun2@
+
+    __defined at:__ @skip_over_long_double.h:7:6@
+
+    __exported by:__ @skip_over_long_double.h@
+-}
 foreign import ccall safe "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed" fun2
   :: FC.CInt
   -> IO ()
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @struct2@
+
+    __defined at:__ @skip_over_long_double.h:13:8@
+
+    __exported by:__ @skip_over_long_double.h@
+-}
 data Struct2 = Struct2
   { struct2_x :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @skip_over_long_double.h:14:7@
+
+         __exported by:__ @skip_over_long_double.h@
+    -}
   }
   deriving stock (Eq, Show)
 

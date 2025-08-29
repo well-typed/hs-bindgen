@@ -1,13 +1,5 @@
 -- addDependentFile examples/golden/typedef_analysis.h
-{-| Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
-
--}
-data Struct1_t
-    = Struct1_t {}
-      {- ^ Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
-
-      -}
-    deriving stock (Eq, Show)
+data Struct1_t = Struct1_t {} deriving stock (Eq, Show)
 instance Storable Struct1_t
     where sizeOf = \_ -> 0 :: Int
           alignment = \_ -> 1 :: Int

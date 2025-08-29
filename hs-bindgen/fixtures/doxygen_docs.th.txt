@@ -130,29 +130,11 @@ instance Read Color_enum
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
-{-| Red color
-
--}
 pattern COLOR_RED :: Color_enum
-{-| Red color
-
--}
 pattern COLOR_RED = Color_enum 0
-{-| Green color
-
--}
 pattern COLOR_GREEN :: Color_enum
-{-| Green color
-
--}
 pattern COLOR_GREEN = Color_enum 1
-{-| Blue color
-
--}
 pattern COLOR_BLUE :: Color_enum
-{-| Blue color
-
--}
 pattern COLOR_BLUE = Color_enum 2
 {-|
 
@@ -939,6 +921,5 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" comple
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_71214e4420f53a0e" hash :: Ptr CChar ->
                                                                                   IO CInt
-{-| -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_8effe939268709e4" square :: CInt ->
                                                                                     CInt

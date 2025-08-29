@@ -60,7 +60,13 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "macro_typedef_struct.h:1:9")
+          (Just "macro_typedef_struct.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -220,7 +226,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "macro_typedef_struct.h:4:7")
+              (Just "macro_typedef_struct.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -247,7 +259,13 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "macro_typedef_struct.h:5:11")
+              (Just "macro_typedef_struct.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -309,7 +327,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "macro_typedef_struct.h:3:9")
+          (Just "macro_typedef_struct.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -341,7 +365,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "macro_typedef_struct.h:4:7")
+                  (Just "macro_typedef_struct.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -368,7 +398,13 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "macro_typedef_struct.h:5:11")
+                  (Just "macro_typedef_struct.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -430,7 +466,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "macro_typedef_struct.h:3:9")
+              (Just "macro_typedef_struct.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -465,7 +507,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "macro_typedef_struct.h:4:7")
+                          (Just "macro_typedef_struct.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -492,7 +540,13 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "macro_typedef_struct.h:5:11")
+                          (Just "macro_typedef_struct.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -554,7 +608,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "macro_typedef_struct.h:3:9")
+                      (Just "macro_typedef_struct.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -591,7 +651,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "macro_typedef_struct.h:4:7")
+                          (Just "macro_typedef_struct.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -618,7 +684,13 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "macro_typedef_struct.h:5:11")
+                          (Just "macro_typedef_struct.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -680,7 +752,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "macro_typedef_struct.h:3:9")
+                      (Just "macro_typedef_struct.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

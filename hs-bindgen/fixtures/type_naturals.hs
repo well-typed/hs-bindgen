@@ -24,7 +24,12 @@
       varDeclBody = VarDeclIntegral
         3
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:4:9")
+          (Just "type_naturals.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -55,7 +60,12 @@
             (VarAppHead
               (HsName "@NsVar" "n"))
             []],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:5:9")
+          (Just "type_naturals.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -216,7 +226,12 @@
                   VarDeclIntegral
                     1
                     HsPrimCInt])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:6:9")
+          (Just "type_naturals.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -376,7 +391,12 @@
                         [
                           VarDeclIntegral 16 HsPrimCInt,
                           VarDeclVar (Idx 0)]])))))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:7:9")
+          (Just "type_naturals.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -501,7 +521,12 @@
                 (VarAppHead
                   (HsName "@NsVar" "n"))
                 []]],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:8:9")
+          (Just "type_naturals.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -552,7 +577,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:10:9")
+          (Just "type_naturals.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -633,7 +663,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:11:9")
+          (Just "type_naturals.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -714,7 +749,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:12:9")
+          (Just "type_naturals.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -795,7 +835,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "type_naturals.h:13:9")
+          (Just "type_naturals.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
