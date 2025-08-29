@@ -1,22 +1,28 @@
 {-# LANGUAGE CPP #-}
 
 module HsBindgen.Clang.BuiltinIncDir (
+    -- * Types
+    BuiltinIncDir
     -- * Trace messages
-    BuiltinIncDirMsg(..)
+  , BuiltinIncDirMsg(..)
     -- * Configuration
   , BuiltinIncDirConfig(..)
     -- * API
   , getBuiltinIncDir
+  , applyBuiltinIncDir
   ) where
 
 import Control.Exception (Exception(displayException))
 import Control.Monad ((<=<))
+import Data.IORef (IORef)
+import Data.IORef qualified as IORef
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.Environment qualified as Env
 import System.FilePath qualified as FilePath
 import System.IO.Error (tryIOError)
 import System.IO.Silently qualified as Silently
+import System.IO.Unsafe (unsafePerformIO)
 import System.Process (readProcess)
 
 #ifdef mingw32_HOST_OS
@@ -28,33 +34,40 @@ import System.FilePath.Windows qualified as Windows
 import Clang.Args
 import Clang.LowLevel.Core
 import HsBindgen.Clang
+import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((<+>), string)
+
+{-------------------------------------------------------------------------------
+  Types
+-------------------------------------------------------------------------------}
+
+-- | Builtin include directory
+type BuiltinIncDir = FilePath
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
 data BuiltinIncDirMsg =
-    BuiltinIncDirClangBufferSize Int
-  | BuiltinIncDirResourceDirEmpty
+    BuiltinIncDirResourceDirEmpty
   | BuiltinIncDirResourceDirAbort
   | BuiltinIncDirResourceDirResolved FilePath
-  | BuiltinIncDirAbsResourceDirNotFound FilePath
-  | BuiltinIncDirAbsResourceDirFound FilePath
+  | BuiltinIncDirAbsResourceDirIncDirNotFound BuiltinIncDir
+  | BuiltinIncDirAbsResourceDirIncDirFound BuiltinIncDir
   | BuiltinIncDirLlvmPathNotFound FilePath
-  | BuiltinIncDirLlvmPathIncludeDirNotFound FilePath
-  | BuiltinIncDirLlvmPathIncludeDirFound FilePath
-  | BuiltinIncDirLlvmConfigIncludeDirNotFound FilePath
-  | BuiltinIncDirLlvmConfigIncludeDirFound FilePath
+  | BuiltinIncDirLlvmPathIncDirNotFound BuiltinIncDir
+  | BuiltinIncDirLlvmPathIncDirFound BuiltinIncDir
+  | BuiltinIncDirLlvmConfigIncDirNotFound BuiltinIncDir
+  | BuiltinIncDirLlvmConfigIncDirFound BuiltinIncDir
   | BuiltinIncDirLlvmConfigEnvNotFound FilePath
   | BuiltinIncDirLlvmConfigEnvFound FilePath
   | BuiltinIncDirLlvmConfigPathFound FilePath
   | BuiltinIncDirLlvmConfigPrefixUnexpected String
   | BuiltinIncDirLlvmConfigPrefixIOError IOError
-  | BuiltinIncDirClangIncludeDirNotFound FilePath
-  | BuiltinIncDirClangIncludeDirFound FilePath
+  | BuiltinIncDirClangIncDirNotFound BuiltinIncDir
+  | BuiltinIncDirClangIncDirFound BuiltinIncDir
   | BuiltinIncDirLlvmPathClangExeNotFound FilePath
   | BuiltinIncDirLlvmPathClangExeFound FilePath
   | BuiltinIncDirLlvmConfigClangExeNotFound FilePath
@@ -66,29 +79,27 @@ data BuiltinIncDirMsg =
 
 instance PrettyForTrace BuiltinIncDirMsg where
   prettyForTrace = \case
-    BuiltinIncDirClangBufferSize size ->
-      "Clang outs buffer size:" <+> string (show size) <+> "bytes"
     BuiltinIncDirResourceDirEmpty ->
       "empty resource directory"
     BuiltinIncDirResourceDirAbort ->
       "aborted resource directory resolution"
     BuiltinIncDirResourceDirResolved path ->
       "resource directory found:" <+> string path
-    BuiltinIncDirAbsResourceDirNotFound path ->
+    BuiltinIncDirAbsResourceDirIncDirNotFound path ->
       "builtin include directory not found using absolute resource directory:"
         <+> string path
-    BuiltinIncDirAbsResourceDirFound path ->
+    BuiltinIncDirAbsResourceDirIncDirFound path ->
       "builtin include directory found using absolute resource directory:"
         <+> string path
     BuiltinIncDirLlvmPathNotFound path ->
       "$LLVM_PATH path not found or not directory (skipping):" <+> string path
-    BuiltinIncDirLlvmPathIncludeDirNotFound path ->
+    BuiltinIncDirLlvmPathIncDirNotFound path ->
       "builtin include directory not found using $LLVM_PATH:" <+> string path
-    BuiltinIncDirLlvmPathIncludeDirFound path ->
+    BuiltinIncDirLlvmPathIncDirFound path ->
       "builtin include directory found using $LLVM_PATH:" <+> string path
-    BuiltinIncDirLlvmConfigIncludeDirNotFound path ->
+    BuiltinIncDirLlvmConfigIncDirNotFound path ->
       "builtin include directory not found using llvm-config:" <+> string path
-    BuiltinIncDirLlvmConfigIncludeDirFound path ->
+    BuiltinIncDirLlvmConfigIncDirFound path ->
       "builtin include directory found using llvm-config:" <+> string path
     BuiltinIncDirLlvmConfigEnvNotFound path ->
       "$LLVM_CONFIG path not found or not file (skipping):" <+> string path
@@ -100,9 +111,9 @@ instance PrettyForTrace BuiltinIncDirMsg where
       "llvm-config --prefix output is unexpected:" <+> string (show s)
     BuiltinIncDirLlvmConfigPrefixIOError e ->
       "IO error calling llvm-config --prefix:" <+> string (displayException e)
-    BuiltinIncDirClangIncludeDirNotFound path ->
+    BuiltinIncDirClangIncDirNotFound path ->
       "builtin include directory not found using clang:" <+> string path
-    BuiltinIncDirClangIncludeDirFound path ->
+    BuiltinIncDirClangIncDirFound path ->
       "builtin include directory found using clang:" <+> string path
     BuiltinIncDirLlvmPathClangExeNotFound path ->
       "clang not found using $LLVM_PATH:" <+> string path
@@ -122,24 +133,23 @@ instance PrettyForTrace BuiltinIncDirMsg where
 
 instance IsTrace Level BuiltinIncDirMsg where
   getDefaultLogLevel = \case
-    BuiltinIncDirClangBufferSize{}              -> Debug
     BuiltinIncDirResourceDirEmpty{}             -> Warning
     BuiltinIncDirResourceDirAbort{}             -> Warning
     BuiltinIncDirResourceDirResolved{}          -> Debug
-    BuiltinIncDirAbsResourceDirNotFound{}       -> Warning
-    BuiltinIncDirAbsResourceDirFound{}          -> Debug
+    BuiltinIncDirAbsResourceDirIncDirNotFound{} -> Warning
+    BuiltinIncDirAbsResourceDirIncDirFound{}    -> Debug
     BuiltinIncDirLlvmPathNotFound{}             -> Warning
-    BuiltinIncDirLlvmPathIncludeDirNotFound{}   -> Warning
-    BuiltinIncDirLlvmPathIncludeDirFound{}      -> Debug
-    BuiltinIncDirLlvmConfigIncludeDirNotFound{} -> Warning
-    BuiltinIncDirLlvmConfigIncludeDirFound{}    -> Debug
+    BuiltinIncDirLlvmPathIncDirNotFound{}       -> Warning
+    BuiltinIncDirLlvmPathIncDirFound{}          -> Debug
+    BuiltinIncDirLlvmConfigIncDirNotFound{}     -> Warning
+    BuiltinIncDirLlvmConfigIncDirFound{}        -> Debug
     BuiltinIncDirLlvmConfigEnvNotFound{}        -> Warning
     BuiltinIncDirLlvmConfigEnvFound{}           -> Debug
     BuiltinIncDirLlvmConfigPathFound{}          -> Debug
     BuiltinIncDirLlvmConfigPrefixUnexpected{}   -> Warning
     BuiltinIncDirLlvmConfigPrefixIOError{}      -> Warning
-    BuiltinIncDirClangIncludeDirNotFound{}      -> Warning
-    BuiltinIncDirClangIncludeDirFound{}         -> Debug
+    BuiltinIncDirClangIncDirNotFound{}          -> Warning
+    BuiltinIncDirClangIncDirFound{}             -> Debug
     BuiltinIncDirLlvmPathClangExeNotFound{}     -> Debug
     BuiltinIncDirLlvmPathClangExeFound{}        -> Debug
     BuiltinIncDirLlvmConfigClangExeNotFound{}   -> Debug
@@ -169,6 +179,27 @@ data BuiltinIncDirConfig =
   | BuiltinIncDirClang
   deriving (Eq, Show)
 
+instance Default BuiltinIncDirConfig where
+  def = BuiltinIncDirAuto
+
+{-------------------------------------------------------------------------------
+  Global state
+-------------------------------------------------------------------------------}
+
+-- | Builtin include directory state
+data BuiltinIncDirState =
+    BuiltinIncDirInitial
+  | BuiltinIncDirCached (Maybe BuiltinIncDir)
+
+-- | Builtin include directory global state
+--
+-- The builtin include directory should only be determined a single time.
+-- Calling 'getBuiltinIncDir' stores the result in this global state, and any
+-- subsequent calls simply returns the cached value.
+builtinIncDirState :: IORef BuiltinIncDirState
+builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
+{-# NOINLINE builtinIncDirState #-}
+
 {-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
@@ -196,7 +227,8 @@ data BuiltinIncDirConfig =
 --
 -- With 'BuiltinIncDirAuto', we redirect @STDOUT@ and attempt to get the
 -- resource directory from the @libclang@ library that is dynamically loaded at
--- runtime.
+-- runtime.  Since @STDOUT@ is redirected for the whole process, this function
+-- is /not/ thread-safe.
 --
 -- If @libclang@ reports an absolute resource directory (when running a
 -- fixed/patched version of LLVM), the builtin include directory is
@@ -223,23 +255,34 @@ data BuiltinIncDirConfig =
 -- 2. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-file-name=include)@
 -- 3. @$($(llvm-config --prefix)/bin/clang -print-file-name=include)@
 -- 4. @$(clang -print-file-name=include)@
+--
+-- The builtin include directory should only be determined a single time.
+-- Calling 'getBuiltinIncDir' caches the result, and any subsequent calls simply
+-- returns the cached value.
 getBuiltinIncDir ::
      Tracer IO BuiltinIncDirMsg
   -> BuiltinIncDirConfig
-  -> IO (Maybe FilePath)
-getBuiltinIncDir tracer = \case
-    BuiltinIncDirDisable -> return Nothing
-    BuiltinIncDirAuto    -> aux . fmap normWinPath =<< getResourceDir tracer
-    BuiltinIncDirClang   -> aux Nothing
+  -> IO (Maybe BuiltinIncDir)
+getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
+    BuiltinIncDirCached mPath -> return mPath
+    BuiltinIncDirInitial      -> saveState =<< case config of
+      BuiltinIncDirDisable -> return Nothing
+      BuiltinIncDirAuto    -> aux . fmap normWinPath =<< getResourceDir tracer
+      BuiltinIncDirClang   -> aux Nothing
   where
-    aux :: Maybe FilePath -> IO (Maybe FilePath)
+    saveState :: Maybe BuiltinIncDir -> IO (Maybe BuiltinIncDir)
+    saveState mPath = do
+      IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mPath)
+      return mPath
+
+    aux :: Maybe FilePath -> IO (Maybe BuiltinIncDir)
     aux = \case
       Just resourceDir
         | FilePath.isAbsolute resourceDir ->
             ifM
               tracer
-              BuiltinIncDirAbsResourceDirNotFound
-              BuiltinIncDirAbsResourceDirFound
+              BuiltinIncDirAbsResourceDirIncDirNotFound
+              BuiltinIncDirAbsResourceDirIncDirFound
               Dir.doesDirectoryExist
               (FilePath.joinPath [resourceDir, "include"])
         | otherwise -> sequenceUntilJust [
@@ -248,6 +291,18 @@ getBuiltinIncDir tracer = \case
             , getBuiltinIncDirWithClang      tracer
             ]
       Nothing -> getBuiltinIncDirWithClang tracer
+
+-- | Apply the builtin include directory to 'ClangArgs'
+--
+-- When configured, the builtin include directory is passed with @-isystem@ as
+-- the last argument.  This ensures that it is prioritized as close to the
+-- default include directories as possible.
+applyBuiltinIncDir :: ClangArgs -> Maybe BuiltinIncDir -> ClangArgs
+applyBuiltinIncDir args = \case
+    Nothing            -> args
+    Just builtinIncDir -> args{
+        clangArgsAfter = clangArgsAfter args ++ ["-isystem", builtinIncDir]
+      }
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -276,16 +331,22 @@ getBuiltinIncDir tracer = \case
 -- because the @outs@ buffer is only flushed when overfull.
 getResourceDir :: Tracer IO BuiltinIncDirMsg -> IO (Maybe FilePath)
 getResourceDir tracer = auxOut 0 >>= \case
+    -- Assumption: printed resource directory is significantly shorter than the
+    -- size of the buffer
     Just (out, numFillBytes) -> do
+      -- Invariant: @numPrintBytes <= buffSize@
       let (mResourceDir, numPrintBytes) =
             case takeWhile isEOL <$> break isEOL out of
               (s, n)
                 | null s    -> (Nothing, length n)
                 | otherwise -> (Just s,  length s + length n)
+          -- Could be a multiple of the buffer size if @initNumBytes@ is larger
+          -- than the buffer size
           buffSize = length out
-          numBytes = buffSize + buffSize - numPrintBytes - numFillBytes + 1
-      when (numBytes > 0) . void $ Silently.capture_ (auxFillBuffer numBytes)
-      traceWith tracer $ BuiltinIncDirClangBufferSize buffSize
+          -- Bytes remaining in the buffer, @> 0@ given the above assumption
+          numRemainBytes = buffSize + buffSize - numPrintBytes - numFillBytes
+      void . Silently.capture_ $
+        auxFillBuffer (numRemainBytes + 1) (Just "-- Clang buffer flushed")
       traceWith tracer $
         maybe
           BuiltinIncDirResourceDirEmpty
@@ -296,21 +357,21 @@ getResourceDir tracer = auxOut 0 >>= \case
       traceWith tracer BuiltinIncDirResourceDirAbort
       return Nothing
   where
-    -- This function repeatedly outputs filler content until the buffer is
-    -- filled and flushed or the limit is reached.
+    -- Repeatedly outputs filler content until the buffer is filled and flushed
+    -- or the limit is reached
     auxOut ::
-         Int                       -- number of filler bytes already output
-      -> IO (Maybe (String, Int))  -- captured output, number of filler bytes
+         Int                       -- Number of filler bytes already output
+      -> IO (Maybe (String, Int))  -- Captured output, number of filler bytes
     auxOut !numBytes
       | numBytes == 0 = do
           out <- Silently.capture_ $ do
             auxPrintResourceDir
-            auxFillBuffer initNumBytes
+            auxFillBuffer initNumBytes Nothing
           if null out
             then auxOut initNumBytes
             else return $ Just (out, initNumBytes)
       | numBytes < maxNumBytes = do
-          out <- Silently.capture_ $ auxFillBuffer numBytes
+          out <- Silently.capture_ $ auxFillBuffer numBytes Nothing
           if null out
             then auxOut (numBytes * 2)
             else return $ Just (out, numBytes * 2)
@@ -331,7 +392,8 @@ getResourceDir tracer = auxOut 0 >>= \case
     maxNumBytes :: Int
     maxNumBytes = 32_768
 
-    -- This function gets @libclang@ to print the resource directory.
+    -- Get @libclang@ to print the resource directory
+    --
     -- @withClang'@ returns an error in this case, which is normal behaviour.
     -- No translation unit is available.
     --
@@ -342,19 +404,51 @@ getResourceDir tracer = auxOut 0 >>= \case
           clangSetup' = defaultClangSetup args' $ ClangInputMemory filename ""
       in  withClang' nullTracer clangSetup' $ const (return Nothing)
 
-    -- This function gets @libclang@ to print to @STDOUT@ in order to fill the
-    -- @outs@ buffer.  It outputs visible characters and limits line length to
+    -- Bet @libclang@ to print to @STDOUT@ in order to fill the -- @outs@ buffer
+    --
+    -- This function outputs visible characters and limits line length to
     -- minimize confusion if something goes wrong.
     --
+    -- Clang only flushes the buffer when there is overflow.  There is always at
+    -- least one character remaining in the buffer.  A newline overflow characer
+    -- is used by default, and a final overflow string can be specified.
+    --
     -- This function must not trace any output (to @STDOUT@).
-    auxFillBuffer :: Int -> IO ()
-    auxFillBuffer numBytes =
+    auxFillBuffer ::
+         Int
+      -- ^ Number of bytes including overflow newline (@(> 0)@)
+      -> Maybe String
+      -- ^ Overflow string not including newline (@maybe True ((> 0) . length)@)
+      -> IO ()
+    auxFillBuffer numBytes mOverflow =
       void . withClang' nullTracer clangSetup $ \unit -> do
         let (numLines, numBytes') = numBytes `divMod` maxLineLength
-            lastLine
-              | numBytes' > 0 = [take (numBytes' - 1) filler ++ "\n"]
-              | otherwise     = []
-            t = Text.pack . concat $ replicate numLines filler ++ lastLine
+            t = Text.pack . concat $ case mOverflow of
+              Nothing
+                | numBytes' > 0 ->
+                    -- full lines and partial line
+                    replicate numLines filler
+                      ++ [take (numBytes' - 1) filler ++ "\n"]
+                | otherwise ->
+                    -- full lines only
+                    replicate numLines filler
+              Just overflow
+                | numBytes' > 1 ->
+                    -- ensure newline before overflow string
+                    let l = take (numBytes' - 2) filler
+                          ++ '\n' : overflow ++ "\n"
+                    in  replicate numLines filler ++ [l]
+                | numBytes' == 1 ->
+                    -- previous line already ends with newline
+                    replicate numLines filler ++ [overflow ++ "\n"]
+                | numBytes' == 0 ->
+                    -- overflow happens from last character of a line
+                    let l = take (maxLineLength - 2) filler
+                          ++ '\n' : overflow ++ "\n"
+                    in  replicate (numLines - 1) filler ++ [l]
+                | otherwise ->
+                    -- impossible when invariants met
+                    panicPure "auxFillBuffer numBytes == 0"
         file <- clang_getFile unit filenameT
         sloc <- clang_getLocation unit file 1 1
         bracket
@@ -415,8 +509,8 @@ ifM ::
      Tracer IO BuiltinIncDirMsg
   -> (FilePath -> BuiltinIncDirMsg)  -- ^ not found constructor
   -> (FilePath -> BuiltinIncDirMsg)  -- ^ found constructor
-  -> (FilePath -> IO Bool)               -- ^ predicate
-  -> FilePath                            -- ^ path
+  -> (FilePath -> IO Bool)           -- ^ predicate
+  -> FilePath                        -- ^ path
   -> IO (Maybe FilePath)
 ifM tracer mkNotFound mkFound p path = p path >>= \case
     True  -> Just path <$ traceWith tracer (mkFound    path)
@@ -455,7 +549,7 @@ checkOutput tracer mkUnexpected mkError = aux <=< tryIOError
 getBuiltinIncDirWithLlvmPath ::
      Tracer IO BuiltinIncDirMsg
   -> FilePath  -- ^ resource directory (relative to LLVM prefix)
-  -> IO (Maybe FilePath)
+  -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDirWithLlvmPath tracer resourceDir =
     (fmap normWinPath <$> Env.lookupEnv "LLVM_PATH") >>= \case
       Just prefix -> Dir.doesDirectoryExist prefix >>= \case
@@ -465,8 +559,8 @@ getBuiltinIncDirWithLlvmPath tracer resourceDir =
         True ->
           ifM
             tracer
-            BuiltinIncDirLlvmPathIncludeDirNotFound
-            BuiltinIncDirLlvmPathIncludeDirFound
+            BuiltinIncDirLlvmPathIncDirNotFound
+            BuiltinIncDirLlvmPathIncDirFound
             Dir.doesDirectoryExist
             (FilePath.joinPath [prefix, resourceDir, "include"])
       Nothing -> return Nothing
@@ -478,15 +572,15 @@ getBuiltinIncDirWithLlvmPath tracer resourceDir =
 getBuiltinIncDirWithLlvmConfig ::
      Tracer IO BuiltinIncDirMsg
   -> FilePath  -- ^ resource directory (relative to LLVM prefix)
-  -> IO (Maybe FilePath)
+  -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDirWithLlvmConfig tracer resourceDir =
     findLlvmConfigExe tracer >>= \case
       Just exe -> getLlvmConfigPrefix tracer exe >>= \case
         Just prefix ->
           ifM
             tracer
-            BuiltinIncDirLlvmConfigIncludeDirNotFound
-            BuiltinIncDirLlvmConfigIncludeDirFound
+            BuiltinIncDirLlvmConfigIncDirNotFound
+            BuiltinIncDirLlvmConfigIncDirFound
             Dir.doesDirectoryExist
             (FilePath.joinPath [prefix, resourceDir, "include"])
         Nothing -> return Nothing
@@ -547,15 +641,15 @@ getLlvmConfigPrefix tracer exe = fmap normWinPath <$>
 -- directory.
 getBuiltinIncDirWithClang ::
      Tracer IO BuiltinIncDirMsg
-  -> IO (Maybe FilePath)
+  -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDirWithClang tracer =
     findClangExe tracer >>= \case
       Just exe -> getClangBuiltinIncDir tracer exe >>= \case
         Just includeDir ->
           ifM
             tracer
-            BuiltinIncDirClangIncludeDirNotFound
-            BuiltinIncDirClangIncludeDirFound
+            BuiltinIncDirClangIncDirNotFound
+            BuiltinIncDirClangIncDirFound
             Dir.doesDirectoryExist
             includeDir
         Nothing -> return Nothing
@@ -620,7 +714,7 @@ clangExe =
 getClangBuiltinIncDir ::
      Tracer IO BuiltinIncDirMsg
   -> FilePath  -- ^ @clang@ path
-  -> IO (Maybe FilePath)
+  -> IO (Maybe BuiltinIncDir)
 getClangBuiltinIncDir tracer exe = fmap normWinPath <$>
     checkOutput
       tracer
