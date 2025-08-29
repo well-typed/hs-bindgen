@@ -25,13 +25,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Global, complete, not initialised"],
-          commentOrigin = Just "arr0",
-          commentChildren = []},
+                "Global, complete, not initialised"])
+          (Just "array.h:11:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -61,13 +62,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Global, complete, initialised"],
-          commentOrigin = Just "arr1",
-          commentChildren = []},
+                "Global, complete, initialised"])
+          (Just "array.h:14:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -97,13 +99,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Global, extern, complete, not initialised"],
-          commentOrigin = Just "arr2",
-          commentChildren = []},
+                "Global, extern, complete, not initialised"])
+          (Just "array.h:17:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -133,13 +136,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Global, extern, complete, initialised"],
-          commentOrigin = Just "arr3",
-          commentChildren = []},
+                "Global, extern, complete, initialised"])
+          (Just "array.h:20:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -169,13 +173,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Global, incomplete"],
-          commentOrigin = Just "arr6",
-          commentChildren = []},
+                "Global, incomplete"])
+          (Just "array.h:29:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -203,13 +208,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Global, extern, incomplete"],
-          commentOrigin = Just "arr7",
-          commentChildren = []},
+                "Global, extern, incomplete"])
+          (Just "array.h:32:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -262,7 +268,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "array.h:41:13")
+          (Just "array.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -341,7 +352,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "array.h:43:13")
+          (Just "array.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -417,7 +433,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "array.h:45:13")
+          (Just "array.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -502,7 +523,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "array.h:47:13")
+          (Just "array.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -553,7 +579,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "array.h:50:9")
+              (Just "array.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -579,7 +610,12 @@
               structFieldOffset = 96,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "array.h:51:9")
+              (Just "array.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -636,7 +672,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "array.h:49:8")
+          (Just "array.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -670,7 +711,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "array.h:50:9")
+                  (Just "array.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -696,7 +742,12 @@
                   structFieldOffset = 96,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "array.h:51:9")
+                  (Just "array.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -753,7 +804,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "array.h:49:8")
+              (Just "array.h")
+              [])}
         StorableInstance {
           storableSizeOf = 48,
           storableAlignment = 4,
@@ -790,7 +846,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "array.h:50:9")
+                          (Just "array.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -816,7 +877,12 @@
                           structFieldOffset = 96,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "array.h:51:9")
+                          (Just "array.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -873,7 +939,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "array.h:49:8")
+                      (Just "array.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 12]),
@@ -912,7 +983,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "array.h:50:9")
+                          (Just "array.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -938,7 +1014,12 @@
                           structFieldOffset = 96,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "array.h:51:9")
+                          (Just "array.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -995,7 +1076,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "array.h:49:8")
+                      (Just "array.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1052,13 +1138,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of known size"],
-          commentOrigin = Just "arr_1",
-          commentChildren = []},
+                "Array of known size"])
+          (Just "array.h:59:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1091,13 +1178,14 @@
               nameHsIdent = HsIdentifier
                 "Triplet"})),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "arr_2",
-          commentChildren = []},
+                "Array of known size, typedef"])
+          (Just "array.h:62:16")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1125,13 +1213,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "arr_3",
-          commentChildren = []},
+                "Array of unknown size"])
+          (Just "array.h:65:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1164,13 +1253,14 @@
               nameHsIdent = HsIdentifier
                 "List"})),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "arr_4",
-          commentChildren = []},
+                "Array of unknown size, typedef"])
+          (Just "array.h:68:13")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1206,13 +1296,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "arr_5",
-          commentChildren = []},
+                "Multi-dimensional array of known size"])
+          (Just "array.h:71:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1245,13 +1336,14 @@
               nameHsIdent = HsIdentifier
                 "Matrix"})),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "arr_6",
-          commentChildren = []},
+                "Multi-dimensional array of known size, typedef"])
+          (Just "array.h:74:15")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1285,13 +1377,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "arr_7",
-          commentChildren = []},
+                "Multi-dimensional array of unknown size"])
+          (Just "array.h:77:12")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1324,13 +1417,14 @@
               nameHsIdent = HsIdentifier
                 "Tripletlist"})),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "arr_8",
-          commentChildren = []},
+                "Multi-dimensional array of unknown size, typedef"])
+          (Just "array.h:80:20")
+          (Just "array.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1349,20 +1443,22 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xs",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1398,14 +1494,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of known size"],
-          commentOrigin = Just
-            "fun_1(int, int *)",
-          commentChildren = []},
+                "Array of known size"])
+          (Just "array.h:87:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1423,10 +1519,11 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xs",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1455,14 +1552,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just
-            "fun_2(int *)",
-          commentChildren = []},
+                "Array of known size, typedef"])
+          (Just "array.h:90:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1480,10 +1577,11 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xs",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1511,14 +1609,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of unknown size"],
-          commentOrigin = Just
-            "fun_3(int *)",
-          commentChildren = []},
+                "Array of unknown size"])
+          (Just "array.h:93:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1536,10 +1634,11 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xs",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1568,14 +1667,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just
-            "fun_4(int *)",
-          commentChildren = []},
+                "Array of unknown size, typedef"])
+          (Just "array.h:96:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1595,10 +1694,11 @@
               3
               (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xss",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1629,14 +1729,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just
-            "fun_5(int (*)[3])",
-          commentChildren = []},
+                "Multi-dimensional array of known size"])
+          (Just "array.h:99:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1656,10 +1756,11 @@
               3
               (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xss",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1688,14 +1789,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just
-            "fun_6(int (*)[3])",
-          commentChildren = []},
+                "Multi-dimensional array of known size, typedef"])
+          (Just "array.h:102:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1715,10 +1816,11 @@
               3
               (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xss",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1748,14 +1850,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just
-            "fun_7(int (*)[3])",
-          commentChildren = []},
+                "Multi-dimensional array of unknown size"])
+          (Just "array.h:105:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1775,10 +1877,11 @@
               3
               (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "xss",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1807,14 +1910,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just
-            "fun_8(int (*)[3])",
-          commentChildren = []},
+                "Multi-dimensional array of unknown size, typedef"])
+          (Just "array.h:108:5")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude "array.h",
@@ -1851,13 +1954,14 @@
                   PrimInt
                   Signed)))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of known size"],
-          commentOrigin = Just "fun_9()",
-          commentChildren = []},
+                "Array of known size"])
+          (Just "array.h:120:7")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1894,13 +1998,14 @@
                   nameHsIdent = HsIdentifier
                     "Triplet"}))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "fun_10()",
-          commentChildren = []},
+                "Array of known size, typedef"])
+          (Just "array.h:123:10")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1934,13 +2039,14 @@
                   PrimInt
                   Signed)))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "fun_11()",
-          commentChildren = []},
+                "Array of unknown size"])
+          (Just "array.h:126:7")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -1977,13 +2083,14 @@
                   nameHsIdent = HsIdentifier
                     "List"}))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "fun_12()",
-          commentChildren = []},
+                "Array of unknown size, typedef"])
+          (Just "array.h:129:7")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -2023,13 +2130,14 @@
                     PrimInt
                     Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "fun_13()",
-          commentChildren = []},
+                "Multi-dimensional array of known size"])
+          (Just "array.h:132:7")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -2066,13 +2174,14 @@
                   nameHsIdent = HsIdentifier
                     "Matrix"}))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "fun_14()",
-          commentChildren = []},
+                "Multi-dimensional array of known size, typedef"])
+          (Just "array.h:135:9")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -2110,13 +2219,14 @@
                     PrimInt
                     Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "fun_15()",
-          commentChildren = []},
+                "Multi-dimensional array of unknown size"])
+          (Just "array.h:138:7")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "array.h",
   DeclInlineC
@@ -2153,11 +2263,12 @@
                   nameHsIdent = HsIdentifier
                     "Tripletlist"}))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "fun_16()",
-          commentChildren = []},
+                "Multi-dimensional array of unknown size, typedef"])
+          (Just "array.h:141:14")
+          (Just "array.h")
+          []),
       foreignImportSafety = Safe}]

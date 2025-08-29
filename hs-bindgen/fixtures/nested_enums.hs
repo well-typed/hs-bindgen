@@ -67,7 +67,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:2:14")
+          (Just "nested_enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -309,7 +314,12 @@
               "VALA_1"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:3:17")
+          (Just "nested_enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -332,7 +342,12 @@
               "VALA_2"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:4:17")
+          (Just "nested_enums.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -367,7 +382,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_enums.h:5:11")
+              (Just "nested_enums.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -412,7 +432,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:1:8")
+          (Just "nested_enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -450,7 +475,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_enums.h:5:11")
+                  (Just "nested_enums.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -495,7 +525,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_enums.h:1:8")
+              (Just "nested_enums.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -536,7 +571,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_enums.h:5:11")
+                          (Just "nested_enums.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -581,7 +621,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_enums.h:1:8")
+                      (Just "nested_enums.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -622,7 +667,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_enums.h:5:11")
+                          (Just "nested_enums.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -667,7 +717,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_enums.h:1:8")
+                      (Just "nested_enums.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -766,7 +821,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:9:9")
+          (Just "nested_enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1008,7 +1068,12 @@
               "VALB_1"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:10:17")
+          (Just "nested_enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1031,7 +1096,12 @@
               "VALB_2"},
           enumConstantValue = 1,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:11:17")
+          (Just "nested_enums.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -1067,7 +1137,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_enums.h:12:11")
+              (Just "nested_enums.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1113,7 +1188,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_enums.h:8:8")
+          (Just "nested_enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1152,7 +1232,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_enums.h:12:11")
+                  (Just "nested_enums.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1198,7 +1283,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_enums.h:8:8")
+              (Just "nested_enums.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -1240,7 +1330,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_enums.h:12:11")
+                          (Just "nested_enums.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1286,7 +1381,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_enums.h:8:8")
+                      (Just "nested_enums.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1328,7 +1428,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_enums.h:12:11")
+                          (Just "nested_enums.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1374,7 +1479,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_enums.h:8:8")
+                      (Just "nested_enums.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [

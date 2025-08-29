@@ -29,7 +29,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:2:10")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -50,7 +55,12 @@
               structFieldOffset = 8,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:3:17")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -71,7 +81,12 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:4:19")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -91,7 +106,12 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:6:11")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -111,7 +131,12 @@
               structFieldOffset = 48,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:7:15")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -131,7 +156,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:8:18")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -151,7 +181,12 @@
               structFieldOffset = 80,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:9:22")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -173,7 +208,12 @@
               structFieldOffset = 96,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:11:20")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -195,7 +235,12 @@
               structFieldOffset = 112,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:12:24")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -215,7 +260,12 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:14:9")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -235,7 +285,12 @@
               structFieldOffset = 160,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:15:12")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -255,7 +310,12 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:16:16")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -275,7 +335,12 @@
               structFieldOffset = 224,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:18:14")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -295,7 +360,12 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:19:18")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -315,7 +385,12 @@
               structFieldOffset = 320,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:21:10")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -335,7 +410,12 @@
               structFieldOffset = 384,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:22:14")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -355,7 +435,12 @@
               structFieldOffset = 448,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:23:17")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -375,7 +460,12 @@
               structFieldOffset = 512,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:24:21")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -397,7 +487,12 @@
               structFieldOffset = 576,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:26:19")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -419,7 +514,12 @@
               structFieldOffset = 640,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:27:23")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -441,7 +541,12 @@
               structFieldOffset = 704,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:29:15")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -463,7 +568,12 @@
               structFieldOffset = 768,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:30:19")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -485,7 +595,12 @@
               structFieldOffset = 832,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:31:22")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -507,7 +622,12 @@
               structFieldOffset = 896,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:32:26")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -529,7 +649,12 @@
               structFieldOffset = 960,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:34:24")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -551,7 +676,12 @@
               structFieldOffset = 1024,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:35:28")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -571,7 +701,12 @@
               structFieldOffset = 1088,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:37:11")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -591,7 +726,12 @@
               structFieldOffset = 1152,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:38:12")
+              (Just "primitive_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -984,7 +1124,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "primitive_types.h:1:8")
+          (Just "primitive_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1018,7 +1163,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:2:10")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1039,7 +1189,12 @@
                   structFieldOffset = 8,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:3:17")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1060,7 +1215,12 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:4:19")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1080,7 +1240,12 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:6:11")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1100,7 +1265,12 @@
                   structFieldOffset = 48,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:7:15")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1120,7 +1290,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:8:18")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1140,7 +1315,12 @@
                   structFieldOffset = 80,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:9:22")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1162,7 +1342,12 @@
                   structFieldOffset = 96,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:11:20")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1184,7 +1369,12 @@
                   structFieldOffset = 112,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:12:24")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1204,7 +1394,12 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:14:9")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1224,7 +1419,12 @@
                   structFieldOffset = 160,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:15:12")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1244,7 +1444,12 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:16:16")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1264,7 +1469,12 @@
                   structFieldOffset = 224,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:18:14")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1284,7 +1494,12 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:19:18")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1304,7 +1519,12 @@
                   structFieldOffset = 320,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:21:10")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1324,7 +1544,12 @@
                   structFieldOffset = 384,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:22:14")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1344,7 +1569,12 @@
                   structFieldOffset = 448,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:23:17")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1364,7 +1594,12 @@
                   structFieldOffset = 512,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:24:21")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1386,7 +1621,12 @@
                   structFieldOffset = 576,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:26:19")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1408,7 +1648,12 @@
                   structFieldOffset = 640,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:27:23")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1430,7 +1675,12 @@
                   structFieldOffset = 704,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:29:15")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1452,7 +1702,12 @@
                   structFieldOffset = 768,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:30:19")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1474,7 +1729,12 @@
                   structFieldOffset = 832,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:31:22")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1496,7 +1756,12 @@
                   structFieldOffset = 896,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:32:26")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1518,7 +1783,12 @@
                   structFieldOffset = 960,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:34:24")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1540,7 +1810,12 @@
                   structFieldOffset = 1024,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:35:28")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1560,7 +1835,12 @@
                   structFieldOffset = 1088,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:37:11")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1580,7 +1860,12 @@
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:38:12")
+                  (Just "primitive_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1973,7 +2258,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:1:8")
+              (Just "primitive_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 152,
           storableAlignment = 8,
@@ -2010,7 +2300,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:2:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2031,7 +2326,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:3:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2052,7 +2352,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:4:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2072,7 +2377,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:6:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2092,7 +2402,12 @@
                           structFieldOffset = 48,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:7:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2112,7 +2427,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:8:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2132,7 +2452,12 @@
                           structFieldOffset = 80,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:9:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2154,7 +2479,12 @@
                           structFieldOffset = 96,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:11:20")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2176,7 +2506,12 @@
                           structFieldOffset = 112,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:12:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2196,7 +2531,12 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:14:9")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2216,7 +2556,12 @@
                           structFieldOffset = 160,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:15:12")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2236,7 +2581,12 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:16:16")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2256,7 +2606,12 @@
                           structFieldOffset = 224,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:18:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2276,7 +2631,12 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:19:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2296,7 +2656,12 @@
                           structFieldOffset = 320,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:21:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2316,7 +2681,12 @@
                           structFieldOffset = 384,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:22:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2336,7 +2706,12 @@
                           structFieldOffset = 448,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:23:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2356,7 +2731,12 @@
                           structFieldOffset = 512,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:24:21")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2378,7 +2758,12 @@
                           structFieldOffset = 576,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:26:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2400,7 +2785,12 @@
                           structFieldOffset = 640,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:27:23")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2422,7 +2812,12 @@
                           structFieldOffset = 704,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:29:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2444,7 +2839,12 @@
                           structFieldOffset = 768,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:30:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2466,7 +2866,12 @@
                           structFieldOffset = 832,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:31:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2488,7 +2893,12 @@
                           structFieldOffset = 896,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:32:26")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2510,7 +2920,12 @@
                           structFieldOffset = 960,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:34:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2532,7 +2947,12 @@
                           structFieldOffset = 1024,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:35:28")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2552,7 +2972,12 @@
                           structFieldOffset = 1088,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:37:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2572,7 +2997,12 @@
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:38:12")
+                          (Just "primitive_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2965,7 +3395,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "primitive_types.h:1:8")
+                      (Just "primitive_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1,
@@ -3030,7 +3465,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:2:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3051,7 +3491,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:3:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3072,7 +3517,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:4:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3092,7 +3542,12 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:6:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3112,7 +3567,12 @@
                           structFieldOffset = 48,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:7:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3132,7 +3592,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:8:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3152,7 +3617,12 @@
                           structFieldOffset = 80,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:9:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3174,7 +3644,12 @@
                           structFieldOffset = 96,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:11:20")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3196,7 +3671,12 @@
                           structFieldOffset = 112,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:12:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3216,7 +3696,12 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:14:9")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3236,7 +3721,12 @@
                           structFieldOffset = 160,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:15:12")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3256,7 +3746,12 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:16:16")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3276,7 +3771,12 @@
                           structFieldOffset = 224,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:18:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3296,7 +3796,12 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:19:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3316,7 +3821,12 @@
                           structFieldOffset = 320,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:21:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3336,7 +3846,12 @@
                           structFieldOffset = 384,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:22:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3356,7 +3871,12 @@
                           structFieldOffset = 448,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:23:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3376,7 +3896,12 @@
                           structFieldOffset = 512,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:24:21")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3398,7 +3923,12 @@
                           structFieldOffset = 576,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:26:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3420,7 +3950,12 @@
                           structFieldOffset = 640,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:27:23")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3442,7 +3977,12 @@
                           structFieldOffset = 704,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:29:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3464,7 +4004,12 @@
                           structFieldOffset = 768,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:30:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3486,7 +4031,12 @@
                           structFieldOffset = 832,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:31:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3508,7 +4058,12 @@
                           structFieldOffset = 896,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:32:26")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3530,7 +4085,12 @@
                           structFieldOffset = 960,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:34:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3552,7 +4112,12 @@
                           structFieldOffset = 1024,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:35:28")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3572,7 +4137,12 @@
                           structFieldOffset = 1088,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:37:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3592,7 +4162,12 @@
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:38:12")
+                          (Just "primitive_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3985,7 +4560,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "primitive_types.h:1:8")
+                      (Just "primitive_types.h")
+                      [])}
                 (Add 28)
                 (Seq
                   [

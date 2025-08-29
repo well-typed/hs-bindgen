@@ -23,8 +23,9 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "h",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "varargs.h:8:6")
+          (Just "varargs.h")
+          []),
       foreignImportSafety = Safe}]

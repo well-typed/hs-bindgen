@@ -60,7 +60,13 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "macro_typedef_scope.h:4:9")
+          (Just "macro_typedef_scope.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -256,7 +262,13 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "macro_typedef_scope.h:5:12")
+          (Just "macro_typedef_scope.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -453,7 +465,13 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "macro_typedef_scope.h:6:9")
+          (Just "macro_typedef_scope.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -649,7 +667,13 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "macro_typedef_scope.h:7:12")
+          (Just "macro_typedef_scope.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

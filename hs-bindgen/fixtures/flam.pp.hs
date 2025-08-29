@@ -11,8 +11,24 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @pascal@
+
+    __defined at:__ @flam.h:2:8@
+
+    __exported by:__ @flam.h@
+-}
 data Pascal = Pascal
   { pascal_len :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @len@
+
+         __defined at:__ @flam.h:3:9@
+
+         __exported by:__ @flam.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -38,9 +54,33 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar P
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @foo_bar@
+
+    __defined at:__ @flam.h:10:2@
+
+    __exported by:__ @flam.h@
+-}
 data Foo_bar = Foo_bar
   { foo_bar_x :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @flam.h:11:7@
+
+         __exported by:__ @flam.h@
+    -}
   , foo_bar_y :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @y@
+
+         __defined at:__ @flam.h:12:7@
+
+         __exported by:__ @flam.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -64,8 +104,24 @@ instance F.Storable Foo_bar where
                F.pokeByteOff ptr0 (0 :: Int) foo_bar_x2
             >> F.pokeByteOff ptr0 (4 :: Int) foo_bar_y3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @foo@
+
+    __defined at:__ @flam.h:8:8@
+
+    __exported by:__ @flam.h@
+-}
 data Foo = Foo
   { foo_len :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @len@
+
+         __defined at:__ @flam.h:9:6@
+
+         __exported by:__ @flam.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -91,9 +147,33 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Fo
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @diff@
+
+    __defined at:__ @flam.h:17:8@
+
+    __exported by:__ @flam.h@
+-}
 data Diff = Diff
   { diff_first :: FC.CLong
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @first@
+
+         __defined at:__ @flam.h:18:7@
+
+         __exported by:__ @flam.h@
+    -}
   , diff_second :: FC.CChar
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @second@
+
+         __defined at:__ @flam.h:19:7@
+
+         __exported by:__ @flam.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -121,12 +201,16 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar D
 
   flexibleArrayMemberOffset = \_ty0 -> 9
 
-{-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
-
-  __from C:__ @triplets@
--}
 data Triplets = Triplets
   { triplets_len :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @len@
+
+         __defined at:__ @flam.h:27:7@
+
+         __exported by:__ @flam.h@
+    -}
   }
   deriving stock (Eq, Show)
 

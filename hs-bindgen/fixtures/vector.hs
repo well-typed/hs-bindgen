@@ -27,7 +27,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "vector.h:2:12")
+              (Just "vector.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -47,7 +52,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "vector.h:3:12")
+              (Just "vector.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -101,7 +111,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "vector.h:1:9")
+          (Just "vector.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -133,7 +148,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "vector.h:2:12")
+                  (Just "vector.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -153,7 +173,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "vector.h:3:12")
+                  (Just "vector.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -207,7 +232,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "vector.h:1:9")
+              (Just "vector.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -242,7 +272,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "vector.h:2:12")
+                          (Just "vector.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -262,7 +297,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "vector.h:3:12")
+                          (Just "vector.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -316,7 +356,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "vector.h:1:9")
+                      (Just "vector.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -353,7 +398,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "vector.h:2:12")
+                          (Just "vector.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -373,7 +423,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "vector.h:3:12")
+                          (Just "vector.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -427,7 +482,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "vector.h:1:9")
+                      (Just "vector.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -473,20 +533,22 @@
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -531,9 +593,9 @@
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9")))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "new_vector",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "vector.h:6:9")
+          (Just "vector.h")
+          []),
       foreignImportSafety = Safe}]

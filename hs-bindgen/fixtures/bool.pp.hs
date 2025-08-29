@@ -11,9 +11,33 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @bools1@
+
+    __defined at:__ @bool.h:1:8@
+
+    __exported by:__ @bool.h@
+-}
 data Bools1 = Bools1
   { bools1_x :: FC.CBool
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @bool.h:2:11@
+
+         __exported by:__ @bool.h@
+    -}
   , bools1_y :: FC.CBool
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @y@
+
+         __defined at:__ @bool.h:3:11@
+
+         __exported by:__ @bool.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -37,9 +61,33 @@ instance F.Storable Bools1 where
                F.pokeByteOff ptr0 (0 :: Int) bools1_x2
             >> F.pokeByteOff ptr0 (1 :: Int) bools1_y3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @bools2@
+
+    __defined at:__ @bool.h:8:8@
+
+    __exported by:__ @bool.h@
+-}
 data Bools2 = Bools2
   { bools2_x :: FC.CBool
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @bool.h:9:10@
+
+         __exported by:__ @bool.h@
+    -}
   , bools2_y :: FC.CBool
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @y@
+
+         __defined at:__ @bool.h:10:10@
+
+         __exported by:__ @bool.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -63,15 +111,47 @@ instance F.Storable Bools2 where
                F.pokeByteOff ptr0 (0 :: Int) bools2_x2
             >> F.pokeByteOff ptr0 (1 :: Int) bools2_y3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @BOOL@
+
+    __defined at:__ @bool.h:13:9@
+
+    __exported by:__ @bool.h@
+-}
 newtype BOOL = BOOL
   { un_BOOL :: FC.CBool
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @bools3@
+
+    __defined at:__ @bool.h:15:8@
+
+    __exported by:__ @bool.h@
+-}
 data Bools3 = Bools3
   { bools3_x :: BOOL
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @bool.h:16:10@
+
+         __exported by:__ @bool.h@
+    -}
   , bools3_y :: BOOL
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @y@
+
+         __defined at:__ @bool.h:17:10@
+
+         __exported by:__ @bool.h@
+    -}
   }
   deriving stock (Eq, Show)
 

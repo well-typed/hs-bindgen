@@ -53,14 +53,14 @@
         [Eq, Show, Storable],
       structComment =
       Just
-        Comment {
-          commentTitle =
-          Just
+        (Comment
+          (Just
             [
               TextContent
-                "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-          commentOrigin = Just "struct1",
-          commentChildren = []}},
+                "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+          (Just "typedef_analysis.h:7:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -118,14 +118,14 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            Comment {
-              commentTitle =
-              Just
+            (Comment
+              (Just
                 [
                   TextContent
-                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-              commentOrigin = Just "struct1",
-              commentChildren = []}}
+                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+              (Just "typedef_analysis.h:7:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -187,14 +187,14 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    Comment {
-                      commentTitle =
-                      Just
+                    (Comment
+                      (Just
                         [
                           TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-                      commentOrigin = Just "struct1",
-                      commentChildren = []}})
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+                      (Just "typedef_analysis.h:7:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke =
           Lambda
@@ -256,14 +256,14 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    Comment {
-                      commentTitle =
-                      Just
+                    (Comment
+                      (Just
                         [
                           TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-                      commentOrigin = Just "struct1",
-                      commentChildren = []}}
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+                      (Just "typedef_analysis.h:7:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -332,7 +332,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:11:16")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -380,7 +386,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:11:16")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -431,7 +443,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:11:16")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -482,7 +500,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:11:16")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -535,7 +559,12 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:14:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -564,7 +593,13 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:18:16")
+          (Just "typedef_analysis.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -604,7 +639,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:21:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -647,7 +687,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:21:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -693,7 +738,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:21:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -739,7 +789,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:21:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -820,7 +875,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:22:25")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -904,7 +965,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:25:16")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -951,7 +1018,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:25:16")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1001,7 +1074,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:25:16")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1051,7 +1130,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:25:16")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1133,7 +1218,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:25:28")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1215,7 +1306,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:28:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1260,7 +1356,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:28:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1308,7 +1409,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:28:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1356,7 +1462,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:28:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1435,7 +1546,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:29:24")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1520,7 +1637,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:30:24")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1592,7 +1715,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:33:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1637,7 +1765,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:33:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1685,7 +1818,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:33:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1733,7 +1871,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:33:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1812,7 +1955,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:35:24")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1882,7 +2031,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:38:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1925,7 +2079,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:38:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1971,7 +2130,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:38:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2017,7 +2181,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:38:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2099,7 +2268,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:40:17")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2174,7 +2349,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:46:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2222,7 +2402,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:46:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2273,7 +2458,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:46:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2324,7 +2514,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:46:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2407,7 +2602,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:48:20")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2466,7 +2667,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:52:7")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2495,7 +2701,13 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:53:20")
+              (Just "typedef_analysis.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2561,7 +2773,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:51:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2593,7 +2810,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "typedef_analysis.h:52:7")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2622,7 +2844,13 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:53:20")
+                  (Just "typedef_analysis.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2688,7 +2916,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:51:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2723,7 +2956,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:52:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2752,7 +2990,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:53:20")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2818,7 +3062,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:51:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2855,7 +3104,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:52:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2884,7 +3138,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:53:20")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2950,7 +3210,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:51:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3009,7 +3274,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:61:7")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3041,7 +3311,13 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:62:15")
+              (Just "typedef_analysis.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3110,7 +3386,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:60:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3142,7 +3423,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "typedef_analysis.h:61:7")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3174,7 +3460,13 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:62:15")
+                  (Just "typedef_analysis.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3243,7 +3535,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:60:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -3278,7 +3575,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:61:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3310,7 +3612,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:62:15")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3379,7 +3687,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:60:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -3416,7 +3729,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:61:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3448,7 +3766,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:62:15")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3517,7 +3841,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:60:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3587,7 +3916,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:68:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3618,7 +3953,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:71:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3651,7 +3992,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:74:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3684,7 +4031,13 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:75:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3711,7 +4064,13 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:78:18")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3738,7 +4097,13 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:79:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3766,7 +4131,13 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:82:18")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3793,7 +4164,13 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:83:11")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3820,7 +4197,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:86:12")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3847,7 +4230,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:87:12")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3877,7 +4266,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:91:11")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3904,7 +4299,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:92:12")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3934,7 +4335,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:96:11")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3961,7 +4368,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:97:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3992,7 +4405,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:98:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4019,7 +4438,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:99:16")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4050,7 +4475,13 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:102:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4081,7 +4512,13 @@
               structFieldOffset = 384,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:103:14")
+              (Just "typedef_analysis.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -4457,7 +4894,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:66:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -4500,7 +4942,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:68:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4531,7 +4979,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:71:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4564,7 +5018,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:74:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4597,7 +5057,13 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:75:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4624,7 +5090,13 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:78:18")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4651,7 +5123,13 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:79:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4679,7 +5157,13 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:82:18")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4706,7 +5190,13 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:83:11")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4733,7 +5223,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:86:12")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4760,7 +5256,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:87:12")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4790,7 +5292,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:91:11")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4817,7 +5325,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:92:12")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4847,7 +5361,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:96:11")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4874,7 +5394,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:97:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4905,7 +5431,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:98:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4932,7 +5464,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:99:16")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4963,7 +5501,13 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:102:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4994,7 +5538,13 @@
                   structFieldOffset = 384,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:103:14")
+                  (Just "typedef_analysis.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -5370,7 +5920,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:66:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 64,
           storableAlignment = 8,
@@ -5416,7 +5971,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:68:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5447,7 +6008,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:71:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5480,7 +6047,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:74:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5513,7 +6086,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:75:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5540,7 +6119,13 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:78:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5567,7 +6152,13 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:79:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5595,7 +6186,13 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:82:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5622,7 +6219,13 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:83:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5649,7 +6252,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:86:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5676,7 +6285,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:87:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5706,7 +6321,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:91:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5733,7 +6354,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:92:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5763,7 +6390,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:96:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5790,7 +6423,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:97:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5821,7 +6460,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:98:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5848,7 +6493,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:99:16")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5879,7 +6530,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:102:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5910,7 +6567,13 @@
                           structFieldOffset = 384,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:103:14")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -6286,7 +6949,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:66:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 0,
@@ -6350,7 +7018,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:68:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6381,7 +7055,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:71:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6414,7 +7094,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:74:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6447,7 +7133,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:75:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6474,7 +7166,13 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:78:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6501,7 +7199,13 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:79:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6529,7 +7233,13 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:82:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6556,7 +7266,13 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:83:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6583,7 +7299,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:86:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6610,7 +7332,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:87:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6640,7 +7368,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:91:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6667,7 +7401,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:92:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6697,7 +7437,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:96:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6724,7 +7470,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:97:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6755,7 +7507,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:98:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6782,7 +7540,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:99:16")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6813,7 +7577,13 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:102:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6844,7 +7614,13 @@
                           structFieldOffset = 384,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:103:14")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -7220,7 +7996,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:66:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 18)
                 (Seq
                   [

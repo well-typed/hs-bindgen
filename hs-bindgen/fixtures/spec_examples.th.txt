@@ -1,14 +1,8 @@
 -- addDependentFile examples/golden/spec_examples.h
 -- #include <spec_examples.h>
 -- void hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }
-{-| Examples from the initial specification
-
--}
 newtype Int16_T
     = Int16_T {un_Int16_T :: CShort}
-      {- ^ Examples from the initial specification
-
-      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -78,7 +72,6 @@ instance Storable A
                                      a_samples_5
                                      a_b_6
                                      a_c_7 -> pokeByteOff ptr_1 (0 :: Int) a_x_3 >> (pokeByteOff ptr_1 (8 :: Int) a_label_4 >> (pokeByteOff ptr_1 (16 :: Int) a_samples_5 >> (pokeByteOff ptr_1 (144 :: Int) a_b_6 >> pokeByteOff ptr_1 (144 :: Int) a_c_7)))
-{-| -}
 foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper :: Ptr Int32_T ->
                                                                                                Ptr Cint16_T ->
                                                                                                Int64_T ->

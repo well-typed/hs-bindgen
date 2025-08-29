@@ -27,7 +27,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:4:7")
+              (Just "forward_declaration.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -72,7 +78,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "forward_declaration.h:3:8")
+          (Just "forward_declaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -104,7 +116,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "forward_declaration.h:4:7")
+                  (Just "forward_declaration.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -149,7 +167,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:3:8")
+              (Just "forward_declaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -184,7 +208,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:4:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -229,7 +259,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:3:8")
+                      (Just "forward_declaration.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -264,7 +300,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:4:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -309,7 +351,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:3:8")
+                      (Just "forward_declaration.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -367,7 +415,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:10:7")
+              (Just "forward_declaration.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -410,7 +464,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "forward_declaration.h:9:8")
+          (Just "forward_declaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -442,7 +502,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "forward_declaration.h:10:7")
+                  (Just "forward_declaration.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -485,7 +551,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:9:8")
+              (Just "forward_declaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -520,7 +592,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:10:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -563,7 +641,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:9:8")
+                      (Just "forward_declaration.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -598,7 +682,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:10:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -641,7 +731,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:9:8")
+                      (Just "forward_declaration.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [

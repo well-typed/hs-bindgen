@@ -15,10 +15,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsPrimType HsPrimCInt),
@@ -43,20 +44,20 @@
             (PrimIntegral PrimInt Signed)},
       foreignImportComment =
       Just
-        Comment {
-          commentTitle =
-          Just
+        (Comment
+          (Just
             [
               TextContent
-                "Conflicting attributes on functions for llvm/clang versions 18 and up"],
-          commentOrigin = Just
-            "square_cp(int)",
-          commentChildren =
+                "Conflicting attributes on functions for llvm/clang versions 18 and up"])
+          (Just
+            "fun_attributes_conflict.h:9:5")
+          (Just
+            "fun_attributes_conflict.h")
           [
             Paragraph
               [
                 TextContent
-                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
+                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
@@ -74,10 +75,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsPrimType HsPrimCInt),
@@ -101,11 +103,13 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "square_pc",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "fun_attributes_conflict.h:11:5")
+          (Just
+            "fun_attributes_conflict.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
@@ -123,10 +127,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsPrimType HsPrimCInt),
@@ -150,11 +155,13 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "square_cc",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "fun_attributes_conflict.h:13:5")
+          (Just
+            "fun_attributes_conflict.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes_conflict.h",
@@ -172,10 +179,11 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -199,11 +207,13 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "square_pp",
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just
+            "fun_attributes_conflict.h:15:5")
+          (Just
+            "fun_attributes_conflict.h")
+          [
             Paragraph
               [
                 TextContent "Marked",
@@ -212,5 +222,5 @@
                     Bold
                       [
                         TextContent
-                          "attribute((pure))"]]]]},
+                          "attribute((pure))"]]]]),
       foreignImportSafety = Safe}]

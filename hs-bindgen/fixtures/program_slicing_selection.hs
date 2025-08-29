@@ -108,7 +108,14 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:7:6")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -339,7 +346,14 @@
               "SUCCESS"},
           enumConstantValue = 0,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:8:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -362,7 +376,14 @@
               "NOT_FOUND"},
           enumConstantValue = 2,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:9:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -386,7 +407,14 @@
               "PERMISSION_DENIED"},
           enumConstantValue = 13,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:10:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -409,7 +437,14 @@
               "INVALID_ARGUMENT"},
           enumConstantValue = 22,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:11:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -432,7 +467,14 @@
               "OUT_OF_MEMORY"},
           enumConstantValue = 12,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:12:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -456,7 +498,14 @@
               "CUSTOM_ERROR_OTHER"},
           enumConstantValue = `-1`,
           enumConstantComment = Nothing},
-      patSynComment = Nothing},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:13:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -492,7 +541,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_selection.h:17:28")
+              (Just
+                "program_slicing_selection.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -735,7 +791,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_selection.h:18:10")
+              (Just
+                "program_slicing_selection.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -912,7 +975,14 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:16:8")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -951,7 +1021,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "program_slicing_selection.h:17:28")
+                  (Just
+                    "program_slicing_selection.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1194,7 +1271,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "program_slicing_selection.h:18:10")
+                  (Just
+                    "program_slicing_selection.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1371,7 +1455,14 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_selection.h:16:8")
+              (Just
+                "program_slicing_selection.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -1413,7 +1504,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:17:28")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1656,7 +1754,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:18:10")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1833,7 +1938,14 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "program_slicing_selection.h:16:8")
+                      (Just
+                        "program_slicing_selection.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -1877,7 +1989,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:17:28")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2120,7 +2239,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:18:10")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2297,7 +2423,14 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "program_slicing_selection.h:16:8")
+                      (Just
+                        "program_slicing_selection.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -2357,20 +2490,22 @@
                 typeSpecInstances = Map.fromList
                   []}),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "file_ptr",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "buffer"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "buffer",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2489,11 +2624,11 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "bytes_to_read",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -2674,9 +2809,11 @@
                 "FileOperationStatus"}
             NameOriginInSource},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "read_file_chunk",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:21:26")
+          (Just
+            "program_slicing_selection.h")
+          []),
       foreignImportSafety = Safe}]

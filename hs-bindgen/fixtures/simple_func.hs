@@ -15,10 +15,11 @@
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "arg",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -44,10 +45,11 @@
           functionRes = TypePrim
             (PrimFloating PrimDouble)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "erf",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "simple_func.h:1:8")
+          (Just "simple_func.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
@@ -65,30 +67,33 @@
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "z",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -127,10 +132,11 @@
           functionRes = TypePrim
             (PrimFloating PrimDouble)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bad_fma",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "simple_func.h:3:22")
+          (Just "simple_func.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
@@ -157,10 +163,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "no_args",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "simple_func.h:7:6")
+          (Just "simple_func.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
@@ -187,11 +194,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "no_args_no_void",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "simple_func.h:9:6")
+          (Just "simple_func.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "simple_func.h",
@@ -209,20 +216,22 @@
           functionParameterType =
           HsPrimType HsPrimCChar,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -255,8 +264,9 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fun",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "simple_func.h:11:5")
+          (Just "simple_func.h")
+          []),
       foreignImportSafety = Safe}]

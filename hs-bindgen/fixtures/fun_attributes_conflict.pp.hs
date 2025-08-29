@@ -14,32 +14,70 @@ $(CAPI.addCSource "#include <fun_attributes_conflict.h>\nsigned int hs_bindgen_t
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-  __from C:__ @square_cp(int)@
+__/Automatically generated from C/__
+
+__C declaration:__ @square_cp(int)@
+
+__defined at:__ @fun_attributes_conflict.h:9:5@
+
+__exported by:__ @fun_attributes_conflict.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec8f7" square_cp
   :: FC.CInt
-     {- ^ __from C:__ @x@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @x@
+     -}
   -> FC.CInt
 
-{-| __from C:__ @square_pc@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @square_pc@
+
+    __defined at:__ @fun_attributes_conflict.h:11:5@
+
+    __exported by:__ @fun_attributes_conflict.h@
+-}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_d8e5dd6836af0ac7" square_pc
   :: FC.CInt
-     {- ^ __from C:__ @x@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @x@
+     -}
   -> FC.CInt
 
-{-| __from C:__ @square_cc@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @square_cc@
+
+    __defined at:__ @fun_attributes_conflict.h:13:5@
+
+    __exported by:__ @fun_attributes_conflict.h@
+-}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_9a60da065e6486ac" square_cc
   :: FC.CInt
-     {- ^ __from C:__ @x@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @x@
+     -}
   -> FC.CInt
 
 {-|
 
   Marked @__attribute((pure))__@
 
-  __from C:__ @square_pp@
+__/Automatically generated from C/__
+
+__C declaration:__ @square_pp@
+
+__defined at:__ @fun_attributes_conflict.h:15:5@
+
+__exported by:__ @fun_attributes_conflict.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_1a2340fb8456aee3" square_pp
   :: FC.CInt
-     {- ^ __from C:__ @x@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @x@
+     -}
   -> IO FC.CInt

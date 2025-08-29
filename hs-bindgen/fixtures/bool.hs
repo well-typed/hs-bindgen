@@ -26,7 +26,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:2:11")
+              (Just "bool.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -45,7 +50,12 @@
               structFieldOffset = 8,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:3:11")
+              (Just "bool.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -96,7 +106,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bool.h:1:8")
+          (Just "bool.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -127,7 +142,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bool.h:2:11")
+                  (Just "bool.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -146,7 +166,12 @@
                   structFieldOffset = 8,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bool.h:3:11")
+                  (Just "bool.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -197,7 +222,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:1:8")
+              (Just "bool.h")
+              [])}
         StorableInstance {
           storableSizeOf = 2,
           storableAlignment = 1,
@@ -231,7 +261,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:2:11")
+                          (Just "bool.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -250,7 +285,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:3:11")
+                          (Just "bool.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -301,7 +341,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bool.h:1:8")
+                      (Just "bool.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1]),
@@ -337,7 +382,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:2:11")
+                          (Just "bool.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -356,7 +406,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:3:11")
+                          (Just "bool.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -407,7 +462,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bool.h:1:8")
+                      (Just "bool.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -465,7 +525,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:9:10")
+              (Just "bool.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -484,7 +549,12 @@
               structFieldOffset = 8,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:10:10")
+              (Just "bool.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -535,7 +605,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bool.h:8:8")
+          (Just "bool.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -566,7 +641,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bool.h:9:10")
+                  (Just "bool.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -585,7 +665,12 @@
                   structFieldOffset = 8,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bool.h:10:10")
+                  (Just "bool.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -636,7 +721,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:8:8")
+              (Just "bool.h")
+              [])}
         StorableInstance {
           storableSizeOf = 2,
           storableAlignment = 1,
@@ -670,7 +760,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:9:10")
+                          (Just "bool.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -689,7 +784,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:10:10")
+                          (Just "bool.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -740,7 +840,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bool.h:8:8")
+                      (Just "bool.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1]),
@@ -776,7 +881,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:9:10")
+                          (Just "bool.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -795,7 +905,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:10:10")
+                          (Just "bool.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -846,7 +961,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bool.h:8:8")
+                      (Just "bool.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -935,7 +1055,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "bool.h:13:9")
+          (Just "bool.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1099,7 +1224,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:16:10")
+              (Just "bool.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1123,7 +1253,12 @@
               structFieldOffset = 8,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:17:10")
+              (Just "bool.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1184,7 +1319,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bool.h:15:8")
+          (Just "bool.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1220,7 +1360,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bool.h:16:10")
+                  (Just "bool.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1244,7 +1389,12 @@
                   structFieldOffset = 8,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bool.h:17:10")
+                  (Just "bool.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1305,7 +1455,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bool.h:15:8")
+              (Just "bool.h")
+              [])}
         StorableInstance {
           storableSizeOf = 2,
           storableAlignment = 1,
@@ -1344,7 +1499,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:16:10")
+                          (Just "bool.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1368,7 +1528,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:17:10")
+                          (Just "bool.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1429,7 +1594,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bool.h:15:8")
+                      (Just "bool.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1]),
@@ -1470,7 +1640,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:16:10")
+                          (Just "bool.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1494,7 +1669,12 @@
                           structFieldOffset = 8,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bool.h:17:10")
+                          (Just "bool.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1555,7 +1735,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bool.h:15:8")
+                      (Just "bool.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

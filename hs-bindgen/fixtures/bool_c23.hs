@@ -19,7 +19,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim PrimBool),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "bool_c23.h:3:13")
+          (Just "bool_c23.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

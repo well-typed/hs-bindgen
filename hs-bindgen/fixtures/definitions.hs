@@ -15,10 +15,11 @@
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -42,10 +43,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "definitions.h:13:5")
+          (Just "definitions.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "definitions.h",
@@ -69,7 +71,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "definitions.h:18:5")
+          (Just "definitions.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -101,7 +108,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "definitions.h:23:16")
+              (Just "definitions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -141,7 +153,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "definitions.h:23:8")
+          (Just "definitions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -173,7 +190,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "definitions.h:23:16")
+                  (Just "definitions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -213,7 +235,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "definitions.h:23:8")
+              (Just "definitions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -248,7 +275,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "definitions.h:23:16")
+                          (Just "definitions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -288,7 +320,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "definitions.h:23:8")
+                      (Just "definitions.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -323,7 +360,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "definitions.h:23:16")
+                          (Just "definitions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -363,7 +405,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "definitions.h:23:8")
+                      (Just "definitions.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -458,7 +505,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "definitions.h:26:7")
+          (Just "definitions.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -481,14 +533,15 @@
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "definitions.h:26:15")
+          (Just "definitions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_y_m"]]}},
+                Identifier "set_y_m"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -500,14 +553,15 @@
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_m"]]}},
+                Identifier "get_y_m"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -519,14 +573,15 @@
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "definitions.h:26:22")
+          (Just "definitions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_y_o"]]}},
+                Identifier "set_y_o"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -538,11 +593,12 @@
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_o"]]}}]
+                Identifier "get_y_o"]])}]

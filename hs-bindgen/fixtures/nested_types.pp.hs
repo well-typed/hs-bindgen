@@ -7,9 +7,33 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @foo@
+
+    __defined at:__ @nested_types.h:1:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Foo = Foo
   { foo_i :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @i@
+
+         __defined at:__ @nested_types.h:2:9@
+
+         __exported by:__ @nested_types.h@
+    -}
   , foo_c :: FC.CChar
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @c@
+
+         __defined at:__ @nested_types.h:3:10@
+
+         __exported by:__ @nested_types.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -33,9 +57,33 @@ instance F.Storable Foo where
                F.pokeByteOff ptr0 (0 :: Int) foo_i2
             >> F.pokeByteOff ptr0 (4 :: Int) foo_c3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @bar@
+
+    __defined at:__ @nested_types.h:6:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Bar = Bar
   { bar_foo1 :: Foo
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @foo1@
+
+         __defined at:__ @nested_types.h:7:16@
+
+         __exported by:__ @nested_types.h@
+    -}
   , bar_foo2 :: Foo
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @foo2@
+
+         __defined at:__ @nested_types.h:8:16@
+
+         __exported by:__ @nested_types.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -59,9 +107,33 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_foo12
             >> F.pokeByteOff ptr0 (8 :: Int) bar_foo23
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @ex3_ex3_struct@
+
+    __defined at:__ @nested_types.h:12:5@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex3_ex3_struct = Ex3_ex3_struct
   { ex3_ex3_struct_ex3_a :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @ex3_a@
+
+         __defined at:__ @nested_types.h:13:13@
+
+         __exported by:__ @nested_types.h@
+    -}
   , ex3_ex3_struct_ex3_b :: FC.CChar
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @ex3_b@
+
+         __defined at:__ @nested_types.h:14:14@
+
+         __exported by:__ @nested_types.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -85,9 +157,33 @@ instance F.Storable Ex3_ex3_struct where
                F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct_ex3_a2
             >> F.pokeByteOff ptr0 (4 :: Int) ex3_ex3_struct_ex3_b3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @ex3@
+
+    __defined at:__ @nested_types.h:11:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex3 = Ex3
   { ex3_ex3_struct :: Ex3_ex3_struct
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @ex3_struct@
+
+         __defined at:__ @nested_types.h:15:7@
+
+         __exported by:__ @nested_types.h@
+    -}
   , ex3_ex3_c :: FC.CFloat
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @ex3_c@
+
+         __defined at:__ @nested_types.h:16:11@
+
+         __exported by:__ @nested_types.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -111,9 +207,33 @@ instance F.Storable Ex3 where
                F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct2
             >> F.pokeByteOff ptr0 (8 :: Int) ex3_ex3_c3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @ex4_even@
+
+    __defined at:__ @nested_types.h:24:12@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex4_even = Ex4_even
   { ex4_even_value :: FC.CDouble
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @value@
+
+         __defined at:__ @nested_types.h:25:16@
+
+         __exported by:__ @nested_types.h@
+    -}
   , ex4_even_next :: F.Ptr Ex4_odd
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @next@
+
+         __defined at:__ @nested_types.h:26:25@
+
+         __exported by:__ @nested_types.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -137,9 +257,33 @@ instance F.Storable Ex4_even where
                F.pokeByteOff ptr0 (0 :: Int) ex4_even_value2
             >> F.pokeByteOff ptr0 (8 :: Int) ex4_even_next3
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @ex4_odd@
+
+    __defined at:__ @nested_types.h:22:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex4_odd = Ex4_odd
   { ex4_odd_value :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @value@
+
+         __defined at:__ @nested_types.h:23:9@
+
+         __exported by:__ @nested_types.h@
+    -}
   , ex4_odd_next :: F.Ptr Ex4_even
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @next@
+
+         __defined at:__ @nested_types.h:27:8@
+
+         __exported by:__ @nested_types.h@
+    -}
   }
   deriving stock (Eq, Show)
 

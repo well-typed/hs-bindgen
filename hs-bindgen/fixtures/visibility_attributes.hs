@@ -24,10 +24,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f0",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:17:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -54,10 +56,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:18:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -84,10 +88,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:19:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -114,10 +120,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f3",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:20:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -144,10 +152,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f4",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:21:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -174,10 +184,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f5",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:24:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -204,10 +216,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f6",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:25:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -234,10 +248,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f7",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:26:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -264,10 +280,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f8",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:27:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -294,10 +312,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f9",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:28:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -324,10 +344,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f10",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:31:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -354,10 +376,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f11",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:32:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -384,10 +408,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f12",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:33:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -414,10 +440,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f13",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:34:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -444,10 +472,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f14",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:35:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -474,10 +504,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f15",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:38:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -504,10 +536,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f16",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:39:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -534,10 +568,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f17",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:40:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -564,10 +600,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f18",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:41:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -594,10 +632,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f19",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:42:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -624,10 +664,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f20",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:45:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -654,10 +696,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f21",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:46:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -684,10 +728,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f22",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:47:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -714,10 +760,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f23",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:48:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -744,10 +792,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f24",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:49:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -774,10 +824,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f25",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:52:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -804,10 +856,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f26",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:53:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -834,10 +888,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f27",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:54:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -864,10 +920,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f28",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:55:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -894,10 +952,12 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f29",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:56:56")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "visibility_attributes.h",
@@ -921,7 +981,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:61:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -947,7 +1013,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:62:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -973,7 +1045,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:63:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -999,7 +1077,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:64:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1025,7 +1109,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:65:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1051,7 +1141,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:68:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1077,7 +1173,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:69:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1103,7 +1205,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:70:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1129,7 +1237,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:71:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1155,7 +1269,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:72:48")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1181,7 +1301,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:75:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1207,7 +1333,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:76:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1233,7 +1365,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:77:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1259,7 +1397,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:78:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1285,7 +1429,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:79:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1311,7 +1461,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:82:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1337,7 +1493,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:83:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1363,7 +1525,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:84:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1389,7 +1557,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:85:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1415,7 +1589,13 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "visibility_attributes.h:86:55")
+          (Just "visibility_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

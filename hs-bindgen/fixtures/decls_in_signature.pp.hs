@@ -19,11 +19,43 @@ import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <decls_in_signature.h>\nvoid hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\nvoid hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }\nvoid hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }\n")
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @opaque@
+
+    __defined at:__ @decls_in_signature.h:2:8@
+
+    __exported by:__ @decls_in_signature.h@
+-}
 data Opaque
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @outside@
+
+    __defined at:__ @decls_in_signature.h:3:8@
+
+    __exported by:__ @decls_in_signature.h@
+-}
 data Outside = Outside
   { outside_x :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @decls_in_signature.h:4:7@
+
+         __exported by:__ @decls_in_signature.h@
+    -}
   , outside_y :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @y@
+
+         __defined at:__ @decls_in_signature.h:5:7@
+
+         __exported by:__ @decls_in_signature.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -47,14 +79,30 @@ instance F.Storable Outside where
                F.pokeByteOff ptr0 (0 :: Int) outside_x2
             >> F.pokeByteOff ptr0 (4 :: Int) outside_y3
 
-{-| __from C:__ @normal@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @normal@
+
+    __defined at:__ @decls_in_signature.h:7:6@
+
+    __exported by:__ @decls_in_signature.h@
+-}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper
   :: F.Ptr Opaque
-     {- ^ __from C:__ @ptr_to_opaque@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @ptr_to_opaque@
+     -}
   -> F.Ptr Outside
-     {- ^ __from C:__ @ptr_to_defined@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @ptr_to_defined@
+     -}
   -> F.Ptr Outside
-     {- ^ __from C:__ @by_value@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @by_value@
+     -}
   -> IO ()
 
 normal :: (F.Ptr Opaque) -> (F.Ptr Outside) -> Outside -> IO ()
@@ -67,11 +115,33 @@ normal =
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-  __from C:__ @named_struct@
+__/Automatically generated from C/__
+
+__C declaration:__ @named_struct@
+
+__defined at:__ @decls_in_signature.h:17:16@
+
+__exported by:__ @decls_in_signature.h@
 -}
 data Named_struct = Named_struct
   { named_struct_x :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @x@
+
+         __defined at:__ @decls_in_signature.h:17:35@
+
+         __exported by:__ @decls_in_signature.h@
+    -}
   , named_struct_y :: FC.CInt
+    {- ^ __/Automatically generated from C/__
+
+         __C declaration:__ @y@
+
+         __defined at:__ @decls_in_signature.h:17:42@
+
+         __exported by:__ @decls_in_signature.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -99,16 +169,33 @@ instance F.Storable Named_struct where
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-  __from C:__ @f1(struct named_struct)@
+__/Automatically generated from C/__
+
+__C declaration:__ @f1(struct named_struct)@
+
+__defined at:__ @decls_in_signature.h:17:6@
+
+__exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" f1_wrapper
   :: F.Ptr Named_struct
-     {- ^ __from C:__ @arg@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @arg@
+     -}
   -> IO ()
 
 f1 :: Named_struct -> IO ()
 f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @named_union@
+
+    __defined at:__ @decls_in_signature.h:20:15@
+
+    __exported by:__ @decls_in_signature.h@
+-}
 newtype Named_union = Named_union
   { un_Named_union :: Data.Array.Byte.ByteArray
   }
@@ -119,6 +206,13 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.St
 
   __See:__ 'set_named_union_x'
 
+__/Automatically generated from C/__
+
+__C declaration:__ @x@
+
+__defined at:__ @decls_in_signature.h:20:33@
+
+__exported by:__ @decls_in_signature.h@
 -}
 get_named_union_x :: Named_union -> FC.CInt
 get_named_union_x =
@@ -137,6 +231,13 @@ set_named_union_x =
 
   __See:__ 'set_named_union_y'
 
+__/Automatically generated from C/__
+
+__C declaration:__ @y@
+
+__defined at:__ @decls_in_signature.h:20:41@
+
+__exported by:__ @decls_in_signature.h@
 -}
 get_named_union_y :: Named_union -> FC.CChar
 get_named_union_y =
@@ -151,10 +252,20 @@ set_named_union_y :: FC.CChar -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
-{-| __from C:__ @f2@ -}
+{-| __/Automatically generated from C/__
+
+    __C declaration:__ @f2@
+
+    __defined at:__ @decls_in_signature.h:20:6@
+
+    __exported by:__ @decls_in_signature.h@
+-}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper
   :: F.Ptr Named_union
-     {- ^ __from C:__ @arg@ -}
+     {- ^ __/Automatically generated from C/__
+
+          __C declaration:__ @arg@
+     -}
   -> IO ()
 
 f2 :: Named_union -> IO ()

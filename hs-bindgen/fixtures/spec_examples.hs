@@ -67,13 +67,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Examples from the initial specification"],
-          commentOrigin = Just "int16_T",
-          commentChildren = []}},
+                "Examples from the initial specification"])
+          (Just "spec_examples.h:10:15")
+          (Just "spec_examples.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -265,7 +266,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "spec_examples.h:11:13")
+          (Just "spec_examples.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -459,7 +465,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "spec_examples.h:12:19")
+          (Just "spec_examples.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -625,7 +636,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:15:11")
+              (Just "spec_examples.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -651,7 +667,12 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:16:11")
+              (Just "spec_examples.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -714,7 +735,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "spec_examples.h:14:9")
+          (Just "spec_examples.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -752,7 +778,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:15:11")
+                  (Just "spec_examples.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -778,7 +809,12 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:16:11")
+                  (Just "spec_examples.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -841,7 +877,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:14:9")
+              (Just "spec_examples.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 2,
@@ -882,7 +923,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:15:11")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -908,7 +954,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:16:11")
+                          (Just "spec_examples.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -971,7 +1022,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "spec_examples.h:14:9")
+                      (Just "spec_examples.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 2]),
@@ -1014,7 +1070,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:15:11")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1040,7 +1101,12 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:16:11")
+                          (Just "spec_examples.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1103,7 +1169,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "spec_examples.h:14:9")
+                      (Just "spec_examples.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1171,7 +1242,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "spec_examples.h:19:8")
+          (Just "spec_examples.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1212,7 +1288,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:19:8")
+              (Just "spec_examples.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1256,7 +1337,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "spec_examples.h:19:8")
+                      (Just "spec_examples.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1300,7 +1386,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "spec_examples.h:19:8")
+                      (Just "spec_examples.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1348,7 +1439,12 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just "spec_examples.h:28:10")
+          (Just "spec_examples.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -1377,7 +1473,12 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:24:10")
+              (Just "spec_examples.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1400,7 +1501,12 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:25:9")
+              (Just "spec_examples.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1425,7 +1531,12 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:26:8")
+              (Just "spec_examples.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1448,7 +1559,12 @@
               structFieldOffset = 1152,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:27:12")
+              (Just "spec_examples.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1473,7 +1589,12 @@
               structFieldOffset = 1152,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
-          fieldComment = Nothing}],
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:28:13")
+              (Just "spec_examples.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1576,7 +1697,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "spec_examples.h:23:8")
+          (Just "spec_examples.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1608,7 +1734,12 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:24:10")
+                  (Just "spec_examples.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1631,7 +1762,12 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:25:9")
+                  (Just "spec_examples.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1656,7 +1792,12 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:26:8")
+                  (Just "spec_examples.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1679,7 +1820,12 @@
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:27:12")
+                  (Just "spec_examples.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1704,7 +1850,12 @@
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
-              fieldComment = Nothing}],
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "spec_examples.h:28:13")
+                  (Just "spec_examples.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1807,7 +1958,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "spec_examples.h:23:8")
+              (Just "spec_examples.h")
+              [])}
         StorableInstance {
           storableSizeOf = 152,
           storableAlignment = 8,
@@ -1842,7 +1998,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:24:10")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1865,7 +2026,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:25:9")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1890,7 +2056,12 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:26:8")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1913,7 +2084,12 @@
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:27:12")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1938,7 +2114,12 @@
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:28:13")
+                          (Just "spec_examples.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2041,7 +2222,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "spec_examples.h:23:8")
+                      (Just "spec_examples.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8,
@@ -2081,7 +2267,12 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:24:10")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2104,7 +2295,12 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:25:9")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2129,7 +2325,12 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:26:8")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2152,7 +2353,12 @@
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:27:12")
+                          (Just "spec_examples.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2177,7 +2383,12 @@
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "spec_examples.h:28:13")
+                          (Just "spec_examples.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2280,7 +2491,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "spec_examples.h:23:8")
+                      (Just "spec_examples.h")
+                      [])}
                 (Add 5)
                 (Seq
                   [
@@ -2335,11 +2551,11 @@
                 "@NsTypeConstr"
                 "Int32_T")),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_num_valid_samples",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2351,11 +2567,11 @@
                 "@NsTypeConstr"
                 "Cint16_T")),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_iq_int",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2366,11 +2582,11 @@
               "@NsTypeConstr"
               "Int64_T"),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_old_rate",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2381,11 +2597,11 @@
               "@NsTypeConstr"
               "Int64_T"),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_new_rate",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2397,11 +2613,11 @@
                 "@NsTypeConstr"
                 "Cint16_T")),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_iq_resampled_int",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -2494,9 +2710,10 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "resample",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "spec_examples.h:31:6")
+          (Just "spec_examples.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple]
