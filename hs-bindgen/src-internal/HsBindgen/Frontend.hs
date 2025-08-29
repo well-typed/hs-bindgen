@@ -166,7 +166,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     rootHeader = fromMainFiles bootHashIncludeArgs
 
     setup :: ClangSetup
-    setup = (defaultClangSetup frontendClangArgs $
+    setup = (defaultClangSetup bootClangArgs $
               ClangInputMemory hFilePath hContent) {
                 clangFlags = bitfieldEnum [
                     CXTranslationUnit_DetailedPreprocessingRecord
