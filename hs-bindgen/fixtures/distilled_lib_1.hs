@@ -10790,15 +10790,16 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "v_ptr",
+        "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Var_t"))),
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Var_t")))),
       foreignImportOrigName =
       "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365",
       foreignImportCallConv =
@@ -10811,4 +10812,6 @@
               nameHsIdent = HsIdentifier
                 "Var_t"})),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

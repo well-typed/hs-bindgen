@@ -2,7 +2,10 @@
 -- #include <asm.h>
 -- /* get_asm_labeled_variable_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_asm_d2d42e5b0c00988a (void) { return &asm_labeled_variable; } 
 -- signed int hs_bindgen_test_asm_54c5278e738a284f (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }
-foreign import ccall safe "hs_bindgen_test_asm_d2d42e5b0c00988a" asm_labeled_variable_ptr :: Ptr CInt
+foreign import ccall safe "hs_bindgen_test_asm_d2d42e5b0c00988a" hs_bindgen_test_asm_d2d42e5b0c00988a :: IO (Ptr CInt)
+{-# NOINLINE asm_labeled_variable_ptr #-}
+asm_labeled_variable_ptr :: Ptr CInt
+asm_labeled_variable_ptr = unsafePerformIO hs_bindgen_test_asm_d2d42e5b0c00988a
 {-| -}
 foreign import ccall safe "hs_bindgen_test_asm_54c5278e738a284f" asm_labeled_function :: CInt ->
                                                                                          CInt ->

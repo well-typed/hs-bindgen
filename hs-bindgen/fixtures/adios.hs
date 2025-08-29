@@ -417,11 +417,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "c\978\978_ptr",
+        "hs_bindgen_test_adios_52f5e750c2f31c7b",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_adios_52f5e750c2f31c7b",
       foreignImportCallConv =
@@ -430,7 +432,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude "adios.h",
   DeclInlineC
     "/* get_\978\978\978_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
@@ -438,11 +442,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "c\978\978\978_ptr",
+        "hs_bindgen_test_adios_13030842ed540098",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_adios_13030842ed540098",
       foreignImportCallConv =
@@ -451,7 +457,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclSimple,
   DeclSimple,
   DeclInlineCInclude "adios.h",

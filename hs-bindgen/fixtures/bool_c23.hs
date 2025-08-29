@@ -6,12 +6,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "b_ptr",
+        "hs_bindgen_test_bool_c23_401ecb7e80957164",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr
-          (HsPrimType HsPrimCBool)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCBool))),
       foreignImportOrigName =
       "hs_bindgen_test_bool_c23_401ecb7e80957164",
       foreignImportCallConv =
@@ -19,4 +20,6 @@
       foreignImportOrigin = Global
         (TypePrim PrimBool),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

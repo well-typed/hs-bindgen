@@ -33,11 +33,23 @@ newtype C数字 = C数字
 foreign import ccall safe "hs_bindgen_test_adios_8e1936b23d816eb2" cϒ
   :: IO ()
 
-foreign import ccall safe "hs_bindgen_test_adios_52f5e750c2f31c7b" cϒϒ_ptr
-  :: F.Ptr FC.CInt
+foreign import ccall unsafe "hs_bindgen_test_adios_52f5e750c2f31c7b" hs_bindgen_test_adios_52f5e750c2f31c7b
+  :: IO (F.Ptr FC.CInt)
 
-foreign import ccall safe "hs_bindgen_test_adios_13030842ed540098" cϒϒϒ_ptr
-  :: F.Ptr FC.CInt
+{-# NOINLINE cϒϒ_ptr #-}
+
+cϒϒ_ptr :: F.Ptr FC.CInt
+cϒϒ_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_adios_52f5e750c2f31c7b
+
+foreign import ccall unsafe "hs_bindgen_test_adios_13030842ed540098" hs_bindgen_test_adios_13030842ed540098
+  :: IO (F.Ptr FC.CInt)
+
+{-# NOINLINE cϒϒϒ_ptr #-}
+
+cϒϒϒ_ptr :: F.Ptr FC.CInt
+cϒϒϒ_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_adios_13030842ed540098
 
 {-# NOINLINE cϒϒϒ #-}
 

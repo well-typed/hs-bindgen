@@ -17,6 +17,7 @@ import qualified Data.List.NonEmpty
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
@@ -326,5 +327,11 @@ newtype Callback_t = Callback_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" v_ptr
-  :: F.Ptr Var_t
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" hs_bindgen_test_distilled_lib_1_0f967c83f73d0365
+  :: IO (F.Ptr Var_t)
+
+{-# NOINLINE v_ptr #-}
+
+v_ptr :: F.Ptr Var_t
+v_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_0f967c83f73d0365

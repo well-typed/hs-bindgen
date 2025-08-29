@@ -16,15 +16,22 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 $(CAPI.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } \n")
 
-foreign import ccall safe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" x_ptr
-  :: F.Ptr FC.CInt
+foreign import ccall unsafe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" hs_bindgen_test_redeclaration_59f22ffbb8d28119
+  :: IO (F.Ptr FC.CInt)
+
+{-# NOINLINE x_ptr #-}
+
+x_ptr :: F.Ptr FC.CInt
+x_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_redeclaration_59f22ffbb8d28119
 
 newtype Int_t = Int_t
   { un_Int_t :: FC.CInt

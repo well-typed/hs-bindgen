@@ -1459,11 +1459,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i_ptr",
+        "hs_bindgen_test_fun_attributes_fe81510d355aff25",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_fe81510d355aff25",
       foreignImportCallConv =
@@ -1472,7 +1474,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC

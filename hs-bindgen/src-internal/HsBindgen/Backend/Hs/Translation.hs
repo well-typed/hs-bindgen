@@ -1348,11 +1348,18 @@ functionDecs opts moduleName typedefs info f _spec =
 -- stub function is mangled, though the original name of the stub function is
 -- included in a comment before the stub.
 --
--- > foreign import capi safe "abc949ab" simpleGlobal_ptr :: Ptr CInt
+-- > foreign import ccall unsafe "abc949ab" abc949ab :: IO (Ptr CInt)
 --
 -- Note that stub function also has a @const@ function attribute to emphasise
 -- that the function always returns the same address throughout the lifetime of
--- the program, which means we can omit the 'IO' from the foreign import.
+-- the program. This means we could omit the 'IO' from the foreign import to
+-- make it a pure foreign import. Instead, we make the foreign import impure and
+-- we generate an additional pure Haskell function that safely unsafely runs the
+-- 'IO'.
+--
+-- > {-# NOINLINE simpleGlobal_ptr #-}
+-- > global_ptr :: Ptr CInt
+-- > global_ptr = unsafePerformIO abc949ab
 global ::
      TranslationOpts
   -> HsModuleName
@@ -1409,9 +1416,12 @@ globalConst opts moduleName instsMap info ty _spec =
       ]
   where
     -- *** Stub ***
-    (stubDecs, stubImportName) = addressStubDecs opts moduleName info C.TypeQualifierConst ty _spec
+    (stubDecs, pureStubName) = addressStubDecs opts moduleName info C.TypeQualifierConst ty _spec
 
     -- *** Getter ***
+    --
+    -- The "getter" peeks the value from the pointer
+
     getterDecl :: Hs.Decl
     getterDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
           varName    = getterName
@@ -1424,7 +1434,7 @@ globalConst opts moduleName instsMap info ty _spec =
     getterType = SHs.translateType (typ ty)
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
-                `SHs.EApp` SHs.EFree stubImportName)
+                `SHs.EApp` SHs.EFree pureStubName)
 
 -- | Create a stub C function that returns the address of a given declaration,
 -- and create a binding to that stub C function.
@@ -1433,10 +1443,9 @@ globalConst opts moduleName instsMap info ty _spec =
 --
 -- This function returns a pair @(stubDecs, stubImportName)@:
 --
--- * @stubDecs@: a list of declarations for the stub C function.
+-- * @stubDecs@: a list of declarations for the pure\/impure stub.
 --
--- * @stubImportName@: the identifier of the foreign import targetting the stub
---   C function.
+-- * @pureStubName@: the identifier of the /pure/ stub.
 addressStubDecs ::
      TranslationOpts
   -> HsModuleName
@@ -1447,7 +1456,7 @@ addressStubDecs ::
   -> ( [Hs.Decl]
      , HsName 'NsVar
      )
-addressStubDecs opts moduleName info tyQual ty _spec = (,stubImportName) $
+addressStubDecs opts moduleName info tyQual ty _spec = (,runnerName) $
     [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
@@ -1458,15 +1467,23 @@ addressStubDecs opts moduleName info tyQual ty _spec = (,stubImportName) $
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
         , foreignImportComment  = generateHaddocks (C.declComment info)
-        , foreignImportSafety   = SHs.Safe
+          -- These imports can be unsafe. We're binding to simple address stubs,
+          -- so there are no callbacks into Haskell code. Moreover, they are
+          -- short running code.
+        , foreignImportSafety   = SHs.Unsafe
         }
-    ]
+    ] ++ runnerDecls
   where
+    -- *** Stub (impure) ***
+
+    -- | We reuse the mangled stub name here, since the import is supposed to be
+    -- internal. Users should use functioned identified by @runnerName@ instead,
+    -- which does not include 'IO' in the return type.
     stubImportName :: HsName 'NsVar
-    stubImportName = HsName $ getHsIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"
+    stubImportName = HsName $ T.pack stubNameMangled
 
     stubImportType :: ResultType HsType
-    stubImportType = NormalResultType $ typ stubType
+    stubImportType = NormalResultType $ HsIO $ typ stubType
 
     stubNameMangled :: String
     stubNameMangled = unUniqueSymbolId $
@@ -1495,6 +1512,28 @@ addressStubDecs opts moduleName info tyQual ty _spec = (,stubImportName) $
         PC.withArgs [] $ \args' ->
           PC.FunDefn stubNameMangled stubType stubTypeQualifier C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
+
+    -- *** Stub (pure) ***
+
+
+    runnerDecls :: [Hs.Decl]
+    runnerDecls = [
+          Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE runnerName)
+        , runnerDecl
+        ]
+
+    runnerDecl :: Hs.Decl
+    runnerDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
+          varName    = runnerName
+        , varType    = runnerType
+        , varExpr    = runnerExpr
+        , varComment = Nothing
+        }
+
+    runnerName = HsName $ getHsIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"
+    runnerType = SHs.translateType (typ stubType)
+    runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
+                `SHs.EApp` SHs.EFree stubImportName
 
 {-------------------------------------------------------------------------------
   Macro

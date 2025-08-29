@@ -907,11 +907,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i0_ptr",
+        "hs_bindgen_test_visibility_attributes_724fd59489c94c9f",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_724fd59489c94c9f",
       foreignImportCallConv =
@@ -920,7 +922,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -929,11 +933,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i1_ptr",
+        "hs_bindgen_test_visibility_attributes_736e69defba46ab4",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_736e69defba46ab4",
       foreignImportCallConv =
@@ -942,7 +948,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -951,11 +959,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i2_ptr",
+        "hs_bindgen_test_visibility_attributes_210c547ae5abcc02",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_210c547ae5abcc02",
       foreignImportCallConv =
@@ -964,7 +974,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -973,11 +985,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i3_ptr",
+        "hs_bindgen_test_visibility_attributes_d6bb66d7f7107274",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_d6bb66d7f7107274",
       foreignImportCallConv =
@@ -986,7 +1000,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -995,11 +1011,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i4_ptr",
+        "hs_bindgen_test_visibility_attributes_8c4485c2eb6e1434",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_8c4485c2eb6e1434",
       foreignImportCallConv =
@@ -1008,7 +1026,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1017,11 +1037,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i5_ptr",
+        "hs_bindgen_test_visibility_attributes_6ff6b816265f91d3",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_6ff6b816265f91d3",
       foreignImportCallConv =
@@ -1030,7 +1052,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1039,11 +1063,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i6_ptr",
+        "hs_bindgen_test_visibility_attributes_3bd2208d8e850002",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_3bd2208d8e850002",
       foreignImportCallConv =
@@ -1052,7 +1078,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1061,11 +1089,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i7_ptr",
+        "hs_bindgen_test_visibility_attributes_a3aa6eb624f2c014",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_a3aa6eb624f2c014",
       foreignImportCallConv =
@@ -1074,7 +1104,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1083,11 +1115,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i8_ptr",
+        "hs_bindgen_test_visibility_attributes_696700c5194eb184",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_696700c5194eb184",
       foreignImportCallConv =
@@ -1096,7 +1130,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1105,11 +1141,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i9_ptr",
+        "hs_bindgen_test_visibility_attributes_27bb5845debfdd10",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_27bb5845debfdd10",
       foreignImportCallConv =
@@ -1118,7 +1156,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1127,11 +1167,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i10_ptr",
+        "hs_bindgen_test_visibility_attributes_254dda0b2c3c245d",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_254dda0b2c3c245d",
       foreignImportCallConv =
@@ -1140,7 +1182,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1149,11 +1193,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i11_ptr",
+        "hs_bindgen_test_visibility_attributes_5ca63f16dc0b48e7",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_5ca63f16dc0b48e7",
       foreignImportCallConv =
@@ -1162,7 +1208,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1171,11 +1219,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i12_ptr",
+        "hs_bindgen_test_visibility_attributes_75789ceaef5e5feb",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_75789ceaef5e5feb",
       foreignImportCallConv =
@@ -1184,7 +1234,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1193,11 +1245,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i13_ptr",
+        "hs_bindgen_test_visibility_attributes_6e3778cc97c78a2e",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_6e3778cc97c78a2e",
       foreignImportCallConv =
@@ -1206,7 +1260,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1215,11 +1271,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i14_ptr",
+        "hs_bindgen_test_visibility_attributes_9ec03118dd66d7c5",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_9ec03118dd66d7c5",
       foreignImportCallConv =
@@ -1228,7 +1286,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1237,11 +1297,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i15_ptr",
+        "hs_bindgen_test_visibility_attributes_4b5a349cc99cdac9",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_4b5a349cc99cdac9",
       foreignImportCallConv =
@@ -1250,7 +1312,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1259,11 +1323,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i16_ptr",
+        "hs_bindgen_test_visibility_attributes_56cec68bd1e37a44",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_56cec68bd1e37a44",
       foreignImportCallConv =
@@ -1272,7 +1338,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1281,11 +1349,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i17_ptr",
+        "hs_bindgen_test_visibility_attributes_e60a43107858a2bc",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_e60a43107858a2bc",
       foreignImportCallConv =
@@ -1294,7 +1364,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1303,11 +1375,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i18_ptr",
+        "hs_bindgen_test_visibility_attributes_86247c32f4f34e6f",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_86247c32f4f34e6f",
       foreignImportCallConv =
@@ -1316,7 +1390,9 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclInlineCInclude
     "visibility_attributes.h",
   DeclInlineC
@@ -1325,11 +1401,13 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "i19_ptr",
+        "hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
-        (HsPtr (HsPrimType HsPrimCInt)),
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
       "hs_bindgen_test_visibility_attributes_3d3a0ab3e093d4b1",
       foreignImportCallConv =
@@ -1338,4 +1416,6 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Nothing,
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]
