@@ -6,6 +6,7 @@ module HsBindgen.Boot
 
 import Clang.Args
 import HsBindgen.BindingSpec
+import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -37,20 +38,26 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
         tracerHashInclude = contramap BootHashIncludeArg tracer
     hashIncludeArgs <-
       mapM (hashIncludeArgWithTrace tracerHashInclude) uncheckedHashIncludeArgs
+    let tracerBuiltinIncDir :: Tracer IO BuiltinIncDirMsg
+        tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
+    clangArgs <-
+      applyBuiltinIncDir (frontendClangArgs bindgenFrontendConfig) <$>
+        getBuiltinIncDir tracerBuiltinIncDir builtinIncDirConfig
     let tracerBindingSpec :: Tracer IO BindingSpecMsg
         tracerBindingSpec = contramap BootBindingSpec tracer
     (extSpec, pSpec) <-
       loadBindingSpecs tracerBindingSpec clangArgs bindingSpecConfig
     let bootArtefact = BootArtefact {
-          bootHashIncludeArgs         = hashIncludeArgs
+          bootClangArgs               = clangArgs
+        , bootHashIncludeArgs         = hashIncludeArgs
         , bootExternalBindingSpec     = extSpec
         , bootPrescriptiveBindingSpec = pSpec
         }
     traceWith tracerBootStatus $ BootEnd bootArtefact
     pure bootArtefact
   where
-    clangArgs :: ClangArgs
-    clangArgs = frontendClangArgs bindgenFrontendConfig
+    builtinIncDirConfig :: BuiltinIncDirConfig
+    builtinIncDirConfig = bootBuiltinIncDirConfig bindgenBootConfig
 
     bindingSpecConfig :: BindingSpecConfig
     bindingSpecConfig = bootBindingSpecConfig bindgenBootConfig
@@ -60,7 +67,8 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
 -------------------------------------------------------------------------------}
 
 data BootArtefact = BootArtefact {
-    bootHashIncludeArgs         :: [HashIncludeArg]
+    bootClangArgs               :: ClangArgs
+  , bootHashIncludeArgs         :: [HashIncludeArg]
   , bootExternalBindingSpec     :: ExternalBindingSpec
   , bootPrescriptiveBindingSpec :: PrescriptiveBindingSpec
   }
@@ -91,6 +99,7 @@ instance IsTrace Level BootStatusMsg where
 data BootMsg =
     BootBackendConfig  BackendConfigMsg
   | BootBindingSpec    BindingSpecMsg
+  | BootBuiltinIncDir  BuiltinIncDirMsg
   | BootHashIncludeArg HashIncludeArgMsg
   | BootStatus         BootStatusMsg
   deriving stock (Show, Eq, Generic)

@@ -16,7 +16,9 @@ module HsBindgen.TH (
   , TH.tracerConfigDefTH
 
     -- ** Boot
-  , Common.BootConfig
+  , Common.BootConfig(..)
+    -- *** Builtin include directory
+  , Common.BuiltinIncDirConfig(..)
     -- *** Binding specifications
   , Common.BindingSpecConfig(..)
   , Common.EnableStdlibBindingSpec(..)
