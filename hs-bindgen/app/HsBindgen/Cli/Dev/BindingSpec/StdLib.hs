@@ -56,8 +56,13 @@ exec GlobalOpts{..} Opts{..} = do
       clangArgs' <- applyBuiltinIncDir clangArgs <$>
         getBuiltinIncDir
           (contramap TraceBuiltinIncDir tracer)
-          builtinIncDirConfig
+          builtinIncDirConfig'
       getStdlibBindingSpec
         (contramap (TraceBoot . BootBindingSpec) tracer)
         clangArgs'
     BS.putStr $ encodeBindingSpecYaml spec
+  where
+    builtinIncDirConfig' :: BuiltinIncDirConfig
+    builtinIncDirConfig' = case builtinIncDirConfig of
+      BuiltinIncDirAuto -> BuiltinIncDirAutoWithOverflow ""
+      config            -> config

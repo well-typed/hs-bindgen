@@ -215,9 +215,10 @@ parseBuiltinIncDirConfig = option (eitherReader auxParse) $ mconcat [
 
     auxRender :: BuiltinIncDirConfig -> String
     auxRender = \case
-      BuiltinIncDirAuto    -> "auto"
-      BuiltinIncDirClang   -> "clang"
-      BuiltinIncDirDisable -> "disable"
+      BuiltinIncDirAuto               -> "auto"
+      BuiltinIncDirClang              -> "clang"
+      BuiltinIncDirDisable            -> "disable"
+      BuiltinIncDirAutoWithOverflow{} -> "auto"  -- never default value
 
 {-------------------------------------------------------------------------------
   Clang arguments
