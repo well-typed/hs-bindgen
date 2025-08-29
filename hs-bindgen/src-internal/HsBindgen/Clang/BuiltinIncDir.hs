@@ -172,8 +172,12 @@ data BuiltinIncDirConfig =
     BuiltinIncDirDisable
 
     -- | Configure the builtin include directory using the resource directory
-    -- from @libclang@
+    -- from @libclang@, using the default overflow string
   | BuiltinIncDirAuto
+
+    -- | Configure the builtin include directory using the resource directory
+    -- from @libclang@, using a custom overflow string (not including newline)
+  | BuiltinIncDirAutoWithOverflow Text
 
     -- | Configure the builtin include directory using just @clang@
   | BuiltinIncDirClang
@@ -265,10 +269,13 @@ getBuiltinIncDir ::
   -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
     BuiltinIncDirCached mPath -> return mPath
-    BuiltinIncDirInitial      -> saveState =<< case config of
+    BuiltinIncDirInitial -> saveState =<< case config of
       BuiltinIncDirDisable -> return Nothing
-      BuiltinIncDirAuto    -> aux . fmap normWinPath =<< getResourceDir tracer
-      BuiltinIncDirClang   -> aux Nothing
+      BuiltinIncDirAuto ->
+        aux . fmap normWinPath =<< getResourceDir tracer Nothing
+      BuiltinIncDirAutoWithOverflow overflow ->
+        aux . fmap normWinPath =<< getResourceDir tracer (Just overflow)
+      BuiltinIncDirClang -> aux Nothing
   where
     saveState :: Maybe BuiltinIncDir -> IO (Maybe BuiltinIncDir)
     saveState mPath = do
@@ -329,8 +336,11 @@ applyBuiltinIncDir args = \case
 --
 -- NOTE: A newline is printed to @STDOUT@ as a side effect.  This happens
 -- because the @outs@ buffer is only flushed when overfull.
-getResourceDir :: Tracer IO BuiltinIncDirMsg -> IO (Maybe FilePath)
-getResourceDir tracer = auxOut 0 >>= \case
+getResourceDir ::
+     Tracer IO BuiltinIncDirMsg
+  -> Maybe Text  -- ^ 'Just' overflow string or 'Nothing' for default
+  -> IO (Maybe FilePath)
+getResourceDir tracer mOverflow = auxOut 0 >>= \case
     -- Assumption: printed resource directory is significantly shorter than the
     -- size of the buffer
     Just (out, numFillBytes) -> do
@@ -345,8 +355,10 @@ getResourceDir tracer = auxOut 0 >>= \case
           buffSize = length out
           -- Bytes remaining in the buffer, @> 0@ given the above assumption
           numRemainBytes = buffSize + buffSize - numPrintBytes - numFillBytes
-      void . Silently.capture_ $
-        auxFillBuffer (numRemainBytes + 1) (Just "-- Clang buffer flushed")
+      void . Silently.capture_ . auxFillBuffer (numRemainBytes + 1) $
+        case mOverflow of
+          Just overflow -> Just (Text.unpack overflow)
+          Nothing       -> Just defOverflowString
       traceWith tracer $
         maybe
           BuiltinIncDirResourceDirEmpty
@@ -420,10 +432,10 @@ getResourceDir tracer = auxOut 0 >>= \case
       -> Maybe String
       -- ^ Overflow string not including newline (@maybe True ((> 0) . length)@)
       -> IO ()
-    auxFillBuffer numBytes mOverflow =
+    auxFillBuffer numBytes mOverflow' =
       void . withClang' nullTracer clangSetup $ \unit -> do
         let (numLines, numBytes') = numBytes `divMod` maxLineLength
-            t = Text.pack . concat $ case mOverflow of
+            t = Text.pack . concat $ case mOverflow' of
               Nothing
                 | numBytes' > 0 ->
                     -- full lines and partial line
@@ -479,6 +491,9 @@ getResourceDir tracer = auxOut 0 >>= \case
     filler =
       take (maxLineLength - 1) (cycle "--hs-bindgen-builtin-include-dir")
         ++ "\n"
+
+    defOverflowString :: String
+    defOverflowString = "-- Clang buffer flushed"
 
 -- | Normalise Windows paths
 --
