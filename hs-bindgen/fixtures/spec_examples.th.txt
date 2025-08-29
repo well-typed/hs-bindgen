@@ -1,6 +1,7 @@
 -- addDependentFile examples/golden/spec_examples.h
 -- #include <spec_examples.h>
 -- void hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }
+-- /* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } 
 {-| Examples from the initial specification
 
 -}
@@ -89,3 +90,16 @@ resample :: Ptr Int32_T ->
             ConstantArray 30720000 Cint16_T ->
             Int64_T -> Int64_T -> ConstantArray 30720000 Cint16_T -> IO Unit
 resample = \x_0 -> \x_1 -> \x_2 -> \x_3 -> \x_4 -> withPtr x_4 (\ptr_5 -> withPtr x_1 (\ptr_6 -> resample_wrapper x_0 ptr_6 x_2 x_3 ptr_5))
+foreign import ccall safe "hs_bindgen_test_spec_examples_215c42c65ae193a6" hs_bindgen_test_spec_examples_215c42c65ae193a6 :: IO (FunPtr (Ptr Int32_T ->
+                                                                                                                                         ConstantArray 30720000
+                                                                                                                                                       Cint16_T ->
+                                                                                                                                         Int64_T ->
+                                                                                                                                         Int64_T ->
+                                                                                                                                         ConstantArray 30720000
+                                                                                                                                                       Cint16_T ->
+                                                                                                                                         IO Unit))
+{-# NOINLINE resample_ptr #-}
+resample_ptr :: FunPtr (Ptr Int32_T ->
+                        ConstantArray 30720000 Cint16_T ->
+                        Int64_T -> Int64_T -> ConstantArray 30720000 Cint16_T -> IO Unit)
+resample_ptr = unsafePerformIO hs_bindgen_test_spec_examples_215c42c65ae193a6

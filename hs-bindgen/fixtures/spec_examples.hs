@@ -2499,4 +2499,107 @@
           commentOrigin = Just "resample",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
+  DeclInlineCInclude
+    "spec_examples.h",
+  DeclInlineC
+    "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_spec_examples_215c42c65ae193a6",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Int32_T")))
+              (HsFun
+                (HsConstArray
+                  30720000
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "Cint16_T")))
+                (HsFun
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "Int64_T"))
+                  (HsFun
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "Int64_T"))
+                    (HsFun
+                      (HsConstArray
+                        30720000
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "Cint16_T")))
+                      (HsIO
+                        (HsPrimType HsPrimUnit))))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_spec_examples_215c42c65ae193a6",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int32_T",
+                    nameHsIdent = HsIdentifier
+                      "Int32_T"})),
+            TypeConstArray
+              30720000
+              (TypeTypedef
+                (TypedefSquashed
+                  (Name "cint16_T")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "cint16_T",
+                      nameHsIdent = HsIdentifier
+                        "Cint16_T"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "spec_examples.h:14:9"))))),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "int64_T",
+                  nameHsIdent = HsIdentifier
+                    "Int64_T"}),
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "int64_T",
+                  nameHsIdent = HsIdentifier
+                    "Int64_T"}),
+            TypeConstArray
+              30720000
+              (TypeTypedef
+                (TypedefSquashed
+                  (Name "cint16_T")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "cint16_T",
+                      nameHsIdent = HsIdentifier
+                        "Cint16_T"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "spec_examples.h:14:9")))))]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclSimple]

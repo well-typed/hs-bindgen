@@ -1,9 +1,13 @@
 -- addDependentFile examples/golden/struct_arg.h
 -- #include <struct_arg.h>
 -- signed int hs_bindgen_test_struct_arg_be997777eb388096 (struct thing *arg1) { return thing_fun_1(*arg1); }
+-- /* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_d5cf000d627eba66 (void)) (struct thing arg1) { return &thing_fun_1; } 
 -- void hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }
+-- /* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_c5543d9dadeca704 (void)) (signed int arg1) { return &thing_fun_2; } 
 -- void hs_bindgen_test_struct_arg_9540300ca2ef6349 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }
+-- /* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_6f4d585feed7ca5e (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } 
 -- char hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }
+-- /* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_ef6a607b6432889d (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } 
 data Thing = Thing {thing_x :: CInt} deriving stock (Eq, Show)
 instance Storable Thing
     where sizeOf = \_ -> 4 :: Int
@@ -16,12 +20,22 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_be997777eb388096" thing_fu
                                                                                                IO CInt
 thing_fun_1 :: Thing -> IO CInt
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
+foreign import ccall safe "hs_bindgen_test_struct_arg_d5cf000d627eba66" hs_bindgen_test_struct_arg_d5cf000d627eba66 :: IO (FunPtr (Thing ->
+                                                                                                                                   IO CInt))
+{-# NOINLINE thing_fun_1_ptr #-}
+thing_fun_1_ptr :: FunPtr (Thing -> IO CInt)
+thing_fun_1_ptr = unsafePerformIO hs_bindgen_test_struct_arg_d5cf000d627eba66
 {-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_c719e5e844a53956" thing_fun_2_wrapper :: CInt ->
                                                                                                Ptr Thing ->
                                                                                                IO Unit
 thing_fun_2 :: CInt -> IO Thing
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
+foreign import ccall safe "hs_bindgen_test_struct_arg_c5543d9dadeca704" hs_bindgen_test_struct_arg_c5543d9dadeca704 :: IO (FunPtr (CInt ->
+                                                                                                                                   IO Thing))
+{-# NOINLINE thing_fun_2_ptr #-}
+thing_fun_2_ptr :: FunPtr (CInt -> IO Thing)
+thing_fun_2_ptr = unsafePerformIO hs_bindgen_test_struct_arg_c5543d9dadeca704
 {-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fun_3a_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
@@ -30,6 +44,13 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fu
                                                                                                 IO Unit
 thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
+foreign import ccall safe "hs_bindgen_test_struct_arg_6f4d585feed7ca5e" hs_bindgen_test_struct_arg_6f4d585feed7ca5e :: IO (FunPtr (CInt ->
+                                                                                                                                   Thing ->
+                                                                                                                                   CDouble ->
+                                                                                                                                   IO Thing))
+{-# NOINLINE thing_fun_3a_ptr #-}
+thing_fun_3a_ptr :: FunPtr (CInt -> Thing -> CDouble -> IO Thing)
+thing_fun_3a_ptr = unsafePerformIO hs_bindgen_test_struct_arg_6f4d585feed7ca5e
 {-| -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fun_3b_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
@@ -37,3 +58,10 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fu
                                                                                                 IO CChar
 thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
+foreign import ccall safe "hs_bindgen_test_struct_arg_ef6a607b6432889d" hs_bindgen_test_struct_arg_ef6a607b6432889d :: IO (FunPtr (CInt ->
+                                                                                                                                   Thing ->
+                                                                                                                                   CDouble ->
+                                                                                                                                   IO CChar))
+{-# NOINLINE thing_fun_3b_ptr #-}
+thing_fun_3b_ptr :: FunPtr (CInt -> Thing -> CDouble -> IO CChar)
+thing_fun_3b_ptr = unsafePerformIO hs_bindgen_test_struct_arg_ef6a607b6432889d

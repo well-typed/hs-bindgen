@@ -1198,6 +1198,30 @@ functionDecs opts moduleName typedefs info f _spec =
     ] ++
     [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
     | anyFancy
+    ] ++ concat [
+      -- The address stub returns the address of the function as a function
+      -- pointer. This 'FunPtr' can then be passed to any C function that takes
+      -- a function pointer of the appropriate type.
+      --
+      -- For now, we generate address stubs for /all/ function declarations. We
+      -- might be able to be smart and generate address stubs only for a subset
+      -- of /useful/ functions, but we'll stick with this simpler approach
+      -- for now.
+      stubDecs
+    | let (stubDecs, _stubImportName) =
+            addressStubDecs opts moduleName
+              info
+              -- Function types can not be const-qualified, so we use
+              -- TypeQualifierNone.
+              --
+              -- To quote the C reference: "If a function type is declared with
+              -- the const type qualifier (through the use of typedef), the
+              -- behavior is undefined."
+              --
+              -- <https://en.cppreference.com/w/c/language/const.html>
+              C.TypeQualifierNone
+              (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
+              _spec
     ]
   where
     -- fancy types are heap types or constant arrays,
@@ -1712,7 +1736,6 @@ macroName (C.Name cName) =
 -- @'HsModuleName' ++ fn@ is that only the first 64 characters may be used to
 -- distinguish C names by the linker, and Haskell module names can be quite
 -- long.
-
 newtype UniqueSymbolId = UniqueSymbolId { unUniqueSymbolId :: String }
   deriving newtype (Show)
 

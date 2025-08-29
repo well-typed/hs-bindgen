@@ -1,8 +1,11 @@
 -- addDependentFile examples/golden/decls_in_signature.h
 -- #include <decls_in_signature.h>
 -- void hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }
+-- /* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } 
 -- void hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }
+-- /* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } 
 -- void hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }
+-- /* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } 
 data Opaque
 data Outside
     = Outside {outside_x :: CInt, outside_y :: CInt}
@@ -21,6 +24,14 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" 
                                                                                                   IO Unit
 normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93" hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 :: IO (FunPtr (Ptr Opaque ->
+                                                                                                                                                   Ptr Outside ->
+                                                                                                                                                   Outside ->
+                                                                                                                                                   IO Unit))
+{-# NOINLINE normal_ptr #-}
+normal_ptr :: FunPtr (Ptr Opaque ->
+                      Ptr Outside -> Outside -> IO Unit)
+normal_ptr = unsafePerformIO hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -50,6 +61,16 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" 
                                                                                               IO Unit
 f1 :: Named_struct -> IO Unit
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+-}
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8" hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 :: IO (FunPtr (Named_struct ->
+                                                                                                                                                   IO Unit))
+{-# NOINLINE f1_ptr #-}
+f1_ptr :: FunPtr (Named_struct -> IO Unit)
+f1_ptr = unsafePerformIO hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8
 newtype Named_union = Named_union {un_Named_union :: ByteArray}
 deriving via (SizedByteArray 4 4) instance Storable Named_union
 {-|
@@ -105,3 +126,8 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" 
                                                                                               IO Unit
 f2 :: Named_union -> IO Unit
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba" hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba :: IO (FunPtr (Named_union ->
+                                                                                                                                                   IO Unit))
+{-# NOINLINE f2_ptr #-}
+f2_ptr :: FunPtr (Named_union -> IO Unit)
+f2_ptr = unsafePerformIO hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba

@@ -1,6 +1,7 @@
 -- addDependentFile examples/golden/vector.h
 -- #include <vector.h>
 -- vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }
+-- /* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } 
 data Vector
     = Vector {vector_x :: CDouble, vector_y :: CDouble}
     deriving stock (Eq, Show)
@@ -15,3 +16,9 @@ instance Storable Vector
 foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector :: CDouble ->
                                                                                   CDouble ->
                                                                                   IO (Ptr Vector)
+foreign import ccall safe "hs_bindgen_test_vector_94a1e2e4670c0a3e" hs_bindgen_test_vector_94a1e2e4670c0a3e :: IO (FunPtr (CDouble ->
+                                                                                                                           CDouble ->
+                                                                                                                           IO (Ptr Vector)))
+{-# NOINLINE new_vector_ptr #-}
+new_vector_ptr :: FunPtr (CDouble -> CDouble -> IO (Ptr Vector))
+new_vector_ptr = unsafePerformIO hs_bindgen_test_vector_94a1e2e4670c0a3e

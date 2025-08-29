@@ -106,6 +106,43 @@
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
+    "/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_03950e0c09bdb508 (void)) (_Bool arg1) { return &makeToggle; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_03950e0c09bdb508",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCBool)
+              (HsIO
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Toggle")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_03950e0c09bdb508",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [TypePrim PrimBool]
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "Toggle",
+                nameHsIdent = HsIdentifier
+                  "Toggle"}))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
     "_Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -161,6 +198,44 @@
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
+    "/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_9c2755ef750f5d45 (void)) (Toggle arg1) { return &toggleNext; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_9c2755ef750f5d45",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Toggle"))
+              (HsIO
+                (HsPrimType HsPrimCBool))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_9c2755ef750f5d45",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"})]
+          (TypePrim PrimBool)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
     "void hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -213,6 +288,44 @@
             "releaseToggle",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
+    "/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_2f7023ef559c7cdc (void)) (Toggle arg1) { return &releaseToggle; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_2f7023ef559c7cdc",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Toggle"))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_2f7023ef559c7cdc",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"})]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -343,6 +456,49 @@
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
+    "/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_216174b924f641ef (void)) (signed int arg1, signed int arg2) { return &makeCounter; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_216174b924f641ef",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "Counter"))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_216174b924f641ef",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "Counter",
+                nameHsIdent = HsIdentifier
+                  "Counter"}))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
     "signed int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -398,6 +554,45 @@
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
+    "/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_9d967a23215cebaa (void)) (Counter arg1) { return &counterNext; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_9d967a23215cebaa",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Counter"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_9d967a23215cebaa",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
     "void hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -450,6 +645,44 @@
             "releaseCounter",
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
+    "/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_315c7ff0ed90e2c8 (void)) (Counter arg1) { return &releaseCounter; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_315c7ff0ed90e2c8",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Counter"))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_315c7ff0ed90e2c8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"})]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -565,6 +798,45 @@
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
+    "/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_a29c0a830311b22a (void)) (signed int arg1) { return &makeVarCounter; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_a29c0a830311b22a",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "VarCounter")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_a29c0a830311b22a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "VarCounter",
+                nameHsIdent = HsIdentifier
+                  "VarCounter"}))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
     "signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -639,6 +911,49 @@
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
+    "/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_cd9433fb0fa76d19 (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_cd9433fb0fa76d19",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "VarCounter"))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_cd9433fb0fa76d19",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"}),
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
     "void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
@@ -690,4 +1005,42 @@
           commentOrigin = Just
             "releaseVarCounter",
           commentChildren = []},
-      foreignImportSafety = Safe}]
+      foreignImportSafety = Safe},
+  DeclInlineCInclude "iterator.h",
+  DeclInlineC
+    "/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bad5305a8cb077b0 (void)) (VarCounter arg1) { return &releaseVarCounter; } ",
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_iterator_bad5305a8cb077b0",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "VarCounter"))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_iterator_bad5305a8cb077b0",
+      foreignImportCallConv =
+      CallConvUserlandCAPI,
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"})]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

@@ -21,6 +21,7 @@ import HsBindgen.Runtime.ConstantArray qualified as CA
 
 import Arrays as Arrays
 import Example
+import FunctionPointers as FPointers
 import Globals as Globals
 import Structs
 
@@ -255,7 +256,7 @@ main = do
 
     withCString "\DC1" $ \ptr -> print =<< hash ptr
     print (hashSafe "abc")
-    print (square 2)
+    print (Example.square 2)
 
     --
     -- Globals
@@ -327,6 +328,18 @@ main = do
       print (zip (IA.toList ts) tripletAddresses)
       print =<< IA.peekArray 3 Arrays.global_triplet_ptrs_ptr
       Arrays.pretty_print_triplets_wrapper (castPtr Arrays.global_triplet_ptrs_ptr)
+
+    --
+    -- Function pointers
+    section "Function pointers"
+    --
+    do
+      print =<< FPointers.apply1 FPointers.square_ptr 4
+      print =<< FPointers.apply1 FPointers.square_ptr 5
+      print =<< FPointers.apply1 FPointers.square_ptr 6
+      print =<< FPointers.apply2 FPointers.plus_ptr 7 8
+      print =<< FPointers.apply2 FPointers.plus_ptr 9 10
+      print =<< FPointers.apply2 FPointers.plus_ptr 11 12
 
 {-------------------------------------------------------------------------------
   Arrays

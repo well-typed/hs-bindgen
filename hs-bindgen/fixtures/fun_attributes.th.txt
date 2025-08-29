@@ -1,30 +1,54 @@
 -- addDependentFile examples/golden/fun_attributes.h
 -- #include <fun_attributes.h>
 -- void hs_bindgen_test_fun_attributes_d2d46ab14aa4b1f9 (void) { __f1(); }
+-- /* get___f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_2e369f5f60ff28c5 (void)) (void) { return &__f1; } 
 -- void hs_bindgen_test_fun_attributes_8b60d38de80093fa (void) { f1(); }
+-- /* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_a1b79fe9af8e18b8 (void)) (void) { return &f1; } 
 -- void *hs_bindgen_test_fun_attributes_72e7e9398b70632a (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }
+-- /* get_my_memalign_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_df18e1ec526fabcf (void)) (size_t arg1, size_t arg2) { return &my_memalign; } 
 -- void *hs_bindgen_test_fun_attributes_1e1fd866f4d88373 (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }
+-- /* get_my_calloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_1371a36b12f9bdfc (void)) (size_t arg1, size_t arg2) { return &my_calloc; } 
 -- void *hs_bindgen_test_fun_attributes_3c7e2f0546d7f0f8 (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }
+-- /* get_my_realloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_149f0ffc9a274b08 (void)) (void *arg1, size_t arg2) { return &my_realloc; } 
 -- void *hs_bindgen_test_fun_attributes_4cb3f4400795f3dc (size_t arg1) { return my_alloc1(arg1); }
+-- /* get_my_alloc1_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_8764901d3de7c252 (void)) (size_t arg1) { return &my_alloc1; } 
 -- void *hs_bindgen_test_fun_attributes_e3dd92fe5b87fb45 (size_t arg1) { return my_alloc2(arg1); }
+-- /* get_my_alloc2_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_0e2a7c466f494b53 (void)) (size_t arg1) { return &my_alloc2; } 
 -- signed int hs_bindgen_test_fun_attributes_8effe939268709e4 (signed int arg1) { return square(arg1); }
+-- /* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_631c7b52d4d4fe3a (void)) (signed int arg1) { return &square; } 
 -- signed int hs_bindgen_test_fun_attributes_1dddc7f5a16104d4 (void) { return old_fn(); }
+-- /* get_old_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_407cc567cd7ef4a1 (void)) (void) { return &old_fn; } 
 -- char *hs_bindgen_test_fun_attributes_77f81f76a170977e (char *arg1, char *arg2) { return my_dgettext(arg1, arg2); }
+-- /* get_my_dgettext_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_fun_attributes_60702a9764046d9e (void)) (char *arg1, char *arg2) { return &my_dgettext; } 
 -- FILE *hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d (signed int arg1, char *arg2) { return fdopen(arg1, arg2); }
+-- /* get_fdopen_ptr */ __attribute__ ((const)) FILE *(*hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4 (void)) (signed int arg1, char *arg2) { return &fdopen; } 
 -- void hs_bindgen_test_fun_attributes_4a86b0420a250963 (void) { f2(); }
+-- /* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_74cfd16f2b7e27ba (void)) (void) { return &f2; } 
 -- void *hs_bindgen_test_fun_attributes_bcbe640b60445a4f (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
+-- /* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_de9d3228e8bac25c (void)) (void *arg1, void *arg2, size_t arg3) { return &my_memcpy; } 
 -- void hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9 (void) { fatal(); }
+-- /* get_fatal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_4a9c795c1867222e (void)) (void) { return &fatal; } 
 -- signed int hs_bindgen_test_fun_attributes_71214e4420f53a0e (char *arg1) { return hash(arg1); }
+-- /* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_241bedb74b8016f3 (void)) (char *arg1) { return &hash; } 
 -- void *hs_bindgen_test_fun_attributes_a71e3488215ca2b1 (size_t arg1) { return mymalloc(arg1); }
+-- /* get_mymalloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_adfbe41965d544a3 (void)) (size_t arg1) { return &mymalloc; } 
 -- void hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88 (void) { foobar(); }
+-- /* get_foobar_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_730ef6ad01273b1d (void)) (void) { return &foobar; } 
 -- signed int hs_bindgen_test_fun_attributes_ab8f0d32c1f84295 (void) { return core2_func(); }
+-- /* get_core2_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_abb5c394ed250f25 (void)) (void) { return &core2_func; } 
 -- signed int hs_bindgen_test_fun_attributes_f50d1e8063148c18 (void) { return sse3_func(); }
+-- /* get_sse3_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_12616d0501d14a7a (void)) (void) { return &sse3_func; } 
 -- void hs_bindgen_test_fun_attributes_1b95ce9d55223970 (void) { f3(); }
+-- /* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_08809dca6bfda237 (void)) (void) { return &f3; } 
 -- /* get_i_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_fun_attributes_fe81510d355aff25 (void) { return &i; } 
 -- signed int hs_bindgen_test_fun_attributes_43b222bddec511f3 (void) { return fn(); }
+-- /* get_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_9d0d1087d0fa4b10 (void)) (void) { return &fn; } 
 -- signed int hs_bindgen_test_fun_attributes_fd90ce98862f93f3 (void) { return y(); }
+-- /* get_y_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_2d9291944d890d18 (void)) (void) { return &y; } 
 -- signed int hs_bindgen_test_fun_attributes_8dadf866461c7be6 (void) { return x1(); }
+-- /* get_x1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_8839814efdc23f88 (void)) (void) { return &x1; } 
 -- signed int hs_bindgen_test_fun_attributes_31759f8ffef2c6b0 (void) { return x2(); }
+-- /* get_x2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_c63d8c58f9a27a01 (void)) (void) { return &x2; } 
 {-| Attributes on functions
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
@@ -58,48 +82,122 @@ newtype Size_t
                       Real)
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_d2d46ab14aa4b1f9" __f1 :: IO Unit
+foreign import ccall safe "hs_bindgen_test_fun_attributes_2e369f5f60ff28c5" hs_bindgen_test_fun_attributes_2e369f5f60ff28c5 :: IO (FunPtr (IO Unit))
+{-# NOINLINE __f1_ptr #-}
+__f1_ptr :: FunPtr (IO Unit)
+__f1_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_2e369f5f60ff28c5
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8b60d38de80093fa" f1 :: IO Unit
+foreign import ccall safe "hs_bindgen_test_fun_attributes_a1b79fe9af8e18b8" hs_bindgen_test_fun_attributes_a1b79fe9af8e18b8 :: IO (FunPtr (IO Unit))
+{-# NOINLINE f1_ptr #-}
+f1_ptr :: FunPtr (IO Unit)
+f1_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_a1b79fe9af8e18b8
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_72e7e9398b70632a" my_memalign :: Size_t ->
                                                                                            Size_t ->
                                                                                            IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_df18e1ec526fabcf" hs_bindgen_test_fun_attributes_df18e1ec526fabcf :: IO (FunPtr (Size_t ->
+                                                                                                                                           Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE my_memalign_ptr #-}
+my_memalign_ptr :: FunPtr (Size_t -> Size_t -> IO (Ptr Void))
+my_memalign_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_df18e1ec526fabcf
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1e1fd866f4d88373" my_calloc :: Size_t ->
                                                                                          Size_t ->
                                                                                          IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_1371a36b12f9bdfc" hs_bindgen_test_fun_attributes_1371a36b12f9bdfc :: IO (FunPtr (Size_t ->
+                                                                                                                                           Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE my_calloc_ptr #-}
+my_calloc_ptr :: FunPtr (Size_t -> Size_t -> IO (Ptr Void))
+my_calloc_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_1371a36b12f9bdfc
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_3c7e2f0546d7f0f8" my_realloc :: Ptr Void ->
                                                                                           Size_t ->
                                                                                           IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_149f0ffc9a274b08" hs_bindgen_test_fun_attributes_149f0ffc9a274b08 :: IO (FunPtr (Ptr Void ->
+                                                                                                                                           Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE my_realloc_ptr #-}
+my_realloc_ptr :: FunPtr (Ptr Void -> Size_t -> IO (Ptr Void))
+my_realloc_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_149f0ffc9a274b08
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_4cb3f4400795f3dc" my_alloc1 :: Size_t ->
                                                                                          IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8764901d3de7c252" hs_bindgen_test_fun_attributes_8764901d3de7c252 :: IO (FunPtr (Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE my_alloc1_ptr #-}
+my_alloc1_ptr :: FunPtr (Size_t -> IO (Ptr Void))
+my_alloc1_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_8764901d3de7c252
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_e3dd92fe5b87fb45" my_alloc2 :: Size_t ->
                                                                                          IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_0e2a7c466f494b53" hs_bindgen_test_fun_attributes_0e2a7c466f494b53 :: IO (FunPtr (Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE my_alloc2_ptr #-}
+my_alloc2_ptr :: FunPtr (Size_t -> IO (Ptr Void))
+my_alloc2_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_0e2a7c466f494b53
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8effe939268709e4" square :: CInt ->
                                                                                       CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_631c7b52d4d4fe3a" hs_bindgen_test_fun_attributes_631c7b52d4d4fe3a :: IO (FunPtr (CInt ->
+                                                                                                                                           IO CInt))
+{-# NOINLINE square_ptr #-}
+square_ptr :: FunPtr (CInt -> IO CInt)
+square_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_631c7b52d4d4fe3a
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1dddc7f5a16104d4" old_fn :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_407cc567cd7ef4a1" hs_bindgen_test_fun_attributes_407cc567cd7ef4a1 :: IO (FunPtr (IO CInt))
+{-# NOINLINE old_fn_ptr #-}
+old_fn_ptr :: FunPtr (IO CInt)
+old_fn_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_407cc567cd7ef4a1
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_77f81f76a170977e" my_dgettext :: Ptr CChar ->
                                                                                            Ptr CChar ->
                                                                                            IO (Ptr CChar)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_60702a9764046d9e" hs_bindgen_test_fun_attributes_60702a9764046d9e :: IO (FunPtr (Ptr CChar ->
+                                                                                                                                           Ptr CChar ->
+                                                                                                                                           IO (Ptr CChar)))
+{-# NOINLINE my_dgettext_ptr #-}
+my_dgettext_ptr :: FunPtr (Ptr CChar ->
+                           Ptr CChar -> IO (Ptr CChar))
+my_dgettext_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_60702a9764046d9e
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d" fdopen :: CInt ->
                                                                                       Ptr CChar ->
                                                                                       IO (Ptr FILE)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4" hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4 :: IO (FunPtr (CInt ->
+                                                                                                                                           Ptr CChar ->
+                                                                                                                                           IO (Ptr FILE)))
+{-# NOINLINE fdopen_ptr #-}
+fdopen_ptr :: FunPtr (CInt -> Ptr CChar -> IO (Ptr FILE))
+fdopen_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_4a86b0420a250963" f2 :: IO Unit
+foreign import ccall safe "hs_bindgen_test_fun_attributes_74cfd16f2b7e27ba" hs_bindgen_test_fun_attributes_74cfd16f2b7e27ba :: IO (FunPtr (IO Unit))
+{-# NOINLINE f2_ptr #-}
+f2_ptr :: FunPtr (IO Unit)
+f2_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_74cfd16f2b7e27ba
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_bcbe640b60445a4f" my_memcpy :: Ptr Void ->
                                                                                          Ptr Void ->
                                                                                          Size_t ->
                                                                                          IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_de9d3228e8bac25c" hs_bindgen_test_fun_attributes_de9d3228e8bac25c :: IO (FunPtr (Ptr Void ->
+                                                                                                                                           Ptr Void ->
+                                                                                                                                           Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE my_memcpy_ptr #-}
+my_memcpy_ptr :: FunPtr (Ptr Void ->
+                         Ptr Void -> Size_t -> IO (Ptr Void))
+my_memcpy_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_de9d3228e8bac25c
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9" fatal :: IO Unit
+foreign import ccall safe "hs_bindgen_test_fun_attributes_4a9c795c1867222e" hs_bindgen_test_fun_attributes_4a9c795c1867222e :: IO (FunPtr (IO Unit))
+{-# NOINLINE fatal_ptr #-}
+fatal_ptr :: FunPtr (IO Unit)
+fatal_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_4a9c795c1867222e
 {-|
 
   Marked @__attribute((pure))__@
@@ -107,26 +205,68 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_fd569d78d0ba9fd9" fata
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_71214e4420f53a0e" hash :: Ptr CChar ->
                                                                                     IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_241bedb74b8016f3" hs_bindgen_test_fun_attributes_241bedb74b8016f3 :: IO (FunPtr (Ptr CChar ->
+                                                                                                                                           IO CInt))
+{-# NOINLINE hash_ptr #-}
+hash_ptr :: FunPtr (Ptr CChar -> IO CInt)
+hash_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_241bedb74b8016f3
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_a71e3488215ca2b1" mymalloc :: Size_t ->
                                                                                         IO (Ptr Void)
+foreign import ccall safe "hs_bindgen_test_fun_attributes_adfbe41965d544a3" hs_bindgen_test_fun_attributes_adfbe41965d544a3 :: IO (FunPtr (Size_t ->
+                                                                                                                                           IO (Ptr Void)))
+{-# NOINLINE mymalloc_ptr #-}
+mymalloc_ptr :: FunPtr (Size_t -> IO (Ptr Void))
+mymalloc_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_adfbe41965d544a3
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_f2d6c9a4f06efd88" foobar :: IO Unit
+foreign import ccall safe "hs_bindgen_test_fun_attributes_730ef6ad01273b1d" hs_bindgen_test_fun_attributes_730ef6ad01273b1d :: IO (FunPtr (IO Unit))
+{-# NOINLINE foobar_ptr #-}
+foobar_ptr :: FunPtr (IO Unit)
+foobar_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_730ef6ad01273b1d
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_ab8f0d32c1f84295" core2_func :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_abb5c394ed250f25" hs_bindgen_test_fun_attributes_abb5c394ed250f25 :: IO (FunPtr (IO CInt))
+{-# NOINLINE core2_func_ptr #-}
+core2_func_ptr :: FunPtr (IO CInt)
+core2_func_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_abb5c394ed250f25
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_f50d1e8063148c18" sse3_func :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_12616d0501d14a7a" hs_bindgen_test_fun_attributes_12616d0501d14a7a :: IO (FunPtr (IO CInt))
+{-# NOINLINE sse3_func_ptr #-}
+sse3_func_ptr :: FunPtr (IO CInt)
+sse3_func_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_12616d0501d14a7a
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1b95ce9d55223970" f3 :: IO Unit
+foreign import ccall safe "hs_bindgen_test_fun_attributes_08809dca6bfda237" hs_bindgen_test_fun_attributes_08809dca6bfda237 :: IO (FunPtr (IO Unit))
+{-# NOINLINE f3_ptr #-}
+f3_ptr :: FunPtr (IO Unit)
+f3_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_08809dca6bfda237
 foreign import ccall safe "hs_bindgen_test_fun_attributes_fe81510d355aff25" hs_bindgen_test_fun_attributes_fe81510d355aff25 :: IO (Ptr CInt)
 {-# NOINLINE i_ptr #-}
 i_ptr :: Ptr CInt
 i_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_fe81510d355aff25
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_43b222bddec511f3" fn :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_9d0d1087d0fa4b10" hs_bindgen_test_fun_attributes_9d0d1087d0fa4b10 :: IO (FunPtr (IO CInt))
+{-# NOINLINE fn_ptr #-}
+fn_ptr :: FunPtr (IO CInt)
+fn_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_9d0d1087d0fa4b10
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_fd90ce98862f93f3" y :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_2d9291944d890d18" hs_bindgen_test_fun_attributes_2d9291944d890d18 :: IO (FunPtr (IO CInt))
+{-# NOINLINE y_ptr #-}
+y_ptr :: FunPtr (IO CInt)
+y_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_2d9291944d890d18
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8dadf866461c7be6" x1 :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8839814efdc23f88" hs_bindgen_test_fun_attributes_8839814efdc23f88 :: IO (FunPtr (IO CInt))
+{-# NOINLINE x1_ptr #-}
+x1_ptr :: FunPtr (IO CInt)
+x1_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_8839814efdc23f88
 {-| -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_31759f8ffef2c6b0" x2 :: IO CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_c63d8c58f9a27a01" hs_bindgen_test_fun_attributes_c63d8c58f9a27a01 :: IO (FunPtr (IO CInt))
+{-# NOINLINE x2_ptr #-}
+x2_ptr :: FunPtr (IO CInt)
+x2_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_c63d8c58f9a27a01
