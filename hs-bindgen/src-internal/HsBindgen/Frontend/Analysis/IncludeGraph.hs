@@ -35,7 +35,7 @@ import HsBindgen.Frontend.RootHeader qualified as RootHeader
 -- We create a DAG of C header paths with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
 newtype IncludeGraph = IncludeGraph (DynGraph SourcePath)
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Construction

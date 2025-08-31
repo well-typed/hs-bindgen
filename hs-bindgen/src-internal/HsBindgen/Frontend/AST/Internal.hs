@@ -210,7 +210,7 @@ data Function p = Function {
 data FunctionAttributes = FunctionAttributes {
       functionPurity :: FunctionPurity
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 -- | The diagnosed purity of a C function determines whether to include 'IO' in
 -- its foreign import.
@@ -273,7 +273,7 @@ data FunctionPurity =
     --
     -- <https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#index-pure-function-attribute>
   | CPureFunction
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 decideFunctionPurity :: [FunctionPurity] -> FunctionPurity
 decideFunctionPurity = foldr prefer ImpureFunction
@@ -329,7 +329,7 @@ data CheckedMacroExpr = CheckedMacroExpr{
     , macroExprBody :: Macro.MExpr Macro.Ps
     , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Types (at use sites)
@@ -381,10 +381,10 @@ data Type p =
 -------------------------------------------------------------------------------}
 
 class    ( Show (Ann ix p)
-         , Eq   (Ann ix p)
+         , Ord  (Ann ix p)
          ) => ValidAnn (ix :: Symbol) (p :: Pass)
 instance ( Show (Ann ix p)
-         , Eq   (Ann ix p)
+         , Ord  (Ann ix p)
          ) => ValidAnn (ix :: Symbol) (p :: Pass)
 
 -- | Valid pass
@@ -417,6 +417,11 @@ class ( IsPass p
       , Eq (MacroBody  p)
       , Eq (TypedefRef p)
       , Eq (ArgumentName p)
+
+      , Ord (ExtBinding p)
+      , Ord (MacroBody  p)
+      , Ord (TypedefRef p)
+      , Ord (ArgumentName p)
 
         -- Annotations
 
@@ -467,6 +472,24 @@ deriving stock instance ValidPass p => Eq (Union            p)
 deriving stock instance ValidPass p => Eq (UnionField       p)
 deriving stock instance ValidPass p => Eq (Comment          p)
 deriving stock instance ValidPass p => Eq (Reference        p)
+
+deriving stock instance ValidPass p => Ord (CheckedMacro     p)
+deriving stock instance ValidPass p => Ord (CheckedMacroType p)
+deriving stock instance ValidPass p => Ord (Decl             p)
+deriving stock instance ValidPass p => Ord (DeclInfo         p)
+deriving stock instance ValidPass p => Ord (DeclKind         p)
+deriving stock instance ValidPass p => Ord (Enum             p)
+deriving stock instance ValidPass p => Ord (EnumConstant     p)
+deriving stock instance ValidPass p => Ord (Function         p)
+deriving stock instance ValidPass p => Ord (Struct           p)
+deriving stock instance ValidPass p => Ord (StructField      p)
+deriving stock instance ValidPass p => Ord (TranslationUnit  p)
+deriving stock instance ValidPass p => Ord (Type             p)
+deriving stock instance ValidPass p => Ord (Typedef          p)
+deriving stock instance ValidPass p => Ord (Union            p)
+deriving stock instance ValidPass p => Ord (UnionField       p)
+deriving stock instance ValidPass p => Ord (Comment          p)
+deriving stock instance ValidPass p => Ord (Reference        p)
 
 {-------------------------------------------------------------------------------
   Pretty-printing

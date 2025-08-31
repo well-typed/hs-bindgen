@@ -7,6 +7,7 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
     ParseType -- opaque
   , run
     -- * Errors
+  , ParseTypeExceptionInContext(..)
   , ParseTypeException(..)
     -- * Utility: dispatching
   , dispatch
@@ -17,12 +18,14 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
 import Control.Exception
 import Control.Monad.Error.Class
 import Control.Monad.IO.Class
+import Data.Data (Typeable)
 import Foreign.C
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
@@ -69,6 +72,15 @@ run = liftIO . unwrap
   message, and we can skip the declaration we're currently processing.
 -------------------------------------------------------------------------------}
 
+data ParseTypeExceptionInContext ctx =
+  ParseTypeExceptionInContext {
+    parseContext :: ctx
+  , parseException :: ParseTypeException
+  }
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance (Show ctx, Typeable ctx) => Exception (ParseTypeExceptionInContext ctx)
+
 data ParseTypeException =
     -- | We encountered an unexpected type kind
     --
@@ -92,7 +104,7 @@ data ParseTypeException =
 
     -- | Clang built-in declaration
   | UnsupportedBuiltin C.Name
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace ParseTypeException where
   prettyForTrace = \case

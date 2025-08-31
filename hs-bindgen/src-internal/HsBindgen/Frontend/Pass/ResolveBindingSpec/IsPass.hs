@@ -32,8 +32,8 @@ type ResolveBindingSpec :: Pass
 data ResolveBindingSpec a deriving anyclass (ValidPass)
 
 type family AnnResolveBindingSpec ix where
+  AnnResolveBindingSpec "TranslationUnit" = DeclMeta ResolveBindingSpec
   AnnResolveBindingSpec "Decl"            = BindingSpec.TypeSpec
-  AnnResolveBindingSpec "TranslationUnit" = DeclMeta
   AnnResolveBindingSpec _                 = NoAnn
 
 instance IsPass ResolveBindingSpec where
@@ -56,7 +56,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
       -- | Additional information about the Haskell type
     , extHsSpec :: BindingSpec.TypeSpec
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Trace messages

@@ -3,19 +3,23 @@ module HsBindgen.Frontend.Pass.Select (
   ) where
 
 import Data.List (partition)
-import Data.Set (Set)
+import Data.Map qualified as Map
 import Data.Set qualified as Set
 
+import Clang.HighLevel.Types
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
+import HsBindgen.Frontend.AST.External (QualDeclId (qualDeclIdOrigin))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate qualified as Predicate
+import HsBindgen.Imports
 
 -- | A declaration directly selected by the selection predicate.
 type Root = C.NsPrelimDeclId
@@ -29,16 +33,22 @@ selectDecls ::
   -> Predicate.IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpec
-  -> (C.TranslationUnit Select, [Msg Select])
+  -> (C.TranslationUnit Select, [Msg Parse], [Msg Select])
 selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     case selectConfigProgramSlicing of
       DisableProgramSlicing ->
         let matchedDecls :: [C.Decl Select]
             matchedDecls = filter matchDecl decls
 
+            parseMsgs :: [Msg Parse]
+            failedParseMsgs :: [Msg Select]
+            (parseMsgs, failedParseMsgs) = getParseMsgs' matchedDecls
+
             selectMsgs :: [Msg Select]
             selectMsgs = map (SelectSelected . C.declInfo) matchedDecls
-         in (unitSelect { C.unitDecls = matchedDecls }, selectMsgs)
+         in ( unitSelect { C.unitDecls = matchedDecls }
+            , parseMsgs, failedParseMsgs ++ selectMsgs
+            )
 
       EnableProgramSlicing ->
         let matchedDecls, unmatchedDecls :: [C.Decl Select]
@@ -59,28 +69,65 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
                 ((`Set.member` transitiveDeps) . C.declOrigNsPrelimDeclId)
                 decls
 
+            parseMsgs :: [Msg Parse]
+            failedParseMsgs :: [Msg Select]
+            (parseMsgs, failedParseMsgs) = getParseMsgs' selectedDecls
+
             selectMsgs :: [Msg Select]
             selectMsgs =
               getSelectMsgs transitiveDeps selectedDecls unmatchedDecls
-        in (unitSelect { C.unitDecls = selectedDecls }, selectMsgs)
+
+        in ( unitSelect { C.unitDecls = selectedDecls }
+           , parseMsgs, failedParseMsgs ++ selectMsgs
+           )
   where
     unitSelect :: C.TranslationUnit Select
-    unitSelect = coercePass unitRBS
+    unitSelect =
+      let C.TranslationUnit{..} = unitRBS
+      in  C.TranslationUnit {
+            C.unitDecls = map coercePass unitDecls
+          , C.unitIncludeGraph = unitIncludeGraph
+          , C.unitAnn = SelectDeclMeta {
+                selectDeclIndex     = declIndex unitAnn
+              , selectDeclUseDecl   = declUseDecl unitAnn
+              , selectDeclDeclUse   = declDeclUse unitAnn
+              , selectDeclNonParsed = declNonParsed unitAnn
+              }
+          }
 
     decls :: [C.Decl Select]
     decls = C.unitDecls unitSelect
 
-    matchDecl :: C.Decl Select -> Bool
-    matchDecl decl =
+    ann :: DeclMeta ResolveBindingSpec
+    ann = C.unitAnn unitRBS
+
+    useDeclGraph :: UseDeclGraph
+    useDeclGraph = declUseDecl ann
+
+    match :: SingleLoc -> C.QualDeclId -> Bool
+    match loc qualDeclId =
       Predicate.matchSelect
         isMainHeader
         isInMainHeaderDir
-        (C.declLoc $ C.declInfo decl)
-        (C.declQualDeclId decl)
+        loc
+        qualDeclId
         selectConfigPredicate
 
-    useDeclGraph :: UseDeclGraph
-    useDeclGraph = declUseDecl $ C.unitAnn unitSelect
+    matchDecl :: C.Decl Select -> Bool
+    matchDecl decl =
+      match (C.declLoc $ C.declInfo decl) (C.declQualDeclId decl)
+
+    matchKey :: Key -> Bool
+    matchKey (ParseMsgKey loc declId declKind) =
+      let qualDeclId = C.QualDeclId {
+            qualDeclIdName   = C.declIdName declId
+          , qualDeclIdOrigin = C.declIdOrigin declId
+          , qualDeclIdKind   = declKind
+          }
+      in match loc qualDeclId
+
+    getParseMsgs' :: [C.Decl Select] -> ([Msg Parse], [Msg Select])
+    getParseMsgs' = getParseMsgs ann matchKey
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -104,3 +151,47 @@ getSelectMsgs transitiveDeps selectedDecls unmatchedDecls =
       Set.toList unavailableTransitiveDeps
     excludeMsgs = map (SelectExcluded . C.declInfo) unmatchedDecls
     selectMsgs  = map (SelectSelected . C.declInfo) selectedDecls
+
+type Key = ParseMsgKey Select
+
+getParseMsgs ::
+     DeclMeta ResolveBindingSpec
+  -> (ParseMsgKey Select -> Bool)
+  -> [C.Decl Select]
+  -> ([Msg Parse], [Msg Select])
+getParseMsgs meta match decls =
+     (concat selectedMsgs, map SelectedButFailed (concat failedMsgs))
+  where
+    msgs :: Map Key [ParseMsg]
+    msgs = unParseMsgs $ coerceParseMsgs $ declParseMsgs meta
+
+    allKeys :: Set Key
+    allKeys = Map.keysSet msgs
+
+    declToKey :: C.Decl Select -> Key
+    declToKey C.Decl{declInfo, declKind} =
+      ParseMsgKey
+        (C.declLoc declInfo)
+        (C.declId declInfo)
+        (C.declKindNameKind declKind)
+
+    selectedKeys :: Set Key
+    selectedKeys = Set.fromList $ map declToKey decls
+
+    -- The set of desired selected keys is a super-set of the set of actually
+    -- selected keys, in which some keys may be missing because parsing has
+    -- failed.
+    desiredSelectedKeys :: Set Key
+    desiredSelectedKeys = Set.filter match allKeys
+
+    -- Failed declarations are declarations we desired to select, but that we
+    -- failed to reify during parse/reification. See the documentation of
+    -- 'ParseMsgs'.
+    failedKeys :: Set Key
+    failedKeys = desiredSelectedKeys Set.\\ selectedKeys
+
+    selectedMsgs :: Map Key [ParseMsg]
+    selectedMsgs = Map.restrictKeys msgs selectedKeys
+
+    failedMsgs :: Map Key [ParseMsg]
+    failedMsgs = Map.restrictKeys msgs failedKeys

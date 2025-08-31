@@ -1,16 +1,18 @@
 module HsBindgen.Frontend.Pass.Sort.IsPass (
     Sort
   , DeclMeta(..)
+  , coerceDeclMeta
   , SortMsg(..)
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
+import HsBindgen.Frontend.Analysis.DeclUseGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph
 import HsBindgen.Frontend.AST.Internal (ValidPass)
-import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
+import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.NonParsedDecls
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.IsPass (Parse, ReparseInfo)
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -25,7 +27,7 @@ type Sort :: Pass
 data Sort a deriving anyclass ValidPass
 
 type family AnnSort (ix :: Symbol) :: Star where
-  AnnSort "TranslationUnit" = DeclMeta
+  AnnSort "TranslationUnit" = DeclMeta Sort
   AnnSort "StructField"     = ReparseInfo
   AnnSort "UnionField"      = ReparseInfo
   AnnSort "Typedef"         = ReparseInfo
@@ -33,12 +35,12 @@ type family AnnSort (ix :: Symbol) :: Star where
   AnnSort _                 = NoAnn
 
 instance IsPass Sort where
-  type Id           Sort = Id           Parse
-  type FieldName    Sort = FieldName    Parse
-  type ArgumentName Sort = ArgumentName Parse
-  type TypedefRef   Sort = TypedefRef   Parse
-  type MacroBody    Sort = MacroBody    Parse
-  type ExtBinding   Sort = ExtBinding   Parse
+  type Id           Sort = C.PrelimDeclId
+  type FieldName    Sort = C.Name
+  type ArgumentName Sort = Maybe C.Name
+  type TypedefRef   Sort = C.Name
+  type MacroBody    Sort = UnparsedMacro
+  type ExtBinding   Sort = Void
   type Ann ix       Sort = AnnSort ix
   type Msg          Sort = SortMsg
 
@@ -46,13 +48,23 @@ instance IsPass Sort where
   Information about the declarations
 -------------------------------------------------------------------------------}
 
-data DeclMeta = DeclMeta {
+data DeclMeta p = DeclMeta {
       declIndex     :: DeclIndex
     , declUseDecl   :: UseDeclGraph
     , declDeclUse   :: DeclUseGraph
     , declNonParsed :: NonParsedDecls
+    , declParseMsgs :: ParseMsgs p
     }
-  deriving stock (Show, Eq)
+
+deriving instance ValidPass p => Show (DeclMeta p)
+deriving instance ValidPass p => Eq (DeclMeta p)
+deriving instance ValidPass p => Ord (DeclMeta p)
+
+coerceDeclMeta :: forall p p'. (Id p ~ Id p', Ord (ParseMsgKey p'))
+  => DeclMeta p -> DeclMeta p'
+coerceDeclMeta declMeta = declMeta {
+    declParseMsgs = coerceParseMsgs (declParseMsgs declMeta)
+    }
 
 {-------------------------------------------------------------------------------
   Trace messages

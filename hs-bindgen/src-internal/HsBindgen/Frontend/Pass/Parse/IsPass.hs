@@ -1,36 +1,50 @@
 module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
+  , ParseDeclMeta(..)
+  , emptyParseDeclMeta
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
   , getUnparsedMacro
     -- * Trace messages
+  , ParseTypeExceptionContext(..)
   , ParseMsg(..)
+  , ParseMsgKey(..)
+  , ParseMsgs(..)
+  , emptyParseMsgs
+  , coerceParseMsgs
+  , mapParseMsgs
+  , recordParseMsg
   ) where
+
+import Data.Map qualified as Map
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import HsBindgen.Frontend.AST.Internal (ValidPass)
+import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming (NameKind)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
+import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException)
+import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
 type Parse :: Pass
-data Parse a deriving anyclass ValidPass
+data Parse a deriving anyclass C.ValidPass
 
 type family AnnParse (ix :: Symbol) :: Star where
-  AnnParse "TranslationUnit" = NonParsedDecls
+  AnnParse "TranslationUnit" = ParseDeclMeta
   AnnParse "StructField"     = ReparseInfo
   AnnParse "UnionField"      = ReparseInfo
   AnnParse "Typedef"         = ReparseInfo
@@ -48,13 +62,29 @@ instance IsPass Parse where
   type Msg          Parse = ParseMsg
 
 {-------------------------------------------------------------------------------
+  Information about the declarations
+-------------------------------------------------------------------------------}
+
+data ParseDeclMeta = ParseDeclMeta {
+      parseDeclNonParsed :: NonParsedDecls
+    , parseDeclParseMsg  :: ParseMsgs Parse
+    }
+  deriving stock (Show, Eq, Ord)
+
+emptyParseDeclMeta :: ParseDeclMeta
+emptyParseDeclMeta = ParseDeclMeta {
+      parseDeclNonParsed = NonParsedDecls.empty
+    , parseDeclParseMsg  = emptyParseMsgs
+    }
+
+{-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
 
 newtype UnparsedMacro = UnparsedMacro {
       unparsedTokens :: [Token TokenSpelling]
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 data ReparseInfo =
     -- | We need to reparse this declaration (to deal with macros)
@@ -64,7 +94,7 @@ data ReparseInfo =
 
     -- | This declaration does not use macros, so no need to reparse
   | ReparseNotNeeded
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 getUnparsedMacro ::
      (MonadIO m, HasCallStack)
@@ -77,6 +107,16 @@ getUnparsedMacro unit curr = do
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
+
+data ParseTypeExceptionContext = ParseTypeExceptionContext {
+      contextInfo :: C.DeclInfo Parse
+    , contextNameKind :: NameKind
+    }
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace ParseTypeExceptionContext where
+  prettyForTrace (ParseTypeExceptionContext info kind) =
+    prettyForTrace info <+> ", name kind: " <+> prettyForTrace kind
 
 -- | Parse messages
 --
@@ -194,7 +234,7 @@ data ParseMsg =
     -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
     -- > extern int __attribute__ ((visibility ("hidden"))) i;
   | ParseNonPublicVisibility (C.DeclInfo Parse)
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
@@ -210,11 +250,11 @@ instance PrettyForTrace ParseMsg where
           "unexpected anonymous declaration in global variable"
       ParseUnsupportedTLS info -> noBindingsGenerated info $
           "unsupported thread-local variable"
-      ParseUnknownStorageClass info storage -> noBindingsGenerated info $ hsep [
+      ParseUnknownStorageClass info storage -> noBindingsGenerated info $ PP.hsep [
           "unsupported storage class"
-        , showToCtxDoc storage
+        , PP.showToCtxDoc storage
         ]
-      ParsePotentialDuplicateSymbol info isPublic -> hcat $ concat [
+      ParsePotentialDuplicateSymbol info isPublic -> PP.hcat $ concat [
           [ "Bindings generated for "
           , prettyForTrace info
           , " may result in duplicate symbols; "
@@ -226,14 +266,14 @@ instance PrettyForTrace ParseMsg where
           | isPublic
           ]
         ]
-      ParseNonPublicVisibility info  -> hcat [
+      ParseNonPublicVisibility info  -> PP.hcat [
           "Bindings generated for "
         , prettyForTrace info
         , " may result in linker errors because the symbol has non-public visibility"
         ]
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
-      noBindingsGenerated info reason = hcat [
+      noBindingsGenerated info reason = PP.hcat [
             "No bindings generated for "
           , prettyForTrace info
           , ": "
@@ -254,3 +294,54 @@ instance IsTrace Level ParseMsg where
       ParseNonPublicVisibility{}       -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse"
+
+{-------------------------------------------------------------------------------
+  Location-specific parse messages
+-------------------------------------------------------------------------------}
+
+-- | We emit parse traces only when we select the corresponding declaration.
+--
+-- The 'ParseMsgKey' allows us to identify parse messages for selected and
+-- parsed/reified declarations, as well as for declarations we wanted to select
+-- but that were skipped during parse/reification. We call these latter
+-- declarations "failed declarations".
+newtype ParseMsgs p = ParseMsgs { unParseMsgs :: Map (ParseMsgKey p) [ParseMsg] }
+deriving instance Show (Id p) => Show (ParseMsgs p)
+deriving instance Eq (Id p)   => Eq (ParseMsgs p)
+deriving instance Ord (Id p)  => Ord (ParseMsgs p)
+
+data ParseMsgKey p = ParseMsgKey {
+      parseMsgDeclLoc  :: SingleLoc
+    , parseMsgDeclId   :: Id p
+    , parseMsgDeclKind :: NameKind
+    }
+deriving stock instance Show (Id p) => Show (ParseMsgKey p)
+deriving stock instance Eq (Id p)   => Eq (ParseMsgKey p)
+deriving stock instance Ord (Id p)  => Ord (ParseMsgKey p)
+
+instance (Id p ~ Id p') => CoercePass ParseMsgKey p p' where
+  coercePass (ParseMsgKey l i k) = ParseMsgKey l i k
+
+emptyParseMsgs :: ParseMsgs p
+emptyParseMsgs = ParseMsgs $ Map.empty
+
+coerceParseMsgs :: (Id p ~ Id p', Ord (ParseMsgKey p'))
+  => ParseMsgs p -> ParseMsgs p'
+coerceParseMsgs = ParseMsgs . Map.mapKeys coercePass . unParseMsgs
+
+mapParseMsgs :: Ord (ParseMsgKey p')
+  => (ParseMsgKey p -> ParseMsgKey p')
+  -> ParseMsgs p
+  -> ParseMsgs p'
+mapParseMsgs f = ParseMsgs . Map.mapKeys f . unParseMsgs
+
+recordParseMsg :: forall p. Ord (ParseMsgKey p)
+  => C.DeclInfo p -> NameKind -> ParseMsg -> ParseMsgs p -> ParseMsgs p
+recordParseMsg info kind trace =
+   ParseMsgs . Map.alter (Just <$> add trace) key . unParseMsgs
+  where
+    key :: ParseMsgKey p
+    key = ParseMsgKey (C.declLoc info) (C.declId info) kind
+
+    add x Nothing   = [x]
+    add x (Just xs) = x:xs

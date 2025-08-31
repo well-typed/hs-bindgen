@@ -23,7 +23,7 @@ data HandleMacros a deriving anyclass ValidPass
 
 -- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
 type family AnnHandleMacros (ix :: Symbol) :: Star where
-  AnnHandleMacros "TranslationUnit" = DeclMeta
+  AnnHandleMacros "TranslationUnit" = DeclMeta HandleMacros
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where

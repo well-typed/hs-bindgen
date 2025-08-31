@@ -10,7 +10,7 @@ module HsBindgen.Frontend.AST.External (
   , Decl(..)
   , DeclInfo(..)
   , DeclKind(..)
-  , MangleNames.DeclSpec(..)
+  , DeclSpec(..)
     -- ** Structs
   , Struct(..)
   , StructField(..)
@@ -57,10 +57,10 @@ module HsBindgen.Frontend.AST.External (
   , C.QualPrelimDeclId(..)
   , C.QualDeclId(..)
   , C.qualDeclIdText
-  , MangleNames.NamePair(..)
-  , MangleNames.nameHs
-  , MangleNames.RecordNames(..)
-  , MangleNames.NewtypeNames(..)
+  , NamePair(..)
+  , nameHs
+  , RecordNames(..)
+  , NewtypeNames(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -68,14 +68,15 @@ import Prelude hiding (Enum)
 import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.Paths
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macro.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -98,16 +99,16 @@ data TranslationUnit = TranslationUnit{
 data Decl = Decl {
       declInfo :: DeclInfo
     , declKind :: DeclKind
-    , declSpec :: MangleNames.DeclSpec
+    , declSpec :: DeclSpec
     }
   deriving stock (Show, Eq, Generic)
 
 data DeclInfo = DeclInfo{
       declLoc     :: SingleLoc
-    , declId      :: MangleNames.NamePair
+    , declId      :: NamePair
     , declOrigin  :: C.NameOrigin
     , declAliases :: [C.Name]
-    , declHeader  :: HashIncludeArg
+    , declHeader  :: RootHeader.HashIncludeArg
     , declComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
@@ -127,13 +128,32 @@ data DeclKind =
   | DeclConst Type
   deriving stock (Show, Eq, Generic)
 
+
+{-------------------------------------------------------------------------------
+  Information from the binding spec, minus naming information
+-------------------------------------------------------------------------------}
+
+-- | Binding specification for this declaration
+--
+-- Although we have interpreted /part/ of this binding specification during
+-- name mangling, we leave the /full/ binding specification in the AST, because
+-- we need it when we  /generate/ the output binding specification.
+--
+-- TODO: This is not quite right: we should distinguish between binding
+-- specifications for different classes of things (declarations of types,
+-- functions, etc.). When we do, we should not associate them with the top-level
+-- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
+-- have consequences for "Hs.Origin" also.
+newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
+  deriving stock (Show, Eq, Ord, Generic)
+
 {-------------------------------------------------------------------------------
   Structs
 -------------------------------------------------------------------------------}
 
 -- | Definition of a struct
 data Struct = Struct {
-      structNames     :: MangleNames.RecordNames
+      structNames     :: RecordNames
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -145,7 +165,7 @@ data Struct = Struct {
 
 data StructField = StructField {
       structFieldLoc     :: SingleLoc
-    , structFieldName    :: MangleNames.NamePair
+    , structFieldName    :: NamePair
     , structFieldType    :: Type
     , structFieldOffset  :: Int -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
@@ -159,7 +179,7 @@ data StructField = StructField {
 
 -- | Definition of an union
 data Union = Union {
-      unionNames     :: MangleNames.NewtypeNames
+      unionNames     :: NewtypeNames
     , unionSizeof    :: Int
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
@@ -168,7 +188,7 @@ data Union = Union {
 
 data UnionField = UnionField {
       unionFieldLoc     :: SingleLoc
-    , unionFieldName    :: MangleNames.NamePair
+    , unionFieldName    :: NamePair
     , unionFieldType    :: Type
     , unionFieldComment :: Maybe (Comment Reference)
     }
@@ -179,7 +199,7 @@ data UnionField = UnionField {
 -------------------------------------------------------------------------------}
 
 data Enum = Enum {
-      enumNames     :: MangleNames.NewtypeNames
+      enumNames     :: NewtypeNames
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -189,7 +209,7 @@ data Enum = Enum {
 
 data EnumConstant = EnumConstant {
       enumConstantLoc     :: SingleLoc
-    , enumConstantName    :: MangleNames.NamePair
+    , enumConstantName    :: NamePair
     , enumConstantValue   :: Integer
     , enumConstantComment :: Maybe (Comment Reference)
     }
@@ -200,7 +220,7 @@ data EnumConstant = EnumConstant {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefNames   :: MangleNames.NewtypeNames
+      typedefNames   :: NewtypeNames
     , typedefType    :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -210,7 +230,7 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs    :: [(Maybe MangleNames.NamePair, Type)]
+      functionArgs    :: [(Maybe NamePair, Type)]
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
     }
@@ -225,7 +245,7 @@ data Function = Function {
 -- passes through all the name mangling passes so that in the end we have
 -- access to the right name to reference.
 --
-newtype Reference = ById MangleNames.NamePair
+newtype Reference = ById NamePair
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
@@ -238,7 +258,7 @@ data CheckedMacro =
   deriving stock (Show, Eq, Generic)
 
 data CheckedMacroType = CheckedMacroType {
-      macroTypeNames   :: MangleNames.NewtypeNames
+      macroTypeNames   :: NewtypeNames
     , macroType        :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -252,11 +272,11 @@ data CheckedMacroType = CheckedMacroType {
 -- For type /declarations/ see 'Decl'.
 data Type =
     TypePrim C.PrimType
-  | TypeStruct MangleNames.NamePair C.NameOrigin
-  | TypeUnion MangleNames.NamePair C.NameOrigin
-  | TypeEnum MangleNames.NamePair C.NameOrigin
+  | TypeStruct NamePair C.NameOrigin
+  | TypeUnion NamePair C.NameOrigin
+  | TypeEnum NamePair C.NameOrigin
   | TypeTypedef TypedefRef
-  | TypeMacroTypedef MangleNames.NamePair C.NameOrigin
+  | TypeMacroTypedef NamePair C.NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type
@@ -283,7 +303,7 @@ data Type =
   deriving Repr via ReprShow Type
 
 data TypedefRef =
-    TypedefRegular MangleNames.NamePair
+    TypedefRegular NamePair
   | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
   deriving Repr via ReprShow TypedefRef
@@ -303,3 +323,42 @@ data TypeQualifier =
     -- <https://en.cppreference.com/w/c/language/const.html>
   | TypeQualifierConst
   deriving stock (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
+  Identifiers
+-------------------------------------------------------------------------------}
+
+-- | Pair of a C name and the corresponding Haskell name
+--
+-- Invariant: the 'HsIdentifier' must satisfy the rules for legal Haskell names,
+-- for its intended use (constructor, variable, ..).
+data NamePair = NamePair {
+      nameC       :: C.Name
+    , nameHsIdent :: HsIdentifier
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Extract namespaced Haskell name
+--
+-- The invariant on 'NamePair' justifies this otherwise unsafe operation.
+nameHs :: NamePair -> HsName ns
+nameHs NamePair{nameHsIdent = HsIdentifier name} = HsName name
+
+{-------------------------------------------------------------------------------
+  Additional names
+
+  This is in addition to the 'NamePair's already embedded in the AST.
+-------------------------------------------------------------------------------}
+
+-- | Names for a Haskell record type
+data RecordNames = RecordNames {
+      recordConstr :: HsName NsConstr
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Names for a Haskell newtype
+data NewtypeNames = NewtypeNames {
+      newtypeConstr :: HsName NsConstr
+    , newtypeField  :: HsName NsVar
+    }
+  deriving stock (Show, Eq, Ord, Generic)

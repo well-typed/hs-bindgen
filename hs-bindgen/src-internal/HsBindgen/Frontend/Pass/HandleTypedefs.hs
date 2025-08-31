@@ -10,7 +10,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -29,7 +28,7 @@ handleTypedefs C.TranslationUnit{..} = (
     )
   where
     td :: TypedefAnalysis
-    td = TypedefAnalysis.fromDecls (declDeclUse unitAnn) unitDecls
+    td = TypedefAnalysis.fromDecls (selectDeclDeclUse unitAnn) unitDecls
 
     msgs   :: [Maybe (Msg HandleTypedefs)]
     decls' :: [Maybe (C.Decl HandleTypedefs)]

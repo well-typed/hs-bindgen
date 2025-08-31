@@ -7,9 +7,13 @@ import Control.Monad.State
 import Data.Map qualified as Map
 import Data.Proxy
 
+import Data.Bitraversable (bimapM)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
+import HsBindgen.Frontend.AST.External (DeclSpec (..), NamePair (..),
+                                        NewtypeNames (..), RecordNames (..),
+                                        nameHs)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -17,7 +21,6 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
-import Data.Bitraversable (bimapM)
 
 {-------------------------------------------------------------------------------
   Top-level
