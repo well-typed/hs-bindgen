@@ -12,10 +12,13 @@ module HsBindgen.Clang.BuiltinIncDir (
   , applyBuiltinIncDir
   ) where
 
+import Control.Applicative (asum)
 import Control.Exception (Exception(displayException))
-import Control.Monad ((<=<))
+import Control.Monad.Trans.Class (MonadTrans(lift))
+import Control.Monad.Trans.Maybe
 import Data.IORef (IORef)
 import Data.IORef qualified as IORef
+import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.Environment qualified as Env
@@ -33,11 +36,12 @@ import System.FilePath.Windows qualified as Windows
 
 import Clang.Args
 import Clang.LowLevel.Core
+import Clang.Version (clang_getClangVersion)
 import HsBindgen.Clang
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((<+>), string)
+import Text.SimplePrettyPrint ((<+>), hangs', string, textToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Types
@@ -73,8 +77,11 @@ data BuiltinIncDirMsg =
   | BuiltinIncDirLlvmConfigClangExeNotFound FilePath
   | BuiltinIncDirLlvmConfigClangExeFound FilePath
   | BuiltinIncDirClangPathFound FilePath
-  | BuiltinIncDirClangUnexpected String
-  | BuiltinIncDirClangIOError IOError
+  | BuiltinIncDirClangVersionUnexpected String
+  | BuiltinIncDirClangVersionIOError IOError
+  | BuiltinIncDirClangVersionMismatch Text Text
+  | BuiltinIncDirClangPrintFileNameUnexpected String
+  | BuiltinIncDirClangPrintFileNameIOError IOError
   deriving stock (Eq, Show)
 
 instance PrettyForTrace BuiltinIncDirMsg where
@@ -125,9 +132,18 @@ instance PrettyForTrace BuiltinIncDirMsg where
       "clang found using llvm-config:" <+> string path
     BuiltinIncDirClangPathFound path ->
       "clang found using $PATH:" <+> string path
-    BuiltinIncDirClangUnexpected s ->
+    BuiltinIncDirClangVersionUnexpected s ->
+      "clang --version output is unexpected:" <+> string (show s)
+    BuiltinIncDirClangVersionIOError e ->
+      "IO error calling clang --version:" <+> string (displayException e)
+    BuiltinIncDirClangVersionMismatch libclangVersion clangVersion ->
+      hangs' "clang version mismatch:" 2 [
+          "libclang version:" <+> textToCtxDoc libclangVersion
+        , "clang version:   " <+> textToCtxDoc clangVersion
+        ]
+    BuiltinIncDirClangPrintFileNameUnexpected s ->
       "clang -print-file-name=include output is unexpected:" <+> string (show s)
-    BuiltinIncDirClangIOError e ->
+    BuiltinIncDirClangPrintFileNameIOError e ->
       "IO error calling clang -print-file-name=include:"
         <+> string (displayException e)
 
@@ -155,8 +171,11 @@ instance IsTrace Level BuiltinIncDirMsg where
     BuiltinIncDirLlvmConfigClangExeNotFound{}   -> Debug
     BuiltinIncDirLlvmConfigClangExeFound{}      -> Debug
     BuiltinIncDirClangPathFound{}               -> Debug
-    BuiltinIncDirClangUnexpected{}              -> Warning
-    BuiltinIncDirClangIOError{}                 -> Warning
+    BuiltinIncDirClangVersionUnexpected{}       -> Warning
+    BuiltinIncDirClangVersionIOError{}          -> Warning
+    BuiltinIncDirClangVersionMismatch{}         -> Warning
+    BuiltinIncDirClangPrintFileNameUnexpected{} -> Warning
+    BuiltinIncDirClangPrintFileNameIOError{}    -> Warning
 
   getSource = const HsBindgen
 
@@ -283,7 +302,7 @@ getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
       return mPath
 
     aux :: Maybe FilePath -> IO (Maybe BuiltinIncDir)
-    aux = \case
+    aux = runMaybeT . \case
       Just resourceDir
         | FilePath.isAbsolute resourceDir ->
             ifM
@@ -292,7 +311,7 @@ getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
               BuiltinIncDirAbsResourceDirIncDirFound
               Dir.doesDirectoryExist
               (FilePath.joinPath [resourceDir, "include"])
-        | otherwise -> sequenceUntilJust [
+        | otherwise -> asum [
               getBuiltinIncDirWithLlvmPath   tracer resourceDir
             , getBuiltinIncDirWithLlvmConfig tracer resourceDir
             , getBuiltinIncDirWithClang      tracer
@@ -495,6 +514,199 @@ getResourceDir tracer mOverflow = auxOut 0 >>= \case
     defOverflowString :: String
     defOverflowString = "-- Clang buffer flushed"
 
+-- | Get the builtin include directory using @LLVM_PATH@
+--
+-- If @LLVM_PATH@ is set, then the builtin include directory is
+-- @${LLVM_PATH}/${RESOURCE_DIR}/include@.
+getBuiltinIncDirWithLlvmPath ::
+     Tracer IO BuiltinIncDirMsg
+  -> FilePath  -- ^ resource directory (relative to LLVM prefix)
+  -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithLlvmPath tracer resourceDir = do
+    prefix <- lookupLlvmPath tracer
+    ifM
+      tracer
+      BuiltinIncDirLlvmPathIncDirNotFound
+      BuiltinIncDirLlvmPathIncDirFound
+      Dir.doesDirectoryExist
+      (FilePath.joinPath [prefix, resourceDir, "include"])
+
+-- | Lookup @LLVM_PATH@ environment variable
+lookupLlvmPath :: Tracer IO BuiltinIncDirMsg -> MaybeT IO FilePath
+lookupLlvmPath tracer = do
+    prefix <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_PATH"
+    MaybeT $ Dir.doesDirectoryExist prefix >>= \case
+      True  -> return (Just prefix)
+      False -> do
+        traceWith tracer (BuiltinIncDirLlvmPathNotFound prefix)
+        return Nothing
+
+-- | Get the builtin include directory using @llvm-config@
+--
+-- @llvm-config --prefix@ is used to get the LLVM prefix.  The builtin include
+-- directory is @${LLVM_PREFIX}/${RESOURCE_DIR}/include@.
+getBuiltinIncDirWithLlvmConfig ::
+     Tracer IO BuiltinIncDirMsg
+  -> FilePath  -- ^ resource directory (relative to LLVM prefix)
+  -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithLlvmConfig tracer resourceDir = do
+    exe <- findLlvmConfigExe tracer
+    prefix <- getLlvmConfigPrefix tracer exe
+    ifM
+      tracer
+      BuiltinIncDirLlvmConfigIncDirNotFound
+      BuiltinIncDirLlvmConfigIncDirFound
+      Dir.doesDirectoryExist
+      (FilePath.joinPath [prefix, resourceDir, "include"])
+
+-- | Find the @llvm-config@ executable
+--
+-- 1. @${LLVM_CONFIG}@
+-- 2. Search @${PATH}@
+findLlvmConfigExe :: Tracer IO BuiltinIncDirMsg -> MaybeT IO FilePath
+findLlvmConfigExe tracer = asum [auxLlvmConfigEnv, auxPath]
+  where
+    auxLlvmConfigEnv :: MaybeT IO FilePath
+    auxLlvmConfigEnv = do
+      exe <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_CONFIG"
+      ifM
+        tracer
+        BuiltinIncDirLlvmConfigEnvNotFound
+        BuiltinIncDirLlvmConfigEnvFound
+        Dir.doesFileExist
+        exe
+
+    auxPath :: MaybeT IO FilePath
+    auxPath = do
+      exe <- MaybeT $ Dir.findExecutable llvmConfigExe
+      lift $ traceWith tracer (BuiltinIncDirLlvmConfigPathFound exe)
+      return exe
+
+-- | @llvm-config@ executable name for the current platform
+llvmConfigExe :: FilePath
+llvmConfigExe =
+#ifdef mingw32_HOST_OS
+    "llvm-config.exe"
+#else
+    "llvm-config"
+#endif
+
+-- | Get the prefix from @llvm-config@
+--
+-- This function calls @llvm-config --prefix@ and captures the output.
+getLlvmConfigPrefix ::
+     Tracer IO BuiltinIncDirMsg
+  -> FilePath  -- ^ @llvm-config@ path
+  -> MaybeT IO FilePath
+getLlvmConfigPrefix tracer exe =
+    checkOutput
+      tracer
+      BuiltinIncDirLlvmConfigPrefixUnexpected
+      BuiltinIncDirLlvmConfigPrefixIOError
+      (fmap normWinPath . parseSingleLine)
+      (readProcess exe ["--prefix"] "")
+
+-- | Get the builtin include directory using @clang@
+--
+-- @clang -print-file-name=include@ is called to get the builtin include
+-- directory.
+getBuiltinIncDirWithClang ::
+     Tracer IO BuiltinIncDirMsg
+  -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithClang tracer = do
+    exe <- findClangExe tracer
+    clangVersion <- getClangVersion tracer exe
+    libclangVersion <- lift clang_getClangVersion
+    unless (clangVersion == libclangVersion) $ do
+      lift . traceWith tracer $
+        BuiltinIncDirClangVersionMismatch libclangVersion clangVersion
+      MaybeT $ return Nothing
+    includeDir <- getClangBuiltinIncDir tracer exe
+    ifM
+     tracer
+     BuiltinIncDirClangIncDirNotFound
+     BuiltinIncDirClangIncDirFound
+     Dir.doesDirectoryExist
+     includeDir
+
+-- | Find the @clang@ executable
+--
+-- 1. @${LLVM_PATH}/bin/clang@
+-- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
+-- 3. @$(llvm-config --prefix)/bin/clang@
+-- 4. Search @${PATH}@
+findClangExe :: Tracer IO BuiltinIncDirMsg -> MaybeT IO FilePath
+findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
+  where
+    auxLlvmPath :: MaybeT IO FilePath
+    auxLlvmPath = do
+      prefix <- lookupLlvmPath tracer
+      ifM
+        tracer
+        BuiltinIncDirLlvmPathClangExeNotFound
+        BuiltinIncDirLlvmPathClangExeFound
+        Dir.doesFileExist
+        (FilePath.joinPath [prefix, "bin", clangExe])
+
+    auxLlvmConfig :: MaybeT IO FilePath
+    auxLlvmConfig = do
+      exe <- findLlvmConfigExe tracer
+      prefix <- getLlvmConfigPrefix tracer exe
+      ifM
+        tracer
+        BuiltinIncDirLlvmConfigClangExeNotFound
+        BuiltinIncDirLlvmConfigClangExeFound
+        Dir.doesFileExist
+        (FilePath.joinPath [prefix, "bin", clangExe])
+
+    auxPath :: MaybeT IO FilePath
+    auxPath = do
+      exe <- MaybeT $ Dir.findExecutable clangExe
+      lift $ traceWith tracer (BuiltinIncDirClangPathFound exe)
+      return exe
+
+-- | @clang@ executable name for the current platform
+clangExe :: FilePath
+clangExe =
+#ifdef mingw32_HOST_OS
+    "clang.exe"
+#else
+    "clang"
+#endif
+
+-- | Get the Clang version from @clang@
+--
+-- This function calls @clang --version@ and captures the output.  The full
+-- version string in the first line is returned.
+getClangVersion ::
+     Tracer IO BuiltinIncDirMsg
+  -> FilePath  -- ^ @clang@ path
+  -> MaybeT IO Text
+getClangVersion tracer exe =
+    checkOutput
+      tracer
+      BuiltinIncDirClangVersionUnexpected
+      BuiltinIncDirClangVersionIOError
+      (fmap Text.pack . parseFirstLine)
+      (readProcess exe ["--version"] "")
+
+-- | Get the builtin include directory from @clang@
+--
+-- This function calls @clang -print-file-name=include@ and captures the output.
+getClangBuiltinIncDir ::
+     Tracer IO BuiltinIncDirMsg
+  -> FilePath  -- ^ @clang@ path
+  -> MaybeT IO BuiltinIncDir
+getClangBuiltinIncDir tracer exe =
+    checkOutput
+      tracer
+      BuiltinIncDirClangPrintFileNameUnexpected
+      BuiltinIncDirClangPrintFileNameIOError
+      (fmap normWinPath . parseSingleLine)
+      (readProcess exe ["-print-file-name=include"] "")
+
+--------------------------------------------------------------------------------
+
 -- | Normalise Windows paths
 --
 -- This is just the identity function on non-Windows platforms.
@@ -526,213 +738,39 @@ ifM ::
   -> (FilePath -> BuiltinIncDirMsg)  -- ^ found constructor
   -> (FilePath -> IO Bool)           -- ^ predicate
   -> FilePath                        -- ^ path
-  -> IO (Maybe FilePath)
-ifM tracer mkNotFound mkFound p path = p path >>= \case
+  -> MaybeT IO FilePath
+ifM tracer mkNotFound mkFound p path = MaybeT $ p path >>= \case
     True  -> Just path <$ traceWith tracer (mkFound    path)
     False -> Nothing   <$ traceWith tracer (mkNotFound path)
 
--- | Sequentially run actions until the first 'Just' return value
---
--- This function only returns 'Nothing' when all actions return 'Nothing'.
-sequenceUntilJust :: [IO (Maybe a)] -> IO (Maybe a)
-sequenceUntilJust = \case
-    (action:actions) -> action >>= \case
-      Nothing -> sequenceUntilJust actions
-      Just x  -> return (Just x)
-    []               -> return Nothing
-
--- | Run an action that should return a single path
+-- | Run a read action and check the output
 checkOutput ::
      Tracer IO BuiltinIncDirMsg
-  -> (String -> BuiltinIncDirMsg)   -- ^ unexpected output constructor
-  -> (IOError -> BuiltinIncDirMsg)  -- ^ error constructor
-  -> IO String                          -- ^ action
-  -> IO (Maybe FilePath)
-checkOutput tracer mkUnexpected mkError = aux <=< tryIOError
+  -> (String -> BuiltinIncDirMsg)   -- ^ Unexpected output constructor
+  -> (IOError -> BuiltinIncDirMsg)  -- ^ Error constructor
+  -> (String -> Maybe a)            -- ^ Output parser
+  -> IO String                      -- ^ Read action
+  -> MaybeT IO a
+checkOutput tracer mkUnexpected mkError parse action = MaybeT $
+    tryIOError action >>= \case
+      Right s -> do
+        let mx = parse s
+        when (isNothing mx) $ traceWith tracer (mkUnexpected (abbr s))
+        return mx
+      Left  e -> Nothing <$ traceWith tracer (mkError e)
   where
-    aux :: Either IOError String -> IO (Maybe FilePath)
-    aux = \case
-      Right s -> case lines s of
-        [path] -> return (Just path)
-        _      -> Nothing <$ traceWith tracer (mkUnexpected s)
-      Left e  -> Nothing <$ traceWith tracer (mkError e)
+    -- Abbreviate arbitrarily long strings in trace messages
+    abbr :: String -> String
+    abbr s = case splitAt 60 s of
+      (_, []) -> s
+      (s', _) -> s' ++ " ..."
 
--- | Get the builtin include directory using @LLVM_PATH@
---
--- If @LLVM_PATH@ is set, then the builtin include directory is
--- @${LLVM_PATH}/${RESOURCE_DIR}/include@.
-getBuiltinIncDirWithLlvmPath ::
-     Tracer IO BuiltinIncDirMsg
-  -> FilePath  -- ^ resource directory (relative to LLVM prefix)
-  -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDirWithLlvmPath tracer resourceDir =
-    (fmap normWinPath <$> Env.lookupEnv "LLVM_PATH") >>= \case
-      Just prefix -> Dir.doesDirectoryExist prefix >>= \case
-        False -> do
-          traceWith tracer (BuiltinIncDirLlvmPathNotFound prefix)
-          return Nothing
-        True ->
-          ifM
-            tracer
-            BuiltinIncDirLlvmPathIncDirNotFound
-            BuiltinIncDirLlvmPathIncDirFound
-            Dir.doesDirectoryExist
-            (FilePath.joinPath [prefix, resourceDir, "include"])
-      Nothing -> return Nothing
+-- | Parse a single line of output
+parseSingleLine :: String -> Maybe String
+parseSingleLine s = case lines s of
+    [s'] -> Just s'
+    _    -> Nothing
 
--- | Get the builtin include directory using @llvm-config@
---
--- @llvm-config --prefix@ is used to get the LLVM prefix.  The builtin include
--- directory is @${LLVM_PREFIX}/${RESOURCE_DIR}/include@.
-getBuiltinIncDirWithLlvmConfig ::
-     Tracer IO BuiltinIncDirMsg
-  -> FilePath  -- ^ resource directory (relative to LLVM prefix)
-  -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDirWithLlvmConfig tracer resourceDir =
-    findLlvmConfigExe tracer >>= \case
-      Just exe -> getLlvmConfigPrefix tracer exe >>= \case
-        Just prefix ->
-          ifM
-            tracer
-            BuiltinIncDirLlvmConfigIncDirNotFound
-            BuiltinIncDirLlvmConfigIncDirFound
-            Dir.doesDirectoryExist
-            (FilePath.joinPath [prefix, resourceDir, "include"])
-        Nothing -> return Nothing
-      Nothing -> return Nothing
-
--- | Find the @llvm-config@ executable
---
--- 1. @${LLVM_CONFIG}@
--- 2. Search @${PATH}@
-findLlvmConfigExe :: Tracer IO BuiltinIncDirMsg -> IO (Maybe FilePath)
-findLlvmConfigExe tracer = sequenceUntilJust [auxLlvmConfigEnv, auxPath]
-  where
-    auxLlvmConfigEnv :: IO (Maybe FilePath)
-    auxLlvmConfigEnv =
-      (fmap normWinPath <$> Env.lookupEnv "LLVM_CONFIG") >>= \case
-        Just exe ->
-          ifM
-            tracer
-            BuiltinIncDirLlvmConfigEnvNotFound
-            BuiltinIncDirLlvmConfigEnvFound
-            Dir.doesFileExist
-            exe
-        Nothing -> return Nothing
-
-    auxPath :: IO (Maybe FilePath)
-    auxPath = Dir.findExecutable llvmConfigExe >>= \case
-      Just exe -> do
-        traceWith tracer (BuiltinIncDirLlvmConfigPathFound exe)
-        return (Just exe)
-      Nothing -> return Nothing
-
--- | @llvm-config@ executable name for the current platform
-llvmConfigExe :: FilePath
-llvmConfigExe =
-#ifdef mingw32_HOST_OS
-    "llvm-config.exe"
-#else
-    "llvm-config"
-#endif
-
--- | Get the prefix from @llvm-config@
---
--- This function calls @llvm-config --prefix@ and captures the output.
-getLlvmConfigPrefix ::
-     Tracer IO BuiltinIncDirMsg
-  -> FilePath  -- ^ @llvm-config@ path
-  -> IO (Maybe FilePath)
-getLlvmConfigPrefix tracer exe = fmap normWinPath <$>
-    checkOutput
-      tracer
-      BuiltinIncDirLlvmConfigPrefixUnexpected
-      BuiltinIncDirLlvmConfigPrefixIOError
-      (readProcess exe ["--prefix"] "")
-
--- | Get the builtin include directory using @clang@
---
--- @clang -print-file-name=include@ is called to get the builtin include
--- directory.
-getBuiltinIncDirWithClang ::
-     Tracer IO BuiltinIncDirMsg
-  -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDirWithClang tracer =
-    findClangExe tracer >>= \case
-      Just exe -> getClangBuiltinIncDir tracer exe >>= \case
-        Just includeDir ->
-          ifM
-            tracer
-            BuiltinIncDirClangIncDirNotFound
-            BuiltinIncDirClangIncDirFound
-            Dir.doesDirectoryExist
-            includeDir
-        Nothing -> return Nothing
-      Nothing -> return Nothing
-
--- | Find the @clang@ executable
---
--- 1. @${LLVM_PATH}/bin/clang@
--- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
--- 3. @$(llvm-config --prefix)/bin/clang@
--- 4. Search @${PATH}@
-findClangExe :: Tracer IO BuiltinIncDirMsg -> IO (Maybe FilePath)
-findClangExe tracer = sequenceUntilJust [auxLlvmPath, auxLlvmConfig, auxPath]
-  where
-    auxLlvmPath :: IO (Maybe FilePath)
-    auxLlvmPath = (fmap normWinPath <$> Env.lookupEnv "LLVM_PATH") >>= \case
-      Just prefix -> Dir.doesDirectoryExist prefix >>= \case
-        False -> do
-          traceWith tracer (BuiltinIncDirLlvmPathNotFound prefix)
-          return Nothing
-        True ->
-          ifM
-            tracer
-            BuiltinIncDirLlvmPathClangExeNotFound
-            BuiltinIncDirLlvmPathClangExeFound
-            Dir.doesFileExist
-            (FilePath.joinPath [prefix, "bin", clangExe])
-      Nothing -> return Nothing
-
-    auxLlvmConfig :: IO (Maybe FilePath)
-    auxLlvmConfig = findLlvmConfigExe tracer >>= \case
-      Just exe -> getLlvmConfigPrefix tracer exe >>= \case
-        Just prefix ->
-          ifM
-            tracer
-            BuiltinIncDirLlvmConfigClangExeNotFound
-            BuiltinIncDirLlvmConfigClangExeFound
-            Dir.doesFileExist
-            (FilePath.joinPath [prefix, "bin", clangExe])
-        Nothing -> return Nothing
-      Nothing -> return Nothing
-
-    auxPath :: IO (Maybe FilePath)
-    auxPath = Dir.findExecutable clangExe >>= \case
-      Just exe -> do
-        traceWith tracer (BuiltinIncDirClangPathFound exe)
-        return (Just exe)
-      Nothing -> return Nothing
-
--- | @clang@ executable name for the current platform
-clangExe :: FilePath
-clangExe =
-#ifdef mingw32_HOST_OS
-    "clang.exe"
-#else
-    "clang"
-#endif
-
--- | Get the builtin include directory from @clang@
---
--- This function calls @clang -print-file-name=include@ and captures the output.
-getClangBuiltinIncDir ::
-     Tracer IO BuiltinIncDirMsg
-  -> FilePath  -- ^ @clang@ path
-  -> IO (Maybe BuiltinIncDir)
-getClangBuiltinIncDir tracer exe = fmap normWinPath <$>
-    checkOutput
-      tracer
-      BuiltinIncDirClangUnexpected
-      BuiltinIncDirClangIOError
-      (readProcess exe ["-print-file-name=include"] "")
+-- | Parse the first line of output
+parseFirstLine :: String -> Maybe String
+parseFirstLine = listToMaybe . lines
