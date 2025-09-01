@@ -47,6 +47,23 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
+      - name: Set up Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: 'latest'
+
+      - name: Debug (Haskell)
+        shell: bash
+        run: |
+          echo '### ghc --version'
+          ghc --version
+          echo '### ghc-pkg list'
+          ghc-pkg list
+          echo '### ghc --info'
+          ghc --info
+
       - name: Install LLVM and Clang
         uses: KyleMayes/install-llvm-action@v2.0.7
         with:
@@ -64,29 +81,19 @@ jobs:
           echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
           echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
 
-      # For some reason in Ubuntu we need to pass C header files via this flag
-      #
-      # This incantation is a bit awkward because we have to parse clang's
-      # output.
-      # Note that we set -nostdinc because we want to override the default
-      # paths that clang uses, this is to make sure it finds them correctly.
-      - name: Set BINDGEN_EXTRA_CLANG_ARGS using Clang
-        run: |
-          CLANG_ARGS=$(clang -v -E -xc /dev/null 2>&1 | awk '/#include <...> search starts here/{f=1;next}/End of search list./{f=0}f{sub(/^[ \t]*/,"",$0);s=s " -I"$0}END{print substr(s,2)}')
-          echo "BINDGEN_EXTRA_CLANG_ARGS=-nostdinc $CLANG_ARGS" >> "$GITHUB_ENV"
-
       # Note also that we are passing '-DSUPPORTS_UNICODE' this option passes
       # SUPPORTS_UNICODE macro to libclang preprocessor.
       - name: Set -DSUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS
         run: |
-          echo "BINDGEN_EXTRA_CLANG_ARGS=-DSUPPORTS_UNICODE $BINDGEN_EXTRA_CLANG_ARGS" >> "$GITHUB_ENV"
+          echo "BINDGEN_EXTRA_CLANG_ARGS=-DSUPPORTS_UNICODE" >> "$GITHUB_ENV"
 
-      - name: Set up Haskell
-        id: setup-haskell
-        uses: haskell-actions/setup@v2
-        with:
-          ghc-version: ${{ matrix.ghc }}
-          cabal-version: 'latest'
+      - name: Debug (LLVM/Clang)
+        shell: bash
+        run: |
+          echo '### which clang'
+          which clang
+          echo '### clang --version'
+          clang --version
 
       # This file only the first part of this file is needed to build the
       # whole project, the others are needed to build the manual as they
@@ -141,6 +148,18 @@ jobs:
       - name: Build hs-bindgen
         run: cabal build all
 
+      - name: Debug (hs-bindgen)
+        shell: bash
+        run: |
+          echo '### Version'
+          cabal run hs-bindgen-cli -- --version
+          echo '### libclang -v'
+          cabal run hs-bindgen-cli -- dev clang --clang-option=-v
+          echo '### Resolve (auto)'
+          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=auto stdint.h
+          echo '### Resolve (clang)'
+          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=clang stdint.h
+
       - name: Build the C libraries
         working-directory: ./manual/c
         run: make
@@ -155,4 +174,3 @@ jobs:
           export LD_LIBRARY_PATH=${{ github.workspace }}/manual/c/:$LD_LIBRARY_PATH
           cp ../../cabal.project.local .
           cabal run manual
-

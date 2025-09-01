@@ -71,6 +71,16 @@ jobs:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: 'latest'
 
+      - name: Debug (Haskell)
+        shell: bash
+        run: |
+          echo '### ghc --version'
+          ghc --version
+          echo '### ghc-pkg list'
+          ghc-pkg list
+          echo '### ghc --info'
+          ghc --info
+
       # Environment variables:
       #
       # * PATH - The PATH is used for locating DLLs, so it is critical that the
@@ -78,32 +88,17 @@ jobs:
       #   hs-bindgen will dynamically load the libclang.dll for a different
       #   version of LLVM/Clang.  Note that this is a change to the system path,
       #   using Windows path syntax.
-      #
-      # * LLVM_PATH - This is not used to configure our Haskell clang package
-      #   when building because LLVM_CONFIG (configured below) takes precedence.
-      #   It is used when determining the builtin include directory, however.
-      #   It is not necessary with the above PATH configuration.
-      #
-      # * LLVM_CONFIG - This is used to configure our Haskell clang package when
-      #   building.  It is not necessary with the above PATH configuration.
-      #
-      # * LIBCLANG_PATH - This is used by the Rust clang-sys package that
-      #   rust-bindgen uses.  It is likely not needed in this job because we do
-      #   not run the Rust tests.
-      #
-      # * C_INCLUDE_PATH - This is used to configure the builtin include
-      #   directory.  It is temporary and hard-codes the LLVM/Clang version.  It
-      #   will no longer be needed once automatic configuration of the builtin
-      #   include directory is working.
       - name: Configure environment variables
         shell: bash
+        run: echo "C:\ghcup\ghc\${{matrix.ghc}}\mingw\bin" >> "$GITHUB_PATH"
+
+      - name: Debug (LLVM/Clang)
+        shell: bash
         run: |
-          echo "C:\ghcup\ghc\${{matrix.ghc}}\mingw\bin" >> "$GITHUB_PATH"
-          LLVM_PATH="/c/ghcup/ghc/${{matrix.ghc}}/mingw"
-          echo "LLVM_PATH=$LLVM_PATH" >> "$GITHUB_ENV"
-          echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config.exe" >> "$GITHUB_ENV"
-          echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
-          echo "C_INCLUDE_PATH=C:\ghcup\ghc\${{matrix.ghc}}\mingw\lib\clang\14.0.6\include" >> "$GITHUB_ENV"
+          echo '### which clang'
+          which clang
+          echo '### clang --version'
+          clang --version
 
       # This file only the first part of this file ('package *') is needed to
       # build the whole project, the others are needed to build the manual as
@@ -154,6 +149,18 @@ jobs:
 
       - name: Build hs-bindgen
         run: cabal build all
+
+      - name: Debug (hs-bindgen)
+        shell: bash
+        run: |
+          echo '### Version'
+          cabal run hs-bindgen-cli -- --version
+          echo '### libclang -v'
+          cabal run hs-bindgen-cli -- dev clang --clang-option=-v
+          echo '### Resolve (auto)'
+          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=auto stdint.h
+          echo '### Resolve (clang)'
+          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=clang stdint.h
 
       - name: Build the C libraries
         working-directory: ./manual/c
