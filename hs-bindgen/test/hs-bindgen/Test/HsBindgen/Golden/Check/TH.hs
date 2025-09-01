@@ -18,23 +18,22 @@ import Language.Haskell.TH.Ppr qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 
-import System.FilePath (makeRelative)
+import System.FilePath (makeRelative, (</>))
 
-import HsBindgen.Backend.Artefact.HsModule.Render (CommentKind (..),
-                                                   prettyCommentKind)
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment (..))
+import HsBindgen
+import HsBindgen.Backend.Artefact.HsModule.Render
+import HsBindgen.Backend.Hs.Haddock.Documentation
 import HsBindgen.Guasi
 import HsBindgen.Imports
-import HsBindgen.Lib
 import HsBindgen.TH.Internal
-
-import Text.SimplePrettyPrint
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty hiding (after)
+
+import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Tests

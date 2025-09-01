@@ -368,13 +368,12 @@ test-suite test-hs-bindgen
     , containers
     , c-expr
     , clang
-    -- TODO: Internal tests should not depend on public library.
-    , hs-bindgen
     , hs-bindgen:internal
     , test-common
   build-depends:
       -- Inherited dependencies
     , containers
+    , data-default
     , debruijn
     , directory
     , filepath
