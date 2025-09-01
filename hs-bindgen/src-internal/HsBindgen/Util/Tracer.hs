@@ -18,6 +18,8 @@ module HsBindgen.Util.Tracer (
   , TraceId (..)
   , IsTrace (..)
   , Verbosity (..)
+  , IsUserRequested (..)
+  , userRequestedIf
     -- * Tracer configuration
   , ShowTimeStamp (..)
   , ShowCallStack (..)
@@ -42,6 +44,7 @@ module HsBindgen.Util.Tracer (
 import Control.Exception (Exception (..))
 import Control.Tracer (Contravariant (..))
 import Control.Tracer qualified as ContraTracer
+import Data.Bool (bool)
 import Data.Data (Typeable)
 import Data.IORef (IORef, modifyIORef', newIORef, readIORef)
 import Data.Kind (Type)
@@ -277,6 +280,16 @@ gGetTraceId' = gGetTraceId . GHC.from
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
+
+-- | User requested status
+--
+-- The log level of some trace messages depend on if the user explicitly
+-- requested something or not.
+data IsUserRequested = UserRequested | NotUserRequested
+  deriving stock (Show, Eq)
+
+userRequestedIf :: Bool -> IsUserRequested
+userRequestedIf = bool NotUserRequested UserRequested
 
 {-------------------------------------------------------------------------------
   Tracer configuration
