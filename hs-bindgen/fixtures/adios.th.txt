@@ -3,7 +3,7 @@
 -- void hs_bindgen_test_adios_8e1936b23d816eb2 (void) { ϒ(); }
 -- /* get_ϒ_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_64cbec67bc73ad5c (void)) (void) { return &ϒ; } 
 -- /* get_ϒϒ_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_52f5e750c2f31c7b (void) { return &ϒϒ; } 
--- /* get_ϒϒϒ_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_adios_13030842ed540098 (void) { return &ϒϒϒ; } 
+-- /* get_ϒϒϒ_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_13030842ed540098 (void) { return &ϒϒϒ; } 
 -- void hs_bindgen_test_adios_5c74896d56245684 (void) { 拜拜(); }
 -- /* get_拜拜_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8472427dddbc4eb1 (void)) (void) { return &拜拜; } 
 -- void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say拜拜(); }

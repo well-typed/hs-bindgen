@@ -6,33 +6,33 @@
 -- addDependentFile examples/golden/doxygen_docs.h
 -- #include <doxygen_docs.h>
 -- /* get_global_counter_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742 (void) { return &global_counter; } 
--- /* get_version_string_ptr */ __attribute__ ((const)) char **hs_bindgen_test_doxygen_docs_a8499810bd5203c6 (void) { return &version_string; } 
--- signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
--- /* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_36ecba874daa1325 (void)) (uint8_t *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } 
+-- /* get_version_string_ptr */ __attribute__ ((const)) char const **hs_bindgen_test_doxygen_docs_a8499810bd5203c6 (void) { return &version_string; } 
+-- signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
+-- /* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_36ecba874daa1325 (void)) (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } 
 -- _Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char *arg1) { return process_file(arg1); }
 -- /* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char *arg1) { return &process_file; } 
 -- signed int hs_bindgen_test_doxygen_docs_788bfbb9e824261c (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }
 -- /* get_calculate_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4 (void)) (signed int arg1, signed int arg2) { return &calculate_value; } 
 -- _Bool hs_bindgen_test_doxygen_docs_3763cc54606bc611 (signed int arg1) { return html_example(arg1); }
 -- /* get_html_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_be37db4c71dfaad8 (void)) (signed int arg1) { return &html_example; } 
--- _Bool hs_bindgen_test_doxygen_docs_9d6d039971edcd60 (char **arg1, size_t arg2) { return list_example(arg1, arg2); }
--- /* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_c40a51053a97fb29 (void)) (char **arg1, size_t arg2) { return &list_example; } 
+-- _Bool hs_bindgen_test_doxygen_docs_9d6d039971edcd60 (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }
+-- /* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_c40a51053a97fb29 (void)) (char const **arg1, size_t arg2) { return &list_example; } 
 -- void *hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9 (void *arg1) { return dangerous_function(arg1); }
 -- /* get_dangerous_function_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_291c4151bd4c3637 (void)) (void *arg1) { return &dangerous_function; } 
--- signed int hs_bindgen_test_doxygen_docs_fb3e3158714e01f5 (char *arg1) { return detailed_return_codes(arg1); }
--- /* get_detailed_return_codes_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b (void)) (char *arg1) { return &detailed_return_codes; } 
+-- signed int hs_bindgen_test_doxygen_docs_fb3e3158714e01f5 (char const *arg1) { return detailed_return_codes(arg1); }
+-- /* get_detailed_return_codes_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b (void)) (char const *arg1) { return &detailed_return_codes; } 
 -- signed int hs_bindgen_test_doxygen_docs_84140a44d1bd8380 (signed int arg1) { return old_function(arg1); }
 -- /* get_old_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_985c4be1f80d7557 (void)) (signed int arg1) { return &old_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8 (signed int arg1) { return versioned_function(arg1); }
 -- /* get_versioned_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_6b616614abe7d3f0 (void)) (signed int arg1) { return &versioned_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }
 -- /* get_process_buffer_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975 (void)) (char arg1[64], size_t arg2) { return &process_buffer; } 
--- void *hs_bindgen_test_doxygen_docs_bcbe640b60445a4f (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
--- /* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_de9d3228e8bac25c (void)) (void *arg1, void *arg2, size_t arg3) { return &my_memcpy; } 
+-- void *hs_bindgen_test_doxygen_docs_bcbe640b60445a4f (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
+-- /* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_de9d3228e8bac25c (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } 
 -- signed int hs_bindgen_test_doxygen_docs_1c952f01cc07bb64 (signed int arg1) { return double_value(arg1); }
 -- /* get_double_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_faec60e7f49d446c (void)) (signed int arg1) { return &double_value; } 
--- status_code_t hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe (config_t *arg1, uint8_t *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }
--- /* get_complex_function_ptr */ __attribute__ ((const)) status_code_t (*hs_bindgen_test_doxygen_docs_b7ae5186dd939781 (void)) (config_t *arg1, uint8_t *arg2, size_t arg3) { return &complex_function; } 
+-- status_code_t hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe (config_t *arg1, uint8_t const *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }
+-- /* get_complex_function_ptr */ __attribute__ ((const)) status_code_t (*hs_bindgen_test_doxygen_docs_b7ae5186dd939781 (void)) (config_t *arg1, uint8_t const *arg2, size_t arg3) { return &complex_function; } 
 -- signed int hs_bindgen_test_doxygen_docs_71214e4420f53a0e (char *arg1) { return hash(arg1); }
 -- /* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_241bedb74b8016f3 (void)) (char *arg1) { return &hash; } 
 -- signed int hs_bindgen_test_doxygen_docs_8effe939268709e4 (signed int arg1) { return square(arg1); }

@@ -365,6 +365,7 @@ instance Resolve C.Type where
       C.TypeConstArray n t    -> fmap (C.TypeConstArray n) <$> resolve t
       C.TypeIncompleteArray t -> fmap C.TypeIncompleteArray <$> resolve t
       C.TypeBlock t           -> fmap C.TypeBlock <$> resolve t
+      C.TypeConst t           -> fmap C.TypeConst <$> resolve t
 
       -- Simple cases
       C.TypePrim t         -> return (Set.empty, C.TypePrim t)

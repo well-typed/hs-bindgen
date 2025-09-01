@@ -13,17 +13,17 @@ module HsBindgen.PrettyC (
     prettyDecl,
 ) where
 
-import HsBindgen.Imports
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
+import HsBindgen.Imports
 
-import DeBruijn (Idx, lookupEnv, sizeEnv, tabulateEnv, Env(..))
-import Control.Monad.State.Strict (State, evalState, put, get)
+import Control.Monad.State.Strict (State, evalState, get, put)
+import DeBruijn (Env (..), Idx, lookupEnv, sizeEnv, tabulateEnv)
 
 type Name = String
 
 data Decl where
-    FunDefn :: Name -> C.Type -> C.TypeQualifier -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> Decl
+    FunDefn :: Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> Decl
 
 deriving instance Show Decl
 
@@ -76,11 +76,11 @@ data Expr ctx
   deriving Show
 
 prettyDecl :: Decl -> ShowS
-prettyDecl (FunDefn n ty qual attrs args stmts) = prettyFunDefn n ty qual attrs args stmts
+prettyDecl (FunDefn n ty attrs args stmts) = prettyFunDefn n ty attrs args stmts
 
-prettyFunDefn :: forall ctx. Name -> C.Type -> C.TypeQualifier -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> ShowS
-prettyFunDefn fun res qual pur args stmts =
-    C.showsFunctionType (showString fun) qual pur args' res.
+prettyFunDefn :: forall ctx. Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> ShowS
+prettyFunDefn fun res pur args stmts =
+    C.showsFunctionType (showString fun) pur args' res.
     showString " { " . foldMapShowS (prettyStmt env) stmts . showString " }"
   where
     args0 :: State Int (Env ctx ((ShowS, C.Type), ShowS))

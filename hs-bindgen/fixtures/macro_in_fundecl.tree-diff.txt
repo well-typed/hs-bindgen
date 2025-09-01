@@ -595,8 +595,11 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -636,8 +639,11 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -677,8 +683,11 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

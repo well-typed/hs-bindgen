@@ -103,3 +103,4 @@ depsOfType = \case
     TypeIncompleteArray ty -> depsOfType ty
     TypeExtBinding{}       -> []
     TypeBlock ty           -> depsOfType ty
+    TypeConst ty           -> depsOfType ty

@@ -9253,7 +9253,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_globalConstant_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } ",
+    "/* get_globalConstant_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9270,8 +9270,9 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
         Comment {
@@ -9332,8 +9333,9 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_ConstInt"},
-            typedefType = TypePrim
-              (PrimIntegral PrimInt Signed)},
+            typedefType = TypeConst
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9496,7 +9498,7 @@
       Nothing},
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) const ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } ",
+    "/* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9530,7 +9532,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_staticConst_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } ",
+    "/* get_staticConst_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9547,8 +9549,9 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
         Comment {
@@ -9571,7 +9574,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_classless_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } ",
+    "/* get_classless_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9588,8 +9591,9 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -9606,7 +9610,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_constArray1_ptr */ __attribute__ ((const)) const signed int (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } ",
+    "/* get_constArray1_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9627,8 +9631,11 @@
       foreignImportOrigin = Global
         (TypeConstArray
           4
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+          (TypeConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -9686,8 +9693,11 @@
                 "un_ConstIntArray"},
             typedefType =
             TypeIncompleteArray
-              (TypePrim
-                (PrimIntegral PrimInt Signed))},
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9727,7 +9737,7 @@
       Nothing},
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_constArray2_ptr */ __attribute__ ((const)) const ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } ",
+    "/* get_constArray2_ptr */ __attribute__ ((const)) ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9800,8 +9810,9 @@
                 nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "tuple_y"},
-              structFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
+              structFieldType = TypeConst
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing},
@@ -9844,8 +9855,9 @@
                     nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "tuple_y"},
-                  structFieldType = TypePrim
-                    (PrimIntegral PrimInt Signed),
+                  structFieldType = TypeConst
+                    (TypePrim
+                      (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing}],
@@ -9905,8 +9917,9 @@
                     nameC = Name "y",
                     nameHsIdent = HsIdentifier
                       "tuple_y"},
-                  structFieldType = TypePrim
-                    (PrimIntegral PrimInt Signed),
+                  structFieldType = TypeConst
+                    (TypePrim
+                      (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing,
                   structFieldComment = Nothing},
@@ -9949,8 +9962,9 @@
                         nameC = Name "y",
                         nameHsIdent = HsIdentifier
                           "tuple_y"},
-                      structFieldType = TypePrim
-                        (PrimIntegral PrimInt Signed),
+                      structFieldType = TypeConst
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)),
                       structFieldOffset = 32,
                       structFieldWidth = Nothing,
                       structFieldComment = Nothing}],
@@ -10013,8 +10027,9 @@
                             nameC = Name "y",
                             nameHsIdent = HsIdentifier
                               "tuple_y"},
-                          structFieldType = TypePrim
-                            (PrimIntegral PrimInt Signed),
+                          structFieldType = TypeConst
+                            (TypePrim
+                              (PrimIntegral PrimInt Signed)),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
@@ -10057,8 +10072,9 @@
                                 nameC = Name "y",
                                 nameHsIdent = HsIdentifier
                                   "tuple_y"},
-                              structFieldType = TypePrim
-                                (PrimIntegral PrimInt Signed),
+                              structFieldType = TypeConst
+                                (TypePrim
+                                  (PrimIntegral PrimInt Signed)),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing,
                               structFieldComment = Nothing}],
@@ -10123,8 +10139,9 @@
                             nameC = Name "y",
                             nameHsIdent = HsIdentifier
                               "tuple_y"},
-                          structFieldType = TypePrim
-                            (PrimIntegral PrimInt Signed),
+                          structFieldType = TypeConst
+                            (TypePrim
+                              (PrimIntegral PrimInt Signed)),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing,
                           structFieldComment = Nothing},
@@ -10167,8 +10184,9 @@
                                 nameC = Name "y",
                                 nameHsIdent = HsIdentifier
                                   "tuple_y"},
-                              structFieldType = TypePrim
-                                (PrimIntegral PrimInt Signed),
+                              structFieldType = TypeConst
+                                (TypePrim
+                                  (PrimIntegral PrimInt Signed)),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing,
                               structFieldComment = Nothing}],
@@ -10214,7 +10232,7 @@
       Nothing},
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_constTuple_ptr */ __attribute__ ((const)) const struct tuple *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } ",
+    "/* get_constTuple_ptr */ __attribute__ ((const)) struct tuple const *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10234,12 +10252,13 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypeStruct
-          NamePair {
-            nameC = Name "tuple",
-            nameHsIdent = HsIdentifier
-              "Tuple"}
-          NameOriginInSource),
+        (TypeConst
+          (TypeStruct
+            NamePair {
+              nameC = Name "tuple",
+              nameHsIdent = HsIdentifier
+                "Tuple"}
+            NameOriginInSource)),
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -10295,7 +10314,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } ",
+    "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10314,8 +10333,11 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+          (TypeConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -10330,7 +10352,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_constPtrToInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } ",
+    "/* get_constPtrToInt_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10348,9 +10370,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+        (TypeConst
+          (TypePointer
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -10367,7 +10392,7 @@
   DeclSimple,
   DeclInlineCInclude "globals.h",
   DeclInlineC
-    "/* get_constPtrToConstInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } ",
+    "/* get_constPtrToConstInt_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10385,9 +10410,13 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+        (TypeConst
+          (TypePointer
+            (TypeConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       foreignImportComment = Just
         Comment {
           commentTitle = Just

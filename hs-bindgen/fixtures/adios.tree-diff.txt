@@ -112,8 +112,9 @@ TranslationUnit {
         declHeader = "adios.h",
         declComment = Nothing},
       declKind = DeclConst
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

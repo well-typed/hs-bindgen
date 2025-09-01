@@ -189,6 +189,7 @@ instance HandleUseSites C.Type where
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
       go (C.TypeBlock ty)           = C.TypeBlock (go ty)
+      go (C.TypeConst ty)           = C.TypeConst (go ty)
 
       -- Interesting cases: tagged types may be renamed, typedefs may be squashed
 

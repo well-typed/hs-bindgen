@@ -216,3 +216,4 @@ instance (
   coercePass (TypeIncompleteArray typ) = TypeIncompleteArray (coercePass typ)
   coercePass (TypeExtBinding ext)      = TypeExtBinding ext
   coercePass (TypeBlock typ)           = TypeBlock (coercePass typ)
+  coercePass (TypeConst typ)           = TypeConst (coercePass typ)

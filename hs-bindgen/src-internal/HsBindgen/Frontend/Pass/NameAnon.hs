@@ -154,7 +154,6 @@ instance NameUseSites C.DeclKind where
       C.DeclGlobal ty        -> C.DeclGlobal (nameUseSites env ty)
       C.DeclConst ty         -> C.DeclConst (nameUseSites env ty)
 
-
 instance NameUseSites C.Reference where
   nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
     where
@@ -163,7 +162,6 @@ instance NameUseSites C.Reference where
         C.PrelimDeclIdNamed name   -> C.DeclId name C.NameOriginInSource
         C.PrelimDeclIdBuiltin name -> C.DeclId name C.NameOriginBuiltin
         C.PrelimDeclIdAnon _       -> panicPure "Anonymous reference"
-
 
 instance NameUseSites C.Comment where
   nameUseSites env (C.Comment comment) =
@@ -252,6 +250,7 @@ instance NameUseSites C.Type where
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
       go (C.TypeBlock ty)           = C.TypeBlock (go ty)
+      go (C.TypeConst ty)           = C.TypeConst (go ty)
 
       -- Simple cases
       go (C.TypePrim prim)      = C.TypePrim prim

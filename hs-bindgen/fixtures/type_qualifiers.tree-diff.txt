@@ -1,0 +1,267 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_qualifiers.h:5:18",
+        declId = NamePair {
+          nameC = Name "a",
+          nameHsIdent = HsIdentifier "a"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "type_qualifiers.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_qualifiers.h:7:19",
+        declId = NamePair {
+          nameC = Name "b",
+          nameHsIdent = HsIdentifier "b"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "type_qualifiers.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePointer
+          (TypeConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_qualifiers.h:9:19",
+        declId = NamePair {
+          nameC = Name "c",
+          nameHsIdent = HsIdentifier "c"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "type_qualifiers.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypeConst
+          (TypePointer
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_qualifiers.h:11:25",
+        declId = NamePair {
+          nameC = Name "d",
+          nameHsIdent = HsIdentifier "d"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "type_qualifiers.h",
+        declComment = Nothing},
+      declKind = DeclConst
+        (TypeConst
+          (TypePointer
+            (TypeConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_qualifiers.h:14:6",
+        declId = NamePair {
+          nameC = Name "list_example",
+          nameHsIdent = HsIdentifier
+            "list_example"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "type_qualifiers.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "items",
+                  nameHsIdent = HsIdentifier
+                    "items"})
+              (TypePointer
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed))))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = HsIdentifier
+                    "count"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "alltypes",
+    "stddef",
+    "stdbool",
+    "type_qualifiers"]}

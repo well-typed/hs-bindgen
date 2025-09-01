@@ -99,7 +99,6 @@ instance Finalize Int.Reference where
 
   finalize (Int.ById (x, _)) = Ext.ById x
 
-
 instance Finalize Int.Comment where
   type Finalized Int.Comment = C.Comment Ext.Reference
 
@@ -281,6 +280,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)
   finalize (Int.TypeExtBinding ext)            = Ext.TypeExtBinding ext
   finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
+  finalize (Int.TypeConst typ)                 = Ext.TypeConst (finalize typ)
   finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
 
 instance Finalize Int.RenamedTypedefRef where

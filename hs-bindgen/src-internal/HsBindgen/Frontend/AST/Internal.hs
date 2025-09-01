@@ -376,6 +376,9 @@ data Type p =
     -- See <https://clang.llvm.org/docs/BlockLanguageSpec.html>
   | TypeBlock (Type p)
 
+    -- Type qualifier @const@.
+  | TypeConst (Type p)
+
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
