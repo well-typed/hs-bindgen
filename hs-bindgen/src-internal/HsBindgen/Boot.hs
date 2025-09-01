@@ -8,6 +8,7 @@ import Clang.Args
 import HsBindgen.BindingSpec
 import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Config
+import HsBindgen.Config qualified as Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -41,7 +42,7 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
     let tracerBuiltinIncDir :: Tracer IO BuiltinIncDirMsg
         tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
     clangArgs <-
-      applyBuiltinIncDir (frontendClangArgs bindgenFrontendConfig) <$>
+      applyBuiltinIncDir (Config.bootClangArgs bindgenBootConfig) <$>
         getBuiltinIncDir tracerBuiltinIncDir builtinIncDirConfig
     let tracerBindingSpec :: Tracer IO BindingSpecMsg
         tracerBindingSpec = contramap BootBindingSpec tracer

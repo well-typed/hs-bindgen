@@ -113,12 +113,11 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         clangArgs = def {
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
-        frontendConfig =
-          baseFrontendConfig { frontendClangArgs = clangArgs}
+        bootConfig = baseBootConfig { bootClangArgs = clangArgs }
     backendConfig <- ensureUniqueId baseBackendConfig
 
     let bindgenConfig =
-          BindgenConfig baseBootConfig frontendConfig backendConfig
+          BindgenConfig bootConfig baseFrontendConfig backendConfig
 
     let -- Traverse #include directives.
         bindgenState :: BindgenState

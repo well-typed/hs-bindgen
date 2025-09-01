@@ -47,6 +47,7 @@ data BindgenConfig = BindgenConfig {
 
 data BootConfig = BootConfig {
       bootBuiltinIncDirConfig :: BuiltinIncDirConfig
+    , bootClangArgs           :: ClangArgs
     , bootBindingSpecConfig   :: BindingSpecConfig
     }
   deriving stock (Show, Eq, Generic)
@@ -60,8 +61,7 @@ data BootConfig = BootConfig {
 --
 -- The frontend parses the C code and reifies the C declarations.
 data FrontendConfig = FrontendConfig {
-      frontendClangArgs       :: ClangArgs
-    , frontendParsePredicate  :: ParsePredicate
+      frontendParsePredicate  :: ParsePredicate
     , frontendSelectPredicate :: SelectPredicate
     , frontendProgramSlicing  :: ProgramSlicing
     }

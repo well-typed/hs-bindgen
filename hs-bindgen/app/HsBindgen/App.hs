@@ -146,12 +146,12 @@ parseBindgenConfig = BindgenConfig
 parseBootConfig :: Parser BootConfig
 parseBootConfig = BootConfig
     <$> parseBuiltinIncDirConfig
+    <*> parseClangArgs
     <*> parseBindingSpecConfig
 
 parseFrontendConfig :: Parser FrontendConfig
 parseFrontendConfig = FrontendConfig
-    <$> parseClangArgs
-    <*> parseParsePredicate
+    <$> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
 
