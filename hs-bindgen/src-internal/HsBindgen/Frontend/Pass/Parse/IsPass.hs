@@ -2,6 +2,11 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
   , ParseDeclMeta(..)
   , emptyParseDeclMeta
+  , ParseOmissionReason(..)
+  , DeclStatus(..)
+  , ParseStatusValue(..)
+  , ParseParseStatus(..)
+  , addParseParseStatus
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
@@ -10,16 +15,9 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ParseTypeExceptionContext(..)
   , UnattachedParseMsg(..)
   , DelayedParseMsg(..)
-  , ParseMsgKey(..)
-  , ParseMsgs(..)
-  , emptyParseMsgs
-  , coerceParseMsgs
-  , mapParseMsgs
-  , recordParseMsg
   ) where
 
-import Data.Map qualified as Map
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, (<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
@@ -27,12 +25,9 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming (NameKind)
+import HsBindgen.Frontend.Naming (NameKind, QualPrelimDeclId)
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
-import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
@@ -68,16 +63,89 @@ instance IsPass Parse where
 -------------------------------------------------------------------------------}
 
 data ParseDeclMeta = ParseDeclMeta {
-      parseDeclNonParsed :: NonParsedDecls
-    , parseDeclParseMsg  :: ParseMsgs Parse
+      parseStatus :: ParseParseStatus
     }
   deriving stock (Show)
 
 emptyParseDeclMeta :: ParseDeclMeta
 emptyParseDeclMeta = ParseDeclMeta {
-      parseDeclNonParsed = NonParsedDecls.empty
-    , parseDeclParseMsg  = emptyParseMsgs
+      parseStatus = mempty
     }
+
+-- | Why did we not attempt to parse a declaration?
+data ParseOmissionReason =
+    -- | We do not parse builtin declarations.
+    OmittedBuiltin
+
+    -- | We unexpectedly excluded a declaration because it is reported
+    -- "unavailable".
+  | DeclarationUnavailable
+
+    -- | Declarations that do not match the parse predicate.
+    --
+    -- For example, we may provide external bindings for skipped declarations.
+    -- We do /not/ support external bindings for /anonymous/ non-parsed
+    -- declarations; /if/ you want to provide an external binding for some local
+    -- type, for example
+    --
+    -- > struct rect {
+    -- >   struct { int x; int y; } bottomleft;
+    -- >   struct { int x; int y; } topright;
+    -- > };
+    --
+    -- then you need to make sure that you /traverse/ @rect@, so that the
+    -- @NameAnon@ pass can do its work.
+  | ParsePredicateNotMatched
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace ParseOmissionReason where
+  prettyForTrace = \case
+    OmittedBuiltin           -> "Builtin declaration"
+    DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
+    ParsePredicateNotMatched -> "Parse predicate did not match"
+
+-- | It is important to keep track of the parse and reification status of
+-- declarations.
+data DeclStatus =
+    -- | We did not attempt to parse the declaration.
+    ParseNotAttempted ParseOmissionReason
+
+    -- | Happy case ;-). Declarations that match the parse predicate and that we
+    -- succeed to parse and reify.
+  | ParseSucceeded [DelayedParseMsg]
+
+    -- | Declarations that match the parse predicate and that we fail to parse
+    -- and reify.
+    --
+    -- The generation of bindings will fail if we happen to select failed
+    -- bindings.
+  | ParseFailed (NonEmpty DelayedParseMsg)
+  deriving stock (Show, Eq, Ord)
+
+-- | We collect information about the parse status of declarations. We need this
+-- information when selecting declarations (Does the user want to select this
+-- declaration, although we have failed to parse it?).
+data ParseStatusValue = ParseStatusValue {
+      psvSingleLoc    :: SingleLoc
+    , psvAvailability :: C.Availability
+    , psvDeclStatus   :: DeclStatus
+    }
+  deriving stock (Show, Eq, Generic)
+
+-- | Parse status of declarations
+--
+-- Parse can
+-- - be not attempted (e.g., because the parse predicate does not match)
+-- - succeed (possibly with delayed parse messages), or
+-- - fail (with delayed parse messages).
+newtype ParseParseStatus = ParseParseStatus {
+      unParseParseStatus :: [(QualPrelimDeclId, ParseStatusValue)]
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving newtype (Semigroup, Monoid)
+
+addParseParseStatus :: (QualPrelimDeclId, ParseStatusValue) -> ParseParseStatus -> ParseParseStatus
+addParseParseStatus x = ParseParseStatus . (x :) . unParseParseStatus
 
 {-------------------------------------------------------------------------------
   Macros
@@ -125,28 +193,15 @@ instance PrettyForTrace ParseTypeExceptionContext where
 -- If we can not attach messages to declarations, we emit them directly while
 -- parsing.
 data UnattachedParseMsg =
-    -- | We excluded a declaration.
-    ParseNotAttempted String (C.DeclInfo Parse)
-
-    -- | We unepxectedly excluded a declaration (for example, because it is
-    -- reported "unavailable").
-  | ParseNotAttemptedUnexpected String (C.DeclInfo Parse)
-
     -- | Declaration availability can not be determined.
     --
     -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
     -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-  | ParseUnknownCursorAvailability (C.DeclInfo Parse) (SimpleEnum CXAvailabilityKind)
+    ParseUnknownCursorAvailability (C.DeclInfo Parse) (SimpleEnum CXAvailabilityKind)
   deriving stock (Show)
 
 instance PrettyForTrace UnattachedParseMsg where
   prettyForTrace = \case
-      ParseNotAttempted reason info ->
-        withInfo info $
-          "parse not attempted because:" <+> PP.string reason
-      ParseNotAttemptedUnexpected reason info ->
-        withInfo info $
-          "parse unexpectedly not attempted because:" <+> PP.string reason
       ParseUnknownCursorAvailability info simpleKind ->
         withInfo info $
           "unknown declaration availability:" <+> PP.showToCtxDoc simpleKind
@@ -157,8 +212,6 @@ instance PrettyForTrace UnattachedParseMsg where
 
 instance IsTrace Level UnattachedParseMsg where
   getDefaultLogLevel = \case
-      ParseNotAttempted{}              -> Info
-      ParseNotAttemptedUnexpected{}    -> Notice
       ParseUnknownCursorAvailability{} -> Notice
   getSource  = const HsBindgen
   getTraceId = const "parse-unattached"
@@ -290,7 +343,11 @@ data DelayedParseMsg =
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/1034>
   | ParseFunctionOfTypeTypedef
-  deriving stock (Show)
+
+    -- | Inform the user that we this declaration is deprecated. Maybe they want
+    -- to de-select deprecated declarations?
+  | ParseDeprecated
+  deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace DelayedParseMsg where
   prettyForTrace = \case
@@ -308,13 +365,14 @@ instance PrettyForTrace DelayedParseMsg where
           "unsupported storage class"
         , PP.showToCtxDoc storage
         ]
-      ParsePotentialDuplicateSymbol isPublic -> PP.hsep $ [
-            "Bindings may result in duplicate symbols;"
-          , "consider using 'static' or 'extern';"
+      ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
+            "Bindings may result in duplicate symbols; "
+          , "consider using 'static' or 'extern'"
           ] ++
           if isPublic
           then [
-              "or if that is not an option, consider attributing hidden"
+              "; "
+            , "or if that is not an option, consider attributing hidden "
             , "visibility to the symbol"
             ]
           else []
@@ -324,6 +382,8 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseFunctionOfTypeTypedef -> noBindingsGenerated $
         "unsupported function declared with a typedef type"
+      ParseDeprecated ->
+        "Declaration is deprecated; you may want to de-select it"
     where
       noBindingsGenerated :: CtxDoc -> CtxDoc
       noBindingsGenerated reason = PP.hcat [ "no bindings generated: ", reason ]
@@ -340,66 +400,6 @@ instance IsTrace Level DelayedParseMsg where
       ParsePotentialDuplicateSymbol{}  -> Notice
       ParseNonPublicVisibility{}       -> Warning
       ParseFunctionOfTypeTypedef{}     -> Warning
+      ParseDeprecated                  -> Notice
   getSource  = const HsBindgen
   getTraceId = const "parse-delayed"
-
-{-------------------------------------------------------------------------------
-  Location-specific parse messages
--------------------------------------------------------------------------------}
-
--- | We emit parse traces only when we select the corresponding declaration.
---
--- The 'ParseMsgKey' allows us to identify parse messages for selected and
--- parsed/reified declarations, as well as for declarations we wanted to select
--- but that were skipped during parse/reification. We call these latter
--- declarations "failed declarations".
-newtype ParseMsgs p = ParseMsgs {
-    unParseMsgs :: Map (ParseMsgKey p) [DelayedParseMsg]
-  }
-deriving instance Show (Id p) => Show (ParseMsgs p)
-
-data ParseMsgKey p = ParseMsgKey {
-      parseMsgDeclLoc          :: SingleLoc
-    , parseMsgDeclId           :: Id p
-    , parseMsgDeclKind         :: NameKind
-    , parseMsgDeclAvailability :: C.Availability
-    }
-deriving stock instance Show (Id p) => Show (ParseMsgKey p)
-deriving stock instance Eq (Id p)   => Eq (ParseMsgKey p)
-deriving stock instance Ord (Id p)  => Ord (ParseMsgKey p)
-
-instance (Id p ~ Id p') => CoercePass ParseMsgKey p p' where
-  coercePass (ParseMsgKey l i k a) = ParseMsgKey l i k a
-
-instance PrettyForTrace (Id p) => PrettyForTrace (ParseMsgKey p) where
-  prettyForTrace ParseMsgKey{..} = PP.hsep [
-      prettyForTrace parseMsgDeclKind
-    , prettyForTrace parseMsgDeclId
-    , "at"
-    , PP.showToCtxDoc parseMsgDeclLoc
-    , "(" >< prettyForTrace parseMsgDeclAvailability >< ")"
-    ]
-
-emptyParseMsgs :: ParseMsgs p
-emptyParseMsgs = ParseMsgs $ Map.empty
-
-coerceParseMsgs :: (Id p ~ Id p', Ord (ParseMsgKey p'))
-  => ParseMsgs p -> ParseMsgs p'
-coerceParseMsgs = ParseMsgs . Map.mapKeys coercePass . unParseMsgs
-
-mapParseMsgs :: Ord (ParseMsgKey p')
-  => (ParseMsgKey p -> ParseMsgKey p')
-  -> ParseMsgs p
-  -> ParseMsgs p'
-mapParseMsgs f = ParseMsgs . Map.mapKeys f . unParseMsgs
-
-recordParseMsg :: forall p. Ord (ParseMsgKey p)
-  => C.DeclInfo p -> NameKind -> DelayedParseMsg -> ParseMsgs p -> ParseMsgs p
-recordParseMsg info kind trace =
-   ParseMsgs . Map.alter (Just <$> add trace) key . unParseMsgs
-  where
-    key :: ParseMsgKey p
-    key = ParseMsgKey (C.declLoc info) (C.declId info) kind (C.declAvailability info)
-
-    add x Nothing   = [x]
-    add x (Just xs) = x:xs

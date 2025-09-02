@@ -1019,18 +1019,18 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "old_fn",
+        "old_fn_deprecated",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_fun_attributes_1040c24c74db8069",
+      "hs_bindgen_test_fun_attributes_e9647b9c99c68776",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_1040c24c74db8069 (void) { return old_fn(); }",
+          "signed int hs_bindgen_test_fun_attributes_e9647b9c99c68776 (void) { return old_fn_deprecated(); }",
           capiWrapperImport =
           "fun_attributes.h"},
       foreignImportOrigin = Function
@@ -1044,7 +1044,8 @@
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "old_fn",
+          commentOrigin = Just
+            "old_fn_deprecated",
           commentLocation = Just
             "fun_attributes.h:46:5",
           commentHeaderInfo = Just
@@ -1141,7 +1142,7 @@
           commentOrigin = Just
             "my_dgettext",
           commentLocation = Just
-            "fun_attributes.h:57:1",
+            "fun_attributes.h:62:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1219,7 +1220,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fdopen",
           commentLocation = Just
-            "fun_attributes.h:68:9",
+            "fun_attributes.h:73:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1258,7 +1259,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f2",
           commentLocation = Just
-            "fun_attributes.h:72:65",
+            "fun_attributes.h:77:65",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1362,7 +1363,7 @@
           commentOrigin = Just
             "my_memcpy",
           commentLocation = Just
-            "fun_attributes.h:78:1",
+            "fun_attributes.h:83:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1401,7 +1402,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fatal",
           commentLocation = Just
-            "fun_attributes.h:95:6",
+            "fun_attributes.h:100:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1454,7 +1455,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "hash",
           commentLocation = Just
-            "fun_attributes.h:103:5",
+            "fun_attributes.h:108:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1528,7 +1529,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "mymalloc",
           commentLocation = Just
-            "fun_attributes.h:108:1",
+            "fun_attributes.h:113:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1567,7 +1568,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "foobar",
           commentLocation = Just
-            "fun_attributes.h:112:13",
+            "fun_attributes.h:117:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1608,7 +1609,7 @@
           commentOrigin = Just
             "core2_func",
           commentLocation = Just
-            "fun_attributes.h:119:5",
+            "fun_attributes.h:124:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1649,7 +1650,7 @@
           commentOrigin = Just
             "sse3_func",
           commentLocation = Just
-            "fun_attributes.h:120:5",
+            "fun_attributes.h:125:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1688,7 +1689,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f3",
           commentLocation = Just
-            "fun_attributes.h:124:49",
+            "fun_attributes.h:129:49",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1728,7 +1729,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fn",
           commentLocation = Just
-            "fun_attributes.h:129:5",
+            "fun_attributes.h:134:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1768,7 +1769,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "y",
           commentLocation = Just
-            "fun_attributes.h:135:12",
+            "fun_attributes.h:140:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1808,7 +1809,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x1",
           commentLocation = Just
-            "fun_attributes.h:138:12",
+            "fun_attributes.h:143:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1848,7 +1849,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x2",
           commentLocation = Just
-            "fun_attributes.h:141:12",
+            "fun_attributes.h:146:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2311,18 +2312,18 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "old_fn",
+        "old_fn_deprecated",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_fun_attributes_febe1b1c3f69ce2f",
+      "hs_bindgen_test_fun_attributes_c48f18f4f06068eb",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_febe1b1c3f69ce2f (void) { return old_fn(); }",
+          "signed int hs_bindgen_test_fun_attributes_c48f18f4f06068eb (void) { return old_fn_deprecated(); }",
           capiWrapperImport =
           "fun_attributes.h"},
       foreignImportOrigin = Function
@@ -2336,7 +2337,8 @@
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "old_fn",
+          commentOrigin = Just
+            "old_fn_deprecated",
           commentLocation = Just
             "fun_attributes.h:46:5",
           commentHeaderInfo = Just
@@ -2433,7 +2435,7 @@
           commentOrigin = Just
             "my_dgettext",
           commentLocation = Just
-            "fun_attributes.h:57:1",
+            "fun_attributes.h:62:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2511,7 +2513,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fdopen",
           commentLocation = Just
-            "fun_attributes.h:68:9",
+            "fun_attributes.h:73:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2550,7 +2552,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f2",
           commentLocation = Just
-            "fun_attributes.h:72:65",
+            "fun_attributes.h:77:65",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2654,7 +2656,7 @@
           commentOrigin = Just
             "my_memcpy",
           commentLocation = Just
-            "fun_attributes.h:78:1",
+            "fun_attributes.h:83:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2693,7 +2695,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fatal",
           commentLocation = Just
-            "fun_attributes.h:95:6",
+            "fun_attributes.h:100:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2746,7 +2748,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "hash",
           commentLocation = Just
-            "fun_attributes.h:103:5",
+            "fun_attributes.h:108:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2820,7 +2822,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "mymalloc",
           commentLocation = Just
-            "fun_attributes.h:108:1",
+            "fun_attributes.h:113:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2859,7 +2861,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "foobar",
           commentLocation = Just
-            "fun_attributes.h:112:13",
+            "fun_attributes.h:117:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2900,7 +2902,7 @@
           commentOrigin = Just
             "core2_func",
           commentLocation = Just
-            "fun_attributes.h:119:5",
+            "fun_attributes.h:124:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2941,7 +2943,7 @@
           commentOrigin = Just
             "sse3_func",
           commentLocation = Just
-            "fun_attributes.h:120:5",
+            "fun_attributes.h:125:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2980,7 +2982,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f3",
           commentLocation = Just
-            "fun_attributes.h:124:49",
+            "fun_attributes.h:129:49",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3020,7 +3022,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fn",
           commentLocation = Just
-            "fun_attributes.h:129:5",
+            "fun_attributes.h:134:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3060,7 +3062,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "y",
           commentLocation = Just
-            "fun_attributes.h:135:12",
+            "fun_attributes.h:140:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3100,7 +3102,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x1",
           commentLocation = Just
-            "fun_attributes.h:138:12",
+            "fun_attributes.h:143:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3140,7 +3142,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x2",
           commentLocation = Just
-            "fun_attributes.h:141:12",
+            "fun_attributes.h:146:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3457,7 +3459,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "hs_bindgen_test_fun_attributes_3add0261fa83e1dd",
+        "hs_bindgen_test_fun_attributes_17f68fdc3f464b20",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -3466,12 +3468,12 @@
             (HsIO
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "hs_bindgen_test_fun_attributes_3add0261fa83e1dd",
+      "hs_bindgen_test_fun_attributes_17f68fdc3f464b20",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_old_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_3add0261fa83e1dd (void)) (void) { return &old_fn; } ",
+          "/* get_old_fn_deprecated_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_17f68fdc3f464b20 (void)) (void) { return &old_fn_deprecated; } ",
           capiWrapperImport =
           "fun_attributes.h"},
       foreignImportOrigin = Global
