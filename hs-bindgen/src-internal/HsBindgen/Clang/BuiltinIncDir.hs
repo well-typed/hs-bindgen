@@ -252,7 +252,7 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- * https://github.com/llvm/llvm-project/issues/51256
 --
 -- The builtin include directory is in the LLVM resource directory:
--- @${RESOURCE_DIR}/include@.  @libclang@ can print the resource directory, but
+-- @{{RESOURCE_DIR}}/include@.  @libclang@ can print the resource directory, but
 -- it currently prints a directory relative to the LLVM prefix due to the same
 -- issue.  Note that the builtin include directory /cannot/ be determined from
 -- just the LLVM prefix, because the resource directory path includes an
@@ -262,20 +262,22 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- With 'BuiltinIncDirAuto', we redirect @STDOUT@ and attempt to get the
 -- resource directory from the @libclang@ library that is dynamically loaded at
 -- runtime.  Since @STDOUT@ is redirected for the whole process, this function
--- is /not/ thread-safe.
+-- is /not/ thread-safe.  This requires filling the @libclang@ output buffer,
+-- and there is unavoidable overflow that is printed to the real @STDOUT@.  We
+-- print @-- Clang buffer flushed@ by default.
 --
 -- If @libclang@ reports an absolute resource directory (when running a
 -- fixed/patched version of LLVM), the builtin include directory is
--- @${RESOURCE_DIR}/include@.
+-- @{{RESOURCE_DIR}}/include@.
 --
 -- If @libclang@ reports a relative resource directory, we can determine the
 -- builtin include directory if we can determine the LLVM prefix.  This
 -- function tries to determine the builtin include directory using the first
 -- successful result of the following strategies:
 --
--- 1. @${LLVM_PATH}/${RESOURCE_DIR}/include@
--- 2. @$(${LLVM_CONFIG} --prefix)/${RESOURCE_DIR}/include@
--- 3. @$(llvm-config --prefix)/${RESOURCE_DIR}/include@
+-- 1. @${LLVM_PATH}/{{RESOURCE_DIR}}/include@
+-- 2. @$(${LLVM_CONFIG} --prefix)/{{RESOURCE_DIR}}/include@
+-- 3. @$(llvm-config --prefix)/{{RESOURCE_DIR}}/include@
 -- 4. @$(${LLVM_PATH}/bin/clang -print-file-name=include)@
 -- 5. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-file-name=include)@
 -- 6. @$($(llvm-config --prefix)/bin/clang -print-file-name=include)@

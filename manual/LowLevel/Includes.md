@@ -148,13 +148,6 @@ standard headers.
 that this is separate from compilation of the generated bindings, described in
 the CAPI section below.
 
-`libclang` constructs C include search paths like Clang, but compiler builtin
-directories are *not* included by default.  When using the GNU C library, a
-compiler builtin directory must be configured using a command-line option or
-environment variable.  The compiler builtin directory should be for the version
-of `libclang` being used.  When using Musl, configuring a compiler builtin
-directory should not be necessary.
-
 `hs-bindgen` passes Clang command-line options to `libclang`.  See
 [Clang options][] for details.  Include options that `hs-bindgen` passes to
 `libclang` are created based on the `hs-bindgen` command-line options and
@@ -163,12 +156,71 @@ Clang environment variables, described above.
 
 [Clang options]: <ClangOptions.md>
 
+`libclang` constructs C include search paths like Clang, but it is generally
+unable to correctly determine the builtin include directory.  When the builtin
+include directory is not configured correctly, one often gets "`stddef.h` not
+found" or similar include resolution errors.  `hs-bindgen` can attempt to
+determine and configure the builtin include directory automatically so that it
+does not have to be done manually.
+
+`hs-bingden` has three modes for configuring the builtin include directory:
+
+* Automatic configuration (`auto`) does not require the Clang compiler to be
+  installed.  It needs to know the LLVM installation prefix (directory) and
+  determines the builtin include directory by getting the relative resource
+  directory from `libclang`.  The Clang resource directory (`{{RESOURCE_DIR}}`
+  below) contains the executables, headers, and libraries used by the Clang
+  compiler, including the builtin include directory.  The LLVM prefix can be
+  set using the `LLVM_PATH` environment variable or determined using
+  `llvm-config` (optionally configured using the `LLVM_CONFIG` environment
+  variable).  Automatic configuration tries to determine the builtin include
+  directory using `clang` if all else fails.
+
+    1. `${LLVM_PATH}/{{RESOURCE_DIR}}/include`
+    2. `$(${LLVM_CONFIG} --prefix)/{{RESOURCE_DIR}}/include`
+    3. `$(llvm-config --prefix)/{{RESOURCE_DIR}}/include`
+    4. `$(${LLVM_PATH}/bin/clang -print-file-name=include)`
+    5. `$($(${LLVM_CONFIG} --prefix)/bin/clang -print-file-name=include)`
+    6. `$($(llvm-config --prefix)/bin/clang -print-file-name=include)`
+    7. `$(clang -print-file-name=include)`
+
+* Clang configuration (`clang`) determines the builtin include directory using
+  the Clang compiler, which must match the version of `libclang` being used.
+  `hs-bindgen` compares the version strings and only proceeds when there is a
+  match.
+
+    1. `$(${LLVM_PATH}/bin/clang -print-file-name=include)`
+    2. `$($(${LLVM_CONFIG} --prefix)/bin/clang -print-file-name=include)`
+    3. `$($(llvm-config --prefix)/bin/clang -print-file-name=include)`
+    4. `$(clang -print-file-name=include)`
+
+* Configuration can be disabled (`disable`).  In this case, the builtin include
+  directory can be configured using CLI options or environment variables when
+  needed.  Note that this option only affects `hs-bindgen` behavior; Clang
+  options must be used to configure `libclang` configuration of default include
+  directories.
+
+> [!NOTE]
+> Debian packages are patched so that `libclang` can correctly determine the
+> builtin include directory.  Debian-based distributions (such as Ubuntu)
+> therefore do not have builtin include directory issues (when using the
+> distribution packages).  When `hs-bindgen` automatically configures the same
+> directory, `libclang` ignores it as a duplicate.  It works without issue.
+
+> [!NOTE]
+> When using automatic configuration, `hs-bindgen` temporary redirects `STDOUT`
+> in order to capture `libclang` output.  This requires filling the `libclang`
+> output buffer, and there is unavoidable overflow that is printed to the real
+> `STDOUT`.  We print `-- Clang buffer flushed` by default.
+
 ### `hs-bindgen` command-line options
 
 `hs-bindgen-cli` provides the following include options:
 
 * `-I <directory>` adds a directory to the bracket C include search path.
   (Clang option: `-I`)
+* `--builtin-include-dir MODE` determines how the builtin include directory is
+  configured.
 
 Clang has many more include options, which may be passed via
 `--clang-option-before`, `--clang-option`, or `--clang-option-after` options.
@@ -294,9 +346,6 @@ and confirm precedence.
 $ clang -E -v - </dev/null
 ```
 
-Note that the appropriate Clang builtin directory is configured by default, but
-it is not configured by default when using `libclang`/`hs-bindgen`.
-
 Similarly, the following command runs the GCC preprocessor and displays
 information that includes the C include search paths used by GCC.  It takes
 command-line options and environment variables into account, so you can test
@@ -307,7 +356,12 @@ $ gcc -xc -E -v - </dev/null
 ```
 
 The `hs-bindgen-cli dev resolve` command may be used debug `hs-bindgen` header
-resolution.
+resolution.  When experimenting with builtin include directory configuration,
+it may be useful to show debug trace messages.
+
+```
+$ hs-bindgen-cli dev resolve -v4 --builtin-include-dir=auto stddef.h
+```
 
 The `hs-bindgen-cli dev clang` command may be used to query Clang options such
 as `-v` using `libclang`, to confirm `libclang` C include search paths.
@@ -315,12 +369,3 @@ as `-v` using `libclang`, to confirm `libclang` C include search paths.
 ```
 $ hs-bindgen-dev clang --clang-option=-v
 ```
-
-### Common issues
-
-* __`stddef.h` not found__ - This error usually indicates that a compiler
-  builtin directory is not configured.  It usually happens when translating
-  headers, since `libclang` does not configure a compiler builtin directory by
-  default.  You should configure the Clang builtin directory that matches the
-  version of `libclang` being used via `BINDGEN_EXTRA_CLANG_ARGS` or an
-  `hs-bindgen-cli` `-I` option.
