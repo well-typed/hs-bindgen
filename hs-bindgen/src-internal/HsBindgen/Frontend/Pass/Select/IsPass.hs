@@ -1,6 +1,5 @@
 module HsBindgen.Frontend.Pass.Select.IsPass (
     Select
-  , SelectDeclMeta(..)
     -- * Configuration
   , ProgramSlicing(..)
   , SelectConfig(..)
@@ -14,19 +13,17 @@ import Data.Default (Default (def))
 import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
+import Clang.HighLevel.Types (SingleLoc)
+
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs,
-                                                           ResolvedExtBinding)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Util.Tracer
 
@@ -38,7 +35,7 @@ type Select :: Pass
 data Select a deriving anyclass ValidPass
 
 type family AnnSelect ix where
-  AnnSelect "TranslationUnit" = SelectDeclMeta
+  AnnSelect "TranslationUnit" = SortDeclMeta
   AnnSelect "Decl"            = BindingSpec.CTypeSpec
   AnnSelect _                 = NoAnn
 
@@ -53,21 +50,6 @@ instance IsPass Select where
   type Ann ix       Select = AnnSelect ix
   type Config       Select = SelectConfig
   type Msg          Select = SelectMsg
-
-{-------------------------------------------------------------------------------
-  Information about the declarations
--------------------------------------------------------------------------------}
-
--- TODO https://github.com/well-typed/hs-bindgen/issues/1038: Remove and thread
--- through parse messages until the end. However, we have trouble mangling names
--- due to (expected) missing declarations.
-data SelectDeclMeta = SelectDeclMeta {
-      selectDeclIndex     :: DeclIndex
-    , selectDeclUseDecl   :: UseDeclGraph
-    , selectDeclDeclUse   :: DeclUseGraph
-    , selectDeclNonParsed :: NonParsedDecls
-    }
-  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -105,7 +87,7 @@ data SelectReason =
 
 instance PrettyForTrace SelectReason where
   prettyForTrace = \case
-    SelectionRoot        -> "selection root"
+    SelectionRoot        -> "selection root; direct select predicate match"
     TransitiveDependency -> "transitive dependency"
 
 data SelectStatus =
@@ -117,12 +99,13 @@ data SelectStatus =
 data SelectMsg =
     SelectSelectStatus SelectStatus (C.DeclInfo Select)
     -- | Delayed parse message for actually selected declarations.
-  | SelectParse  (ParseMsgKey Select) DelayedParseMsg
-    -- | Delayed parse message for declarations that the user wanted to select,
-    -- but we failed to parse.
-  | SelectFailed (ParseMsgKey Select) DelayedParseMsg
-  -- TODO https://github.com/well-typed/hs-bindgen/issues/1037: Introduce
-  -- `SelectedButSkipped`.
+  | SelectParse C.QualName C.NameOrigin SingleLoc DelayedParseMsg
+    -- | Delayred parse message for declarations the user wants to select, but
+    -- we have not attempted to parse.
+  | SelectParseNotAttempted C.QualName C.NameOrigin SingleLoc ParseOmissionReason
+    -- | Delayed parse message for declarations the user wants to select, but
+    -- we have failed to parse.
+  | SelectParseFailed C.QualName C.NameOrigin SingleLoc DelayedParseMsg
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -131,26 +114,38 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace info >< " not selected"
     SelectSelectStatus (Selected reason) info ->
       prettyForTrace info >< " selected (" >< prettyForTrace reason >< ")"
-    SelectParse  k x -> "During parse:" <+> prettyDelayedParseMsg k x
-    SelectFailed k x -> "Failed to select declaration declaration:" <+> prettyDelayedParseMsg k x
+    SelectParse n o l x ->
+      "During parse:" <+> prettyInfo n o l
+      <+> prettyForTrace x
+    SelectParseNotAttempted n o l r -> PP.vcat [
+      "Failed to select declaration:" <+> prettyInfo n o l
+      , "Parse not attempted:" <+> prettyForTrace r
+      ]
+    SelectParseFailed n o l x ->
+      "Failed to select declaration; during parse:"
+      <+> prettyInfo n o l
+      <+> prettyForTrace x
     where
-      prettyDelayedParseMsg :: ParseMsgKey Select -> DelayedParseMsg -> CtxDoc
-      prettyDelayedParseMsg k v = PP.hcat [
-          prettyForTrace k
-        , ":"
-        , prettyForTrace v
-        ]
+      prettyInfo :: C.QualName -> C.NameOrigin -> SingleLoc -> CtxDoc
+      prettyInfo n o l = PP.hsep [
+          prettyForTrace n
+        , prettyForTrace o
+        , "at"
+        , PP.showToCtxDoc l
+        ] >< ":"
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectSelectStatus{} -> Info
-    SelectParse  _ x     -> getDefaultLogLevel x
-    SelectFailed _ x     -> getDefaultLogLevel x
+    SelectSelectStatus{}      -> Info
+    SelectParse       _ _ _ x -> getDefaultLogLevel x
+    SelectParseNotAttempted{} -> Error
+    SelectParseFailed _ _ _ x -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = \case
-    SelectParse  _ x -> "select-parse-"   <> getTraceId x
-    SelectFailed _ x -> "select-missed-"  <> getTraceId x
-    _else            -> "select"
+    SelectSelectStatus{}      -> "select"
+    SelectParse       _ _ _ x -> "select-" <> getTraceId x
+    SelectParseNotAttempted{} -> "select-parse"
+    SelectParseFailed _ _ _ x -> "select-" <> getTraceId x
 
 {-------------------------------------------------------------------------------
   CoercePass

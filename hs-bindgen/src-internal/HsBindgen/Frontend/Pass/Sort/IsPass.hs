@@ -1,7 +1,6 @@
 module HsBindgen.Frontend.Pass.Sort.IsPass (
     Sort
-  , DeclMeta(..)
-  , coerceDeclMeta
+  , SortDeclMeta(..)
   , SortMsg(..)
   ) where
 
@@ -11,7 +10,6 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
@@ -28,7 +26,7 @@ type Sort :: Pass
 data Sort a deriving anyclass ValidPass
 
 type family AnnSort (ix :: Symbol) :: Star where
-  AnnSort "TranslationUnit" = DeclMeta Sort
+  AnnSort "TranslationUnit" = SortDeclMeta
   AnnSort "StructField"     = ReparseInfo
   AnnSort "UnionField"      = ReparseInfo
   AnnSort "Typedef"         = ReparseInfo
@@ -49,21 +47,13 @@ instance IsPass Sort where
   Information about the declarations
 -------------------------------------------------------------------------------}
 
-data DeclMeta p = DeclMeta {
-      declIndex     :: DeclIndex
-    , declUseDecl   :: UseDeclGraph
-    , declDeclUse   :: DeclUseGraph
-    , declNonParsed :: NonParsedDecls
-    , declParseMsgs :: ParseMsgs p
+-- TODO_PR: Rename back to `DeclMeta`.
+data SortDeclMeta = SortDeclMeta {
+      declIndex       :: DeclIndex
+    , declUseDecl     :: UseDeclGraph
+    , declDeclUse     :: DeclUseGraph
     }
-
-deriving instance ValidPass p => Show (DeclMeta p)
-
-coerceDeclMeta :: forall p p'. (Id p ~ Id p', Ord (ParseMsgKey p'))
-  => DeclMeta p -> DeclMeta p'
-coerceDeclMeta declMeta = declMeta {
-    declParseMsgs = coerceParseMsgs (declParseMsgs declMeta)
-    }
+  deriving stock (Show, Generic)
 
 {-------------------------------------------------------------------------------
   Trace messages

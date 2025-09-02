@@ -22,7 +22,7 @@ type NameAnon :: Pass
 data NameAnon a deriving anyclass ValidPass
 
 type family AnnNameAnon ix where
-  AnnNameAnon "TranslationUnit" = DeclMeta NameAnon
+  AnnNameAnon "TranslationUnit" = SortDeclMeta
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where
@@ -40,7 +40,7 @@ instance IsPass NameAnon where
 -------------------------------------------------------------------------------}
 
 data NameAnonMsg =
-    -- | Skipped unused anonymous declaration entirely
+    -- | Skipped unused anonymous declaration
     --
     -- @clang@ will produce a warning for this ("declaration does not declare
     -- anything"); we issue a separate message here in case we skip over

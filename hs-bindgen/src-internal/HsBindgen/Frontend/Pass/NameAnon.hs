@@ -1,3 +1,4 @@
+
 module HsBindgen.Frontend.Pass.NameAnon (
     nameAnon
   ) where
@@ -15,8 +16,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..),
-                                             ParseMsgKey (..), mapParseMsgs)
+import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
@@ -31,10 +31,6 @@ nameAnon ::
 nameAnon C.TranslationUnit{..} = (
       C.TranslationUnit{
           unitDecls = unitDecls'
-        , unitAnn = unitAnn {
-            declParseMsgs = mapParseMsgs (getDeclIdParseMsgKey env) $
-              declParseMsgs unitAnn
-          }
         , ..
         }
     , msgs
@@ -121,18 +117,6 @@ getDeclId env qualPrelimDeclId declId =
              Just name -> Right $ C.DeclId name                           orig
      C.PrelimDeclIdBuiltin name ->
        Right $ C.DeclId name C.NameOriginInSource
-
-getDeclIdParseMsgKey :: RenameEnv -> ParseMsgKey HandleMacros -> ParseMsgKey NameAnon
-getDeclIdParseMsgKey env key = key{parseMsgDeclId = declId'}
-  where
-    declId :: Id HandleMacros
-    declId = parseMsgDeclId key
-
-    qualPrelimDeclId :: C.QualPrelimDeclId
-    qualPrelimDeclId = C.qualPrelimDeclId declId (parseMsgDeclKind key)
-
-    declId' :: Id NameAnon
-    declId' = either id id $ getDeclId env qualPrelimDeclId declId
 
 {-------------------------------------------------------------------------------
   Use sites

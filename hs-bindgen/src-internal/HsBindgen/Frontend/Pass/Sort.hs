@@ -7,7 +7,6 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
@@ -32,23 +31,16 @@ sortDecls unit@C.TranslationUnit{..} =
        , declIndexErrors
        )
 
-mkDeclMeta :: C.TranslationUnit Parse -> (DeclMeta Sort, [Msg Sort])
+mkDeclMeta :: C.TranslationUnit Parse -> (SortDeclMeta, [Msg Sort])
 mkDeclMeta unit =
     let (declIndex, declIndexErrors) = DeclIndex.fromDecls unitDecls
         declUseDecl = UseDeclGraph.fromDecls unitIncludeGraph unitDecls
         declDeclUse = DeclUseGraph.fromUseDecl declUseDecl
-    in ( DeclMeta{..}
+    in ( SortDeclMeta{..}
        , map SortErrorDeclIndex declIndexErrors
        )
   where
     C.TranslationUnit{
         unitDecls
       , unitIncludeGraph
-      , unitAnn = parseUnitAnn
       } = unit
-
-    declNonParsed :: NonParsedDecls
-    declNonParsed = parseDeclNonParsed parseUnitAnn
-
-    declParseMsgs :: ParseMsgs Sort
-    declParseMsgs = coerceParseMsgs $ parseDeclParseMsg parseUnitAnn

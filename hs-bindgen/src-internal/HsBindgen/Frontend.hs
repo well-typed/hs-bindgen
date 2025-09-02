@@ -14,6 +14,7 @@ import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
@@ -36,6 +37,7 @@ import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.Pass.Sort.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass qualified as Sort
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
@@ -103,24 +105,25 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
         rootHeader <- getRootHeader
-        reifiedUnit <- parseDecls
+        parseResults <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
           frontendParsePredicate
-          includeGraph
           isMainHeader
           isInMainHeaderDir
           getMainHeadersAndInclude
           unit
         pure
-          ( reifiedUnit
+          ( parseResults
+          , includeGraph
           , isMainHeader
           , isInMainHeaderDir
           , toGetMainHeaders getMainHeadersAndInclude
           )
 
     sortPass <- cache "sort" $ do
-      (afterParse, _, _, _) <- parsePass
+      (afterParse, includeGraph, _, _, _) <- parsePass
+      -- TODO_PR: Rename to @ConstructTranslationUnit@.
       let (afterSort, msgsSort) = sortDecls afterParse
       forM_ msgsSort $ traceWith tracer . FrontendSort
       pure afterSort
@@ -194,11 +197,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      declIndex . unitAnn <$> sortPass
+      Sort.declIndex   . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      declUseDecl . unitAnn <$> sortPass
+      Sort.declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      declDeclUse . unitAnn <$> sortPass
+      Sort.declDeclUse . unitAnn <$> sortPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
@@ -237,17 +240,16 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     selectConfig =
       SelectConfig frontendProgramSlicing frontendSelectPredicate
 
-    emptyTranslationUnit :: TranslationUnit Parse
-    emptyTranslationUnit = TranslationUnit {
-        unitDecls = []
-      , unitIncludeGraph = IncludeGraph.empty
-      , unitAnn          = emptyParseDeclMeta
-      }
-
-    emptyParseResult ::
-      (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir, GetMainHeaders)
+    emptyParseResult :: (
+        [ParseResult]
+      , IncludeGraph
+      , IsMainHeader
+      , IsInMainHeaderDir
+      , GetMainHeaders
+      )
     emptyParseResult =
-      ( emptyTranslationUnit
+      ( []
+      , IncludeGraph.empty
       , const False
       , const False
       , const (Left "empty")

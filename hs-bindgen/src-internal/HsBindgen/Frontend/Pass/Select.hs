@@ -3,7 +3,6 @@ module HsBindgen.Frontend.Pass.Select (
   ) where
 
 import Data.List (partition)
-import Data.Map qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
@@ -19,7 +18,6 @@ import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
@@ -56,17 +54,30 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
             -- that children come before parents. 'filter' does that for us.
             filter ((`Set.member` transitiveDeps) . C.declOrigQualPrelimDeclId) decls
 
-        parseMsgs :: [Msg Select]
-        parseMsgs = getDelayedParseMsgs' selectedDecls
-
         selectMsgs :: [Msg Select]
-        unavailableTransitiveDeps :: Set C.QualPrelimDeclId
-        (selectMsgs, unavailableTransitiveDeps) =
+        selectMsgs =
           getSelectMsgs selectedRoots transitiveDeps selectedDecls unmatchedDecls
 
+        -- TODO_PR: Differentiate between required transitive dependencies that
+        -- we did not attempt to parse (e.g., parse predicate not matched) or we
+        -- have failed to parse; and transitive dependencies we have parsed
+        -- successfully, but that have vanished in a subsequent pass and do not
+        -- show up in the list of declarations provided to this pass.
+        unavailableTransitiveDeps :: Set C.QualPrelimDeclId
+        unavailableTransitiveDeps = Set.empty
+        -- -- TODO_PR: Old definition:
+        --
+        -- unavailableTransitiveDeps =
+        --   transitiveDeps `Set.difference`
+        --     (Set.fromList $ map C.declOrigNsPrelimDeclId selectedDecls)
+
     in if Set.null unavailableTransitiveDeps
+       -- TODO_PR
+       -- then ( unitSelect { C.unitDecls = selectedDecls }
+       --      , delayedParseMsgs ++ selectMsgs
+       --      )
        then ( unitSelect { C.unitDecls = selectedDecls }
-            , parseMsgs ++ selectMsgs
+            , selectMsgs
             )
        else panicPure $ errorMsgWith unavailableTransitiveDeps
   where
@@ -80,27 +91,17 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
          ]
 
     unitSelect :: C.TranslationUnit Select
-    unitSelect =
-      let C.TranslationUnit{..} = unitRBS
-      in  C.TranslationUnit {
-            C.unitDecls = map coercePass unitDecls
-          , C.unitIncludeGraph = unitIncludeGraph
-          , C.unitAnn = SelectDeclMeta {
-                selectDeclIndex     = declIndex unitAnn
-              , selectDeclUseDecl   = declUseDecl unitAnn
-              , selectDeclDeclUse   = declDeclUse unitAnn
-              , selectDeclNonParsed = declNonParsed unitAnn
-              }
+    unitSelect = C.TranslationUnit {
+            C.unitDecls = map coercePass unitRBS.unitDecls
+          , C.unitIncludeGraph = unitRBS.unitIncludeGraph
+          , C.unitAnn = unitRBS.unitAnn
           }
 
     decls :: [C.Decl Select]
     decls = C.unitDecls unitSelect
 
-    ann :: DeclMeta ResolveBindingSpecs
-    ann = C.unitAnn unitRBS
-
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = declUseDecl ann
+    useDeclGraph = unitRBS.unitAnn.declUseDecl
 
     matchDecl :: C.Decl Select -> Bool
     matchDecl decl = isSelected $
@@ -162,17 +163,15 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
                                (C.declLoc $ C.declInfo decl)
                                (C.declAvailability $ C.declInfo decl)
 
-    matchKey :: Key -> SelectStatus
-    matchKey (ParseMsgKey loc declId declKind declAvailability) =
-      let qualDeclId = C.QualDeclId {
-            qualDeclIdName   = C.declIdName declId
-          , qualDeclIdOrigin = C.declIdOrigin declId
-          , qualDeclIdKind   = declKind
-          }
-      in match (C.qualDeclIdToQualPrelimDeclId qualDeclId) loc declAvailability
+    -- matchKey :: Key -> SelectStatus
+    -- matchKey (ParseMsgKey loc declId declKind declAvailability) =
+    --   let qualDeclId = C.QualDeclId {
+    --         qualDeclIdName   = C.declIdName declId
+    --       , qualDeclIdOrigin = C.declIdOrigin declId
+    --       , qualDeclIdKind   = declKind
+    --       }
+    --   in match (C.qualDeclIdToQualPrelimDeclId qualDeclId) loc declAvailability
 
-    getDelayedParseMsgs' :: [C.Decl Select] -> [Msg Select]
-    getDelayedParseMsgs' = getDelayedParseMsgs ann matchKey
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -183,15 +182,10 @@ getSelectMsgs
   -> Set C.QualPrelimDeclId
   -> [C.Decl Select]
   -> [C.Decl Select]
-  -> ([Msg Select], Set C.QualPrelimDeclId)
+  -> [Msg Select]
 getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
-    (excludeMsgs ++ selectRootMsgs ++ selectTransMsgs, unavailableTransitiveDeps)
+    (excludeMsgs ++ selectRootMsgs ++ selectTransMsgs)
   where
-    unavailableTransitiveDeps :: Set C.QualPrelimDeclId
-    unavailableTransitiveDeps =
-      transitiveDeps `Set.difference`
-        (Set.fromList $ map C.declOrigQualPrelimDeclId selectedDecls)
-
     unselectedDecls :: [C.Decl Select]
     unselectedDecls =
       filter
@@ -213,58 +207,49 @@ getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
     selectTransMsgs =
       map (SelectSelectStatus (Selected TransitiveDependency) . C.declInfo) transitiveDepsStrict
 
-type Key = ParseMsgKey Select
+    -- TODO_PR.
+-- getDelayedParseMsgs ::
+--      SortParseStatus
+--   -> (SingleLoc -> C.QualDeclId -> C.Availability -> SelectStatus)
+--   -> Map (C.QualName) [Msg Select]
+-- getDelayedParseMsgs parseStatus match =
+--   Map.mapWithKey getMsgs $ unNameAnonParseStatus parseStatus
+--   where
+--     getMsgs :: C.QualName -> (C.NameOrigin, ParseStatusValue) -> [Msg Select]
+--     getMsgs qualName (origin, ParseStatusValue{..} ) =
+--       let qualDeclId = C.QualDeclId {
+--               qualDeclIdName   = C.qualNameName qualName
+--             , qualDeclIdOrigin = origin
+--             , qualDeclIdKind   = C.qualNameKind qualName
+--             }
+--       in case match psvSingleLoc qualDeclId psvAvailability of
+--         True  -> case psvDeclStatus of
+--           ParseNotAttempted r ->
+--             [ SelectParseNotAttempted qualName origin psvSingleLoc r ]
+--           ParseSucceeded msgs ->
+--             [ SelectParse qualName origin psvSingleLoc m | m <- msgs ]
+--           ParseFailed (msg :| msgs) ->
+--             [ SelectParseFailed qualName origin psvSingleLoc m | m<- msg : msgs ]
+--         False -> []
 
-getDelayedParseMsgs ::
-     DeclMeta ResolveBindingSpecs
-  -> (ParseMsgKey Select -> SelectStatus)
-  -> [C.Decl Select]
-  -> [Msg Select]
-getDelayedParseMsgs meta matchKey decls =
-        map (uncurry SelectParse)  (flatten selectedMsgs)
-     ++ map (uncurry SelectFailed) (flatten failedMsgs)
-  where
-    msgs :: Map Key [DelayedParseMsg]
-    msgs = unParseMsgs $ coerceParseMsgs $ declParseMsgs meta
+    -- TODO_PR.
+    -- -- The set of desired selected keys is a super-set of the set of actually
+    -- -- selected keys, in which some keys may be missing because parsing has
+    -- -- failed.
+    -- desiredSelectedKeys :: Set Key
+    -- desiredSelectedKeys = Set.filter match allKeys
 
-    allKeys :: Set Key
-    allKeys = Map.keysSet msgs
+    -- -- Failed declarations are declarations we desired to select, but that we
+    -- -- failed to reify during parse/reification. See the documentation of
+    -- -- 'ParseMsgs'.
+    -- failedKeys :: Set Key
+    -- failedKeys = desiredSelectedKeys Set.\\ selectedKeys
 
-    declToKey :: C.Decl Select -> Key
-    declToKey C.Decl{declInfo, declKind} =
-      ParseMsgKey
-        (C.declLoc declInfo)
-        (C.declId declInfo)
-        (C.declKindNameKind declKind)
-        (C.declAvailability declInfo)
+    -- selectedMsgs :: Map Key [DelayedParseMsg]
+    -- selectedMsgs = Map.restrictKeys msgs selectedKeys
 
-    selectedKeys :: Set Key
-    selectedKeys = Set.fromList $ map declToKey decls
-
-    -- The set of desired selected keys is a super-set of the set of actually
-    -- selected keys, in which some keys may be missing because parsing has
-    -- failed.
-    desiredSelectedKeys :: Set Key
-    desiredSelectedKeys = Set.filter (isSelected . matchKey) allKeys
-
-    -- Failed declarations are declarations we desired to select, but that we
-    -- failed to reify during parse/reification. See the documentation of
-    -- 'ParseMsgs'.
-    failedKeys :: Set Key
-    failedKeys = desiredSelectedKeys Set.\\ selectedKeys
-
-    selectedMsgs :: Map Key [DelayedParseMsg]
-    selectedMsgs = Map.restrictKeys msgs selectedKeys
-
-    failedMsgs :: Map Key [DelayedParseMsg]
-    failedMsgs = Map.restrictKeys msgs failedKeys
-
-    flatten :: Map a [b] -> [(a, b)]
-    flatten = concatMap (\(k, xs) -> map (k,) xs) . Map.toList
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
+    -- failedMsgs :: Map Key [DelayedParseMsg]
+    -- failedMsgs = Map.restrictKeys msgs failedKeys
 
 isSelected :: SelectStatus -> Bool
 isSelected NotSelected        = False

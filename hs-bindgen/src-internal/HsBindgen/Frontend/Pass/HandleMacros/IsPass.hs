@@ -16,7 +16,7 @@ import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
-import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta, Sort)
+import HsBindgen.Frontend.Pass.Sort.IsPass (Sort, SortDeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -29,7 +29,7 @@ data HandleMacros a deriving anyclass ValidPass
 
 -- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
 type family AnnHandleMacros (ix :: Symbol) :: Star where
-  AnnHandleMacros "TranslationUnit" = DeclMeta HandleMacros
+  AnnHandleMacros "TranslationUnit" = SortDeclMeta
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where

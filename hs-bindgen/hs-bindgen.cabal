@@ -49,9 +49,11 @@ common lang
       DerivingStrategies
       DerivingVia
       DisambiguateRecordFields
+      DuplicateRecordFields
       FunctionalDependencies
       LambdaCase
       MultiWayIf
+      OverloadedRecordDot
       OverloadedStrings
       PatternSynonyms
       QuantifiedConstraints
@@ -134,7 +136,6 @@ library internal
       HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
       HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
       HsBindgen.Frontend.Naming
-      HsBindgen.Frontend.NonParsedDecls
       HsBindgen.Frontend.Pass
       HsBindgen.Frontend.Pass.HandleMacros
       HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -250,9 +251,7 @@ library
 executable hs-bindgen-cli
   import:         lang
   default-extensions:
-      DuplicateRecordFields
       NoFieldSelectors
-      OverloadedRecordDot
   main-is:        hs-bindgen-cli.hs
   hs-source-dirs: app
 
