@@ -300,6 +300,7 @@ data Type =
   | TypeBlock Type
   | TypeConst Type
   | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
+  | TypeComplex C.PrimType
   deriving stock (Show, Eq, Generic)
 
 data TypedefRef =

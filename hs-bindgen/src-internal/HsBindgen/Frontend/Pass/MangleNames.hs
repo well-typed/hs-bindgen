@@ -479,6 +479,7 @@ instance Mangle C.Type where
       C.TypePrim prim      -> return $ C.TypePrim prim
       C.TypeVoid           -> return $ C.TypeVoid
       C.TypeExtBinding ext -> return $ C.TypeExtBinding ext
+      C.TypeComplex prim   -> return $ C.TypeComplex prim
 
 instance Mangle RenamedTypedefRef where
   mangle (TypedefRegular C.DeclId{..}) = TypedefRegular <$>

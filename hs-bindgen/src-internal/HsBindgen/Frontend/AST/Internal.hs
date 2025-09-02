@@ -379,6 +379,10 @@ data Type p =
     -- | Type qualifier @const@.
   | TypeConst (Type p)
 
+    -- | A complex floating-point type, such as @float complex@ or
+    -- @double complex@. This also allows one to define, e.g. @char complex@
+  | TypeComplex C.PrimType
+
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}

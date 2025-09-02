@@ -138,6 +138,7 @@ module Clang.LowLevel.Core (
   , clang_Cursor_isBitField
   , clang_getFieldDeclBitWidth
   , clang_getPointeeType
+  , clang_getElementType
   , clang_getArrayElementType
   , clang_getArraySize
   , clang_Type_getSizeOf
@@ -1356,6 +1357,14 @@ clang_getPointeeType :: MonadIO m => CXType -> m CXType
 clang_getPointeeType typ = liftIO $
     onHaskellHeap typ $ \typ' ->
       preallocate_ $ wrap_getPointeeType typ'
+
+-- | Return the element type of an array, complex, or vector type.
+--
+-- <https://clang.llvm.org/doxygen/group__CINDEX__TYPES.html#gab35027c8bc48fab25f7698a415c93922>
+clang_getElementType :: MonadIO m => CXType -> m CXType
+clang_getElementType typ = liftIO $
+    onHaskellHeap typ $ \typ' ->
+      preallocate_ $ wrap_getElementType typ'
 
 -- | Return the element type of an array type.
 --
