@@ -56,7 +56,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
       -- | Additional information about the Haskell type
     , extHsSpec :: BindingSpec.TypeSpec
     }
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Trace messages

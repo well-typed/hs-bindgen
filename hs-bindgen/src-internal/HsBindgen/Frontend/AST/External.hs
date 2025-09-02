@@ -145,7 +145,7 @@ data DeclKind =
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
 -- have consequences for "Hs.Origin" also.
 newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Structs

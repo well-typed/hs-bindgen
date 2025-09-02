@@ -69,7 +69,7 @@ data ParseDeclMeta = ParseDeclMeta {
       parseDeclNonParsed :: NonParsedDecls
     , parseDeclParseMsg  :: ParseMsgs Parse
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq)
 
 emptyParseDeclMeta :: ParseDeclMeta
 emptyParseDeclMeta = ParseDeclMeta {
@@ -112,7 +112,7 @@ data ParseTypeExceptionContext = ParseTypeExceptionContext {
       contextInfo :: C.DeclInfo Parse
     , contextNameKind :: NameKind
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseTypeExceptionContext where
   prettyForTrace (ParseTypeExceptionContext info kind) =
@@ -234,7 +234,7 @@ data ParseMsg =
     -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
     -- > extern int __attribute__ ((visibility ("hidden"))) i;
   | ParseNonPublicVisibility (C.DeclInfo Parse)
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq)
 
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
@@ -308,7 +308,6 @@ instance IsTrace Level ParseMsg where
 newtype ParseMsgs p = ParseMsgs { unParseMsgs :: Map (ParseMsgKey p) [ParseMsg] }
 deriving instance Show (Id p) => Show (ParseMsgs p)
 deriving instance Eq (Id p)   => Eq (ParseMsgs p)
-deriving instance Ord (Id p)  => Ord (ParseMsgs p)
 
 data ParseMsgKey p = ParseMsgKey {
       parseMsgDeclLoc  :: SingleLoc

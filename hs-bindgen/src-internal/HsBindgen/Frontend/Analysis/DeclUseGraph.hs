@@ -45,7 +45,7 @@ import HsBindgen.Imports
 newtype DeclUseGraph = Wrap {
       unwrap :: DynGraph Usage C.NsPrelimDeclId
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Construction

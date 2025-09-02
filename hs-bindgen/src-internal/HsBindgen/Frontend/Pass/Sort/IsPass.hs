@@ -58,7 +58,6 @@ data DeclMeta p = DeclMeta {
 
 deriving instance ValidPass p => Show (DeclMeta p)
 deriving instance ValidPass p => Eq (DeclMeta p)
-deriving instance ValidPass p => Ord (DeclMeta p)
 
 coerceDeclMeta :: forall p p'. (Id p ~ Id p', Ord (ParseMsgKey p'))
   => DeclMeta p -> DeclMeta p'

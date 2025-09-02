@@ -70,7 +70,7 @@ data RenamedTypedefRef p =
     -- (without a corresponding Haskell name) as well as the type that replaced
     -- the reference with.
   | TypedefSquashed C.Name (C.Type p)
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Trace messages
