@@ -1,9 +1,10 @@
 -- | Golden test: generated Haskell AST
 module Test.HsBindgen.Golden.Check.Hs (check) where
 
+import System.FilePath ((</>))
 import Test.Tasty (TestTree)
 
-import HsBindgen.Lib
+import HsBindgen
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden

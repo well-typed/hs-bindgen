@@ -13,11 +13,17 @@ module Test.HsBindgen.Resources (
   , callRustBindgen
   ) where
 
+import Data.Default (Default (..))
 import System.Exit (ExitCode (..))
+import System.FilePath ((</>))
 import Test.Tasty
 
 import Clang.Args
-import HsBindgen.Lib
+import Clang.Paths
+import HsBindgen.Backend.Artefact.HsModule.Translation
+import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.UniqueId
+import HsBindgen.Config
 
 import Test.Common.Util.Cabal
 import Test.HsBindgen.Resources.Rust

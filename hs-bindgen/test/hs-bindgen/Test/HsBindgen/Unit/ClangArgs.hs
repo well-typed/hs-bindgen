@@ -9,7 +9,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Clang
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Lib
+import HsBindgen.Util.Tracer
 
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
