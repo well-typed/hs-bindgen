@@ -83,7 +83,6 @@ instance (
     DeclMacro macro       -> DeclMacro macro
     DeclFunction function -> DeclFunction (coercePass function)
     DeclGlobal ty         -> DeclGlobal (coercePass ty)
-    DeclConst ty          -> DeclConst (coercePass ty)
 
 instance (
       CoercePass StructField p p'

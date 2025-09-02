@@ -160,7 +160,40 @@ showsType x TypeVoid                  = showString "void " . x 0
 showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
 showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x 0
 showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
-showsType x (TypeConst t)             = showsType (\_d -> showString "const " . x 0) t
+-- Type qualifiers like @const@ can appear before, and _after_ the type they
+-- refer to. For example,
+--
+-- > const int x;
+-- > int const x;
+--
+-- > const int f();
+-- > int const f();
+--
+-- More involved: A function with a return type being a "constant pointer to
+-- constant integer".
+--
+-- > const int * const f();
+-- > int const * const f();
+--
+-- That is, for pointers, the @const@ qualifier is always written as a suffix!
+-- For example, both of the following declarations declare a pointer to a
+-- constant integer:
+--
+-- > int const * f();
+-- > int const* f();
+--
+-- Did you know that stacked @const@ qualifiers are merged by the C parser:
+--
+-- > const int const * f(); // Parsed as "const int *".
+-- > int const const * f(); // Parsed as "const int *".
+--
+-- It is somewhat difficult to correctly print the @const@ qualifier before
+-- primitive types but after pointers. Hence, we consistently print @const@
+-- _after_ the type. For example, we print return type "constant pointer to
+-- constant int" as follows:
+--
+-- > int const * const f();
+showsType x (TypeConst t) = showsType (\_d -> showString "const " . x 0) t
 
 -- | The precedence of various constructs in C declarations.
 type CTypePrecedence = Int

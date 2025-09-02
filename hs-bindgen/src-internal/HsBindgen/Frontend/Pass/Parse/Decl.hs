@@ -552,7 +552,7 @@ varDecl info = simpleFold $ \curr -> do
             VarGlobal -> do
               return [mkDecl $ C.DeclGlobal typ]
             VarConst -> do
-              return [mkDecl $ C.DeclConst typ]
+              return [mkDecl $ C.DeclGlobal typ]
             VarThreadLocal -> do
               recordTrace info NameKindOrdinary $ ParseUnsupportedTLS info
               return []

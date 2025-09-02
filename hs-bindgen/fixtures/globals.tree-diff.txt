@@ -1575,7 +1575,7 @@ TranslationUnit {
                 TextContent
                   "Although this is a constant, we don't expect an initializer (since it's",
                 TextContent "`extern`)."]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -1631,7 +1631,7 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
             NamePair {
@@ -1666,7 +1666,7 @@ TranslationUnit {
               [
                 TextContent
                   "Unlike with `extern`, in this we _do_ expect an initializer."]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -1692,7 +1692,7 @@ TranslationUnit {
               [
                 TextContent
                   "No storage class specified"]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -1718,7 +1718,7 @@ TranslationUnit {
               [
                 TextContent
                   "A an array of size 4 containing constant integers"]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConstArray
           4
           (TypeConst
@@ -1781,7 +1781,7 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
             NamePair {
@@ -1860,7 +1860,7 @@ TranslationUnit {
               [
                 TextContent
                   "A constant tuple"]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypeStruct
             NamePair {
@@ -1948,7 +1948,7 @@ TranslationUnit {
               [
                 TextContent
                   "A const pointer to int"]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePointer
             (TypePrim
@@ -1978,7 +1978,7 @@ TranslationUnit {
               [
                 TextContent
                   "A const pointer to const int"]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePointer
             (TypeConst

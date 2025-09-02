@@ -290,8 +290,6 @@ instance MangleDecl C.DeclKind where
       C.DeclMacro <$> mangleDecl info macro
   mangleDecl _ (C.DeclGlobal ty) =
       C.DeclGlobal <$> mangle ty
-  mangleDecl _ (C.DeclConst ty) =
-      C.DeclConst <$> mangle ty
 
 instance Mangle C.Reference where
   mangle (C.ById C.DeclId{..}) = do
@@ -495,7 +493,6 @@ withDeclNamespace kind k =
       C.DeclEnumOpaque{}   -> k (Proxy @NsTypeConstr)
       C.DeclFunction{}     -> k (Proxy @NsVar)
       C.DeclGlobal{}       -> k (Proxy @NsVar)
-      C.DeclConst{}        -> k (Proxy @NsVar)
 
       C.DeclMacro macro ->
         case macro of

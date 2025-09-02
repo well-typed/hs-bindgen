@@ -124,7 +124,6 @@ data DeclKind =
   | DeclFunction Function
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal Type
-  | DeclConst Type
   deriving stock (Show, Eq, Generic)
 
 

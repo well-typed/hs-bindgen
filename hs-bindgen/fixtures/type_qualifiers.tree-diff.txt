@@ -12,7 +12,7 @@ TranslationUnit {
         declHeader =
         "type_qualifiers.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -59,7 +59,7 @@ TranslationUnit {
         declHeader =
         "type_qualifiers.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePointer
             (TypePrim
@@ -84,7 +84,7 @@ TranslationUnit {
         declHeader =
         "type_qualifiers.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePointer
             (TypeConst

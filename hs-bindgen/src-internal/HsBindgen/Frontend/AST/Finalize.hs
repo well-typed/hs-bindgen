@@ -92,7 +92,6 @@ instance Finalize Int.DeclKind where
   finalize (Int.DeclMacro macro)     = Ext.DeclMacro (finalize macro)
   finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
   finalize (Int.DeclGlobal ty)       = Ext.DeclGlobal (finalize ty)
-  finalize (Int.DeclConst ty)        = Ext.DeclConst (finalize ty)
 
 instance Finalize Int.Reference where
   type Finalized Int.Reference = Ext.Reference

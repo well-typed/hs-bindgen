@@ -136,7 +136,6 @@ data DeclKind p =
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal (Type p)
-  | DeclConst (Type p)
 
 data Struct p = Struct {
       structSizeof    :: Int
@@ -376,7 +375,7 @@ data Type p =
     -- See <https://clang.llvm.org/docs/BlockLanguageSpec.html>
   | TypeBlock (Type p)
 
-    -- Type qualifier @const@.
+    -- | Type qualifier @const@.
   | TypeConst (Type p)
 
 {-------------------------------------------------------------------------------

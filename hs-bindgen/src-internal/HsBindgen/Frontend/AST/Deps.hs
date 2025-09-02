@@ -60,8 +60,6 @@ depsOfDecl (DeclFunction (Function {..})) =
     aux isPtr nsid = (UsedInFunction isPtr, nsid)
 depsOfDecl (DeclGlobal ty) =
     map (first UsedInVar) $ depsOfType ty
-depsOfDecl (DeclConst ty) =
-    map (first UsedInVar) $ depsOfType ty
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a.

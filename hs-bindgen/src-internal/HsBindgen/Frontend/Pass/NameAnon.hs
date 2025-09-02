@@ -152,7 +152,6 @@ instance NameUseSites C.DeclKind where
       C.DeclMacro macro      -> C.DeclMacro (nameUseSites env macro)
       C.DeclFunction fun     -> C.DeclFunction (nameUseSites env fun)
       C.DeclGlobal ty        -> C.DeclGlobal (nameUseSites env ty)
-      C.DeclConst ty         -> C.DeclConst (nameUseSites env ty)
 
 instance NameUseSites C.Reference where
   nameUseSites _ (C.ById t) = C.ById (nameUseSite t)

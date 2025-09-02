@@ -105,7 +105,6 @@ instance HandleUseSites C.DeclKind where
       C.DeclMacro macro     -> C.DeclMacro (handleUseSites td (coercePass macro))
       C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
-      C.DeclConst ty        -> C.DeclConst (handleUseSites td ty)
 
 instance HandleUseSites C.Reference where
   handleUseSites _ (C.ById i)   = C.ById i

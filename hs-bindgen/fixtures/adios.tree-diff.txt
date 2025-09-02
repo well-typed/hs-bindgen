@@ -111,7 +111,7 @@ TranslationUnit {
         declAliases = [],
         declHeader = "adios.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),

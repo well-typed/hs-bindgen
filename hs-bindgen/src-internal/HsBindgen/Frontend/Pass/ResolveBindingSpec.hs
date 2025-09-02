@@ -231,7 +231,6 @@ instance Resolve C.DeclKind where
       C.DeclMacro macro     -> fmap C.DeclMacro    <$> resolve macro
       C.DeclFunction fun    -> fmap C.DeclFunction <$> resolve fun
       C.DeclGlobal ty       -> fmap C.DeclGlobal   <$> resolve ty
-      C.DeclConst ty        -> fmap C.DeclConst    <$> resolve ty
 
 instance Resolve C.Struct where
   resolve C.Struct{..} =
