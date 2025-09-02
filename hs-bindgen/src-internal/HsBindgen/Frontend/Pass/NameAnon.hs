@@ -264,6 +264,7 @@ instance NameUseSites C.Type where
       go (C.TypeTypedef name)   = C.TypeTypedef name
       go (C.TypeVoid)           = C.TypeVoid
       go (C.TypeExtBinding ext) = absurd ext
+      go (C.TypeComplex prim)   = C.TypeComplex prim
 
 
       -- Rename specific use site

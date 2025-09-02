@@ -102,3 +102,4 @@ depsOfType = \case
     TypeExtBinding{}       -> []
     TypeBlock ty           -> depsOfType ty
     TypeConst ty           -> depsOfType ty
+    TypeComplex{}          -> []
