@@ -63,7 +63,7 @@ data SelectDeclMeta = SelectDeclMeta {
     , selectDeclDeclUse   :: DeclUseGraph
     , selectDeclNonParsed :: NonParsedDecls
     }
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   Configuration

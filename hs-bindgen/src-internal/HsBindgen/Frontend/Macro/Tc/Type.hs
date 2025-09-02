@@ -104,11 +104,11 @@ import Foreign.Ptr qualified as Foreign
 import GHC.Show (showSpace)
 
 -- fin
-import Data.Type.Nat qualified as Nat (SNat (..), SNatI, cmpNat, eqNat,
-                                       reflectToNum, snat)
+import Data.Type.Nat qualified as Nat (SNat (..), SNatI, eqNat, reflectToNum,
+                                       snat)
 
 -- some
-import Data.GADT.Compare (GEq (..), GOrdering (..), defaultEq)
+import Data.GADT.Compare (GEq (..), defaultEq)
 
 -- text
 import Data.Text qualified as Text
@@ -181,20 +181,6 @@ instance Eq ( Quant ( Vec n ( Type ki ) ) ) where
       Nothing -> False
       Just Refl ->
         mkQuantTyBody qty1 == mkQuantTyBody qty2
-
-instance Ord ( Quant ( Type ki ) ) where
-  ( Quant @n1 _ ) `compare` ( Quant @n2 _ ) =
-    case Nat.cmpNat @n1 @n2 of
-      GLT -> LT
-      GEQ -> EQ
-      GGT -> GT
-
-instance Ord ( Quant ( Vec n ( Type ki ) ) ) where
-  ( Quant @n1 _ ) `compare` ( Quant @n2 _ ) =
-    case Nat.cmpNat @n1 @n2 of
-      GLT -> LT
-      GEQ -> EQ
-      GGT -> GT
 
 -- | The body of a quantified type (what's under the forall).
 type QuantTyBody :: Hs.Type -> Hs.Type
