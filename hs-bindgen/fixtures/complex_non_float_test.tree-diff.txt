@@ -1,0 +1,128 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "complex_non_float_test.h:3:32",
+        declId = NamePair {
+          nameC = Name
+            "global_complex_unsigned_short",
+          nameHsIdent = HsIdentifier
+            "global_complex_unsigned_short"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "complex_non_float_test.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeComplex
+          (PrimIntegral
+            PrimShort
+            Unsigned)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "complex_non_float_test.h:4:32",
+        declId = NamePair {
+          nameC = Name
+            "global_complex_short",
+          nameHsIdent = HsIdentifier
+            "global_complex_short"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "complex_non_float_test.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeComplex
+          (PrimIntegral
+            PrimShort
+            Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "complex_non_float_test.h:5:32",
+        declId = NamePair {
+          nameC = Name
+            "global_complex_unsigned_int",
+          nameHsIdent = HsIdentifier
+            "global_complex_unsigned_int"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "complex_non_float_test.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeComplex
+          (PrimIntegral
+            PrimInt
+            Unsigned)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "complex_non_float_test.h:6:32",
+        declId = NamePair {
+          nameC = Name
+            "global_complex_int",
+          nameHsIdent = HsIdentifier
+            "global_complex_int"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "complex_non_float_test.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeComplex
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "complex_non_float_test.h:7:32",
+        declId = NamePair {
+          nameC = Name
+            "global_complex_char",
+          nameHsIdent = HsIdentifier
+            "global_complex_char"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader =
+        "complex_non_float_test.h",
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeComplex
+          (PrimChar
+            (PrimSignImplicit
+              (Just Signed)))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "complex",
+    "complex_non_float_test"]}
