@@ -408,8 +408,6 @@ test-suite test-th
       -- Internal dependencies
     , clang
     , hs-bindgen
-      -- TODO: Test of public TH API should not depend on internal library.
-    , hs-bindgen:internal
     , hs-bindgen-runtime
     , test-common
   build-depends:
@@ -447,8 +445,6 @@ test-suite test-pp
     , c-expr
     , clang
     , hs-bindgen
-      -- TODO: Test of public PP API should not depend on internal library.
-    , hs-bindgen:internal
     , hs-bindgen-runtime
     , test-common
   build-depends:
