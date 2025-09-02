@@ -13,13 +13,14 @@ module HsBindgen.Cli.Dev.Resolve (
   , exec
   ) where
 
+import Control.Exception (throwIO)
+import Control.Monad (forM)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import System.Exit (ExitCode(ExitFailure))
+import System.Exit (ExitCode (ExitFailure))
 
 import Options.Applicative hiding (info)
 
-import HsBindgen.Imports
 import HsBindgen.Lib
 
 import HsBindgen.App

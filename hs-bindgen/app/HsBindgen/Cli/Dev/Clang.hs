@@ -13,15 +13,19 @@ module HsBindgen.Cli.Dev.Clang (
   , exec
   ) where
 
-import Options.Applicative hiding (info)
+import Control.Monad (void)
 import Prettyprinter.Util qualified as PP
 
-import HsBindgen.Clang
-import HsBindgen.Imports
+import Options.Applicative hiding (info)
+
 import HsBindgen.Lib
-import HsBindgen.Util.Tracer (natTracer)
 
 import HsBindgen.App
+
+-- NOTE: Internal API.
+import HsBindgen.Clang (ClangInput (..), ClangSetup, defaultClangSetup,
+                        withClang)
+import HsBindgen.Util.Tracer (natTracer)
 
 {-------------------------------------------------------------------------------
   CLI help

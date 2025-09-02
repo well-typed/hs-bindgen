@@ -1,14 +1,17 @@
--- | Main entry point for using @hs-bindgen@ as a library.
+-- | Main entry point for @hs-bindgen@ the library.
 --
 -- Intended for unqualified import.
+--
+-- This module is intended to be the public API for @hs-bindgen@ when used as a
+-- library.
 
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 module HsBindgen.Lib (
     -- * Run @hs-bindgen@
     HsBindgen.hsBindgen
-  , resolveHeaders
   , HsBindgen.Artefact(..)
   , HsBindgen.Artefacts
+  , resolveHeaders
 
     -- ** Predefined artefacts
   , HsBindgen.writeBindings
@@ -94,11 +97,10 @@ module HsBindgen.Lib (
   , Common.TcMacroError(..)
     -- ** Tracer definition and main API
   , Common.Tracer -- opaque
-  , Common.Contravariant(..)
   , Common.traceWith
   , Common.simpleTracer
     -- ** Data types and typeclasses useful for tracing
-  , Common.PrettyForTrace(..)
+  -- , Common.PrettyForTrace(..)
   , Common.Level(..)
   , Common.SafeLevel(..)
   , Common.Source(..)
@@ -121,6 +123,7 @@ module HsBindgen.Lib (
   , Common.withTracer
 
     -- * Re-exports
+  , Common.Contravariant(..)
   , Common.Default (..)
   , HsBindgen.I (..)
   , HsBindgen.NP (..)
@@ -131,13 +134,12 @@ import Data.Set (Set)
 
 import HsBindgen.Common qualified as Common
 
+import Clang.Paths qualified as Paths
 import HsBindgen qualified
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config qualified as Config
-import HsBindgen.Util.Tracer qualified as Tracer
-
-import Clang.Paths qualified as Paths
 import HsBindgen.Resolve qualified as Resolve
+import HsBindgen.Util.Tracer qualified as Tracer
 
 -- | Resolve headers, used for debugging
 resolveHeaders ::

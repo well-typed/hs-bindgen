@@ -6,7 +6,6 @@
 module HsBindgen.Util.Tracer (
     -- * Tracer definition and main API
     Tracer -- opaque
-  , Contravariant(..)
   , traceWith
   , simpleTracer
   , nullTracer
@@ -36,6 +35,8 @@ module HsBindgen.Util.Tracer (
   , TraceException (..)
     -- * Safe tracers
   , withTracerSafe
+    -- * Re-exports
+  , Contravariant(..)
   ) where
 
 import Control.Exception (Exception (..))

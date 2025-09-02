@@ -1,3 +1,7 @@
+-- | Common API used by @hs-bindgen@ the library, and Template Haskell mode.
+--
+-- This module is intended to be distributed as "other-module" with the public
+-- API for @hs-bindgen@ when used as a library.
 module HsBindgen.Common (
     -- * Configuration
 
@@ -67,9 +71,9 @@ module HsBindgen.Common (
   , TraceMsg.TcMacroError(..)
     -- ** Tracer definition and main API
   , Tracer.Tracer -- opaque
-  , Tracer.Contravariant(..)
   , Tracer.traceWith
   , Tracer.simpleTracer
+  , Tracer.natTracer
     -- ** Data types and typeclasses useful for tracing
   , Tracer.PrettyForTrace(..)
   , Tracer.Level(..)
@@ -95,6 +99,7 @@ module HsBindgen.Common (
 
     -- * Re-exports
   , Default(..)
+  , Tracer.Contravariant(..)
   ) where
 
 import System.FilePath qualified as FilePath

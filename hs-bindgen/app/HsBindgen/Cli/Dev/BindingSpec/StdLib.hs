@@ -13,12 +13,12 @@ module HsBindgen.Cli.Dev.BindingSpec.StdLib (
   , exec
   ) where
 
+import Control.Exception (throwIO)
 import Control.Monad ((<=<))
 import Data.ByteString qualified as BS
 
 import Options.Applicative hiding (info)
 
-import HsBindgen.Imports
 import HsBindgen.Lib
 
 import HsBindgen.App
