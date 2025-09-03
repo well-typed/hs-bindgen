@@ -81,8 +81,8 @@ data BuiltinIncDirMsg =
   | BuiltinIncDirClangPathFound FilePath
   | BuiltinIncDirClangVersionUnexpected IsUserRequested String
   | BuiltinIncDirClangVersionIOError IsUserRequested IOError
-  | BuiltinIncDirClangPrintFileNameUnexpected IsUserRequested String
-  | BuiltinIncDirClangPrintFileNameIOError IsUserRequested IOError
+  | BuiltinIncDirClangPrintResourceDirUnexpected IsUserRequested String
+  | BuiltinIncDirClangPrintResourceDirIOError IsUserRequested IOError
   deriving stock (Eq, Show)
 
 instance PrettyForTrace BuiltinIncDirMsg where
@@ -144,48 +144,48 @@ instance PrettyForTrace BuiltinIncDirMsg where
       "clang --version output is unexpected:" <+> string (show s)
     BuiltinIncDirClangVersionIOError _iur e ->
       "IO error calling clang --version:" <+> string (displayException e)
-    BuiltinIncDirClangPrintFileNameUnexpected _iur s ->
-      "clang -print-file-name=include output is unexpected:" <+> string (show s)
-    BuiltinIncDirClangPrintFileNameIOError _iur e ->
-      "IO error calling clang -print-file-name=include:"
+    BuiltinIncDirClangPrintResourceDirUnexpected _iur s ->
+      "clang -print-resource-dir output is unexpected:" <+> string (show s)
+    BuiltinIncDirClangPrintResourceDirIOError _iur e ->
+      "IO error calling clang -print-resource-dir:"
         <+> string (displayException e)
 
 instance IsTrace Level BuiltinIncDirMsg where
   getDefaultLogLevel = \case
-    BuiltinIncDirResourceDirEmpty{}                 -> Warning
-    BuiltinIncDirResourceDirAbort{}                 -> Warning
-    BuiltinIncDirResourceDirResolved{}              -> Debug
-    BuiltinIncDirAbsResourceDirIncDirNotFound{}     -> Warning
-    BuiltinIncDirAbsResourceDirIncDirFound{}        -> Debug
-    BuiltinIncDirLlvmPathNotFound{}                 -> Warning
-    BuiltinIncDirLlvmPathIncDirNotFound{}           -> Warning
-    BuiltinIncDirLlvmPathIncDirFound{}              -> Debug
-    BuiltinIncDirLlvmConfigIncDirNotFound{}         -> Warning
-    BuiltinIncDirLlvmConfigIncDirFound{}            -> Debug
-    BuiltinIncDirLlvmConfigEnvNotFound{}            -> Warning
-    BuiltinIncDirLlvmConfigEnvFound{}               -> Debug
-    BuiltinIncDirLlvmConfigPathFound{}              -> Debug
-    BuiltinIncDirLlvmConfigPrefixUnexpected{}       -> Warning
-    BuiltinIncDirLlvmConfigPrefixIOError{}          -> Warning
-    BuiltinIncDirClangNotFound iur                  ->
+    BuiltinIncDirResourceDirEmpty{}                    -> Warning
+    BuiltinIncDirResourceDirAbort{}                    -> Warning
+    BuiltinIncDirResourceDirResolved{}                 -> Debug
+    BuiltinIncDirAbsResourceDirIncDirNotFound{}        -> Warning
+    BuiltinIncDirAbsResourceDirIncDirFound{}           -> Debug
+    BuiltinIncDirLlvmPathNotFound{}                    -> Warning
+    BuiltinIncDirLlvmPathIncDirNotFound{}              -> Warning
+    BuiltinIncDirLlvmPathIncDirFound{}                 -> Debug
+    BuiltinIncDirLlvmConfigIncDirNotFound{}            -> Warning
+    BuiltinIncDirLlvmConfigIncDirFound{}               -> Debug
+    BuiltinIncDirLlvmConfigEnvNotFound{}               -> Warning
+    BuiltinIncDirLlvmConfigEnvFound{}                  -> Debug
+    BuiltinIncDirLlvmConfigPathFound{}                 -> Debug
+    BuiltinIncDirLlvmConfigPrefixUnexpected{}          -> Warning
+    BuiltinIncDirLlvmConfigPrefixIOError{}             -> Warning
+    BuiltinIncDirClangNotFound iur                     ->
       if iur == UserRequested then Error else Debug
-    BuiltinIncDirClangVersionMismatch iur _ _ ->
+    BuiltinIncDirClangVersionMismatch iur _ _          ->
       if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangIncDirNotFound iur _          ->
+    BuiltinIncDirClangIncDirNotFound iur _             ->
       if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangIncDirFound{}                 -> Debug
-    BuiltinIncDirLlvmPathClangExeNotFound{}         -> Debug
-    BuiltinIncDirLlvmPathClangExeFound{}            -> Debug
-    BuiltinIncDirLlvmConfigClangExeNotFound{}       -> Debug
-    BuiltinIncDirLlvmConfigClangExeFound{}          -> Debug
-    BuiltinIncDirClangPathFound{}                   -> Debug
-    BuiltinIncDirClangVersionUnexpected iur _       ->
+    BuiltinIncDirClangIncDirFound{}                    -> Debug
+    BuiltinIncDirLlvmPathClangExeNotFound{}            -> Debug
+    BuiltinIncDirLlvmPathClangExeFound{}               -> Debug
+    BuiltinIncDirLlvmConfigClangExeNotFound{}          -> Debug
+    BuiltinIncDirLlvmConfigClangExeFound{}             -> Debug
+    BuiltinIncDirClangPathFound{}                      -> Debug
+    BuiltinIncDirClangVersionUnexpected iur _          ->
       if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangVersionIOError iur _          ->
+    BuiltinIncDirClangVersionIOError iur _             ->
       if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangPrintFileNameUnexpected iur _ ->
+    BuiltinIncDirClangPrintResourceDirUnexpected iur _ ->
       if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangPrintFileNameIOError iur _    ->
+    BuiltinIncDirClangPrintResourceDirIOError iur _    ->
       if iur == UserRequested then Error else Warning
 
   getSource = const HsBindgen
@@ -251,13 +251,15 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- * https://github.com/llvm/llvm-project/issues/18150
 -- * https://github.com/llvm/llvm-project/issues/51256
 --
--- The builtin include directory is in the LLVM resource directory:
--- @{{RESOURCE_DIR}}/include@.  @libclang@ can print the resource directory, but
--- it currently prints a directory relative to the LLVM prefix due to the same
--- issue.  Note that the builtin include directory /cannot/ be determined from
--- just the LLVM prefix, because the resource directory path includes an
--- LLVM/Clang version number that may be either a full version number or just
--- the major version number, depending on how LLVM/Clang was installed.
+-- The builtin include directory is in the Clang resource directory,
+-- @{{RESOURCE_DIR}}@ below, which contains the executables, headers, and
+-- libraries used by the Clang compiler.  @libclang@ can print the resource
+-- directory, but it currently prints a directory relative to the LLVM prefix
+-- due to the same issue.  Note that the builtin include directory /cannot/ be
+-- determined from just the LLVM prefix, because the resource directory path
+-- includes an LLVM/Clang version number that may be either a full version
+-- number or just the major version number, depending on how LLVM/Clang was
+-- installed.
 --
 -- With 'BuiltinIncDirAuto', we redirect @STDOUT@ and attempt to get the
 -- resource directory from the @libclang@ library that is dynamically loaded at
@@ -278,19 +280,19 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- 1. @${LLVM_PATH}/{{RESOURCE_DIR}}/include@
 -- 2. @$(${LLVM_CONFIG} --prefix)/{{RESOURCE_DIR}}/include@
 -- 3. @$(llvm-config --prefix)/{{RESOURCE_DIR}}/include@
--- 4. @$(${LLVM_PATH}/bin/clang -print-file-name=include)@
--- 5. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-file-name=include)@
--- 6. @$($(llvm-config --prefix)/bin/clang -print-file-name=include)@
--- 7. @$(clang -print-file-name=include)@
+-- 4. @$(${LLVM_PATH}/bin/clang -print-resource-dir)/include@
+-- 5. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir)/include@
+-- 6. @$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include@
+-- 7. @$(clang -print-resource-dir)/include@
 --
 -- If @libclang@ does not report a resource directory or 'BuiltinIncDirClang'
 -- is used, this function tries to determine the builtin include directory using
 -- the first successful result of the following strategies:
 --
--- 1. @$(${LLVM_PATH}/bin/clang -print-file-name=include)@
--- 2. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-file-name=include)@
--- 3. @$($(llvm-config --prefix)/bin/clang -print-file-name=include)@
--- 4. @$(clang -print-file-name=include)@
+-- 1. @$(${LLVM_PATH}/bin/clang -print-resource-dir)/include@
+-- 2. @$($(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir)/include@
+-- 3. @$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include@
+-- 4. @$(clang -print-resource-dir)/include@
 --
 -- The builtin include directory should only be determined a single time.
 -- Calling 'getBuiltinIncDir' caches the result, and any subsequent calls simply
@@ -638,13 +640,13 @@ getBuiltinIncDirWithClang tracer isUserRequested = do
       lift . traceWith tracer $
         BuiltinIncDirClangVersionMismatch isUserRequested libclangVer clangVer
       MaybeT $ return Nothing
-    includeDir <- getClangBuiltinIncDir tracer isUserRequested exe
+    resourceDir <- getClangResourceDir tracer isUserRequested exe
     ifM
      tracer
      (BuiltinIncDirClangIncDirNotFound isUserRequested)
      BuiltinIncDirClangIncDirFound
      Dir.doesDirectoryExist
-     includeDir
+     (FilePath.joinPath [resourceDir, "include"])
 
 -- | Find the @clang@ executable
 --
@@ -708,21 +710,21 @@ getClangVersion tracer isUserRequested exe =
       (fmap Text.pack . parseFirstLine)
       (readProcess exe ["--version"] "")
 
--- | Get the builtin include directory from @clang@
+-- | Get the resource directory from @clang@
 --
--- This function calls @clang -print-file-name=include@ and captures the output.
-getClangBuiltinIncDir ::
+-- This function calls @clang -print-resource-dir@ and captures the output.
+getClangResourceDir ::
      Tracer IO BuiltinIncDirMsg
   -> IsUserRequested
   -> FilePath  -- ^ @clang@ path
-  -> MaybeT IO BuiltinIncDir
-getClangBuiltinIncDir tracer isUserRequested exe =
+  -> MaybeT IO FilePath
+getClangResourceDir tracer isUserRequested exe =
     checkOutput
       tracer
-      (BuiltinIncDirClangPrintFileNameUnexpected isUserRequested)
-      (BuiltinIncDirClangPrintFileNameIOError isUserRequested)
+      (BuiltinIncDirClangPrintResourceDirUnexpected isUserRequested)
+      (BuiltinIncDirClangPrintResourceDirIOError isUserRequested)
       (fmap normWinPath . parseSingleLine)
-      (readProcess exe ["-print-file-name=include"] "")
+      (readProcess exe ["-print-resource-dir"] "")
 
 --------------------------------------------------------------------------------
 
