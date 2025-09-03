@@ -10,6 +10,8 @@ module HsBindgen.App (
     -- * Argument/option parsers
     -- ** Bindgen configuration
   , parseBindgenConfig
+    -- ** Builtin include directory
+  , parseBuiltinIncDirConfig
     -- ** Clang Arguments
   , parseClangArgs
     -- ** Output options
@@ -143,12 +145,13 @@ parseBindgenConfig = BindgenConfig
 
 parseBootConfig :: Parser BootConfig
 parseBootConfig = BootConfig
-    <$> parseBindingSpecConfig
+    <$> parseBuiltinIncDirConfig
+    <*> parseClangArgs
+    <*> parseBindingSpecConfig
 
 parseFrontendConfig :: Parser FrontendConfig
 parseFrontendConfig = FrontendConfig
-    <$> parseClangArgs
-    <*> parseParsePredicate
+    <$> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
 
@@ -188,6 +191,34 @@ parsePrescriptiveBindingSpec = strOption $ mconcat [
     , metavar "FILE"
     , help "Prescriptive binding specification (YAML file)"
     ]
+
+{-------------------------------------------------------------------------------
+  Builtin include directory
+-------------------------------------------------------------------------------}
+
+parseBuiltinIncDirConfig :: Parser BuiltinIncDirConfig
+parseBuiltinIncDirConfig = option (eitherReader auxParse) $ mconcat [
+      long "builtin-include-dir"
+    , metavar "MODE"
+    , showDefaultWith auxRender
+    , value def
+    , help
+        "Configure builtin include directory (supported: auto, clang, disable)"
+    ]
+  where
+    auxParse :: String -> Either String BuiltinIncDirConfig
+    auxParse = \case
+      "auto"    -> Right BuiltinIncDirAuto
+      "clang"   -> Right BuiltinIncDirClang
+      "disable" -> Right BuiltinIncDirDisable
+      other     -> Left $ "invalid builtin include directory mode: " ++ other
+
+    auxRender :: BuiltinIncDirConfig -> String
+    auxRender = \case
+      BuiltinIncDirAuto               -> "auto"
+      BuiltinIncDirClang              -> "clang"
+      BuiltinIncDirDisable            -> "disable"
+      BuiltinIncDirAutoWithOverflow{} -> "auto"  -- never default value
 
 {-------------------------------------------------------------------------------
   Clang arguments

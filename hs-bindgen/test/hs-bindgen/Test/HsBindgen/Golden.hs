@@ -429,8 +429,8 @@ testCases = [
                Nothing
         }
     , (defaultTest "asm") {
-          testOnFrontendConfig = \cfg -> cfg {
-              frontendClangArgs = (frontendClangArgs cfg) {
+          testOnBootConfig = \cfg -> cfg {
+              bootClangArgs = (bootClangArgs cfg) {
                   clangEnableGnu = True
                 }
             }
@@ -500,8 +500,8 @@ testCases = [
         }
     , (defaultTest "iterator") {
           testClangVersion     = Just (>= (15, 0, 0))
-        , testOnFrontendConfig = \cfg -> cfg{
-              frontendClangArgs = (frontendClangArgs cfg) {
+        , testOnBootConfig = \cfg -> cfg{
+              bootClangArgs = (bootClangArgs cfg) {
                   clangEnableBlocks = True
                 }
             }

@@ -43,48 +43,57 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
 
-      - name: Set up Haskell
+      - name: Setup Haskell
         id: setup-haskell
         uses: haskell-actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: '3.12.1.0'
 
-      - name: ghc-pkg dump
-        run: ghc-pkg list
+      - name: Debug (Haskell)
+        shell: bash
+        run: |
+          echo '### ghc --version'
+          ghc --version
+          echo '### ghc-pkg list'
+          ghc-pkg list
+          echo '### ghc --info'
+          ghc --info
 
-      - name: Install LLVM and Clang
+      - name: Install LLVM/Clang
         uses: KyleMayes/install-llvm-action@v2.0.7
         with:
           version: ${{ matrix.llvm }}
           directory: ${{ runner.temp }}/llvm
           env: false
 
-      - name: Debug
-        shell: bash
-        run: echo "$LLVM_PATH"
-
-      - name: Debug2
-        shell: bash
-        run: ls "$LLVM_PATH"
-
-      - name: Debug3
-        shell: bash
-        run: ls "$LLVM_PATH/bin"
-
-      - name: LLVM_CONFIG
+      - name: Configure LLVM_CONFIG (macOS)
         shell: bash
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
 
       # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
-      - name: macOS SDKROOT
+      - name: Configure SDKROOT (macOS)
         shell: bash
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
           export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
           echo $SDKROOT
           echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
+
+      - name: Debug (LLVM/Clang)
+        shell: bash
+        run: |
+          echo '### which clang'
+          which clang
+          echo '### clang --version'
+          clang --version
+          echo '### $LLVM_PATH'
+          echo "$LLVM_PATH"
+          echo '### ls $LLVM_PATH'
+          ls "$LLVM_PATH"
+          echo '### ls $LLVM_PATH/bin'
+          ls "$LLVM_PATH/bin"
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -107,6 +116,18 @@ jobs:
 
       - name: Build
         run: cabal build all --enable-tests
+
+      - name: Debug (hs-bindgen)
+        shell: bash
+        run: |
+          echo '### Version'
+          cabal run hs-bindgen-cli -- --version
+          echo '### libclang -v'
+          cabal run hs-bindgen-cli -- dev clang --clang-option=-v
+          echo '### Resolve (auto)'
+          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=auto stdint.h
+          echo '### Resolve (clang)'
+          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=clang stdint.h
 
       - name: Test
         run: cabal test all --enable-tests --test-show-details=direct

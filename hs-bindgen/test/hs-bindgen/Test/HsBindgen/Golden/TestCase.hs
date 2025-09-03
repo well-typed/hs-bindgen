@@ -28,10 +28,10 @@ import Control.Exception (Exception (..), SomeException (..), handle)
 import System.FilePath ((</>))
 import Test.Tasty (TestName)
 
-import Clang.Args
 import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
 import HsBindgen.BindingSpec
+import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Config
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
@@ -67,6 +67,9 @@ data TestCase = TestCase {
       --
       -- If the predicate does not match, the test is skipped entirely.
     , testClangVersion :: Maybe ((Int, Int, Int) -> Bool)
+
+      -- | Modify the default test configuration
+    , testOnBootConfig :: BootConfig -> BootConfig
 
       -- | Modify the default test configuration
     , testOnFrontendConfig :: FrontendConfig -> FrontendConfig
@@ -119,6 +122,7 @@ defaultTest filename = TestCase{
     , testTracePredicate      = defaultTracePredicate
     , testHasOutput           = True
     , testClangVersion        = Nothing
+    , testOnBootConfig        = id
     , testOnFrontendConfig    = id
     , testStdlibSpec          = EnableStdlibBindingSpec
     , testExtBindingSpecs     = []
@@ -191,22 +195,20 @@ failingTestCustom filename expected trace =
 
 getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
 getTestBootConfig testResources TestCase{..} = do
-  root <- getTestPackageRoot testResources
-  pure $ BootConfig $ BindingSpecConfig {
-        bindingSpecStdlibSpec              = testStdlibSpec
-      , bindingSpecExtBindingSpecs         = map (root </>) testExtBindingSpecs
-      , bindingSpecPrescriptiveBindingSpec = Nothing
+    root <- getTestPackageRoot testResources
+    clangArgs <- getTestDefaultClangArgs testResources [testDir]
+    return $ testOnBootConfig BootConfig {
+        bootBuiltinIncDirConfig = BuiltinIncDirDisable
+      , bootClangArgs = clangArgs
+      , bootBindingSpecConfig = BindingSpecConfig {
+            bindingSpecStdlibSpec = testStdlibSpec
+          , bindingSpecExtBindingSpecs = map (root </>) testExtBindingSpecs
+          , bindingSpecPrescriptiveBindingSpec = Nothing
+          }
       }
 
-getTestFrontendConfig :: IO TestResources -> TestCase -> IO FrontendConfig
-getTestFrontendConfig testResources TestCase{..} =
-    testOnFrontendConfig <$>
-      aux <$> getTestDefaultClangArgs testResources [testDir]
-  where
-    aux :: ClangArgs -> FrontendConfig
-    aux clangArgs = def{
-        frontendClangArgs = clangArgs
-      }
+getTestFrontendConfig :: TestCase -> FrontendConfig
+getTestFrontendConfig TestCase{..} = testOnFrontendConfig def
 
 getTestBackendConfig :: TestCase -> BackendConfig
 getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName
@@ -236,9 +238,9 @@ runTestHsBindgen testResources test artefacts =
 runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
 runTestHsBindgen' testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
-    frontendConfig    <- getTestFrontendConfig testResources test
-    let backendConfig = getTestBackendConfig test
-        bindgenConfig = BindgenConfig bootConfig frontendConfig backendConfig
+    let frontendConfig = getTestFrontendConfig test
+        backendConfig  = getTestBackendConfig test
+        bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig test $ \traceConfig ->
       hsBindgen
         traceConfig
@@ -248,8 +250,8 @@ runTestHsBindgen' testResources test artefacts = do
 
 runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
 runTestRustBindgen testResources test = do
-    frontendConfig <- getTestFrontendConfig testResources test
+    bootConfig <- getTestBootConfig testResources test
     callRustBindgen
       testResources
-      (frontendClangArgs frontendConfig)
+      (bootClangArgs bootConfig)
       (testInputPath test)

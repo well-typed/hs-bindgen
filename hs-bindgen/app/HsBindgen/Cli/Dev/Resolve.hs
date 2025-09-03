@@ -13,14 +13,14 @@ module HsBindgen.Cli.Dev.Resolve (
   , exec
   ) where
 
-import Control.Exception (throwIO)
-import Control.Monad (forM)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import System.Exit (ExitCode (ExitFailure))
 
 import Options.Applicative hiding (info)
 
+import HsBindgen.Clang.BuiltinIncDir
+import HsBindgen.Imports
 import HsBindgen.Lib
 
 import HsBindgen.App
@@ -37,14 +37,16 @@ info = progDesc "Resolve C headers to source paths"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      clangArgs :: ClangArgs
-    , inputs    :: [UncheckedHashIncludeArg]
+      builtinIncDirConfig :: BuiltinIncDirConfig
+    , clangArgs           :: ClangArgs
+    , inputs              :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
 parseOpts =
     Opts
-      <$> parseClangArgs
+      <$> parseBuiltinIncDirConfig
+      <*> parseClangArgs
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -55,10 +57,14 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     eErr <- withTracer tracerConfig' $ \tracer -> do
       hashIncludeArgs <- checkInputs tracer inputs
+      clangArgs' <- applyBuiltinIncDir clangArgs <$>
+        getBuiltinIncDir
+          (contramap TraceBuiltinIncDir tracer)
+          builtinIncDirConfig
       includes <-
         resolveHeaders
           (contramap TraceResolveHeader tracer)
-          clangArgs
+          clangArgs'
           (Set.fromList hashIncludeArgs)
       fmap or . forM hashIncludeArgs $ \header' ->
         case Map.lookup header' includes of

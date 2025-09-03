@@ -7,6 +7,8 @@ module HsBindgen.Common (
 
     -- ** Boot
     Config.BootConfig(..)
+    -- *** Builtin include directory
+  , BuiltinIncDir.BuiltinIncDirConfig(..)
     -- *** Binding specifications
   , BindingSpec.BindingSpecConfig(..)
   , BindingSpec.EnableStdlibBindingSpec(..)
@@ -113,6 +115,7 @@ import HsBindgen.Backend.Hs.Translation qualified as Hs
 import HsBindgen.Backend.UniqueId qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config qualified as Config
+import HsBindgen.Clang.BuiltinIncDir qualified as BuiltinIncDir
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
