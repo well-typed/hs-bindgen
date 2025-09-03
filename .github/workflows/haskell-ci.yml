@@ -8,14 +8,10 @@
 #
 # For more information, see https://github.com/haskell-CI/haskell-ci
 #
-# version: 0.19.20250605
+# version: 0.19.20250821
 #
-# REGENDATA ("0.19.20250605",["github","cabal.project.ci"])
+# REGENDATA ("0.19.20250821",["github","cabal.project.ci"])
 #
-# TODO: the merge_group trigger is be manually added, so that this workflow is
-# able to run in the merge queue. haskell-ci can not yet generate this trigger
-# as part of the workflow file. We are working on adding this feature to
-# haskell-ci.
 name: Haskell-CI
 on:
   push:
@@ -83,8 +79,8 @@ jobs:
           chmod a+x "$HOME/.ghcup/bin/ghcup"
       - name: Install cabal-install
         run: |
-          "$HOME/.ghcup/bin/ghcup" install cabal 3.14.2.0 || (cat "$HOME"/.ghcup/logs/*.* && false)
-          echo "CABAL=$HOME/.ghcup/bin/cabal-3.14.2.0 -vnormal+nowrap" >> "$GITHUB_ENV"
+          "$HOME/.ghcup/bin/ghcup" install cabal 3.16.0.0 || (cat "$HOME"/.ghcup/logs/*.* && false)
+          echo "CABAL=$HOME/.ghcup/bin/cabal-3.16.0.0 -vnormal+nowrap" >> "$GITHUB_ENV"
       - name: Install GHC (GHCup)
         if: matrix.setup-method == 'ghcup'
         run: |
@@ -176,7 +172,7 @@ jobs:
         run: |
           touch cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/ansi-diff" >> cabal.project
-          echo "packages: $GITHUB_WORKSPACE/source/c-expr" >> cabal.project
+          echo "packages: $GITHUB_WORKSPACE/source/c-expr-runtime" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/clang" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-runtime" >> cabal.project
@@ -195,8 +191,8 @@ jobs:
         run: |
           PKGDIR_ansi_diff="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/ansi-diff-[0-9.]*')"
           echo "PKGDIR_ansi_diff=${PKGDIR_ansi_diff}" >> "$GITHUB_ENV"
-          PKGDIR_c_expr="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/c-expr-[0-9.]*')"
-          echo "PKGDIR_c_expr=${PKGDIR_c_expr}" >> "$GITHUB_ENV"
+          PKGDIR_c_expr_runtime="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/c-expr-runtime-[0-9.]*')"
+          echo "PKGDIR_c_expr_runtime=${PKGDIR_c_expr_runtime}" >> "$GITHUB_ENV"
           PKGDIR_clang="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/clang-[0-9.]*')"
           echo "PKGDIR_clang=${PKGDIR_clang}" >> "$GITHUB_ENV"
           PKGDIR_hs_bindgen="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-[0-9.]*')"
@@ -211,26 +207,54 @@ jobs:
           touch cabal.project
           touch cabal.project.local
           echo "packages: ${PKGDIR_ansi_diff}" >> cabal.project
-          echo "packages: ${PKGDIR_c_expr}" >> cabal.project
+          echo "packages: ${PKGDIR_c_expr_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_clang}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen_test_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_userland_capi}" >> cabal.project
           echo "package ansi-diff" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
-          echo "package c-expr" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
+          echo "package c-expr-runtime" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package clang" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package hs-bindgen" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package hs-bindgen-runtime" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package hs-bindgen-test-runtime" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package userland-capi" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods" >> cabal.project
+          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package ansi-diff" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package c-expr-runtime" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package clang" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package hs-bindgen" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package hs-bindgen-runtime" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package hs-bindgen-test-runtime" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package userland-capi" >> cabal.project ; fi
+          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
+          echo "package ansi-diff" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
+          echo "package c-expr-runtime" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
+          echo "package clang" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
+          echo "package hs-bindgen" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
+          echo "package hs-bindgen-runtime" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
+          echo "package hs-bindgen-test-runtime" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
+          echo "package userland-capi" >> cabal.project
+          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
           cat >> cabal.project <<EOF
           package ansi-diff
             ghc-options: -Werror
@@ -246,7 +270,7 @@ jobs:
           package hs-bindgen-runtime
             ghc-options: -Werror
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr|clang|hs-bindgen|hs-bindgen-runtime|hs-bindgen-test-runtime|userland-capi)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr-runtime|clang|hs-bindgen|hs-bindgen-runtime|hs-bindgen-test-runtime|userland-capi)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -280,7 +304,7 @@ jobs:
         run: |
           cd ${PKGDIR_ansi_diff} || false
           ${CABAL} -vnormal check
-          cd ${PKGDIR_c_expr} || false
+          cd ${PKGDIR_c_expr_runtime} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_clang} || false
           ${CABAL} -vnormal check

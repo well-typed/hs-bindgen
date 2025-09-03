@@ -1,5 +1,5 @@
 packages: ansi-diff
-packages: c-expr
+packages: c-expr-runtime
 packages: clang
 packages: hs-bindgen
 packages: hs-bindgen-runtime
