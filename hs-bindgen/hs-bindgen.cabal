@@ -178,7 +178,7 @@ library internal
       TemplateHaskellQuotes
   build-depends:
       -- Internal dependencies
-    , c-expr
+    , c-expr-runtime
     , clang
     , hs-bindgen-runtime
   build-depends:
@@ -366,7 +366,7 @@ test-suite test-hs-bindgen
   build-depends:
       -- Internal dependencies
     , containers
-    , c-expr
+    , c-expr-runtime
     , clang
     , hs-bindgen:internal
     , test-common
@@ -406,15 +406,12 @@ test-suite test-th
 
   build-depends:
       -- Internal dependencies
-    , clang
     , hs-bindgen
     , hs-bindgen-runtime
     , test-common
   build-depends:
       -- Inherited dependencies
     , base
-    , containers
-    , mtl
     , tasty
     , tasty-hunit
   build-depends:
@@ -442,16 +439,12 @@ test-suite test-pp
   build-tool-depends: hs-bindgen:hs-bindgen-cli
   build-depends:
       -- Internal dependencies
-    , c-expr
-    , clang
-    , hs-bindgen
+    , c-expr-runtime
     , hs-bindgen-runtime
     , test-common
   build-depends:
       -- Inherited dependencies
     , base <5
-    , containers
-    , mtl
     , tasty
     , tasty-hunit
   build-depends:

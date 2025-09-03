@@ -1,5 +1,5 @@
 cabal-version:      3.0
-name:               c-expr
+name:               c-expr-runtime
 version:            0.1.0.0
 license:            BSD-3-Clause
 license-file:       LICENSE
@@ -111,7 +111,7 @@ library
 
   build-depends:
       -- Internal dependencies
-      c-expr:c-expr-core
+      c-expr-runtime:c-expr-core
 
 test-suite tests
   import:         common
@@ -124,7 +124,7 @@ test-suite tests
 
   build-depends:
       -- Internal dependencies
-      c-expr:c-expr-core
+      c-expr-runtime:c-expr-core
     , clang
   build-depends:
       -- Inherited dependencies
