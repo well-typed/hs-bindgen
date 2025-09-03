@@ -67,6 +67,12 @@ library internal
   import:         lang
   hs-source-dirs: src-internal
 
+  -- Modules intended to define the public interface.
+  exposed-modules:
+      HsBindgen.Common
+      HsBindgen.Lib
+
+  -- Internal modules.
   exposed-modules:
       Data.DynGraph
       Data.DynGraph.Labelled
@@ -223,10 +229,8 @@ library
   hs-source-dirs: src
 
   exposed-modules:
-      HsBindgen.Lib
       HsBindgen.TH
   other-modules:
-      HsBindgen.Common
   reexported-modules:
     , HsBindgen.Config.FixCandidate
     , HsBindgen.Config.FixCandidate.ReservedNames
@@ -234,12 +238,9 @@ library
 
   build-depends:
       -- Internal dependencies
-    , clang
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
-    , containers
-    , filepath
 
 executable hs-bindgen-cli
   import:         lang
@@ -269,7 +270,6 @@ executable hs-bindgen-cli
   build-depends:
       -- Internal dependencies
     , clang
-    , hs-bindgen
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies

@@ -13,9 +13,10 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
+import Control.Monad (void)
+
 import Options.Applicative hiding (info)
 
-import HsBindgen.Imports
 import HsBindgen.Lib
 
 import HsBindgen.App
