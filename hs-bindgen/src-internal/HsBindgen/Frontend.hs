@@ -100,7 +100,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     (afterParse, isMainHeader, isInMainHeaderDir) <- fmap (fromMaybe emptyParseResult) $
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader) <-
-          processIncludes rootHeader unit
+          processIncludes unit
         reifiedUnit <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader

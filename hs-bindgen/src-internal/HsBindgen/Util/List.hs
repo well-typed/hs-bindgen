@@ -1,5 +1,6 @@
 module HsBindgen.Util.List (
     (!?)
+  , unsnoc
   ) where
 
 import Data.Maybe (listToMaybe)
@@ -15,3 +16,9 @@ xs !? n
     | otherwise = listToMaybe $ drop n xs
 infixl 9 !?
 {-# INLINABLE (!?) #-}
+
+--------------------------------------------------------------------------------
+
+unsnoc :: [a] -> Maybe ([a], a)
+unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
+{-# INLINABLE unsnoc #-}

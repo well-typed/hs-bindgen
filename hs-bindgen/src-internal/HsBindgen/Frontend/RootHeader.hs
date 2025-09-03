@@ -13,8 +13,6 @@ module HsBindgen.Frontend.RootHeader (
   , content
     -- ** Query
   , isInRootHeader
-  , at
-  , lookup
 
     -- * HashIncludeArg
   , HashIncludeArg(..)
@@ -33,9 +31,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.HighLevel.Types
 import Clang.Paths
 
-import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Util.List ((!?))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -77,24 +73,6 @@ content (RootHeader headers) =
 -- | Check if the specified location is in the root header
 isInRootHeader :: MultiLoc -> Bool
 isInRootHeader = (== name) . singleLocPath . multiLocExpansion
-
--- | Get the 'HashIncludeArg' for the include at the specified location in the
--- root header
---
--- Precondition: the 'SingleLoc' must be for the root header.
-at :: RootHeader -> SingleLoc -> HashIncludeArg
-at (RootHeader headers) loc =
-    case headers !? (singleLocLine loc - 1) of
-      Just path -> path
-      Nothing   -> panicPure "Unknown root header location"
-
--- | Get the include at the specified location, /if/ it is from the root header
---
--- This depends on the 'SourcePath' in the 'SingleLoc'.
-lookup :: RootHeader -> SingleLoc -> Maybe HashIncludeArg
-lookup rootHeader loc = do
-    guard $ singleLocPath loc == name
-    return $ rootHeader `at` loc
 
 {-------------------------------------------------------------------------------
   HashIncludeArg

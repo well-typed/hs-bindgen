@@ -3,10 +3,11 @@ module HsBindgen.Frontend.ProcessIncludes (
   , processIncludes
     -- * Auxiliary
   , getIncludeTo
-  , ifFromRootHeader_
   ) where
 
+import Data.List qualified as List
 import Data.Map.Strict qualified as Map
+import Data.Text qualified as Text
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -18,9 +19,10 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.Util.List (unsnoc)
 
 {-------------------------------------------------------------------------------
   Process includes.
@@ -34,7 +36,7 @@ import HsBindgen.Imports
   header might look like
 
   > #include <a.h>
-  > #include "b.h"
+  > #include <b.h>
 
   These paths must be interpreted with respect to the @C_INCLUDE_PATH@, the @-I@
   command line options, etc.; we use 'HashIncludeArg' for this concept.
@@ -49,7 +51,7 @@ import HsBindgen.Imports
   might for example be @/the/full/path/to/b.h@.
 
   In this example, we then /know/ that the set of main headers is @<a.h>@ and
-  @"b.h"@, and we need to check if the 'SourcePath' @/the/full/path/to/b.h@
+  @<b.h>@, and we need to check if the 'SourcePath' @/the/full/path/to/b.h@
   happens to correspond to one of these main headers. Simply comparing the
   @basename@ is insufficient: it's entirely possible that for example both @b.h@
   and @internal/b.h@ exist in the library (or indeed, this particular @b.h@
@@ -64,7 +66,7 @@ import HsBindgen.Imports
   Unfortunately, this means that we need to process all includes /prior/ to
   processing the rest of the AST, because we are not guaranteed to see the
   include of @b.h@ from the root header prior to processing it: this will
-  /usually/ be the case, but not if @<a.h>@ /itself/ also includes @"b.h"@.
+  /usually/ be the case, but not if @<a.h>@ /itself/ also includes @<b.h>@.
 
   == Setting the current main header
 
@@ -102,27 +104,29 @@ type GetMainHeader = SourcePath -> HashIncludeArg
 -- We do this as separate pass over the clang AST; this should be relatively
 -- cheap, as we can reuse the same 'CXTranslationUnit'.
 processIncludes ::
-     RootHeader
-  -> CXTranslationUnit
+     CXTranslationUnit
   -> IO (IncludeGraph, IsMainHeader, IsInMainHeaderDir, GetMainHeader)
-processIncludes rootHeader unit = do
+processIncludes unit = do
     root     <- clang_getTranslationUnitCursor unit
     includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
                   mKind <- fromSimpleEnum <$> clang_getCursorKind curr
                   case mKind of
                     Right CXCursor_InclusionDirective -> do
-                      include <- processInclude rootHeader curr
+                      include <- processInclude unit curr
                       foldContinueWith include
                     _otherwise ->
                       foldContinue
 
     let includeGraph :: IncludeGraph
         includeGraph = IncludeGraph.fromList $
-          map (\Include{..} -> (includeFrom, includeTo)) includes
+          map (\IncDir{..} -> (incDirFrom, incDirInclude, incDirTo)) includes
 
         mainPathPairs :: [(SourcePath, HashIncludeArg)]
-        mainPathPairs =
-          mapMaybe (\Include{..} -> (includeTo,) <$> includeRoot) includes
+        mainPathPairs = [
+            (incDirTo, IncludeGraph.includeArg incDirInclude)
+          | IncDir{..} <- includes
+          , incDirInRoot
+          ]
 
         mainPathMap :: Map SourcePath HashIncludeArg
         mainPathMap = Map.fromList mainPathPairs
@@ -156,30 +160,32 @@ processIncludes rootHeader unit = do
 -- Suppose we have file @a.h@ containing
 --
 -- > #include "b.h"
----
+--
 -- Then
 --
--- * 'includeFrom' will be @/full/path/to/a.h@
--- * 'includeTo'   will be @/full/path/to/b.h@
--- * 'includeRoot' will be @"b.h"@ (the exact path as the user wrote it)
+-- * 'incDirFrom'    will be @/full/path/to/a.h@
+-- * 'incDirInclude' will be @#include "b.h"@ (exact path as in source)
+-- * 'incDirTo'      will be @/full/path/to/b.h@
+-- * 'incDirInRoot'  will be 'True' if the include is in the root header
 --
 -- The full 'SourcePath's are constructed by @libclang@, and depend on factors
 -- such as @-I@ command line arguments, environment variables such as
 -- @C_INCLUDE_PATH@, etc.
---
--- We construct 'includeRoot' only for includes from the root header.
-data Include = Include {
-      includeFrom :: SourcePath
-    , includeTo   :: SourcePath
-    , includeRoot :: Maybe HashIncludeArg
+data IncDir = IncDir {
+      incDirFrom    :: SourcePath
+    , incDirInclude :: IncludeGraph.Include
+    , incDirTo      :: SourcePath
+    , incDirInRoot  :: Bool
     }
 
-processInclude :: RootHeader -> CXCursor -> IO Include
-processInclude rootHeader curr = do
-   includeFrom <- getIncludeFrom curr
-   includeTo   <- getIncludeTo   curr
-   includeRoot <- ifFromRootHeader rootHeader curr return
-   return Include{..}
+processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
+processInclude unit curr = do
+    incDirFrom    <- getIncludeFrom curr
+    incDirInclude <- getInclude unit curr
+    incDirTo      <- getIncludeTo curr
+    incDirInRoot  <-
+      clang_Location_isFromMainFile =<< clang_getCursorLocation curr
+    return IncDir{..}
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
@@ -194,17 +200,53 @@ getIncludeTo curr = do
     file <- clang_getIncludedFile curr
     SourcePath <$> clang_getFileName file
 
-ifFromRootHeader ::
-     MonadIO m
-  => RootHeader -> CXCursor -> (HashIncludeArg -> m r) -> m (Maybe r)
-ifFromRootHeader rootHeader curr k = do
-    isMain <- clang_Location_isFromMainFile =<< clang_getCursorLocation curr
-    if isMain then do
-      loc <- HighLevel.clang_getCursorLocation' curr
-      Just <$> k (rootHeader `RootHeader.at` loc)
-    else return Nothing
+getInclude :: CXTranslationUnit -> CXCursor -> IO IncludeGraph.Include
+getInclude unit curr = do
+    tokens <- HighLevel.clang_tokenize unit . fmap multiLocExpansion
+      =<< HighLevel.clang_getCursorExtent curr
+    let err = "unable to parse #include: " ++ show tokens
+    maybe (panicIO err) return $ parseInclude tokens
 
-ifFromRootHeader_ ::
-     MonadIO m
-  => RootHeader -> CXCursor -> (HashIncludeArg -> m ()) -> m ()
-ifFromRootHeader_ rootHeader curr k = void $ ifFromRootHeader rootHeader curr k
+parseInclude :: [Token TokenSpelling] -> Maybe IncludeGraph.Include
+parseInclude = \case
+    t0 : t1 : ts2 -> do
+      guard $ isPunctuation t0 && t0 `hasSpelling` "#"
+      guard $ isIdentifier t1
+      let isIncludeNext = t1 `hasSpelling` "include_next"
+      unless isIncludeNext $ guard (t1 `hasSpelling` "include")
+      case ts2 of
+        -- quote include arguments are parsed as literals
+        [t] -> do
+          guard $ isLiteral t
+          let s = Text.unpack $ getTokenSpelling (tokenSpelling t)
+          (cL, s1) <- List.uncons s
+          guard $ cL == '"'
+          (s', cR) <- unsnoc s1
+          guard $ cR == '"'
+          let (_, arg) = RootHeader.hashIncludeArg s'
+          return $
+            if isIncludeNext
+              then IncludeGraph.QuoteIncludeNext arg
+              else IncludeGraph.QuoteInclude arg
+        -- bracket include arguments are parsed using punctuation
+        t2 : ts3 -> do
+          guard $ isPunctuation t2 && t2 `hasSpelling` "<"
+          (ts, tR) <- unsnoc ts3
+          guard $ isPunctuation tR && tR `hasSpelling` ">"
+          -- ts may contain many token kinds, not just identifier/punctuation
+          let (_, arg) = RootHeader.hashIncludeArg $
+                concatMap (Text.unpack . getTokenSpelling . tokenSpelling) ts
+          return $
+            if isIncludeNext
+              then IncludeGraph.BracketIncludeNext arg
+              else IncludeGraph.BracketInclude arg
+        [] -> Nothing
+    _otherwise -> Nothing
+  where
+    isIdentifier, isLiteral, isPunctuation :: Token a -> Bool
+    isIdentifier  = (== Right CXToken_Identifier)  . fromSimpleEnum . tokenKind
+    isLiteral     = (== Right CXToken_Literal)     . fromSimpleEnum . tokenKind
+    isPunctuation = (== Right CXToken_Punctuation) . fromSimpleEnum . tokenKind
+
+    hasSpelling :: Token TokenSpelling -> Text -> Bool
+    hasSpelling = (==) . (getTokenSpelling . tokenSpelling)

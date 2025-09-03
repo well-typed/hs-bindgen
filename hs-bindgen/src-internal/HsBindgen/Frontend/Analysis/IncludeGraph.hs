@@ -6,6 +6,8 @@
 -- > import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 module HsBindgen.Frontend.Analysis.IncludeGraph (
     IncludeGraph(..)
+  , Include(..)
+  , includeArg
     -- * Construction
   , empty
   , register
@@ -18,13 +20,14 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , dumpMermaid
   ) where
 
-import Data.DynGraph (DynGraph)
-import Data.DynGraph qualified as DynGraph
+import Data.DynGraph.Labelled (DynGraph)
+import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
 import Data.Set (Set)
 
 import Clang.Paths
 
+import HsBindgen.Frontend.RootHeader (HashIncludeArg (getHashIncludeArg))
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 
 {-------------------------------------------------------------------------------
@@ -35,8 +38,24 @@ import HsBindgen.Frontend.RootHeader qualified as RootHeader
 --
 -- We create a DAG of C header paths with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
-newtype IncludeGraph = IncludeGraph (DynGraph SourcePath)
+newtype IncludeGraph = IncludeGraph (DynGraph Include SourcePath)
   deriving stock (Show, Eq)
+
+-- | Include directive as written in the source
+data Include =
+    BracketInclude     HashIncludeArg  -- ^ @#include <...>@
+  | QuoteInclude       HashIncludeArg  -- ^ @#include "..."@
+  | BracketIncludeNext HashIncludeArg  -- ^ @#include_next <...>@
+  | QuoteIncludeNext   HashIncludeArg  -- ^ @#include_next "..."@
+  deriving stock (Show, Eq, Ord)
+
+-- | Get the 'HashIncludeArg' for an 'Include'
+includeArg :: Include -> HashIncludeArg
+includeArg = \case
+    BracketInclude     arg -> arg
+    QuoteInclude       arg -> arg
+    BracketIncludeNext arg -> arg
+    QuoteIncludeNext   arg -> arg
 
 {-------------------------------------------------------------------------------
   Construction
@@ -47,17 +66,18 @@ empty = IncludeGraph DynGraph.empty
 
 register ::
      SourcePath -- ^ Path of header that includes the following header
+  -> Include
   -> SourcePath -- ^ Path of the included header
   -> IncludeGraph
   -> IncludeGraph
-register header incHeader (IncludeGraph graph) =
-    IncludeGraph $ DynGraph.insertEdge incHeader header graph
+register header include incHeader (IncludeGraph graph) =
+    IncludeGraph $ DynGraph.insertEdge incHeader include header graph
 
-fromList :: [(SourcePath, SourcePath)] -> IncludeGraph
+fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
 fromList edges = List.foldl' add empty edges
   where
-    add :: IncludeGraph -> (SourcePath, SourcePath) -> IncludeGraph
-    add graph (fr, to) = register fr to graph
+    add :: IncludeGraph -> (SourcePath, Include, SourcePath) -> IncludeGraph
+    add graph (fr, inc, to) = register fr inc to graph
 
 {-------------------------------------------------------------------------------
   Query
@@ -83,4 +103,12 @@ getMainPath mainPaths (IncludeGraph graph) =
 -------------------------------------------------------------------------------}
 
 dumpMermaid :: IncludeGraph -> String
-dumpMermaid (IncludeGraph graph) = DynGraph.dumpMermaid getSourcePath graph
+dumpMermaid (IncludeGraph graph) =
+    DynGraph.dumpMermaid (Just . renderInclude) getSourcePath graph
+  where
+    renderInclude :: Include -> String
+    renderInclude = \case
+      BracketInclude     i -> "#include <"       ++ getHashIncludeArg i ++ ">"
+      QuoteInclude       i -> "#include \""      ++ getHashIncludeArg i ++ "\""
+      BracketIncludeNext i -> "#include_next <"  ++ getHashIncludeArg i ++ ">"
+      QuoteIncludeNext   i -> "#include_next \"" ++ getHashIncludeArg i ++ "\""
