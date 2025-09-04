@@ -124,9 +124,9 @@ instance ToExpr C.StringLiteral
 
 -- do not use record syntax, as it's very verbose
 instance ToExpr C.SingleLoc where
-  toExpr (C.SingleLoc p l c) = toExpr $
-    let filename = FilePath.takeFileName $ Paths.getSourcePath p
-    in  filename ++ ":" ++ show l ++ ":" ++ show c
+  toExpr (C.SingleLoc path line column _offset) = toExpr $
+    let filename = FilePath.takeFileName $ Paths.getSourcePath path
+    in  filename ++ ":" ++ show line ++ ":" ++ show column
 
 instance ToExpr Hs.HsModuleName
 instance ToExpr Hs.HsIdentifier

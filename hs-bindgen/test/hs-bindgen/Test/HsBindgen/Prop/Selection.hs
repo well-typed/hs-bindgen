@@ -247,6 +247,7 @@ instance Arbitrary SingleLoc where
     <$> arbitrary
     <*> (getNonNegative <$> arbitrary)
     <*> (getNonNegative <$> arbitrary)
+    <*> (getNonNegative <$> arbitrary)
 
 instance Function SingleLoc
 
