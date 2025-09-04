@@ -111,7 +111,6 @@ library internal
       HsBindgen.Config
       HsBindgen.Config.FixCandidate
       HsBindgen.Config.FixCandidate.ReservedNames
-      HsBindgen.Debug
       HsBindgen.Eff
       HsBindgen.Errors
       HsBindgen.Frontend

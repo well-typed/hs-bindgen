@@ -300,13 +300,11 @@ data Type =
   | TypeBlock Type
   | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
   deriving stock (Show, Eq, Generic)
-  deriving Repr via ReprShow Type
 
 data TypedefRef =
     TypedefRegular NamePair
   | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
-  deriving Repr via ReprShow TypedefRef
 
 isVoid :: Type -> Bool
 isVoid TypeVoid = True

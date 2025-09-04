@@ -40,7 +40,6 @@ import Data.Vec.Lazy as X (Vec (..))
 -- these are nice to be always available while developing,
 -- without needing to add/remove imports.
 import Debug.Trace as X (traceShowId, traceShow, traceM)
-import HsBindgen.Debug as X
 import Data.Array.Byte as X
 
 -- | @Type@ is very clashy name: there's TH.Type, we may want to use Type for
