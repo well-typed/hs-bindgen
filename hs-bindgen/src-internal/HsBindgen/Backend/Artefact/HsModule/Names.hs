@@ -158,7 +158,7 @@ moduleOf ident m0 = case parts of
     ["GHC", "Float"]                 -> iPrelude
     ["GHC", "Num"]                   -> iPrelude
     ["GHC", "Maybe"]                 -> iPrelude
-    ["GHC", "Ix"]                    -> HsImportModule "Data.Ix" (Just "Ix")
+    ["GHC", "Ix"]                    -> HsImportModule "Data.Ix"   (Just "Ix")
     ("GHC" : "Foreign" : "C" : _)    -> HsImportModule "Foreign.C" (Just "FC")
     ("Foreign" : "C" : _)            -> HsImportModule "Foreign.C" (Just "FC")
     ["GHC", "Ptr"]                   -> HsImportModule "Foreign"   (Just "F")
@@ -266,16 +266,16 @@ resolveGlobal = \case
     Not_class             -> importQ ''C.Expr.HostPlatform.Not
     Not_not               -> importQ 'C.Expr.HostPlatform.not
     Logical_class         -> importQ ''C.Expr.HostPlatform.Logical
-    Logical_and           -> importU '(C.Expr.HostPlatform.&&)
-    Logical_or            -> importU '(C.Expr.HostPlatform.||)
+    Logical_and           -> importQ '(C.Expr.HostPlatform.&&)
+    Logical_or            -> importQ '(C.Expr.HostPlatform.||)
     RelEq_class           -> importQ ''C.Expr.HostPlatform.RelEq
-    RelEq_eq              -> importU '(C.Expr.HostPlatform.==)
-    RelEq_uneq            -> importU '(C.Expr.HostPlatform.!=)
+    RelEq_eq              -> importQ '(C.Expr.HostPlatform.==)
+    RelEq_uneq            -> importQ '(C.Expr.HostPlatform.!=)
     RelOrd_class          -> importQ ''C.Expr.HostPlatform.RelOrd
-    RelOrd_lt             -> importU '(C.Expr.HostPlatform.<)
-    RelOrd_le             -> importU '(C.Expr.HostPlatform.<=)
-    RelOrd_gt             -> importU '(C.Expr.HostPlatform.>)
-    RelOrd_ge             -> importU '(C.Expr.HostPlatform.>=)
+    RelOrd_lt             -> importQ '(C.Expr.HostPlatform.<)
+    RelOrd_le             -> importQ '(C.Expr.HostPlatform.<=)
+    RelOrd_gt             -> importQ '(C.Expr.HostPlatform.>)
+    RelOrd_ge             -> importQ '(C.Expr.HostPlatform.>=)
     Plus_class            -> importQ ''C.Expr.HostPlatform.Plus
     Plus_resTyCon         -> importQ ''C.Expr.HostPlatform.PlusRes
     Plus_plus             -> importQ 'C.Expr.HostPlatform.plus
@@ -284,31 +284,31 @@ resolveGlobal = \case
     Minus_negate          -> importQ 'C.Expr.HostPlatform.negate
     Add_class             -> importQ ''C.Expr.HostPlatform.Add
     Add_resTyCon          -> importQ ''C.Expr.HostPlatform.AddRes
-    Add_add               -> importU '(C.Expr.HostPlatform.+)
+    Add_add               -> importQ '(C.Expr.HostPlatform.+)
     Sub_class             -> importQ ''C.Expr.HostPlatform.Sub
     Sub_resTyCon          -> importQ ''C.Expr.HostPlatform.SubRes
-    Sub_minus             -> importU '(C.Expr.HostPlatform.-)
+    Sub_minus             -> importQ '(C.Expr.HostPlatform.-)
     Mult_class            -> importQ ''C.Expr.HostPlatform.Mult
     Mult_resTyCon         -> importQ ''C.Expr.HostPlatform.MultRes
-    Mult_mult             -> importU '(C.Expr.HostPlatform.*)
+    Mult_mult             -> importQ '(C.Expr.HostPlatform.*)
     Div_class             -> importQ ''C.Expr.HostPlatform.Div
     Div_resTyCon          -> importQ ''C.Expr.HostPlatform.DivRes
-    Div_div               -> importU '(C.Expr.HostPlatform./)
+    Div_div               -> importQ '(C.Expr.HostPlatform./)
     Rem_class             -> importQ ''C.Expr.HostPlatform.Rem
     Rem_resTyCon          -> importQ ''C.Expr.HostPlatform.RemRes
-    Rem_rem               -> importU '(C.Expr.HostPlatform.%)
+    Rem_rem               -> importQ '(C.Expr.HostPlatform.%)
     Complement_class      -> importQ ''C.Expr.HostPlatform.Complement
     Complement_resTyCon   -> importQ ''C.Expr.HostPlatform.ComplementRes
     Complement_complement -> importQ '(C.Expr.HostPlatform..~)
     Bitwise_class         -> importQ ''C.Expr.HostPlatform.Bitwise
     Bitwise_resTyCon      -> importQ ''C.Expr.HostPlatform.BitsRes
-    Bitwise_and           -> importU '(C.Expr.HostPlatform..&.)
-    Bitwise_or            -> importU '(C.Expr.HostPlatform..|.)
-    Bitwise_xor           -> importU '(C.Expr.HostPlatform..^.)
+    Bitwise_and           -> importQ '(C.Expr.HostPlatform..&.)
+    Bitwise_or            -> importQ '(C.Expr.HostPlatform..|.)
+    Bitwise_xor           -> importQ '(C.Expr.HostPlatform..^.)
     Shift_class           -> importQ ''C.Expr.HostPlatform.Shift
     Shift_resTyCon        -> importQ ''C.Expr.HostPlatform.ShiftRes
-    Shift_shiftL          -> importU '(C.Expr.HostPlatform.<<)
-    Shift_shiftR          -> importU '(C.Expr.HostPlatform.>>)
+    Shift_shiftL          -> importQ '(C.Expr.HostPlatform.<<)
+    Shift_shiftR          -> importQ '(C.Expr.HostPlatform.>>)
 
     GHC_Float_castWord32ToFloat -> importQ 'GHC.Float.castWord32ToFloat
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble
