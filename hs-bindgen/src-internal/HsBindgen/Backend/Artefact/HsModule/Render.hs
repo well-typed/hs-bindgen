@@ -19,8 +19,7 @@ import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Numeric (showHex)
 
-import Clang.HighLevel.Types
-import Clang.Paths (getSourcePath)
+import Clang.HighLevel qualified as C
 
 import HsBindgen.Frontend.RootHeader (HashIncludeArg(..))
 import HsBindgen.Backend.Artefact.HsModule.Names
@@ -91,16 +90,6 @@ instance Pretty ImportListItem where
 
 
 {-------------------------------------------------------------------------------
-  SingleLoc pretty-printing
--------------------------------------------------------------------------------}
-
--- do not use record syntax, as it's very verbose
-instance Pretty SingleLoc where
-  pretty (SingleLoc p l c _) =
-    let filename = takeFileName $ getSourcePath p
-    in  string filename >< ":" >< showToCtxDoc l >< ":" >< showToCtxDoc c
-
-{-------------------------------------------------------------------------------
   Comment pretty-printing
 -------------------------------------------------------------------------------}
 
@@ -161,7 +150,7 @@ prettyCommentKind includeCName commentKind =
                                 >< textToCtxDoc cName
                                 >< "@"
                           , (\loc -> "__defined at:__ @"
-                                  >< pretty loc
+                                  >< string (C.prettySingleLoc C.ShowFile loc)
                                   >< "@") <$> commentLocation
                           , (\header -> "__exported by:__ @"
                                      >< (string . getHashIncludeArg $ header)

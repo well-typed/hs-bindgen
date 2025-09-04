@@ -91,6 +91,7 @@ library internal
       HsBindgen.Backend.Hs.AST.SigmaType
       HsBindgen.Backend.Hs.AST.Strategy
       HsBindgen.Backend.Hs.AST.Type
+      HsBindgen.Backend.Hs.Haddock.Config
       HsBindgen.Backend.Hs.Haddock.Documentation
       HsBindgen.Backend.Hs.Haddock.Translation
       HsBindgen.Backend.Hs.Origin

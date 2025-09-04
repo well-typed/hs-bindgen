@@ -28,6 +28,7 @@ import Clang.Args
 import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
@@ -67,6 +68,8 @@ data BindgenOpts = BindgenOpts {
   , baseFrontendConfig :: FrontendConfig
     -- * Backend configuration
   , baseBackendConfig  :: BackendConfig
+    -- * Haddock configuration
+  , baseHaddockConfig  :: HaddockConfig
     -- * Tracer
   , tracerConfig       :: TracerConfig IO Level TraceMsg
   }
@@ -77,6 +80,7 @@ instance Default BindgenOpts where
     , extraIncludeDirs   = []
     , baseFrontendConfig = def
     , baseBackendConfig  = def
+    , baseHaddockConfig  = def
     , tracerConfig       = tracerConfigDefTH
     }
 
