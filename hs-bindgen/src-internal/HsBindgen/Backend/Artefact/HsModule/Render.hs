@@ -6,7 +6,6 @@ module HsBindgen.Backend.Artefact.HsModule.Render (
     -- * Rendering
     render
     -- * Rendering comments
-  , prettyCommentKind
   , CommentKind (..)
   ) where
 
@@ -130,23 +129,19 @@ data CommentKind
     -- ^ Comments that will not begin with any specific documentation string
     -- since they will be taken care of by Template Haskell
 
--- Once #947 is done this won't be needed
---
-prettyCommentKind :: Bool -> CommentKind -> CtxDoc
-prettyCommentKind includeCName commentKind =
-  let (commentStart, commentEnd, Hs.Comment {..}) =
-        case commentKind of
-          TopLevelComment c          -> ("{-|", "-}", c)
-          PartOfDeclarationComment c -> ("{- ^", "-}", c)
-          THComment c                -> ("", "", c)
-      indentation = length commentStart - 1
-      fromCCtxDoc =
-        case transformFilepath <$> commentOrigin of
-          Nothing    -> empty
-          Just cName
-            | includeCName ->
-              let parts = [ Just "__/Automatically generated from C/__"
-                          , Just $ "__C declaration:__ @"
+instance Pretty CommentKind where
+  pretty commentKind =
+    let (commentStart, commentEnd, Hs.Comment {..}) =
+          case commentKind of
+            TopLevelComment c          -> ("{-|", "-}", c)
+            PartOfDeclarationComment c -> ("{- ^", "-}", c)
+            THComment c                -> ("", "", c)
+        indentation = length commentStart - 1
+        fromCCtxDoc =
+          case transformFilepath <$> commentOrigin of
+            Nothing    -> empty
+            Just cName ->
+              let parts = [ Just $ "__C declaration:__ @"
                                 >< textToCtxDoc cName
                                 >< "@"
                           , (\loc -> "__defined at:__ @"
@@ -157,29 +152,24 @@ prettyCommentKind includeCName commentKind =
                                      >< "@") <$> commentHeader
                           ]
               in vsep (catMaybes parts)
-            | otherwise    -> empty
-      firstContent =
-        case commentTitle of
-          Nothing -> empty
-          Just ct -> hsep (map pretty ct)
-      -- If the comment only has the the origin C Name then use that has the
-      -- title.
-   in case commentChildren of
-        [] | Nothing <- commentTitle
-           , includeCName ->
-              string commentStart
-          <+> fromCCtxDoc
-           $$ string commentEnd
-           | otherwise -> empty
+        firstContent =
+          case commentTitle of
+            Nothing -> empty
+            Just ct -> hsep (map pretty ct)
+        -- If the comment only has the the origin C Name then use that has the
+        -- title.
+     in case commentChildren of
+          [] | Nothing <- commentTitle ->
+                string commentStart
+            <+> fromCCtxDoc
+             $$ string commentEnd
+             | otherwise -> empty
 
-        _  -> vsep (string commentStart <+> firstContent
-                   : map (nest indentation . pretty) commentChildren)
-          $+$ vcat [ fromCCtxDoc
-                   , string commentEnd
-                   ]
-
-instance Pretty CommentKind where
-  pretty = prettyCommentKind True
+          _  -> vsep (string commentStart <+> firstContent
+                     : map (nest indentation . pretty) commentChildren)
+            $+$ vcat [ fromCCtxDoc
+                     , string commentEnd
+                     ]
 
 instance Pretty Hs.CommentBlockContent where
   pretty = \case

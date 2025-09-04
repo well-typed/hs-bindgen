@@ -223,7 +223,7 @@ formatDecDoc docMap thDec =
   case getDecDocLoc thDec >>= join . (`Map.lookup` docMap) of
     Nothing -> TH.empty
     Just c  -> pure
-             $ runCtxDoc defaultContext (prettyCommentKind False (TopLevelComment c))
+             $ runCtxDoc defaultContext (pretty (TopLevelComment c))
 
 {-------------------------------------------------------------------------------
   TH Compatibility Functions
@@ -404,7 +404,7 @@ getConNamesDoc docMap names =
   case foldMap (\n -> join $ Map.lookup (TH.DeclDoc n) docMap) names of
     Nothing -> TH.empty
     Just c  -> pure
-             $ runCtxDoc defaultContext (prettyCommentKind False (PartOfDeclarationComment c))
+             $ runCtxDoc defaultContext (pretty (PartOfDeclarationComment c))
 
 -- | Get constructor names (defined here as it's not in all TH versions)
 get_cons_names :: TH.Con -> [TH.Name]
