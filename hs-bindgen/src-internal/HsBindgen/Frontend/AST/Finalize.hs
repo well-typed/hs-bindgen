@@ -79,6 +79,21 @@ instance Finalize Int.DeclInfo where
         , declComment
         } = info
 
+instance Finalize Int.FieldInfo where
+  type Finalized Int.FieldInfo = Ext.FieldInfo
+
+  finalize info = Ext.FieldInfo{
+        fieldLoc
+      , fieldName
+      , fieldComment = fmap finalize fieldComment
+      }
+    where
+      Int.FieldInfo{
+          fieldLoc
+        , fieldName
+        , fieldComment
+        } = info
+
 instance Finalize Int.DeclKind where
   type Finalized Int.DeclKind = Ext.DeclKind
 
@@ -127,22 +142,18 @@ instance Finalize Int.StructField where
   type Finalized Int.StructField = Ext.StructField
 
   finalize field = Ext.StructField{
-        structFieldLoc
-      , structFieldName
+        structFieldInfo = finalize structFieldInfo
       , structFieldType = finalize structFieldType
       , structFieldOffset
       , structFieldWidth
-      , structFieldComment = fmap finalize structFieldComment
       }
     where
       Int.StructField {
-          structFieldLoc
-        , structFieldName
+          structFieldInfo
         , structFieldType
         , structFieldOffset
         , structFieldWidth
         , structFieldAnn = NoAnn
-        , structFieldComment
         } = field
 
 instance Finalize Int.Union where
@@ -166,18 +177,14 @@ instance Finalize Int.UnionField where
   type Finalized Int.UnionField = Ext.UnionField
 
   finalize field = Ext.UnionField{
-        unionFieldLoc
-      , unionFieldName
+        unionFieldInfo = finalize unionFieldInfo
       , unionFieldType = finalize unionFieldType
-      , unionFieldComment = fmap finalize unionFieldComment
       }
     where
       Int.UnionField {
-          unionFieldLoc
-        , unionFieldName
+          unionFieldInfo
         , unionFieldType
         , unionFieldAnn = NoAnn
-        , unionFieldComment
         } = field
 
 instance Finalize Int.Enum where
@@ -203,17 +210,13 @@ instance Finalize Int.EnumConstant where
   type Finalized Int.EnumConstant = Ext.EnumConstant
 
   finalize constant = Ext.EnumConstant{
-        enumConstantLoc
-      , enumConstantName
+        enumConstantInfo = finalize enumConstantInfo
       , enumConstantValue
-      , enumConstantComment = fmap finalize enumConstantComment
       }
     where
       Int.EnumConstant {
-          enumConstantLoc
-        , enumConstantName
+          enumConstantInfo
         , enumConstantValue
-        , enumConstantComment
         } = constant
 
 instance Finalize Int.Typedef where

@@ -248,12 +248,17 @@ instance Resolve C.StructField where
   resolve C.StructField{..} = do
       fmap reassemble <$> resolve structFieldType
     where
+      C.FieldInfo{..} = structFieldInfo
       reassemble ::
            C.Type ResolveBindingSpec
         -> C.StructField ResolveBindingSpec
       reassemble structFieldType' = C.StructField {
-          structFieldType = structFieldType'
-        , structFieldComment = fmap resolveCommentReference structFieldComment
+          structFieldInfo =
+            C.FieldInfo {
+              fieldComment = fmap resolveCommentReference fieldComment
+            , ..
+            }
+        , structFieldType = structFieldType'
         , ..
         }
 
@@ -273,11 +278,16 @@ instance Resolve C.UnionField where
   resolve C.UnionField{..} = do
       fmap reassemble <$> resolve unionFieldType
     where
+      C.FieldInfo{..} = unionFieldInfo
       reassemble :: C.Type ResolveBindingSpec
                  -> C.UnionField ResolveBindingSpec
       reassemble unionFieldType' = C.UnionField {
-          unionFieldType = unionFieldType'
-        , unionFieldComment = fmap resolveCommentReference unionFieldComment
+          unionFieldInfo =
+            C.FieldInfo {
+              fieldComment = fmap resolveCommentReference fieldComment
+            , ..
+            }
+        , unionFieldType = unionFieldType'
         , ..
         }
 

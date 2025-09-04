@@ -1,4 +1,9 @@
-module HsBindgen.Backend.Hs.Haddock.Translation where
+module HsBindgen.Backend.Hs.Haddock.Translation
+  ( generateHaddocksWithInfo
+  , generateHaddocksWithFieldInfo
+  , generateHaddocksWithInfoParams
+  )
+  where
 
 import Data.Char (isDigit)
 import Data.Maybe (isJust)
@@ -12,9 +17,8 @@ import GHC.Natural (Natural)
 import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types qualified as C
 
-import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..), Name (..))
+import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..), Name (..), DeclInfo (..), FieldInfo (..))
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
-import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
@@ -23,14 +27,20 @@ import HsBindgen.Language.Haskell (HsName(..), HsIdentifier (..))
 
 -- | Convert a Clang comment to a Haddock comment
 --
-generateHaddocks
-  :: C.SingleLoc
-  -> HashIncludeArg
-  -> MangleNames.NamePair
-  -> Maybe (C.Comment Reference)
-  -> Maybe Hs.Comment
-generateHaddocks declLoc declHeader declId comment =
-  fst $ generateHaddocksWithParams declLoc declHeader declId comment []
+generateHaddocksWithInfo :: DeclInfo -> Maybe Hs.Comment
+generateHaddocksWithInfo DeclInfo{..} =
+  fst $ generateHaddocksWithParams declLoc declHeader declId declComment []
+
+generateHaddocksWithFieldInfo :: DeclInfo -> FieldInfo -> Maybe Hs.Comment
+generateHaddocksWithFieldInfo DeclInfo{..} FieldInfo{..} =
+  fst $ generateHaddocksWithParams fieldLoc declHeader fieldName fieldComment []
+
+generateHaddocksWithInfoParams
+  :: DeclInfo
+  -> [Hs.FunctionParameter]
+  -> (Maybe Hs.Comment, [Hs.FunctionParameter])
+generateHaddocksWithInfoParams DeclInfo{..} params =
+  generateHaddocksWithParams declLoc declHeader declId declComment params
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
 --
@@ -43,7 +53,7 @@ generateHaddocks declLoc declHeader declId comment =
 generateHaddocksWithParams ::
      C.SingleLoc
   -> HashIncludeArg
-  -> MangleNames.NamePair
+  -> NamePair
   -> Maybe (C.Comment Reference)
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])

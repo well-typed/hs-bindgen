@@ -153,6 +153,13 @@ instance NameUseSites C.DeclKind where
       C.DeclFunction fun     -> C.DeclFunction (nameUseSites env fun)
       C.DeclGlobal ty        -> C.DeclGlobal (nameUseSites env ty)
 
+instance NameUseSites C.FieldInfo where
+  nameUseSites env C.FieldInfo{..} =
+    C.FieldInfo {
+      fieldComment = nameUseSites env <$> fieldComment
+    , ..
+    }
+
 instance NameUseSites C.Reference where
   nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
     where
@@ -174,8 +181,8 @@ instance NameUseSites C.Struct where
 
 instance NameUseSites C.StructField where
   nameUseSites env C.StructField{..} = C.StructField{
-      structFieldType      = nameUseSites env structFieldType
-      , structFieldComment = fmap (nameUseSites env) structFieldComment
+        structFieldInfo = nameUseSites env structFieldInfo
+      , structFieldType = nameUseSites env structFieldType
       , ..
       }
 
@@ -187,14 +194,14 @@ instance NameUseSites C.Union where
 
 instance NameUseSites C.UnionField where
   nameUseSites env C.UnionField{..} = C.UnionField{
-      unionFieldType      = nameUseSites env unionFieldType
-      , unionFieldComment = fmap (nameUseSites env) unionFieldComment
+        unionFieldInfo = nameUseSites env unionFieldInfo
+      , unionFieldType = nameUseSites env unionFieldType
       , ..
       }
 
 instance NameUseSites C.EnumConstant where
   nameUseSites env C.EnumConstant{..} = C.EnumConstant{
-        enumConstantComment = fmap (nameUseSites env) enumConstantComment
+        enumConstantInfo = nameUseSites env enumConstantInfo
       , ..
       }
 

@@ -96,7 +96,7 @@ instance Pretty ImportListItem where
 
 -- do not use record syntax, as it's very verbose
 instance Pretty SingleLoc where
-  pretty (SingleLoc p l c) =
+  pretty (SingleLoc p l c _) =
     let filename = takeFileName $ getSourcePath p
     in  string filename >< ":" >< showToCtxDoc l >< ":" >< showToCtxDoc c
 

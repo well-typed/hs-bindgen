@@ -9,6 +9,7 @@ module HsBindgen.Frontend.AST.External (
     -- * Declarations
   , Decl(..)
   , DeclInfo(..)
+  , FieldInfo(..)
   , DeclKind(..)
   , DeclSpec(..)
     -- ** Structs
@@ -102,13 +103,20 @@ data Decl = Decl {
     }
   deriving stock (Show, Eq, Generic)
 
-data DeclInfo = DeclInfo{
+data DeclInfo = DeclInfo {
       declLoc     :: SingleLoc
     , declId      :: NamePair
     , declOrigin  :: C.NameOrigin
     , declAliases :: [C.Name]
     , declHeader  :: RootHeader.HashIncludeArg
     , declComment :: Maybe (Comment Reference)
+    }
+  deriving stock (Show, Eq, Generic)
+
+data FieldInfo = FieldInfo {
+      fieldLoc     :: SingleLoc
+    , fieldName    :: NamePair
+    , fieldComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -162,12 +170,10 @@ data Struct = Struct {
   deriving stock (Show, Eq, Generic)
 
 data StructField = StructField {
-      structFieldLoc     :: SingleLoc
-    , structFieldName    :: NamePair
+      structFieldInfo    :: FieldInfo
     , structFieldType    :: Type
     , structFieldOffset  :: Int -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
-    , structFieldComment :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -185,10 +191,8 @@ data Union = Union {
   deriving stock (Show, Eq, Generic)
 
 data UnionField = UnionField {
-      unionFieldLoc     :: SingleLoc
-    , unionFieldName    :: NamePair
-    , unionFieldType    :: Type
-    , unionFieldComment :: Maybe (Comment Reference)
+      unionFieldInfo :: FieldInfo
+    , unionFieldType :: Type
     }
   deriving stock (Show, Eq, Generic)
 
@@ -206,10 +210,8 @@ data Enum = Enum {
   deriving stock (Show, Eq, Generic)
 
 data EnumConstant = EnumConstant {
-      enumConstantLoc     :: SingleLoc
-    , enumConstantName    :: NamePair
-    , enumConstantValue   :: Integer
-    , enumConstantComment :: Maybe (Comment Reference)
+      enumConstantInfo  :: FieldInfo
+    , enumConstantValue :: Integer
     }
   deriving stock (Show, Eq, Generic)
 

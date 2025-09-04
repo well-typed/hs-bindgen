@@ -27,8 +27,9 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocks,
-                                                 generateHaddocksWithParams)
+import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocksWithInfo,
+                                                 generateHaddocksWithFieldInfo,
+                                                 generateHaddocksWithInfoParams)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -365,14 +366,10 @@ structDecs opts info struct spec fields = do
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
-        fieldName    = C.nameHs (C.structFieldName f)
+        fieldName    = C.nameHs (C.fieldName (C.structFieldInfo f))
       , fieldType    = typ (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
-      , fieldComment = generateHaddocks
-                         (C.structFieldLoc f)
-                         (C.declHeader info)
-                         (C.structFieldName f)
-                         (C.structFieldComment f)
+      , fieldComment = generateHaddocksWithFieldInfo info (C.structFieldInfo f)
       }
 
     candidateInsts :: Set HsTypeClass
@@ -399,11 +396,7 @@ structDecs opts info struct spec fields = do
               , declKind = Origin.Struct struct
               , declSpec = spec
               }
-          , structComment = generateHaddocks
-                              (C.declLoc info)
-                              (C.declHeader info)
-                              (C.declId info)
-                              (C.declComment info)
+          , structComment = generateHaddocksWithInfo info
           }
 
         structDecl :: Hs.Decl
@@ -492,11 +485,7 @@ opaqueDecs origin info spec = do
           , declKind = origin
           , declSpec = spec
           }
-      , emptyDataComment = generateHaddocks
-                             (C.declLoc info)
-                             (C.declHeader info)
-                             (C.declId info)
-                             (C.declComment info)
+      , emptyDataComment = generateHaddocksWithInfo info
       }
 
 opaqueStructDecs ::
@@ -558,11 +547,7 @@ unionDecs info union spec = do
           , declKind = Origin.Union union
           , declSpec = spec
           }
-      , newtypeComment = generateHaddocks
-                           (C.declLoc info)
-                           (C.declHeader info)
-                           (C.declId info)
-                           (C.declComment info)
+      , newtypeComment = generateHaddocksWithInfo info
       }
 
     newtypeDecl :: Hs.Decl
@@ -596,8 +581,8 @@ unionDecs info union spec = do
         getAccessorDecls C.UnionField{..} =
           let hsType = typ unionFieldType
               fInsts = getInstances instanceMap newtypeName insts [hsType]
-              getterName = "get_" <> C.nameHs unionFieldName
-              setterName = "set_" <> C.nameHs unionFieldName
+              getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
+              setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
               commentRefName name = Just
                 Hs.Comment {
                   commentTitle    = Nothing
@@ -618,11 +603,7 @@ unionDecs info union spec = do
                         unionGetterName    = getterName
                       , unionGetterType    = hsType
                       , unionGetterConstr  = newtypeName
-                      , unionGetterComment = generateHaddocks
-                                               unionFieldLoc
-                                               (C.declHeader info)
-                                               unionFieldName
-                                               unionFieldComment
+                      , unionGetterComment = generateHaddocksWithFieldInfo info unionFieldInfo
                                           <> commentRefName (getHsName setterName)
                       }
                   , Hs.DeclUnionSetter
@@ -679,11 +660,7 @@ enumDecs opts info e spec = do
           , declKind = Origin.Enum e
           , declSpec = spec
           }
-      , newtypeComment = generateHaddocks
-                           (C.declLoc info)
-                           (C.declHeader info)
-                           (C.declId info)
-                           (C.declComment info)
+      , newtypeComment = generateHaddocksWithInfo info
       }
 
     newtypeDecl :: Hs.Decl
@@ -730,16 +707,12 @@ enumDecs opts info e spec = do
     valueDecls :: [Hs.Decl]
     valueDecls =
         [ Hs.DeclPatSyn Hs.PatSyn
-          { patSynName    = C.nameHs enumConstantName
+          { patSynName    = C.nameHs (C.fieldName enumConstantInfo)
           , patSynType    = newtypeName
           , patSynConstr  = newtypeConstr
           , patSynValue   = enumConstantValue
           , patSynOrigin  = Origin.EnumConstant enumValue
-          , patSynComment = generateHaddocks
-                              enumConstantLoc
-                              (C.declHeader info)
-                              enumConstantName
-                              enumConstantComment
+          , patSynComment = generateHaddocksWithFieldInfo info enumConstantInfo
           }
         | enumValue@C.EnumConstant{..} <- C.enumConstants e
         ]
@@ -840,11 +813,7 @@ typedefDecs opts info typedef spec = do
               , declKind = Origin.Typedef typedef
               , declSpec = spec
               }
-          , newtypeComment = generateHaddocks
-                               (C.declLoc info)
-                               (C.declHeader info)
-                               (C.declId info)
-                               (C.declComment info)
+          , newtypeComment = generateHaddocksWithInfo info
           }
 
         newtypeDecl :: Hs.Decl
@@ -954,11 +923,7 @@ macroDecsTypedef opts info macroType spec = do
               , declKind = Origin.Macro macroType
               , declSpec = spec
               }
-          , newtypeComment = generateHaddocks
-                               (C.declLoc info)
-                               (C.declHeader info)
-                               (C.declId info)
-                               (C.declComment info)
+          , newtypeComment = generateHaddocksWithInfo info
           }
 
         newtypeDecl :: Hs.Decl
@@ -1286,12 +1251,7 @@ functionDecs opts moduleName typedefs info f _spec =
 
     res = wrapType $ C.functionRes f
     (mbFIComment, parsedArgs) =
-      generateHaddocksWithParams
-        (C.declLoc info)
-        (C.declHeader info)
-        (C.declId info)
-        (C.declComment info)
-        args
+      generateHaddocksWithInfoParams info args
 
     args = [ Hs.FunctionParameter
               { functionParameterName    = fmap C.nameHs mbName
@@ -1531,11 +1491,7 @@ addressStubDecs opts moduleName info ty _spec = (,runnerName) $
         , foreignImportOrigName = T.pack stubNameMangled
         , foreignImportCallConv = CallConvUserlandCAPI
         , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = generateHaddocks
-                                    (C.declLoc info)
-                                    (C.declHeader info)
-                                    (C.declId info)
-                                    (C.declComment info)
+        , foreignImportComment  = generateHaddocksWithInfo info
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
           -- short running code.
@@ -1615,11 +1571,7 @@ macroVarDecs info macroExpr = [
           { varDeclName    = hsVarName
           , varDeclType    = quantTyHsTy macroExprType
           , varDeclBody    = hsBody
-          , varDeclComment = generateHaddocks
-                               (C.declLoc info)
-                               (C.declHeader info)
-                               (C.declId info)
-                               (C.declComment info)
+          , varDeclComment = generateHaddocksWithInfo info
           }
     | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
     ]

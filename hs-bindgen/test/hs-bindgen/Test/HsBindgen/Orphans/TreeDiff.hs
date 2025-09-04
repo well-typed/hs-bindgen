@@ -78,6 +78,7 @@ instance ToExpr ref => ToExpr (C.Comment ref) where
 
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
+instance ToExpr C.FieldInfo
 instance ToExpr C.DeclKind
 instance ToExpr C.DeclSpec
 instance ToExpr C.Enum

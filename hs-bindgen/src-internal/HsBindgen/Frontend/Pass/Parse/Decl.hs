@@ -112,6 +112,18 @@ getDeclInfo = \curr -> do
       , declComment
       }
 
+getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
+getFieldInfo = \curr -> do
+  fieldLoc     <- HighLevel.clang_getCursorLocation' curr
+  fieldName    <- C.Name <$> clang_getCursorDisplayName curr
+  fieldComment <- fmap parseCommentReferences <$> clang_getComment curr
+
+  return C.FieldInfo {
+       fieldLoc
+     , fieldName
+     , fieldComment
+     }
+
 getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
 getReparseInfo = \curr -> do
     extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
@@ -272,23 +284,19 @@ declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
 
 structFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl info = \curr -> do
-    structFieldLoc    <- HighLevel.clang_getCursorLocation' curr
-    structFieldName   <- C.Name <$> clang_getCursorDisplayName curr
+    structFieldInfo   <- getFieldInfo curr
     structFieldType   <-
       fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindStruct))
         =<< clang_getCursorType curr
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
-    structFieldComment <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.StructField{
-        structFieldLoc
-      , structFieldName
+        structFieldInfo
       , structFieldType
       , structFieldOffset
       , structFieldWidth
       , structFieldAnn
-      , structFieldComment
       }
 
 structWidth :: CXCursor -> ParseDecl (Maybe Int)
@@ -300,19 +308,15 @@ structWidth = \curr -> do
 
 unionFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.UnionField Parse)
 unionFieldDecl info = \curr -> do
-    unionFieldLoc  <- HighLevel.clang_getCursorLocation' curr
-    unionFieldName <- C.Name <$> clang_getCursorDisplayName curr
+    unionFieldInfo <- getFieldInfo curr
     unionFieldType <-
       fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindUnion))
         =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
-    unionFieldComment   <- fmap parseCommentReferences <$> clang_getComment curr
     pure C.UnionField{
-        unionFieldLoc
-      , unionFieldName
+        unionFieldInfo
       , unionFieldType
       , unionFieldAnn
-      , unionFieldComment
       }
 
 typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
@@ -383,15 +387,11 @@ enumDecl info = simpleFold $ \curr -> do
 
 enumConstantDecl :: CXCursor -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
 enumConstantDecl curr = do
-    enumConstantLoc   <- HighLevel.clang_getCursorLocation' curr
-    enumConstantName  <- C.Name <$> clang_getCursorDisplayName curr
+    enumConstantInfo  <- getFieldInfo curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
-    enumConstantComment <- fmap parseCommentReferences <$> clang_getComment curr
     foldContinueWith C.EnumConstant {
-        enumConstantLoc
-      , enumConstantName
+        enumConstantInfo
       , enumConstantValue
-      , enumConstantComment
       }
 
 functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
