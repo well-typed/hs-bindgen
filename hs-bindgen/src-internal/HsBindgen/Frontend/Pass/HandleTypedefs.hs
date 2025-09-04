@@ -105,7 +105,6 @@ instance HandleUseSites C.DeclKind where
       C.DeclMacro macro     -> C.DeclMacro (handleUseSites td (coercePass macro))
       C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
-      C.DeclConst ty        -> C.DeclConst (handleUseSites td ty)
 
 instance HandleUseSites C.Reference where
   handleUseSites _ (C.ById i)   = C.ById i
@@ -189,6 +188,7 @@ instance HandleUseSites C.Type where
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
       go (C.TypeBlock ty)           = C.TypeBlock (go ty)
+      go (C.TypeConst ty)           = C.TypeConst (go ty)
 
       -- Interesting cases: tagged types may be renamed, typedefs may be squashed
 

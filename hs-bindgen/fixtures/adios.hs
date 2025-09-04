@@ -462,7 +462,7 @@
   DeclSimple,
   DeclInlineCInclude "adios.h",
   DeclInlineC
-    "/* get_\978\978\978_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
+    "/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -479,8 +479,9 @@
       foreignImportCallConv =
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

@@ -39,8 +39,8 @@ fromCXType context = liftIO . handle addContextHandler . run . cxtype
 -------------------------------------------------------------------------------}
 
 cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
-cxtype ty =
-    dispatchWithArg ty $ \case
+cxtype ty = do
+    reifiedType <- dispatchWithArg ty $ \case
       CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
       CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
       CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
@@ -72,6 +72,8 @@ cxtype ty =
       CXType_Void            -> const (pure C.TypeVoid)
 
       kind -> failure $ UnexpectedTypeKind (Right kind)
+    isConst <- clang_isConstQualifiedType ty
+    pure $ if isConst then C.TypeConst reifiedType else reifiedType
   where
     failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err

@@ -20,14 +20,12 @@ import HsBindgen.Language.C qualified as C
 showsFunctionType ::
      HasCallStack
   => ShowS            -- ^ function name
-  -> TypeQualifier    -- ^ return type qualifier
   -> FunctionPurity   -- ^ function purity
   -> [(ShowS, Type)]  -- ^ arguments, names and types
   -> Type             -- ^ return type
   -> ShowS
-showsFunctionType n qual pur args res  =
+showsFunctionType n pur args res  =
       showsFunctionPurity pur . showsFunctionPurityWhitespace pur
-    . showsTypeQualifier qual . showsTypeQualifierWhitespace qual
     . showsType functionDeclarator res
   where
     -- When functions return more complicated types, placing parentheses becomes
@@ -73,7 +71,7 @@ showsVariableType n ty = showsType variableDeclarator ty
 --
 -- === Examples
 --
--- >>> import HsBindgen.Frontend.AST.External (Type (..), TypeQualifier (..))
+-- >>> import HsBindgen.Frontend.AST.External (Type (..))
 -- >>> import HsBindgen.Language.C qualified as C
 -- >>> import HsBindgen.Frontend.AST.Internal (FunctionPurity (..))
 --
@@ -117,7 +115,6 @@ showsVariableType n ty = showsType variableDeclarator ty
 -- >>> :{
 --  showsFunctionType
 --    (showString "foo")
---    TypeQualifierNone
 --    ImpureFunction
 --    []
 --    (TypePointer (TypePrim (C.PrimIntegral C.PrimInt C.Signed)))
@@ -130,7 +127,6 @@ showsVariableType n ty = showsType variableDeclarator ty
 -- >>> :{
 --  showsFunctionType
 --    (showString "bar")
---    TypeQualifierNone
 --    ImpureFunction
 --    [(showString "arg1", TypePrim (C.PrimIntegral C.PrimInt C.Signed))]
 --    (TypePointer (TypeConstArray 2 (TypeConstArray 3 (TypePrim (C.PrimIntegral C.PrimInt C.Signed)))))
@@ -156,7 +152,7 @@ showsType x (TypeFun args res)      =
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
     -- declarations.
-    showsFunctionType (showParen True (x 0)) TypeQualifierNone ImpureFunction (zipWith named [1..] args) res
+    showsFunctionType (showParen True (x 0)) ImpureFunction (zipWith named [1..] args) res
   where
     named :: Int -> Type -> (ShowS, Type)
     named i t = (showString "arg" . shows i, t)
@@ -164,6 +160,40 @@ showsType x TypeVoid                  = showString "void " . x 0
 showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
 showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x 0
 showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
+-- Type qualifiers like @const@ can appear before, and _after_ the type they
+-- refer to. For example,
+--
+-- > const int x;
+-- > int const x;
+--
+-- > const int f();
+-- > int const f();
+--
+-- More involved: A function with a return type being a "constant pointer to
+-- constant integer".
+--
+-- > const int * const f();
+-- > int const * const f();
+--
+-- That is, for pointers, the @const@ qualifier is always written as a suffix!
+-- For example, both of the following declarations declare a pointer to a
+-- constant integer:
+--
+-- > int const * f();
+-- > int const* f();
+--
+-- Did you know that stacked @const@ qualifiers are merged by the C parser:
+--
+-- > const int const * f(); // Parsed as "const int *".
+-- > int const const * f(); // Parsed as "const int *".
+--
+-- It is somewhat difficult to correctly print the @const@ qualifier before
+-- primitive types but after pointers. Hence, we consistently print @const@
+-- _after_ the type. For example, we print return type "constant pointer to
+-- constant int" as follows:
+--
+-- > int const * const f();
+showsType x (TypeConst t) = showsType (\_d -> showString "const " . x 0) t
 
 -- | The precedence of various constructs in C declarations.
 type CTypePrecedence = Int
@@ -175,16 +205,6 @@ arrayPrec = 10
 -- NOTE: picked somewhat arbitrarily to be smaller than 'arrayPrec'
 pointerPrec :: CTypePrecedence
 pointerPrec = 5
-
-showsTypeQualifier :: TypeQualifier -> ShowS
-showsTypeQualifier qual = case qual of
-    TypeQualifierNone -> id
-    TypeQualifierConst -> showString "const"
-
-showsTypeQualifierWhitespace :: TypeQualifier -> ShowS
-showsTypeQualifierWhitespace qual = case qual of
-    TypeQualifierNone -> id
-    TypeQualifierConst -> showChar ' '
 
 -- | Show function purity in C syntax.
 --

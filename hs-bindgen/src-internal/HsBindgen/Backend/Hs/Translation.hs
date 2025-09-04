@@ -27,7 +27,8 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Translation ( generateHaddocks, generateHaddocksWithParams )
+import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocks,
+                                                 generateHaddocksWithParams)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -332,9 +333,8 @@ generateDecs opts moduleName typedefs (C.Decl info kind spec) =
       C.DeclMacro macro ->
         macroDecs opts info macro spec
       C.DeclGlobal ty ->
-        return $ global opts moduleName info ty spec
-      C.DeclConst ty ->
-        State.get >>= \instsMap -> return $ globalConst opts moduleName instsMap info ty spec
+        State.get >>= \instsMap ->
+          return $ global opts moduleName instsMap typedefs info ty spec
 
 {-------------------------------------------------------------------------------
   Structs
@@ -841,6 +841,22 @@ typedefDecs opts info typedef spec = do
           , clss `Set.member` insts
           ]
 
+-- | Recursively unwrap the underlying type of a typedef.
+--
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1050: Should we panic on
+-- unbound typedefs?
+getUnderlyingType :: Map C.Name C.Type -> C.Type -> C.Type
+getUnderlyingType typedefs = go
+  where
+    go (C.TypeTypedef ref) = case ref of
+      C.TypedefRegular n ->
+        let err = panicPure $ "Unbound typedef " ++ show n
+            t'  = Map.findWithDefault err (C.nameC n) typedefs
+        in  go t'
+      C.TypedefSquashed _ t' ->
+        go t'
+    go t = t
+
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
@@ -982,6 +998,8 @@ typ' ctx = go ctx
         HsBlock $ go CTop ty
     go _ (C.TypeExtBinding ext) =
         Hs.HsExtBinding (C.extHsRef ext) (C.extHsSpec ext)
+    go c (C.TypeConst ty) =
+        go c ty
 
     goPrim :: C.PrimType -> HsPrimType
     goPrim C.PrimBool           = HsPrimCBool
@@ -1063,17 +1081,17 @@ wrapperDecl
 wrapperDecl innerName wrapperName res args
     | isVoidW res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.TypeQualifierNone C.ImpureFunction (unwrapType <$> args')
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> args')
           [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
 
     | isWrappedHeap res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.TypeQualifierNone C.ImpureFunction (unwrapType <$> (args' :> res))
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> (args' :> res))
           [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
 
     | otherwise
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (unwrapType res) C.TypeQualifierNone C.ImpureFunction (unwrapType <$> args')
+        PC.FunDefn wrapperName (unwrapType res) C.ImpureFunction (unwrapType <$> args')
           [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
   where
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
@@ -1211,15 +1229,6 @@ functionDecs opts moduleName typedefs info f _spec =
     | let (stubDecs, _stubImportName) =
             addressStubDecs opts moduleName
               info
-              -- Function types can not be const-qualified, so we use
-              -- TypeQualifierNone.
-              --
-              -- To quote the C reference: "If a function type is declared with
-              -- the const type qualifier (through the use of typedef), the
-              -- behavior is undefined."
-              --
-              -- <https://en.cppreference.com/w/c/language/const.html>
-              C.TypeQualifierNone
               (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
               _spec
     ]
@@ -1270,19 +1279,15 @@ functionDecs opts moduleName typedefs info f _spec =
 
     -- types which we cannot pass directly using C FFI.
     wrapType :: C.Type -> WrappedType
-    wrapType oty = go oty
+    wrapType ty = go ty
       where
-        go C.TypeStruct {}         = HeapType oty
-        go C.TypeUnion {}          = HeapType oty
-        go (C.TypeConstArray n ty) = CAType oty n ty
-        go (C.TypeIncompleteArray ty) = AType oty ty
-        go (C.TypeTypedef ref)     = case ref of
-          C.TypedefRegular n ->
-            let t = Map.findWithDefault (panicPure $ "Unbound typedef " ++ show n) (C.nameC n) typedefs
-            in go t
-          C.TypedefSquashed _n ty' ->
-            go ty'
-        go _ = WrapType oty
+        go = \case
+          C.TypeStruct {}             -> HeapType ty
+          C.TypeUnion {}              -> HeapType ty
+          (C.TypeConstArray n ty')    -> CAType   ty n ty'
+          (C.TypeIncompleteArray ty') -> AType    ty ty'
+          (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
+          _                           -> WrapType ty
 
     resType :: ResultType HsType
     resType =
@@ -1345,7 +1350,7 @@ functionDecs opts moduleName typedefs info f _spec =
   Globals
 -------------------------------------------------------------------------------}
 
--- | Global variables
+-- | === Global variables
 --
 -- For by-reference foreign imports, @capi@ vs @ccall@ makes no difference:
 -- @ghc@ does not create a wrapper. For non-extern non-static globals however it
@@ -1384,24 +1389,43 @@ functionDecs opts moduleName typedefs info f _spec =
 -- > {-# NOINLINE simpleGlobal_ptr #-}
 -- > global_ptr :: Ptr CInt
 -- > global_ptr = unsafePerformIO abc949ab
+--
+-- === Global /constant/ (i.e., @const@) variables
+--
+-- We generate bindings for these as we would generate bindings for
+-- non-constant global variables.
+--
+-- However, if the type of the global constant has a 'Storable' instance,
+-- we also generate an additional \"getter\" function in Haskell land that
+-- returns precisely the value of the constant rather than a /pointer/ to
+-- the value.
 global ::
      TranslationOpts
   -> HsModuleName
+  -> InstanceMap
+  -> Map C.Name C.Type
   -> C.DeclInfo
   -> C.Type
   -> C.DeclSpec
   -> [Hs.Decl]
-global opts moduleName info ty _spec = stubDecs
+global opts moduleName instsMap typedefs info ty _spec =
+  let underlyingType = case ty of
+        C.TypeConstArray _ ty' -> ty'
+        otherType -> getUnderlyingType typedefs otherType
+  in case underlyingType of
+    -- Generate getter if the underlying type is @const@.
+    C.TypeConst _ -> stubDecs ++ getConstGetterOfType ty
+    _             -> stubDecs
   where
     -- *** Stub ***
-    (stubDecs, _stubImportName) = addressStubDecs opts moduleName info C.TypeQualifierNone ty _spec
+    stubDecs :: [Hs.Decl]
+    pureStubName :: HsName NsVar
+    (stubDecs, pureStubName) = addressStubDecs opts moduleName info ty _spec
 
--- | Global /constant/ variables
---
--- We generate bindings for these as we would generate bindings for non-constant
--- global variables, but we generate an additional \"getter\" function in
--- Haskell land that returns precisely the value of the constant rather than a
--- /pointer/ to the value.
+    getConstGetterOfType :: C.Type -> [Hs.Decl]
+    getConstGetterOfType t = constGetter (typ t) instsMap info pureStubName
+
+-- | Getter for a constant (i.e., @const@) global variable
 --
 -- > simpleGlobal :: CInt
 -- > simpleGlobal = unsafePerformIO (peek simpleGlobal_ptr)
@@ -1410,42 +1434,30 @@ global opts moduleName info ty _spec = stubDecs
 -- 'Storable' instance. In such cases, a user of the generated bindings should
 -- use the foreign import of the stub function instead. Most notably, arrays of
 -- unknown size do not have a 'Storable' instance.
-globalConst ::
-     TranslationOpts
-  -> HsModuleName
-  -> InstanceMap
-  -> C.DeclInfo
-  -> C.Type
-  -> C.DeclSpec
-  -> [Hs.Decl]
-globalConst opts moduleName instsMap info ty _spec =
-    stubDecs ++ concat [
-        [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
-        , getterDecl
+constGetter :: HsType -> InstanceMap -> C.DeclInfo -> HsName NsVar -> [Hs.Decl]
+constGetter ty instsMap info pureStubName = concat [
+          [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
+          , getterDecl
+          ]
+        | -- We must have a storable instance available without any constraints.
+          --
+          -- We are generating a binding for a global variable here. This binding
+          -- must be marked NOINLINE, so that it will be evaluated at most once.
+          -- /If/ we have a Storable instance, but that storable instance has a
+          -- superclass constraint, then we could _in principle_ add that superclass
+          -- constraint to as a constraint to the type of the global, but this would
+          -- then turn the global into a function instead.
+          --
+          -- TODO: we don't yet check whether the Storable instance has no
+          -- superclass constraints. See issue #993.
+          Hs.Storable
+            `elem`
+              getInstances instsMap "unused" (Set.singleton Hs.Storable) [ty]
         ]
-      | -- We must have a storable instance available without any constraints.
-        --
-        -- We are generating a binding for a global variable here. This binding
-        -- must be marked NOINLINE, so that it will be evaluated at most once.
-        -- /If/ we have a Storable instance, but that storable instance has a
-        -- superclass constraint, then we could _in principle_ add that superclass
-        -- constraint to as a constraint to the type of the global, but this would
-        -- then turn the global into a function instead.
-        --
-        -- TODO: we don't yet check whether the Storable instance has no
-        -- superclass constraints. See issue #993.
-        Hs.Storable
-          `elem`
-            getInstances instsMap "unused" (Set.singleton Hs.Storable) [typ ty]
-      ]
   where
-    -- *** Stub ***
-    (stubDecs, pureStubName) = addressStubDecs opts moduleName info C.TypeQualifierConst ty _spec
-
     -- *** Getter ***
     --
     -- The "getter" peeks the value from the pointer
-
     getterDecl :: Hs.Decl
     getterDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
           varName    = getterName
@@ -1455,7 +1467,7 @@ globalConst opts moduleName instsMap info ty _spec =
         }
 
     getterName = C.nameHs (C.declId info)
-    getterType = SHs.translateType (typ ty)
+    getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
                 `SHs.EApp` SHs.EFree pureStubName)
@@ -1474,13 +1486,12 @@ addressStubDecs ::
      TranslationOpts
   -> HsModuleName
   -> C.DeclInfo -- ^ The given declaration
-  -> C.TypeQualifier -- ^ Outermost qualifier of the type of the given declaration
   -> C.Type -- ^ The type of the given declaration
   -> C.DeclSpec
   -> ( [Hs.Decl]
      , HsName 'NsVar
      )
-addressStubDecs opts moduleName info tyQual ty _spec = (,runnerName) $
+addressStubDecs opts moduleName info ty _spec = (,runnerName) $
     [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
     , Hs.DeclInlineC prettyStub
     , Hs.DeclForeignImport $ Hs.ForeignImportDecl
@@ -1522,9 +1533,6 @@ addressStubDecs opts moduleName info tyQual ty _spec = (,runnerName) $
     stubType :: C.Type
     stubType = C.TypePointer ty
 
-    stubTypeQualifier :: C.TypeQualifier
-    stubTypeQualifier = tyQual
-
     prettyStub :: String
     prettyStub = concat [
           "/* ", stubName, " */ "
@@ -1534,7 +1542,7 @@ addressStubDecs opts moduleName info tyQual ty _spec = (,runnerName) $
     stubDecl :: PC.Decl
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubNameMangled stubType stubTypeQualifier C.HaskellPureFunction args'
+          PC.FunDefn stubNameMangled stubType C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
     -- *** Stub (pure) ***

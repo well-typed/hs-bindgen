@@ -121,6 +121,7 @@ testCases = [
     , defaultTest "spec_examples"
     , defaultTest "struct_arg"
     , defaultTest "type_naturals"
+    , defaultTest "type_qualifiers"
     , defaultTest "typedef_vs_macro"
     , defaultTest "typedefs"
     , defaultTest "typenames"

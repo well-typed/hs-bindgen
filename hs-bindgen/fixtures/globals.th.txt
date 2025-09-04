@@ -23,17 +23,17 @@
 -- /* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_92e68af3ae2ed3fb (void))[4096] { return &streamBinary; } 
 -- /* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_8d6f9f3043208163 (void) { return &streamBinary_len; } 
 -- /* get_some_global_struct_ptr */ __attribute__ ((const)) struct2_t *hs_bindgen_test_globals_88ad1f87a451c285 (void) { return &some_global_struct; } 
--- /* get_globalConstant_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } 
--- /* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) const ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } 
--- /* get_staticConst_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } 
--- /* get_classless_ptr */ __attribute__ ((const)) const signed int *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } 
--- /* get_constArray1_ptr */ __attribute__ ((const)) const signed int (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } 
--- /* get_constArray2_ptr */ __attribute__ ((const)) const ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } 
--- /* get_constTuple_ptr */ __attribute__ ((const)) const struct tuple *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } 
+-- /* get_globalConstant_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } 
+-- /* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } 
+-- /* get_staticConst_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } 
+-- /* get_classless_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } 
+-- /* get_constArray1_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } 
+-- /* get_constArray2_ptr */ __attribute__ ((const)) ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } 
+-- /* get_constTuple_ptr */ __attribute__ ((const)) struct tuple const *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } 
 -- /* get_nonConstTuple_ptr */ __attribute__ ((const)) struct tuple *hs_bindgen_test_globals_e8e62512a4e5d162 (void) { return &nonConstTuple; } 
--- /* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } 
--- /* get_constPtrToInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } 
--- /* get_constPtrToConstInt_ptr */ __attribute__ ((const)) const signed int **hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } 
+-- /* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } 
+-- /* get_constPtrToInt_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } 
+-- /* get_constPtrToConstInt_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } 
 {-| Global variables
 
 -}

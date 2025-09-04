@@ -396,10 +396,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "my_format"})
               (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))],
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -436,10 +437,11 @@ TranslationUnit {
             _×_
               Nothing
               (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))],
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -514,7 +516,8 @@ TranslationUnit {
                   nameC = Name "src",
                   nameHsIdent = HsIdentifier
                     "src"})
-              (TypePointer TypeVoid),
+              (TypePointer
+                (TypeConst TypeVoid)),
             _×_
               (Just
                 NamePair {

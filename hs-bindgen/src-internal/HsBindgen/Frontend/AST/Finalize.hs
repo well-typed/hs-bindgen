@@ -92,13 +92,11 @@ instance Finalize Int.DeclKind where
   finalize (Int.DeclMacro macro)     = Ext.DeclMacro (finalize macro)
   finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
   finalize (Int.DeclGlobal ty)       = Ext.DeclGlobal (finalize ty)
-  finalize (Int.DeclConst ty)        = Ext.DeclConst (finalize ty)
 
 instance Finalize Int.Reference where
   type Finalized Int.Reference = Ext.Reference
 
   finalize (Int.ById (x, _)) = Ext.ById x
-
 
 instance Finalize Int.Comment where
   type Finalized Int.Comment = C.Comment Ext.Reference
@@ -281,6 +279,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)
   finalize (Int.TypeExtBinding ext)            = Ext.TypeExtBinding ext
   finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
+  finalize (Int.TypeConst typ)                 = Ext.TypeConst (finalize typ)
   finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
 
 instance Finalize Int.RenamedTypedefRef where

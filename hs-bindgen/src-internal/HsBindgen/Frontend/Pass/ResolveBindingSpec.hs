@@ -231,7 +231,6 @@ instance Resolve C.DeclKind where
       C.DeclMacro macro     -> fmap C.DeclMacro    <$> resolve macro
       C.DeclFunction fun    -> fmap C.DeclFunction <$> resolve fun
       C.DeclGlobal ty       -> fmap C.DeclGlobal   <$> resolve ty
-      C.DeclConst ty        -> fmap C.DeclConst    <$> resolve ty
 
 instance Resolve C.Struct where
   resolve C.Struct{..} =
@@ -365,6 +364,7 @@ instance Resolve C.Type where
       C.TypeConstArray n t    -> fmap (C.TypeConstArray n) <$> resolve t
       C.TypeIncompleteArray t -> fmap C.TypeIncompleteArray <$> resolve t
       C.TypeBlock t           -> fmap C.TypeBlock <$> resolve t
+      C.TypeConst t           -> fmap C.TypeConst <$> resolve t
 
       -- Simple cases
       C.TypePrim t         -> return (Set.empty, C.TypePrim t)

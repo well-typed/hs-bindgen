@@ -1575,9 +1575,10 @@ TranslationUnit {
                 TextContent
                   "Although this is a constant, we don't expect an initializer (since it's",
                 TextContent "`extern`)."]]},
-      declKind = DeclConst
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+      declKind = DeclGlobal
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1609,8 +1610,9 @@ TranslationUnit {
             newtypeField = HsName
               "@NsVar"
               "un_ConstInt"},
-          typedefType = TypePrim
-            (PrimIntegral PrimInt Signed)},
+          typedefType = TypeConst
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1629,7 +1631,7 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
             NamePair {
@@ -1664,9 +1666,10 @@ TranslationUnit {
               [
                 TextContent
                   "Unlike with `extern`, in this we _do_ expect an initializer."]]},
-      declKind = DeclConst
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+      declKind = DeclGlobal
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1689,9 +1692,10 @@ TranslationUnit {
               [
                 TextContent
                   "No storage class specified"]]},
-      declKind = DeclConst
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
+      declKind = DeclGlobal
+        (TypeConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1714,11 +1718,14 @@ TranslationUnit {
               [
                 TextContent
                   "A an array of size 4 containing constant integers"]]},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeConstArray
           4
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+          (TypeConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1752,8 +1759,11 @@ TranslationUnit {
               "un_ConstIntArray"},
           typedefType =
           TypeIncompleteArray
-            (TypePrim
-              (PrimIntegral PrimInt Signed))},
+            (TypeConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1771,7 +1781,7 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Nothing},
-      declKind = DeclConst
+      declKind = DeclGlobal
         (TypeTypedef
           (TypedefRegular
             NamePair {
@@ -1821,8 +1831,9 @@ TranslationUnit {
                 nameC = Name "y",
                 nameHsIdent = HsIdentifier
                   "tuple_y"},
-              structFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
+              structFieldType = TypeConst
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
               structFieldWidth = Nothing,
               structFieldComment = Nothing}],
@@ -1849,13 +1860,14 @@ TranslationUnit {
               [
                 TextContent
                   "A constant tuple"]]},
-      declKind = DeclConst
-        (TypeStruct
-          NamePair {
-            nameC = Name "tuple",
-            nameHsIdent = HsIdentifier
-              "Tuple"}
-          NameOriginInSource),
+      declKind = DeclGlobal
+        (TypeConst
+          (TypeStruct
+            NamePair {
+              nameC = Name "tuple",
+              nameHsIdent = HsIdentifier
+                "Tuple"}
+            NameOriginInSource)),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1909,8 +1921,11 @@ TranslationUnit {
                   "A pointer to const int"]]},
       declKind = DeclGlobal
         (TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+          (TypeConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1933,10 +1948,13 @@ TranslationUnit {
               [
                 TextContent
                   "A const pointer to int"]]},
-      declKind = DeclConst
-        (TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      declKind = DeclGlobal
+        (TypeConst
+          (TypePointer
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1960,10 +1978,14 @@ TranslationUnit {
               [
                 TextContent
                   "A const pointer to const int"]]},
-      declKind = DeclConst
-        (TypePointer
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      declKind = DeclGlobal
+        (TypeConst
+          (TypePointer
+            (TypeConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

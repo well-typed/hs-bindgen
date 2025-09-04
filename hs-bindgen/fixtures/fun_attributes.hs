@@ -1257,7 +1257,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "char *hs_bindgen_test_fun_attributes_77f81f76a170977e (char *arg1, char *arg2) { return my_dgettext(arg1, arg2); }",
+    "char *hs_bindgen_test_fun_attributes_77f81f76a170977e (char *arg1, char const *arg2) { return my_dgettext(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1316,10 +1316,11 @@
                   nameHsIdent = HsIdentifier
                     "my_format"})
               (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))],
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1338,7 +1339,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "/* get_my_dgettext_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_fun_attributes_60702a9764046d9e (void)) (char *arg1, char *arg2) { return &my_dgettext; } ",
+    "/* get_my_dgettext_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_fun_attributes_60702a9764046d9e (void)) (char *arg1, char const *arg2) { return &my_dgettext; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1369,10 +1370,11 @@
                   (PrimSignImplicit
                     (Just Signed)))),
             TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))]
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))]
           (TypePointer
             (TypePrim
               (PrimChar
@@ -1385,7 +1387,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "FILE *hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d (signed int arg1, char *arg2) { return fdopen(arg1, arg2); }",
+    "FILE *hs_bindgen_test_fun_attributes_d97c2ae9c1dff04d (signed int arg1, char const *arg2) { return fdopen(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1426,10 +1428,11 @@
             _×_
               Nothing
               (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))],
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1454,7 +1457,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "/* get_fdopen_ptr */ __attribute__ ((const)) FILE *(*hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4 (void)) (signed int arg1, char *arg2) { return &fdopen; } ",
+    "/* get_fdopen_ptr */ __attribute__ ((const)) FILE *(*hs_bindgen_test_fun_attributes_e8eae9d0dd40ede4 (void)) (signed int arg1, char const *arg2) { return &fdopen; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1485,10 +1488,11 @@
             TypePrim
               (PrimIntegral PrimInt Signed),
             TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))]
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))]
           (TypePointer
             (TypeTypedef
               (TypedefSquashed
@@ -1564,7 +1568,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "void *hs_bindgen_test_fun_attributes_bcbe640b60445a4f (void *arg1, void *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
+    "void *hs_bindgen_test_fun_attributes_bcbe640b60445a4f (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1628,7 +1632,8 @@
                   nameC = Name "src",
                   nameHsIdent = HsIdentifier
                     "src"})
-              (TypePointer TypeVoid),
+              (TypePointer
+                (TypeConst TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -1656,7 +1661,7 @@
   DeclInlineCInclude
     "fun_attributes.h",
   DeclInlineC
-    "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_de9d3228e8bac25c (void)) (void *arg1, void *arg2, size_t arg3) { return &my_memcpy; } ",
+    "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_de9d3228e8bac25c (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1687,7 +1692,8 @@
         (TypeFun
           [
             TypePointer TypeVoid,
-            TypePointer TypeVoid,
+            TypePointer
+              (TypeConst TypeVoid),
             TypeTypedef
               (TypedefRegular
                 NamePair {

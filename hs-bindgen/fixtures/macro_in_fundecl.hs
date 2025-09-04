@@ -2014,7 +2014,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69 (signed int arg1))[2][3] { return baz1(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69 (signed int const arg1))[2][3] { return baz1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2052,8 +2052,11 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2075,7 +2078,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_fe6e07215634608f (void)) (signed int arg1))[2][3] { return &baz1; } ",
+    "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_fe6e07215634608f (void)) (signed int const arg1))[2][3] { return &baz1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2102,8 +2105,9 @@
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
+            TypeConst
+              (TypePrim
+                (PrimIntegral PrimInt Signed))]
           (TypePointer
             (TypeConstArray
               2
@@ -2120,7 +2124,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int arg1))[2][3] { return baz2(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int const arg1))[2][3] { return baz2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2158,8 +2162,11 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2181,7 +2188,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (signed int arg1))[2][3] { return &baz2; } ",
+    "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (signed int const arg1))[2][3] { return &baz2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2208,8 +2215,9 @@
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
+            TypeConst
+              (TypePrim
+                (PrimIntegral PrimInt Signed))]
           (TypePointer
             (TypeConstArray
               2
@@ -2226,7 +2234,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int arg1))[2][3] { return baz3(arg1); }",
+    "signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int const arg1))[2][3] { return baz3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2264,8 +2272,11 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2287,7 +2298,7 @@
   DeclInlineCInclude
     "macro_in_fundecl.h",
   DeclInlineC
-    "/* get_baz3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int arg1))[2][3] { return &baz3; } ",
+    "/* get_baz3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2314,8 +2325,9 @@
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
+            TypeConst
+              (TypePrim
+                (PrimIntegral PrimInt Signed))]
           (TypePointer
             (TypeConstArray
               2

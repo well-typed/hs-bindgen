@@ -83,7 +83,6 @@ instance (
     DeclMacro macro       -> DeclMacro macro
     DeclFunction function -> DeclFunction (coercePass function)
     DeclGlobal ty         -> DeclGlobal (coercePass ty)
-    DeclConst ty          -> DeclConst (coercePass ty)
 
 instance (
       CoercePass StructField p p'
@@ -216,3 +215,4 @@ instance (
   coercePass (TypeIncompleteArray typ) = TypeIncompleteArray (coercePass typ)
   coercePass (TypeExtBinding ext)      = TypeExtBinding ext
   coercePass (TypeBlock typ)           = TypeBlock (coercePass typ)
+  coercePass (TypeConst typ)           = TypeConst (coercePass typ)
