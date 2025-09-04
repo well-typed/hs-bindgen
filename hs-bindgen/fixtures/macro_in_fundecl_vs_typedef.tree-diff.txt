@@ -283,17 +283,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "macro_in_fundecl_vs_typedef.h:18:30",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "struct1_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "macro_in_fundecl_vs_typedef.h:18:30",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "struct1_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -324,17 +325,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "macro_in_fundecl_vs_typedef.h:19:30",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "struct2_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "macro_in_fundecl_vs_typedef.h:19:30",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "struct2_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -364,17 +366,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "macro_in_fundecl_vs_typedef.h:20:30",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "struct3_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "macro_in_fundecl_vs_typedef.h:20:30",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "struct3_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -437,17 +440,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "macro_in_fundecl_vs_typedef.h:21:30",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "struct4_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "macro_in_fundecl_vs_typedef.h:21:30",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "struct4_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

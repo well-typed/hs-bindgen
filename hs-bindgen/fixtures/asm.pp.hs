@@ -12,6 +12,12 @@ import Prelude (IO)
 
 $(CAPI.addCSource "#include <asm.h>\n/* get_asm_labeled_variable_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_asm_d2d42e5b0c00988a (void) { return &asm_labeled_variable; } \nsigned int hs_bindgen_test_asm_54c5278e738a284f (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }\n/* get_asm_labeled_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_asm_6a616a08348f146e (void)) (signed int arg1, signed int arg2) { return &asm_labeled_function; } \n")
 
+{-| __C declaration:__ @asm_labeled_variable@
+
+    __defined at:__ @asm.h:2:12@
+
+    __exported by:__ @asm.h@
+-}
 foreign import ccall unsafe "hs_bindgen_test_asm_d2d42e5b0c00988a" hs_bindgen_test_asm_d2d42e5b0c00988a
   :: IO (F.Ptr FC.CInt)
 
@@ -21,14 +27,27 @@ asm_labeled_variable_ptr :: F.Ptr FC.CInt
 asm_labeled_variable_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_asm_d2d42e5b0c00988a
 
-{-| __from C:__ @asm_labeled_function@ -}
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @asm.h:4:5@
+
+    __exported by:__ @asm.h@
+-}
 foreign import ccall safe "hs_bindgen_test_asm_54c5278e738a284f" asm_labeled_function
   :: FC.CInt
-     {- ^ __from C:__ @x@ -}
+     {- ^ __C declaration:__ @x@
+     -}
   -> FC.CInt
-     {- ^ __from C:__ @y@ -}
+     {- ^ __C declaration:__ @y@
+     -}
   -> IO FC.CInt
 
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @asm.h:4:5@
+
+    __exported by:__ @asm.h@
+-}
 foreign import ccall unsafe "hs_bindgen_test_asm_6a616a08348f146e" hs_bindgen_test_asm_6a616a08348f146e
   :: IO (F.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 

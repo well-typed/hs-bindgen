@@ -16,18 +16,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:9:22",
-              structFieldName = NamePair {
-                nameC = Name "foo",
-                nameHsIdent = HsIdentifier
-                  "another_typedef_struct_t_foo"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:9:22",
+                fieldName = NamePair {
+                  nameC = Name "foo",
+                  nameHsIdent = HsIdentifier
+                    "another_typedef_struct_t_foo"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:9:22")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -36,20 +42,26 @@
             HsPrimCChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:9:32",
-              structFieldName = NamePair {
-                nameC = Name "bar",
-                nameHsIdent = HsIdentifier
-                  "another_typedef_struct_t_bar"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:9:32",
+                fieldName = NamePair {
+                  nameC = Name "bar",
+                  nameHsIdent = HsIdentifier
+                    "another_typedef_struct_t_bar"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:9:32")
+              (Just "distilled_lib_1.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -79,31 +91,33 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:9:22",
-                  structFieldName = NamePair {
-                    nameC = Name "foo",
-                    nameHsIdent = HsIdentifier
-                      "another_typedef_struct_t_foo"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:9:22",
+                    fieldName = NamePair {
+                      nameC = Name "foo",
+                      nameHsIdent = HsIdentifier
+                        "another_typedef_struct_t_foo"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:9:32",
-                  structFieldName = NamePair {
-                    nameC = Name "bar",
-                    nameHsIdent = HsIdentifier
-                      "another_typedef_struct_t_bar"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:9:32",
+                    fieldName = NamePair {
+                      nameC = Name "bar",
+                      nameHsIdent = HsIdentifier
+                        "another_typedef_struct_t_bar"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -113,7 +127,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:9:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -134,18 +153,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:9:22",
-                  structFieldName = NamePair {
-                    nameC = Name "foo",
-                    nameHsIdent = HsIdentifier
-                      "another_typedef_struct_t_foo"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:9:22",
+                    fieldName = NamePair {
+                      nameC = Name "foo",
+                      nameHsIdent = HsIdentifier
+                        "another_typedef_struct_t_foo"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:9:22")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -154,20 +179,26 @@
                 HsPrimCChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:9:32",
-                  structFieldName = NamePair {
-                    nameC = Name "bar",
-                    nameHsIdent = HsIdentifier
-                      "another_typedef_struct_t_bar"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:9:32",
+                    fieldName = NamePair {
+                      nameC = Name "bar",
+                      nameHsIdent = HsIdentifier
+                        "another_typedef_struct_t_bar"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:9:32")
+                  (Just "distilled_lib_1.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -197,31 +228,33 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:9:22",
-                      structFieldName = NamePair {
-                        nameC = Name "foo",
-                        nameHsIdent = HsIdentifier
-                          "another_typedef_struct_t_foo"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:9:22",
+                        fieldName = NamePair {
+                          nameC = Name "foo",
+                          nameHsIdent = HsIdentifier
+                            "another_typedef_struct_t_foo"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:9:32",
-                      structFieldName = NamePair {
-                        nameC = Name "bar",
-                        nameHsIdent = HsIdentifier
-                          "another_typedef_struct_t_bar"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:9:32",
+                        fieldName = NamePair {
+                          nameC = Name "bar",
+                          nameHsIdent = HsIdentifier
+                            "another_typedef_struct_t_bar"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignImplicit
                             (Just Signed))),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -231,7 +264,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:9:9")
+              (Just "distilled_lib_1.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -255,18 +293,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:9:22",
-                          structFieldName = NamePair {
-                            nameC = Name "foo",
-                            nameHsIdent = HsIdentifier
-                              "another_typedef_struct_t_foo"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:9:22",
+                            fieldName = NamePair {
+                              nameC = Name "foo",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_foo"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:22")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -275,20 +319,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:9:32",
-                          structFieldName = NamePair {
-                            nameC = Name "bar",
-                            nameHsIdent = HsIdentifier
-                              "another_typedef_struct_t_bar"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:9:32",
+                            fieldName = NamePair {
+                              nameC = Name "bar",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_bar"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:32")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -318,31 +368,33 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:9:22",
-                              structFieldName = NamePair {
-                                nameC = Name "foo",
-                                nameHsIdent = HsIdentifier
-                                  "another_typedef_struct_t_foo"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:9:22",
+                                fieldName = NamePair {
+                                  nameC = Name "foo",
+                                  nameHsIdent = HsIdentifier
+                                    "another_typedef_struct_t_foo"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:9:32",
-                              structFieldName = NamePair {
-                                nameC = Name "bar",
-                                nameHsIdent = HsIdentifier
-                                  "another_typedef_struct_t_bar"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:9:32",
+                                fieldName = NamePair {
+                                  nameC = Name "bar",
+                                  nameHsIdent = HsIdentifier
+                                    "another_typedef_struct_t_bar"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -352,7 +404,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:9:9")
+                      (Just "distilled_lib_1.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -378,18 +435,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:9:22",
-                          structFieldName = NamePair {
-                            nameC = Name "foo",
-                            nameHsIdent = HsIdentifier
-                              "another_typedef_struct_t_foo"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:9:22",
+                            fieldName = NamePair {
+                              nameC = Name "foo",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_foo"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:22")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -398,20 +461,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:9:32",
-                          structFieldName = NamePair {
-                            nameC = Name "bar",
-                            nameHsIdent = HsIdentifier
-                              "another_typedef_struct_t_bar"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:9:32",
+                            fieldName = NamePair {
+                              nameC = Name "bar",
+                              nameHsIdent = HsIdentifier
+                                "another_typedef_struct_t_bar"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:9:32")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -441,31 +510,33 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:9:22",
-                              structFieldName = NamePair {
-                                nameC = Name "foo",
-                                nameHsIdent = HsIdentifier
-                                  "another_typedef_struct_t_foo"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:9:22",
+                                fieldName = NamePair {
+                                  nameC = Name "foo",
+                                  nameHsIdent = HsIdentifier
+                                    "another_typedef_struct_t_foo"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:9:32",
-                              structFieldName = NamePair {
-                                nameC = Name "bar",
-                                nameHsIdent = HsIdentifier
-                                  "another_typedef_struct_t_bar"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:9:32",
+                                fieldName = NamePair {
+                                  nameC = Name "bar",
+                                  nameHsIdent = HsIdentifier
+                                    "another_typedef_struct_t_bar"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -475,7 +546,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:9:9")
+                      (Just "distilled_lib_1.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -554,24 +630,25 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "distilled_lib_1.h:10:16",
-                enumConstantName = NamePair {
-                  nameC = Name "FOO",
-                  nameHsIdent = HsIdentifier
-                    "FOO"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "distilled_lib_1.h:10:16",
+                  fieldName = NamePair {
+                    nameC = Name "FOO",
+                    nameHsIdent = HsIdentifier
+                      "FOO"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "distilled_lib_1.h:10:21",
-                enumConstantName = NamePair {
-                  nameC = Name "BAR",
-                  nameHsIdent = HsIdentifier
-                    "BAR"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "distilled_lib_1.h:10:21",
+                  fieldName = NamePair {
+                    nameC = Name "BAR",
+                    nameHsIdent = HsIdentifier
+                      "BAR"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -580,7 +657,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:10:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -814,15 +896,21 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "distilled_lib_1.h:10:16",
-          enumConstantName = NamePair {
-            nameC = Name "FOO",
-            nameHsIdent = HsIdentifier
-              "FOO"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "distilled_lib_1.h:10:16",
+            fieldName = NamePair {
+              nameC = Name "FOO",
+              nameHsIdent = HsIdentifier
+                "FOO"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:10:16")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -837,15 +925,21 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "distilled_lib_1.h:10:21",
-          enumConstantName = NamePair {
-            nameC = Name "BAR",
-            nameHsIdent = HsIdentifier
-              "BAR"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "distilled_lib_1.h:10:21",
+            fieldName = NamePair {
+              nameC = Name "BAR",
+              nameHsIdent = HsIdentifier
+                "BAR"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:10:21")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -871,7 +965,12 @@
       varDeclBody = VarDeclIntegral
         5
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:11:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -897,7 +996,12 @@
       varDeclBody = VarDeclIntegral
         3
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:12:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -923,7 +1027,12 @@
       varDeclBody = VarDeclIntegral
         4
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:13:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -985,7 +1094,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:14:13")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1178,7 +1292,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:15:13")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1327,18 +1446,24 @@
             HsPrimCBool,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:37:31",
-              structFieldName = NamePair {
-                nameC = Name "field_0",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_0"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:37:31",
+                fieldName = NamePair {
+                  nameC = Name "field_0",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_0"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:37:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1456,12 +1581,14 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:38:31",
-              structFieldName = NamePair {
-                nameC = Name "field_1",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:38:31",
+                fieldName = NamePair {
+                  nameC = Name "field_1",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_1"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1579,9 +1706,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 8,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:38:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1699,12 +1830,14 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:39:31",
-              structFieldName = NamePair {
-                nameC = Name "field_2",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_2"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:39:31",
+                fieldName = NamePair {
+                  nameC = Name "field_2",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_2"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1822,9 +1955,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:39:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1942,12 +2079,14 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:40:31",
-              structFieldName = NamePair {
-                nameC = Name "field_3",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_3"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:40:31",
+                fieldName = NamePair {
+                  nameC = Name "field_3",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_3"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2065,9 +2204,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:40:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2078,12 +2221,14 @@
               "Another_typedef_struct_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:41:31",
-              structFieldName = NamePair {
-                nameC = Name "field_4",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_4"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:41:31",
+                fieldName = NamePair {
+                  nameC = Name "field_4",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_4"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name
@@ -2098,9 +2243,13 @@
                       (AnonId
                         "distilled_lib_1.h:9:9")))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:41:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2112,12 +2261,14 @@
                 "Another_typedef_struct_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:42:31",
-              structFieldName = NamePair {
-                nameC = Name "field_5",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_5"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:42:31",
+                fieldName = NamePair {
+                  nameC = Name "field_5",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_5"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -2133,9 +2284,13 @@
                         (AnonId
                           "distilled_lib_1.h:9:9"))))),
               structFieldOffset = 128,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:42:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2144,18 +2299,24 @@
             (HsPrimType HsPrimVoid),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:43:31",
-              structFieldName = NamePair {
-                nameC = Name "field_6",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_6"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:43:31",
+                fieldName = NamePair {
+                  nameC = Name "field_6",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_6"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 TypeVoid,
               structFieldOffset = 192,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:43:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2275,12 +2436,14 @@
                             ]})]}),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:44:31",
-              structFieldName = NamePair {
-                nameC = Name "field_7",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_7"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:44:31",
+                fieldName = NamePair {
+                  nameC = Name "field_7",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_7"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 7
                 (TypeExtBinding
@@ -2400,9 +2563,13 @@
                                 instanceSpecConstraints = [
                                   ]})]}}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:44:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2413,12 +2580,14 @@
               "Another_typedef_enum_e"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:45:31",
-              structFieldName = NamePair {
-                nameC = Name "field_8",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_8"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:45:31",
+                fieldName = NamePair {
+                  nameC = Name "field_8",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_8"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "another_typedef_enum_e")
@@ -2432,9 +2601,13 @@
                       (AnonId
                         "distilled_lib_1.h:10:9")))),
               structFieldOffset = 480,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:45:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2447,12 +2620,14 @@
                 "Another_typedef_enum_e")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:46:31",
-              structFieldName = NamePair {
-                nameC = Name "field_9",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_9"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:46:31",
+                fieldName = NamePair {
+                  nameC = Name "field_9",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_9"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 4
                 (TypeTypedef
@@ -2468,9 +2643,13 @@
                         (AnonId
                           "distilled_lib_1.h:10:9"))))),
               structFieldOffset = 512,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:46:31")
+              (Just "distilled_lib_1.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2485,12 +2664,14 @@
                   "Another_typedef_enum_e"))),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "distilled_lib_1.h:47:31",
-              structFieldName = NamePair {
-                nameC = Name "field_10",
-                nameHsIdent = HsIdentifier
-                  "a_typedef_struct_t_field_10"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "distilled_lib_1.h:47:31",
+                fieldName = NamePair {
+                  nameC = Name "field_10",
+                  nameHsIdent = HsIdentifier
+                    "a_typedef_struct_t_field_10"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 5
                 (TypeConstArray
@@ -2508,9 +2689,13 @@
                           (AnonId
                             "distilled_lib_1.h:10:9")))))),
               structFieldOffset = 640,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:47:31")
+              (Just "distilled_lib_1.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2539,24 +2724,27 @@
               structAlignment = 1,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:37:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_0",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_0"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:37:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_0",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_0"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:38:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_1",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:38:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_1",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -2674,15 +2862,16 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:39:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_2",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:39:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_2",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_2"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -2800,15 +2989,16 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:40:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_3",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_3"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:40:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_3",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_3"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -2926,15 +3116,16 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:41:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_4",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_4"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:41:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_4",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_4"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name
@@ -2949,15 +3140,16 @@
                           (AnonId
                             "distilled_lib_1.h:9:9")))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:42:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_5",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_5"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:42:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_5",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_5"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -2973,27 +3165,29 @@
                             (AnonId
                               "distilled_lib_1.h:9:9"))))),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:43:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_6",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_6"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:43:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_6",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_6"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     TypeVoid,
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:44:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_7",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_7"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:44:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_7",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_7"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConstArray
                     7
                     (TypeExtBinding
@@ -3113,15 +3307,16 @@
                                     instanceSpecConstraints = [
                                       ]})]}}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:45:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_8",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_8"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:45:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_8",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_8"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "another_typedef_enum_e")
@@ -3135,15 +3330,16 @@
                           (AnonId
                             "distilled_lib_1.h:10:9")))),
                   structFieldOffset = 480,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:46:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_9",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_9"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:46:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_9",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_9"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConstArray
                     4
                     (TypeTypedef
@@ -3159,15 +3355,16 @@
                             (AnonId
                               "distilled_lib_1.h:10:9"))))),
                   structFieldOffset = 512,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:47:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_10",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_10"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:47:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_10",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_10"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConstArray
                     5
                     (TypeConstArray
@@ -3185,8 +3382,7 @@
                               (AnonId
                                 "distilled_lib_1.h:10:9")))))),
                   structFieldOffset = 640,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -3196,7 +3392,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:35:16")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3217,18 +3418,24 @@
                 HsPrimCBool,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:37:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_0",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_0"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:37:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_0",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_0"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:37:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3346,12 +3553,14 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:38:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_1",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:38:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_1",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3469,9 +3678,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:38:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3589,12 +3802,14 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:39:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_2",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:39:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_2",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_2"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3712,9 +3927,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:39:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3832,12 +4051,14 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:40:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_3",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_3"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:40:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_3",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_3"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3955,9 +4176,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:40:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3968,12 +4193,14 @@
                   "Another_typedef_struct_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:41:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_4",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_4"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:41:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_4",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_4"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name
@@ -3988,9 +4215,13 @@
                           (AnonId
                             "distilled_lib_1.h:9:9")))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:41:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4002,12 +4233,14 @@
                     "Another_typedef_struct_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:42:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_5",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_5"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:42:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_5",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_5"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -4023,9 +4256,13 @@
                             (AnonId
                               "distilled_lib_1.h:9:9"))))),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:42:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4034,18 +4271,24 @@
                 (HsPrimType HsPrimVoid),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:43:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_6",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_6"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:43:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_6",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_6"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     TypeVoid,
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:43:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4165,12 +4408,14 @@
                                 ]})]}),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:44:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_7",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_7"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:44:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_7",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_7"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConstArray
                     7
                     (TypeExtBinding
@@ -4290,9 +4535,13 @@
                                     instanceSpecConstraints = [
                                       ]})]}}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:44:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4303,12 +4552,14 @@
                   "Another_typedef_enum_e"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:45:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_8",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_8"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:45:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_8",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_8"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "another_typedef_enum_e")
@@ -4322,9 +4573,13 @@
                           (AnonId
                             "distilled_lib_1.h:10:9")))),
                   structFieldOffset = 480,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:45:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4337,12 +4592,14 @@
                     "Another_typedef_enum_e")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:46:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_9",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_9"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:46:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_9",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_9"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConstArray
                     4
                     (TypeTypedef
@@ -4358,9 +4615,13 @@
                             (AnonId
                               "distilled_lib_1.h:10:9"))))),
                   structFieldOffset = 512,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:46:31")
+                  (Just "distilled_lib_1.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4375,12 +4636,14 @@
                       "Another_typedef_enum_e"))),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "distilled_lib_1.h:47:31",
-                  structFieldName = NamePair {
-                    nameC = Name "field_10",
-                    nameHsIdent = HsIdentifier
-                      "a_typedef_struct_t_field_10"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "distilled_lib_1.h:47:31",
+                    fieldName = NamePair {
+                      nameC = Name "field_10",
+                      nameHsIdent = HsIdentifier
+                        "a_typedef_struct_t_field_10"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConstArray
                     5
                     (TypeConstArray
@@ -4398,9 +4661,13 @@
                               (AnonId
                                 "distilled_lib_1.h:10:9")))))),
                   structFieldOffset = 640,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "distilled_lib_1.h:47:31")
+                  (Just "distilled_lib_1.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -4429,24 +4696,27 @@
                   structAlignment = 1,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:37:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_0",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_0"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:37:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_0",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_0"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         PrimBool,
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:38:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_1",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_1"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:38:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_1",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_1"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -4564,15 +4834,16 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 8,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:39:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_2",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_2"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:39:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_2",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_2"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -4690,15 +4961,16 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 16,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:40:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_3",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_3"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:40:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_3",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_3"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -4816,15 +5088,16 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:41:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_4",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_4"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:41:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_4",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_4"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name
@@ -4839,15 +5112,16 @@
                               (AnonId
                                 "distilled_lib_1.h:9:9")))),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:42:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_5",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_5"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:42:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_5",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_5"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
                           (TypedefSquashed
@@ -4863,27 +5137,29 @@
                                 (AnonId
                                   "distilled_lib_1.h:9:9"))))),
                       structFieldOffset = 128,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:43:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_6",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_6"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:43:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_6",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_6"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         TypeVoid,
                       structFieldOffset = 192,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:44:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_7",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_7"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:44:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_7",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_7"},
+                        fieldComment = Nothing},
                       structFieldType = TypeConstArray
                         7
                         (TypeExtBinding
@@ -5003,15 +5279,16 @@
                                         instanceSpecConstraints = [
                                           ]})]}}),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:45:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_8",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_8"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:45:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_8",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_8"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "another_typedef_enum_e")
@@ -5025,15 +5302,16 @@
                               (AnonId
                                 "distilled_lib_1.h:10:9")))),
                       structFieldOffset = 480,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:46:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_9",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_9"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:46:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_9",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_9"},
+                        fieldComment = Nothing},
                       structFieldType = TypeConstArray
                         4
                         (TypeTypedef
@@ -5049,15 +5327,16 @@
                                 (AnonId
                                   "distilled_lib_1.h:10:9"))))),
                       structFieldOffset = 512,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "distilled_lib_1.h:47:31",
-                      structFieldName = NamePair {
-                        nameC = Name "field_10",
-                        nameHsIdent = HsIdentifier
-                          "a_typedef_struct_t_field_10"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "distilled_lib_1.h:47:31",
+                        fieldName = NamePair {
+                          nameC = Name "field_10",
+                          nameHsIdent = HsIdentifier
+                            "a_typedef_struct_t_field_10"},
+                        fieldComment = Nothing},
                       structFieldType = TypeConstArray
                         5
                         (TypeConstArray
@@ -5075,8 +5354,7 @@
                                   (AnonId
                                     "distilled_lib_1.h:10:9")))))),
                       structFieldOffset = 640,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -5086,7 +5364,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "distilled_lib_1.h:35:16")
+              (Just "distilled_lib_1.h")
+              [])}
         StorableInstance {
           storableSizeOf = 140,
           storableAlignment = 1,
@@ -5110,18 +5393,24 @@
                         HsPrimCBool,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:37:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_0",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_0"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:37:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_0",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_0"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             PrimBool,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:37:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5239,12 +5528,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:38:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_1",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:38:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_1",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -5362,9 +5653,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 8,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:38:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5482,12 +5777,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:39:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_2",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:39:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_2",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_2"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -5605,9 +5902,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:39:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5725,12 +6026,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:40:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_3",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_3"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:40:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_3",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_3"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -5848,9 +6151,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:40:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5861,12 +6168,14 @@
                           "Another_typedef_struct_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:41:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_4",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_4"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:41:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_4",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_4"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name
@@ -5881,9 +6190,13 @@
                                   (AnonId
                                     "distilled_lib_1.h:9:9")))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:41:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5895,12 +6208,14 @@
                             "Another_typedef_struct_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:42:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_5",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_5"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:42:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_5",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_5"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -5916,9 +6231,13 @@
                                     (AnonId
                                       "distilled_lib_1.h:9:9"))))),
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:42:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5927,18 +6246,24 @@
                         (HsPrimType HsPrimVoid),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:43:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_6",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_6"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:43:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_6",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_6"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             TypeVoid,
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:43:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6058,12 +6383,14 @@
                                         ]})]}),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:44:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_7",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_7"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:44:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_7",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_7"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConstArray
                             7
                             (TypeExtBinding
@@ -6183,9 +6510,13 @@
                                             instanceSpecConstraints = [
                                               ]})]}}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:44:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6196,12 +6527,14 @@
                           "Another_typedef_enum_e"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:45:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_8",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_8"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:45:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_8",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_8"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "another_typedef_enum_e")
@@ -6215,9 +6548,13 @@
                                   (AnonId
                                     "distilled_lib_1.h:10:9")))),
                           structFieldOffset = 480,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:45:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6230,12 +6567,14 @@
                             "Another_typedef_enum_e")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:46:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_9",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_9"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:46:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_9",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_9"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConstArray
                             4
                             (TypeTypedef
@@ -6251,9 +6590,13 @@
                                     (AnonId
                                       "distilled_lib_1.h:10:9"))))),
                           structFieldOffset = 512,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:46:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6268,12 +6611,14 @@
                               "Another_typedef_enum_e"))),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:47:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_10",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_10"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:47:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_10",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_10"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConstArray
                             5
                             (TypeConstArray
@@ -6291,9 +6636,13 @@
                                       (AnonId
                                         "distilled_lib_1.h:10:9")))))),
                           structFieldOffset = 640,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:47:31")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -6322,24 +6671,27 @@
                           structAlignment = 1,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:37:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_0",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_0"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:37:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_0",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_0"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 PrimBool,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:38:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_1",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:38:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_1",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -6457,15 +6809,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 8,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:39:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_2",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:39:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_2",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_2"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -6583,15 +6936,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:40:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_3",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_3"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:40:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_3",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_3"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -6709,15 +7063,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:41:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_4",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_4"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:41:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_4",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_4"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name
@@ -6732,15 +7087,16 @@
                                       (AnonId
                                         "distilled_lib_1.h:9:9")))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:42:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_5",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_5"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:42:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_5",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_5"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -6756,27 +7112,29 @@
                                         (AnonId
                                           "distilled_lib_1.h:9:9"))))),
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:43:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_6",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_6"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:43:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_6",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_6"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 TypeVoid,
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:44:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_7",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_7"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:44:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_7",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_7"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConstArray
                                 7
                                 (TypeExtBinding
@@ -6896,15 +7254,16 @@
                                                 instanceSpecConstraints = [
                                                   ]})]}}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:45:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_8",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_8"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:45:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_8",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_8"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "another_typedef_enum_e")
@@ -6918,15 +7277,16 @@
                                       (AnonId
                                         "distilled_lib_1.h:10:9")))),
                               structFieldOffset = 480,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:46:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_9",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_9"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:46:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_9",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_9"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConstArray
                                 4
                                 (TypeTypedef
@@ -6942,15 +7302,16 @@
                                         (AnonId
                                           "distilled_lib_1.h:10:9"))))),
                               structFieldOffset = 512,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:47:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_10",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_10"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:47:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_10",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_10"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConstArray
                                 5
                                 (TypeConstArray
@@ -6968,8 +7329,7 @@
                                           (AnonId
                                             "distilled_lib_1.h:10:9")))))),
                               structFieldOffset = 640,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -6979,7 +7339,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:35:16")
+                      (Just "distilled_lib_1.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1,
@@ -7014,18 +7379,24 @@
                         HsPrimCBool,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:37:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_0",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_0"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:37:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_0",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_0"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             PrimBool,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:37:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7143,12 +7514,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:38:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_1",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:38:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_1",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -7266,9 +7639,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 8,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:38:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7386,12 +7763,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:39:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_2",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:39:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_2",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_2"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -7509,9 +7888,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:39:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7629,12 +8012,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:40:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_3",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_3"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:40:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_3",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_3"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -7752,9 +8137,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:40:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7765,12 +8154,14 @@
                           "Another_typedef_struct_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:41:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_4",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_4"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:41:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_4",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_4"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name
@@ -7785,9 +8176,13 @@
                                   (AnonId
                                     "distilled_lib_1.h:9:9")))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:41:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7799,12 +8194,14 @@
                             "Another_typedef_struct_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:42:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_5",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_5"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:42:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_5",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_5"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -7820,9 +8217,13 @@
                                     (AnonId
                                       "distilled_lib_1.h:9:9"))))),
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:42:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7831,18 +8232,24 @@
                         (HsPrimType HsPrimVoid),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:43:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_6",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_6"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:43:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_6",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_6"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             TypeVoid,
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:43:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7962,12 +8369,14 @@
                                         ]})]}),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:44:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_7",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_7"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:44:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_7",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_7"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConstArray
                             7
                             (TypeExtBinding
@@ -8087,9 +8496,13 @@
                                             instanceSpecConstraints = [
                                               ]})]}}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:44:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8100,12 +8513,14 @@
                           "Another_typedef_enum_e"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:45:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_8",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_8"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:45:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_8",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_8"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "another_typedef_enum_e")
@@ -8119,9 +8534,13 @@
                                   (AnonId
                                     "distilled_lib_1.h:10:9")))),
                           structFieldOffset = 480,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:45:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8134,12 +8553,14 @@
                             "Another_typedef_enum_e")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:46:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_9",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_9"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:46:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_9",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_9"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConstArray
                             4
                             (TypeTypedef
@@ -8155,9 +8576,13 @@
                                     (AnonId
                                       "distilled_lib_1.h:10:9"))))),
                           structFieldOffset = 512,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:46:31")
+                          (Just "distilled_lib_1.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8172,12 +8597,14 @@
                               "Another_typedef_enum_e"))),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "distilled_lib_1.h:47:31",
-                          structFieldName = NamePair {
-                            nameC = Name "field_10",
-                            nameHsIdent = HsIdentifier
-                              "a_typedef_struct_t_field_10"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "distilled_lib_1.h:47:31",
+                            fieldName = NamePair {
+                              nameC = Name "field_10",
+                              nameHsIdent = HsIdentifier
+                                "a_typedef_struct_t_field_10"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConstArray
                             5
                             (TypeConstArray
@@ -8195,9 +8622,13 @@
                                       (AnonId
                                         "distilled_lib_1.h:10:9")))))),
                           structFieldOffset = 640,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "distilled_lib_1.h:47:31")
+                          (Just "distilled_lib_1.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -8226,24 +8657,27 @@
                           structAlignment = 1,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:37:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_0",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_0"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:37:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_0",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_0"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 PrimBool,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:38:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_1",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:38:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_1",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8361,15 +8795,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 8,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:39:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_2",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:39:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_2",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_2"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8487,15 +8922,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:40:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_3",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_3"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:40:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_3",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_3"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8613,15 +9049,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:41:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_4",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_4"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:41:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_4",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_4"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name
@@ -8636,15 +9073,16 @@
                                       (AnonId
                                         "distilled_lib_1.h:9:9")))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:42:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_5",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_5"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:42:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_5",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_5"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -8660,27 +9098,29 @@
                                         (AnonId
                                           "distilled_lib_1.h:9:9"))))),
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:43:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_6",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_6"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:43:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_6",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_6"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 TypeVoid,
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:44:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_7",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_7"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:44:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_7",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_7"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConstArray
                                 7
                                 (TypeExtBinding
@@ -8800,15 +9240,16 @@
                                                 instanceSpecConstraints = [
                                                   ]})]}}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:45:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_8",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_8"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:45:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_8",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_8"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "another_typedef_enum_e")
@@ -8822,15 +9263,16 @@
                                       (AnonId
                                         "distilled_lib_1.h:10:9")))),
                               structFieldOffset = 480,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:46:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_9",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_9"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:46:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_9",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_9"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConstArray
                                 4
                                 (TypeTypedef
@@ -8846,15 +9288,16 @@
                                         (AnonId
                                           "distilled_lib_1.h:10:9"))))),
                               structFieldOffset = 512,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "distilled_lib_1.h:47:31",
-                              structFieldName = NamePair {
-                                nameC = Name "field_10",
-                                nameHsIdent = HsIdentifier
-                                  "a_typedef_struct_t_field_10"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "distilled_lib_1.h:47:31",
+                                fieldName = NamePair {
+                                  nameC = Name "field_10",
+                                  nameHsIdent = HsIdentifier
+                                    "a_typedef_struct_t_field_10"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConstArray
                                 5
                                 (TypeConstArray
@@ -8872,8 +9315,7 @@
                                           (AnonId
                                             "distilled_lib_1.h:10:9")))))),
                               structFieldOffset = 640,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -8883,7 +9325,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "distilled_lib_1.h:35:16")
+                      (Just "distilled_lib_1.h")
+                      [])}
                 (Add 11)
                 (Seq
                   [
@@ -8948,7 +9395,12 @@
       varDeclBody = VarDeclIntegral
         0
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:53:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -8974,7 +9426,12 @@
       varDeclBody = VarDeclIntegral
         20560
         HsPrimCUInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:54:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -9000,7 +9457,12 @@
       varDeclBody = VarDeclIntegral
         2
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:55:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -9050,7 +9512,12 @@
           VarDeclIntegral
             30874
             HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:56:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -9099,42 +9566,45 @@
             enumAlignment = 1,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "distilled_lib_1.h:63:3",
-                enumConstantName = NamePair {
-                  nameC = Name "ENUM_CASE_0",
-                  nameHsIdent = HsIdentifier
-                    "ENUM_CASE_0"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "distilled_lib_1.h:63:3",
+                  fieldName = NamePair {
+                    nameC = Name "ENUM_CASE_0",
+                    nameHsIdent = HsIdentifier
+                      "ENUM_CASE_0"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "distilled_lib_1.h:64:3",
-                enumConstantName = NamePair {
-                  nameC = Name "ENUM_CASE_1",
-                  nameHsIdent = HsIdentifier
-                    "ENUM_CASE_1"},
-                enumConstantValue = 1,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "distilled_lib_1.h:64:3",
+                  fieldName = NamePair {
+                    nameC = Name "ENUM_CASE_1",
+                    nameHsIdent = HsIdentifier
+                      "ENUM_CASE_1"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1},
               EnumConstant {
-                enumConstantLoc =
-                "distilled_lib_1.h:65:3",
-                enumConstantName = NamePair {
-                  nameC = Name "ENUM_CASE_2",
-                  nameHsIdent = HsIdentifier
-                    "ENUM_CASE_2"},
-                enumConstantValue = 2,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "distilled_lib_1.h:65:3",
+                  fieldName = NamePair {
+                    nameC = Name "ENUM_CASE_2",
+                    nameHsIdent = HsIdentifier
+                      "ENUM_CASE_2"},
+                  fieldComment = Nothing},
+                enumConstantValue = 2},
               EnumConstant {
-                enumConstantLoc =
-                "distilled_lib_1.h:66:3",
-                enumConstantName = NamePair {
-                  nameC = Name "ENUM_CASE_3",
-                  nameHsIdent = HsIdentifier
-                    "ENUM_CASE_3"},
-                enumConstantValue = 3,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "distilled_lib_1.h:66:3",
+                  fieldName = NamePair {
+                    nameC = Name "ENUM_CASE_3",
+                    nameHsIdent = HsIdentifier
+                      "ENUM_CASE_3"},
+                  fieldComment = Nothing},
+                enumConstantValue = 3}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9143,7 +9613,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:61:9")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -9391,15 +9866,21 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "distilled_lib_1.h:63:3",
-          enumConstantName = NamePair {
-            nameC = Name "ENUM_CASE_0",
-            nameHsIdent = HsIdentifier
-              "ENUM_CASE_0"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "distilled_lib_1.h:63:3",
+            fieldName = NamePair {
+              nameC = Name "ENUM_CASE_0",
+              nameHsIdent = HsIdentifier
+                "ENUM_CASE_0"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:63:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9414,15 +9895,21 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "distilled_lib_1.h:64:3",
-          enumConstantName = NamePair {
-            nameC = Name "ENUM_CASE_1",
-            nameHsIdent = HsIdentifier
-              "ENUM_CASE_1"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "distilled_lib_1.h:64:3",
+            fieldName = NamePair {
+              nameC = Name "ENUM_CASE_1",
+              nameHsIdent = HsIdentifier
+                "ENUM_CASE_1"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:64:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9437,15 +9924,21 @@
       patSynValue = 2,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "distilled_lib_1.h:65:3",
-          enumConstantName = NamePair {
-            nameC = Name "ENUM_CASE_2",
-            nameHsIdent = HsIdentifier
-              "ENUM_CASE_2"},
-          enumConstantValue = 2,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "distilled_lib_1.h:65:3",
+            fieldName = NamePair {
+              nameC = Name "ENUM_CASE_2",
+              nameHsIdent = HsIdentifier
+                "ENUM_CASE_2"},
+            fieldComment = Nothing},
+          enumConstantValue = 2},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:65:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9460,15 +9953,21 @@
       patSynValue = 3,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "distilled_lib_1.h:66:3",
-          enumConstantName = NamePair {
-            nameC = Name "ENUM_CASE_3",
-            nameHsIdent = HsIdentifier
-              "ENUM_CASE_3"},
-          enumConstantValue = 3,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "distilled_lib_1.h:66:3",
+            fieldName = NamePair {
+              nameC = Name "ENUM_CASE_3",
+              nameHsIdent = HsIdentifier
+                "ENUM_CASE_3"},
+            fieldComment = Nothing},
+          enumConstantValue = 3},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:66:3")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclInlineCInclude
     "distilled_lib_1.h",
   DeclInlineC
@@ -9488,10 +9987,11 @@
                 "@NsTypeConstr"
                 "A_type_t")),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "i",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "j"),
@@ -9608,10 +10108,11 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "j",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "k"),
@@ -9728,10 +10229,11 @@
                           instanceSpecConstraints = [
                             ]})]}),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "k",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -10228,10 +10730,11 @@
                           instanceSpecConstraints = [
                             ]})]}}},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "some_fun",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:72:9")
+          (Just "distilled_lib_1.h")
+          []),
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -10954,7 +11457,12 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:72:9")
+          (Just "distilled_lib_1.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11465,7 +11973,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:77:19")
+          (Just "distilled_lib_1.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -11535,7 +12048,12 @@
               nameC = Name "var_t",
               nameHsIdent = HsIdentifier
                 "Var_t"})),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "distilled_lib_1.h:91:14")
+          (Just "distilled_lib_1.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

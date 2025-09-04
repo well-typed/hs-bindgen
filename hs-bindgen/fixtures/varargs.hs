@@ -23,10 +23,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "h",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "varargs.h:8:6")
+          (Just "varargs.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "varargs.h",
   DeclInlineC
@@ -49,7 +50,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "varargs.h:8:6")
+          (Just "varargs.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

@@ -12,6 +12,12 @@ import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
+{-| __C declaration:__ @MyEnum@
+
+    __defined at:__ @uses_utf8.h:4:6@
+
+    __exported by:__ @uses_utf8.h@
+-}
 newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
   }
@@ -77,8 +83,20 @@ instance Read MyEnum where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @Say你好@
+
+    __defined at:__ @uses_utf8.h:5:9@
+
+    __exported by:__ @uses_utf8.h@
+-}
 pattern Say你好 :: MyEnum
 pattern Say你好 = MyEnum 0
 
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @uses_utf8.h:6:9@
+
+    __exported by:__ @uses_utf8.h@
+-}
 pattern Say拜拜 :: MyEnum
 pattern Say拜拜 = MyEnum 1

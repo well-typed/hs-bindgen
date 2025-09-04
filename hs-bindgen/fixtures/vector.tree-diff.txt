@@ -20,29 +20,29 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "vector.h:2:12",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "vector_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "vector.h:2:12",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "vector_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "vector.h:3:12",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "vector_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "vector.h:3:12",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "vector_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

@@ -12,6 +12,12 @@ import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
+{-| __C declaration:__ @enumA@
+
+    __defined at:__ @nested_enums.h:2:14@
+
+    __exported by:__ @nested_enums.h@
+-}
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
@@ -77,14 +83,38 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @VALA_1@
+
+    __defined at:__ @nested_enums.h:3:17@
+
+    __exported by:__ @nested_enums.h@
+-}
 pattern VALA_1 :: EnumA
 pattern VALA_1 = EnumA 0
 
+{-| __C declaration:__ @VALA_2@
+
+    __defined at:__ @nested_enums.h:4:17@
+
+    __exported by:__ @nested_enums.h@
+-}
 pattern VALA_2 :: EnumA
 pattern VALA_2 = EnumA 1
 
+{-| __C declaration:__ @exA@
+
+    __defined at:__ @nested_enums.h:1:8@
+
+    __exported by:__ @nested_enums.h@
+-}
 data ExA = ExA
   { exA_fieldA1 :: EnumA
+    {- ^ __C declaration:__ @fieldA1@
+
+         __defined at:__ @nested_enums.h:5:11@
+
+         __exported by:__ @nested_enums.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -106,6 +136,12 @@ instance F.Storable ExA where
           ExA exA_fieldA12 ->
             F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
 
+{-| __C declaration:__ @exB_fieldB1@
+
+    __defined at:__ @nested_enums.h:9:9@
+
+    __exported by:__ @nested_enums.h@
+-}
 newtype ExB_fieldB1 = ExB_fieldB1
   { un_ExB_fieldB1 :: FC.CUInt
   }
@@ -171,14 +207,38 @@ instance Read ExB_fieldB1 where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @VALB_1@
+
+    __defined at:__ @nested_enums.h:10:17@
+
+    __exported by:__ @nested_enums.h@
+-}
 pattern VALB_1 :: ExB_fieldB1
 pattern VALB_1 = ExB_fieldB1 0
 
+{-| __C declaration:__ @VALB_2@
+
+    __defined at:__ @nested_enums.h:11:17@
+
+    __exported by:__ @nested_enums.h@
+-}
 pattern VALB_2 :: ExB_fieldB1
 pattern VALB_2 = ExB_fieldB1 1
 
+{-| __C declaration:__ @exB@
+
+    __defined at:__ @nested_enums.h:8:8@
+
+    __exported by:__ @nested_enums.h@
+-}
 data ExB = ExB
   { exB_fieldB1 :: ExB_fieldB1
+    {- ^ __C declaration:__ @fieldB1@
+
+         __defined at:__ @nested_enums.h:12:11@
+
+         __exported by:__ @nested_enums.h@
+    -}
   }
   deriving stock (Eq, Show)
 

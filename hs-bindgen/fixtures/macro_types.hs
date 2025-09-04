@@ -46,7 +46,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:2:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -137,7 +142,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:5:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -227,7 +237,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:8:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -309,7 +324,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:11:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -398,7 +418,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:14:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -483,7 +508,12 @@
               []}},
       newtypeInstances = Set.fromList
         [],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:17:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -546,7 +576,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:20:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -647,7 +682,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:23:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -764,7 +804,12 @@
               []}},
       newtypeInstances = Set.fromList
         [],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:26:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -832,7 +877,12 @@
               []}},
       newtypeInstances = Set.fromList
         [],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:29:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -891,7 +941,12 @@
           RealFloat,
           RealFrac,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:33:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1075,7 +1130,12 @@
           RealFloat,
           RealFrac,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:34:13")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1257,7 +1317,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:36:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1454,7 +1519,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:37:9")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1651,7 +1721,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "macro_types.h:38:19")
+          (Just "macro_types.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

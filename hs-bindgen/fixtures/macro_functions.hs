@@ -56,7 +56,12 @@
             [
               VarDeclVar (Idx 0),
               VarDeclIntegral 1 HsPrimCInt])),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:1:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -96,7 +101,12 @@
                 [
                   VarDeclVar (Idx 1),
                   VarDeclVar (Idx 0)])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:2:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -114,7 +124,12 @@
         (Lambda
           (NameHint "x")
           (VarDeclVar (Idx 0))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:4:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -138,7 +153,12 @@
             (Lambda
               (NameHint "y")
               (VarDeclVar (Idx 1))))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:5:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -185,7 +205,12 @@
                 [
                   VarDeclVar (Idx 1),
                   VarDeclVar (Idx 0)])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:7:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -287,7 +312,12 @@
                         12
                         HsPrimCULLong,
                       VarDeclVar (Idx 0)]])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:8:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -367,7 +397,12 @@
                     [
                       VarDeclIntegral 3 HsPrimCULLong,
                       VarDeclVar (Idx 0)]])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:9:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -438,7 +473,12 @@
                     (VarAppHead
                       (HsName "@NsVar" "iD"))
                     [VarDeclVar (Idx 1)]])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:11:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -537,7 +577,12 @@
                       VarDeclIntegral
                         12
                         HsPrimCUInt]])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:13:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -628,7 +673,12 @@
                       VarDeclFloat 10.0,
                       VarDeclVar (Idx 1)],
                   VarDeclVar (Idx 0)])))),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:14:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -801,7 +851,12 @@
                   VarDeclIntegral
                     16711680
                     HsPrimCInt]])),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:18:9")
+          (Just "macro_functions.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -932,4 +987,9 @@
                               VarDeclVar (Idx 1),
                               VarDeclIntegral 8 HsPrimCInt]],
                       VarDeclVar (Idx 0)])))))),
-      varDeclComment = Nothing}]
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_functions.h:19:9")
+          (Just "macro_functions.h")
+          [])}]

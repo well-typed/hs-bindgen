@@ -23,17 +23,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "forward_declaration.h:4:7",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s1_t_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "forward_declaration.h:4:7",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s1_t_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -62,17 +63,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "forward_declaration.h:10:7",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s2_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "forward_declaration.h:10:7",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s2_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

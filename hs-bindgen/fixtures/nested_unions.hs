@@ -39,27 +39,29 @@
             unionAlignment = 4,
             unionFields = [
               UnionField {
-                unionFieldLoc =
-                "nested_unions.h:3:21",
-                unionFieldName = NamePair {
-                  nameC = Name "a",
-                  nameHsIdent = HsIdentifier
-                    "unionA_a"},
+                unionFieldInfo = FieldInfo {
+                  fieldLoc =
+                  "nested_unions.h:3:21",
+                  fieldName = NamePair {
+                    nameC = Name "a",
+                    nameHsIdent = HsIdentifier
+                      "unionA_a"},
+                  fieldComment = Nothing},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                unionFieldComment = Nothing},
+                  (PrimIntegral PrimInt Signed)},
               UnionField {
-                unionFieldLoc =
-                "nested_unions.h:4:22",
-                unionFieldName = NamePair {
-                  nameC = Name "b",
-                  nameHsIdent = HsIdentifier
-                    "unionA_b"},
+                unionFieldInfo = FieldInfo {
+                  fieldLoc =
+                  "nested_unions.h:4:22",
+                  fieldName = NamePair {
+                    nameC = Name "b",
+                    nameHsIdent = HsIdentifier
+                      "unionA_b"},
+                  fieldComment = Nothing},
                 unionFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
-                      (Just Signed))),
-                unionFieldComment = Nothing}]},
+                      (Just Signed)))}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -68,7 +70,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "nested_unions.h:2:15")
+          (Just "nested_unions.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -91,14 +98,15 @@
         "@NsTypeConstr"
         "UnionA",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "nested_unions.h:3:21")
+          (Just "nested_unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_unionA_a"]]}},
+                Identifier "set_unionA_a"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -110,14 +118,15 @@
         "@NsTypeConstr"
         "UnionA",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_unionA_a"]]}},
+                Identifier "get_unionA_a"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -129,14 +138,15 @@
         "@NsTypeConstr"
         "UnionA",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "nested_unions.h:4:22")
+          (Just "nested_unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_unionA_b"]]}},
+                Identifier "set_unionA_b"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -148,14 +158,15 @@
         "@NsTypeConstr"
         "UnionA",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_unionA_b"]]}},
+                Identifier "get_unionA_b"]])},
   DeclData
     Struct {
       structName = HsName
@@ -175,12 +186,14 @@
               "UnionA"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_unions.h:5:11",
-              structFieldName = NamePair {
-                nameC = Name "fieldA1",
-                nameHsIdent = HsIdentifier
-                  "exA_fieldA1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:5:11",
+                fieldName = NamePair {
+                  nameC = Name "fieldA1",
+                  nameHsIdent = HsIdentifier
+                    "exA_fieldA1"},
+                fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "unionA",
@@ -188,9 +201,13 @@
                     "UnionA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_unions.h:5:11")
+              (Just "nested_unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -211,12 +228,14 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_unions.h:5:11",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldA1",
-                    nameHsIdent = HsIdentifier
-                      "exA_fieldA1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_unions.h:5:11",
+                    fieldName = NamePair {
+                      nameC = Name "fieldA1",
+                      nameHsIdent = HsIdentifier
+                        "exA_fieldA1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeUnion
                     NamePair {
                       nameC = Name "unionA",
@@ -224,8 +243,7 @@
                         "UnionA"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -235,7 +253,12 @@
                 []}},
       structInstances = Set.fromList
         [Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_unions.h:1:8")
+          (Just "nested_unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -258,12 +281,14 @@
                   "UnionA"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_unions.h:5:11",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldA1",
-                    nameHsIdent = HsIdentifier
-                      "exA_fieldA1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_unions.h:5:11",
+                    fieldName = NamePair {
+                      nameC = Name "fieldA1",
+                      nameHsIdent = HsIdentifier
+                        "exA_fieldA1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeUnion
                     NamePair {
                       nameC = Name "unionA",
@@ -271,9 +296,13 @@
                         "UnionA"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_unions.h:5:11")
+                  (Just "nested_unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -294,12 +323,14 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_unions.h:5:11",
-                      structFieldName = NamePair {
-                        nameC = Name "fieldA1",
-                        nameHsIdent = HsIdentifier
-                          "exA_fieldA1"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_unions.h:5:11",
+                        fieldName = NamePair {
+                          nameC = Name "fieldA1",
+                          nameHsIdent = HsIdentifier
+                            "exA_fieldA1"},
+                        fieldComment = Nothing},
                       structFieldType = TypeUnion
                         NamePair {
                           nameC = Name "unionA",
@@ -307,8 +338,7 @@
                             "UnionA"}
                         NameOriginInSource,
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -318,7 +348,12 @@
                     []}},
           structInstances = Set.fromList
             [Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_unions.h:1:8")
+              (Just "nested_unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -344,12 +379,14 @@
                           "UnionA"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_unions.h:5:11",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldA1",
-                            nameHsIdent = HsIdentifier
-                              "exA_fieldA1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_unions.h:5:11",
+                            fieldName = NamePair {
+                              nameC = Name "fieldA1",
+                              nameHsIdent = HsIdentifier
+                                "exA_fieldA1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeUnion
                             NamePair {
                               nameC = Name "unionA",
@@ -357,9 +394,13 @@
                                 "UnionA"}
                             NameOriginInSource,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_unions.h:5:11")
+                          (Just "nested_unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -380,12 +421,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_unions.h:5:11",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldA1",
-                                nameHsIdent = HsIdentifier
-                                  "exA_fieldA1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_unions.h:5:11",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldA1",
+                                  nameHsIdent = HsIdentifier
+                                    "exA_fieldA1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeUnion
                                 NamePair {
                                   nameC = Name "unionA",
@@ -393,8 +436,7 @@
                                     "UnionA"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -404,7 +446,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_unions.h:1:8")
+                      (Just "nested_unions.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -430,12 +477,14 @@
                           "UnionA"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_unions.h:5:11",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldA1",
-                            nameHsIdent = HsIdentifier
-                              "exA_fieldA1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_unions.h:5:11",
+                            fieldName = NamePair {
+                              nameC = Name "fieldA1",
+                              nameHsIdent = HsIdentifier
+                                "exA_fieldA1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeUnion
                             NamePair {
                               nameC = Name "unionA",
@@ -443,9 +492,13 @@
                                 "UnionA"}
                             NameOriginInSource,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_unions.h:5:11")
+                          (Just "nested_unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -466,12 +519,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_unions.h:5:11",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldA1",
-                                nameHsIdent = HsIdentifier
-                                  "exA_fieldA1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_unions.h:5:11",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldA1",
+                                  nameHsIdent = HsIdentifier
+                                    "exA_fieldA1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeUnion
                                 NamePair {
                                   nameC = Name "unionA",
@@ -479,8 +534,7 @@
                                     "UnionA"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -490,7 +544,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_unions.h:1:8")
+                      (Just "nested_unions.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -540,27 +599,29 @@
             unionAlignment = 4,
             unionFields = [
               UnionField {
-                unionFieldLoc =
-                "nested_unions.h:10:21",
-                unionFieldName = NamePair {
-                  nameC = Name "a",
-                  nameHsIdent = HsIdentifier
-                    "exB_fieldB1_a"},
+                unionFieldInfo = FieldInfo {
+                  fieldLoc =
+                  "nested_unions.h:10:21",
+                  fieldName = NamePair {
+                    nameC = Name "a",
+                    nameHsIdent = HsIdentifier
+                      "exB_fieldB1_a"},
+                  fieldComment = Nothing},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                unionFieldComment = Nothing},
+                  (PrimIntegral PrimInt Signed)},
               UnionField {
-                unionFieldLoc =
-                "nested_unions.h:11:22",
-                unionFieldName = NamePair {
-                  nameC = Name "b",
-                  nameHsIdent = HsIdentifier
-                    "exB_fieldB1_b"},
+                unionFieldInfo = FieldInfo {
+                  fieldLoc =
+                  "nested_unions.h:11:22",
+                  fieldName = NamePair {
+                    nameC = Name "b",
+                    nameHsIdent = HsIdentifier
+                      "exB_fieldB1_b"},
+                  fieldComment = Nothing},
                 unionFieldType = TypePrim
                   (PrimChar
                     (PrimSignImplicit
-                      (Just Signed))),
-                unionFieldComment = Nothing}]},
+                      (Just Signed)))}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -569,7 +630,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "nested_unions.h:9:9")
+          (Just "nested_unions.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -592,15 +658,16 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "nested_unions.h:10:21")
+          (Just "nested_unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_exB_fieldB1_a"]]}},
+                  "set_exB_fieldB1_a"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -612,15 +679,16 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_exB_fieldB1_a"]]}},
+                  "get_exB_fieldB1_a"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -632,15 +700,16 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "nested_unions.h:11:22")
+          (Just "nested_unions.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_exB_fieldB1_b"]]}},
+                  "set_exB_fieldB1_b"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -652,15 +721,16 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_exB_fieldB1_b"]]}},
+                  "get_exB_fieldB1_b"]])},
   DeclData
     Struct {
       structName = HsName
@@ -680,12 +750,14 @@
               "ExB_fieldB1"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_unions.h:12:11",
-              structFieldName = NamePair {
-                nameC = Name "fieldB1",
-                nameHsIdent = HsIdentifier
-                  "exB_fieldB1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:12:11",
+                fieldName = NamePair {
+                  nameC = Name "fieldB1",
+                  nameHsIdent = HsIdentifier
+                    "exB_fieldB1"},
+                fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "exB_fieldB1",
@@ -694,9 +766,13 @@
                 (NameOriginGenerated
                   (AnonId "nested_unions.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_unions.h:12:11")
+              (Just "nested_unions.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -717,12 +793,14 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_unions.h:12:11",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldB1",
-                    nameHsIdent = HsIdentifier
-                      "exB_fieldB1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_unions.h:12:11",
+                    fieldName = NamePair {
+                      nameC = Name "fieldB1",
+                      nameHsIdent = HsIdentifier
+                        "exB_fieldB1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeUnion
                     NamePair {
                       nameC = Name "exB_fieldB1",
@@ -731,8 +809,7 @@
                     (NameOriginGenerated
                       (AnonId "nested_unions.h:9:9")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -742,7 +819,12 @@
                 []}},
       structInstances = Set.fromList
         [Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_unions.h:8:8")
+          (Just "nested_unions.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -765,12 +847,14 @@
                   "ExB_fieldB1"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_unions.h:12:11",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldB1",
-                    nameHsIdent = HsIdentifier
-                      "exB_fieldB1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_unions.h:12:11",
+                    fieldName = NamePair {
+                      nameC = Name "fieldB1",
+                      nameHsIdent = HsIdentifier
+                        "exB_fieldB1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeUnion
                     NamePair {
                       nameC = Name "exB_fieldB1",
@@ -779,9 +863,13 @@
                     (NameOriginGenerated
                       (AnonId "nested_unions.h:9:9")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_unions.h:12:11")
+                  (Just "nested_unions.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -802,12 +890,14 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_unions.h:12:11",
-                      structFieldName = NamePair {
-                        nameC = Name "fieldB1",
-                        nameHsIdent = HsIdentifier
-                          "exB_fieldB1"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_unions.h:12:11",
+                        fieldName = NamePair {
+                          nameC = Name "fieldB1",
+                          nameHsIdent = HsIdentifier
+                            "exB_fieldB1"},
+                        fieldComment = Nothing},
                       structFieldType = TypeUnion
                         NamePair {
                           nameC = Name "exB_fieldB1",
@@ -816,8 +906,7 @@
                         (NameOriginGenerated
                           (AnonId "nested_unions.h:9:9")),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -827,7 +916,12 @@
                     []}},
           structInstances = Set.fromList
             [Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_unions.h:8:8")
+              (Just "nested_unions.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -853,12 +947,14 @@
                           "ExB_fieldB1"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_unions.h:12:11",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldB1",
-                            nameHsIdent = HsIdentifier
-                              "exB_fieldB1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_unions.h:12:11",
+                            fieldName = NamePair {
+                              nameC = Name "fieldB1",
+                              nameHsIdent = HsIdentifier
+                                "exB_fieldB1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeUnion
                             NamePair {
                               nameC = Name "exB_fieldB1",
@@ -867,9 +963,13 @@
                             (NameOriginGenerated
                               (AnonId "nested_unions.h:9:9")),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_unions.h:12:11")
+                          (Just "nested_unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -890,12 +990,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_unions.h:12:11",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldB1",
-                                nameHsIdent = HsIdentifier
-                                  "exB_fieldB1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_unions.h:12:11",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldB1",
+                                  nameHsIdent = HsIdentifier
+                                    "exB_fieldB1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeUnion
                                 NamePair {
                                   nameC = Name "exB_fieldB1",
@@ -904,8 +1006,7 @@
                                 (NameOriginGenerated
                                   (AnonId "nested_unions.h:9:9")),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -915,7 +1016,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_unions.h:8:8")
+                      (Just "nested_unions.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -941,12 +1047,14 @@
                           "ExB_fieldB1"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_unions.h:12:11",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldB1",
-                            nameHsIdent = HsIdentifier
-                              "exB_fieldB1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_unions.h:12:11",
+                            fieldName = NamePair {
+                              nameC = Name "fieldB1",
+                              nameHsIdent = HsIdentifier
+                                "exB_fieldB1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeUnion
                             NamePair {
                               nameC = Name "exB_fieldB1",
@@ -955,9 +1063,13 @@
                             (NameOriginGenerated
                               (AnonId "nested_unions.h:9:9")),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_unions.h:12:11")
+                          (Just "nested_unions.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -978,12 +1090,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_unions.h:12:11",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldB1",
-                                nameHsIdent = HsIdentifier
-                                  "exB_fieldB1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_unions.h:12:11",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldB1",
+                                  nameHsIdent = HsIdentifier
+                                    "exB_fieldB1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeUnion
                                 NamePair {
                                   nameC = Name "exB_fieldB1",
@@ -992,8 +1106,7 @@
                                 (NameOriginGenerated
                                   (AnonId "nested_unions.h:9:9")),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1003,7 +1116,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_unions.h:8:8")
+                      (Just "nested_unions.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [

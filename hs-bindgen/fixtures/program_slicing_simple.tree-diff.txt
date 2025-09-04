@@ -55,12 +55,14 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "program_slicing_simple.h:4:12",
-              structFieldName = NamePair {
-                nameC = Name "sixty_four",
-                nameHsIdent = HsIdentifier
-                  "foo_sixty_four"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_simple.h:4:12",
+                fieldName = NamePair {
+                  nameC = Name "sixty_four",
+                  nameHsIdent = HsIdentifier
+                    "foo_sixty_four"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -159,15 +161,16 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "program_slicing_simple.h:5:12",
-              structFieldName = NamePair {
-                nameC = Name "thirty_two",
-                nameHsIdent = HsIdentifier
-                  "foo_thirty_two"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_simple.h:5:12",
+                fieldName = NamePair {
+                  nameC = Name "thirty_two",
+                  nameHsIdent = HsIdentifier
+                    "foo_thirty_two"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -175,8 +178,7 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier
                       "Uint32_t"}),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

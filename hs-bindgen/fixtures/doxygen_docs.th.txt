@@ -37,7 +37,19 @@
 -- /* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_241bedb74b8016f3 (void)) (char *arg1) { return &hash; } 
 -- signed int hs_bindgen_test_doxygen_docs_8effe939268709e4 (signed int arg1) { return square(arg1); }
 -- /* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a (void)) (signed int arg1) { return &square; } 
+{-| __C declaration:__ @MAX_NAME_LENGTH@
+
+    __defined at:__ @doxygen_docs.h:39:9@
+
+    __exported by:__ @doxygen_docs.h@
+-}
 mAX_NAME_LENGTH :: CInt
+{-| __C declaration:__ @MAX_NAME_LENGTH@
+
+    __defined at:__ @doxygen_docs.h:39:9@
+
+    __exported by:__ @doxygen_docs.h@
+-}
 mAX_NAME_LENGTH = 64 :: CInt
 {-| This is the comment __title__
 
@@ -45,6 +57,11 @@ mAX_NAME_LENGTH = 64 :: CInt
 
   Size type for this library
 
+__C declaration:__ @size_type@
+
+__defined at:__ @doxygen_docs.h:54:16@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Size_type
     = Size_type {un_Size_type :: HsBindgen.Runtime.Prelude.CSize}
@@ -54,6 +71,11 @@ newtype Size_type
 
          Size type for this library
 
+      __C declaration:__ @size_type@
+
+      __defined at:__ @doxygen_docs.h:54:16@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
@@ -73,6 +95,11 @@ newtype Size_type
 
   This variable tracks the number of operations performed.
 
+__C declaration:__ @global_counter@
+
+__defined at:__ @doxygen_docs.h:61:12@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742" hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742 :: IO (Ptr CInt)
 {-# NOINLINE global_counter_ptr #-}
@@ -84,6 +111,11 @@ global_counter_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_7c3b3bc7cc4707
 
   Version string constant
 
+__C declaration:__ @version_string@
+
+__defined at:__ @doxygen_docs.h:67:20@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_a8499810bd5203c6" hs_bindgen_test_doxygen_docs_a8499810bd5203c6 :: IO (Ptr (Ptr CChar))
 {-# NOINLINE version_string_ptr #-}
@@ -93,12 +125,22 @@ version_string_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_a8499810bd5203
 
   Forward declaration with documentation
 
+__C declaration:__ @forward_declared_struct@
+
+__defined at:__ @doxygen_docs.h:72:8@
+
+__exported by:__ @doxygen_docs.h@
 -}
 data Forward_declared_struct
 {-|
 
   Forward declaration of union
 
+__C declaration:__ @forward_declared_union@
+
+__defined at:__ @doxygen_docs.h:77:7@
+
+__exported by:__ @doxygen_docs.h@
 -}
 data Forward_declared_union
 {-|
@@ -107,6 +149,11 @@ data Forward_declared_union
 
   Color enumeration without typedef
 
+__C declaration:__ @color_enum@
+
+__defined at:__ @doxygen_docs.h:83:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Color_enum
     = Color_enum {un_Color_enum :: CUInt}
@@ -116,6 +163,11 @@ newtype Color_enum
 
          Color enumeration without typedef
 
+      __C declaration:__ @color_enum@
+
+      __defined at:__ @doxygen_docs.h:83:6@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Ord)
 instance Storable Color_enum
@@ -145,29 +197,11 @@ instance Read Color_enum
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
-{-| Red color
-
--}
 pattern COLOR_RED :: Color_enum
-{-| Red color
-
--}
 pattern COLOR_RED = Color_enum 0
-{-| Green color
-
--}
 pattern COLOR_GREEN :: Color_enum
-{-| Green color
-
--}
 pattern COLOR_GREEN = Color_enum 1
-{-| Blue color
-
--}
 pattern COLOR_BLUE :: Color_enum
-{-| Blue color
-
--}
 pattern COLOR_BLUE = Color_enum 2
 {-|
 
@@ -183,6 +217,11 @@ pattern COLOR_BLUE = Color_enum 2
 
   __returns:__ Status code (0 = success, -1 = error)
 
+__C declaration:__ @process_data(const uint8_t *, uint8_t *, size_t *)@
+
+__defined at:__ @doxygen_docs.h:105:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" process_data :: Ptr HsBindgen.Runtime.Prelude.Word8 ->
                                                                                           Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -202,6 +241,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" proces
 
   __returns:__ Status code (0 = success, -1 = error)
 
+__C declaration:__ @process_data(const uint8_t *, uint8_t *, size_t *)@
+
+__defined at:__ @doxygen_docs.h:105:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_36ecba874daa1325" hs_bindgen_test_doxygen_docs_36ecba874daa1325 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.Word8 ->
                                                                                                                                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -222,6 +266,11 @@ process_data_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_36ecba874daa1325
 
   __returns:__ @true@ if successful, @false@ otherwise
 
+__C declaration:__ @process_file(const char *)@
+
+__defined at:__ @doxygen_docs.h:116:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_4e9b999ed81440c0" process_file :: Ptr CChar ->
                                                                                           IO CBool
@@ -235,6 +284,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_4e9b999ed81440c0" proces
 
   __returns:__ @true@ if successful, @false@ otherwise
 
+__C declaration:__ @process_file(const char *)@
+
+__defined at:__ @doxygen_docs.h:116:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_25908c11fd21c934" hs_bindgen_test_doxygen_docs_25908c11fd21c934 :: IO (FunPtr (Ptr CChar ->
                                                                                                                                        IO CBool))
@@ -258,6 +312,11 @@ process_file_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_25908c11fd21c934
 
   __returns:__ Calculated result
 
+__C declaration:__ @calculate_value(int, int)@
+
+__defined at:__ @doxygen_docs.h:131:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_788bfbb9e824261c" calculate_value :: CInt ->
                                                                                              CInt ->
@@ -279,6 +338,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_788bfbb9e824261c" calcul
 
   __returns:__ Calculated result
 
+__C declaration:__ @calculate_value(int, int)@
+
+__defined at:__ @doxygen_docs.h:131:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4" hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4 :: IO (FunPtr (CInt ->
                                                                                                                                        CInt ->
@@ -298,6 +362,11 @@ calculate_value_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_bfa9c55857b9f
 
   __returns:__ Boolean result
 
+__C declaration:__ @html_example(int)@
+
+__defined at:__ @doxygen_docs.h:148:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_3763cc54606bc611" html_example :: CInt ->
                                                                                           IO CBool
@@ -313,6 +382,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_3763cc54606bc611" html_e
 
   __returns:__ Boolean result
 
+__C declaration:__ @html_example(int)@
+
+__defined at:__ @doxygen_docs.h:148:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_be37db4c71dfaad8" hs_bindgen_test_doxygen_docs_be37db4c71dfaad8 :: IO (FunPtr (CInt ->
                                                                                                                                        IO CBool))
@@ -359,6 +433,11 @@ html_example_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_be37db4c71dfaad8
 
   __returns:__ Success status
 
+__C declaration:__ @list_example(const char **, size_t)@
+
+__defined at:__ @doxygen_docs.h:174:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_example :: Ptr (Ptr CChar) ->
                                                                                           HsBindgen.Runtime.Prelude.CSize ->
@@ -403,6 +482,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_e
 
   __returns:__ Success status
 
+__C declaration:__ @list_example(const char **, size_t)@
+
+__defined at:__ @doxygen_docs.h:174:6@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_c40a51053a97fb29" hs_bindgen_test_doxygen_docs_c40a51053a97fb29 :: IO (FunPtr (Ptr (Ptr CChar) ->
                                                                                                                                        HsBindgen.Runtime.Prelude.CSize ->
@@ -425,6 +509,11 @@ list_example_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_c40a51053a97fb29
 
   __returns:__ Modified pointer
 
+__C declaration:__ @dangerous_function(void *)@
+
+__defined at:__ @doxygen_docs.h:186:7@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9" dangerous_function :: Ptr Void ->
                                                                                                 IO (Ptr Void)
@@ -442,6 +531,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9" danger
 
   __returns:__ Modified pointer
 
+__C declaration:__ @dangerous_function(void *)@
+
+__defined at:__ @doxygen_docs.h:186:7@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_291c4151bd4c3637" hs_bindgen_test_doxygen_docs_291c4151bd4c3637 :: IO (FunPtr (Ptr Void ->
                                                                                                                                        IO (Ptr Void)))
@@ -462,6 +556,11 @@ dangerous_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_291c4151bd
 
   __returns:__ -3 Processing error
 
+__C declaration:__ @detailed_return_codes(const char *)@
+
+__defined at:__ @doxygen_docs.h:197:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_fb3e3158714e01f5" detailed_return_codes :: Ptr CChar ->
                                                                                                    IO CInt
@@ -479,6 +578,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_fb3e3158714e01f5" detail
 
   __returns:__ -3 Processing error
 
+__C declaration:__ @detailed_return_codes(const char *)@
+
+__defined at:__ @doxygen_docs.h:197:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b" hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b :: IO (FunPtr (Ptr CChar ->
                                                                                                                                        IO CInt))
@@ -495,6 +599,11 @@ detailed_return_codes_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_a92bbc7
 
   __returns:__ Legacy result
 
+__C declaration:__ @old_function(int)@
+
+__defined at:__ @doxygen_docs.h:206:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_84140a44d1bd8380" old_function :: CInt ->
                                                                                           IO CInt
@@ -508,6 +617,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_84140a44d1bd8380" old_fu
 
   __returns:__ Legacy result
 
+__C declaration:__ @old_function(int)@
+
+__defined at:__ @doxygen_docs.h:206:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_985c4be1f80d7557" hs_bindgen_test_doxygen_docs_985c4be1f80d7557 :: IO (FunPtr (CInt ->
                                                                                                                                        IO CInt))
@@ -524,6 +638,11 @@ old_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_985c4be1f80d7557
 
   __returns:__ Processed data
 
+__C declaration:__ @versioned_function(int)@
+
+__defined at:__ @doxygen_docs.h:216:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8" versioned_function :: CInt ->
                                                                                                 IO CInt
@@ -537,6 +656,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8" versio
 
   __returns:__ Processed data
 
+__C declaration:__ @versioned_function(int)@
+
+__defined at:__ @doxygen_docs.h:216:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_6b616614abe7d3f0" hs_bindgen_test_doxygen_docs_6b616614abe7d3f0 :: IO (FunPtr (CInt ->
                                                                                                                                        IO CInt))
@@ -553,6 +677,11 @@ versioned_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_6b616614ab
 
   __returns:__ Handling result
 
+__C declaration:__ @event_callback_t@
+
+__defined at:__ @doxygen_docs.h:225:15@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Event_callback_t
     = Event_callback_t {un_Event_callback_t :: (FunPtr (CInt ->
@@ -567,6 +696,11 @@ newtype Event_callback_t
 
          __returns:__ Handling result
 
+      __C declaration:__ @event_callback_t@
+
+      __defined at:__ @doxygen_docs.h:225:15@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
@@ -576,6 +710,11 @@ newtype Event_callback_t
 
   This structure demonstrates field documentation.
 
+__C declaration:__ @config_t@
+
+__defined at:__ @doxygen_docs.h:232:9@
+
+__exported by:__ @doxygen_docs.h@
 -}
 data Config_t
     = Config_t {config_t_id :: HsBindgen.Runtime.Prelude.Word32
@@ -583,18 +722,33 @@ data Config_t
 
                    Unique identifier
 
+                __C declaration:__ @id@
+
+                __defined at:__ @doxygen_docs.h:234:14@
+
+                __exported by:__ @doxygen_docs.h@
                 -},
                 config_t_name :: (ConstantArray 64 CChar)
                 {- ^
 
                    Human-readable name
 
+                __C declaration:__ @name@
+
+                __defined at:__ @doxygen_docs.h:237:10@
+
+                __exported by:__ @doxygen_docs.h@
                 -},
                 config_t_flags :: HsBindgen.Runtime.Prelude.Word32
                 {- ^
 
                    Configuration flags
 
+                __C declaration:__ @flags@
+
+                __defined at:__ @doxygen_docs.h:240:14@
+
+                __exported by:__ @doxygen_docs.h@
                 -},
                 config_t_callback :: Event_callback_t
                 {- ^
@@ -603,12 +757,22 @@ data Config_t
 
                    See also: 'Event_callback_t'
 
+                __C declaration:__ @callback@
+
+                __defined at:__ @doxygen_docs.h:247:22@
+
+                __exported by:__ @doxygen_docs.h@
                 -},
                 config_t_user_data :: (Ptr Void)
                 {- ^
 
                    User data for callback
 
+                __C declaration:__ @user_data@
+
+                __defined at:__ @doxygen_docs.h:250:11@
+
+                __exported by:__ @doxygen_docs.h@
                 -}}
       {- ^
 
@@ -616,6 +780,11 @@ data Config_t
 
          This structure demonstrates field documentation.
 
+      __C declaration:__ @config_t@
+
+      __defined at:__ @doxygen_docs.h:232:9@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
 instance Storable Config_t
@@ -634,6 +803,11 @@ instance Storable Config_t
 
   This enum shows different status codes.
 
+__C declaration:__ @status_code_t@
+
+__defined at:__ @doxygen_docs.h:258:9@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Status_code_t
     = Status_code_t {un_Status_code_t :: CInt}
@@ -643,6 +817,11 @@ newtype Status_code_t
 
          This enum shows different status codes.
 
+      __C declaration:__ @status_code_t@
+
+      __defined at:__ @doxygen_docs.h:258:9@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Ord)
 instance Storable Status_code_t
@@ -673,60 +852,110 @@ instance Read Status_code_t
 
   Operation successful
 
+__C declaration:__ @STATUS_OK@
+
+__defined at:__ @doxygen_docs.h:260:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_OK :: Status_code_t
 {-|
 
   Operation successful
 
+__C declaration:__ @STATUS_OK@
+
+__defined at:__ @doxygen_docs.h:260:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_OK = Status_code_t 0
 {-|
 
   Invalid parameter provided
 
+__C declaration:__ @STATUS_INVALID_PARAM@
+
+__defined at:__ @doxygen_docs.h:263:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_INVALID_PARAM :: Status_code_t
 {-|
 
   Invalid parameter provided
 
+__C declaration:__ @STATUS_INVALID_PARAM@
+
+__defined at:__ @doxygen_docs.h:263:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_INVALID_PARAM = Status_code_t (-1)
 {-|
 
   Memory allocation failed
 
+__C declaration:__ @STATUS_NO_MEMORY@
+
+__defined at:__ @doxygen_docs.h:266:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_NO_MEMORY :: Status_code_t
 {-|
 
   Memory allocation failed
 
+__C declaration:__ @STATUS_NO_MEMORY@
+
+__defined at:__ @doxygen_docs.h:266:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_NO_MEMORY = Status_code_t (-2)
 {-|
 
   Operation timed out
 
+__C declaration:__ @STATUS_TIMEOUT@
+
+__defined at:__ @doxygen_docs.h:269:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_TIMEOUT :: Status_code_t
 {-|
 
   Operation timed out
 
+__C declaration:__ @STATUS_TIMEOUT@
+
+__defined at:__ @doxygen_docs.h:269:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_TIMEOUT = Status_code_t (-3)
 {-|
 
   Generic error
 
+__C declaration:__ @STATUS_ERROR@
+
+__defined at:__ @doxygen_docs.h:272:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_ERROR :: Status_code_t
 {-|
 
   Generic error
 
+__C declaration:__ @STATUS_ERROR@
+
+__defined at:__ @doxygen_docs.h:272:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 pattern STATUS_ERROR = Status_code_t (-99)
 {-|
@@ -735,6 +964,11 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
   Allows access to high and low parts separately
 
+__C declaration:__ @struct (unnamed at doxygen_docs.h:290:5)@
+
+__defined at:__ @doxygen_docs.h:290:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 data Data_union_t_as_parts
     = Data_union_t_as_parts {data_union_t_as_parts_low :: HsBindgen.Runtime.Prelude.Word16
@@ -742,12 +976,22 @@ data Data_union_t_as_parts
 
                                 Low 16 bits
 
+                             __C declaration:__ @low@
+
+                             __defined at:__ @doxygen_docs.h:291:18@
+
+                             __exported by:__ @doxygen_docs.h@
                              -},
                              data_union_t_as_parts_high :: HsBindgen.Runtime.Prelude.Word16
                              {- ^
 
                                 High 16 bits
 
+                             __C declaration:__ @high@
+
+                             __defined at:__ @doxygen_docs.h:292:18@
+
+                             __exported by:__ @doxygen_docs.h@
                              -}}
       {- ^
 
@@ -755,6 +999,11 @@ data Data_union_t_as_parts
 
          Allows access to high and low parts separately
 
+      __C declaration:__ @struct (unnamed at doxygen_docs.h:290:5)@
+
+      __defined at:__ @doxygen_docs.h:290:5@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
 instance Storable Data_union_t_as_parts
@@ -772,6 +1021,11 @@ instance Storable Data_union_t_as_parts
 
   This union demonstrates different data representations.
 
+__C declaration:__ @data_union_t@
+
+__defined at:__ @doxygen_docs.h:281:9@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Data_union_t
     = Data_union_t {un_Data_union_t :: ByteArray}
@@ -783,6 +1037,11 @@ newtype Data_union_t
 
          This union demonstrates different data representations.
 
+      __C declaration:__ @data_union_t@
+
+      __defined at:__ @doxygen_docs.h:281:9@
+
+      __exported by:__ @doxygen_docs.h@
       -}
 deriving via (SizedByteArray 4 4) instance Storable Data_union_t
 {-|
@@ -791,6 +1050,11 @@ deriving via (SizedByteArray 4 4) instance Storable Data_union_t
 
   __See:__ 'set_data_union_t_as_int'
 
+__C declaration:__ @as_int@
+
+__defined at:__ @doxygen_docs.h:282:13@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_int :: Data_union_t ->
                            HsBindgen.Runtime.Prelude.Int32
@@ -800,6 +1064,11 @@ get_data_union_t_as_int :: Data_union_t ->
 
   __See:__ 'set_data_union_t_as_int'
 
+__C declaration:__ @as_int@
+
+__defined at:__ @doxygen_docs.h:282:13@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_int = getUnionPayload
 {-|
@@ -821,6 +1090,11 @@ set_data_union_t_as_int = setUnionPayload
 
   __See:__ 'set_data_union_t_as_float'
 
+__C declaration:__ @as_float@
+
+__defined at:__ @doxygen_docs.h:283:11@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_float :: Data_union_t -> CFloat
 {-|
@@ -829,6 +1103,11 @@ get_data_union_t_as_float :: Data_union_t -> CFloat
 
   __See:__ 'set_data_union_t_as_float'
 
+__C declaration:__ @as_float@
+
+__defined at:__ @doxygen_docs.h:283:11@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_float = getUnionPayload
 {-|
@@ -849,6 +1128,11 @@ set_data_union_t_as_float = setUnionPayload
 
   __See:__ 'set_data_union_t_as_bytes'
 
+__C declaration:__ @as_bytes@
+
+__defined at:__ @doxygen_docs.h:284:13@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_bytes :: Data_union_t ->
                              ConstantArray 4 HsBindgen.Runtime.Prelude.Word8
@@ -858,6 +1142,11 @@ get_data_union_t_as_bytes :: Data_union_t ->
 
   __See:__ 'set_data_union_t_as_bytes'
 
+__C declaration:__ @as_bytes@
+
+__defined at:__ @doxygen_docs.h:284:13@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_bytes = getUnionPayload
 {-|
@@ -878,12 +1167,22 @@ set_data_union_t_as_bytes = setUnionPayload
 
   __See:__ 'set_data_union_t_as_parts'
 
+__C declaration:__ @as_parts@
+
+__defined at:__ @doxygen_docs.h:293:30@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_parts :: Data_union_t -> Data_union_t_as_parts
 {-| As Parts Struct
 
   __See:__ 'set_data_union_t_as_parts'
 
+__C declaration:__ @as_parts@
+
+__defined at:__ @doxygen_docs.h:293:30@
+
+__exported by:__ @doxygen_docs.h@
 -}
 get_data_union_t_as_parts = getUnionPayload
 {-|
@@ -906,6 +1205,11 @@ set_data_union_t_as_parts = setUnionPayload
 
   Demonstrates bit field documentation.
 
+__C declaration:__ @bitfield_t@
+
+__defined at:__ @doxygen_docs.h:302:9@
+
+__exported by:__ @doxygen_docs.h@
 -}
 data Bitfield_t
     = Bitfield_t {bitfield_t_flag1 :: CUInt
@@ -913,24 +1217,44 @@ data Bitfield_t
 
                      First flag (1 bit)
 
+                  __C declaration:__ @flag1@
+
+                  __defined at:__ @doxygen_docs.h:303:14@
+
+                  __exported by:__ @doxygen_docs.h@
                   -},
                   bitfield_t_flag2 :: CUInt
                   {- ^
 
                      Second flag (1 bit)
 
+                  __C declaration:__ @flag2@
+
+                  __defined at:__ @doxygen_docs.h:304:14@
+
+                  __exported by:__ @doxygen_docs.h@
                   -},
                   bitfield_t_counter :: CUInt
                   {- ^
 
                      Counter value (6 bits)
 
+                  __C declaration:__ @counter@
+
+                  __defined at:__ @doxygen_docs.h:305:14@
+
+                  __exported by:__ @doxygen_docs.h@
                   -},
                   bitfield_t_reserved :: CUInt
                   {- ^
 
                      Reserved bits (24 bits)
 
+                  __C declaration:__ @reserved@
+
+                  __defined at:__ @doxygen_docs.h:306:14@
+
+                  __exported by:__ @doxygen_docs.h@
                   -}}
       {- ^
 
@@ -940,6 +1264,11 @@ data Bitfield_t
 
          Demonstrates bit field documentation.
 
+      __C declaration:__ @bitfield_t@
+
+      __defined at:__ @doxygen_docs.h:302:9@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
 instance Storable Bitfield_t
@@ -963,6 +1292,11 @@ instance Storable Bitfield_t
 
   __returns:__ Processed value
 
+__C declaration:__ @processor_fn_t@
+
+__defined at:__ @doxygen_docs.h:317:15@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Processor_fn_t
     = Processor_fn_t {un_Processor_fn_t :: (FunPtr (CInt ->
@@ -979,6 +1313,11 @@ newtype Processor_fn_t
 
          __returns:__ Processed value
 
+      __C declaration:__ @processor_fn_t@
+
+      __defined at:__ @doxygen_docs.h:317:15@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
@@ -988,6 +1327,11 @@ newtype Processor_fn_t
 
   Array typedef with size
 
+__C declaration:__ @filename_t@
+
+__defined at:__ @doxygen_docs.h:323:14@
+
+__exported by:__ @doxygen_docs.h@
 -}
 newtype Filename_t
     = Filename_t {un_Filename_t :: (ConstantArray 256 CChar)}
@@ -997,6 +1341,11 @@ newtype Filename_t
 
          Array typedef with size
 
+      __C declaration:__ @filename_t@
+
+      __defined at:__ @doxygen_docs.h:323:14@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
@@ -1010,6 +1359,11 @@ newtype Filename_t
 
   __returns:__ Number of bytes written
 
+__C declaration:__ @process_buffer(char *, size_t)@
+
+__defined at:__ @doxygen_docs.h:332:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e" process_buffer_wrapper :: Ptr CChar ->
                                                                                                     HsBindgen.Runtime.Prelude.CSize ->
@@ -1027,6 +1381,11 @@ process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper p
 
   __returns:__ Number of bytes written
 
+__C declaration:__ @process_buffer(char *, size_t)@
+
+__defined at:__ @doxygen_docs.h:332:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975" hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975 :: IO (FunPtr (ConstantArray 64
                                                                                                                                                      CChar ->
@@ -1048,6 +1407,11 @@ process_buffer_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_fdf2d8f3abafc9
 
   __returns:__ Destination pointer
 
+__C declaration:__ @my_memcpy(void *restrict, const void *restrict, size_t)@
+
+__defined at:__ @doxygen_docs.h:342:7@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f" my_memcpy :: Ptr Void ->
                                                                                        Ptr Void ->
@@ -1065,6 +1429,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f" my_mem
 
   __returns:__ Destination pointer
 
+__C declaration:__ @my_memcpy(void *restrict, const void *restrict, size_t)@
+
+__defined at:__ @doxygen_docs.h:342:7@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_de9d3228e8bac25c" hs_bindgen_test_doxygen_docs_de9d3228e8bac25c :: IO (FunPtr (Ptr Void ->
                                                                                                                                        Ptr Void ->
@@ -1082,6 +1451,11 @@ my_memcpy_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_de9d3228e8bac25c
 
   __returns:__ Doubled value
 
+__C declaration:__ @double_value(int)@
+
+__defined at:__ @doxygen_docs.h:350:19@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_1c952f01cc07bb64" double_value :: CInt ->
                                                                                           IO CInt
@@ -1093,6 +1467,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_1c952f01cc07bb64" double
 
   __returns:__ Doubled value
 
+__C declaration:__ @double_value(int)@
+
+__defined at:__ @doxygen_docs.h:350:19@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_faec60e7f49d446c" hs_bindgen_test_doxygen_docs_faec60e7f49d446c :: IO (FunPtr (CInt ->
                                                                                                                                        IO CInt))
@@ -1107,6 +1486,11 @@ double_value_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_faec60e7f49d446c
 
   __returns:__ Allocated structure
 
+__C declaration:__ @flexible_array@
+
+__defined at:__ @doxygen_docs.h:360:8@
+
+__exported by:__ @doxygen_docs.h@
 -}
 data Flexible_array
     = Flexible_array {flexible_array_count :: HsBindgen.Runtime.Prelude.CSize
@@ -1114,6 +1498,11 @@ data Flexible_array
 
                          Number of elements
 
+                      __C declaration:__ @count@
+
+                      __defined at:__ @doxygen_docs.h:361:12@
+
+                      __exported by:__ @doxygen_docs.h@
                       -}}
       {- ^
 
@@ -1123,6 +1512,11 @@ data Flexible_array
 
          __returns:__ Allocated structure
 
+      __C declaration:__ @flexible_array@
+
+      __defined at:__ @doxygen_docs.h:360:8@
+
+      __exported by:__ @doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
 instance Storable Flexible_array
@@ -1198,6 +1592,11 @@ instance HasFlexibleArrayMember CInt Flexible_array
 
   __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
 
+__C declaration:__ @complex_function(config_t *, const uint8_t *, size_t)@
+
+__defined at:__ @doxygen_docs.h:423:15@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" complex_function :: Ptr Config_t ->
                                                                                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -1268,6 +1667,11 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" comple
 
   __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
 
+__C declaration:__ @complex_function(config_t *, const uint8_t *, size_t)@
+
+__defined at:__ @doxygen_docs.h:423:15@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_b7ae5186dd939781" hs_bindgen_test_doxygen_docs_b7ae5186dd939781 :: IO (FunPtr (Ptr Config_t ->
                                                                                                                                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -1282,17 +1686,39 @@ complex_function_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_b7ae5186dd93
 
   Marked @__attribute((pure))__@
 
+__C declaration:__ @hash@
+
+__defined at:__ @doxygen_docs.h:427:5@
+
+__exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_71214e4420f53a0e" hash :: Ptr CChar ->
                                                                                   IO CInt
+{-| __C declaration:__ @hash@
+
+    __defined at:__ @doxygen_docs.h:427:5@
+
+    __exported by:__ @doxygen_docs.h@
+-}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_241bedb74b8016f3" hs_bindgen_test_doxygen_docs_241bedb74b8016f3 :: IO (FunPtr (Ptr CChar ->
                                                                                                                                        IO CInt))
 {-# NOINLINE hash_ptr #-}
 hash_ptr :: FunPtr (Ptr CChar -> IO CInt)
 hash_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_241bedb74b8016f3
-{-| -}
+{-| __C declaration:__ @square@
+
+    __defined at:__ @doxygen_docs.h:429:5@
+
+    __exported by:__ @doxygen_docs.h@
+-}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_8effe939268709e4" square :: CInt ->
                                                                                     CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @doxygen_docs.h:429:5@
+
+    __exported by:__ @doxygen_docs.h@
+-}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a" hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a :: IO (FunPtr (CInt ->
                                                                                                                                        IO CInt))
 {-# NOINLINE square_ptr #-}

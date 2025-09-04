@@ -42,29 +42,31 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "decls_in_signature.h:4:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "outside_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "decls_in_signature.h:4:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "outside_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "decls_in_signature.h:5:7",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "outside_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "decls_in_signature.h:5:7",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "outside_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -170,29 +172,31 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "decls_in_signature.h:17:35",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "named_struct_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "decls_in_signature.h:17:35",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "named_struct_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "decls_in_signature.h:17:42",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "named_struct_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "decls_in_signature.h:17:42",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "named_struct_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -275,27 +279,29 @@ TranslationUnit {
           unionAlignment = 4,
           unionFields = [
             UnionField {
-              unionFieldLoc =
-              "decls_in_signature.h:20:33",
-              unionFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "named_union_x"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "decls_in_signature.h:20:33",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "named_union_x"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              unionFieldComment = Nothing},
+                (PrimIntegral PrimInt Signed)},
             UnionField {
-              unionFieldLoc =
-              "decls_in_signature.h:20:41",
-              unionFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "named_union_y"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "decls_in_signature.h:20:41",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "named_union_y"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
-                    (Just Signed))),
-              unionFieldComment = Nothing}]},
+                    (Just Signed)))}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

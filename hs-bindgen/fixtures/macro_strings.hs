@@ -18,7 +18,12 @@
           charValue =
           Prim.byteArrayFromList [97],
           unicodeCodePoint = Just 'a'},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:4:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -38,7 +43,12 @@
           charValue =
           Prim.byteArrayFromList [34],
           unicodeCodePoint = Just `'"'`},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:5:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -58,7 +68,12 @@
           charValue =
           Prim.byteArrayFromList [9],
           unicodeCodePoint = Just '\t'},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:6:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -78,7 +93,12 @@
           charValue =
           Prim.byteArrayFromList [0],
           unicodeCodePoint = Just '\NUL'},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:7:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -98,7 +118,12 @@
           charValue =
           Prim.byteArrayFromList [39],
           unicodeCodePoint = Just '\''},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:8:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -118,7 +143,12 @@
           charValue =
           Prim.byteArrayFromList [63],
           unicodeCodePoint = Just '?'},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:9:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -138,7 +168,12 @@
           charValue =
           Prim.byteArrayFromList [83],
           unicodeCodePoint = Nothing},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:10:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -158,7 +193,12 @@
           charValue =
           Prim.byteArrayFromList [83],
           unicodeCodePoint = Nothing},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:11:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -178,7 +218,12 @@
           charValue =
           Prim.byteArrayFromList [1, 255],
           unicodeCodePoint = Nothing},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:13:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -200,7 +245,12 @@
             [227, 129, 130],
           unicodeCodePoint = Just
             '\12354'},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:15:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -222,7 +272,12 @@
             [227, 129, 130],
           unicodeCodePoint = Just
             '\12354'},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:16:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -243,7 +298,12 @@
           Prim.byteArrayFromList
             [227, 129, 130],
           unicodeCodePoint = Nothing},
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:17:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -289,7 +349,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [97]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:20:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -335,7 +400,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [39]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:21:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -381,7 +451,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [9]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:22:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -427,7 +502,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [0]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:23:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -473,7 +553,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [39]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:24:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -519,7 +604,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [63]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:25:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -565,7 +655,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [83]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:26:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -611,7 +706,12 @@
                     []]]}},
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [83]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:27:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -658,7 +758,12 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
           [227, 129, 130]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:29:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -705,7 +810,12 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
           [227, 129, 130]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:30:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -752,7 +862,12 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
           [227, 129, 130]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:31:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -807,7 +922,12 @@
             255,
             1,
             255]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:33:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -854,7 +974,12 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
           [1, 2, 3, 4, 5, 6]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:34:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -901,7 +1026,12 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList
           [104, 105, 106, 0]),
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:36:9")
+          (Just "macro_strings.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -957,4 +1087,9 @@
             102,
             0,
             103]),
-      varDeclComment = Nothing}]
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macro_strings.h:37:9")
+          (Just "macro_strings.h")
+          [])}]

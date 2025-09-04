@@ -2,8 +2,20 @@
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/enum_cpp_syntax.h
+{-| __C declaration:__ @foo_enum@
+
+    __defined at:__ @enum_cpp_syntax.h:4:9@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 newtype Foo_enum
     = Foo_enum {un_Foo_enum :: HsBindgen.Runtime.Prelude.Word32}
+      {- ^ __C declaration:__ @foo_enum@
+
+           __defined at:__ @enum_cpp_syntax.h:4:9@
+
+           __exported by:__ @enum_cpp_syntax.h@
+      -}
     deriving stock (Eq, Ord)
 instance Storable Foo_enum
     where sizeOf = \_ -> 4 :: Int
@@ -31,9 +43,45 @@ instance Read Foo_enum
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
+{-| __C declaration:__ @A@
+
+    __defined at:__ @enum_cpp_syntax.h:4:27@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern A :: Foo_enum
+{-| __C declaration:__ @A@
+
+    __defined at:__ @enum_cpp_syntax.h:4:27@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern A = Foo_enum 0
+{-| __C declaration:__ @B@
+
+    __defined at:__ @enum_cpp_syntax.h:4:30@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern B :: Foo_enum
+{-| __C declaration:__ @B@
+
+    __defined at:__ @enum_cpp_syntax.h:4:30@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern B = Foo_enum 1
+{-| __C declaration:__ @C@
+
+    __defined at:__ @enum_cpp_syntax.h:4:33@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern C :: Foo_enum
+{-| __C declaration:__ @C@
+
+    __defined at:__ @enum_cpp_syntax.h:4:33@
+
+    __exported by:__ @enum_cpp_syntax.h@
+-}
 pattern C = Foo_enum 2

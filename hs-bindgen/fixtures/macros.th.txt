@@ -1,73 +1,505 @@
 -- addDependentFile examples/golden/macros.h
+{-| __C declaration:__ @OBJECTLIKE1@
+
+    __defined at:__ @macros.h:1:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE1 :: CInt
+{-| __C declaration:__ @OBJECTLIKE1@
+
+    __defined at:__ @macros.h:1:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE1 = 1 :: CInt
+{-| __C declaration:__ @OBJECTLIKE2@
+
+    __defined at:__ @macros.h:2:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE2 :: CInt
+{-| __C declaration:__ @OBJECTLIKE2@
+
+    __defined at:__ @macros.h:2:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE2 = 2 :: CInt
+{-| __C declaration:__ @OBJECTLIKE3@
+
+    __defined at:__ @macros.h:3:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE3 :: CInt
+{-| __C declaration:__ @OBJECTLIKE3@
+
+    __defined at:__ @macros.h:3:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE3 = (+) (3 :: CInt) (3 :: CInt)
+{-| __C declaration:__ @OBJECTLIKE4@
+
+    __defined at:__ @macros.h:4:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE4 :: CInt
+{-| __C declaration:__ @OBJECTLIKE4@
+
+    __defined at:__ @macros.h:4:9@
+
+    __exported by:__ @macros.h@
+-}
 oBJECTLIKE4 = (+) (4 :: CInt) (4 :: CInt)
+{-| __C declaration:__ @MEANING_OF_LIFE1@
+
+    __defined at:__ @macros.h:6:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE1 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE1@
+
+    __defined at:__ @macros.h:6:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE1 = 42 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE2@
+
+    __defined at:__ @macros.h:7:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE2 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE2@
+
+    __defined at:__ @macros.h:7:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE2 = 42 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE3@
+
+    __defined at:__ @macros.h:8:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE3 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE3@
+
+    __defined at:__ @macros.h:8:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE3 = 42 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE4@
+
+    __defined at:__ @macros.h:9:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE4 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE4@
+
+    __defined at:__ @macros.h:9:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE4 = 42 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE5@
+
+    __defined at:__ @macros.h:10:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE5 :: CInt
+{-| __C declaration:__ @MEANING_OF_LIFE5@
+
+    __defined at:__ @macros.h:10:9@
+
+    __exported by:__ @macros.h@
+-}
 mEANING_OF_LIFE5 = 42 :: CInt
+{-| __C declaration:__ @LONG_INT_TOKEN1@
+
+    __defined at:__ @macros.h:12:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN1 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN1@
+
+    __defined at:__ @macros.h:12:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN1 = 18446744073709550592 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN2@
+
+    __defined at:__ @macros.h:13:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN2 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN2@
+
+    __defined at:__ @macros.h:13:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN2 = 18446744073709550592 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN3@
+
+    __defined at:__ @macros.h:14:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN3 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN3@
+
+    __defined at:__ @macros.h:14:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN3 = 18446744073709550592 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN4@
+
+    __defined at:__ @macros.h:15:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN4 :: CULLong
+{-| __C declaration:__ @LONG_INT_TOKEN4@
+
+    __defined at:__ @macros.h:15:9@
+
+    __exported by:__ @macros.h@
+-}
 lONG_INT_TOKEN4 = 18446744073709550592 :: CULLong
+{-| __C declaration:__ @TUPLE1@
+
+    __defined at:__ @macros.h:17:9@
+
+    __exported by:__ @macros.h@
+-}
 tUPLE1 :: (,) CInt CInt
+{-| __C declaration:__ @TUPLE1@
+
+    __defined at:__ @macros.h:17:9@
+
+    __exported by:__ @macros.h@
+-}
 tUPLE1 = (,) (1 :: CInt) (2 :: CInt)
+{-| __C declaration:__ @TUPLE2@
+
+    __defined at:__ @macros.h:18:9@
+
+    __exported by:__ @macros.h@
+-}
 tUPLE2 :: (,) CInt CInt
+{-| __C declaration:__ @TUPLE2@
+
+    __defined at:__ @macros.h:18:9@
+
+    __exported by:__ @macros.h@
+-}
 tUPLE2 = (,) (3 :: CInt) (4 :: CInt)
+{-| __C declaration:__ @TUPLE3@
+
+    __defined at:__ @macros.h:19:9@
+
+    __exported by:__ @macros.h@
+-}
 tUPLE3 :: (,) CInt CInt
+{-| __C declaration:__ @TUPLE3@
+
+    __defined at:__ @macros.h:19:9@
+
+    __exported by:__ @macros.h@
+-}
 tUPLE3 = (,) (5 :: CInt) (6 :: CInt)
+{-| __C declaration:__ @FLT1_1@
+
+    __defined at:__ @macros.h:24:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT1_1 :: CDouble
+{-| __C declaration:__ @FLT1_1@
+
+    __defined at:__ @macros.h:24:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT1_1 = 110000.0 :: CDouble
+{-| __C declaration:__ @FLT1_2@
+
+    __defined at:__ @macros.h:25:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT1_2 :: CDouble
+{-| __C declaration:__ @FLT1_2@
+
+    __defined at:__ @macros.h:25:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT1_2 = 0.0120000000000000002498001805406602215953171253204345703125 :: CDouble
+{-| __C declaration:__ @FLT1_3@
+
+    __defined at:__ @macros.h:26:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT1_3 :: CFloat
+{-| __C declaration:__ @FLT1_3@
+
+    __defined at:__ @macros.h:26:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT1_3 = 0.0130000002682209014892578125 :: CFloat
+{-| __C declaration:__ @FLT2_1@
+
+    __defined at:__ @macros.h:28:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT2_1 :: CDouble
+{-| __C declaration:__ @FLT2_1@
+
+    __defined at:__ @macros.h:28:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT2_1 = 21.0 :: CDouble
+{-| __C declaration:__ @FLT2_2@
+
+    __defined at:__ @macros.h:29:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT2_2 :: CDouble
+{-| __C declaration:__ @FLT2_2@
+
+    __defined at:__ @macros.h:29:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT2_2 = 2200.0 :: CDouble
+{-| __C declaration:__ @FLT2_3@
+
+    __defined at:__ @macros.h:30:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT2_3 :: CFloat
+{-| __C declaration:__ @FLT2_3@
+
+    __defined at:__ @macros.h:30:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT2_3 = 23.0 :: CFloat
+{-| __C declaration:__ @FLT3_1@
+
+    __defined at:__ @macros.h:32:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_1 :: CDouble
+{-| __C declaration:__ @FLT3_1@
+
+    __defined at:__ @macros.h:32:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_1 = 31.0 :: CDouble
+{-| __C declaration:__ @FLT3_2@
+
+    __defined at:__ @macros.h:33:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_2 :: CDouble
+{-| __C declaration:__ @FLT3_2@
+
+    __defined at:__ @macros.h:33:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_2 = 0.320000000000000006661338147750939242541790008544921875 :: CDouble
+{-| __C declaration:__ @FLT3_3@
+
+    __defined at:__ @macros.h:34:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_3 :: CDouble
+{-| __C declaration:__ @FLT3_3@
+
+    __defined at:__ @macros.h:34:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_3 = 33.0 :: CDouble
+{-| __C declaration:__ @FLT3_4@
+
+    __defined at:__ @macros.h:35:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_4 :: CFloat
+{-| __C declaration:__ @FLT3_4@
+
+    __defined at:__ @macros.h:35:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT3_4 = 3.40000004507601261138916015625e-3 :: CFloat
+{-| __C declaration:__ @FLT4_1@
+
+    __defined at:__ @macros.h:37:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT4_1 :: CDouble
+{-| __C declaration:__ @FLT4_1@
+
+    __defined at:__ @macros.h:37:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT4_1 = 650000.0 :: CDouble
+{-| __C declaration:__ @FLT4_2@
+
+    __defined at:__ @macros.h:38:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT4_2 :: CDouble
+{-| __C declaration:__ @FLT4_2@
+
+    __defined at:__ @macros.h:38:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT4_2 = 0.066000000000000003108624468950438313186168670654296875 :: CDouble
+{-| __C declaration:__ @FLT4_3@
+
+    __defined at:__ @macros.h:39:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT4_3 :: CFloat
+{-| __C declaration:__ @FLT4_3@
+
+    __defined at:__ @macros.h:39:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT4_3 = 0.0670000016689300537109375 :: CFloat
+{-| __C declaration:__ @FLT5_1@
+
+    __defined at:__ @macros.h:41:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT5_1 :: CDouble
+{-| __C declaration:__ @FLT5_1@
+
+    __defined at:__ @macros.h:41:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT5_1 = 81.0 :: CDouble
+{-| __C declaration:__ @FLT5_2@
+
+    __defined at:__ @macros.h:42:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT5_2 :: CFloat
+{-| __C declaration:__ @FLT5_2@
+
+    __defined at:__ @macros.h:42:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT5_2 = 82.0 :: CFloat
+{-| __C declaration:__ @FLT6_1@
+
+    __defined at:__ @macros.h:44:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT6_1 :: CDouble
+{-| __C declaration:__ @FLT6_1@
+
+    __defined at:__ @macros.h:44:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT6_1 = 15520.0 :: CDouble
+{-| __C declaration:__ @FLT6_2@
+
+    __defined at:__ @macros.h:45:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT6_2 :: CDouble
+{-| __C declaration:__ @FLT6_2@
+
+    __defined at:__ @macros.h:45:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT6_2 = 98.0 :: CDouble
+{-| __C declaration:__ @FLT6_3@
+
+    __defined at:__ @macros.h:46:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT6_3 :: CFloat
+{-| __C declaration:__ @FLT6_3@
+
+    __defined at:__ @macros.h:46:9@
+
+    __exported by:__ @macros.h@
+-}
 fLT6_3 = 9.8999999463558197021484375e-3 :: CFloat
+{-| __C declaration:__ @BAD1@
+
+    __defined at:__ @macros.h:49:9@
+
+    __exported by:__ @macros.h@
+-}
 bAD1 :: CDouble
+{-| __C declaration:__ @BAD1@
+
+    __defined at:__ @macros.h:49:9@
+
+    __exported by:__ @macros.h@
+-}
 bAD1 = (+) (0.1000000000000000055511151231257827021181583404541015625 :: CDouble) (1 :: CInt)
+{-| __C declaration:__ @BAD2@
+
+    __defined at:__ @macros.h:50:9@
+
+    __exported by:__ @macros.h@
+-}
 bAD2 :: CULong
+{-| __C declaration:__ @BAD2@
+
+    __defined at:__ @macros.h:50:9@
+
+    __exported by:__ @macros.h@
+-}
 bAD2 = (*) (2 :: CLong) (2 :: CULong)

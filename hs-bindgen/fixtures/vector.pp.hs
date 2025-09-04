@@ -14,9 +14,27 @@ import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 $(CAPI.addCSource "#include <vector.h>\nvector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } \n")
 
+{-| __C declaration:__ @vector@
+
+    __defined at:__ @vector.h:1:9@
+
+    __exported by:__ @vector.h@
+-}
 data Vector = Vector
   { vector_x :: FC.CDouble
+    {- ^ __C declaration:__ @x@
+
+         __defined at:__ @vector.h:2:12@
+
+         __exported by:__ @vector.h@
+    -}
   , vector_y :: FC.CDouble
+    {- ^ __C declaration:__ @y@
+
+         __defined at:__ @vector.h:3:12@
+
+         __exported by:__ @vector.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -40,14 +58,27 @@ instance F.Storable Vector where
                F.pokeByteOff ptr0 (0 :: Int) vector_x2
             >> F.pokeByteOff ptr0 (8 :: Int) vector_y3
 
-{-| __from C:__ @new_vector@ -}
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @vector.h:6:9@
+
+    __exported by:__ @vector.h@
+-}
 foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
   :: FC.CDouble
-     {- ^ __from C:__ @x@ -}
+     {- ^ __C declaration:__ @x@
+     -}
   -> FC.CDouble
-     {- ^ __from C:__ @y@ -}
+     {- ^ __C declaration:__ @y@
+     -}
   -> IO (F.Ptr Vector)
 
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @vector.h:6:9@
+
+    __exported by:__ @vector.h@
+-}
 foreign import ccall unsafe "hs_bindgen_test_vector_94a1e2e4670c0a3e" hs_bindgen_test_vector_94a1e2e4670c0a3e
   :: IO (F.FunPtr (FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)))
 

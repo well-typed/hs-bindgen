@@ -12,6 +12,12 @@ import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
 
+{-| __C declaration:__ @first@
+
+    __defined at:__ @enums.h:4:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype First = First
   { un_First :: FC.CUInt
   }
@@ -77,12 +83,30 @@ instance Read First where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @FIRST1@
+
+    __defined at:__ @enums.h:5:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern FIRST1 :: First
 pattern FIRST1 = First 0
 
+{-| __C declaration:__ @FIRST2@
+
+    __defined at:__ @enums.h:6:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern FIRST2 :: First
 pattern FIRST2 = First 1
 
+{-| __C declaration:__ @second@
+
+    __defined at:__ @enums.h:9:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype Second = Second
   { un_Second :: FC.CInt
   }
@@ -149,15 +173,39 @@ instance Read Second where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @SECOND_A@
+
+    __defined at:__ @enums.h:10:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern SECOND_A :: Second
 pattern SECOND_A = Second (-1)
 
+{-| __C declaration:__ @SECOND_B@
+
+    __defined at:__ @enums.h:11:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern SECOND_B :: Second
 pattern SECOND_B = Second 0
 
+{-| __C declaration:__ @SECOND_C@
+
+    __defined at:__ @enums.h:12:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern SECOND_C :: Second
 pattern SECOND_C = Second 1
 
+{-| __C declaration:__ @same@
+
+    __defined at:__ @enums.h:15:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype Same = Same
   { un_Same :: FC.CUInt
   }
@@ -221,12 +269,30 @@ instance Read Same where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @SAME_A@
+
+    __defined at:__ @enums.h:16:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern SAME_A :: Same
 pattern SAME_A = Same 1
 
+{-| __C declaration:__ @SAME_B@
+
+    __defined at:__ @enums.h:17:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
 
+{-| __C declaration:__ @nonseq@
+
+    __defined at:__ @enums.h:20:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype Nonseq = Nonseq
   { un_Nonseq :: FC.CUInt
   }
@@ -283,15 +349,39 @@ instance Read Nonseq where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @NONSEQ_A@
+
+    __defined at:__ @enums.h:21:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern NONSEQ_A :: Nonseq
 pattern NONSEQ_A = Nonseq 200
 
+{-| __C declaration:__ @NONSEQ_B@
+
+    __defined at:__ @enums.h:22:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern NONSEQ_B :: Nonseq
 pattern NONSEQ_B = Nonseq 301
 
+{-| __C declaration:__ @NONSEQ_C@
+
+    __defined at:__ @enums.h:23:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
 
+{-| __C declaration:__ @packed@
+
+    __defined at:__ @enums.h:26:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype Packed = Packed
   { un_Packed :: FC.CUChar
   }
@@ -358,15 +448,39 @@ instance Read Packed where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @PACKED_A@
+
+    __defined at:__ @enums.h:27:5@
+
+    __exported by:__ @enums.h@
+-}
 pattern PACKED_A :: Packed
 pattern PACKED_A = Packed 0
 
+{-| __C declaration:__ @PACKED_B@
+
+    __defined at:__ @enums.h:27:15@
+
+    __exported by:__ @enums.h@
+-}
 pattern PACKED_B :: Packed
 pattern PACKED_B = Packed 1
 
+{-| __C declaration:__ @PACKED_C@
+
+    __defined at:__ @enums.h:27:25@
+
+    __exported by:__ @enums.h@
+-}
 pattern PACKED_C :: Packed
 pattern PACKED_C = Packed 2
 
+{-| __C declaration:__ @enumA@
+
+    __defined at:__ @enums.h:30:9@
+
+    __exported by:__ @enums.h@
+-}
 newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
@@ -432,12 +546,30 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @A_FOO@
+
+    __defined at:__ @enums.h:30:16@
+
+    __exported by:__ @enums.h@
+-}
 pattern A_FOO :: EnumA
 pattern A_FOO = EnumA 0
 
+{-| __C declaration:__ @A_BAR@
+
+    __defined at:__ @enums.h:30:23@
+
+    __exported by:__ @enums.h@
+-}
 pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
 
+{-| __C declaration:__ @enumB@
+
+    __defined at:__ @enums.h:32:14@
+
+    __exported by:__ @enums.h@
+-}
 newtype EnumB = EnumB
   { un_EnumB :: FC.CUInt
   }
@@ -503,12 +635,30 @@ instance Read EnumB where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @B_FOO@
+
+    __defined at:__ @enums.h:32:22@
+
+    __exported by:__ @enums.h@
+-}
 pattern B_FOO :: EnumB
 pattern B_FOO = EnumB 0
 
+{-| __C declaration:__ @B_BAR@
+
+    __defined at:__ @enums.h:32:29@
+
+    __exported by:__ @enums.h@
+-}
 pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
 
+{-| __C declaration:__ @enumC@
+
+    __defined at:__ @enums.h:34:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype EnumC = EnumC
   { un_EnumC :: FC.CUInt
   }
@@ -574,12 +724,30 @@ instance Read EnumC where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @C_FOO@
+
+    __defined at:__ @enums.h:34:14@
+
+    __exported by:__ @enums.h@
+-}
 pattern C_FOO :: EnumC
 pattern C_FOO = EnumC 0
 
+{-| __C declaration:__ @C_BAR@
+
+    __defined at:__ @enums.h:34:21@
+
+    __exported by:__ @enums.h@
+-}
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
 
+{-| __C declaration:__ @enumD_t@
+
+    __defined at:__ @enums.h:37:6@
+
+    __exported by:__ @enums.h@
+-}
 newtype EnumD_t = EnumD_t
   { un_EnumD_t :: FC.CUInt
   }
@@ -645,8 +813,20 @@ instance Read EnumD_t where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @D_FOO@
+
+    __defined at:__ @enums.h:37:14@
+
+    __exported by:__ @enums.h@
+-}
 pattern D_FOO :: EnumD_t
 pattern D_FOO = EnumD_t 0
 
+{-| __C declaration:__ @D_BAR@
+
+    __defined at:__ @enums.h:37:21@
+
+    __exported by:__ @enums.h@
+-}
 pattern D_BAR :: EnumD_t
 pattern D_BAR = EnumD_t 1

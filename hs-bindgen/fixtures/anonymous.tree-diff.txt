@@ -20,29 +20,29 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:4:9",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s1_c_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:4:9",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s1_c_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "anonymous.h:5:9",
-              structFieldName = NamePair {
-                nameC = Name "b",
-                nameHsIdent = HsIdentifier
-                  "s1_c_b"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:5:9",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier
+                    "s1_c_b"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -69,12 +69,13 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:6:5",
-              structFieldName = NamePair {
-                nameC = Name "c",
-                nameHsIdent = HsIdentifier
-                  "s1_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:6:5",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = HsIdentifier
+                    "s1_c"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "S1_c",
@@ -83,20 +84,19 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "anonymous.h:3:3")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "anonymous.h:8:7",
-              structFieldName = NamePair {
-                nameC = Name "d",
-                nameHsIdent = HsIdentifier
-                  "s1_d"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:8:7",
+                fieldName = NamePair {
+                  nameC = Name "d",
+                  nameHsIdent = HsIdentifier
+                    "s1_d"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -126,17 +126,17 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:16:11",
-              structFieldName = NamePair {
-                nameC = Name "b",
-                nameHsIdent = HsIdentifier
-                  "s2_inner_deep_b"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:16:11",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier
+                    "s2_inner_deep_b"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -164,24 +164,25 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:14:9",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s2_inner_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:14:9",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s2_inner_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "anonymous.h:17:7",
-              structFieldName = NamePair {
-                nameC = Name "deep",
-                nameHsIdent = HsIdentifier
-                  "s2_inner_deep"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:17:7",
+                fieldName = NamePair {
+                  nameC = Name "deep",
+                  nameHsIdent = HsIdentifier
+                    "s2_inner_deep"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "S2_inner_deep",
@@ -190,8 +191,7 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "anonymous.h:15:5")),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -218,12 +218,13 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:18:5",
-              structFieldName = NamePair {
-                nameC = Name "inner",
-                nameHsIdent = HsIdentifier
-                  "s2_inner"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:18:5",
+                fieldName = NamePair {
+                  nameC = Name "inner",
+                  nameHsIdent = HsIdentifier
+                    "s2_inner"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "S2_inner",
@@ -232,20 +233,19 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "anonymous.h:13:3")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "anonymous.h:20:7",
-              structFieldName = NamePair {
-                nameC = Name "d",
-                nameHsIdent = HsIdentifier
-                  "s2_d"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:20:7",
+                fieldName = NamePair {
+                  nameC = Name "d",
+                  nameHsIdent = HsIdentifier
+                    "s2_d"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -273,29 +273,29 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:26:9",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s3_c_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:26:9",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s3_c_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "anonymous.h:27:9",
-              structFieldName = NamePair {
-                nameC = Name "b",
-                nameHsIdent = HsIdentifier
-                  "s3_c_b"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:27:9",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier
+                    "s3_c_b"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -322,12 +322,13 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "anonymous.h:28:7",
-              structFieldName = NamePair {
-                nameC = Name "c",
-                nameHsIdent = HsIdentifier
-                  "s3_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:28:7",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = HsIdentifier
+                    "s3_c"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypePointer
                   (TypeStruct
@@ -338,20 +339,19 @@ TranslationUnit {
                     (NameOriginGenerated
                       (AnonId "anonymous.h:25:3")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "anonymous.h:30:7",
-              structFieldName = NamePair {
-                nameC = Name "d",
-                nameHsIdent = HsIdentifier
-                  "s3_d"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:30:7",
+                fieldName = NamePair {
+                  nameC = Name "d",
+                  nameHsIdent = HsIdentifier
+                    "s3_d"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

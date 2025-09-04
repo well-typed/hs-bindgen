@@ -7,9 +7,27 @@ import qualified Foreign as F
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @fixedwidth.h:3:8@
+
+    __exported by:__ @fixedwidth.h@
+-}
 data Foo = Foo
   { foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64
+    {- ^ __C declaration:__ @sixty_four@
+
+         __defined at:__ @fixedwidth.h:4:11@
+
+         __exported by:__ @fixedwidth.h@
+    -}
   , foo_thirty_two :: HsBindgen.Runtime.Prelude.Word32
+    {- ^ __C declaration:__ @thirty_two@
+
+         __defined at:__ @fixedwidth.h:5:11@
+
+         __exported by:__ @fixedwidth.h@
+    -}
   }
   deriving stock (Eq, Show)
 

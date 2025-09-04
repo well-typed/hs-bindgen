@@ -1,6 +1,18 @@
 -- addDependentFile examples/golden/typedef_vs_macro.h
+{-| __C declaration:__ @T1@
+
+    __defined at:__ @typedef_vs_macro.h:1:13@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype T1
     = T1 {un_T1 :: CInt}
+      {- ^ __C declaration:__ @T1@
+
+           __defined at:__ @typedef_vs_macro.h:1:13@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -11,8 +23,20 @@ newtype T1
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @T2@
+
+    __defined at:__ @typedef_vs_macro.h:2:14@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype T2
     = T2 {un_T2 :: CChar}
+      {- ^ __C declaration:__ @T2@
+
+           __defined at:__ @typedef_vs_macro.h:2:14@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -23,8 +47,20 @@ newtype T2
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @M1@
+
+    __defined at:__ @typedef_vs_macro.h:4:9@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype M1
     = M1 {un_M1 :: CInt}
+      {- ^ __C declaration:__ @M1@
+
+           __defined at:__ @typedef_vs_macro.h:4:9@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -35,8 +71,20 @@ newtype M1
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @M2@
+
+    __defined at:__ @typedef_vs_macro.h:5:9@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype M2
     = M2 {un_M2 :: CChar}
+      {- ^ __C declaration:__ @M2@
+
+           __defined at:__ @typedef_vs_macro.h:5:9@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -47,19 +95,79 @@ newtype M2
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @M3@
+
+    __defined at:__ @typedef_vs_macro.h:6:9@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype M3
     = M3 {un_M3 :: (ConstantArray 3 CInt)}
+      {- ^ __C declaration:__ @M3@
+
+           __defined at:__ @typedef_vs_macro.h:6:9@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+{-| __C declaration:__ @M4@
+
+    __defined at:__ @typedef_vs_macro.h:7:9@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype M4
     = M4 {un_M4 :: (Ptr CInt)}
+      {- ^ __C declaration:__ @M4@
+
+           __defined at:__ @typedef_vs_macro.h:7:9@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| __C declaration:__ @ExampleStruct@
+
+    __defined at:__ @typedef_vs_macro.h:9:8@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 data ExampleStruct
-    = ExampleStruct {exampleStruct_t1 :: T1,
-                     exampleStruct_t2 :: T2,
-                     exampleStruct_m1 :: M1,
-                     exampleStruct_m2 :: M2}
+    = ExampleStruct {exampleStruct_t1 :: T1
+                     {- ^ __C declaration:__ @t1@
+
+                          __defined at:__ @typedef_vs_macro.h:10:6@
+
+                          __exported by:__ @typedef_vs_macro.h@
+                     -},
+                     exampleStruct_t2 :: T2
+                     {- ^ __C declaration:__ @t2@
+
+                          __defined at:__ @typedef_vs_macro.h:11:6@
+
+                          __exported by:__ @typedef_vs_macro.h@
+                     -},
+                     exampleStruct_m1 :: M1
+                     {- ^ __C declaration:__ @m1@
+
+                          __defined at:__ @typedef_vs_macro.h:12:6@
+
+                          __exported by:__ @typedef_vs_macro.h@
+                     -},
+                     exampleStruct_m2 :: M2
+                     {- ^ __C declaration:__ @m2@
+
+                          __defined at:__ @typedef_vs_macro.h:13:6@
+
+                          __exported by:__ @typedef_vs_macro.h@
+                     -}}
+      {- ^ __C declaration:__ @ExampleStruct@
+
+           __defined at:__ @typedef_vs_macro.h:9:8@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable ExampleStruct
     where sizeOf = \_ -> 16 :: Int
@@ -70,8 +178,20 @@ instance Storable ExampleStruct
                                                  exampleStruct_t2_4
                                                  exampleStruct_m1_5
                                                  exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))
+{-| __C declaration:__ @uint64_t@
+
+    __defined at:__ @typedef_vs_macro.h:16:9@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
 newtype Uint64_t
     = Uint64_t {un_Uint64_t :: CInt}
+      {- ^ __C declaration:__ @uint64_t@
+
+           __defined at:__ @typedef_vs_macro.h:16:9@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -82,7 +202,27 @@ newtype Uint64_t
                       Ix,
                       Num,
                       Real)
-data Foo = Foo {foo_a :: (Ptr Uint64_t)} deriving stock (Eq, Show)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @typedef_vs_macro.h:18:8@
+
+    __exported by:__ @typedef_vs_macro.h@
+-}
+data Foo
+    = Foo {foo_a :: (Ptr Uint64_t)
+           {- ^ __C declaration:__ @a@
+
+                __defined at:__ @typedef_vs_macro.h:19:13@
+
+                __exported by:__ @typedef_vs_macro.h@
+           -}}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @typedef_vs_macro.h:18:8@
+
+           __exported by:__ @typedef_vs_macro.h@
+      -}
+    deriving stock (Eq, Show)
 instance Storable Foo
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int

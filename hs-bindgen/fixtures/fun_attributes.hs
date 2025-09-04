@@ -52,18 +52,18 @@
         [Eq, Show, Storable],
       structComment =
       Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Attributes on functions"],
-          commentOrigin = Just "FILE",
-          commentChildren =
+                "Attributes on functions"])
+          (Just "fun_attributes.h:7:9")
+          (Just "fun_attributes.h")
           [
             Paragraph
               [
                 TextContent
-                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}},
+                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -120,18 +120,18 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            Comment {
-              commentTitle = Just
+            (Comment
+              (Just
                 [
                   TextContent
-                    "Attributes on functions"],
-              commentOrigin = Just "FILE",
-              commentChildren =
+                    "Attributes on functions"])
+              (Just "fun_attributes.h:7:9")
+              (Just "fun_attributes.h")
               [
                 Paragraph
                   [
                     TextContent
-                      "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}}
+                      "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -192,18 +192,18 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    Comment {
-                      commentTitle = Just
+                    (Comment
+                      (Just
                         [
                           TextContent
-                            "Attributes on functions"],
-                      commentOrigin = Just "FILE",
-                      commentChildren =
+                            "Attributes on functions"])
+                      (Just "fun_attributes.h:7:9")
+                      (Just "fun_attributes.h")
                       [
                         Paragraph
                           [
                             TextContent
-                              "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}})
+                              "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]])})
               []),
           storablePoke =
           Lambda
@@ -264,18 +264,18 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    Comment {
-                      commentTitle = Just
+                    (Comment
+                      (Just
                         [
                           TextContent
-                            "Attributes on functions"],
-                      commentOrigin = Just "FILE",
-                      commentChildren =
+                            "Attributes on functions"])
+                      (Just "fun_attributes.h:7:9")
+                      (Just "fun_attributes.h")
                       [
                         Paragraph
                           [
                             TextContent
-                              "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]}}
+                              "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -360,7 +360,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:8:13")
+          (Just "fun_attributes.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -517,10 +522,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "__f1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:16:6")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -544,7 +550,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:16:6")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -573,10 +584,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:17:6")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -600,7 +612,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:17:6")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -664,11 +681,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memalign",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:21:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -717,7 +734,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:21:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -781,11 +803,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_calloc",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:26:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -834,7 +856,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:26:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -891,11 +918,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_realloc",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:27:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -936,7 +963,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:27:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -984,11 +1016,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_alloc1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:32:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1026,7 +1058,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:32:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1074,11 +1111,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_alloc2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:33:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1116,7 +1153,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:33:7")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1156,10 +1198,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "square",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:37:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1190,7 +1233,12 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:37:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1220,10 +1268,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "old_fn",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:46:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1250,7 +1299,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:46:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1270,22 +1324,22 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "my_domain",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "my_format"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "my_format",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1330,11 +1384,11 @@
                 (PrimSignImplicit
                   (Just Signed))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_dgettext",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:57:1")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1380,7 +1434,12 @@
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed)))))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:57:1")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1449,10 +1508,11 @@
                     (AnonId
                       "fun_attributes.h:7:9")))))},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fdopen",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:68:9")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1505,7 +1565,12 @@
                   (NameOriginGenerated
                     (AnonId
                       "fun_attributes.h:7:9"))))))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:68:9")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1534,10 +1599,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:72:65")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1561,7 +1627,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:72:65")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1581,20 +1652,22 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "dest",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "src"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "src",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "len"),
@@ -1603,10 +1676,11 @@
               "@NsTypeConstr"
               "Size_t"),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "len",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1652,11 +1726,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memcpy",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:78:1")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1701,7 +1775,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:78:1")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1730,10 +1809,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fatal",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:95:6")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1757,7 +1837,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:95:6")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1800,10 +1885,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "hash",
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:103:5")
+          (Just "fun_attributes.h")
+          [
             Paragraph
               [
                 TextContent "Marked",
@@ -1812,7 +1898,7 @@
                     Bold
                       [
                         TextContent
-                          "attribute((pure))"]]]]},
+                          "attribute((pure))"]]]]),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1846,7 +1932,12 @@
                     (Just Signed))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:103:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1868,10 +1959,11 @@
               "@NsTypeConstr"
               "Size_t"),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "len",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1902,10 +1994,11 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "mymalloc",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:108:1")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1943,7 +2036,12 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:108:1")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1972,10 +2070,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foobar",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:112:13")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -1999,7 +2098,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:112:13")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2029,11 +2133,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "core2_func",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:119:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2060,7 +2164,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:119:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2090,11 +2199,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "sse3_func",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:120:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2121,7 +2230,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:120:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2150,10 +2264,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f3",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:124:49")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2177,7 +2292,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:124:49")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2203,7 +2323,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:125:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2233,10 +2358,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fn",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:129:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2263,7 +2389,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:129:5")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2293,10 +2424,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "y",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:135:12")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2323,7 +2455,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:135:12")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2353,10 +2490,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "x1",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:138:12")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2383,7 +2521,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:138:12")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2413,10 +2556,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "x2",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:141:12")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "fun_attributes.h",
@@ -2443,7 +2587,12 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "fun_attributes.h:141:12")
+          (Just "fun_attributes.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

@@ -50,152 +50,427 @@
 -- /* get_unsafe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_b758151b55abc14a (void)) (void) { return &unsafe; } 
 -- void hs_bindgen_test_names_d428a3f008917f79 (void) { via(); }
 -- /* get_via_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_426a163ac069db6c (void)) (void) { return &via; } 
-{-| -}
+{-| __C declaration:__ @by@
+
+    __defined at:__ @names.h:3:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_a08e966b63669ba8" by' :: IO Unit
+{-| __C declaration:__ @by@
+
+    __defined at:__ @names.h:3:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_bb58aea59417aa76" hs_bindgen_test_names_bb58aea59417aa76 :: IO (FunPtr (IO Unit))
 {-# NOINLINE by'_ptr #-}
 by'_ptr :: FunPtr (IO Unit)
 by'_ptr = unsafePerformIO hs_bindgen_test_names_bb58aea59417aa76
-{-| -}
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @names.h:4:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_946148697abf4575" forall' :: IO Unit
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @names.h:4:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_4a4cda3da32bed2b" hs_bindgen_test_names_4a4cda3da32bed2b :: IO (FunPtr (IO Unit))
 {-# NOINLINE forall'_ptr #-}
 forall'_ptr :: FunPtr (IO Unit)
 forall'_ptr = unsafePerformIO hs_bindgen_test_names_4a4cda3da32bed2b
-{-| -}
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @names.h:5:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_a1ece6a6fa8e9763" mdo' :: IO Unit
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @names.h:5:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_f3f3b62a0c9a709c" hs_bindgen_test_names_f3f3b62a0c9a709c :: IO (FunPtr (IO Unit))
 {-# NOINLINE mdo'_ptr #-}
 mdo'_ptr :: FunPtr (IO Unit)
 mdo'_ptr = unsafePerformIO hs_bindgen_test_names_f3f3b62a0c9a709c
-{-| -}
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @names.h:6:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_1e48788938305e48" pattern' :: IO Unit
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @names.h:6:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_d6de06049441d0d8" hs_bindgen_test_names_d6de06049441d0d8 :: IO (FunPtr (IO Unit))
 {-# NOINLINE pattern'_ptr #-}
 pattern'_ptr :: FunPtr (IO Unit)
 pattern'_ptr = unsafePerformIO hs_bindgen_test_names_d6de06049441d0d8
-{-| -}
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @names.h:7:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_9bb16600c50998ed" proc' :: IO Unit
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @names.h:7:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_e5d464f87b7fe950" hs_bindgen_test_names_e5d464f87b7fe950 :: IO (FunPtr (IO Unit))
 {-# NOINLINE proc'_ptr #-}
 proc'_ptr :: FunPtr (IO Unit)
 proc'_ptr = unsafePerformIO hs_bindgen_test_names_e5d464f87b7fe950
-{-| -}
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @names.h:8:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_8dfd7fa26e360d8e" rec' :: IO Unit
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @names.h:8:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_ab3827c2d532dee0" hs_bindgen_test_names_ab3827c2d532dee0 :: IO (FunPtr (IO Unit))
 {-# NOINLINE rec'_ptr #-}
 rec'_ptr :: FunPtr (IO Unit)
 rec'_ptr = unsafePerformIO hs_bindgen_test_names_ab3827c2d532dee0
-{-| -}
+{-| __C declaration:__ @using@
+
+    __defined at:__ @names.h:9:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_57c5446244bcece1" using' :: IO Unit
+{-| __C declaration:__ @using@
+
+    __defined at:__ @names.h:9:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_c00c761386bb1622" hs_bindgen_test_names_c00c761386bb1622 :: IO (FunPtr (IO Unit))
 {-# NOINLINE using'_ptr #-}
 using'_ptr :: FunPtr (IO Unit)
 using'_ptr = unsafePerformIO hs_bindgen_test_names_c00c761386bb1622
-{-| -}
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @names.h:12:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_a2a878b7e49c1a71" anyclass :: IO Unit
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @names.h:12:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_4a396f85749a2639" hs_bindgen_test_names_4a396f85749a2639 :: IO (FunPtr (IO Unit))
 {-# NOINLINE anyclass_ptr #-}
 anyclass_ptr :: FunPtr (IO Unit)
 anyclass_ptr = unsafePerformIO hs_bindgen_test_names_4a396f85749a2639
-{-| -}
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @names.h:13:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_2f73a4347f70a468" capi :: IO Unit
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @names.h:13:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_c343892e825ac083" hs_bindgen_test_names_c343892e825ac083 :: IO (FunPtr (IO Unit))
 {-# NOINLINE capi_ptr #-}
 capi_ptr :: FunPtr (IO Unit)
 capi_ptr = unsafePerformIO hs_bindgen_test_names_c343892e825ac083
-{-| -}
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @names.h:14:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_cb2993ce15743783" cases :: IO Unit
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @names.h:14:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_142ad3bb39343793" hs_bindgen_test_names_142ad3bb39343793 :: IO (FunPtr (IO Unit))
 {-# NOINLINE cases_ptr #-}
 cases_ptr :: FunPtr (IO Unit)
 cases_ptr = unsafePerformIO hs_bindgen_test_names_142ad3bb39343793
-{-| -}
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @names.h:15:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_954c564a2bd129a5" ccall :: IO Unit
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @names.h:15:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_c601c7e6cf3e8093" hs_bindgen_test_names_c601c7e6cf3e8093 :: IO (FunPtr (IO Unit))
 {-# NOINLINE ccall_ptr #-}
 ccall_ptr :: FunPtr (IO Unit)
 ccall_ptr = unsafePerformIO hs_bindgen_test_names_c601c7e6cf3e8093
-{-| -}
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @names.h:16:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_3a96dcbee4c024e0" dynamic :: IO Unit
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @names.h:16:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_041d2882439ff8ed" hs_bindgen_test_names_041d2882439ff8ed :: IO (FunPtr (IO Unit))
 {-# NOINLINE dynamic_ptr #-}
 dynamic_ptr :: FunPtr (IO Unit)
 dynamic_ptr = unsafePerformIO hs_bindgen_test_names_041d2882439ff8ed
-{-| -}
+{-| __C declaration:__ @export@
+
+    __defined at:__ @names.h:17:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_2e78d006337ea551" export :: IO Unit
+{-| __C declaration:__ @export@
+
+    __defined at:__ @names.h:17:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_8ab0ab2a4f7b30af" hs_bindgen_test_names_8ab0ab2a4f7b30af :: IO (FunPtr (IO Unit))
 {-# NOINLINE export_ptr #-}
 export_ptr :: FunPtr (IO Unit)
 export_ptr = unsafePerformIO hs_bindgen_test_names_8ab0ab2a4f7b30af
-{-| -}
+{-| __C declaration:__ @family@
+
+    __defined at:__ @names.h:18:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_10c8e433951b50a8" family :: IO Unit
+{-| __C declaration:__ @family@
+
+    __defined at:__ @names.h:18:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_9c717aeb3b2a21a7" hs_bindgen_test_names_9c717aeb3b2a21a7 :: IO (FunPtr (IO Unit))
 {-# NOINLINE family_ptr #-}
 family_ptr :: FunPtr (IO Unit)
 family_ptr = unsafePerformIO hs_bindgen_test_names_9c717aeb3b2a21a7
-{-| -}
+{-| __C declaration:__ @group@
+
+    __defined at:__ @names.h:19:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_6217d85466fed7df" group :: IO Unit
+{-| __C declaration:__ @group@
+
+    __defined at:__ @names.h:19:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_21121f108b34a76f" hs_bindgen_test_names_21121f108b34a76f :: IO (FunPtr (IO Unit))
 {-# NOINLINE group_ptr #-}
 group_ptr :: FunPtr (IO Unit)
 group_ptr = unsafePerformIO hs_bindgen_test_names_21121f108b34a76f
-{-| -}
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @names.h:20:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_00164685ff44cb75" interruptible :: IO Unit
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @names.h:20:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_99f8d337ba1ebac6" hs_bindgen_test_names_99f8d337ba1ebac6 :: IO (FunPtr (IO Unit))
 {-# NOINLINE interruptible_ptr #-}
 interruptible_ptr :: FunPtr (IO Unit)
 interruptible_ptr = unsafePerformIO hs_bindgen_test_names_99f8d337ba1ebac6
-{-| -}
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @names.h:21:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_c810b13a75ea93bc" javascript :: IO Unit
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @names.h:21:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_4603bd39e6211039" hs_bindgen_test_names_4603bd39e6211039 :: IO (FunPtr (IO Unit))
 {-# NOINLINE javascript_ptr #-}
 javascript_ptr :: FunPtr (IO Unit)
 javascript_ptr = unsafePerformIO hs_bindgen_test_names_4603bd39e6211039
-{-| -}
+{-| __C declaration:__ @label@
+
+    __defined at:__ @names.h:22:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_41d6d93a2614dff5" label :: IO Unit
+{-| __C declaration:__ @label@
+
+    __defined at:__ @names.h:22:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_a0fbab6bd4868b8a" hs_bindgen_test_names_a0fbab6bd4868b8a :: IO (FunPtr (IO Unit))
 {-# NOINLINE label_ptr #-}
 label_ptr :: FunPtr (IO Unit)
 label_ptr = unsafePerformIO hs_bindgen_test_names_a0fbab6bd4868b8a
-{-| -}
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @names.h:23:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_bdfec7f41298a418" prim :: IO Unit
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @names.h:23:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_a21123e386a2c566" hs_bindgen_test_names_a21123e386a2c566 :: IO (FunPtr (IO Unit))
 {-# NOINLINE prim_ptr #-}
 prim_ptr :: FunPtr (IO Unit)
 prim_ptr = unsafePerformIO hs_bindgen_test_names_a21123e386a2c566
-{-| -}
+{-| __C declaration:__ @role@
+
+    __defined at:__ @names.h:24:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_0d10aaa9ecbf0f2f" role :: IO Unit
+{-| __C declaration:__ @role@
+
+    __defined at:__ @names.h:24:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_da0964ddbc3ebb7a" hs_bindgen_test_names_da0964ddbc3ebb7a :: IO (FunPtr (IO Unit))
 {-# NOINLINE role_ptr #-}
 role_ptr :: FunPtr (IO Unit)
 role_ptr = unsafePerformIO hs_bindgen_test_names_da0964ddbc3ebb7a
-{-| -}
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @names.h:25:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_0ebc368c3818b18b" safe :: IO Unit
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @names.h:25:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_b7ed55355edeb6b7" hs_bindgen_test_names_b7ed55355edeb6b7 :: IO (FunPtr (IO Unit))
 {-# NOINLINE safe_ptr #-}
 safe_ptr :: FunPtr (IO Unit)
 safe_ptr = unsafePerformIO hs_bindgen_test_names_b7ed55355edeb6b7
-{-| -}
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @names.h:26:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_764bfbe5fbb4fac9" stdcall :: IO Unit
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @names.h:26:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_71d621f5185b4a35" hs_bindgen_test_names_71d621f5185b4a35 :: IO (FunPtr (IO Unit))
 {-# NOINLINE stdcall_ptr #-}
 stdcall_ptr :: FunPtr (IO Unit)
 stdcall_ptr = unsafePerformIO hs_bindgen_test_names_71d621f5185b4a35
-{-| -}
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @names.h:27:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_6597a6eedc28f577" stock :: IO Unit
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @names.h:27:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_1956b7d5c507eed1" hs_bindgen_test_names_1956b7d5c507eed1 :: IO (FunPtr (IO Unit))
 {-# NOINLINE stock_ptr #-}
 stock_ptr :: FunPtr (IO Unit)
 stock_ptr = unsafePerformIO hs_bindgen_test_names_1956b7d5c507eed1
-{-| -}
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @names.h:28:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_1aef1bdf2d1ba544" unsafe :: IO Unit
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @names.h:28:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_b758151b55abc14a" hs_bindgen_test_names_b758151b55abc14a :: IO (FunPtr (IO Unit))
 {-# NOINLINE unsafe_ptr #-}
 unsafe_ptr :: FunPtr (IO Unit)
 unsafe_ptr = unsafePerformIO hs_bindgen_test_names_b758151b55abc14a
-{-| -}
+{-| __C declaration:__ @via@
+
+    __defined at:__ @names.h:29:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_d428a3f008917f79" via :: IO Unit
+{-| __C declaration:__ @via@
+
+    __defined at:__ @names.h:29:6@
+
+    __exported by:__ @names.h@
+-}
 foreign import ccall safe "hs_bindgen_test_names_426a163ac069db6c" hs_bindgen_test_names_426a163ac069db6c :: IO (FunPtr (IO Unit))
 {-# NOINLINE via_ptr #-}
 via_ptr :: FunPtr (IO Unit)

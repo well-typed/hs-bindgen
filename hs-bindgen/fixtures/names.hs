@@ -23,10 +23,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "by",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:3:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -49,7 +50,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:3:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -77,10 +83,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "forall",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:4:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -103,7 +110,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:4:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -131,10 +143,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "mdo",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:5:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -157,7 +170,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:5:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -185,10 +203,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "pattern",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:6:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -211,7 +230,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:6:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -239,10 +263,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "proc",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:7:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -265,7 +290,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:7:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -293,10 +323,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "rec",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:8:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -319,7 +350,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:8:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -347,10 +383,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "using",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:9:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -373,7 +410,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:9:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -401,10 +443,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "anyclass",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:12:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -427,7 +470,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:12:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -455,10 +503,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "capi",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:13:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -481,7 +530,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:13:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -509,10 +563,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "cases",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:14:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -535,7 +590,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:14:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -563,10 +623,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ccall",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:15:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -589,7 +650,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:15:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -617,10 +683,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "dynamic",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:16:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -643,7 +710,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:16:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -671,10 +743,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "export",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:17:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -697,7 +770,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:17:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -725,10 +803,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "family",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:18:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -751,7 +830,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:18:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -779,10 +863,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "group",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:19:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -805,7 +890,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:19:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -833,11 +923,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "interruptible",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:20:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -860,7 +950,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:20:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -888,11 +983,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "javascript",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:21:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -915,7 +1010,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:21:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -943,10 +1043,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "label",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:22:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -969,7 +1070,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:22:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -997,10 +1103,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "prim",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:23:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1023,7 +1130,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:23:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1051,10 +1163,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "role",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:24:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1077,7 +1190,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:24:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1105,10 +1223,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "safe",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:25:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1131,7 +1250,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:25:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1159,10 +1283,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "stdcall",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:26:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1185,7 +1310,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:26:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1213,10 +1343,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "stock",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:27:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1239,7 +1370,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:27:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1267,10 +1403,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "unsafe",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:28:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1293,7 +1430,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:28:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1321,10 +1463,11 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "via",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "names.h:29:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "names.h",
   DeclInlineC
@@ -1347,7 +1490,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "names.h:29:6")
+          (Just "names.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

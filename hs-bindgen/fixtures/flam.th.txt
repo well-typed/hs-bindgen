@@ -1,5 +1,25 @@
 -- addDependentFile examples/golden/flam.h
-data Pascal = Pascal {pascal_len :: CInt} deriving stock (Eq, Show)
+{-| __C declaration:__ @pascal@
+
+    __defined at:__ @flam.h:2:8@
+
+    __exported by:__ @flam.h@
+-}
+data Pascal
+    = Pascal {pascal_len :: CInt
+              {- ^ __C declaration:__ @len@
+
+                   __defined at:__ @flam.h:3:9@
+
+                   __exported by:__ @flam.h@
+              -}}
+      {- ^ __C declaration:__ @pascal@
+
+           __defined at:__ @flam.h:2:8@
+
+           __exported by:__ @flam.h@
+      -}
+    deriving stock (Eq, Show)
 instance Storable Pascal
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -8,8 +28,33 @@ instance Storable Pascal
                                    Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3
 instance HasFlexibleArrayMember CChar Pascal
     where flexibleArrayMemberOffset = \_ty_0 -> 4
+{-| __C declaration:__ @foo_bar@
+
+    __defined at:__ @flam.h:10:2@
+
+    __exported by:__ @flam.h@
+-}
 data Foo_bar
-    = Foo_bar {foo_bar_x :: CInt, foo_bar_y :: CInt}
+    = Foo_bar {foo_bar_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @flam.h:11:7@
+
+                    __exported by:__ @flam.h@
+               -},
+               foo_bar_y :: CInt
+               {- ^ __C declaration:__ @y@
+
+                    __defined at:__ @flam.h:12:7@
+
+                    __exported by:__ @flam.h@
+               -}}
+      {- ^ __C declaration:__ @foo_bar@
+
+           __defined at:__ @flam.h:10:2@
+
+           __exported by:__ @flam.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Foo_bar
     where sizeOf = \_ -> 8 :: Int
@@ -18,7 +63,27 @@ instance Storable Foo_bar
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo_bar foo_bar_x_3
                                            foo_bar_y_4 -> pokeByteOff ptr_1 (0 :: Int) foo_bar_x_3 >> pokeByteOff ptr_1 (4 :: Int) foo_bar_y_4
-data Foo = Foo {foo_len :: CInt} deriving stock (Eq, Show)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @flam.h:8:8@
+
+    __exported by:__ @flam.h@
+-}
+data Foo
+    = Foo {foo_len :: CInt
+           {- ^ __C declaration:__ @len@
+
+                __defined at:__ @flam.h:9:6@
+
+                __exported by:__ @flam.h@
+           -}}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @flam.h:8:8@
+
+           __exported by:__ @flam.h@
+      -}
+    deriving stock (Eq, Show)
 instance Storable Foo
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -27,8 +92,33 @@ instance Storable Foo
                                    Foo foo_len_3 -> pokeByteOff ptr_1 (0 :: Int) foo_len_3
 instance HasFlexibleArrayMember Foo_bar Foo
     where flexibleArrayMemberOffset = \_ty_0 -> 4
+{-| __C declaration:__ @diff@
+
+    __defined at:__ @flam.h:17:8@
+
+    __exported by:__ @flam.h@
+-}
 data Diff
-    = Diff {diff_first :: CLong, diff_second :: CChar}
+    = Diff {diff_first :: CLong
+            {- ^ __C declaration:__ @first@
+
+                 __defined at:__ @flam.h:18:7@
+
+                 __exported by:__ @flam.h@
+            -},
+            diff_second :: CChar
+            {- ^ __C declaration:__ @second@
+
+                 __defined at:__ @flam.h:19:7@
+
+                 __exported by:__ @flam.h@
+            -}}
+      {- ^ __C declaration:__ @diff@
+
+           __defined at:__ @flam.h:17:8@
+
+           __exported by:__ @flam.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Diff
     where sizeOf = \_ -> 16 :: Int
@@ -39,14 +129,14 @@ instance Storable Diff
                                         diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4
 instance HasFlexibleArrayMember CChar Diff
     where flexibleArrayMemberOffset = \_ty_0 -> 9
-{-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
-
--}
 data Triplets
-    = Triplets {triplets_len :: CInt}
-      {- ^ The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+    = Triplets {triplets_len :: CInt
+                {- ^ __C declaration:__ @len@
 
-      -}
+                     __defined at:__ @flam.h:27:7@
+
+                     __exported by:__ @flam.h@
+                -}}
     deriving stock (Eq, Show)
 instance Storable Triplets
     where sizeOf = \_ -> 4 :: Int

@@ -1,6 +1,18 @@
 -- addDependentFile examples/golden/typedefs.h
+{-| __C declaration:__ @myint@
+
+    __defined at:__ @typedefs.h:1:13@
+
+    __exported by:__ @typedefs.h@
+-}
 newtype Myint
     = Myint {un_Myint :: CInt}
+      {- ^ __C declaration:__ @myint@
+
+           __defined at:__ @typedefs.h:1:13@
+
+           __exported by:__ @typedefs.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -11,7 +23,19 @@ newtype Myint
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @intptr@
+
+    __defined at:__ @typedefs.h:2:15@
+
+    __exported by:__ @typedefs.h@
+-}
 newtype Intptr
     = Intptr {un_Intptr :: (Ptr CInt)}
+      {- ^ __C declaration:__ @intptr@
+
+           __defined at:__ @typedefs.h:2:15@
+
+           __exported by:__ @typedefs.h@
+      -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable

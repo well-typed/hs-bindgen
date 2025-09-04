@@ -16,20 +16,26 @@
             HsPrimCChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:2:10",
-              structFieldName = NamePair {
-                nameC = Name "c",
-                nameHsIdent = HsIdentifier
-                  "primitive_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:2:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = HsIdentifier
+                    "primitive_c"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:2:10")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -38,19 +44,25 @@
             HsPrimCSChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:3:17",
-              structFieldName = NamePair {
-                nameC = Name "sc",
-                nameHsIdent = HsIdentifier
-                  "primitive_sc"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:3:17",
+                fieldName = NamePair {
+                  nameC = Name "sc",
+                  nameHsIdent = HsIdentifier
+                    "primitive_sc"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignExplicit Signed)),
               structFieldOffset = 8,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:3:17")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -59,19 +71,25 @@
             HsPrimCUChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:4:19",
-              structFieldName = NamePair {
-                nameC = Name "uc",
-                nameHsIdent = HsIdentifier
-                  "primitive_uc"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:4:19",
+                fieldName = NamePair {
+                  nameC = Name "uc",
+                  nameHsIdent = HsIdentifier
+                    "primitive_uc"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignExplicit Unsigned)),
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:4:19")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -80,18 +98,24 @@
             HsPrimCShort,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:6:11",
-              structFieldName = NamePair {
-                nameC = Name "s",
-                nameHsIdent = HsIdentifier
-                  "primitive_s"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:6:11",
+                fieldName = NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier
+                    "primitive_s"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:6:11")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -100,18 +124,24 @@
             HsPrimCShort,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:7:15",
-              structFieldName = NamePair {
-                nameC = Name "si",
-                nameHsIdent = HsIdentifier
-                  "primitive_si"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:7:15",
+                fieldName = NamePair {
+                  nameC = Name "si",
+                  nameHsIdent = HsIdentifier
+                    "primitive_si"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 48,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:7:15")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -120,18 +150,24 @@
             HsPrimCShort,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:8:18",
-              structFieldName = NamePair {
-                nameC = Name "ss",
-                nameHsIdent = HsIdentifier
-                  "primitive_ss"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:8:18",
+                fieldName = NamePair {
+                  nameC = Name "ss",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ss"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:8:18")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -140,18 +176,24 @@
             HsPrimCShort,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:9:22",
-              structFieldName = NamePair {
-                nameC = Name "ssi",
-                nameHsIdent = HsIdentifier
-                  "primitive_ssi"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:9:22",
+                fieldName = NamePair {
+                  nameC = Name "ssi",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ssi"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimShort Signed),
               structFieldOffset = 80,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:9:22")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -160,20 +202,26 @@
             HsPrimCUShort,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:11:20",
-              structFieldName = NamePair {
-                nameC = Name "us",
-                nameHsIdent = HsIdentifier
-                  "primitive_us"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:11:20",
+                fieldName = NamePair {
+                  nameC = Name "us",
+                  nameHsIdent = HsIdentifier
+                    "primitive_us"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimShort
                   Unsigned),
               structFieldOffset = 96,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:11:20")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -182,20 +230,26 @@
             HsPrimCUShort,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:12:24",
-              structFieldName = NamePair {
-                nameC = Name "usi",
-                nameHsIdent = HsIdentifier
-                  "primitive_usi"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:12:24",
+                fieldName = NamePair {
+                  nameC = Name "usi",
+                  nameHsIdent = HsIdentifier
+                    "primitive_usi"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimShort
                   Unsigned),
               structFieldOffset = 112,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:12:24")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -204,18 +258,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:14:9",
-              structFieldName = NamePair {
-                nameC = Name "i",
-                nameHsIdent = HsIdentifier
-                  "primitive_i"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:14:9",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier
+                    "primitive_i"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 128,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:14:9")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -224,18 +284,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:15:12",
-              structFieldName = NamePair {
-                nameC = Name "s2",
-                nameHsIdent = HsIdentifier
-                  "primitive_s2"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:15:12",
+                fieldName = NamePair {
+                  nameC = Name "s2",
+                  nameHsIdent = HsIdentifier
+                    "primitive_s2"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 160,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:15:12")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -244,18 +310,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:16:16",
-              structFieldName = NamePair {
-                nameC = Name "si2",
-                nameHsIdent = HsIdentifier
-                  "primitive_si2"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:16:16",
+                fieldName = NamePair {
+                  nameC = Name "si2",
+                  nameHsIdent = HsIdentifier
+                    "primitive_si2"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 192,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:16:16")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -264,18 +336,24 @@
             HsPrimCUInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:18:14",
-              structFieldName = NamePair {
-                nameC = Name "u",
-                nameHsIdent = HsIdentifier
-                  "primitive_u"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:18:14",
+                fieldName = NamePair {
+                  nameC = Name "u",
+                  nameHsIdent = HsIdentifier
+                    "primitive_u"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 224,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:18:14")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -284,18 +362,24 @@
             HsPrimCUInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:19:18",
-              structFieldName = NamePair {
-                nameC = Name "ui",
-                nameHsIdent = HsIdentifier
-                  "primitive_ui"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:19:18",
+                fieldName = NamePair {
+                  nameC = Name "ui",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ui"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:19:18")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -304,18 +388,24 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:21:10",
-              structFieldName = NamePair {
-                nameC = Name "l",
-                nameHsIdent = HsIdentifier
-                  "primitive_l"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:21:10",
+                fieldName = NamePair {
+                  nameC = Name "l",
+                  nameHsIdent = HsIdentifier
+                    "primitive_l"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 320,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:21:10")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -324,18 +414,24 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:22:14",
-              structFieldName = NamePair {
-                nameC = Name "li",
-                nameHsIdent = HsIdentifier
-                  "primitive_li"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:22:14",
+                fieldName = NamePair {
+                  nameC = Name "li",
+                  nameHsIdent = HsIdentifier
+                    "primitive_li"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 384,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:22:14")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -344,18 +440,24 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:23:17",
-              structFieldName = NamePair {
-                nameC = Name "sl",
-                nameHsIdent = HsIdentifier
-                  "primitive_sl"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:23:17",
+                fieldName = NamePair {
+                  nameC = Name "sl",
+                  nameHsIdent = HsIdentifier
+                    "primitive_sl"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 448,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:23:17")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -364,18 +466,24 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:24:21",
-              structFieldName = NamePair {
-                nameC = Name "sli",
-                nameHsIdent = HsIdentifier
-                  "primitive_sli"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:24:21",
+                fieldName = NamePair {
+                  nameC = Name "sli",
+                  nameHsIdent = HsIdentifier
+                    "primitive_sli"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 512,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:24:21")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -384,20 +492,26 @@
             HsPrimCULong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:26:19",
-              structFieldName = NamePair {
-                nameC = Name "ul",
-                nameHsIdent = HsIdentifier
-                  "primitive_ul"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:26:19",
+                fieldName = NamePair {
+                  nameC = Name "ul",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ul"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLong
                   Unsigned),
               structFieldOffset = 576,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:26:19")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -406,20 +520,26 @@
             HsPrimCULong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:27:23",
-              structFieldName = NamePair {
-                nameC = Name "uli",
-                nameHsIdent = HsIdentifier
-                  "primitive_uli"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:27:23",
+                fieldName = NamePair {
+                  nameC = Name "uli",
+                  nameHsIdent = HsIdentifier
+                    "primitive_uli"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLong
                   Unsigned),
               structFieldOffset = 640,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:27:23")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -428,20 +548,26 @@
             HsPrimCLLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:29:15",
-              structFieldName = NamePair {
-                nameC = Name "ll",
-                nameHsIdent = HsIdentifier
-                  "primitive_ll"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:29:15",
+                fieldName = NamePair {
+                  nameC = Name "ll",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ll"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
                   Signed),
               structFieldOffset = 704,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:29:15")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -450,20 +576,26 @@
             HsPrimCLLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:30:19",
-              structFieldName = NamePair {
-                nameC = Name "lli",
-                nameHsIdent = HsIdentifier
-                  "primitive_lli"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:30:19",
+                fieldName = NamePair {
+                  nameC = Name "lli",
+                  nameHsIdent = HsIdentifier
+                    "primitive_lli"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
                   Signed),
               structFieldOffset = 768,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:30:19")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -472,20 +604,26 @@
             HsPrimCLLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:31:22",
-              structFieldName = NamePair {
-                nameC = Name "sll",
-                nameHsIdent = HsIdentifier
-                  "primitive_sll"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:31:22",
+                fieldName = NamePair {
+                  nameC = Name "sll",
+                  nameHsIdent = HsIdentifier
+                    "primitive_sll"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
                   Signed),
               structFieldOffset = 832,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:31:22")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -494,20 +632,26 @@
             HsPrimCLLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:32:26",
-              structFieldName = NamePair {
-                nameC = Name "slli",
-                nameHsIdent = HsIdentifier
-                  "primitive_slli"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:32:26",
+                fieldName = NamePair {
+                  nameC = Name "slli",
+                  nameHsIdent = HsIdentifier
+                    "primitive_slli"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
                   Signed),
               structFieldOffset = 896,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:32:26")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -516,20 +660,26 @@
             HsPrimCULLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:34:24",
-              structFieldName = NamePair {
-                nameC = Name "ull",
-                nameHsIdent = HsIdentifier
-                  "primitive_ull"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:34:24",
+                fieldName = NamePair {
+                  nameC = Name "ull",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ull"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
                   Unsigned),
               structFieldOffset = 960,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:34:24")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -538,20 +688,26 @@
             HsPrimCULLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:35:28",
-              structFieldName = NamePair {
-                nameC = Name "ulli",
-                nameHsIdent = HsIdentifier
-                  "primitive_ulli"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:35:28",
+                fieldName = NamePair {
+                  nameC = Name "ulli",
+                  nameHsIdent = HsIdentifier
+                    "primitive_ulli"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral
                   PrimLongLong
                   Unsigned),
               structFieldOffset = 1024,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:35:28")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -560,18 +716,24 @@
             HsPrimCFloat,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:37:11",
-              structFieldName = NamePair {
-                nameC = Name "f",
-                nameHsIdent = HsIdentifier
-                  "primitive_f"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:37:11",
+                fieldName = NamePair {
+                  nameC = Name "f",
+                  nameHsIdent = HsIdentifier
+                    "primitive_f"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 1088,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:37:11")
+              (Just "primitive_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -580,18 +742,24 @@
             HsPrimCDouble,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "primitive_types.h:38:12",
-              structFieldName = NamePair {
-                nameC = Name "d",
-                nameHsIdent = HsIdentifier
-                  "primitive_d"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "primitive_types.h:38:12",
+                fieldName = NamePair {
+                  nameC = Name "d",
+                  nameHsIdent = HsIdentifier
+                    "primitive_d"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 1152,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:38:12")
+              (Just "primitive_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -616,365 +784,393 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:2:10",
-                  structFieldName = NamePair {
-                    nameC = Name "c",
-                    nameHsIdent = HsIdentifier
-                      "primitive_c"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:2:10",
+                    fieldName = NamePair {
+                      nameC = Name "c",
+                      nameHsIdent = HsIdentifier
+                        "primitive_c"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:3:17",
-                  structFieldName = NamePair {
-                    nameC = Name "sc",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sc"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:3:17",
+                    fieldName = NamePair {
+                      nameC = Name "sc",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sc"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Signed)),
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:4:19",
-                  structFieldName = NamePair {
-                    nameC = Name "uc",
-                    nameHsIdent = HsIdentifier
-                      "primitive_uc"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:4:19",
+                    fieldName = NamePair {
+                      nameC = Name "uc",
+                      nameHsIdent = HsIdentifier
+                        "primitive_uc"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:6:11",
-                  structFieldName = NamePair {
-                    nameC = Name "s",
-                    nameHsIdent = HsIdentifier
-                      "primitive_s"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:6:11",
+                    fieldName = NamePair {
+                      nameC = Name "s",
+                      nameHsIdent = HsIdentifier
+                        "primitive_s"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:7:15",
-                  structFieldName = NamePair {
-                    nameC = Name "si",
-                    nameHsIdent = HsIdentifier
-                      "primitive_si"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:7:15",
+                    fieldName = NamePair {
+                      nameC = Name "si",
+                      nameHsIdent = HsIdentifier
+                        "primitive_si"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 48,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:8:18",
-                  structFieldName = NamePair {
-                    nameC = Name "ss",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ss"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:8:18",
+                    fieldName = NamePair {
+                      nameC = Name "ss",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ss"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:9:22",
-                  structFieldName = NamePair {
-                    nameC = Name "ssi",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ssi"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:9:22",
+                    fieldName = NamePair {
+                      nameC = Name "ssi",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ssi"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 80,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:11:20",
-                  structFieldName = NamePair {
-                    nameC = Name "us",
-                    nameHsIdent = HsIdentifier
-                      "primitive_us"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:11:20",
+                    fieldName = NamePair {
+                      nameC = Name "us",
+                      nameHsIdent = HsIdentifier
+                        "primitive_us"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimShort
                       Unsigned),
                   structFieldOffset = 96,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:12:24",
-                  structFieldName = NamePair {
-                    nameC = Name "usi",
-                    nameHsIdent = HsIdentifier
-                      "primitive_usi"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:12:24",
+                    fieldName = NamePair {
+                      nameC = Name "usi",
+                      nameHsIdent = HsIdentifier
+                        "primitive_usi"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimShort
                       Unsigned),
                   structFieldOffset = 112,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:14:9",
-                  structFieldName = NamePair {
-                    nameC = Name "i",
-                    nameHsIdent = HsIdentifier
-                      "primitive_i"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:14:9",
+                    fieldName = NamePair {
+                      nameC = Name "i",
+                      nameHsIdent = HsIdentifier
+                        "primitive_i"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:15:12",
-                  structFieldName = NamePair {
-                    nameC = Name "s2",
-                    nameHsIdent = HsIdentifier
-                      "primitive_s2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:15:12",
+                    fieldName = NamePair {
+                      nameC = Name "s2",
+                      nameHsIdent = HsIdentifier
+                        "primitive_s2"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 160,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:16:16",
-                  structFieldName = NamePair {
-                    nameC = Name "si2",
-                    nameHsIdent = HsIdentifier
-                      "primitive_si2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:16:16",
+                    fieldName = NamePair {
+                      nameC = Name "si2",
+                      nameHsIdent = HsIdentifier
+                        "primitive_si2"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:18:14",
-                  structFieldName = NamePair {
-                    nameC = Name "u",
-                    nameHsIdent = HsIdentifier
-                      "primitive_u"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:18:14",
+                    fieldName = NamePair {
+                      nameC = Name "u",
+                      nameHsIdent = HsIdentifier
+                        "primitive_u"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 224,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:19:18",
-                  structFieldName = NamePair {
-                    nameC = Name "ui",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ui"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:19:18",
+                    fieldName = NamePair {
+                      nameC = Name "ui",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ui"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:21:10",
-                  structFieldName = NamePair {
-                    nameC = Name "l",
-                    nameHsIdent = HsIdentifier
-                      "primitive_l"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:21:10",
+                    fieldName = NamePair {
+                      nameC = Name "l",
+                      nameHsIdent = HsIdentifier
+                        "primitive_l"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 320,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:22:14",
-                  structFieldName = NamePair {
-                    nameC = Name "li",
-                    nameHsIdent = HsIdentifier
-                      "primitive_li"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:22:14",
+                    fieldName = NamePair {
+                      nameC = Name "li",
+                      nameHsIdent = HsIdentifier
+                        "primitive_li"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 384,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:23:17",
-                  structFieldName = NamePair {
-                    nameC = Name "sl",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sl"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:23:17",
+                    fieldName = NamePair {
+                      nameC = Name "sl",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sl"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 448,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:24:21",
-                  structFieldName = NamePair {
-                    nameC = Name "sli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:24:21",
+                    fieldName = NamePair {
+                      nameC = Name "sli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 512,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:26:19",
-                  structFieldName = NamePair {
-                    nameC = Name "ul",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ul"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:26:19",
+                    fieldName = NamePair {
+                      nameC = Name "ul",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ul"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLong
                       Unsigned),
                   structFieldOffset = 576,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:27:23",
-                  structFieldName = NamePair {
-                    nameC = Name "uli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_uli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:27:23",
+                    fieldName = NamePair {
+                      nameC = Name "uli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_uli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLong
                       Unsigned),
                   structFieldOffset = 640,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:29:15",
-                  structFieldName = NamePair {
-                    nameC = Name "ll",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ll"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:29:15",
+                    fieldName = NamePair {
+                      nameC = Name "ll",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ll"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 704,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:30:19",
-                  structFieldName = NamePair {
-                    nameC = Name "lli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_lli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:30:19",
+                    fieldName = NamePair {
+                      nameC = Name "lli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_lli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 768,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:31:22",
-                  structFieldName = NamePair {
-                    nameC = Name "sll",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sll"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:31:22",
+                    fieldName = NamePair {
+                      nameC = Name "sll",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sll"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 832,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:32:26",
-                  structFieldName = NamePair {
-                    nameC = Name "slli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_slli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:32:26",
+                    fieldName = NamePair {
+                      nameC = Name "slli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_slli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 896,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:34:24",
-                  structFieldName = NamePair {
-                    nameC = Name "ull",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ull"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:34:24",
+                    fieldName = NamePair {
+                      nameC = Name "ull",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ull"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Unsigned),
                   structFieldOffset = 960,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:35:28",
-                  structFieldName = NamePair {
-                    nameC = Name "ulli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ulli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:35:28",
+                    fieldName = NamePair {
+                      nameC = Name "ulli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ulli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Unsigned),
                   structFieldOffset = 1024,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:37:11",
-                  structFieldName = NamePair {
-                    nameC = Name "f",
-                    nameHsIdent = HsIdentifier
-                      "primitive_f"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:37:11",
+                    fieldName = NamePair {
+                      nameC = Name "f",
+                      nameHsIdent = HsIdentifier
+                        "primitive_f"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 1088,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:38:12",
-                  structFieldName = NamePair {
-                    nameC = Name "d",
-                    nameHsIdent = HsIdentifier
-                      "primitive_d"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:38:12",
+                    fieldName = NamePair {
+                      nameC = Name "d",
+                      nameHsIdent = HsIdentifier
+                        "primitive_d"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 1152,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -984,7 +1180,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "primitive_types.h:1:8")
+          (Just "primitive_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1005,20 +1206,26 @@
                 HsPrimCChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:2:10",
-                  structFieldName = NamePair {
-                    nameC = Name "c",
-                    nameHsIdent = HsIdentifier
-                      "primitive_c"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:2:10",
+                    fieldName = NamePair {
+                      nameC = Name "c",
+                      nameHsIdent = HsIdentifier
+                        "primitive_c"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:2:10")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1027,19 +1234,25 @@
                 HsPrimCSChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:3:17",
-                  structFieldName = NamePair {
-                    nameC = Name "sc",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sc"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:3:17",
+                    fieldName = NamePair {
+                      nameC = Name "sc",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sc"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Signed)),
                   structFieldOffset = 8,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:3:17")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1048,19 +1261,25 @@
                 HsPrimCUChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:4:19",
-                  structFieldName = NamePair {
-                    nameC = Name "uc",
-                    nameHsIdent = HsIdentifier
-                      "primitive_uc"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:4:19",
+                    fieldName = NamePair {
+                      nameC = Name "uc",
+                      nameHsIdent = HsIdentifier
+                        "primitive_uc"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:4:19")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1069,18 +1288,24 @@
                 HsPrimCShort,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:6:11",
-                  structFieldName = NamePair {
-                    nameC = Name "s",
-                    nameHsIdent = HsIdentifier
-                      "primitive_s"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:6:11",
+                    fieldName = NamePair {
+                      nameC = Name "s",
+                      nameHsIdent = HsIdentifier
+                        "primitive_s"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:6:11")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1089,18 +1314,24 @@
                 HsPrimCShort,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:7:15",
-                  structFieldName = NamePair {
-                    nameC = Name "si",
-                    nameHsIdent = HsIdentifier
-                      "primitive_si"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:7:15",
+                    fieldName = NamePair {
+                      nameC = Name "si",
+                      nameHsIdent = HsIdentifier
+                        "primitive_si"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 48,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:7:15")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1109,18 +1340,24 @@
                 HsPrimCShort,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:8:18",
-                  structFieldName = NamePair {
-                    nameC = Name "ss",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ss"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:8:18",
+                    fieldName = NamePair {
+                      nameC = Name "ss",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ss"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:8:18")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1129,18 +1366,24 @@
                 HsPrimCShort,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:9:22",
-                  structFieldName = NamePair {
-                    nameC = Name "ssi",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ssi"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:9:22",
+                    fieldName = NamePair {
+                      nameC = Name "ssi",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ssi"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimShort Signed),
                   structFieldOffset = 80,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:9:22")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1149,20 +1392,26 @@
                 HsPrimCUShort,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:11:20",
-                  structFieldName = NamePair {
-                    nameC = Name "us",
-                    nameHsIdent = HsIdentifier
-                      "primitive_us"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:11:20",
+                    fieldName = NamePair {
+                      nameC = Name "us",
+                      nameHsIdent = HsIdentifier
+                        "primitive_us"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimShort
                       Unsigned),
                   structFieldOffset = 96,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:11:20")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1171,20 +1420,26 @@
                 HsPrimCUShort,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:12:24",
-                  structFieldName = NamePair {
-                    nameC = Name "usi",
-                    nameHsIdent = HsIdentifier
-                      "primitive_usi"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:12:24",
+                    fieldName = NamePair {
+                      nameC = Name "usi",
+                      nameHsIdent = HsIdentifier
+                        "primitive_usi"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimShort
                       Unsigned),
                   structFieldOffset = 112,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:12:24")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1193,18 +1448,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:14:9",
-                  structFieldName = NamePair {
-                    nameC = Name "i",
-                    nameHsIdent = HsIdentifier
-                      "primitive_i"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:14:9",
+                    fieldName = NamePair {
+                      nameC = Name "i",
+                      nameHsIdent = HsIdentifier
+                        "primitive_i"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:14:9")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1213,18 +1474,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:15:12",
-                  structFieldName = NamePair {
-                    nameC = Name "s2",
-                    nameHsIdent = HsIdentifier
-                      "primitive_s2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:15:12",
+                    fieldName = NamePair {
+                      nameC = Name "s2",
+                      nameHsIdent = HsIdentifier
+                        "primitive_s2"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 160,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:15:12")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1233,18 +1500,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:16:16",
-                  structFieldName = NamePair {
-                    nameC = Name "si2",
-                    nameHsIdent = HsIdentifier
-                      "primitive_si2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:16:16",
+                    fieldName = NamePair {
+                      nameC = Name "si2",
+                      nameHsIdent = HsIdentifier
+                        "primitive_si2"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:16:16")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1253,18 +1526,24 @@
                 HsPrimCUInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:18:14",
-                  structFieldName = NamePair {
-                    nameC = Name "u",
-                    nameHsIdent = HsIdentifier
-                      "primitive_u"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:18:14",
+                    fieldName = NamePair {
+                      nameC = Name "u",
+                      nameHsIdent = HsIdentifier
+                        "primitive_u"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 224,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:18:14")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1273,18 +1552,24 @@
                 HsPrimCUInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:19:18",
-                  structFieldName = NamePair {
-                    nameC = Name "ui",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ui"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:19:18",
+                    fieldName = NamePair {
+                      nameC = Name "ui",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ui"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:19:18")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1293,18 +1578,24 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:21:10",
-                  structFieldName = NamePair {
-                    nameC = Name "l",
-                    nameHsIdent = HsIdentifier
-                      "primitive_l"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:21:10",
+                    fieldName = NamePair {
+                      nameC = Name "l",
+                      nameHsIdent = HsIdentifier
+                        "primitive_l"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 320,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:21:10")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1313,18 +1604,24 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:22:14",
-                  structFieldName = NamePair {
-                    nameC = Name "li",
-                    nameHsIdent = HsIdentifier
-                      "primitive_li"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:22:14",
+                    fieldName = NamePair {
+                      nameC = Name "li",
+                      nameHsIdent = HsIdentifier
+                        "primitive_li"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 384,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:22:14")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1333,18 +1630,24 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:23:17",
-                  structFieldName = NamePair {
-                    nameC = Name "sl",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sl"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:23:17",
+                    fieldName = NamePair {
+                      nameC = Name "sl",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sl"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 448,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:23:17")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1353,18 +1656,24 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:24:21",
-                  structFieldName = NamePair {
-                    nameC = Name "sli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:24:21",
+                    fieldName = NamePair {
+                      nameC = Name "sli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 512,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:24:21")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1373,20 +1682,26 @@
                 HsPrimCULong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:26:19",
-                  structFieldName = NamePair {
-                    nameC = Name "ul",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ul"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:26:19",
+                    fieldName = NamePair {
+                      nameC = Name "ul",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ul"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLong
                       Unsigned),
                   structFieldOffset = 576,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:26:19")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1395,20 +1710,26 @@
                 HsPrimCULong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:27:23",
-                  structFieldName = NamePair {
-                    nameC = Name "uli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_uli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:27:23",
+                    fieldName = NamePair {
+                      nameC = Name "uli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_uli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLong
                       Unsigned),
                   structFieldOffset = 640,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:27:23")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1417,20 +1738,26 @@
                 HsPrimCLLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:29:15",
-                  structFieldName = NamePair {
-                    nameC = Name "ll",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ll"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:29:15",
+                    fieldName = NamePair {
+                      nameC = Name "ll",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ll"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 704,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:29:15")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1439,20 +1766,26 @@
                 HsPrimCLLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:30:19",
-                  structFieldName = NamePair {
-                    nameC = Name "lli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_lli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:30:19",
+                    fieldName = NamePair {
+                      nameC = Name "lli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_lli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 768,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:30:19")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1461,20 +1794,26 @@
                 HsPrimCLLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:31:22",
-                  structFieldName = NamePair {
-                    nameC = Name "sll",
-                    nameHsIdent = HsIdentifier
-                      "primitive_sll"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:31:22",
+                    fieldName = NamePair {
+                      nameC = Name "sll",
+                      nameHsIdent = HsIdentifier
+                        "primitive_sll"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 832,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:31:22")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1483,20 +1822,26 @@
                 HsPrimCLLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:32:26",
-                  structFieldName = NamePair {
-                    nameC = Name "slli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_slli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:32:26",
+                    fieldName = NamePair {
+                      nameC = Name "slli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_slli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Signed),
                   structFieldOffset = 896,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:32:26")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1505,20 +1850,26 @@
                 HsPrimCULLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:34:24",
-                  structFieldName = NamePair {
-                    nameC = Name "ull",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ull"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:34:24",
+                    fieldName = NamePair {
+                      nameC = Name "ull",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ull"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Unsigned),
                   structFieldOffset = 960,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:34:24")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1527,20 +1878,26 @@
                 HsPrimCULLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:35:28",
-                  structFieldName = NamePair {
-                    nameC = Name "ulli",
-                    nameHsIdent = HsIdentifier
-                      "primitive_ulli"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:35:28",
+                    fieldName = NamePair {
+                      nameC = Name "ulli",
+                      nameHsIdent = HsIdentifier
+                        "primitive_ulli"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral
                       PrimLongLong
                       Unsigned),
                   structFieldOffset = 1024,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:35:28")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1549,18 +1906,24 @@
                 HsPrimCFloat,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:37:11",
-                  structFieldName = NamePair {
-                    nameC = Name "f",
-                    nameHsIdent = HsIdentifier
-                      "primitive_f"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:37:11",
+                    fieldName = NamePair {
+                      nameC = Name "f",
+                      nameHsIdent = HsIdentifier
+                        "primitive_f"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 1088,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:37:11")
+                  (Just "primitive_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1569,18 +1932,24 @@
                 HsPrimCDouble,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "primitive_types.h:38:12",
-                  structFieldName = NamePair {
-                    nameC = Name "d",
-                    nameHsIdent = HsIdentifier
-                      "primitive_d"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "primitive_types.h:38:12",
+                    fieldName = NamePair {
+                      nameC = Name "d",
+                      nameHsIdent = HsIdentifier
+                        "primitive_d"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 1152,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "primitive_types.h:38:12")
+                  (Just "primitive_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1605,365 +1974,393 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:2:10",
-                      structFieldName = NamePair {
-                        nameC = Name "c",
-                        nameHsIdent = HsIdentifier
-                          "primitive_c"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:2:10",
+                        fieldName = NamePair {
+                          nameC = Name "c",
+                          nameHsIdent = HsIdentifier
+                            "primitive_c"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignImplicit
                             (Just Signed))),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:3:17",
-                      structFieldName = NamePair {
-                        nameC = Name "sc",
-                        nameHsIdent = HsIdentifier
-                          "primitive_sc"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:3:17",
+                        fieldName = NamePair {
+                          nameC = Name "sc",
+                          nameHsIdent = HsIdentifier
+                            "primitive_sc"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignExplicit Signed)),
                       structFieldOffset = 8,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:4:19",
-                      structFieldName = NamePair {
-                        nameC = Name "uc",
-                        nameHsIdent = HsIdentifier
-                          "primitive_uc"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:4:19",
+                        fieldName = NamePair {
+                          nameC = Name "uc",
+                          nameHsIdent = HsIdentifier
+                            "primitive_uc"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignExplicit Unsigned)),
                       structFieldOffset = 16,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:6:11",
-                      structFieldName = NamePair {
-                        nameC = Name "s",
-                        nameHsIdent = HsIdentifier
-                          "primitive_s"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:6:11",
+                        fieldName = NamePair {
+                          nameC = Name "s",
+                          nameHsIdent = HsIdentifier
+                            "primitive_s"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimShort Signed),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:7:15",
-                      structFieldName = NamePair {
-                        nameC = Name "si",
-                        nameHsIdent = HsIdentifier
-                          "primitive_si"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:7:15",
+                        fieldName = NamePair {
+                          nameC = Name "si",
+                          nameHsIdent = HsIdentifier
+                            "primitive_si"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimShort Signed),
                       structFieldOffset = 48,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:8:18",
-                      structFieldName = NamePair {
-                        nameC = Name "ss",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ss"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:8:18",
+                        fieldName = NamePair {
+                          nameC = Name "ss",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ss"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimShort Signed),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:9:22",
-                      structFieldName = NamePair {
-                        nameC = Name "ssi",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ssi"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:9:22",
+                        fieldName = NamePair {
+                          nameC = Name "ssi",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ssi"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimShort Signed),
                       structFieldOffset = 80,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:11:20",
-                      structFieldName = NamePair {
-                        nameC = Name "us",
-                        nameHsIdent = HsIdentifier
-                          "primitive_us"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:11:20",
+                        fieldName = NamePair {
+                          nameC = Name "us",
+                          nameHsIdent = HsIdentifier
+                            "primitive_us"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimShort
                           Unsigned),
                       structFieldOffset = 96,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:12:24",
-                      structFieldName = NamePair {
-                        nameC = Name "usi",
-                        nameHsIdent = HsIdentifier
-                          "primitive_usi"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:12:24",
+                        fieldName = NamePair {
+                          nameC = Name "usi",
+                          nameHsIdent = HsIdentifier
+                            "primitive_usi"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimShort
                           Unsigned),
                       structFieldOffset = 112,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:14:9",
-                      structFieldName = NamePair {
-                        nameC = Name "i",
-                        nameHsIdent = HsIdentifier
-                          "primitive_i"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:14:9",
+                        fieldName = NamePair {
+                          nameC = Name "i",
+                          nameHsIdent = HsIdentifier
+                            "primitive_i"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 128,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:15:12",
-                      structFieldName = NamePair {
-                        nameC = Name "s2",
-                        nameHsIdent = HsIdentifier
-                          "primitive_s2"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:15:12",
+                        fieldName = NamePair {
+                          nameC = Name "s2",
+                          nameHsIdent = HsIdentifier
+                            "primitive_s2"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 160,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:16:16",
-                      structFieldName = NamePair {
-                        nameC = Name "si2",
-                        nameHsIdent = HsIdentifier
-                          "primitive_si2"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:16:16",
+                        fieldName = NamePair {
+                          nameC = Name "si2",
+                          nameHsIdent = HsIdentifier
+                            "primitive_si2"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 192,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:18:14",
-                      structFieldName = NamePair {
-                        nameC = Name "u",
-                        nameHsIdent = HsIdentifier
-                          "primitive_u"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:18:14",
+                        fieldName = NamePair {
+                          nameC = Name "u",
+                          nameHsIdent = HsIdentifier
+                            "primitive_u"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Unsigned),
                       structFieldOffset = 224,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:19:18",
-                      structFieldName = NamePair {
-                        nameC = Name "ui",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ui"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:19:18",
+                        fieldName = NamePair {
+                          nameC = Name "ui",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ui"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Unsigned),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:21:10",
-                      structFieldName = NamePair {
-                        nameC = Name "l",
-                        nameHsIdent = HsIdentifier
-                          "primitive_l"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:21:10",
+                        fieldName = NamePair {
+                          nameC = Name "l",
+                          nameHsIdent = HsIdentifier
+                            "primitive_l"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 320,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:22:14",
-                      structFieldName = NamePair {
-                        nameC = Name "li",
-                        nameHsIdent = HsIdentifier
-                          "primitive_li"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:22:14",
+                        fieldName = NamePair {
+                          nameC = Name "li",
+                          nameHsIdent = HsIdentifier
+                            "primitive_li"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 384,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:23:17",
-                      structFieldName = NamePair {
-                        nameC = Name "sl",
-                        nameHsIdent = HsIdentifier
-                          "primitive_sl"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:23:17",
+                        fieldName = NamePair {
+                          nameC = Name "sl",
+                          nameHsIdent = HsIdentifier
+                            "primitive_sl"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 448,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:24:21",
-                      structFieldName = NamePair {
-                        nameC = Name "sli",
-                        nameHsIdent = HsIdentifier
-                          "primitive_sli"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:24:21",
+                        fieldName = NamePair {
+                          nameC = Name "sli",
+                          nameHsIdent = HsIdentifier
+                            "primitive_sli"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 512,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:26:19",
-                      structFieldName = NamePair {
-                        nameC = Name "ul",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ul"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:26:19",
+                        fieldName = NamePair {
+                          nameC = Name "ul",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ul"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLong
                           Unsigned),
                       structFieldOffset = 576,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:27:23",
-                      structFieldName = NamePair {
-                        nameC = Name "uli",
-                        nameHsIdent = HsIdentifier
-                          "primitive_uli"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:27:23",
+                        fieldName = NamePair {
+                          nameC = Name "uli",
+                          nameHsIdent = HsIdentifier
+                            "primitive_uli"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLong
                           Unsigned),
                       structFieldOffset = 640,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:29:15",
-                      structFieldName = NamePair {
-                        nameC = Name "ll",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ll"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:29:15",
+                        fieldName = NamePair {
+                          nameC = Name "ll",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ll"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLongLong
                           Signed),
                       structFieldOffset = 704,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:30:19",
-                      structFieldName = NamePair {
-                        nameC = Name "lli",
-                        nameHsIdent = HsIdentifier
-                          "primitive_lli"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:30:19",
+                        fieldName = NamePair {
+                          nameC = Name "lli",
+                          nameHsIdent = HsIdentifier
+                            "primitive_lli"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLongLong
                           Signed),
                       structFieldOffset = 768,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:31:22",
-                      structFieldName = NamePair {
-                        nameC = Name "sll",
-                        nameHsIdent = HsIdentifier
-                          "primitive_sll"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:31:22",
+                        fieldName = NamePair {
+                          nameC = Name "sll",
+                          nameHsIdent = HsIdentifier
+                            "primitive_sll"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLongLong
                           Signed),
                       structFieldOffset = 832,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:32:26",
-                      structFieldName = NamePair {
-                        nameC = Name "slli",
-                        nameHsIdent = HsIdentifier
-                          "primitive_slli"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:32:26",
+                        fieldName = NamePair {
+                          nameC = Name "slli",
+                          nameHsIdent = HsIdentifier
+                            "primitive_slli"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLongLong
                           Signed),
                       structFieldOffset = 896,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:34:24",
-                      structFieldName = NamePair {
-                        nameC = Name "ull",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ull"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:34:24",
+                        fieldName = NamePair {
+                          nameC = Name "ull",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ull"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLongLong
                           Unsigned),
                       structFieldOffset = 960,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:35:28",
-                      structFieldName = NamePair {
-                        nameC = Name "ulli",
-                        nameHsIdent = HsIdentifier
-                          "primitive_ulli"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:35:28",
+                        fieldName = NamePair {
+                          nameC = Name "ulli",
+                          nameHsIdent = HsIdentifier
+                            "primitive_ulli"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral
                           PrimLongLong
                           Unsigned),
                       structFieldOffset = 1024,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:37:11",
-                      structFieldName = NamePair {
-                        nameC = Name "f",
-                        nameHsIdent = HsIdentifier
-                          "primitive_f"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:37:11",
+                        fieldName = NamePair {
+                          nameC = Name "f",
+                          nameHsIdent = HsIdentifier
+                            "primitive_f"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimFloating PrimFloat),
                       structFieldOffset = 1088,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "primitive_types.h:38:12",
-                      structFieldName = NamePair {
-                        nameC = Name "d",
-                        nameHsIdent = HsIdentifier
-                          "primitive_d"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "primitive_types.h:38:12",
+                        fieldName = NamePair {
+                          nameC = Name "d",
+                          nameHsIdent = HsIdentifier
+                            "primitive_d"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimFloating PrimDouble),
                       structFieldOffset = 1152,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1973,7 +2370,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "primitive_types.h:1:8")
+              (Just "primitive_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 152,
           storableAlignment = 8,
@@ -1997,20 +2399,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:2:10",
-                          structFieldName = NamePair {
-                            nameC = Name "c",
-                            nameHsIdent = HsIdentifier
-                              "primitive_c"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:2:10",
+                            fieldName = NamePair {
+                              nameC = Name "c",
+                              nameHsIdent = HsIdentifier
+                                "primitive_c"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:2:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2019,19 +2427,25 @@
                         HsPrimCSChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:3:17",
-                          structFieldName = NamePair {
-                            nameC = Name "sc",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sc"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:3:17",
+                            fieldName = NamePair {
+                              nameC = Name "sc",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sc"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Signed)),
                           structFieldOffset = 8,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:3:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2040,19 +2454,25 @@
                         HsPrimCUChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:4:19",
-                          structFieldName = NamePair {
-                            nameC = Name "uc",
-                            nameHsIdent = HsIdentifier
-                              "primitive_uc"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:4:19",
+                            fieldName = NamePair {
+                              nameC = Name "uc",
+                              nameHsIdent = HsIdentifier
+                                "primitive_uc"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Unsigned)),
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:4:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2061,18 +2481,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:6:11",
-                          structFieldName = NamePair {
-                            nameC = Name "s",
-                            nameHsIdent = HsIdentifier
-                              "primitive_s"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:6:11",
+                            fieldName = NamePair {
+                              nameC = Name "s",
+                              nameHsIdent = HsIdentifier
+                                "primitive_s"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:6:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2081,18 +2507,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:7:15",
-                          structFieldName = NamePair {
-                            nameC = Name "si",
-                            nameHsIdent = HsIdentifier
-                              "primitive_si"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:7:15",
+                            fieldName = NamePair {
+                              nameC = Name "si",
+                              nameHsIdent = HsIdentifier
+                                "primitive_si"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 48,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:7:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2101,18 +2533,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:8:18",
-                          structFieldName = NamePair {
-                            nameC = Name "ss",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ss"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:8:18",
+                            fieldName = NamePair {
+                              nameC = Name "ss",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ss"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:8:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2121,18 +2559,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:9:22",
-                          structFieldName = NamePair {
-                            nameC = Name "ssi",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ssi"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:9:22",
+                            fieldName = NamePair {
+                              nameC = Name "ssi",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ssi"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 80,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:9:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2141,20 +2585,26 @@
                         HsPrimCUShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:11:20",
-                          structFieldName = NamePair {
-                            nameC = Name "us",
-                            nameHsIdent = HsIdentifier
-                              "primitive_us"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:11:20",
+                            fieldName = NamePair {
+                              nameC = Name "us",
+                              nameHsIdent = HsIdentifier
+                                "primitive_us"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimShort
                               Unsigned),
                           structFieldOffset = 96,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:11:20")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2163,20 +2613,26 @@
                         HsPrimCUShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:12:24",
-                          structFieldName = NamePair {
-                            nameC = Name "usi",
-                            nameHsIdent = HsIdentifier
-                              "primitive_usi"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:12:24",
+                            fieldName = NamePair {
+                              nameC = Name "usi",
+                              nameHsIdent = HsIdentifier
+                                "primitive_usi"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimShort
                               Unsigned),
                           structFieldOffset = 112,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:12:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2185,18 +2641,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:14:9",
-                          structFieldName = NamePair {
-                            nameC = Name "i",
-                            nameHsIdent = HsIdentifier
-                              "primitive_i"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:14:9",
+                            fieldName = NamePair {
+                              nameC = Name "i",
+                              nameHsIdent = HsIdentifier
+                                "primitive_i"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:14:9")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2205,18 +2667,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:15:12",
-                          structFieldName = NamePair {
-                            nameC = Name "s2",
-                            nameHsIdent = HsIdentifier
-                              "primitive_s2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:15:12",
+                            fieldName = NamePair {
+                              nameC = Name "s2",
+                              nameHsIdent = HsIdentifier
+                                "primitive_s2"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 160,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:15:12")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2225,18 +2693,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:16:16",
-                          structFieldName = NamePair {
-                            nameC = Name "si2",
-                            nameHsIdent = HsIdentifier
-                              "primitive_si2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:16:16",
+                            fieldName = NamePair {
+                              nameC = Name "si2",
+                              nameHsIdent = HsIdentifier
+                                "primitive_si2"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:16:16")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2245,18 +2719,24 @@
                         HsPrimCUInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:18:14",
-                          structFieldName = NamePair {
-                            nameC = Name "u",
-                            nameHsIdent = HsIdentifier
-                              "primitive_u"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:18:14",
+                            fieldName = NamePair {
+                              nameC = Name "u",
+                              nameHsIdent = HsIdentifier
+                                "primitive_u"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 224,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:18:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2265,18 +2745,24 @@
                         HsPrimCUInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:19:18",
-                          structFieldName = NamePair {
-                            nameC = Name "ui",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ui"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:19:18",
+                            fieldName = NamePair {
+                              nameC = Name "ui",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ui"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:19:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2285,18 +2771,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:21:10",
-                          structFieldName = NamePair {
-                            nameC = Name "l",
-                            nameHsIdent = HsIdentifier
-                              "primitive_l"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:21:10",
+                            fieldName = NamePair {
+                              nameC = Name "l",
+                              nameHsIdent = HsIdentifier
+                                "primitive_l"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 320,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:21:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2305,18 +2797,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:22:14",
-                          structFieldName = NamePair {
-                            nameC = Name "li",
-                            nameHsIdent = HsIdentifier
-                              "primitive_li"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:22:14",
+                            fieldName = NamePair {
+                              nameC = Name "li",
+                              nameHsIdent = HsIdentifier
+                                "primitive_li"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 384,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:22:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2325,18 +2823,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:23:17",
-                          structFieldName = NamePair {
-                            nameC = Name "sl",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sl"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:23:17",
+                            fieldName = NamePair {
+                              nameC = Name "sl",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sl"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 448,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:23:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2345,18 +2849,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:24:21",
-                          structFieldName = NamePair {
-                            nameC = Name "sli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:24:21",
+                            fieldName = NamePair {
+                              nameC = Name "sli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 512,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:24:21")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2365,20 +2875,26 @@
                         HsPrimCULong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:26:19",
-                          structFieldName = NamePair {
-                            nameC = Name "ul",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ul"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:26:19",
+                            fieldName = NamePair {
+                              nameC = Name "ul",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ul"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLong
                               Unsigned),
                           structFieldOffset = 576,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:26:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2387,20 +2903,26 @@
                         HsPrimCULong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:27:23",
-                          structFieldName = NamePair {
-                            nameC = Name "uli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_uli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:27:23",
+                            fieldName = NamePair {
+                              nameC = Name "uli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_uli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLong
                               Unsigned),
                           structFieldOffset = 640,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:27:23")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2409,20 +2931,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:29:15",
-                          structFieldName = NamePair {
-                            nameC = Name "ll",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ll"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:29:15",
+                            fieldName = NamePair {
+                              nameC = Name "ll",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ll"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 704,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:29:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2431,20 +2959,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:30:19",
-                          structFieldName = NamePair {
-                            nameC = Name "lli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_lli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:30:19",
+                            fieldName = NamePair {
+                              nameC = Name "lli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_lli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 768,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:30:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2453,20 +2987,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:31:22",
-                          structFieldName = NamePair {
-                            nameC = Name "sll",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sll"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:31:22",
+                            fieldName = NamePair {
+                              nameC = Name "sll",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sll"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 832,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:31:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2475,20 +3015,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:32:26",
-                          structFieldName = NamePair {
-                            nameC = Name "slli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_slli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:32:26",
+                            fieldName = NamePair {
+                              nameC = Name "slli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_slli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 896,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:32:26")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2497,20 +3043,26 @@
                         HsPrimCULLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:34:24",
-                          structFieldName = NamePair {
-                            nameC = Name "ull",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ull"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:34:24",
+                            fieldName = NamePair {
+                              nameC = Name "ull",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ull"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Unsigned),
                           structFieldOffset = 960,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:34:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2519,20 +3071,26 @@
                         HsPrimCULLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:35:28",
-                          structFieldName = NamePair {
-                            nameC = Name "ulli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ulli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:35:28",
+                            fieldName = NamePair {
+                              nameC = Name "ulli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ulli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Unsigned),
                           structFieldOffset = 1024,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:35:28")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2541,18 +3099,24 @@
                         HsPrimCFloat,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:37:11",
-                          structFieldName = NamePair {
-                            nameC = Name "f",
-                            nameHsIdent = HsIdentifier
-                              "primitive_f"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:37:11",
+                            fieldName = NamePair {
+                              nameC = Name "f",
+                              nameHsIdent = HsIdentifier
+                                "primitive_f"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimFloat),
                           structFieldOffset = 1088,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:37:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2561,18 +3125,24 @@
                         HsPrimCDouble,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:38:12",
-                          structFieldName = NamePair {
-                            nameC = Name "d",
-                            nameHsIdent = HsIdentifier
-                              "primitive_d"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:38:12",
+                            fieldName = NamePair {
+                              nameC = Name "d",
+                              nameHsIdent = HsIdentifier
+                                "primitive_d"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimDouble),
                           structFieldOffset = 1152,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:38:12")
+                          (Just "primitive_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2597,365 +3167,393 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:2:10",
-                              structFieldName = NamePair {
-                                nameC = Name "c",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_c"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:2:10",
+                                fieldName = NamePair {
+                                  nameC = Name "c",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_c"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:3:17",
-                              structFieldName = NamePair {
-                                nameC = Name "sc",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sc"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:3:17",
+                                fieldName = NamePair {
+                                  nameC = Name "sc",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sc"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Signed)),
                               structFieldOffset = 8,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:4:19",
-                              structFieldName = NamePair {
-                                nameC = Name "uc",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_uc"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:4:19",
+                                fieldName = NamePair {
+                                  nameC = Name "uc",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_uc"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Unsigned)),
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:6:11",
-                              structFieldName = NamePair {
-                                nameC = Name "s",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_s"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:6:11",
+                                fieldName = NamePair {
+                                  nameC = Name "s",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_s"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:7:15",
-                              structFieldName = NamePair {
-                                nameC = Name "si",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_si"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:7:15",
+                                fieldName = NamePair {
+                                  nameC = Name "si",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_si"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 48,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:8:18",
-                              structFieldName = NamePair {
-                                nameC = Name "ss",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ss"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:8:18",
+                                fieldName = NamePair {
+                                  nameC = Name "ss",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ss"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:9:22",
-                              structFieldName = NamePair {
-                                nameC = Name "ssi",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ssi"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:9:22",
+                                fieldName = NamePair {
+                                  nameC = Name "ssi",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ssi"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 80,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:11:20",
-                              structFieldName = NamePair {
-                                nameC = Name "us",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_us"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:11:20",
+                                fieldName = NamePair {
+                                  nameC = Name "us",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_us"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimShort
                                   Unsigned),
                               structFieldOffset = 96,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:12:24",
-                              structFieldName = NamePair {
-                                nameC = Name "usi",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_usi"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:12:24",
+                                fieldName = NamePair {
+                                  nameC = Name "usi",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_usi"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimShort
                                   Unsigned),
                               structFieldOffset = 112,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:14:9",
-                              structFieldName = NamePair {
-                                nameC = Name "i",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_i"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:14:9",
+                                fieldName = NamePair {
+                                  nameC = Name "i",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_i"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:15:12",
-                              structFieldName = NamePair {
-                                nameC = Name "s2",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_s2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:15:12",
+                                fieldName = NamePair {
+                                  nameC = Name "s2",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_s2"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 160,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:16:16",
-                              structFieldName = NamePair {
-                                nameC = Name "si2",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_si2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:16:16",
+                                fieldName = NamePair {
+                                  nameC = Name "si2",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_si2"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:18:14",
-                              structFieldName = NamePair {
-                                nameC = Name "u",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_u"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:18:14",
+                                fieldName = NamePair {
+                                  nameC = Name "u",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_u"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 224,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:19:18",
-                              structFieldName = NamePair {
-                                nameC = Name "ui",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ui"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:19:18",
+                                fieldName = NamePair {
+                                  nameC = Name "ui",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ui"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:21:10",
-                              structFieldName = NamePair {
-                                nameC = Name "l",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_l"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:21:10",
+                                fieldName = NamePair {
+                                  nameC = Name "l",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_l"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 320,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:22:14",
-                              structFieldName = NamePair {
-                                nameC = Name "li",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_li"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:22:14",
+                                fieldName = NamePair {
+                                  nameC = Name "li",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_li"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 384,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:23:17",
-                              structFieldName = NamePair {
-                                nameC = Name "sl",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sl"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:23:17",
+                                fieldName = NamePair {
+                                  nameC = Name "sl",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sl"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 448,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:24:21",
-                              structFieldName = NamePair {
-                                nameC = Name "sli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:24:21",
+                                fieldName = NamePair {
+                                  nameC = Name "sli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 512,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:26:19",
-                              structFieldName = NamePair {
-                                nameC = Name "ul",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ul"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:26:19",
+                                fieldName = NamePair {
+                                  nameC = Name "ul",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ul"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLong
                                   Unsigned),
                               structFieldOffset = 576,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:27:23",
-                              structFieldName = NamePair {
-                                nameC = Name "uli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_uli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:27:23",
+                                fieldName = NamePair {
+                                  nameC = Name "uli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_uli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLong
                                   Unsigned),
                               structFieldOffset = 640,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:29:15",
-                              structFieldName = NamePair {
-                                nameC = Name "ll",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ll"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:29:15",
+                                fieldName = NamePair {
+                                  nameC = Name "ll",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ll"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 704,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:30:19",
-                              structFieldName = NamePair {
-                                nameC = Name "lli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_lli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:30:19",
+                                fieldName = NamePair {
+                                  nameC = Name "lli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_lli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 768,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:31:22",
-                              structFieldName = NamePair {
-                                nameC = Name "sll",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sll"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:31:22",
+                                fieldName = NamePair {
+                                  nameC = Name "sll",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sll"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 832,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:32:26",
-                              structFieldName = NamePair {
-                                nameC = Name "slli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_slli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:32:26",
+                                fieldName = NamePair {
+                                  nameC = Name "slli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_slli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 896,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:34:24",
-                              structFieldName = NamePair {
-                                nameC = Name "ull",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ull"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:34:24",
+                                fieldName = NamePair {
+                                  nameC = Name "ull",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ull"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Unsigned),
                               structFieldOffset = 960,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:35:28",
-                              structFieldName = NamePair {
-                                nameC = Name "ulli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ulli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:35:28",
+                                fieldName = NamePair {
+                                  nameC = Name "ulli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ulli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Unsigned),
                               structFieldOffset = 1024,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:37:11",
-                              structFieldName = NamePair {
-                                nameC = Name "f",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_f"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:37:11",
+                                fieldName = NamePair {
+                                  nameC = Name "f",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_f"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimFloat),
                               structFieldOffset = 1088,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:38:12",
-                              structFieldName = NamePair {
-                                nameC = Name "d",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_d"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:38:12",
+                                fieldName = NamePair {
+                                  nameC = Name "d",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_d"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimDouble),
                               structFieldOffset = 1152,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2965,7 +3563,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "primitive_types.h:1:8")
+                      (Just "primitive_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 1,
@@ -3017,20 +3620,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:2:10",
-                          structFieldName = NamePair {
-                            nameC = Name "c",
-                            nameHsIdent = HsIdentifier
-                              "primitive_c"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:2:10",
+                            fieldName = NamePair {
+                              nameC = Name "c",
+                              nameHsIdent = HsIdentifier
+                                "primitive_c"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:2:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3039,19 +3648,25 @@
                         HsPrimCSChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:3:17",
-                          structFieldName = NamePair {
-                            nameC = Name "sc",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sc"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:3:17",
+                            fieldName = NamePair {
+                              nameC = Name "sc",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sc"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Signed)),
                           structFieldOffset = 8,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:3:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3060,19 +3675,25 @@
                         HsPrimCUChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:4:19",
-                          structFieldName = NamePair {
-                            nameC = Name "uc",
-                            nameHsIdent = HsIdentifier
-                              "primitive_uc"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:4:19",
+                            fieldName = NamePair {
+                              nameC = Name "uc",
+                              nameHsIdent = HsIdentifier
+                                "primitive_uc"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Unsigned)),
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:4:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3081,18 +3702,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:6:11",
-                          structFieldName = NamePair {
-                            nameC = Name "s",
-                            nameHsIdent = HsIdentifier
-                              "primitive_s"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:6:11",
+                            fieldName = NamePair {
+                              nameC = Name "s",
+                              nameHsIdent = HsIdentifier
+                                "primitive_s"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:6:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3101,18 +3728,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:7:15",
-                          structFieldName = NamePair {
-                            nameC = Name "si",
-                            nameHsIdent = HsIdentifier
-                              "primitive_si"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:7:15",
+                            fieldName = NamePair {
+                              nameC = Name "si",
+                              nameHsIdent = HsIdentifier
+                                "primitive_si"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 48,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:7:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3121,18 +3754,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:8:18",
-                          structFieldName = NamePair {
-                            nameC = Name "ss",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ss"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:8:18",
+                            fieldName = NamePair {
+                              nameC = Name "ss",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ss"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:8:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3141,18 +3780,24 @@
                         HsPrimCShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:9:22",
-                          structFieldName = NamePair {
-                            nameC = Name "ssi",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ssi"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:9:22",
+                            fieldName = NamePair {
+                              nameC = Name "ssi",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ssi"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimShort Signed),
                           structFieldOffset = 80,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:9:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3161,20 +3806,26 @@
                         HsPrimCUShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:11:20",
-                          structFieldName = NamePair {
-                            nameC = Name "us",
-                            nameHsIdent = HsIdentifier
-                              "primitive_us"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:11:20",
+                            fieldName = NamePair {
+                              nameC = Name "us",
+                              nameHsIdent = HsIdentifier
+                                "primitive_us"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimShort
                               Unsigned),
                           structFieldOffset = 96,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:11:20")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3183,20 +3834,26 @@
                         HsPrimCUShort,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:12:24",
-                          structFieldName = NamePair {
-                            nameC = Name "usi",
-                            nameHsIdent = HsIdentifier
-                              "primitive_usi"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:12:24",
+                            fieldName = NamePair {
+                              nameC = Name "usi",
+                              nameHsIdent = HsIdentifier
+                                "primitive_usi"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimShort
                               Unsigned),
                           structFieldOffset = 112,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:12:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3205,18 +3862,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:14:9",
-                          structFieldName = NamePair {
-                            nameC = Name "i",
-                            nameHsIdent = HsIdentifier
-                              "primitive_i"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:14:9",
+                            fieldName = NamePair {
+                              nameC = Name "i",
+                              nameHsIdent = HsIdentifier
+                                "primitive_i"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:14:9")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3225,18 +3888,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:15:12",
-                          structFieldName = NamePair {
-                            nameC = Name "s2",
-                            nameHsIdent = HsIdentifier
-                              "primitive_s2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:15:12",
+                            fieldName = NamePair {
+                              nameC = Name "s2",
+                              nameHsIdent = HsIdentifier
+                                "primitive_s2"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 160,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:15:12")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3245,18 +3914,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:16:16",
-                          structFieldName = NamePair {
-                            nameC = Name "si2",
-                            nameHsIdent = HsIdentifier
-                              "primitive_si2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:16:16",
+                            fieldName = NamePair {
+                              nameC = Name "si2",
+                              nameHsIdent = HsIdentifier
+                                "primitive_si2"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:16:16")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3265,18 +3940,24 @@
                         HsPrimCUInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:18:14",
-                          structFieldName = NamePair {
-                            nameC = Name "u",
-                            nameHsIdent = HsIdentifier
-                              "primitive_u"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:18:14",
+                            fieldName = NamePair {
+                              nameC = Name "u",
+                              nameHsIdent = HsIdentifier
+                                "primitive_u"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 224,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:18:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3285,18 +3966,24 @@
                         HsPrimCUInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:19:18",
-                          structFieldName = NamePair {
-                            nameC = Name "ui",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ui"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:19:18",
+                            fieldName = NamePair {
+                              nameC = Name "ui",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ui"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:19:18")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3305,18 +3992,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:21:10",
-                          structFieldName = NamePair {
-                            nameC = Name "l",
-                            nameHsIdent = HsIdentifier
-                              "primitive_l"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:21:10",
+                            fieldName = NamePair {
+                              nameC = Name "l",
+                              nameHsIdent = HsIdentifier
+                                "primitive_l"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 320,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:21:10")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3325,18 +4018,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:22:14",
-                          structFieldName = NamePair {
-                            nameC = Name "li",
-                            nameHsIdent = HsIdentifier
-                              "primitive_li"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:22:14",
+                            fieldName = NamePair {
+                              nameC = Name "li",
+                              nameHsIdent = HsIdentifier
+                                "primitive_li"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 384,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:22:14")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3345,18 +4044,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:23:17",
-                          structFieldName = NamePair {
-                            nameC = Name "sl",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sl"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:23:17",
+                            fieldName = NamePair {
+                              nameC = Name "sl",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sl"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 448,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:23:17")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3365,18 +4070,24 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:24:21",
-                          structFieldName = NamePair {
-                            nameC = Name "sli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:24:21",
+                            fieldName = NamePair {
+                              nameC = Name "sli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 512,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:24:21")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3385,20 +4096,26 @@
                         HsPrimCULong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:26:19",
-                          structFieldName = NamePair {
-                            nameC = Name "ul",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ul"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:26:19",
+                            fieldName = NamePair {
+                              nameC = Name "ul",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ul"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLong
                               Unsigned),
                           structFieldOffset = 576,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:26:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3407,20 +4124,26 @@
                         HsPrimCULong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:27:23",
-                          structFieldName = NamePair {
-                            nameC = Name "uli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_uli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:27:23",
+                            fieldName = NamePair {
+                              nameC = Name "uli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_uli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLong
                               Unsigned),
                           structFieldOffset = 640,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:27:23")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3429,20 +4152,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:29:15",
-                          structFieldName = NamePair {
-                            nameC = Name "ll",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ll"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:29:15",
+                            fieldName = NamePair {
+                              nameC = Name "ll",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ll"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 704,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:29:15")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3451,20 +4180,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:30:19",
-                          structFieldName = NamePair {
-                            nameC = Name "lli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_lli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:30:19",
+                            fieldName = NamePair {
+                              nameC = Name "lli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_lli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 768,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:30:19")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3473,20 +4208,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:31:22",
-                          structFieldName = NamePair {
-                            nameC = Name "sll",
-                            nameHsIdent = HsIdentifier
-                              "primitive_sll"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:31:22",
+                            fieldName = NamePair {
+                              nameC = Name "sll",
+                              nameHsIdent = HsIdentifier
+                                "primitive_sll"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 832,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:31:22")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3495,20 +4236,26 @@
                         HsPrimCLLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:32:26",
-                          structFieldName = NamePair {
-                            nameC = Name "slli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_slli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:32:26",
+                            fieldName = NamePair {
+                              nameC = Name "slli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_slli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Signed),
                           structFieldOffset = 896,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:32:26")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3517,20 +4264,26 @@
                         HsPrimCULLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:34:24",
-                          structFieldName = NamePair {
-                            nameC = Name "ull",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ull"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:34:24",
+                            fieldName = NamePair {
+                              nameC = Name "ull",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ull"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Unsigned),
                           structFieldOffset = 960,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:34:24")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3539,20 +4292,26 @@
                         HsPrimCULLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:35:28",
-                          structFieldName = NamePair {
-                            nameC = Name "ulli",
-                            nameHsIdent = HsIdentifier
-                              "primitive_ulli"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:35:28",
+                            fieldName = NamePair {
+                              nameC = Name "ulli",
+                              nameHsIdent = HsIdentifier
+                                "primitive_ulli"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral
                               PrimLongLong
                               Unsigned),
                           structFieldOffset = 1024,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:35:28")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3561,18 +4320,24 @@
                         HsPrimCFloat,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:37:11",
-                          structFieldName = NamePair {
-                            nameC = Name "f",
-                            nameHsIdent = HsIdentifier
-                              "primitive_f"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:37:11",
+                            fieldName = NamePair {
+                              nameC = Name "f",
+                              nameHsIdent = HsIdentifier
+                                "primitive_f"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimFloat),
                           structFieldOffset = 1088,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:37:11")
+                          (Just "primitive_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3581,18 +4346,24 @@
                         HsPrimCDouble,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "primitive_types.h:38:12",
-                          structFieldName = NamePair {
-                            nameC = Name "d",
-                            nameHsIdent = HsIdentifier
-                              "primitive_d"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "primitive_types.h:38:12",
+                            fieldName = NamePair {
+                              nameC = Name "d",
+                              nameHsIdent = HsIdentifier
+                                "primitive_d"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimDouble),
                           structFieldOffset = 1152,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "primitive_types.h:38:12")
+                          (Just "primitive_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3617,365 +4388,393 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:2:10",
-                              structFieldName = NamePair {
-                                nameC = Name "c",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_c"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:2:10",
+                                fieldName = NamePair {
+                                  nameC = Name "c",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_c"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:3:17",
-                              structFieldName = NamePair {
-                                nameC = Name "sc",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sc"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:3:17",
+                                fieldName = NamePair {
+                                  nameC = Name "sc",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sc"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Signed)),
                               structFieldOffset = 8,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:4:19",
-                              structFieldName = NamePair {
-                                nameC = Name "uc",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_uc"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:4:19",
+                                fieldName = NamePair {
+                                  nameC = Name "uc",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_uc"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Unsigned)),
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:6:11",
-                              structFieldName = NamePair {
-                                nameC = Name "s",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_s"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:6:11",
+                                fieldName = NamePair {
+                                  nameC = Name "s",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_s"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:7:15",
-                              structFieldName = NamePair {
-                                nameC = Name "si",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_si"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:7:15",
+                                fieldName = NamePair {
+                                  nameC = Name "si",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_si"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 48,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:8:18",
-                              structFieldName = NamePair {
-                                nameC = Name "ss",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ss"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:8:18",
+                                fieldName = NamePair {
+                                  nameC = Name "ss",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ss"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:9:22",
-                              structFieldName = NamePair {
-                                nameC = Name "ssi",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ssi"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:9:22",
+                                fieldName = NamePair {
+                                  nameC = Name "ssi",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ssi"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimShort Signed),
                               structFieldOffset = 80,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:11:20",
-                              structFieldName = NamePair {
-                                nameC = Name "us",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_us"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:11:20",
+                                fieldName = NamePair {
+                                  nameC = Name "us",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_us"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimShort
                                   Unsigned),
                               structFieldOffset = 96,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:12:24",
-                              structFieldName = NamePair {
-                                nameC = Name "usi",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_usi"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:12:24",
+                                fieldName = NamePair {
+                                  nameC = Name "usi",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_usi"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimShort
                                   Unsigned),
                               structFieldOffset = 112,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:14:9",
-                              structFieldName = NamePair {
-                                nameC = Name "i",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_i"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:14:9",
+                                fieldName = NamePair {
+                                  nameC = Name "i",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_i"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:15:12",
-                              structFieldName = NamePair {
-                                nameC = Name "s2",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_s2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:15:12",
+                                fieldName = NamePair {
+                                  nameC = Name "s2",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_s2"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 160,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:16:16",
-                              structFieldName = NamePair {
-                                nameC = Name "si2",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_si2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:16:16",
+                                fieldName = NamePair {
+                                  nameC = Name "si2",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_si2"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:18:14",
-                              structFieldName = NamePair {
-                                nameC = Name "u",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_u"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:18:14",
+                                fieldName = NamePair {
+                                  nameC = Name "u",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_u"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 224,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:19:18",
-                              structFieldName = NamePair {
-                                nameC = Name "ui",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ui"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:19:18",
+                                fieldName = NamePair {
+                                  nameC = Name "ui",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ui"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:21:10",
-                              structFieldName = NamePair {
-                                nameC = Name "l",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_l"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:21:10",
+                                fieldName = NamePair {
+                                  nameC = Name "l",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_l"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 320,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:22:14",
-                              structFieldName = NamePair {
-                                nameC = Name "li",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_li"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:22:14",
+                                fieldName = NamePair {
+                                  nameC = Name "li",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_li"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 384,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:23:17",
-                              structFieldName = NamePair {
-                                nameC = Name "sl",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sl"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:23:17",
+                                fieldName = NamePair {
+                                  nameC = Name "sl",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sl"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 448,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:24:21",
-                              structFieldName = NamePair {
-                                nameC = Name "sli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:24:21",
+                                fieldName = NamePair {
+                                  nameC = Name "sli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 512,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:26:19",
-                              structFieldName = NamePair {
-                                nameC = Name "ul",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ul"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:26:19",
+                                fieldName = NamePair {
+                                  nameC = Name "ul",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ul"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLong
                                   Unsigned),
                               structFieldOffset = 576,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:27:23",
-                              structFieldName = NamePair {
-                                nameC = Name "uli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_uli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:27:23",
+                                fieldName = NamePair {
+                                  nameC = Name "uli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_uli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLong
                                   Unsigned),
                               structFieldOffset = 640,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:29:15",
-                              structFieldName = NamePair {
-                                nameC = Name "ll",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ll"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:29:15",
+                                fieldName = NamePair {
+                                  nameC = Name "ll",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ll"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 704,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:30:19",
-                              structFieldName = NamePair {
-                                nameC = Name "lli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_lli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:30:19",
+                                fieldName = NamePair {
+                                  nameC = Name "lli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_lli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 768,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:31:22",
-                              structFieldName = NamePair {
-                                nameC = Name "sll",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_sll"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:31:22",
+                                fieldName = NamePair {
+                                  nameC = Name "sll",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_sll"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 832,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:32:26",
-                              structFieldName = NamePair {
-                                nameC = Name "slli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_slli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:32:26",
+                                fieldName = NamePair {
+                                  nameC = Name "slli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_slli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Signed),
                               structFieldOffset = 896,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:34:24",
-                              structFieldName = NamePair {
-                                nameC = Name "ull",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ull"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:34:24",
+                                fieldName = NamePair {
+                                  nameC = Name "ull",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ull"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Unsigned),
                               structFieldOffset = 960,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:35:28",
-                              structFieldName = NamePair {
-                                nameC = Name "ulli",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_ulli"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:35:28",
+                                fieldName = NamePair {
+                                  nameC = Name "ulli",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_ulli"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral
                                   PrimLongLong
                                   Unsigned),
                               structFieldOffset = 1024,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:37:11",
-                              structFieldName = NamePair {
-                                nameC = Name "f",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_f"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:37:11",
+                                fieldName = NamePair {
+                                  nameC = Name "f",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_f"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimFloat),
                               structFieldOffset = 1088,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "primitive_types.h:38:12",
-                              structFieldName = NamePair {
-                                nameC = Name "d",
-                                nameHsIdent = HsIdentifier
-                                  "primitive_d"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "primitive_types.h:38:12",
+                                fieldName = NamePair {
+                                  nameC = Name "d",
+                                  nameHsIdent = HsIdentifier
+                                    "primitive_d"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimDouble),
                               structFieldOffset = 1152,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3985,7 +4784,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "primitive_types.h:1:8")
+                      (Just "primitive_types.h")
+                      [])}
                 (Add 28)
                 (Seq
                   [

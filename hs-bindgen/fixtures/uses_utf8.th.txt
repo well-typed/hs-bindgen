@@ -1,6 +1,18 @@
 -- addDependentFile examples/golden/uses_utf8.h
+{-| __C declaration:__ @MyEnum@
+
+    __defined at:__ @uses_utf8.h:4:6@
+
+    __exported by:__ @uses_utf8.h@
+-}
 newtype MyEnum
     = MyEnum {un_MyEnum :: CUInt}
+      {- ^ __C declaration:__ @MyEnum@
+
+           __defined at:__ @uses_utf8.h:4:6@
+
+           __exported by:__ @uses_utf8.h@
+      -}
     deriving stock (Eq, Ord)
 instance Storable MyEnum
     where sizeOf = \_ -> 4 :: Int
@@ -28,7 +40,31 @@ instance Read MyEnum
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
+{-| __C declaration:__ @Say你好@
+
+    __defined at:__ @uses_utf8.h:5:9@
+
+    __exported by:__ @uses_utf8.h@
+-}
 pattern Say你好 :: MyEnum
+{-| __C declaration:__ @Say你好@
+
+    __defined at:__ @uses_utf8.h:5:9@
+
+    __exported by:__ @uses_utf8.h@
+-}
 pattern Say你好 = MyEnum 0
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @uses_utf8.h:6:9@
+
+    __exported by:__ @uses_utf8.h@
+-}
 pattern Say拜拜 :: MyEnum
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @uses_utf8.h:6:9@
+
+    __exported by:__ @uses_utf8.h@
+-}
 pattern Say拜拜 = MyEnum 1

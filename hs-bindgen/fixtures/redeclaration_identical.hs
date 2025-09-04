@@ -24,4 +24,11 @@
       varDeclBody = VarDeclIntegral
         5
         HsPrimCInt,
-      varDeclComment = Nothing}]
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just
+            "redeclaration_identical.h:3:9")
+          (Just
+            "redeclaration_identical.h")
+          [])}]

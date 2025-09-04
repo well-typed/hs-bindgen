@@ -8,8 +8,20 @@
 -- /* get_拜拜_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8472427dddbc4eb1 (void)) (void) { return &拜拜; } 
 -- void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say拜拜(); }
 -- /* get_Say拜拜_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_7b73f645a5d28e6b (void)) (void) { return &Say拜拜; } 
+{-| __C declaration:__ @adiós@
+
+    __defined at:__ @adios.h:7:13@
+
+    __exported by:__ @adios.h@
+-}
 newtype Adio'0301s
     = Adio'0301s {un_Adio'0301s :: CInt}
+      {- ^ __C declaration:__ @adiós@
+
+           __defined at:__ @adios.h:7:13@
+
+           __exported by:__ @adios.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -20,8 +32,20 @@ newtype Adio'0301s
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @数字@
+
+    __defined at:__ @adios.h:12:13@
+
+    __exported by:__ @adios.h@
+-}
 newtype C数字
     = C数字 {un_C数字 :: CInt}
+      {- ^ __C declaration:__ @数字@
+
+           __defined at:__ @adios.h:12:13@
+
+           __exported by:__ @adios.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -32,16 +56,39 @@ newtype C数字
                       Ix,
                       Num,
                       Real)
-{-| -}
+{-| __C declaration:__ @ϒ@
+
+    __defined at:__ @adios.h:18:6@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_8e1936b23d816eb2" cϒ :: IO Unit
+{-| __C declaration:__ @ϒ@
+
+    __defined at:__ @adios.h:18:6@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_64cbec67bc73ad5c" hs_bindgen_test_adios_64cbec67bc73ad5c :: IO (FunPtr (IO Unit))
 {-# NOINLINE cϒ_ptr #-}
 cϒ_ptr :: FunPtr (IO Unit)
 cϒ_ptr = unsafePerformIO hs_bindgen_test_adios_64cbec67bc73ad5c
+{-| __C declaration:__ @ϒϒ@
+
+    __defined at:__ @adios.h:21:12@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_52f5e750c2f31c7b" hs_bindgen_test_adios_52f5e750c2f31c7b :: IO (Ptr CInt)
 {-# NOINLINE cϒϒ_ptr #-}
 cϒϒ_ptr :: Ptr CInt
 cϒϒ_ptr = unsafePerformIO hs_bindgen_test_adios_52f5e750c2f31c7b
+{-| __C declaration:__ @ϒϒϒ@
+
+    __defined at:__ @adios.h:24:18@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_13030842ed540098" hs_bindgen_test_adios_13030842ed540098 :: IO (Ptr CInt)
 {-# NOINLINE cϒϒϒ_ptr #-}
 cϒϒϒ_ptr :: Ptr CInt
@@ -49,14 +96,36 @@ cϒϒϒ_ptr = unsafePerformIO hs_bindgen_test_adios_13030842ed540098
 {-# NOINLINE cϒϒϒ #-}
 cϒϒϒ :: CInt
 cϒϒϒ = unsafePerformIO (peek cϒϒϒ_ptr)
-{-| -}
+{-| __C declaration:__ @拜拜@
+
+    __defined at:__ @adios.h:27:6@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_5c74896d56245684" 拜拜 :: IO Unit
+{-| __C declaration:__ @拜拜@
+
+    __defined at:__ @adios.h:27:6@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_8472427dddbc4eb1" hs_bindgen_test_adios_8472427dddbc4eb1 :: IO (FunPtr (IO Unit))
 {-# NOINLINE 拜拜_ptr #-}
 拜拜_ptr :: FunPtr (IO Unit)
 拜拜_ptr = unsafePerformIO hs_bindgen_test_adios_8472427dddbc4eb1
-{-| -}
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @adios.h:31:6@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_e8498bfc0fabc9e9" say拜拜 :: IO Unit
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @adios.h:31:6@
+
+    __exported by:__ @adios.h@
+-}
 foreign import ccall safe "hs_bindgen_test_adios_7b73f645a5d28e6b" hs_bindgen_test_adios_7b73f645a5d28e6b :: IO (FunPtr (IO Unit))
 {-# NOINLINE say拜拜_ptr #-}
 say拜拜_ptr :: FunPtr (IO Unit)

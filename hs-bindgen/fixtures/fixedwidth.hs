@@ -125,12 +125,13 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "fixedwidth.h:4:11",
-              structFieldName = NamePair {
-                nameC = Name "sixty_four",
-                nameHsIdent = HsIdentifier
-                  "foo_sixty_four"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "fixedwidth.h:4:11",
+                fieldName = NamePair {
+                  nameC = Name "sixty_four",
+                  nameHsIdent = HsIdentifier
+                    "foo_sixty_four"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -248,9 +249,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "fixedwidth.h:4:11")
+              (Just "fixedwidth.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -368,12 +373,13 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "fixedwidth.h:5:11",
-              structFieldName = NamePair {
-                nameC = Name "thirty_two",
-                nameHsIdent = HsIdentifier
-                  "foo_thirty_two"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "fixedwidth.h:5:11",
+                fieldName = NamePair {
+                  nameC = Name "thirty_two",
+                  nameHsIdent = HsIdentifier
+                    "foo_thirty_two"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -491,9 +497,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "fixedwidth.h:5:11")
+              (Just "fixedwidth.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -514,12 +524,13 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "fixedwidth.h:4:11",
-                  structFieldName = NamePair {
-                    nameC = Name "sixty_four",
-                    nameHsIdent = HsIdentifier
-                      "foo_sixty_four"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "fixedwidth.h:4:11",
+                    fieldName = NamePair {
+                      nameC = Name "sixty_four",
+                      nameHsIdent = HsIdentifier
+                        "foo_sixty_four"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -637,15 +648,15 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "fixedwidth.h:5:11",
-                  structFieldName = NamePair {
-                    nameC = Name "thirty_two",
-                    nameHsIdent = HsIdentifier
-                      "foo_thirty_two"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "fixedwidth.h:5:11",
+                    fieldName = NamePair {
+                      nameC = Name "thirty_two",
+                      nameHsIdent = HsIdentifier
+                        "foo_thirty_two"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -763,8 +774,7 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -774,7 +784,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "fixedwidth.h:3:8")
+          (Just "fixedwidth.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -904,12 +919,13 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "fixedwidth.h:4:11",
-                  structFieldName = NamePair {
-                    nameC = Name "sixty_four",
-                    nameHsIdent = HsIdentifier
-                      "foo_sixty_four"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "fixedwidth.h:4:11",
+                    fieldName = NamePair {
+                      nameC = Name "sixty_four",
+                      nameHsIdent = HsIdentifier
+                        "foo_sixty_four"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -1027,9 +1043,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "fixedwidth.h:4:11")
+                  (Just "fixedwidth.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1147,12 +1167,13 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "fixedwidth.h:5:11",
-                  structFieldName = NamePair {
-                    nameC = Name "thirty_two",
-                    nameHsIdent = HsIdentifier
-                      "foo_thirty_two"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "fixedwidth.h:5:11",
+                    fieldName = NamePair {
+                      nameC = Name "thirty_two",
+                      nameHsIdent = HsIdentifier
+                        "foo_thirty_two"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -1270,9 +1291,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "fixedwidth.h:5:11")
+                  (Just "fixedwidth.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1293,12 +1318,13 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "fixedwidth.h:4:11",
-                      structFieldName = NamePair {
-                        nameC = Name "sixty_four",
-                        nameHsIdent = HsIdentifier
-                          "foo_sixty_four"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "fixedwidth.h:4:11",
+                        fieldName = NamePair {
+                          nameC = Name "sixty_four",
+                          nameHsIdent = HsIdentifier
+                            "foo_sixty_four"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -1416,15 +1442,15 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "fixedwidth.h:5:11",
-                      structFieldName = NamePair {
-                        nameC = Name "thirty_two",
-                        nameHsIdent = HsIdentifier
-                          "foo_thirty_two"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "fixedwidth.h:5:11",
+                        fieldName = NamePair {
+                          nameC = Name "thirty_two",
+                          nameHsIdent = HsIdentifier
+                            "foo_thirty_two"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -1542,8 +1568,7 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1553,7 +1578,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "fixedwidth.h:3:8")
+              (Just "fixedwidth.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -1686,12 +1716,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "fixedwidth.h:4:11",
-                          structFieldName = NamePair {
-                            nameC = Name "sixty_four",
-                            nameHsIdent = HsIdentifier
-                              "foo_sixty_four"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "fixedwidth.h:4:11",
+                            fieldName = NamePair {
+                              nameC = Name "sixty_four",
+                              nameHsIdent = HsIdentifier
+                                "foo_sixty_four"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -1809,9 +1840,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "fixedwidth.h:4:11")
+                          (Just "fixedwidth.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1929,12 +1964,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "fixedwidth.h:5:11",
-                          structFieldName = NamePair {
-                            nameC = Name "thirty_two",
-                            nameHsIdent = HsIdentifier
-                              "foo_thirty_two"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "fixedwidth.h:5:11",
+                            fieldName = NamePair {
+                              nameC = Name "thirty_two",
+                              nameHsIdent = HsIdentifier
+                                "foo_thirty_two"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -2052,9 +2088,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "fixedwidth.h:5:11")
+                          (Just "fixedwidth.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2075,12 +2115,13 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "fixedwidth.h:4:11",
-                              structFieldName = NamePair {
-                                nameC = Name "sixty_four",
-                                nameHsIdent = HsIdentifier
-                                  "foo_sixty_four"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "fixedwidth.h:4:11",
+                                fieldName = NamePair {
+                                  nameC = Name "sixty_four",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_sixty_four"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -2198,15 +2239,15 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "fixedwidth.h:5:11",
-                              structFieldName = NamePair {
-                                nameC = Name "thirty_two",
-                                nameHsIdent = HsIdentifier
-                                  "foo_thirty_two"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "fixedwidth.h:5:11",
+                                fieldName = NamePair {
+                                  nameC = Name "thirty_two",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_thirty_two"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -2324,8 +2365,7 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2335,7 +2375,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "fixedwidth.h:3:8")
+                      (Just "fixedwidth.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2470,12 +2515,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "fixedwidth.h:4:11",
-                          structFieldName = NamePair {
-                            nameC = Name "sixty_four",
-                            nameHsIdent = HsIdentifier
-                              "foo_sixty_four"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "fixedwidth.h:4:11",
+                            fieldName = NamePair {
+                              nameC = Name "sixty_four",
+                              nameHsIdent = HsIdentifier
+                                "foo_sixty_four"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -2593,9 +2639,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "fixedwidth.h:4:11")
+                          (Just "fixedwidth.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2713,12 +2763,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "fixedwidth.h:5:11",
-                          structFieldName = NamePair {
-                            nameC = Name "thirty_two",
-                            nameHsIdent = HsIdentifier
-                              "foo_thirty_two"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "fixedwidth.h:5:11",
+                            fieldName = NamePair {
+                              nameC = Name "thirty_two",
+                              nameHsIdent = HsIdentifier
+                                "foo_thirty_two"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -2836,9 +2887,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "fixedwidth.h:5:11")
+                          (Just "fixedwidth.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2859,12 +2914,13 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "fixedwidth.h:4:11",
-                              structFieldName = NamePair {
-                                nameC = Name "sixty_four",
-                                nameHsIdent = HsIdentifier
-                                  "foo_sixty_four"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "fixedwidth.h:4:11",
+                                fieldName = NamePair {
+                                  nameC = Name "sixty_four",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_sixty_four"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -2982,15 +3038,15 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "fixedwidth.h:5:11",
-                              structFieldName = NamePair {
-                                nameC = Name "thirty_two",
-                                nameHsIdent = HsIdentifier
-                                  "foo_thirty_two"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "fixedwidth.h:5:11",
+                                fieldName = NamePair {
+                                  nameC = Name "thirty_two",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_thirty_two"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -3108,8 +3164,7 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3119,7 +3174,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "fixedwidth.h:3:8")
+                      (Just "fixedwidth.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

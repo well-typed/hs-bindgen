@@ -41,24 +41,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "uses_utf8.h:5:9",
-                enumConstantName = NamePair {
-                  nameC = Name "Say\20320\22909",
-                  nameHsIdent = HsIdentifier
-                    "Say\20320\22909"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "uses_utf8.h:5:9",
+                  fieldName = NamePair {
+                    nameC = Name "Say\20320\22909",
+                    nameHsIdent = HsIdentifier
+                      "Say\20320\22909"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "uses_utf8.h:6:9",
-                enumConstantName = NamePair {
-                  nameC = Name "Say\25308\25308",
-                  nameHsIdent = HsIdentifier
-                    "Say\25308\25308"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "uses_utf8.h:6:9",
+                  fieldName = NamePair {
+                    nameC = Name "Say\25308\25308",
+                    nameHsIdent = HsIdentifier
+                      "Say\25308\25308"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -67,7 +66,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "uses_utf8.h:4:6")
+          (Just "uses_utf8.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -311,15 +315,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "uses_utf8.h:5:9",
-          enumConstantName = NamePair {
-            nameC = Name "Say\20320\22909",
-            nameHsIdent = HsIdentifier
-              "Say\20320\22909"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "uses_utf8.h:5:9",
+            fieldName = NamePair {
+              nameC = Name "Say\20320\22909",
+              nameHsIdent = HsIdentifier
+                "Say\20320\22909"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "uses_utf8.h:5:9")
+          (Just "uses_utf8.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -334,12 +343,17 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "uses_utf8.h:6:9",
-          enumConstantName = NamePair {
-            nameC = Name "Say\25308\25308",
-            nameHsIdent = HsIdentifier
-              "Say\25308\25308"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing}]
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "uses_utf8.h:6:9",
+            fieldName = NamePair {
+              nameC = Name "Say\25308\25308",
+              nameHsIdent = HsIdentifier
+                "Say\25308\25308"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "uses_utf8.h:6:9")
+          (Just "uses_utf8.h")
+          [])}]

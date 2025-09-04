@@ -41,22 +41,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc = "enums.h:5:5",
-                enumConstantName = NamePair {
-                  nameC = Name "FIRST1",
-                  nameHsIdent = HsIdentifier
-                    "FIRST1"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:5:5",
+                  fieldName = NamePair {
+                    nameC = Name "FIRST1",
+                    nameHsIdent = HsIdentifier
+                      "FIRST1"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc = "enums.h:6:5",
-                enumConstantName = NamePair {
-                  nameC = Name "FIRST2",
-                  nameHsIdent = HsIdentifier
-                    "FIRST2"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:6:5",
+                  fieldName = NamePair {
+                    nameC = Name "FIRST2",
+                    nameHsIdent = HsIdentifier
+                      "FIRST2"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -65,7 +66,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:4:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -299,14 +305,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc = "enums.h:5:5",
-          enumConstantName = NamePair {
-            nameC = Name "FIRST1",
-            nameHsIdent = HsIdentifier
-              "FIRST1"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:5:5",
+            fieldName = NamePair {
+              nameC = Name "FIRST1",
+              nameHsIdent = HsIdentifier
+                "FIRST1"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:5:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -321,14 +333,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc = "enums.h:6:5",
-          enumConstantName = NamePair {
-            nameC = Name "FIRST2",
-            nameHsIdent = HsIdentifier
-              "FIRST2"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:6:5",
+            fieldName = NamePair {
+              nameC = Name "FIRST2",
+              nameHsIdent = HsIdentifier
+                "FIRST2"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:6:5")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -371,33 +389,32 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:10:5",
-                enumConstantName = NamePair {
-                  nameC = Name "SECOND_A",
-                  nameHsIdent = HsIdentifier
-                    "SECOND_A"},
-                enumConstantValue = `-1`,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:10:5",
+                  fieldName = NamePair {
+                    nameC = Name "SECOND_A",
+                    nameHsIdent = HsIdentifier
+                      "SECOND_A"},
+                  fieldComment = Nothing},
+                enumConstantValue = `-1`},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:11:5",
-                enumConstantName = NamePair {
-                  nameC = Name "SECOND_B",
-                  nameHsIdent = HsIdentifier
-                    "SECOND_B"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:11:5",
+                  fieldName = NamePair {
+                    nameC = Name "SECOND_B",
+                    nameHsIdent = HsIdentifier
+                      "SECOND_B"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:12:5",
-                enumConstantName = NamePair {
-                  nameC = Name "SECOND_C",
-                  nameHsIdent = HsIdentifier
-                    "SECOND_C"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:12:5",
+                  fieldName = NamePair {
+                    nameC = Name "SECOND_C",
+                    nameHsIdent = HsIdentifier
+                      "SECOND_C"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -406,7 +423,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:9:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -647,15 +669,20 @@
       patSynValue = `-1`,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:10:5",
-          enumConstantName = NamePair {
-            nameC = Name "SECOND_A",
-            nameHsIdent = HsIdentifier
-              "SECOND_A"},
-          enumConstantValue = `-1`,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:10:5",
+            fieldName = NamePair {
+              nameC = Name "SECOND_A",
+              nameHsIdent = HsIdentifier
+                "SECOND_A"},
+            fieldComment = Nothing},
+          enumConstantValue = `-1`},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:10:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -670,15 +697,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:11:5",
-          enumConstantName = NamePair {
-            nameC = Name "SECOND_B",
-            nameHsIdent = HsIdentifier
-              "SECOND_B"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:11:5",
+            fieldName = NamePair {
+              nameC = Name "SECOND_B",
+              nameHsIdent = HsIdentifier
+                "SECOND_B"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:11:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -693,15 +725,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:12:5",
-          enumConstantName = NamePair {
-            nameC = Name "SECOND_C",
-            nameHsIdent = HsIdentifier
-              "SECOND_C"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:12:5",
+            fieldName = NamePair {
+              nameC = Name "SECOND_C",
+              nameHsIdent = HsIdentifier
+                "SECOND_C"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:12:5")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -744,24 +781,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:16:5",
-                enumConstantName = NamePair {
-                  nameC = Name "SAME_A",
-                  nameHsIdent = HsIdentifier
-                    "SAME_A"},
-                enumConstantValue = 1,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:16:5",
+                  fieldName = NamePair {
+                    nameC = Name "SAME_A",
+                    nameHsIdent = HsIdentifier
+                      "SAME_A"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:17:5",
-                enumConstantName = NamePair {
-                  nameC = Name "SAME_B",
-                  nameHsIdent = HsIdentifier
-                    "SAME_B"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:17:5",
+                  fieldName = NamePair {
+                    nameC = Name "SAME_B",
+                    nameHsIdent = HsIdentifier
+                      "SAME_B"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -770,7 +806,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:15:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1006,15 +1047,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:16:5",
-          enumConstantName = NamePair {
-            nameC = Name "SAME_A",
-            nameHsIdent = HsIdentifier
-              "SAME_A"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:16:5",
+            fieldName = NamePair {
+              nameC = Name "SAME_A",
+              nameHsIdent = HsIdentifier
+                "SAME_A"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:16:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1029,15 +1075,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:17:5",
-          enumConstantName = NamePair {
-            nameC = Name "SAME_B",
-            nameHsIdent = HsIdentifier
-              "SAME_B"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:17:5",
+            fieldName = NamePair {
+              nameC = Name "SAME_B",
+              nameHsIdent = HsIdentifier
+                "SAME_B"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:17:5")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1080,33 +1131,32 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:21:5",
-                enumConstantName = NamePair {
-                  nameC = Name "NONSEQ_A",
-                  nameHsIdent = HsIdentifier
-                    "NONSEQ_A"},
-                enumConstantValue = 200,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:21:5",
+                  fieldName = NamePair {
+                    nameC = Name "NONSEQ_A",
+                    nameHsIdent = HsIdentifier
+                      "NONSEQ_A"},
+                  fieldComment = Nothing},
+                enumConstantValue = 200},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:22:5",
-                enumConstantName = NamePair {
-                  nameC = Name "NONSEQ_B",
-                  nameHsIdent = HsIdentifier
-                    "NONSEQ_B"},
-                enumConstantValue = 301,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:22:5",
+                  fieldName = NamePair {
+                    nameC = Name "NONSEQ_B",
+                    nameHsIdent = HsIdentifier
+                      "NONSEQ_B"},
+                  fieldComment = Nothing},
+                enumConstantValue = 301},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:23:5",
-                enumConstantName = NamePair {
-                  nameC = Name "NONSEQ_C",
-                  nameHsIdent = HsIdentifier
-                    "NONSEQ_C"},
-                enumConstantValue = 404,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:23:5",
+                  fieldName = NamePair {
+                    nameC = Name "NONSEQ_C",
+                    nameHsIdent = HsIdentifier
+                      "NONSEQ_C"},
+                  fieldComment = Nothing},
+                enumConstantValue = 404}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1115,7 +1165,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:20:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1328,15 +1383,20 @@
       patSynValue = 200,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:21:5",
-          enumConstantName = NamePair {
-            nameC = Name "NONSEQ_A",
-            nameHsIdent = HsIdentifier
-              "NONSEQ_A"},
-          enumConstantValue = 200,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:21:5",
+            fieldName = NamePair {
+              nameC = Name "NONSEQ_A",
+              nameHsIdent = HsIdentifier
+                "NONSEQ_A"},
+            fieldComment = Nothing},
+          enumConstantValue = 200},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:21:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1351,15 +1411,20 @@
       patSynValue = 301,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:22:5",
-          enumConstantName = NamePair {
-            nameC = Name "NONSEQ_B",
-            nameHsIdent = HsIdentifier
-              "NONSEQ_B"},
-          enumConstantValue = 301,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:22:5",
+            fieldName = NamePair {
+              nameC = Name "NONSEQ_B",
+              nameHsIdent = HsIdentifier
+                "NONSEQ_B"},
+            fieldComment = Nothing},
+          enumConstantValue = 301},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:22:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1374,15 +1439,20 @@
       patSynValue = 404,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:23:5",
-          enumConstantName = NamePair {
-            nameC = Name "NONSEQ_C",
-            nameHsIdent = HsIdentifier
-              "NONSEQ_C"},
-          enumConstantValue = 404,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:23:5",
+            fieldName = NamePair {
+              nameC = Name "NONSEQ_C",
+              nameHsIdent = HsIdentifier
+                "NONSEQ_C"},
+            fieldComment = Nothing},
+          enumConstantValue = 404},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:23:5")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1426,33 +1496,32 @@
             enumAlignment = 1,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:27:5",
-                enumConstantName = NamePair {
-                  nameC = Name "PACKED_A",
-                  nameHsIdent = HsIdentifier
-                    "PACKED_A"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:27:5",
+                  fieldName = NamePair {
+                    nameC = Name "PACKED_A",
+                    nameHsIdent = HsIdentifier
+                      "PACKED_A"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:27:15",
-                enumConstantName = NamePair {
-                  nameC = Name "PACKED_B",
-                  nameHsIdent = HsIdentifier
-                    "PACKED_B"},
-                enumConstantValue = 1,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:27:15",
+                  fieldName = NamePair {
+                    nameC = Name "PACKED_B",
+                    nameHsIdent = HsIdentifier
+                      "PACKED_B"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:27:25",
-                enumConstantName = NamePair {
-                  nameC = Name "PACKED_C",
-                  nameHsIdent = HsIdentifier
-                    "PACKED_C"},
-                enumConstantValue = 2,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:27:25",
+                  fieldName = NamePair {
+                    nameC = Name "PACKED_C",
+                    nameHsIdent = HsIdentifier
+                      "PACKED_C"},
+                  fieldComment = Nothing},
+                enumConstantValue = 2}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1461,7 +1530,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:26:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1702,15 +1776,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:27:5",
-          enumConstantName = NamePair {
-            nameC = Name "PACKED_A",
-            nameHsIdent = HsIdentifier
-              "PACKED_A"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:27:5",
+            fieldName = NamePair {
+              nameC = Name "PACKED_A",
+              nameHsIdent = HsIdentifier
+                "PACKED_A"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:27:5")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1725,15 +1804,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:27:15",
-          enumConstantName = NamePair {
-            nameC = Name "PACKED_B",
-            nameHsIdent = HsIdentifier
-              "PACKED_B"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:27:15",
+            fieldName = NamePair {
+              nameC = Name "PACKED_B",
+              nameHsIdent = HsIdentifier
+                "PACKED_B"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:27:15")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1748,15 +1832,20 @@
       patSynValue = 2,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:27:25",
-          enumConstantName = NamePair {
-            nameC = Name "PACKED_C",
-            nameHsIdent = HsIdentifier
-              "PACKED_C"},
-          enumConstantValue = 2,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:27:25",
+            fieldName = NamePair {
+              nameC = Name "PACKED_C",
+              nameHsIdent = HsIdentifier
+                "PACKED_C"},
+            fieldComment = Nothing},
+          enumConstantValue = 2},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:27:25")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1800,24 +1889,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:30:16",
-                enumConstantName = NamePair {
-                  nameC = Name "A_FOO",
-                  nameHsIdent = HsIdentifier
-                    "A_FOO"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:30:16",
+                  fieldName = NamePair {
+                    nameC = Name "A_FOO",
+                    nameHsIdent = HsIdentifier
+                      "A_FOO"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:30:23",
-                enumConstantName = NamePair {
-                  nameC = Name "A_BAR",
-                  nameHsIdent = HsIdentifier
-                    "A_BAR"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:30:23",
+                  fieldName = NamePair {
+                    nameC = Name "A_BAR",
+                    nameHsIdent = HsIdentifier
+                      "A_BAR"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1826,7 +1914,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:30:9")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2060,15 +2153,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:30:16",
-          enumConstantName = NamePair {
-            nameC = Name "A_FOO",
-            nameHsIdent = HsIdentifier
-              "A_FOO"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:30:16",
+            fieldName = NamePair {
+              nameC = Name "A_FOO",
+              nameHsIdent = HsIdentifier
+                "A_FOO"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:30:16")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2083,15 +2181,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:30:23",
-          enumConstantName = NamePair {
-            nameC = Name "A_BAR",
-            nameHsIdent = HsIdentifier
-              "A_BAR"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:30:23",
+            fieldName = NamePair {
+              nameC = Name "A_BAR",
+              nameHsIdent = HsIdentifier
+                "A_BAR"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:30:23")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2134,24 +2237,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:32:22",
-                enumConstantName = NamePair {
-                  nameC = Name "B_FOO",
-                  nameHsIdent = HsIdentifier
-                    "B_FOO"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:32:22",
+                  fieldName = NamePair {
+                    nameC = Name "B_FOO",
+                    nameHsIdent = HsIdentifier
+                      "B_FOO"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:32:29",
-                enumConstantName = NamePair {
-                  nameC = Name "B_BAR",
-                  nameHsIdent = HsIdentifier
-                    "B_BAR"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:32:29",
+                  fieldName = NamePair {
+                    nameC = Name "B_BAR",
+                    nameHsIdent = HsIdentifier
+                      "B_BAR"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2160,7 +2262,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:32:14")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2394,15 +2501,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:32:22",
-          enumConstantName = NamePair {
-            nameC = Name "B_FOO",
-            nameHsIdent = HsIdentifier
-              "B_FOO"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:32:22",
+            fieldName = NamePair {
+              nameC = Name "B_FOO",
+              nameHsIdent = HsIdentifier
+                "B_FOO"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:32:22")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2417,15 +2529,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:32:29",
-          enumConstantName = NamePair {
-            nameC = Name "B_BAR",
-            nameHsIdent = HsIdentifier
-              "B_BAR"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:32:29",
+            fieldName = NamePair {
+              nameC = Name "B_BAR",
+              nameHsIdent = HsIdentifier
+                "B_BAR"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:32:29")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2468,24 +2585,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:34:14",
-                enumConstantName = NamePair {
-                  nameC = Name "C_FOO",
-                  nameHsIdent = HsIdentifier
-                    "C_FOO"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:34:14",
+                  fieldName = NamePair {
+                    nameC = Name "C_FOO",
+                    nameHsIdent = HsIdentifier
+                      "C_FOO"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:34:21",
-                enumConstantName = NamePair {
-                  nameC = Name "C_BAR",
-                  nameHsIdent = HsIdentifier
-                    "C_BAR"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:34:21",
+                  fieldName = NamePair {
+                    nameC = Name "C_BAR",
+                    nameHsIdent = HsIdentifier
+                      "C_BAR"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2494,7 +2610,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:34:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2728,15 +2849,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:34:14",
-          enumConstantName = NamePair {
-            nameC = Name "C_FOO",
-            nameHsIdent = HsIdentifier
-              "C_FOO"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:34:14",
+            fieldName = NamePair {
+              nameC = Name "C_FOO",
+              nameHsIdent = HsIdentifier
+                "C_FOO"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:34:14")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2751,15 +2877,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:34:21",
-          enumConstantName = NamePair {
-            nameC = Name "C_BAR",
-            nameHsIdent = HsIdentifier
-              "C_BAR"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:34:21",
+            fieldName = NamePair {
+              nameC = Name "C_BAR",
+              nameHsIdent = HsIdentifier
+                "C_BAR"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:34:21")
+          (Just "enums.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2804,24 +2935,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:37:14",
-                enumConstantName = NamePair {
-                  nameC = Name "D_FOO",
-                  nameHsIdent = HsIdentifier
-                    "D_FOO"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:37:14",
+                  fieldName = NamePair {
+                    nameC = Name "D_FOO",
+                    nameHsIdent = HsIdentifier
+                      "D_FOO"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enums.h:37:21",
-                enumConstantName = NamePair {
-                  nameC = Name "D_BAR",
-                  nameHsIdent = HsIdentifier
-                    "D_BAR"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "enums.h:37:21",
+                  fieldName = NamePair {
+                    nameC = Name "D_BAR",
+                    nameHsIdent = HsIdentifier
+                      "D_BAR"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2830,7 +2960,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:37:6")
+          (Just "enums.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3064,15 +3199,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:37:14",
-          enumConstantName = NamePair {
-            nameC = Name "D_FOO",
-            nameHsIdent = HsIdentifier
-              "D_FOO"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:37:14",
+            fieldName = NamePair {
+              nameC = Name "D_FOO",
+              nameHsIdent = HsIdentifier
+                "D_FOO"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:37:14")
+          (Just "enums.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3087,12 +3227,17 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enums.h:37:21",
-          enumConstantName = NamePair {
-            nameC = Name "D_BAR",
-            nameHsIdent = HsIdentifier
-              "D_BAR"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing}]
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "enums.h:37:21",
+            fieldName = NamePair {
+              nameC = Name "D_BAR",
+              nameHsIdent = HsIdentifier
+                "D_BAR"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enums.h:37:21")
+          (Just "enums.h")
+          [])}]

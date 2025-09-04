@@ -1,12 +1,30 @@
 -- addDependentFile examples/golden/redeclaration.h
 -- #include <redeclaration.h>
 -- /* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } 
+{-| __C declaration:__ @x@
+
+    __defined at:__ @redeclaration.h:11:5@
+
+    __exported by:__ @redeclaration.h@
+-}
 foreign import ccall safe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" hs_bindgen_test_redeclaration_59f22ffbb8d28119 :: IO (Ptr CInt)
 {-# NOINLINE x_ptr #-}
 x_ptr :: Ptr CInt
 x_ptr = unsafePerformIO hs_bindgen_test_redeclaration_59f22ffbb8d28119
+{-| __C declaration:__ @int_t@
+
+    __defined at:__ @redeclaration.h:20:13@
+
+    __exported by:__ @redeclaration.h@
+-}
 newtype Int_t
     = Int_t {un_Int_t :: CInt}
+      {- ^ __C declaration:__ @int_t@
+
+           __defined at:__ @redeclaration.h:20:13@
+
+           __exported by:__ @redeclaration.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -17,26 +35,75 @@ newtype Int_t
                       Ix,
                       Num,
                       Real)
-data X = X {x_n :: CInt} deriving stock (Eq, Show)
+{-| __C declaration:__ @X@
+
+    __defined at:__ @redeclaration.h:26:8@
+
+    __exported by:__ @redeclaration.h@
+-}
+data X
+    = X {x_n :: CInt
+         {- ^ __C declaration:__ @n@
+
+              __defined at:__ @redeclaration.h:26:16@
+
+              __exported by:__ @redeclaration.h@
+         -}}
+      {- ^ __C declaration:__ @X@
+
+           __defined at:__ @redeclaration.h:26:8@
+
+           __exported by:__ @redeclaration.h@
+      -}
+    deriving stock (Eq, Show)
 instance Storable X
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure X <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    X x_n_3 -> pokeByteOff ptr_1 (0 :: Int) x_n_3
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @redeclaration.h:30:7@
+
+    __exported by:__ @redeclaration.h@
+-}
 data Y
-newtype Y = Y {un_Y :: ByteArray}
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @redeclaration.h:30:7@
+
+    __exported by:__ @redeclaration.h@
+-}
+newtype Y
+    = Y {un_Y :: ByteArray}
+      {- ^ __C declaration:__ @Y@
+
+           __defined at:__ @redeclaration.h:30:7@
+
+           __exported by:__ @redeclaration.h@
+      -}
 deriving via (SizedByteArray 4 4) instance Storable Y
 {-|
 
   __See:__ 'set_y_m'
 
+__C declaration:__ @m@
+
+__defined at:__ @redeclaration.h:30:15@
+
+__exported by:__ @redeclaration.h@
 -}
 get_y_m :: Y -> CInt
 {-|
 
   __See:__ 'set_y_m'
 
+__C declaration:__ @m@
+
+__defined at:__ @redeclaration.h:30:15@
+
+__exported by:__ @redeclaration.h@
 -}
 get_y_m = getUnionPayload
 {-|
@@ -55,12 +122,22 @@ set_y_m = setUnionPayload
 
   __See:__ 'set_y_o'
 
+__C declaration:__ @o@
+
+__defined at:__ @redeclaration.h:30:22@
+
+__exported by:__ @redeclaration.h@
 -}
 get_y_o :: Y -> CInt
 {-|
 
   __See:__ 'set_y_o'
 
+__C declaration:__ @o@
+
+__defined at:__ @redeclaration.h:30:22@
+
+__exported by:__ @redeclaration.h@
 -}
 get_y_o = getUnionPayload
 {-|

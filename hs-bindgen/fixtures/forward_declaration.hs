@@ -16,18 +16,25 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "forward_declaration.h:4:7",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s1_t_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "forward_declaration.h:4:7",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s1_t_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:4:7")
+              (Just "forward_declaration.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -52,17 +59,18 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "forward_declaration.h:4:7",
-                  structFieldName = NamePair {
-                    nameC = Name "a",
-                    nameHsIdent = HsIdentifier
-                      "s1_t_a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "forward_declaration.h:4:7",
+                    fieldName = NamePair {
+                      nameC = Name "a",
+                      nameHsIdent = HsIdentifier
+                        "s1_t_a"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -72,7 +80,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "forward_declaration.h:3:8")
+          (Just "forward_declaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -93,18 +107,25 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "forward_declaration.h:4:7",
-                  structFieldName = NamePair {
-                    nameC = Name "a",
-                    nameHsIdent = HsIdentifier
-                      "s1_t_a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "forward_declaration.h:4:7",
+                    fieldName = NamePair {
+                      nameC = Name "a",
+                      nameHsIdent = HsIdentifier
+                        "s1_t_a"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "forward_declaration.h:4:7")
+                  (Just "forward_declaration.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -129,17 +150,18 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "forward_declaration.h:4:7",
-                      structFieldName = NamePair {
-                        nameC = Name "a",
-                        nameHsIdent = HsIdentifier
-                          "s1_t_a"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "forward_declaration.h:4:7",
+                        fieldName = NamePair {
+                          nameC = Name "a",
+                          nameHsIdent = HsIdentifier
+                            "s1_t_a"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -149,7 +171,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:3:8")
+              (Just "forward_declaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -173,18 +201,25 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "forward_declaration.h:4:7",
-                          structFieldName = NamePair {
-                            nameC = Name "a",
-                            nameHsIdent = HsIdentifier
-                              "s1_t_a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "forward_declaration.h:4:7",
+                            fieldName = NamePair {
+                              nameC = Name "a",
+                              nameHsIdent = HsIdentifier
+                                "s1_t_a"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:4:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -209,17 +244,18 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "forward_declaration.h:4:7",
-                              structFieldName = NamePair {
-                                nameC = Name "a",
-                                nameHsIdent = HsIdentifier
-                                  "s1_t_a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "forward_declaration.h:4:7",
+                                fieldName = NamePair {
+                                  nameC = Name "a",
+                                  nameHsIdent = HsIdentifier
+                                    "s1_t_a"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -229,7 +265,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:3:8")
+                      (Just "forward_declaration.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -253,18 +295,25 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "forward_declaration.h:4:7",
-                          structFieldName = NamePair {
-                            nameC = Name "a",
-                            nameHsIdent = HsIdentifier
-                              "s1_t_a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "forward_declaration.h:4:7",
+                            fieldName = NamePair {
+                              nameC = Name "a",
+                              nameHsIdent = HsIdentifier
+                                "s1_t_a"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:4:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -289,17 +338,18 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "forward_declaration.h:4:7",
-                              structFieldName = NamePair {
-                                nameC = Name "a",
-                                nameHsIdent = HsIdentifier
-                                  "s1_t_a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "forward_declaration.h:4:7",
+                                fieldName = NamePair {
+                                  nameC = Name "a",
+                                  nameHsIdent = HsIdentifier
+                                    "s1_t_a"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -309,7 +359,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:3:8")
+                      (Just "forward_declaration.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -356,18 +412,25 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "forward_declaration.h:10:7",
-              structFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "s2_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "forward_declaration.h:10:7",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "s2_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:10:7")
+              (Just "forward_declaration.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -390,17 +453,18 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "forward_declaration.h:10:7",
-                  structFieldName = NamePair {
-                    nameC = Name "a",
-                    nameHsIdent = HsIdentifier
-                      "s2_a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "forward_declaration.h:10:7",
+                    fieldName = NamePair {
+                      nameC = Name "a",
+                      nameHsIdent = HsIdentifier
+                        "s2_a"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -410,7 +474,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "forward_declaration.h:9:8")
+          (Just "forward_declaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -431,18 +501,25 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "forward_declaration.h:10:7",
-                  structFieldName = NamePair {
-                    nameC = Name "a",
-                    nameHsIdent = HsIdentifier
-                      "s2_a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "forward_declaration.h:10:7",
+                    fieldName = NamePair {
+                      nameC = Name "a",
+                      nameHsIdent = HsIdentifier
+                        "s2_a"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "forward_declaration.h:10:7")
+                  (Just "forward_declaration.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -465,17 +542,18 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "forward_declaration.h:10:7",
-                      structFieldName = NamePair {
-                        nameC = Name "a",
-                        nameHsIdent = HsIdentifier
-                          "s2_a"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "forward_declaration.h:10:7",
+                        fieldName = NamePair {
+                          nameC = Name "a",
+                          nameHsIdent = HsIdentifier
+                            "s2_a"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -485,7 +563,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "forward_declaration.h:9:8")
+              (Just "forward_declaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -509,18 +593,25 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "forward_declaration.h:10:7",
-                          structFieldName = NamePair {
-                            nameC = Name "a",
-                            nameHsIdent = HsIdentifier
-                              "s2_a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "forward_declaration.h:10:7",
+                            fieldName = NamePair {
+                              nameC = Name "a",
+                              nameHsIdent = HsIdentifier
+                                "s2_a"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:10:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -543,17 +634,18 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "forward_declaration.h:10:7",
-                              structFieldName = NamePair {
-                                nameC = Name "a",
-                                nameHsIdent = HsIdentifier
-                                  "s2_a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "forward_declaration.h:10:7",
+                                fieldName = NamePair {
+                                  nameC = Name "a",
+                                  nameHsIdent = HsIdentifier
+                                    "s2_a"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -563,7 +655,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:9:8")
+                      (Just "forward_declaration.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -587,18 +685,25 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "forward_declaration.h:10:7",
-                          structFieldName = NamePair {
-                            nameC = Name "a",
-                            nameHsIdent = HsIdentifier
-                              "s2_a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "forward_declaration.h:10:7",
+                            fieldName = NamePair {
+                              nameC = Name "a",
+                              nameHsIdent = HsIdentifier
+                                "s2_a"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "forward_declaration.h:10:7")
+                          (Just "forward_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -621,17 +726,18 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "forward_declaration.h:10:7",
-                              structFieldName = NamePair {
-                                nameC = Name "a",
-                                nameHsIdent = HsIdentifier
-                                  "s2_a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "forward_declaration.h:10:7",
+                                fieldName = NamePair {
+                                  nameC = Name "a",
+                                  nameHsIdent = HsIdentifier
+                                    "s2_a"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -641,7 +747,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "forward_declaration.h:9:8")
+                      (Just "forward_declaration.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [

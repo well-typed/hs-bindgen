@@ -2,8 +2,33 @@
 -- #include <vector.h>
 -- vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }
 -- /* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } 
+{-| __C declaration:__ @vector@
+
+    __defined at:__ @vector.h:1:9@
+
+    __exported by:__ @vector.h@
+-}
 data Vector
-    = Vector {vector_x :: CDouble, vector_y :: CDouble}
+    = Vector {vector_x :: CDouble
+              {- ^ __C declaration:__ @x@
+
+                   __defined at:__ @vector.h:2:12@
+
+                   __exported by:__ @vector.h@
+              -},
+              vector_y :: CDouble
+              {- ^ __C declaration:__ @y@
+
+                   __defined at:__ @vector.h:3:12@
+
+                   __exported by:__ @vector.h@
+              -}}
+      {- ^ __C declaration:__ @vector@
+
+           __defined at:__ @vector.h:1:9@
+
+           __exported by:__ @vector.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Vector
     where sizeOf = \_ -> 16 :: Int
@@ -12,10 +37,21 @@ instance Storable Vector
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Vector vector_x_3
                                           vector_y_4 -> pokeByteOff ptr_1 (0 :: Int) vector_x_3 >> pokeByteOff ptr_1 (8 :: Int) vector_y_4
-{-| -}
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @vector.h:6:9@
+
+    __exported by:__ @vector.h@
+-}
 foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector :: CDouble ->
                                                                                   CDouble ->
                                                                                   IO (Ptr Vector)
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @vector.h:6:9@
+
+    __exported by:__ @vector.h@
+-}
 foreign import ccall safe "hs_bindgen_test_vector_94a1e2e4670c0a3e" hs_bindgen_test_vector_94a1e2e4670c0a3e :: IO (FunPtr (CDouble ->
                                                                                                                            CDouble ->
                                                                                                                            IO (Ptr Vector)))

@@ -369,41 +369,44 @@ TranslationUnit {
           enumAlignment = 4,
           enumConstants = [
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:84:5",
-              enumConstantName = NamePair {
-                nameC = Name "COLOR_RED",
-                nameHsIdent = HsIdentifier
-                  "COLOR_RED"},
-              enumConstantValue = 0,
-              enumConstantComment = Just
-                [
-                  Paragraph
-                    [TextContent "Red color"]]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:84:5",
+                fieldName = NamePair {
+                  nameC = Name "COLOR_RED",
+                  nameHsIdent = HsIdentifier
+                    "COLOR_RED"},
+                fieldComment = Just
+                  [
+                    Paragraph
+                      [TextContent "Red color"]]},
+              enumConstantValue = 0},
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:85:5",
-              enumConstantName = NamePair {
-                nameC = Name "COLOR_GREEN",
-                nameHsIdent = HsIdentifier
-                  "COLOR_GREEN"},
-              enumConstantValue = 1,
-              enumConstantComment = Just
-                [
-                  Paragraph
-                    [TextContent "Green color"]]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:85:5",
+                fieldName = NamePair {
+                  nameC = Name "COLOR_GREEN",
+                  nameHsIdent = HsIdentifier
+                    "COLOR_GREEN"},
+                fieldComment = Just
+                  [
+                    Paragraph
+                      [TextContent "Green color"]]},
+              enumConstantValue = 1},
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:86:5",
-              enumConstantName = NamePair {
-                nameC = Name "COLOR_BLUE",
-                nameHsIdent = HsIdentifier
-                  "COLOR_BLUE"},
-              enumConstantValue = 2,
-              enumConstantComment = Just
-                [
-                  Paragraph
-                    [TextContent "Blue color"]]}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:86:5",
+                fieldName = NamePair {
+                  nameC = Name "COLOR_BLUE",
+                  nameHsIdent = HsIdentifier
+                    "COLOR_BLUE"},
+                fieldComment = Just
+                  [
+                    Paragraph
+                      [TextContent "Blue color"]]},
+              enumConstantValue = 2}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1885,12 +1888,22 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:234:14",
-              structFieldName = NamePair {
-                nameC = Name "id",
-                nameHsIdent = HsIdentifier
-                  "config_t_id"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:234:14",
+                fieldName = NamePair {
+                  nameC = Name "id",
+                  nameHsIdent = HsIdentifier
+                    "config_t_id"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Unique identifier"]}]},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2008,23 +2021,24 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Unique identifier"]}]},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:237:10",
-              structFieldName = NamePair {
-                nameC = Name "name",
-                nameHsIdent = HsIdentifier
-                  "config_t_name"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:237:10",
+                fieldName = NamePair {
+                  nameC = Name "name",
+                  nameHsIdent = HsIdentifier
+                    "config_t_name"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Human-readable name"]}]},
               structFieldType = TypeConstArray
                 64
                 (TypePrim
@@ -2032,23 +2046,24 @@ TranslationUnit {
                     (PrimSignImplicit
                       (Just Signed)))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Human-readable name"]}]},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:240:14",
-              structFieldName = NamePair {
-                nameC = Name "flags",
-                nameHsIdent = HsIdentifier
-                  "config_t_flags"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:240:14",
+                fieldName = NamePair {
+                  nameC = Name "flags",
+                  nameHsIdent = HsIdentifier
+                    "config_t_flags"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Configuration flags"]}]},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2166,23 +2181,34 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 544,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Configuration flags"]}]},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:247:22",
-              structFieldName = NamePair {
-                nameC = Name "callback",
-                nameHsIdent = HsIdentifier
-                  "config_t_callback"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:247:22",
+                fieldName = NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = HsIdentifier
+                    "config_t_callback"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Optional callback function"]},
+                    Paragraph
+                      [
+                        TextContent "See also:",
+                        InlineRefCommand
+                          (ById
+                            NamePair {
+                              nameC = Name "event_callback_t",
+                              nameHsIdent = HsIdentifier
+                                "Event_callback_t"})],
+                    Paragraph [TextContent ""]]},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -2190,46 +2216,28 @@ TranslationUnit {
                     nameHsIdent = HsIdentifier
                       "Event_callback_t"}),
               structFieldOffset = 576,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Optional callback function"]},
-                  Paragraph
-                    [
-                      TextContent "See also:",
-                      InlineRefCommand
-                        (ById
-                          NamePair {
-                            nameC = Name "event_callback_t",
-                            nameHsIdent = HsIdentifier
-                              "Event_callback_t"})],
-                  Paragraph [TextContent ""]]},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:250:11",
-              structFieldName = NamePair {
-                nameC = Name "user_data",
-                nameHsIdent = HsIdentifier
-                  "config_t_user_data"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:250:11",
+                fieldName = NamePair {
+                  nameC = Name "user_data",
+                  nameHsIdent = HsIdentifier
+                    "config_t_user_data"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "User data for callback"]}]},
               structFieldType = TypePointer
                 TypeVoid,
               structFieldOffset = 640,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "User data for callback"]}]}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -2278,91 +2286,95 @@ TranslationUnit {
           enumAlignment = 4,
           enumConstants = [
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:260:5",
-              enumConstantName = NamePair {
-                nameC = Name "STATUS_OK",
-                nameHsIdent = HsIdentifier
-                  "STATUS_OK"},
-              enumConstantValue = 0,
-              enumConstantComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Operation successful"]}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:260:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_OK",
+                  nameHsIdent = HsIdentifier
+                    "STATUS_OK"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Operation successful"]}]},
+              enumConstantValue = 0},
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:263:5",
-              enumConstantName = NamePair {
-                nameC = Name
-                  "STATUS_INVALID_PARAM",
-                nameHsIdent = HsIdentifier
-                  "STATUS_INVALID_PARAM"},
-              enumConstantValue = `-1`,
-              enumConstantComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Invalid parameter provided"]}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:263:5",
+                fieldName = NamePair {
+                  nameC = Name
+                    "STATUS_INVALID_PARAM",
+                  nameHsIdent = HsIdentifier
+                    "STATUS_INVALID_PARAM"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Invalid parameter provided"]}]},
+              enumConstantValue = `-1`},
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:266:5",
-              enumConstantName = NamePair {
-                nameC = Name "STATUS_NO_MEMORY",
-                nameHsIdent = HsIdentifier
-                  "STATUS_NO_MEMORY"},
-              enumConstantValue = `-2`,
-              enumConstantComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Memory allocation failed"]}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:266:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_NO_MEMORY",
+                  nameHsIdent = HsIdentifier
+                    "STATUS_NO_MEMORY"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Memory allocation failed"]}]},
+              enumConstantValue = `-2`},
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:269:5",
-              enumConstantName = NamePair {
-                nameC = Name "STATUS_TIMEOUT",
-                nameHsIdent = HsIdentifier
-                  "STATUS_TIMEOUT"},
-              enumConstantValue = `-3`,
-              enumConstantComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Operation timed out"]}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:269:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_TIMEOUT",
+                  nameHsIdent = HsIdentifier
+                    "STATUS_TIMEOUT"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Operation timed out"]}]},
+              enumConstantValue = `-3`},
             EnumConstant {
-              enumConstantLoc =
-              "doxygen_docs.h:272:5",
-              enumConstantName = NamePair {
-                nameC = Name "STATUS_ERROR",
-                nameHsIdent = HsIdentifier
-                  "STATUS_ERROR"},
-              enumConstantValue = `-99`,
-              enumConstantComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Generic error"]}]}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:272:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_ERROR",
+                  nameHsIdent = HsIdentifier
+                    "STATUS_ERROR"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent "Generic error"]}]},
+              enumConstantValue = `-99`}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -2408,12 +2420,21 @@ TranslationUnit {
           structAlignment = 2,
           structFields = [
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:291:18",
-              structFieldName = NamePair {
-                nameC = Name "low",
-                nameHsIdent = HsIdentifier
-                  "data_union_t_as_parts_low"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:291:18",
+                fieldName = NamePair {
+                  nameC = Name "low",
+                  nameHsIdent = HsIdentifier
+                    "data_union_t_as_parts_low"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent "Low 16 bits"]}]},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2531,22 +2552,23 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent "Low 16 bits"]}]},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:292:18",
-              structFieldName = NamePair {
-                nameC = Name "high",
-                nameHsIdent = HsIdentifier
-                  "data_union_t_as_parts_high"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:292:18",
+                fieldName = NamePair {
+                  nameC = Name "high",
+                  nameHsIdent = HsIdentifier
+                    "data_union_t_as_parts_high"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent "High 16 bits"]}]},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2664,15 +2686,7 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent "High 16 bits"]}]}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -2721,12 +2735,22 @@ TranslationUnit {
           unionAlignment = 4,
           unionFields = [
             UnionField {
-              unionFieldLoc =
-              "doxygen_docs.h:282:13",
-              unionFieldName = NamePair {
-                nameC = Name "as_int",
-                nameHsIdent = HsIdentifier
-                  "data_union_t_as_int"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:282:13",
+                fieldName = NamePair {
+                  nameC = Name "as_int",
+                  nameHsIdent = HsIdentifier
+                    "data_union_t_as_int"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Integer representation"]}]},
               unionFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2842,41 +2866,43 @@ TranslationUnit {
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = [
-                                ]})]}},
-              unionFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Integer representation"]}]},
+                                ]})]}}},
             UnionField {
-              unionFieldLoc =
-              "doxygen_docs.h:283:11",
-              unionFieldName = NamePair {
-                nameC = Name "as_float",
-                nameHsIdent = HsIdentifier
-                  "data_union_t_as_float"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:283:11",
+                fieldName = NamePair {
+                  nameC = Name "as_float",
+                  nameHsIdent = HsIdentifier
+                    "data_union_t_as_float"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Float representation"]}]},
               unionFieldType = TypePrim
-                (PrimFloating PrimFloat),
-              unionFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Float representation"]}]},
+                (PrimFloating PrimFloat)},
             UnionField {
-              unionFieldLoc =
-              "doxygen_docs.h:284:13",
-              unionFieldName = NamePair {
-                nameC = Name "as_bytes",
-                nameHsIdent = HsIdentifier
-                  "data_union_t_as_bytes"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:284:13",
+                fieldName = NamePair {
+                  nameC = Name "as_bytes",
+                  nameHsIdent = HsIdentifier
+                    "data_union_t_as_bytes"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Byte array representation"]}]},
               unionFieldType = TypeConstArray
                 4
                 (TypeExtBinding
@@ -2994,23 +3020,21 @@ TranslationUnit {
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = [
-                                  ]})]}}),
-              unionFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Byte array representation"]}]},
+                                  ]})]}})},
             UnionField {
-              unionFieldLoc =
-              "doxygen_docs.h:293:30",
-              unionFieldName = NamePair {
-                nameC = Name "as_parts",
-                nameHsIdent = HsIdentifier
-                  "data_union_t_as_parts"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:293:30",
+                fieldName = NamePair {
+                  nameC = Name "as_parts",
+                  nameHsIdent = HsIdentifier
+                    "data_union_t_as_parts"},
+                fieldComment = Just
+                  [
+                    Paragraph
+                      [
+                        TextContent
+                          "As Parts Struct"]]},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name
@@ -3019,13 +3043,7 @@ TranslationUnit {
                     "Data_union_t_as_parts"}
                 (NameOriginGenerated
                   (AnonId
-                    "doxygen_docs.h:290:5")),
-              unionFieldComment = Just
-                [
-                  Paragraph
-                    [
-                      TextContent
-                        "As Parts Struct"]]}]},
+                    "doxygen_docs.h:290:5"))}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -3070,85 +3088,89 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:303:14",
-              structFieldName = NamePair {
-                nameC = Name "flag1",
-                nameHsIdent = HsIdentifier
-                  "bitfield_t_flag1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:303:14",
+                fieldName = NamePair {
+                  nameC = Name "flag1",
+                  nameHsIdent = HsIdentifier
+                    "bitfield_t_flag1"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "First flag (1 bit)"]}]},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 0,
-              structFieldWidth = Just 1,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "First flag (1 bit)"]}]},
+              structFieldWidth = Just 1},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:304:14",
-              structFieldName = NamePair {
-                nameC = Name "flag2",
-                nameHsIdent = HsIdentifier
-                  "bitfield_t_flag2"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:304:14",
+                fieldName = NamePair {
+                  nameC = Name "flag2",
+                  nameHsIdent = HsIdentifier
+                    "bitfield_t_flag2"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Second flag (1 bit)"]}]},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 1,
-              structFieldWidth = Just 1,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Second flag (1 bit)"]}]},
+              structFieldWidth = Just 1},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:305:14",
-              structFieldName = NamePair {
-                nameC = Name "counter",
-                nameHsIdent = HsIdentifier
-                  "bitfield_t_counter"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:305:14",
+                fieldName = NamePair {
+                  nameC = Name "counter",
+                  nameHsIdent = HsIdentifier
+                    "bitfield_t_counter"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Counter value (6 bits)"]}]},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 2,
-              structFieldWidth = Just 6,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Counter value (6 bits)"]}]},
+              structFieldWidth = Just 6},
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:306:14",
-              structFieldName = NamePair {
-                nameC = Name "reserved",
-                nameHsIdent = HsIdentifier
-                  "bitfield_t_reserved"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:306:14",
+                fieldName = NamePair {
+                  nameC = Name "reserved",
+                  nameHsIdent = HsIdentifier
+                    "bitfield_t_reserved"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Reserved bits (24 bits)"]}]},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 8,
-              structFieldWidth = Just 24,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Reserved bits (24 bits)"]}]}],
+              structFieldWidth = Just 24}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -3801,12 +3823,22 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:361:12",
-              structFieldName = NamePair {
-                nameC = Name "count",
-                nameHsIdent = HsIdentifier
-                  "flexible_array_count"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:361:12",
+                fieldName = NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = HsIdentifier
+                    "flexible_array_count"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Number of elements"]}]},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -3924,37 +3956,29 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Number of elements"]}]}],
+              structFieldWidth = Nothing}],
           structFlam = Just
             StructField {
-              structFieldLoc =
-              "doxygen_docs.h:362:9",
-              structFieldName = NamePair {
-                nameC = Name "data",
-                nameHsIdent = HsIdentifier
-                  "flexible_array_data"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:362:9",
+                fieldName = NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "flexible_array_data"},
+                fieldComment = Just
+                  [
+                    Paragraph [TextContent ""],
+                    BlockCommand {
+                      blockCommandName = "brief",
+                      blockCommandArgs = [],
+                      blockCommandParagraph = [
+                        TextContent
+                          "Flexible array member"]}]},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Just
-                [
-                  Paragraph [TextContent ""],
-                  BlockCommand {
-                    blockCommandName = "brief",
-                    blockCommandArgs = [],
-                    blockCommandParagraph = [
-                      TextContent
-                        "Flexible array member"]}]}},
+              structFieldWidth = Nothing}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

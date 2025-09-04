@@ -21,7 +21,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "redeclaration.h:11:5")
+          (Just "redeclaration.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -85,7 +90,12 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "redeclaration.h:20:13")
+          (Just "redeclaration.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -234,18 +244,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "redeclaration.h:26:16",
-              structFieldName = NamePair {
-                nameC = Name "n",
-                nameHsIdent = HsIdentifier
-                  "x_n"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "redeclaration.h:26:16",
+                fieldName = NamePair {
+                  nameC = Name "n",
+                  nameHsIdent = HsIdentifier
+                    "x_n"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "redeclaration.h:26:16")
+              (Just "redeclaration.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -266,17 +282,18 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "redeclaration.h:26:16",
-                  structFieldName = NamePair {
-                    nameC = Name "n",
-                    nameHsIdent = HsIdentifier
-                      "x_n"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "redeclaration.h:26:16",
+                    fieldName = NamePair {
+                      nameC = Name "n",
+                      nameHsIdent = HsIdentifier
+                        "x_n"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -286,7 +303,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "redeclaration.h:26:8")
+          (Just "redeclaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -307,18 +329,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "redeclaration.h:26:16",
-                  structFieldName = NamePair {
-                    nameC = Name "n",
-                    nameHsIdent = HsIdentifier
-                      "x_n"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "redeclaration.h:26:16",
+                    fieldName = NamePair {
+                      nameC = Name "n",
+                      nameHsIdent = HsIdentifier
+                        "x_n"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "redeclaration.h:26:16")
+                  (Just "redeclaration.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -339,17 +367,18 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "redeclaration.h:26:16",
-                      structFieldName = NamePair {
-                        nameC = Name "n",
-                        nameHsIdent = HsIdentifier
-                          "x_n"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "redeclaration.h:26:16",
+                        fieldName = NamePair {
+                          nameC = Name "n",
+                          nameHsIdent = HsIdentifier
+                            "x_n"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -359,7 +388,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "redeclaration.h:26:8")
+              (Just "redeclaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -383,18 +417,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "redeclaration.h:26:16",
-                          structFieldName = NamePair {
-                            nameC = Name "n",
-                            nameHsIdent = HsIdentifier
-                              "x_n"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "redeclaration.h:26:16",
+                            fieldName = NamePair {
+                              nameC = Name "n",
+                              nameHsIdent = HsIdentifier
+                                "x_n"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "redeclaration.h:26:16")
+                          (Just "redeclaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -415,17 +455,18 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "redeclaration.h:26:16",
-                              structFieldName = NamePair {
-                                nameC = Name "n",
-                                nameHsIdent = HsIdentifier
-                                  "x_n"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "redeclaration.h:26:16",
+                                fieldName = NamePair {
+                                  nameC = Name "n",
+                                  nameHsIdent = HsIdentifier
+                                    "x_n"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -435,7 +476,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "redeclaration.h:26:8")
+                      (Just "redeclaration.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -459,18 +505,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "redeclaration.h:26:16",
-                          structFieldName = NamePair {
-                            nameC = Name "n",
-                            nameHsIdent = HsIdentifier
-                              "x_n"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "redeclaration.h:26:16",
+                            fieldName = NamePair {
+                              nameC = Name "n",
+                              nameHsIdent = HsIdentifier
+                                "x_n"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "redeclaration.h:26:16")
+                          (Just "redeclaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -491,17 +543,18 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "redeclaration.h:26:16",
-                              structFieldName = NamePair {
-                                nameC = Name "n",
-                                nameHsIdent = HsIdentifier
-                                  "x_n"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "redeclaration.h:26:16",
+                                fieldName = NamePair {
+                                  nameC = Name "n",
+                                  nameHsIdent = HsIdentifier
+                                    "x_n"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -511,7 +564,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "redeclaration.h:26:8")
+                      (Just "redeclaration.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -564,7 +622,12 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just "redeclaration.h:29:7")
+          (Just "redeclaration.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -604,25 +667,29 @@
             unionAlignment = 4,
             unionFields = [
               UnionField {
-                unionFieldLoc =
-                "redeclaration.h:30:15",
-                unionFieldName = NamePair {
-                  nameC = Name "m",
-                  nameHsIdent = HsIdentifier
-                    "y_m"},
+                unionFieldInfo = FieldInfo {
+                  fieldLoc =
+                  "redeclaration.h:30:15",
+                  fieldName = NamePair {
+                    nameC = Name "m",
+                    nameHsIdent = HsIdentifier
+                      "y_m"},
+                  fieldComment = Nothing},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                unionFieldComment = Nothing},
+                  (PrimIntegral PrimInt Signed)},
               UnionField {
-                unionFieldLoc =
-                "redeclaration.h:30:22",
-                unionFieldName = NamePair {
-                  nameC = Name "o",
-                  nameHsIdent = HsIdentifier
-                    "y_o"},
+                unionFieldInfo = FieldInfo {
+                  fieldLoc =
+                  "redeclaration.h:30:22",
+                  fieldName = NamePair {
+                    nameC = Name "o",
+                    nameHsIdent = HsIdentifier
+                      "y_o"},
+                  fieldComment = Nothing},
                 unionFieldType = TypePrim
-                  (PrimIntegral PrimInt Signed),
-                unionFieldComment = Nothing}]},
+                  (PrimIntegral
+                    PrimInt
+                    Signed)}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -631,7 +698,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "redeclaration.h:30:7")
+          (Just "redeclaration.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -654,14 +726,15 @@
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "redeclaration.h:30:15")
+          (Just "redeclaration.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_y_m"]]}},
+                Identifier "set_y_m"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -673,14 +746,15 @@
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_m"]]}},
+                Identifier "get_y_m"]])},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -692,14 +766,15 @@
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          (Just "redeclaration.h:30:22")
+          (Just "redeclaration.h")
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_y_o"]]}},
+                Identifier "set_y_o"]])},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -711,11 +786,12 @@
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentChildren = [
+        (Comment
+          Nothing
+          Nothing
+          Nothing
+          [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_o"]]}}]
+                Identifier "get_y_o"]])}]

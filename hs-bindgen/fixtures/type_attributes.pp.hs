@@ -20,8 +20,20 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
+{-| __C declaration:__ @S@
+
+    __defined at:__ @type_attributes.h:8:8@
+
+    __exported by:__ @type_attributes.h@
+-}
 data S = S
   { s_f :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+    {- ^ __C declaration:__ @f@
+
+         __defined at:__ @type_attributes.h:8:18@
+
+         __exported by:__ @type_attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -42,14 +54,32 @@ instance F.Storable S where
         case s1 of
           S s_f2 -> F.pokeByteOff ptr0 (0 :: Int) s_f2
 
+{-| __C declaration:__ @more_aligned_int@
+
+    __defined at:__ @type_attributes.h:9:13@
+
+    __exported by:__ @type_attributes.h@
+-}
 newtype More_aligned_int = More_aligned_int
   { un_More_aligned_int :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __C declaration:__ @S2@
+
+    __defined at:__ @type_attributes.h:11:8@
+
+    __exported by:__ @type_attributes.h@
+-}
 data S2 = S2
   { s2_f :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+    {- ^ __C declaration:__ @f@
+
+         __defined at:__ @type_attributes.h:11:19@
+
+         __exported by:__ @type_attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -70,9 +100,27 @@ instance F.Storable S2 where
         case s1 of
           S2 s2_f2 -> F.pokeByteOff ptr0 (0 :: Int) s2_f2
 
+{-| __C declaration:__ @my_unpacked_struct@
+
+    __defined at:__ @type_attributes.h:13:8@
+
+    __exported by:__ @type_attributes.h@
+-}
 data My_unpacked_struct = My_unpacked_struct
   { my_unpacked_struct_c :: FC.CChar
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @type_attributes.h:15:8@
+
+         __exported by:__ @type_attributes.h@
+    -}
   , my_unpacked_struct_i :: FC.CInt
+    {- ^ __C declaration:__ @i@
+
+         __defined at:__ @type_attributes.h:16:7@
+
+         __exported by:__ @type_attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -96,10 +144,34 @@ instance F.Storable My_unpacked_struct where
                F.pokeByteOff ptr0 (0 :: Int) my_unpacked_struct_c2
             >> F.pokeByteOff ptr0 (4 :: Int) my_unpacked_struct_i3
 
+{-| __C declaration:__ @my_packed_struct@
+
+    __defined at:__ @type_attributes.h:19:37@
+
+    __exported by:__ @type_attributes.h@
+-}
 data My_packed_struct = My_packed_struct
   { my_packed_struct_c :: FC.CChar
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @type_attributes.h:21:9@
+
+         __exported by:__ @type_attributes.h@
+    -}
   , my_packed_struct_i :: FC.CInt
+    {- ^ __C declaration:__ @i@
+
+         __defined at:__ @type_attributes.h:22:9@
+
+         __exported by:__ @type_attributes.h@
+    -}
   , my_packed_struct_s :: My_unpacked_struct
+    {- ^ __C declaration:__ @s@
+
+         __defined at:__ @type_attributes.h:23:30@
+
+         __exported by:__ @type_attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -125,8 +197,20 @@ instance F.Storable My_packed_struct where
             >> F.pokeByteOff ptr0 (1 :: Int) my_packed_struct_i3
             >> F.pokeByteOff ptr0 (5 :: Int) my_packed_struct_s4
 
+{-| __C declaration:__ @wait@
+
+    __defined at:__ @type_attributes.h:29:9@
+
+    __exported by:__ @type_attributes.h@
+-}
 data Wait
 
+{-| __C declaration:__ @wait_status_ptr_t@
+
+    __defined at:__ @type_attributes.h:26:9@
+
+    __exported by:__ @type_attributes.h@
+-}
 newtype Wait_status_ptr_t = Wait_status_ptr_t
   { un_Wait_status_ptr_t :: Data.Array.Byte.ByteArray
   }
@@ -137,6 +221,11 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.St
 
   __See:__ 'set_wait_status_ptr_t___ip'
 
+__C declaration:__ @__ip@
+
+__defined at:__ @type_attributes.h:28:8@
+
+__exported by:__ @type_attributes.h@
 -}
 get_wait_status_ptr_t___ip :: Wait_status_ptr_t -> F.Ptr FC.CInt
 get_wait_status_ptr_t___ip =
@@ -155,6 +244,11 @@ set_wait_status_ptr_t___ip =
 
   __See:__ 'set_wait_status_ptr_t___up'
 
+__C declaration:__ @__up@
+
+__defined at:__ @type_attributes.h:29:15@
+
+__exported by:__ @type_attributes.h@
 -}
 get_wait_status_ptr_t___up :: Wait_status_ptr_t -> F.Ptr Wait
 get_wait_status_ptr_t___up =
@@ -169,12 +263,24 @@ set_wait_status_ptr_t___up :: (F.Ptr Wait) -> Wait_status_ptr_t
 set_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+{-| __C declaration:__ @T1@
+
+    __defined at:__ @type_attributes.h:32:13@
+
+    __exported by:__ @type_attributes.h@
+-}
 newtype T1 = T1
   { un_T1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __C declaration:__ @short_a@
+
+    __defined at:__ @type_attributes.h:34:46@
+
+    __exported by:__ @type_attributes.h@
+-}
 newtype Short_a = Short_a
   { un_Short_a :: FC.CShort
   }

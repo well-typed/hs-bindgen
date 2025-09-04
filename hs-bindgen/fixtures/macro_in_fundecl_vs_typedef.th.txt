@@ -20,8 +20,20 @@
 -- /* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } 
 -- void hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }
 -- /* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788 (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } 
+{-| __C declaration:__ @MC@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:4:9@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 newtype MC
     = MC {un_MC :: CChar}
+      {- ^ __C declaration:__ @MC@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:4:9@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -32,8 +44,20 @@ newtype MC
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @TC@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:5:14@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 newtype TC
     = TC {un_TC :: CChar}
+      {- ^ __C declaration:__ @TC@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:5:14@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -44,48 +68,110 @@ newtype TC
                       Ix,
                       Num,
                       Real)
-{-| -}
+{-| __C declaration:__ @quux1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:8:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad" quux1 :: MC ->
                                                                                                   TC ->
                                                                                                   IO CChar
+{-| __C declaration:__ @quux1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:8:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8" hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8 :: IO (FunPtr (MC ->
                                                                                                                                                                      TC ->
                                                                                                                                                                      IO CChar))
 {-# NOINLINE quux1_ptr #-}
 quux1_ptr :: FunPtr (MC -> TC -> IO CChar)
 quux1_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8
-{-| -}
+{-| __C declaration:__ @quux2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:9:4@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2" quux2 :: MC ->
                                                                                                   CChar ->
                                                                                                   IO TC
+{-| __C declaration:__ @quux2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:9:4@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b" hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b :: IO (FunPtr (MC ->
                                                                                                                                                                      CChar ->
                                                                                                                                                                      IO TC))
 {-# NOINLINE quux2_ptr #-}
 quux2_ptr :: FunPtr (MC -> CChar -> IO TC)
 quux2_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b
-{-| -}
+{-| __C declaration:__ @wam1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:10:5@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0" wam1 :: CFloat ->
                                                                                                  Ptr TC ->
                                                                                                  IO (Ptr MC)
+{-| __C declaration:__ @wam1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:10:5@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77" hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77 :: IO (FunPtr (CFloat ->
                                                                                                                                                                      Ptr TC ->
                                                                                                                                                                      IO (Ptr MC)))
 {-# NOINLINE wam1_ptr #-}
 wam1_ptr :: FunPtr (CFloat -> Ptr TC -> IO (Ptr MC))
 wam1_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77
-{-| -}
+{-| __C declaration:__ @wam2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:11:5@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210" wam2 :: CFloat ->
                                                                                                  Ptr MC ->
                                                                                                  IO (Ptr TC)
+{-| __C declaration:__ @wam2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:11:5@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f" hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f :: IO (FunPtr (CFloat ->
                                                                                                                                                                      Ptr MC ->
                                                                                                                                                                      IO (Ptr TC)))
 {-# NOINLINE wam2_ptr #-}
 wam2_ptr :: FunPtr (CFloat -> Ptr MC -> IO (Ptr TC))
 wam2_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f
+{-| __C declaration:__ @struct1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:18:16@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 data Struct1
-    = Struct1 {struct1_a :: CInt}
+    = Struct1 {struct1_a :: CInt
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @macro_in_fundecl_vs_typedef.h:18:30@
+
+                    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+               -}}
+      {- ^ __C declaration:__ @struct1@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:18:16@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Struct1
     where sizeOf = \_ -> 4 :: Int
@@ -93,8 +179,26 @@ instance Storable Struct1
           peek = \ptr_0 -> pure Struct1 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct1 struct1_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct1_a_3
+{-| __C declaration:__ @struct2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 data Struct2
-    = Struct2 {struct2_a :: CInt}
+    = Struct2 {struct2_a :: CInt
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @macro_in_fundecl_vs_typedef.h:19:30@
+
+                    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+               -}}
+      {- ^ __C declaration:__ @struct2@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Struct2
     where sizeOf = \_ -> 4 :: Int
@@ -102,8 +206,26 @@ instance Storable Struct2
           peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct2 struct2_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_a_3
+{-| __C declaration:__ @struct3@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:20:16@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 data Struct3
-    = Struct3 {struct3_a :: CInt}
+    = Struct3 {struct3_a :: CInt
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @macro_in_fundecl_vs_typedef.h:20:30@
+
+                    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+               -}}
+      {- ^ __C declaration:__ @struct3@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:20:16@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Struct3
     where sizeOf = \_ -> 4 :: Int
@@ -111,12 +233,42 @@ instance Storable Struct3
           peek = \ptr_0 -> pure Struct3 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct3 struct3_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct3_a_3
+{-| __C declaration:__ @struct3_t@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:20:35@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 newtype Struct3_t
     = Struct3_t {un_Struct3_t :: Struct3}
+      {- ^ __C declaration:__ @struct3_t@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:20:35@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+{-| __C declaration:__ @struct4@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:21:16@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 data Struct4
-    = Struct4 {struct4_a :: CInt}
+    = Struct4 {struct4_a :: CInt
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @macro_in_fundecl_vs_typedef.h:21:30@
+
+                    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+               -}}
+      {- ^ __C declaration:__ @struct4@
+
+           __defined at:__ @macro_in_fundecl_vs_typedef.h:21:16@
+
+           __exported by:__ @macro_in_fundecl_vs_typedef.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Struct4
     where sizeOf = \_ -> 4 :: Int
@@ -124,60 +276,126 @@ instance Storable Struct4
           peek = \ptr_0 -> pure Struct4 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3
-{-| -}
+{-| __C declaration:__ @struct_typedef1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:23:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0" struct_typedef1 :: Ptr Struct2 ->
                                                                                                             MC ->
                                                                                                             IO Unit
+{-| __C declaration:__ @struct_typedef1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:23:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009" hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009 :: IO (FunPtr (Ptr Struct2 ->
                                                                                                                                                                      MC ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE struct_typedef1_ptr #-}
 struct_typedef1_ptr :: FunPtr (Ptr Struct2 -> MC -> IO Unit)
 struct_typedef1_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009
-{-| -}
+{-| __C declaration:__ @struct_typedef2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:24:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d" struct_typedef2 :: Ptr Struct3_t ->
                                                                                                             MC ->
                                                                                                             IO Unit
+{-| __C declaration:__ @struct_typedef2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:24:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3" hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3 :: IO (FunPtr (Ptr Struct3_t ->
                                                                                                                                                                      MC ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE struct_typedef2_ptr #-}
 struct_typedef2_ptr :: FunPtr (Ptr Struct3_t -> MC -> IO Unit)
 struct_typedef2_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3
-{-| -}
+{-| __C declaration:__ @struct_typedef3@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:25:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94" struct_typedef3 :: Ptr Struct4 ->
                                                                                                             MC ->
                                                                                                             IO Unit
+{-| __C declaration:__ @struct_typedef3@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:25:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802" hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802 :: IO (FunPtr (Ptr Struct4 ->
                                                                                                                                                                      MC ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE struct_typedef3_ptr #-}
 struct_typedef3_ptr :: FunPtr (Ptr Struct4 -> MC -> IO Unit)
 struct_typedef3_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802
-{-| -}
+{-| __C declaration:__ @struct_name1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:27:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26" struct_name1 :: Ptr Struct1 ->
                                                                                                          MC ->
                                                                                                          IO Unit
+{-| __C declaration:__ @struct_name1@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:27:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835" hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835 :: IO (FunPtr (Ptr Struct1 ->
                                                                                                                                                                      MC ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE struct_name1_ptr #-}
 struct_name1_ptr :: FunPtr (Ptr Struct1 -> MC -> IO Unit)
 struct_name1_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835
-{-| -}
+{-| __C declaration:__ @struct_name2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:28:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449" struct_name2 :: Ptr Struct3 ->
                                                                                                          MC ->
                                                                                                          IO Unit
+{-| __C declaration:__ @struct_name2@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:28:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636" hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636 :: IO (FunPtr (Ptr Struct3 ->
                                                                                                                                                                      MC ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE struct_name2_ptr #-}
 struct_name2_ptr :: FunPtr (Ptr Struct3 -> MC -> IO Unit)
 struct_name2_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636
-{-| -}
+{-| __C declaration:__ @struct_name3@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:29:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf" struct_name3 :: Ptr Struct4 ->
                                                                                                          MC ->
                                                                                                          IO Unit
+{-| __C declaration:__ @struct_name3@
+
+    __defined at:__ @macro_in_fundecl_vs_typedef.h:29:6@
+
+    __exported by:__ @macro_in_fundecl_vs_typedef.h@
+-}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788" hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788 :: IO (FunPtr (Ptr Struct4 ->
                                                                                                                                                                      MC ->
                                                                                                                                                                      IO Unit))

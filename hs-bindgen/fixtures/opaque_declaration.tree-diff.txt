@@ -41,12 +41,14 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "opaque_declaration.h:5:17",
-              structFieldName = NamePair {
-                nameC = Name "ptrA",
-                nameHsIdent = HsIdentifier
-                  "bar_ptrA"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "opaque_declaration.h:5:17",
+                fieldName = NamePair {
+                  nameC = Name "ptrA",
+                  nameHsIdent = HsIdentifier
+                    "bar_ptrA"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -55,15 +57,16 @@ TranslationUnit {
                       "Foo"}
                   NameOriginInSource),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "opaque_declaration.h:6:17",
-              structFieldName = NamePair {
-                nameC = Name "ptrB",
-                nameHsIdent = HsIdentifier
-                  "bar_ptrB"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "opaque_declaration.h:6:17",
+                fieldName = NamePair {
+                  nameC = Name "ptrB",
+                  nameHsIdent = HsIdentifier
+                    "bar_ptrB"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -72,8 +75,7 @@ TranslationUnit {
                       "Bar"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

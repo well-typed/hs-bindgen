@@ -24,7 +24,12 @@
       varDeclBody = VarDeclIntegral
         1
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:1:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -50,7 +55,12 @@
       varDeclBody = VarDeclIntegral
         2
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:2:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -78,7 +88,12 @@
         [
           VarDeclIntegral 3 HsPrimCInt,
           VarDeclIntegral 3 HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:3:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -106,7 +121,12 @@
         [
           VarDeclIntegral 4 HsPrimCInt,
           VarDeclIntegral 4 HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:4:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -132,7 +152,12 @@
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:6:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -158,7 +183,12 @@
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:7:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -184,7 +214,12 @@
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:8:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -210,7 +245,12 @@
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:9:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -236,7 +276,12 @@
       varDeclBody = VarDeclIntegral
         42
         HsPrimCInt,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:10:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -263,7 +308,12 @@
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:12:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -290,7 +340,12 @@
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:13:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -317,7 +372,12 @@
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:14:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -344,7 +404,12 @@
       varDeclBody = VarDeclIntegral
         18446744073709550592
         HsPrimCULLong,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:15:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -390,7 +455,12 @@
         [
           VarDeclIntegral 1 HsPrimCInt,
           VarDeclIntegral 2 HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:17:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -436,7 +506,12 @@
         [
           VarDeclIntegral 3 HsPrimCInt,
           VarDeclIntegral 4 HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:18:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -482,7 +557,12 @@
         [
           VarDeclIntegral 5 HsPrimCInt,
           VarDeclIntegral 6 HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:19:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -505,7 +585,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         110000.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:24:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -528,7 +613,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         1.2e-2,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:25:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -551,7 +641,12 @@
                 []]}},
       varDeclBody = VarDeclFloat
         1.3e-2,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:26:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -574,7 +669,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         21.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:28:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -597,7 +697,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         2200.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:29:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -619,7 +724,12 @@
                       (FloatLikeTyCon FloatType))))
                 []]}},
       varDeclBody = VarDeclFloat 23.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:30:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -642,7 +752,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         31.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:32:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -665,7 +780,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         0.32,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:33:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -688,7 +808,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         33.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:34:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -711,7 +836,12 @@
                 []]}},
       varDeclBody = VarDeclFloat
         3.4e-3,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:35:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -734,7 +864,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         650000.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:37:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -757,7 +892,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         6.6e-2,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:38:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -780,7 +920,12 @@
                 []]}},
       varDeclBody = VarDeclFloat
         6.7e-2,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:39:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -803,7 +948,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         81.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:41:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -825,7 +975,12 @@
                       (FloatLikeTyCon FloatType))))
                 []]}},
       varDeclBody = VarDeclFloat 82.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:42:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -848,7 +1003,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         15520.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:44:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -871,7 +1031,12 @@
                 []]}},
       varDeclBody = VarDeclDouble
         98.0,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:45:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -894,7 +1059,12 @@
                 []]}},
       varDeclBody = VarDeclFloat
         9.9e-3,
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:46:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -920,7 +1090,12 @@
         [
           VarDeclDouble 0.1,
           VarDeclIntegral 1 HsPrimCInt],
-      varDeclComment = Nothing},
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:49:9")
+          (Just "macros.h")
+          [])},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -948,4 +1123,9 @@
         [
           VarDeclIntegral 2 HsPrimCLong,
           VarDeclIntegral 2 HsPrimCULong],
-      varDeclComment = Nothing}]
+      varDeclComment = Just
+        (Comment
+          Nothing
+          (Just "macros.h:50:9")
+          (Just "macros.h")
+          [])}]

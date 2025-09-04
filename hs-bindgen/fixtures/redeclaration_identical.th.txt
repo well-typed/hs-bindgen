@@ -1,3 +1,15 @@
 -- addDependentFile examples/golden/redeclaration_identical.h
+{-| __C declaration:__ @A@
+
+    __defined at:__ @redeclaration_identical.h:3:9@
+
+    __exported by:__ @redeclaration_identical.h@
+-}
 a :: CInt
+{-| __C declaration:__ @A@
+
+    __defined at:__ @redeclaration_identical.h:3:9@
+
+    __exported by:__ @redeclaration_identical.h@
+-}
 a = 5 :: CInt

@@ -16,18 +16,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:2:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "linked_list_A_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:2:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_A_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "recursive_struct.h:2:7")
+              (Just "recursive_struct.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -39,12 +45,14 @@
                 "Linked_list_A_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:3:27",
-              structFieldName = NamePair {
-                nameC = Name "next",
-                nameHsIdent = HsIdentifier
-                  "linked_list_A_t_next"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:3:27",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_A_t_next"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -54,9 +62,13 @@
                   (NameOriginRenamedFrom
                     (Name "linked_list_A_s"))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "recursive_struct.h:3:27")
+              (Just "recursive_struct.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -84,24 +96,27 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:2:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_A_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:2:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_A_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:3:27",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_A_t_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:3:27",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_A_t_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -111,8 +126,7 @@
                       (NameOriginRenamedFrom
                         (Name "linked_list_A_s"))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -122,7 +136,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "recursive_struct.h:1:16")
+          (Just "recursive_struct.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -143,18 +162,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:2:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_A_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:2:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_A_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "recursive_struct.h:2:7")
+                  (Just "recursive_struct.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -166,12 +191,14 @@
                     "Linked_list_A_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:3:27",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_A_t_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:3:27",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_A_t_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -181,9 +208,13 @@
                       (NameOriginRenamedFrom
                         (Name "linked_list_A_s"))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "recursive_struct.h:3:27")
+                  (Just "recursive_struct.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -211,24 +242,27 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "recursive_struct.h:2:7",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "linked_list_A_t_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "recursive_struct.h:2:7",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "linked_list_A_t_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "recursive_struct.h:3:27",
-                      structFieldName = NamePair {
-                        nameC = Name "next",
-                        nameHsIdent = HsIdentifier
-                          "linked_list_A_t_next"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "recursive_struct.h:3:27",
+                        fieldName = NamePair {
+                          nameC = Name "next",
+                          nameHsIdent = HsIdentifier
+                            "linked_list_A_t_next"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
@@ -238,8 +272,7 @@
                           (NameOriginRenamedFrom
                             (Name "linked_list_A_s"))),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -249,7 +282,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "recursive_struct.h:1:16")
+              (Just "recursive_struct.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -273,18 +311,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:2:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_A_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:2:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_A_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "recursive_struct.h:2:7")
+                          (Just "recursive_struct.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -296,12 +340,14 @@
                             "Linked_list_A_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:3:27",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_A_t_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:3:27",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_A_t_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -311,9 +357,13 @@
                               (NameOriginRenamedFrom
                                 (Name "linked_list_A_s"))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "recursive_struct.h:3:27")
+                          (Just "recursive_struct.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -341,24 +391,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:2:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_A_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:2:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_A_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:3:27",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_A_t_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:3:27",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_A_t_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -368,8 +421,7 @@
                                   (NameOriginRenamedFrom
                                     (Name "linked_list_A_s"))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -379,7 +431,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "recursive_struct.h:1:16")
+                      (Just "recursive_struct.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -405,18 +462,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:2:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_A_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:2:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_A_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "recursive_struct.h:2:7")
+                          (Just "recursive_struct.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -428,12 +491,14 @@
                             "Linked_list_A_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:3:27",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_A_t_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:3:27",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_A_t_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -443,9 +508,13 @@
                               (NameOriginRenamedFrom
                                 (Name "linked_list_A_s"))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "recursive_struct.h:3:27")
+                          (Just "recursive_struct.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -473,24 +542,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:2:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_A_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:2:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_A_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:3:27",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_A_t_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:3:27",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_A_t_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -500,8 +572,7 @@
                                   (NameOriginRenamedFrom
                                     (Name "linked_list_A_s"))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -511,7 +582,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "recursive_struct.h:1:16")
+                      (Just "recursive_struct.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -559,18 +635,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:10:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "linked_list_B_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:10:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_B_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "recursive_struct.h:10:7")
+              (Just "recursive_struct.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -582,12 +664,14 @@
                 "Linked_list_B_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:11:20",
-              structFieldName = NamePair {
-                nameC = Name "next",
-                nameHsIdent = HsIdentifier
-                  "linked_list_B_t_next"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:11:20",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_B_t_next"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -599,9 +683,14 @@
                           "Linked_list_B_t"}
                       NameOriginInSource))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "recursive_struct.h:11:20")
+              (Just "recursive_struct.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -627,24 +716,27 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:10:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_B_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:10:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_B_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:11:20",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_B_t_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:11:20",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_B_t_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -656,8 +748,7 @@
                               "Linked_list_B_t"}
                           NameOriginInSource))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -667,7 +758,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "recursive_struct.h:9:8")
+          (Just "recursive_struct.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -688,18 +784,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:10:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_B_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:10:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_B_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "recursive_struct.h:10:7")
+                  (Just "recursive_struct.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -711,12 +813,14 @@
                     "Linked_list_B_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "recursive_struct.h:11:20",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "linked_list_B_t_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "recursive_struct.h:11:20",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "linked_list_B_t_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -728,9 +832,14 @@
                               "Linked_list_B_t"}
                           NameOriginInSource))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "recursive_struct.h:11:20")
+                  (Just "recursive_struct.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -756,24 +865,27 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "recursive_struct.h:10:7",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "linked_list_B_t_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "recursive_struct.h:10:7",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "linked_list_B_t_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "recursive_struct.h:11:20",
-                      structFieldName = NamePair {
-                        nameC = Name "next",
-                        nameHsIdent = HsIdentifier
-                          "linked_list_B_t_next"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "recursive_struct.h:11:20",
+                        fieldName = NamePair {
+                          nameC = Name "next",
+                          nameHsIdent = HsIdentifier
+                            "linked_list_B_t_next"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
                           (TypedefSquashed
@@ -785,8 +897,7 @@
                                   "Linked_list_B_t"}
                               NameOriginInSource))),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -796,7 +907,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "recursive_struct.h:9:8")
+              (Just "recursive_struct.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -820,18 +936,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:10:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_B_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:10:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_B_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "recursive_struct.h:10:7")
+                          (Just "recursive_struct.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -843,12 +965,14 @@
                             "Linked_list_B_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:11:20",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_B_t_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:11:20",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_B_t_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -860,9 +984,14 @@
                                       "Linked_list_B_t"}
                                   NameOriginInSource))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "recursive_struct.h:11:20")
+                          (Just "recursive_struct.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -888,24 +1017,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:10:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_B_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:10:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_B_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:11:20",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_B_t_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:11:20",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_B_t_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -917,8 +1049,7 @@
                                           "Linked_list_B_t"}
                                       NameOriginInSource))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -928,7 +1059,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "recursive_struct.h:9:8")
+                      (Just "recursive_struct.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -954,18 +1090,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:10:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_B_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:10:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_B_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "recursive_struct.h:10:7")
+                          (Just "recursive_struct.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -977,12 +1119,14 @@
                             "Linked_list_B_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "recursive_struct.h:11:20",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "linked_list_B_t_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "recursive_struct.h:11:20",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "linked_list_B_t_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -994,9 +1138,14 @@
                                       "Linked_list_B_t"}
                                   NameOriginInSource))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "recursive_struct.h:11:20")
+                          (Just "recursive_struct.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1022,24 +1171,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:10:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_B_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:10:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_B_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "recursive_struct.h:11:20",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "linked_list_B_t_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "recursive_struct.h:11:20",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "linked_list_B_t_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -1051,8 +1203,7 @@
                                           "Linked_list_B_t"}
                                       NameOriginInSource))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1062,7 +1213,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "recursive_struct.h:9:8")
+                      (Just "recursive_struct.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
