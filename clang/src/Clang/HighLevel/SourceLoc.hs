@@ -62,8 +62,21 @@ data SingleLoc = SingleLoc {
       singleLocPath   :: !SourcePath
     , singleLocLine   :: !Int
     , singleLocColumn :: !Int
+    , singleLocOffset :: !Int
     }
   deriving stock (Eq, Ord, Generic)
+
+-- | Presumed location
+--
+-- Presumed locations arise from @#line@ directives, and as such don't provide
+-- an offset.
+data PresumedLoc = PresumedLoc {
+      presumedLocPath   :: !SourcePath
+    , presumedLocLine   :: !Int
+    , presumedLocColumn :: !Int
+    }
+  deriving stock (Eq, Ord, Generic)
+
 
 -- | Multiple related source locations
 --
@@ -101,7 +114,7 @@ data MultiLoc = MultiLoc {
       -- The given source location as specified in a @#line@ directive.
       --
       -- See <https://clang.llvm.org/doxygen/group__CINDEX__LOCATIONS.html#ga03508d9c944feeb3877515a1b08d36f9>
-    , multiLocPresumed :: !(Maybe SingleLoc)
+    , multiLocPresumed :: !(Maybe PresumedLoc)
 
       -- | Spelling location
       --
@@ -204,9 +217,9 @@ prettyMultiLoc :: ShowFile -> MultiLoc -> String
 prettyMultiLoc showFile multiLoc =
     intercalate " " . concat $ [
         [ prettySingleLoc showFile multiLocExpansion ]
-      , [ "<Presumed=" ++ aux loc ++ ">" | Just loc <- [multiLocPresumed] ]
-      , [ "<Spelling=" ++ aux loc ++ ">" | Just loc <- [multiLocSpelling] ]
-      , [ "<File="     ++ aux loc ++ ">" | Just loc <- [multiLocFile]     ]
+      , [ "<Presumed=" ++ presumed loc ++ ">" | Just loc <- [multiLocPresumed] ]
+      , [ "<Spelling=" ++ single   loc ++ ">" | Just loc <- [multiLocSpelling] ]
+      , [ "<File="     ++ single   loc ++ ">" | Just loc <- [multiLocFile]     ]
       ]
   where
     MultiLoc{
@@ -215,8 +228,16 @@ prettyMultiLoc showFile multiLoc =
       , multiLocSpelling
       , multiLocFile} = multiLoc
 
-    aux :: SingleLoc -> [Char]
-    aux loc =
+    presumed :: PresumedLoc -> [Char]
+    presumed loc = single $ SingleLoc{
+          singleLocPath   = presumedLocPath   loc
+        , singleLocLine   = presumedLocLine   loc
+        , singleLocColumn = presumedLocColumn loc
+        , singleLocOffset = 0 -- not used for pretty-printing
+        }
+
+    single :: SingleLoc -> [Char]
+    single loc =
         prettySingleLoc
           (if singleLocPath loc == singleLocPath multiLocExpansion
              then HideFile
@@ -256,15 +277,26 @@ toMulti :: MonadIO m => Core.CXSourceLocation -> m MultiLoc
 toMulti location = do
     expansion <- clang_getExpansionLocation location
 
-    let unlessIsExpanion :: SingleLoc -> Maybe SingleLoc
-        unlessIsExpanion loc = do
-            guard $ loc /= expansion
+    let differentSingle :: SingleLoc -> Maybe SingleLoc
+        differentSingle loc = do
+            guard $ singleLocPath   loc /= singleLocPath expansion
+            guard $ singleLocLine   loc /= singleLocLine expansion
+            guard $ singleLocColumn loc /= singleLocColumn expansion
+            -- We don't compare the file offset
+            return loc
+
+        differentPresumed :: PresumedLoc -> Maybe PresumedLoc
+        differentPresumed loc = do
+            guard $ presumedLocPath   loc /= singleLocPath expansion
+            guard $ presumedLocLine   loc /= singleLocLine expansion
+            guard $ presumedLocColumn loc /= singleLocColumn expansion
             return loc
 
     MultiLoc expansion
-      <$> (unlessIsExpanion <$> clang_getPresumedLocation location)
-      <*> (unlessIsExpanion <$> clang_getSpellingLocation location)
-      <*> (unlessIsExpanion <$> clang_getFileLocation     location)
+      <$> (differentPresumed <$> clang_getPresumedLocation location)
+      <*> (differentSingle   <$> clang_getSpellingLocation location)
+      <*> (differentSingle   <$> clang_getFileLocation     location)
+
 
 toRange :: MonadIO m => Core.CXSourceRange -> m (Range MultiLoc)
 toRange = toRangeWith toMulti
@@ -295,19 +327,19 @@ fromRange unit Range{rangeStart, rangeEnd} = do
 
 clang_getExpansionLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getExpansionLocation location =
-    toSingle' =<< Core.clang_getExpansionLocation location
+    toSingle =<< Core.clang_getExpansionLocation location
 
-clang_getPresumedLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
+clang_getPresumedLocation :: MonadIO m => Core.CXSourceLocation -> m PresumedLoc
 clang_getPresumedLocation location =
-    toSingle <$> Core.clang_getPresumedLocation location
+    toPresumed <$> Core.clang_getPresumedLocation location
 
 clang_getSpellingLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getSpellingLocation location =
-    toSingle' =<< Core.clang_getSpellingLocation location
+    toSingle =<< Core.clang_getSpellingLocation location
 
 clang_getFileLocation :: MonadIO m => Core.CXSourceLocation -> m SingleLoc
 clang_getFileLocation location =
-    toSingle' =<< Core.clang_getFileLocation location
+    toSingle =<< Core.clang_getFileLocation location
 
 {-------------------------------------------------------------------------------
   Convenience wrappers for @CXSourceLocation@
@@ -389,17 +421,22 @@ clang_getTokenExtent unit token =
   Auxiliary
 -------------------------------------------------------------------------------}
 
-toSingle :: (Text, CUInt, CUInt) -> SingleLoc
-toSingle (singleLocPath, singleLocLine, singleLocColumn) = SingleLoc{
-      singleLocPath   = SourcePath   singleLocPath
-    , singleLocLine   = fromIntegral singleLocLine
-    , singleLocColumn = fromIntegral singleLocColumn
-    }
+toSingle :: MonadIO m => (Core.CXFile, CUInt, CUInt, CUInt) -> m SingleLoc
+toSingle (file, line, column, offset) = do
+    path <- Core.clang_getFileName file
+    return SingleLoc{
+        singleLocPath   = SourcePath   path
+      , singleLocLine   = fromIntegral line
+      , singleLocColumn = fromIntegral column
+      , singleLocOffset = fromIntegral offset
+      }
 
-toSingle' :: MonadIO m => (Core.CXFile, CUInt, CUInt, CUInt) -> m SingleLoc
-toSingle' (file, singleLocLine, singleLocColumn, _offset) = do
-    singleLocPath <- Core.clang_getFileName file
-    return $ toSingle (singleLocPath, singleLocLine, singleLocColumn)
+toPresumed :: (Text, CUInt, CUInt) -> PresumedLoc
+toPresumed (path, line, column) = PresumedLoc{
+      presumedLocPath   = SourcePath   path
+    , presumedLocLine   = fromIntegral line
+    , presumedLocColumn = fromIntegral column
+    }
 
 toRangeWith ::
      MonadIO m
@@ -409,4 +446,3 @@ toRangeWith f range =
     Range
       <$> (f =<< Core.clang_getRangeStart range)
       <*> (f =<< Core.clang_getRangeEnd   range)
-
