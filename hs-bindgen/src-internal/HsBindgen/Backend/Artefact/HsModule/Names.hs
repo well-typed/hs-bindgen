@@ -136,9 +136,9 @@ nameType nm
 moduleOf :: String -> String -> HsImportModule
 moduleOf "Void"       _ = HsImportModule "Data.Void" Nothing
 moduleOf "CStringLen" _ =
-  -- We want the same qualifier whether we get CStringLen
-  -- from Foreign.C.String or GHC.Foreign, so special-case it here.
-  HsImportModule "Foreign.C.String" (Just "FC")
+  -- We want the same qualifier whether we get CStringLen from Foreign.C or
+  -- GHC.Foreign, so special-case it here.
+  HsImportModule "Foreign.C" (Just "FC")
 moduleOf "NonEmpty" _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ":|"       _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ident m0 = case parts of
