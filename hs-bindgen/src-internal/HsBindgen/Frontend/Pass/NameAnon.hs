@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.NameAnon (
   ) where
 
 import Data.Either (partitionEithers)
+import Data.Map.Strict qualified as Map
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -276,6 +277,46 @@ instance NameUseSites C.Type where
           Just useOfAnon ->
             C.DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
           Nothing -> panicPure "impossible"
+
+{-------------------------------------------------------------------------------
+  ParseStatus
+-------------------------------------------------------------------------------}
+
+-- | Name 'C.QualPrelimDeclId'
+--
+-- This function returns 'Nothing' if the declaration is anonymous and unused.
+-- Such declarations that are parsed/reified already get 'NameAnonSkipped'
+-- messages when processing the declaration.
+_nameQualPrelimDeclId ::
+     RenameEnv
+  -> C.QualPrelimDeclId
+  -> Maybe C.QualDeclId
+_nameQualPrelimDeclId env = \case
+    C.QualPrelimDeclIdNamed name nameKind ->
+      Just $ C.QualDeclId name C.NameOriginInSource nameKind
+    C.QualPrelimDeclIdAnon anonId tagKind ->
+      case findNamedUseOf env (C.NsPrelimDeclIdAnon anonId) of
+        Just useOfAnon -> Just $
+          C.QualDeclId
+            (nameForAnon useOfAnon)
+            (C.NameOriginGenerated anonId)
+            (C.NameKindTagged tagKind)
+        Nothing -> Nothing
+    C.QualPrelimDeclIdBuiltin name ->
+      Just $ C.QualDeclId name C.NameOriginBuiltin C.NameKindOrdinary
+
+-- TODO implement with the newtype wrappers
+_nameParseStatus ::
+     RenameEnv
+  -> [(C.QualPrelimDeclId, a)]         -- TODO ParseStatusParse
+  -> Map C.QualName (C.NameOrigin, a)  -- TODO ParseStatusNameAnon
+_nameParseStatus env = Map.fromList . mapMaybe aux
+  where
+    aux :: (C.QualPrelimDeclId, a) -> Maybe (C.QualName, (C.NameOrigin, a))
+    aux (qpDeclId, x) = case _nameQualPrelimDeclId env qpDeclId of
+      Just C.QualDeclId{..} -> Just $
+        (C.QualName qualDeclIdName qualDeclIdKind, (qualDeclIdOrigin, x))
+      Nothing -> Nothing
 
 {-------------------------------------------------------------------------------
   Name generation

@@ -337,7 +337,7 @@ nsPrelimDeclId prelimDeclId ns = case prelimDeclId of
 -- This type is used when names with different tag kinds must be distinguished.
 data QualPrelimDeclId =
     QualPrelimDeclIdNamed Name NameKind
-  | QualPrelimDeclIdAnon AnonId
+  | QualPrelimDeclIdAnon AnonId TagKind
   | QualPrelimDeclIdBuiltin Name
   deriving stock (Show, Eq, Ord)
 
@@ -346,13 +346,16 @@ instance PrettyForTrace QualPrelimDeclId where
     QualPrelimDeclIdNamed name kind -> case nameKindPrefix kind of
       Nothing     -> prettyForTrace name
       Just prefix -> PP.textToCtxDoc prefix <+> prettyForTrace name
-    QualPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
+    QualPrelimDeclIdAnon anonId kind ->
+      PP.textToCtxDoc (tagKindPrefix kind) <+> PP.parens (prettyForTrace anonId)
     QualPrelimDeclIdBuiltin name   -> prettyForTrace name
 
 qualPrelimDeclId :: PrelimDeclId -> NameKind -> QualPrelimDeclId
 qualPrelimDeclId prelimDeclId kind = case prelimDeclId of
     PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
-    PrelimDeclIdAnon    anonId -> QualPrelimDeclIdAnon anonId
+    PrelimDeclIdAnon    anonId -> case kind of
+      NameKindTagged tagKind -> QualPrelimDeclIdAnon anonId tagKind
+      NameKindOrdinary       -> panicPure "qualPrelimDeclId ordinary anonymous"
     PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
 
 {-------------------------------------------------------------------------------
