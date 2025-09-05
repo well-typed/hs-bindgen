@@ -6,7 +6,6 @@ module Example where
 
 import qualified C.Char
 import qualified Foreign.C as FC
-import qualified Foreign.C.String as FC
 import qualified GHC.Ptr as F
 import Prelude (Int)
 
