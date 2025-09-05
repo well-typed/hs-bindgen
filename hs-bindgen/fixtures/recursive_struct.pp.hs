@@ -5,6 +5,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as F
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 data Linked_list_A_t = Linked_list_A_t

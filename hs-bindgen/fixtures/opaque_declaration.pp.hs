@@ -5,6 +5,7 @@
 module Example where
 
 import qualified Foreign as F
+import qualified GHC.Ptr as F
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
 data Foo

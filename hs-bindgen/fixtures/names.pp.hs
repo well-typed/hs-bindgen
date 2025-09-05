@@ -4,8 +4,8 @@
 
 module Example where
 
-import qualified Foreign as F
 import qualified GHC.IO.Unsafe
+import qualified GHC.Ptr as F
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 

@@ -1,12 +1,13 @@
 {-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE MagicHash #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
 module Example where
 
 import qualified C.Char
-import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified Foreign.C.String as FC
+import qualified GHC.Ptr as F
 import Prelude (Int)
 
 c1 :: C.Char.CharValue

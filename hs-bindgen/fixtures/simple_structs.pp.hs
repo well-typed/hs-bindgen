@@ -6,6 +6,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as F
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
 data S1 = S1

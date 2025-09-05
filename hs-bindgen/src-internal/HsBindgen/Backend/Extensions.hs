@@ -13,8 +13,9 @@ import HsBindgen.Imports
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DVar Var {..} -> mconcat [
+    DVar Var {..} -> mconcat $ [
         typeExtensions varType
+      , Set.fromList [TH.MagicHash | isECString varExpr]
       ]
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
@@ -57,6 +58,11 @@ requiredExtensions = \case
   where
     ext :: TH.Extension -> Set TH.Extension
     ext = Set.singleton
+
+    isECString :: SExpr ctx -> Bool
+    isECString = \case
+      (ECString _) -> True
+      _otherExpr   -> False
 
 -- | Extensions for deriving clauses that are part of the datatype declaration
 nestedDeriving :: [(Strategy ClosedType, [Global])] -> Set TH.Extension
