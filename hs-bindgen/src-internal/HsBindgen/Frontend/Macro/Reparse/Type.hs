@@ -30,8 +30,18 @@ primTypeKeyword = choice [
     -- it would be better to not special-case this
     , keyword "bool", identifier "bool" -- newer LLVM treat "bool" as keyword, older as identifier
 
-    -- The following are unsupported
+    -- We don't really consider 'complex' to be a primitive type in
+    -- hs-bindgen.
+    --
+    -- The macro reparsing infrastructure should ideally support complex numbers,
+    -- in order to support things like this:
+    --
+    -- @
+    -- #define Length int
+    -- Length f(double complex n);
+    -- @
     , keyword "_Complex"
+    -- The following are unsupported
     , keyword "_Decimal32"
     , keyword "_Decimal64"
     , keyword "_Decimal128"

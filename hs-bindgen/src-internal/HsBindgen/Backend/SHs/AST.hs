@@ -191,6 +191,7 @@ data Global =
   | SizedByteArray_type
   | Block_type
   | PrimType HsPrimType
+  | ComplexType
   deriving stock (Eq, Ord, Show)
 
 type ClosedExpr = SExpr EmptyCtx

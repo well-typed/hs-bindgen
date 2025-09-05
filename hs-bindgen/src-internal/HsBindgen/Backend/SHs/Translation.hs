@@ -225,6 +225,7 @@ translateType = \case
     Hs.HsByteArray          -> TGlobal ByteArray_type
     Hs.HsSizedByteArray n m -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
+    Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
 
 {-------------------------------------------------------------------------------
   Sigma/Phi/Tau types
