@@ -3,7 +3,7 @@
 
 module Example where
 
-import C.Expr.HostPlatform ((*), (+))
+import qualified C.Expr.HostPlatform as C
 import qualified Foreign.C as FC
 
 oBJECTLIKE1 :: FC.CInt
@@ -13,10 +13,10 @@ oBJECTLIKE2 :: FC.CInt
 oBJECTLIKE2 = (2 :: FC.CInt)
 
 oBJECTLIKE3 :: FC.CInt
-oBJECTLIKE3 = (+) (3 :: FC.CInt) (3 :: FC.CInt)
+oBJECTLIKE3 = (C.+) (3 :: FC.CInt) (3 :: FC.CInt)
 
 oBJECTLIKE4 :: FC.CInt
-oBJECTLIKE4 = (+) (4 :: FC.CInt) (4 :: FC.CInt)
+oBJECTLIKE4 = (C.+) (4 :: FC.CInt) (4 :: FC.CInt)
 
 mEANING_OF_LIFE1 :: FC.CInt
 mEANING_OF_LIFE1 = (42 :: FC.CInt)
@@ -113,7 +113,7 @@ fLT6_3 :: FC.CFloat
 fLT6_3 = (9.9e-3 :: FC.CFloat)
 
 bAD1 :: FC.CDouble
-bAD1 = (+) (0.1 :: FC.CDouble) (1 :: FC.CInt)
+bAD1 = (C.+) (0.1 :: FC.CDouble) (1 :: FC.CInt)
 
 bAD2 :: FC.CULong
-bAD2 = (*) (2 :: FC.CLong) (2 :: FC.CULong)
+bAD2 = (C.*) (2 :: FC.CLong) (2 :: FC.CULong)
