@@ -39,6 +39,7 @@ executable run-manual
       Structs
       Globals
       FunctionPointers
+      Complex
 
   ghc-options:
       -- Avoid gcc warnings about non-NFC characters

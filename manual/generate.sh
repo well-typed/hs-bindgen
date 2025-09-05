@@ -58,6 +58,13 @@ cabal run hs-bindgen-cli -- \
     --module FunctionPointers \
     function_pointers.h
 
+cabal run hs-bindgen-cli -- \
+  preprocess \
+    -I c/ \
+    -o hs/manual/generated/Complex.hs \
+    --module Complex \
+    complex_test.h
+
 echo "# "
 echo "# External bindings: vector example"
 echo "# "
