@@ -13,6 +13,7 @@ module HsBindgen.Backend.Artefact.HsModule.Names (
   ) where
 
 import Data.Char qualified as Char
+import Data.Complex qualified as Complex
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -374,6 +375,8 @@ resolveGlobal = \case
       HsPrimCSize      -> importQ ''Foreign.C.CSize
       HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
       HsPrimInt        -> importU ''Int
+
+    ComplexType -> importQ ''Complex.Complex
 
 {-------------------------------------------------------------------------------
   BackendName

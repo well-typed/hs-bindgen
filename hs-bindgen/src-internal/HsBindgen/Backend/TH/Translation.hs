@@ -9,6 +9,7 @@ import C.Char (CharValue (..), charValueFromAddr)
 import C.Expr.HostPlatform qualified as C
 import Control.Monad (liftM2)
 import Data.Bits qualified
+import Data.Complex qualified
 import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -209,6 +210,7 @@ mkGlobal = \case
       ByteArray_setUnionPayload -> 'HsBindgen.Runtime.ByteArray.setUnionPayload
 
       PrimType t           -> mkGlobalP t
+      ComplexType          -> ''Data.Complex.Complex
 
 -- | A version of 'TH.tupleTypeName' that always uses the @(,,)@ syntax rather
 -- than @Tuple3@. This ensures consistency in TH tests across GHC versions.
@@ -397,6 +399,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     SizedByteArray_type -> panicPure "type in expression"
     Block_type          -> panicPure "type in expression"
     PrimType{}          -> panicPure "type in expression"
+    ComplexType{}       -> panicPure "type in expression"
   where
     name :: TH.Name
     name = mkGlobal n
