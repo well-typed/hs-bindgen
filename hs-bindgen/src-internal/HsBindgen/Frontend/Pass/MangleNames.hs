@@ -333,14 +333,18 @@ instance MangleDecl C.StructField where
             -> C.StructField MangleNames
           mk   structFieldName' structFieldType' structFieldComment' =
             C.StructField {
-                structFieldName = structFieldName'
+                structFieldInfo =
+                  C.FieldInfo {
+                    fieldLoc     = C.fieldLoc structFieldInfo
+                  , fieldName    = structFieldName'
+                  , fieldComment = structFieldComment'
+                  }
               , structFieldType = structFieldType'
-              , structFieldComment = structFieldComment'
               , ..
               }
-      mk <$> mangleFieldName info structFieldName
+      mk <$> mangleFieldName info (C.fieldName structFieldInfo)
          <*> mangle structFieldType
-         <*> traverse mangle structFieldComment
+         <*> traverse mangle (C.fieldComment structFieldInfo)
 
 instance MangleDecl C.Union where
   mangleDecl info C.Union{..} = do
@@ -361,14 +365,18 @@ instance MangleDecl C.UnionField where
             -> C.UnionField MangleNames
           mk unionFieldName' unionFieldType' unionFieldComment' =
             C.UnionField {
-                unionFieldName = unionFieldName'
+                unionFieldInfo =
+                  C.FieldInfo {
+                    fieldLoc     = C.fieldLoc unionFieldInfo
+                  , fieldName    = unionFieldName'
+                  , fieldComment = unionFieldComment'
+                  }
               , unionFieldType = unionFieldType'
-              , unionFieldComment = unionFieldComment'
               , ..
               }
-      mk <$> mangleFieldName info unionFieldName
+      mk <$> mangleFieldName info (C.fieldName unionFieldInfo)
          <*> mangle unionFieldType
-         <*> traverse mangle unionFieldComment
+         <*> traverse mangle (C.fieldComment unionFieldInfo)
 
 instance MangleDecl C.Enum where
   mangleDecl info C.Enum{..} = do
@@ -391,12 +399,16 @@ instance MangleDecl C.EnumConstant where
              -> Maybe (C.Comment MangleNames)
              -> C.EnumConstant MangleNames
           mk enumConstantName' enumConstantComment' = C.EnumConstant{
-                enumConstantName = enumConstantName'
-              , enumConstantComment = enumConstantComment'
+                enumConstantInfo =
+                  C.FieldInfo {
+                    fieldLoc     = C.fieldLoc enumConstantInfo
+                  , fieldName    = enumConstantName'
+                  , fieldComment = enumConstantComment'
+                  }
               , ..
               }
-      mk <$> mangleEnumConstant info enumConstantName
-         <*> traverse mangle enumConstantComment
+      mk <$> mangleEnumConstant info (C.fieldName enumConstantInfo)
+         <*> traverse mangle (C.fieldComment enumConstantInfo)
 
 instance MangleDecl C.Typedef where
   mangleDecl info C.Typedef{..} = do

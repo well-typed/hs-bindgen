@@ -308,24 +308,27 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc = "array.h:50:9",
-              structFieldName = NamePair {
-                nameC = Name "triple",
-                nameHsIdent = HsIdentifier
-                  "example_triple"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "array.h:50:9",
+                fieldName = NamePair {
+                  nameC = Name "triple",
+                  nameHsIdent = HsIdentifier
+                    "example_triple"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 3
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc = "array.h:51:9",
-              structFieldName = NamePair {
-                nameC = Name "sudoku",
-                nameHsIdent = HsIdentifier
-                  "example_sudoku"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "array.h:51:9",
+                fieldName = NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "example_sudoku"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 3
                 (TypeConstArray
@@ -333,8 +336,7 @@ TranslationUnit {
                   (TypePrim
                     (PrimIntegral PrimInt Signed))),
               structFieldOffset = 96,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

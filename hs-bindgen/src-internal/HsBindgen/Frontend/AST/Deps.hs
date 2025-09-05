@@ -31,11 +31,11 @@ data ValOrRef = ByValue | ByRef
 
 depsOfDecl :: DeclKind Parse -> [(Usage, C.NsPrelimDeclId)]
 depsOfDecl (DeclStruct Struct{..}) =
-    concatMap (depsOfField structFieldName structFieldType) structFields
+    concatMap (depsOfField (fieldName . structFieldInfo) structFieldType) structFields
 depsOfDecl DeclStructOpaque =
     []
 depsOfDecl (DeclUnion Union{..}) =
-    concatMap (depsOfField unionFieldName unionFieldType) unionFields
+    concatMap (depsOfField (fieldName . unionFieldInfo) unionFieldType) unionFields
 depsOfDecl DeclUnionOpaque =
     []
 depsOfDecl (DeclEnum _) =

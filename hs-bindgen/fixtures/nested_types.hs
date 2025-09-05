@@ -16,18 +16,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:2:9",
-              structFieldName = NamePair {
-                nameC = Name "i",
-                nameHsIdent = HsIdentifier
-                  "foo_i"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "nested_types.h:2:9",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier
+                    "foo_i"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:2:9")
+              (Just "nested_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -36,20 +41,26 @@
             HsPrimCChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:3:10",
-              structFieldName = NamePair {
-                nameC = Name "c",
-                nameHsIdent = HsIdentifier
-                  "foo_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:3:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = HsIdentifier
+                    "foo_c"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:3:10")
+              (Just "nested_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -70,31 +81,32 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:2:9",
-                  structFieldName = NamePair {
-                    nameC = Name "i",
-                    nameHsIdent = HsIdentifier
-                      "foo_i"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "nested_types.h:2:9",
+                    fieldName = NamePair {
+                      nameC = Name "i",
+                      nameHsIdent = HsIdentifier
+                        "foo_i"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:3:10",
-                  structFieldName = NamePair {
-                    nameC = Name "c",
-                    nameHsIdent = HsIdentifier
-                      "foo_c"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:3:10",
+                    fieldName = NamePair {
+                      nameC = Name "c",
+                      nameHsIdent = HsIdentifier
+                        "foo_c"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -104,7 +116,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_types.h:1:8")
+          (Just "nested_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -125,18 +142,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:2:9",
-                  structFieldName = NamePair {
-                    nameC = Name "i",
-                    nameHsIdent = HsIdentifier
-                      "foo_i"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "nested_types.h:2:9",
+                    fieldName = NamePair {
+                      nameC = Name "i",
+                      nameHsIdent = HsIdentifier
+                        "foo_i"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:2:9")
+                  (Just "nested_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -145,20 +167,26 @@
                 HsPrimCChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:3:10",
-                  structFieldName = NamePair {
-                    nameC = Name "c",
-                    nameHsIdent = HsIdentifier
-                      "foo_c"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:3:10",
+                    fieldName = NamePair {
+                      nameC = Name "c",
+                      nameHsIdent = HsIdentifier
+                        "foo_c"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:3:10")
+                  (Just "nested_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -179,31 +207,32 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:2:9",
-                      structFieldName = NamePair {
-                        nameC = Name "i",
-                        nameHsIdent = HsIdentifier
-                          "foo_i"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "nested_types.h:2:9",
+                        fieldName = NamePair {
+                          nameC = Name "i",
+                          nameHsIdent = HsIdentifier
+                            "foo_i"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:3:10",
-                      structFieldName = NamePair {
-                        nameC = Name "c",
-                        nameHsIdent = HsIdentifier
-                          "foo_c"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:3:10",
+                        fieldName = NamePair {
+                          nameC = Name "c",
+                          nameHsIdent = HsIdentifier
+                            "foo_c"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignImplicit
                             (Just Signed))),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -213,7 +242,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:1:8")
+              (Just "nested_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -237,18 +271,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:2:9",
-                          structFieldName = NamePair {
-                            nameC = Name "i",
-                            nameHsIdent = HsIdentifier
-                              "foo_i"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "nested_types.h:2:9",
+                            fieldName = NamePair {
+                              nameC = Name "i",
+                              nameHsIdent = HsIdentifier
+                                "foo_i"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:2:9")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -257,20 +296,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:3:10",
-                          structFieldName = NamePair {
-                            nameC = Name "c",
-                            nameHsIdent = HsIdentifier
-                              "foo_c"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:3:10",
+                            fieldName = NamePair {
+                              nameC = Name "c",
+                              nameHsIdent = HsIdentifier
+                                "foo_c"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:3:10")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -291,31 +336,32 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:2:9",
-                              structFieldName = NamePair {
-                                nameC = Name "i",
-                                nameHsIdent = HsIdentifier
-                                  "foo_i"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "nested_types.h:2:9",
+                                fieldName = NamePair {
+                                  nameC = Name "i",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_i"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:3:10",
-                              structFieldName = NamePair {
-                                nameC = Name "c",
-                                nameHsIdent = HsIdentifier
-                                  "foo_c"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:3:10",
+                                fieldName = NamePair {
+                                  nameC = Name "c",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_c"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -325,7 +371,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:1:8")
+                      (Just "nested_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -351,18 +402,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:2:9",
-                          structFieldName = NamePair {
-                            nameC = Name "i",
-                            nameHsIdent = HsIdentifier
-                              "foo_i"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "nested_types.h:2:9",
+                            fieldName = NamePair {
+                              nameC = Name "i",
+                              nameHsIdent = HsIdentifier
+                                "foo_i"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:2:9")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -371,20 +427,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:3:10",
-                          structFieldName = NamePair {
-                            nameC = Name "c",
-                            nameHsIdent = HsIdentifier
-                              "foo_c"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:3:10",
+                            fieldName = NamePair {
+                              nameC = Name "c",
+                              nameHsIdent = HsIdentifier
+                                "foo_c"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:3:10")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -405,31 +467,32 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:2:9",
-                              structFieldName = NamePair {
-                                nameC = Name "i",
-                                nameHsIdent = HsIdentifier
-                                  "foo_i"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "nested_types.h:2:9",
+                                fieldName = NamePair {
+                                  nameC = Name "i",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_i"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:3:10",
-                              structFieldName = NamePair {
-                                nameC = Name "c",
-                                nameHsIdent = HsIdentifier
-                                  "foo_c"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:3:10",
+                                fieldName = NamePair {
+                                  nameC = Name "c",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_c"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -439,7 +502,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:1:8")
+                      (Just "nested_types.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -487,12 +555,14 @@
             (HsName "@NsTypeConstr" "Foo"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:7:16",
-              structFieldName = NamePair {
-                nameC = Name "foo1",
-                nameHsIdent = HsIdentifier
-                  "bar_foo1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:7:16",
+                fieldName = NamePair {
+                  nameC = Name "foo1",
+                  nameHsIdent = HsIdentifier
+                    "bar_foo1"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "foo",
@@ -500,9 +570,13 @@
                     "Foo"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:7:16")
+              (Just "nested_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -511,12 +585,14 @@
             (HsName "@NsTypeConstr" "Foo"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:8:16",
-              structFieldName = NamePair {
-                nameC = Name "foo2",
-                nameHsIdent = HsIdentifier
-                  "bar_foo2"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:8:16",
+                fieldName = NamePair {
+                  nameC = Name "foo2",
+                  nameHsIdent = HsIdentifier
+                    "bar_foo2"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "foo",
@@ -524,9 +600,13 @@
                     "Foo"}
                 NameOriginInSource,
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:8:16")
+              (Just "nested_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -547,12 +627,14 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:7:16",
-                  structFieldName = NamePair {
-                    nameC = Name "foo1",
-                    nameHsIdent = HsIdentifier
-                      "bar_foo1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:7:16",
+                    fieldName = NamePair {
+                      nameC = Name "foo1",
+                      nameHsIdent = HsIdentifier
+                        "bar_foo1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "foo",
@@ -560,15 +642,16 @@
                         "Foo"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:8:16",
-                  structFieldName = NamePair {
-                    nameC = Name "foo2",
-                    nameHsIdent = HsIdentifier
-                      "bar_foo2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:8:16",
+                    fieldName = NamePair {
+                      nameC = Name "foo2",
+                      nameHsIdent = HsIdentifier
+                        "bar_foo2"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "foo",
@@ -576,8 +659,7 @@
                         "Foo"}
                     NameOriginInSource,
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -587,7 +669,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_types.h:6:8")
+          (Just "nested_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -608,12 +695,14 @@
                 (HsName "@NsTypeConstr" "Foo"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:7:16",
-                  structFieldName = NamePair {
-                    nameC = Name "foo1",
-                    nameHsIdent = HsIdentifier
-                      "bar_foo1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:7:16",
+                    fieldName = NamePair {
+                      nameC = Name "foo1",
+                      nameHsIdent = HsIdentifier
+                        "bar_foo1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "foo",
@@ -621,9 +710,13 @@
                         "Foo"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:7:16")
+                  (Just "nested_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -632,12 +725,14 @@
                 (HsName "@NsTypeConstr" "Foo"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:8:16",
-                  structFieldName = NamePair {
-                    nameC = Name "foo2",
-                    nameHsIdent = HsIdentifier
-                      "bar_foo2"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:8:16",
+                    fieldName = NamePair {
+                      nameC = Name "foo2",
+                      nameHsIdent = HsIdentifier
+                        "bar_foo2"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "foo",
@@ -645,9 +740,13 @@
                         "Foo"}
                     NameOriginInSource,
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:8:16")
+                  (Just "nested_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -668,12 +767,14 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:7:16",
-                      structFieldName = NamePair {
-                        nameC = Name "foo1",
-                        nameHsIdent = HsIdentifier
-                          "bar_foo1"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:7:16",
+                        fieldName = NamePair {
+                          nameC = Name "foo1",
+                          nameHsIdent = HsIdentifier
+                            "bar_foo1"},
+                        fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "foo",
@@ -681,15 +782,16 @@
                             "Foo"}
                         NameOriginInSource,
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:8:16",
-                      structFieldName = NamePair {
-                        nameC = Name "foo2",
-                        nameHsIdent = HsIdentifier
-                          "bar_foo2"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:8:16",
+                        fieldName = NamePair {
+                          nameC = Name "foo2",
+                          nameHsIdent = HsIdentifier
+                            "bar_foo2"},
+                        fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "foo",
@@ -697,8 +799,7 @@
                             "Foo"}
                         NameOriginInSource,
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -708,7 +809,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:6:8")
+              (Just "nested_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 4,
@@ -732,12 +838,14 @@
                         (HsName "@NsTypeConstr" "Foo"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:7:16",
-                          structFieldName = NamePair {
-                            nameC = Name "foo1",
-                            nameHsIdent = HsIdentifier
-                              "bar_foo1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:7:16",
+                            fieldName = NamePair {
+                              nameC = Name "foo1",
+                              nameHsIdent = HsIdentifier
+                                "bar_foo1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "foo",
@@ -745,9 +853,13 @@
                                 "Foo"}
                             NameOriginInSource,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:7:16")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -756,12 +868,14 @@
                         (HsName "@NsTypeConstr" "Foo"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:8:16",
-                          structFieldName = NamePair {
-                            nameC = Name "foo2",
-                            nameHsIdent = HsIdentifier
-                              "bar_foo2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:8:16",
+                            fieldName = NamePair {
+                              nameC = Name "foo2",
+                              nameHsIdent = HsIdentifier
+                                "bar_foo2"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "foo",
@@ -769,9 +883,13 @@
                                 "Foo"}
                             NameOriginInSource,
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:8:16")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -792,12 +910,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:7:16",
-                              structFieldName = NamePair {
-                                nameC = Name "foo1",
-                                nameHsIdent = HsIdentifier
-                                  "bar_foo1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:7:16",
+                                fieldName = NamePair {
+                                  nameC = Name "foo1",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_foo1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "foo",
@@ -805,15 +925,16 @@
                                     "Foo"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:8:16",
-                              structFieldName = NamePair {
-                                nameC = Name "foo2",
-                                nameHsIdent = HsIdentifier
-                                  "bar_foo2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:8:16",
+                                fieldName = NamePair {
+                                  nameC = Name "foo2",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_foo2"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "foo",
@@ -821,8 +942,7 @@
                                     "Foo"}
                                 NameOriginInSource,
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -832,7 +952,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:6:8")
+                      (Just "nested_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -858,12 +983,14 @@
                         (HsName "@NsTypeConstr" "Foo"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:7:16",
-                          structFieldName = NamePair {
-                            nameC = Name "foo1",
-                            nameHsIdent = HsIdentifier
-                              "bar_foo1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:7:16",
+                            fieldName = NamePair {
+                              nameC = Name "foo1",
+                              nameHsIdent = HsIdentifier
+                                "bar_foo1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "foo",
@@ -871,9 +998,13 @@
                                 "Foo"}
                             NameOriginInSource,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:7:16")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -882,12 +1013,14 @@
                         (HsName "@NsTypeConstr" "Foo"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:8:16",
-                          structFieldName = NamePair {
-                            nameC = Name "foo2",
-                            nameHsIdent = HsIdentifier
-                              "bar_foo2"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:8:16",
+                            fieldName = NamePair {
+                              nameC = Name "foo2",
+                              nameHsIdent = HsIdentifier
+                                "bar_foo2"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "foo",
@@ -895,9 +1028,13 @@
                                 "Foo"}
                             NameOriginInSource,
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:8:16")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -918,12 +1055,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:7:16",
-                              structFieldName = NamePair {
-                                nameC = Name "foo1",
-                                nameHsIdent = HsIdentifier
-                                  "bar_foo1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:7:16",
+                                fieldName = NamePair {
+                                  nameC = Name "foo1",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_foo1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "foo",
@@ -931,15 +1070,16 @@
                                     "Foo"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:8:16",
-                              structFieldName = NamePair {
-                                nameC = Name "foo2",
-                                nameHsIdent = HsIdentifier
-                                  "bar_foo2"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:8:16",
+                                fieldName = NamePair {
+                                  nameC = Name "foo2",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_foo2"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "foo",
@@ -947,8 +1087,7 @@
                                     "Foo"}
                                 NameOriginInSource,
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -958,7 +1097,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:6:8")
+                      (Just "nested_types.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1006,18 +1150,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:13:13",
-              structFieldName = NamePair {
-                nameC = Name "ex3_a",
-                nameHsIdent = HsIdentifier
-                  "ex3_ex3_struct_ex3_a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:13:13",
+                fieldName = NamePair {
+                  nameC = Name "ex3_a",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_struct_ex3_a"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:13:13")
+              (Just "nested_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1026,20 +1176,26 @@
             HsPrimCChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:14:14",
-              structFieldName = NamePair {
-                nameC = Name "ex3_b",
-                nameHsIdent = HsIdentifier
-                  "ex3_ex3_struct_ex3_b"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:14:14",
+                fieldName = NamePair {
+                  nameC = Name "ex3_b",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_struct_ex3_b"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:14:14")
+              (Just "nested_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1063,31 +1219,33 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:13:13",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_a",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_struct_ex3_a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:13:13",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_a",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct_ex3_a"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:14:14",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_b",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_struct_ex3_b"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:14:14",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_b",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct_ex3_b"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1097,7 +1255,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_types.h:12:5")
+          (Just "nested_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1118,18 +1281,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:13:13",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_a",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_struct_ex3_a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:13:13",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_a",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct_ex3_a"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:13:13")
+                  (Just "nested_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1138,20 +1307,26 @@
                 HsPrimCChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:14:14",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_b",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_struct_ex3_b"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:14:14",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_b",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct_ex3_b"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:14:14")
+                  (Just "nested_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1175,31 +1350,33 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:13:13",
-                      structFieldName = NamePair {
-                        nameC = Name "ex3_a",
-                        nameHsIdent = HsIdentifier
-                          "ex3_ex3_struct_ex3_a"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:13:13",
+                        fieldName = NamePair {
+                          nameC = Name "ex3_a",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct_ex3_a"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:14:14",
-                      structFieldName = NamePair {
-                        nameC = Name "ex3_b",
-                        nameHsIdent = HsIdentifier
-                          "ex3_ex3_struct_ex3_b"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:14:14",
+                        fieldName = NamePair {
+                          nameC = Name "ex3_b",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct_ex3_b"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignImplicit
                             (Just Signed))),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1209,7 +1386,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:12:5")
+              (Just "nested_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -1233,18 +1415,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:13:13",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_a",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_struct_ex3_a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:13:13",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_a",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_a"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:13:13")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1253,20 +1441,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:14:14",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_b",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_struct_ex3_b"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:14:14",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_b",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_b"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:14:14")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1290,31 +1484,33 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:13:13",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_a",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_struct_ex3_a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:13:13",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_a",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_struct_ex3_a"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:14:14",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_b",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_struct_ex3_b"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:14:14",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_b",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_struct_ex3_b"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1324,7 +1520,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:12:5")
+                      (Just "nested_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -1350,18 +1551,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:13:13",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_a",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_struct_ex3_a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:13:13",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_a",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_a"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:13:13")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1370,20 +1577,26 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:14:14",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_b",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_struct_ex3_b"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:14:14",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_b",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct_ex3_b"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:14:14")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1407,31 +1620,33 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:13:13",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_a",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_struct_ex3_a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:13:13",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_a",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_struct_ex3_a"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:14:14",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_b",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_struct_ex3_b"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:14:14",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_b",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_struct_ex3_b"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1441,7 +1656,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:12:5")
+                      (Just "nested_types.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1491,12 +1711,14 @@
               "Ex3_ex3_struct"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:15:7",
-              structFieldName = NamePair {
-                nameC = Name "ex3_struct",
-                nameHsIdent = HsIdentifier
-                  "ex3_ex3_struct"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:15:7",
+                fieldName = NamePair {
+                  nameC = Name "ex3_struct",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_struct"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "ex3_ex3_struct",
@@ -1505,9 +1727,13 @@
                 (NameOriginGenerated
                   (AnonId "nested_types.h:12:5")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:15:7")
+              (Just "nested_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1516,18 +1742,24 @@
             HsPrimCFloat,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:16:11",
-              structFieldName = NamePair {
-                nameC = Name "ex3_c",
-                nameHsIdent = HsIdentifier
-                  "ex3_ex3_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:16:11",
+                fieldName = NamePair {
+                  nameC = Name "ex3_c",
+                  nameHsIdent = HsIdentifier
+                    "ex3_ex3_c"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimFloat),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:16:11")
+              (Just "nested_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1548,12 +1780,14 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:15:7",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_struct",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_struct"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:15:7",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_struct",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "ex3_ex3_struct",
@@ -1562,20 +1796,20 @@
                     (NameOriginGenerated
                       (AnonId "nested_types.h:12:5")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:16:11",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_c",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_c"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:16:11",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_c",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_c"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1585,7 +1819,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_types.h:11:8")
+          (Just "nested_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1608,12 +1847,14 @@
                   "Ex3_ex3_struct"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:15:7",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_struct",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_struct"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:15:7",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_struct",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_struct"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "ex3_ex3_struct",
@@ -1622,9 +1863,13 @@
                     (NameOriginGenerated
                       (AnonId "nested_types.h:12:5")),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:15:7")
+                  (Just "nested_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1633,18 +1878,24 @@
                 HsPrimCFloat,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:16:11",
-                  structFieldName = NamePair {
-                    nameC = Name "ex3_c",
-                    nameHsIdent = HsIdentifier
-                      "ex3_ex3_c"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:16:11",
+                    fieldName = NamePair {
+                      nameC = Name "ex3_c",
+                      nameHsIdent = HsIdentifier
+                        "ex3_ex3_c"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimFloat),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:16:11")
+                  (Just "nested_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1665,12 +1916,14 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:15:7",
-                      structFieldName = NamePair {
-                        nameC = Name "ex3_struct",
-                        nameHsIdent = HsIdentifier
-                          "ex3_ex3_struct"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:15:7",
+                        fieldName = NamePair {
+                          nameC = Name "ex3_struct",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_struct"},
+                        fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "ex3_ex3_struct",
@@ -1679,20 +1932,20 @@
                         (NameOriginGenerated
                           (AnonId "nested_types.h:12:5")),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:16:11",
-                      structFieldName = NamePair {
-                        nameC = Name "ex3_c",
-                        nameHsIdent = HsIdentifier
-                          "ex3_ex3_c"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:16:11",
+                        fieldName = NamePair {
+                          nameC = Name "ex3_c",
+                          nameHsIdent = HsIdentifier
+                            "ex3_ex3_c"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimFloating PrimFloat),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1702,7 +1955,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:11:8")
+              (Just "nested_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -1728,12 +1986,14 @@
                           "Ex3_ex3_struct"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:15:7",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_struct",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_struct"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:15:7",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_struct",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "ex3_ex3_struct",
@@ -1742,9 +2002,13 @@
                             (NameOriginGenerated
                               (AnonId "nested_types.h:12:5")),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:15:7")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1753,18 +2017,24 @@
                         HsPrimCFloat,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:16:11",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_c",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_c"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:16:11",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_c",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_c"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimFloat),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:16:11")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1785,12 +2055,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:15:7",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_struct",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_struct"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:15:7",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_struct",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_struct"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "ex3_ex3_struct",
@@ -1799,20 +2071,20 @@
                                 (NameOriginGenerated
                                   (AnonId "nested_types.h:12:5")),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:16:11",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_c",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_c"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:16:11",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_c",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_c"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimFloat),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1822,7 +2094,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:11:8")
+                      (Just "nested_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -1850,12 +2127,14 @@
                           "Ex3_ex3_struct"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:15:7",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_struct",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_struct"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:15:7",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_struct",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_struct"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "ex3_ex3_struct",
@@ -1864,9 +2143,13 @@
                             (NameOriginGenerated
                               (AnonId "nested_types.h:12:5")),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:15:7")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1875,18 +2158,24 @@
                         HsPrimCFloat,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:16:11",
-                          structFieldName = NamePair {
-                            nameC = Name "ex3_c",
-                            nameHsIdent = HsIdentifier
-                              "ex3_ex3_c"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:16:11",
+                            fieldName = NamePair {
+                              nameC = Name "ex3_c",
+                              nameHsIdent = HsIdentifier
+                                "ex3_ex3_c"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimFloat),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:16:11")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1907,12 +2196,14 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:15:7",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_struct",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_struct"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:15:7",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_struct",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_struct"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "ex3_ex3_struct",
@@ -1921,20 +2212,20 @@
                                 (NameOriginGenerated
                                   (AnonId "nested_types.h:12:5")),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:16:11",
-                              structFieldName = NamePair {
-                                nameC = Name "ex3_c",
-                                nameHsIdent = HsIdentifier
-                                  "ex3_ex3_c"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:16:11",
+                                fieldName = NamePair {
+                                  nameC = Name "ex3_c",
+                                  nameHsIdent = HsIdentifier
+                                    "ex3_ex3_c"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimFloat),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1944,7 +2235,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:11:8")
+                      (Just "nested_types.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1992,18 +2288,24 @@
             HsPrimCDouble,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:25:16",
-              structFieldName = NamePair {
-                nameC = Name "value",
-                nameHsIdent = HsIdentifier
-                  "ex4_even_value"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:25:16",
+                fieldName = NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = HsIdentifier
+                    "ex4_even_value"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:25:16")
+              (Just "nested_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2015,12 +2317,14 @@
                 "Ex4_odd")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:26:25",
-              structFieldName = NamePair {
-                nameC = Name "next",
-                nameHsIdent = HsIdentifier
-                  "ex4_even_next"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:26:25",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = HsIdentifier
+                    "ex4_even_next"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -2029,9 +2333,13 @@
                       "Ex4_odd"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:26:25")
+              (Just "nested_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2053,24 +2361,27 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:25:16",
-                  structFieldName = NamePair {
-                    nameC = Name "value",
-                    nameHsIdent = HsIdentifier
-                      "ex4_even_value"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:25:16",
+                    fieldName = NamePair {
+                      nameC = Name "value",
+                      nameHsIdent = HsIdentifier
+                        "ex4_even_value"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:26:25",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "ex4_even_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:26:25",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "ex4_even_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -2079,8 +2390,7 @@
                           "Ex4_odd"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -2090,7 +2400,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_types.h:24:12")
+          (Just "nested_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2111,18 +2426,24 @@
                 HsPrimCDouble,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:25:16",
-                  structFieldName = NamePair {
-                    nameC = Name "value",
-                    nameHsIdent = HsIdentifier
-                      "ex4_even_value"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:25:16",
+                    fieldName = NamePair {
+                      nameC = Name "value",
+                      nameHsIdent = HsIdentifier
+                        "ex4_even_value"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:25:16")
+                  (Just "nested_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2134,12 +2455,14 @@
                     "Ex4_odd")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:26:25",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "ex4_even_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:26:25",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "ex4_even_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -2148,9 +2471,13 @@
                           "Ex4_odd"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:26:25")
+                  (Just "nested_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2172,24 +2499,27 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:25:16",
-                      structFieldName = NamePair {
-                        nameC = Name "value",
-                        nameHsIdent = HsIdentifier
-                          "ex4_even_value"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:25:16",
+                        fieldName = NamePair {
+                          nameC = Name "value",
+                          nameHsIdent = HsIdentifier
+                            "ex4_even_value"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimFloating PrimDouble),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:26:25",
-                      structFieldName = NamePair {
-                        nameC = Name "next",
-                        nameHsIdent = HsIdentifier
-                          "ex4_even_next"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:26:25",
+                        fieldName = NamePair {
+                          nameC = Name "next",
+                          nameHsIdent = HsIdentifier
+                            "ex4_even_next"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
@@ -2198,8 +2528,7 @@
                               "Ex4_odd"}
                           NameOriginInSource),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -2209,7 +2538,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:24:12")
+              (Just "nested_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2233,18 +2567,24 @@
                         HsPrimCDouble,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:25:16",
-                          structFieldName = NamePair {
-                            nameC = Name "value",
-                            nameHsIdent = HsIdentifier
-                              "ex4_even_value"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:25:16",
+                            fieldName = NamePair {
+                              nameC = Name "value",
+                              nameHsIdent = HsIdentifier
+                                "ex4_even_value"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimDouble),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:25:16")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2256,12 +2596,14 @@
                             "Ex4_odd")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:26:25",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "ex4_even_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:26:25",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "ex4_even_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -2270,9 +2612,13 @@
                                   "Ex4_odd"}
                               NameOriginInSource),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:26:25")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2294,24 +2640,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:25:16",
-                              structFieldName = NamePair {
-                                nameC = Name "value",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_even_value"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:25:16",
+                                fieldName = NamePair {
+                                  nameC = Name "value",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_even_value"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimDouble),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:26:25",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_even_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:26:25",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_even_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -2320,8 +2669,7 @@
                                       "Ex4_odd"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2331,7 +2679,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:24:12")
+                      (Just "nested_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2357,18 +2710,24 @@
                         HsPrimCDouble,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:25:16",
-                          structFieldName = NamePair {
-                            nameC = Name "value",
-                            nameHsIdent = HsIdentifier
-                              "ex4_even_value"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:25:16",
+                            fieldName = NamePair {
+                              nameC = Name "value",
+                              nameHsIdent = HsIdentifier
+                                "ex4_even_value"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimDouble),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:25:16")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2380,12 +2739,14 @@
                             "Ex4_odd")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:26:25",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "ex4_even_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:26:25",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "ex4_even_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -2394,9 +2755,13 @@
                                   "Ex4_odd"}
                               NameOriginInSource),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:26:25")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2418,24 +2783,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:25:16",
-                              structFieldName = NamePair {
-                                nameC = Name "value",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_even_value"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:25:16",
+                                fieldName = NamePair {
+                                  nameC = Name "value",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_even_value"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimDouble),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:26:25",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_even_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:26:25",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_even_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -2444,8 +2812,7 @@
                                       "Ex4_odd"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2455,7 +2822,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:24:12")
+                      (Just "nested_types.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -2503,18 +2875,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:23:9",
-              structFieldName = NamePair {
-                nameC = Name "value",
-                nameHsIdent = HsIdentifier
-                  "ex4_odd_value"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:23:9",
+                fieldName = NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = HsIdentifier
+                    "ex4_odd_value"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:23:9")
+              (Just "nested_types.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2526,12 +2904,14 @@
                 "Ex4_even")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "nested_types.h:27:8",
-              structFieldName = NamePair {
-                nameC = Name "next",
-                nameHsIdent = HsIdentifier
-                  "ex4_odd_next"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:27:8",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = HsIdentifier
+                    "ex4_odd_next"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -2540,9 +2920,13 @@
                       "Ex4_even"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:27:8")
+              (Just "nested_types.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2563,24 +2947,27 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:23:9",
-                  structFieldName = NamePair {
-                    nameC = Name "value",
-                    nameHsIdent = HsIdentifier
-                      "ex4_odd_value"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:23:9",
+                    fieldName = NamePair {
+                      nameC = Name "value",
+                      nameHsIdent = HsIdentifier
+                        "ex4_odd_value"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:27:8",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "ex4_odd_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:27:8",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "ex4_odd_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -2589,8 +2976,7 @@
                           "Ex4_even"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -2600,7 +2986,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "nested_types.h:22:8")
+          (Just "nested_types.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2621,18 +3012,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:23:9",
-                  structFieldName = NamePair {
-                    nameC = Name "value",
-                    nameHsIdent = HsIdentifier
-                      "ex4_odd_value"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:23:9",
+                    fieldName = NamePair {
+                      nameC = Name "value",
+                      nameHsIdent = HsIdentifier
+                        "ex4_odd_value"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:23:9")
+                  (Just "nested_types.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2644,12 +3041,14 @@
                     "Ex4_even")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "nested_types.h:27:8",
-                  structFieldName = NamePair {
-                    nameC = Name "next",
-                    nameHsIdent = HsIdentifier
-                      "ex4_odd_next"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "nested_types.h:27:8",
+                    fieldName = NamePair {
+                      nameC = Name "next",
+                      nameHsIdent = HsIdentifier
+                        "ex4_odd_next"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -2658,9 +3057,13 @@
                           "Ex4_even"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "nested_types.h:27:8")
+                  (Just "nested_types.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2681,24 +3084,27 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:23:9",
-                      structFieldName = NamePair {
-                        nameC = Name "value",
-                        nameHsIdent = HsIdentifier
-                          "ex4_odd_value"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:23:9",
+                        fieldName = NamePair {
+                          nameC = Name "value",
+                          nameHsIdent = HsIdentifier
+                            "ex4_odd_value"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "nested_types.h:27:8",
-                      structFieldName = NamePair {
-                        nameC = Name "next",
-                        nameHsIdent = HsIdentifier
-                          "ex4_odd_next"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "nested_types.h:27:8",
+                        fieldName = NamePair {
+                          nameC = Name "next",
+                          nameHsIdent = HsIdentifier
+                            "ex4_odd_next"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
@@ -2707,8 +3113,7 @@
                               "Ex4_even"}
                           NameOriginInSource),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -2718,7 +3123,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "nested_types.h:22:8")
+              (Just "nested_types.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2742,18 +3152,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:23:9",
-                          structFieldName = NamePair {
-                            nameC = Name "value",
-                            nameHsIdent = HsIdentifier
-                              "ex4_odd_value"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:23:9",
+                            fieldName = NamePair {
+                              nameC = Name "value",
+                              nameHsIdent = HsIdentifier
+                                "ex4_odd_value"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:23:9")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2765,12 +3181,14 @@
                             "Ex4_even")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:27:8",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "ex4_odd_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:27:8",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "ex4_odd_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -2779,9 +3197,13 @@
                                   "Ex4_even"}
                               NameOriginInSource),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:27:8")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2802,24 +3224,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:23:9",
-                              structFieldName = NamePair {
-                                nameC = Name "value",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_odd_value"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:23:9",
+                                fieldName = NamePair {
+                                  nameC = Name "value",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_odd_value"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:27:8",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_odd_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:27:8",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_odd_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -2828,8 +3253,7 @@
                                       "Ex4_even"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2839,7 +3263,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:22:8")
+                      (Just "nested_types.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2865,18 +3294,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:23:9",
-                          structFieldName = NamePair {
-                            nameC = Name "value",
-                            nameHsIdent = HsIdentifier
-                              "ex4_odd_value"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:23:9",
+                            fieldName = NamePair {
+                              nameC = Name "value",
+                              nameHsIdent = HsIdentifier
+                                "ex4_odd_value"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:23:9")
+                          (Just "nested_types.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2888,12 +3323,14 @@
                             "Ex4_even")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "nested_types.h:27:8",
-                          structFieldName = NamePair {
-                            nameC = Name "next",
-                            nameHsIdent = HsIdentifier
-                              "ex4_odd_next"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "nested_types.h:27:8",
+                            fieldName = NamePair {
+                              nameC = Name "next",
+                              nameHsIdent = HsIdentifier
+                                "ex4_odd_next"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -2902,9 +3339,13 @@
                                   "Ex4_even"}
                               NameOriginInSource),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "nested_types.h:27:8")
+                          (Just "nested_types.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2925,24 +3366,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:23:9",
-                              structFieldName = NamePair {
-                                nameC = Name "value",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_odd_value"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:23:9",
+                                fieldName = NamePair {
+                                  nameC = Name "value",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_odd_value"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "nested_types.h:27:8",
-                              structFieldName = NamePair {
-                                nameC = Name "next",
-                                nameHsIdent = HsIdentifier
-                                  "ex4_odd_next"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "nested_types.h:27:8",
+                                fieldName = NamePair {
+                                  nameC = Name "next",
+                                  nameHsIdent = HsIdentifier
+                                    "ex4_odd_next"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -2951,8 +3395,7 @@
                                       "Ex4_even"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2962,7 +3405,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "nested_types.h:22:8")
+                      (Just "nested_types.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

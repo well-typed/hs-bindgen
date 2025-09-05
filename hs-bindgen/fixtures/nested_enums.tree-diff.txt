@@ -26,24 +26,25 @@ TranslationUnit {
           enumAlignment = 4,
           enumConstants = [
             EnumConstant {
-              enumConstantLoc =
-              "nested_enums.h:3:17",
-              enumConstantName = NamePair {
-                nameC = Name "VALA_1",
-                nameHsIdent = HsIdentifier
-                  "VALA_1"},
-              enumConstantValue = 0,
-              enumConstantComment = Nothing},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "nested_enums.h:3:17",
+                fieldName = NamePair {
+                  nameC = Name "VALA_1",
+                  nameHsIdent = HsIdentifier
+                    "VALA_1"},
+                fieldComment = Nothing},
+              enumConstantValue = 0},
             EnumConstant {
-              enumConstantLoc =
-              "nested_enums.h:4:17",
-              enumConstantName = NamePair {
-                nameC = Name "VALA_2",
-                nameHsIdent = HsIdentifier
-                  "VALA_2"},
-              enumConstantValue = 1,
-              enumConstantComment =
-              Nothing}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "nested_enums.h:4:17",
+                fieldName = NamePair {
+                  nameC = Name "VALA_2",
+                  nameHsIdent = HsIdentifier
+                    "VALA_2"},
+                fieldComment = Nothing},
+              enumConstantValue = 1}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -69,12 +70,14 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "nested_enums.h:5:11",
-              structFieldName = NamePair {
-                nameC = Name "fieldA1",
-                nameHsIdent = HsIdentifier
-                  "exA_fieldA1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_enums.h:5:11",
+                fieldName = NamePair {
+                  nameC = Name "fieldA1",
+                  nameHsIdent = HsIdentifier
+                    "exA_fieldA1"},
+                fieldComment = Nothing},
               structFieldType = TypeEnum
                 NamePair {
                   nameC = Name "enumA",
@@ -82,8 +85,7 @@ TranslationUnit {
                     "EnumA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -118,24 +120,25 @@ TranslationUnit {
           enumAlignment = 4,
           enumConstants = [
             EnumConstant {
-              enumConstantLoc =
-              "nested_enums.h:10:17",
-              enumConstantName = NamePair {
-                nameC = Name "VALB_1",
-                nameHsIdent = HsIdentifier
-                  "VALB_1"},
-              enumConstantValue = 0,
-              enumConstantComment = Nothing},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "nested_enums.h:10:17",
+                fieldName = NamePair {
+                  nameC = Name "VALB_1",
+                  nameHsIdent = HsIdentifier
+                    "VALB_1"},
+                fieldComment = Nothing},
+              enumConstantValue = 0},
             EnumConstant {
-              enumConstantLoc =
-              "nested_enums.h:11:17",
-              enumConstantName = NamePair {
-                nameC = Name "VALB_2",
-                nameHsIdent = HsIdentifier
-                  "VALB_2"},
-              enumConstantValue = 1,
-              enumConstantComment =
-              Nothing}]},
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "nested_enums.h:11:17",
+                fieldName = NamePair {
+                  nameC = Name "VALB_2",
+                  nameHsIdent = HsIdentifier
+                    "VALB_2"},
+                fieldComment = Nothing},
+              enumConstantValue = 1}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -161,12 +164,14 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "nested_enums.h:12:11",
-              structFieldName = NamePair {
-                nameC = Name "fieldB1",
-                nameHsIdent = HsIdentifier
-                  "exB_fieldB1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_enums.h:12:11",
+                fieldName = NamePair {
+                  nameC = Name "fieldB1",
+                  nameHsIdent = HsIdentifier
+                    "exB_fieldB1"},
+                fieldComment = Nothing},
               structFieldType = TypeEnum
                 NamePair {
                   nameC = Name "exB_fieldB1",
@@ -175,8 +180,7 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "nested_enums.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

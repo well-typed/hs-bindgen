@@ -106,6 +106,13 @@ instance HandleUseSites C.DeclKind where
       C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
 
+instance HandleUseSites C.FieldInfo where
+  handleUseSites td C.FieldInfo{..} =
+    C.FieldInfo {
+      fieldComment = handleUseSites td <$> fieldComment
+    , ..
+    }
+
 instance HandleUseSites C.Reference where
   handleUseSites _ (C.ById i)   = C.ById i
 
@@ -121,8 +128,8 @@ instance HandleUseSites C.Struct where
 
 instance HandleUseSites C.StructField where
   handleUseSites td C.StructField{..} = C.StructField{
-        structFieldType = handleUseSites td structFieldType
-      , structFieldComment = fmap (handleUseSites td) structFieldComment
+        structFieldInfo = handleUseSites td structFieldInfo
+      , structFieldType = handleUseSites td structFieldType
       , ..
       }
 
@@ -134,8 +141,8 @@ instance HandleUseSites C.Union where
 
 instance HandleUseSites C.UnionField where
   handleUseSites td C.UnionField{..} = C.UnionField{
-        unionFieldType = handleUseSites td unionFieldType
-      , unionFieldComment = fmap (handleUseSites td) unionFieldComment
+        unionFieldInfo = handleUseSites td unionFieldInfo
+      , unionFieldType = handleUseSites td unionFieldType
       , ..
       }
 

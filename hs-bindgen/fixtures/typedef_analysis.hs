@@ -53,14 +53,14 @@
         [Eq, Show, Storable],
       structComment =
       Just
-        Comment {
-          commentTitle =
-          Just
+        (Comment
+          (Just
             [
               TextContent
-                "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-          commentOrigin = Just "struct1",
-          commentChildren = []}},
+                "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+          (Just "typedef_analysis.h:7:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -118,14 +118,14 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            Comment {
-              commentTitle =
-              Just
+            (Comment
+              (Just
                 [
                   TextContent
-                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-              commentOrigin = Just "struct1",
-              commentChildren = []}}
+                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+              (Just "typedef_analysis.h:7:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -187,14 +187,14 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    Comment {
-                      commentTitle =
-                      Just
+                    (Comment
+                      (Just
                         [
                           TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-                      commentOrigin = Just "struct1",
-                      commentChildren = []}})
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+                      (Just "typedef_analysis.h:7:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke =
           Lambda
@@ -256,14 +256,14 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    Comment {
-                      commentTitle =
-                      Just
+                    (Comment
+                      (Just
                         [
                           TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
-                      commentOrigin = Just "struct1",
-                      commentChildren = []}}
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
+                      (Just "typedef_analysis.h:7:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -332,7 +332,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:11:16")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -380,7 +386,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:11:16")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -431,7 +443,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:11:16")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -482,7 +500,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:11:16")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -535,7 +559,12 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:14:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -564,7 +593,13 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:18:16")
+          (Just "typedef_analysis.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -604,7 +639,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:21:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -647,7 +687,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:21:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -693,7 +738,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:21:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -739,7 +789,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:21:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -820,7 +875,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:22:25")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -904,7 +965,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:25:16")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -951,7 +1018,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:25:16")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1001,7 +1074,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:25:16")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1051,7 +1130,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "typedef_analysis.h:25:16")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1133,7 +1218,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:25:28")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1215,7 +1306,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:28:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1260,7 +1356,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:28:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1308,7 +1409,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:28:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1356,7 +1462,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:28:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1435,7 +1546,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:29:24")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1520,7 +1637,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:30:24")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1592,7 +1715,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:33:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1637,7 +1765,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:33:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1685,7 +1818,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:33:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1733,7 +1871,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:33:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1812,7 +1955,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:35:24")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1882,7 +2031,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:38:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1925,7 +2079,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:38:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1971,7 +2130,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:38:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2017,7 +2181,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:38:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2099,7 +2268,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:40:17")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2174,7 +2349,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:46:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2222,7 +2402,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:46:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2273,7 +2458,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:46:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2324,7 +2514,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:46:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2407,7 +2602,13 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "typedef_analysis.h:48:20")
+          (Just "typedef_analysis.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2455,18 +2656,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:52:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "struct11_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:52:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "struct11_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:52:7")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2478,12 +2685,14 @@
                 "Struct11_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:53:20",
-              structFieldName = NamePair {
-                nameC = Name "self",
-                nameHsIdent = HsIdentifier
-                  "struct11_t_self"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:53:20",
+                fieldName = NamePair {
+                  nameC = Name "self",
+                  nameHsIdent = HsIdentifier
+                    "struct11_t_self"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -2493,9 +2702,14 @@
                   (NameOriginRenamedFrom
                     (Name "struct11"))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:53:20")
+              (Just "typedef_analysis.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2523,24 +2737,27 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:52:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "struct11_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:52:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "struct11_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:53:20",
-                  structFieldName = NamePair {
-                    nameC = Name "self",
-                    nameHsIdent = HsIdentifier
-                      "struct11_t_self"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:53:20",
+                    fieldName = NamePair {
+                      nameC = Name "self",
+                      nameHsIdent = HsIdentifier
+                        "struct11_t_self"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -2550,8 +2767,7 @@
                       (NameOriginRenamedFrom
                         (Name "struct11"))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -2561,7 +2777,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:51:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2582,18 +2803,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:52:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "struct11_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:52:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "struct11_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "typedef_analysis.h:52:7")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2605,12 +2832,14 @@
                     "Struct11_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:53:20",
-                  structFieldName = NamePair {
-                    nameC = Name "self",
-                    nameHsIdent = HsIdentifier
-                      "struct11_t_self"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:53:20",
+                    fieldName = NamePair {
+                      nameC = Name "self",
+                      nameHsIdent = HsIdentifier
+                        "struct11_t_self"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -2620,9 +2849,14 @@
                       (NameOriginRenamedFrom
                         (Name "struct11"))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:53:20")
+                  (Just "typedef_analysis.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2650,24 +2884,27 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:52:7",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "struct11_t_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:52:7",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "struct11_t_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:53:20",
-                      structFieldName = NamePair {
-                        nameC = Name "self",
-                        nameHsIdent = HsIdentifier
-                          "struct11_t_self"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:53:20",
+                        fieldName = NamePair {
+                          nameC = Name "self",
+                          nameHsIdent = HsIdentifier
+                            "struct11_t_self"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
@@ -2677,8 +2914,7 @@
                           (NameOriginRenamedFrom
                             (Name "struct11"))),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -2688,7 +2924,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:51:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2712,18 +2953,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:52:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "struct11_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:52:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "struct11_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:52:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2735,12 +2982,14 @@
                             "Struct11_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:53:20",
-                          structFieldName = NamePair {
-                            nameC = Name "self",
-                            nameHsIdent = HsIdentifier
-                              "struct11_t_self"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:53:20",
+                            fieldName = NamePair {
+                              nameC = Name "self",
+                              nameHsIdent = HsIdentifier
+                                "struct11_t_self"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -2750,9 +2999,14 @@
                               (NameOriginRenamedFrom
                                 (Name "struct11"))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:53:20")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2780,24 +3034,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:52:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "struct11_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:52:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "struct11_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:53:20",
-                              structFieldName = NamePair {
-                                nameC = Name "self",
-                                nameHsIdent = HsIdentifier
-                                  "struct11_t_self"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:53:20",
+                                fieldName = NamePair {
+                                  nameC = Name "self",
+                                  nameHsIdent = HsIdentifier
+                                    "struct11_t_self"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -2807,8 +3064,7 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct11"))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2818,7 +3074,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:51:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2844,18 +3105,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:52:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "struct11_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:52:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "struct11_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:52:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2867,12 +3134,14 @@
                             "Struct11_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:53:20",
-                          structFieldName = NamePair {
-                            nameC = Name "self",
-                            nameHsIdent = HsIdentifier
-                              "struct11_t_self"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:53:20",
+                            fieldName = NamePair {
+                              nameC = Name "self",
+                              nameHsIdent = HsIdentifier
+                                "struct11_t_self"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -2882,9 +3151,14 @@
                               (NameOriginRenamedFrom
                                 (Name "struct11"))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:53:20")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2912,24 +3186,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:52:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "struct11_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:52:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "struct11_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:53:20",
-                              structFieldName = NamePair {
-                                nameC = Name "self",
-                                nameHsIdent = HsIdentifier
-                                  "struct11_t_self"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:53:20",
+                                fieldName = NamePair {
+                                  nameC = Name "self",
+                                  nameHsIdent = HsIdentifier
+                                    "struct11_t_self"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -2939,8 +3216,7 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct11"))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2950,7 +3226,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:51:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -2998,18 +3279,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:61:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "struct12_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:61:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "struct12_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:61:7")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3021,12 +3308,14 @@
                 "Struct12_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:62:15",
-              structFieldName = NamePair {
-                nameC = Name "self",
-                nameHsIdent = HsIdentifier
-                  "struct12_t_self"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:62:15",
+                fieldName = NamePair {
+                  nameC = Name "self",
+                  nameHsIdent = HsIdentifier
+                    "struct12_t_self"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -3039,9 +3328,14 @@
                       (NameOriginRenamedFrom
                         (Name "struct12"))))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:62:15")
+              (Just "typedef_analysis.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3069,24 +3363,27 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:61:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "struct12_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:61:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "struct12_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:62:15",
-                  structFieldName = NamePair {
-                    nameC = Name "self",
-                    nameHsIdent = HsIdentifier
-                      "struct12_t_self"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:62:15",
+                    fieldName = NamePair {
+                      nameC = Name "self",
+                      nameHsIdent = HsIdentifier
+                        "struct12_t_self"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -3099,8 +3396,7 @@
                           (NameOriginRenamedFrom
                             (Name "struct12"))))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -3110,7 +3406,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:60:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3131,18 +3432,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:61:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "struct12_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:61:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "struct12_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "typedef_analysis.h:61:7")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3154,12 +3461,14 @@
                     "Struct12_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:62:15",
-                  structFieldName = NamePair {
-                    nameC = Name "self",
-                    nameHsIdent = HsIdentifier
-                      "struct12_t_self"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:62:15",
+                    fieldName = NamePair {
+                      nameC = Name "self",
+                      nameHsIdent = HsIdentifier
+                        "struct12_t_self"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -3172,9 +3481,14 @@
                           (NameOriginRenamedFrom
                             (Name "struct12"))))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:62:15")
+                  (Just "typedef_analysis.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3202,24 +3516,27 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:61:7",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "struct12_t_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:61:7",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "struct12_t_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:62:15",
-                      structFieldName = NamePair {
-                        nameC = Name "self",
-                        nameHsIdent = HsIdentifier
-                          "struct12_t_self"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:62:15",
+                        fieldName = NamePair {
+                          nameC = Name "self",
+                          nameHsIdent = HsIdentifier
+                            "struct12_t_self"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
                           (TypedefSquashed
@@ -3232,8 +3549,7 @@
                               (NameOriginRenamedFrom
                                 (Name "struct12"))))),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -3243,7 +3559,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:60:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -3267,18 +3588,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:61:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "struct12_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:61:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "struct12_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:61:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3290,12 +3617,14 @@
                             "Struct12_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:62:15",
-                          structFieldName = NamePair {
-                            nameC = Name "self",
-                            nameHsIdent = HsIdentifier
-                              "struct12_t_self"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:62:15",
+                            fieldName = NamePair {
+                              nameC = Name "self",
+                              nameHsIdent = HsIdentifier
+                                "struct12_t_self"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -3308,9 +3637,14 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct12"))))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:62:15")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3338,24 +3672,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:61:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "struct12_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:61:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "struct12_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:62:15",
-                              structFieldName = NamePair {
-                                nameC = Name "self",
-                                nameHsIdent = HsIdentifier
-                                  "struct12_t_self"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:62:15",
+                                fieldName = NamePair {
+                                  nameC = Name "self",
+                                  nameHsIdent = HsIdentifier
+                                    "struct12_t_self"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -3368,8 +3705,7 @@
                                       (NameOriginRenamedFrom
                                         (Name "struct12"))))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3379,7 +3715,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:60:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -3405,18 +3746,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:61:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "struct12_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:61:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "struct12_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "typedef_analysis.h:61:7")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3428,12 +3775,14 @@
                             "Struct12_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:62:15",
-                          structFieldName = NamePair {
-                            nameC = Name "self",
-                            nameHsIdent = HsIdentifier
-                              "struct12_t_self"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:62:15",
+                            fieldName = NamePair {
+                              nameC = Name "self",
+                              nameHsIdent = HsIdentifier
+                                "struct12_t_self"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -3446,9 +3795,14 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct12"))))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:62:15")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3476,24 +3830,27 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:61:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "struct12_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:61:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "struct12_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:62:15",
-                              structFieldName = NamePair {
-                                nameC = Name "self",
-                                nameHsIdent = HsIdentifier
-                                  "struct12_t_self"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:62:15",
+                                fieldName = NamePair {
+                                  nameC = Name "self",
+                                  nameHsIdent = HsIdentifier
+                                    "struct12_t_self"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -3506,8 +3863,7 @@
                                       (NameOriginRenamedFrom
                                         (Name "struct12"))))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3517,7 +3873,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:60:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3567,13 +3928,15 @@
               "Struct1_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:68:13",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct1_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct1_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:68:13",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct1_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct1_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct1_t")
@@ -3585,9 +3948,14 @@
                     (NameOriginRenamedFrom
                       (Name "struct1")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:68:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3598,13 +3966,15 @@
               "Struct2_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:71:13",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct2_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct2_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:71:13",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct2_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct2_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct2_t")
@@ -3616,9 +3986,14 @@
                     (NameOriginRenamedFrom
                       (Name "struct2")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:71:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3630,13 +4005,15 @@
                 "Struct3_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:74:14",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct3_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct3_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:74:14",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct3_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct3_t"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -3649,9 +4026,14 @@
                       (NameOriginRenamedFrom
                         (Name "struct3"))))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:74:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3663,13 +4045,15 @@
                 "Struct4_t")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:75:14",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct4_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct4_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:75:14",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct4_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct4_t"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -3682,9 +4066,14 @@
                       (NameOriginRenamedFrom
                         (Name "struct4"))))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:75:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3695,13 +4084,15 @@
               "Struct5"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:78:18",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useStruct_struct5",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useStruct_struct5"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:78:18",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useStruct_struct5",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useStruct_struct5"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "struct5",
@@ -3709,9 +4100,14 @@
                     "Struct5"}
                 NameOriginInSource,
               structFieldOffset = 128,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:78:18")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3722,13 +4118,15 @@
               "Struct5_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:79:13",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct5_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct5_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:79:13",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct5_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct5_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -3736,9 +4134,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct5_t"}),
               structFieldOffset = 128,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:79:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3749,13 +4152,15 @@
               "Struct6_Deref"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:82:18",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useStruct_struct6",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useStruct_struct6"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:82:18",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useStruct_struct6",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useStruct_struct6"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "struct6_Deref",
@@ -3764,9 +4169,14 @@
                 (NameOriginRenamedFrom
                   (Name "struct6")),
               structFieldOffset = 192,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:82:18")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3777,13 +4187,15 @@
               "Struct6"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:83:11",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct6",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct6"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:83:11",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct6",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct6"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -3791,9 +4203,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct6"}),
               structFieldOffset = 192,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:83:11")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3804,13 +4221,15 @@
               "Struct7a"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:86:12",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct7a",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct7a"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:86:12",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct7a",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct7a"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -3818,9 +4237,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct7a"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:86:12")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3831,13 +4255,15 @@
               "Struct7b"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:87:12",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct7b",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct7b"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:87:12",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct7b",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct7b"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -3845,9 +4271,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct7b"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:87:12")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3858,13 +4289,15 @@
               "Struct8"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:91:11",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct8",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct8"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:91:11",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct8",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct8"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct8")
@@ -3875,9 +4308,14 @@
                         "Struct8"}
                     NameOriginInSource)),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:91:11")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3888,13 +4326,15 @@
               "Struct8b"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:92:12",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct8b",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct8b"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:92:12",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct8b",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct8b"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -3902,9 +4342,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct8b"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:92:12")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3915,13 +4360,15 @@
               "Struct9"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:96:11",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct9",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct9"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:96:11",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct9",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct9"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct9")
@@ -3932,9 +4379,14 @@
                         "Struct9"}
                     NameOriginInSource)),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:96:11")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3945,13 +4397,15 @@
               "Struct9_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:97:13",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct9_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct9_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:97:13",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct9_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct9_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -3959,9 +4413,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct9_t"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:97:13")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3972,13 +4431,15 @@
               "Struct10_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:98:14",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct10_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct10_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:98:14",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct10_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct10_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct10_t")
@@ -3990,9 +4451,14 @@
                     (NameOriginRenamedFrom
                       (Name "struct10")))),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:98:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4003,13 +4469,15 @@
               "Struct10_t_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:99:16",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct10_t_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct10_t_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:99:16",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct10_t_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct10_t_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -4017,9 +4485,14 @@
                     nameHsIdent = HsIdentifier
                       "Struct10_t_t"}),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:99:16")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4030,13 +4503,15 @@
               "Struct11_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:102:14",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct11_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct11_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:102:14",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct11_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct11_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct11_t")
@@ -4048,9 +4523,14 @@
                     (NameOriginRenamedFrom
                       (Name "struct11")))),
               structFieldOffset = 256,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:102:14")
+              (Just "typedef_analysis.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4061,13 +4541,15 @@
               "Struct12_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "typedef_analysis.h:103:14",
-              structFieldName = NamePair {
-                nameC = Name
-                  "useTypedef_struct12_t",
-                nameHsIdent = HsIdentifier
-                  "use_sites_useTypedef_struct12_t"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_analysis.h:103:14",
+                fieldName = NamePair {
+                  nameC = Name
+                    "useTypedef_struct12_t",
+                  nameHsIdent = HsIdentifier
+                    "use_sites_useTypedef_struct12_t"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct12_t")
@@ -4079,9 +4561,14 @@
                     (NameOriginRenamedFrom
                       (Name "struct12")))),
               structFieldOffset = 384,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "typedef_analysis.h:103:14")
+              (Just "typedef_analysis.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -4106,13 +4593,15 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:68:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct1_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct1_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:68:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct1_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct1_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct1_t")
@@ -4124,16 +4613,17 @@
                         (NameOriginRenamedFrom
                           (Name "struct1")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:71:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct2_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct2_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:71:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct2_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct2_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct2_t")
@@ -4145,16 +4635,17 @@
                         (NameOriginRenamedFrom
                           (Name "struct2")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:74:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct3_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct3_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:74:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct3_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct3_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -4167,16 +4658,17 @@
                           (NameOriginRenamedFrom
                             (Name "struct3"))))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:75:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct4_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct4_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:75:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct4_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct4_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -4189,16 +4681,17 @@
                           (NameOriginRenamedFrom
                             (Name "struct4"))))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:78:18",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useStruct_struct5",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useStruct_struct5"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:78:18",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useStruct_struct5",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useStruct_struct5"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "struct5",
@@ -4206,16 +4699,17 @@
                         "Struct5"}
                     NameOriginInSource,
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:79:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct5_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct5_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:79:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct5_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct5_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4223,16 +4717,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct5_t"}),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:82:18",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useStruct_struct6",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useStruct_struct6"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:82:18",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useStruct_struct6",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useStruct_struct6"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "struct6_Deref",
@@ -4241,16 +4736,17 @@
                     (NameOriginRenamedFrom
                       (Name "struct6")),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:83:11",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct6",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct6"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:83:11",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct6",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct6"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4258,16 +4754,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct6"}),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:86:12",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct7a",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct7a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:86:12",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct7a",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct7a"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4275,16 +4772,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct7a"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:87:12",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct7b",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct7b"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:87:12",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct7b",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct7b"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4292,16 +4790,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct7b"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:91:11",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct8",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct8"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:91:11",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct8",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct8"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct8")
@@ -4312,16 +4811,17 @@
                             "Struct8"}
                         NameOriginInSource)),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:92:12",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct8b",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct8b"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:92:12",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct8b",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct8b"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4329,16 +4829,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct8b"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:96:11",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct9",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct9"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:96:11",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct9",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct9"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct9")
@@ -4349,16 +4850,17 @@
                             "Struct9"}
                         NameOriginInSource)),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:97:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct9_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct9_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:97:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct9_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct9_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4366,16 +4868,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct9_t"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:98:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct10_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct10_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:98:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct10_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct10_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct10_t")
@@ -4387,16 +4890,17 @@
                         (NameOriginRenamedFrom
                           (Name "struct10")))),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:99:16",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct10_t_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct10_t_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:99:16",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct10_t_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct10_t_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4404,16 +4908,17 @@
                         nameHsIdent = HsIdentifier
                           "Struct10_t_t"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:102:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct11_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct11_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:102:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct11_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct11_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct11_t")
@@ -4425,16 +4930,17 @@
                         (NameOriginRenamedFrom
                           (Name "struct11")))),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:103:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct12_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct12_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:103:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct12_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct12_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct12_t")
@@ -4446,8 +4952,7 @@
                         (NameOriginRenamedFrom
                           (Name "struct12")))),
                   structFieldOffset = 384,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -4457,7 +4962,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "typedef_analysis.h:66:8")
+          (Just "typedef_analysis.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -4480,13 +4990,15 @@
                   "Struct1_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:68:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct1_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct1_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:68:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct1_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct1_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct1_t")
@@ -4498,9 +5010,14 @@
                         (NameOriginRenamedFrom
                           (Name "struct1")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:68:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4511,13 +5028,15 @@
                   "Struct2_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:71:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct2_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct2_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:71:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct2_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct2_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct2_t")
@@ -4529,9 +5048,14 @@
                         (NameOriginRenamedFrom
                           (Name "struct2")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:71:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4543,13 +5067,15 @@
                     "Struct3_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:74:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct3_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct3_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:74:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct3_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct3_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -4562,9 +5088,14 @@
                           (NameOriginRenamedFrom
                             (Name "struct3"))))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:74:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4576,13 +5107,15 @@
                     "Struct4_t")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:75:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct4_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct4_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:75:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct4_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct4_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
                       (TypedefSquashed
@@ -4595,9 +5128,14 @@
                           (NameOriginRenamedFrom
                             (Name "struct4"))))),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:75:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4608,13 +5146,15 @@
                   "Struct5"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:78:18",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useStruct_struct5",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useStruct_struct5"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:78:18",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useStruct_struct5",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useStruct_struct5"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "struct5",
@@ -4622,9 +5162,14 @@
                         "Struct5"}
                     NameOriginInSource,
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:78:18")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4635,13 +5180,15 @@
                   "Struct5_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:79:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct5_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct5_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:79:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct5_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct5_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4649,9 +5196,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct5_t"}),
                   structFieldOffset = 128,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:79:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4662,13 +5214,15 @@
                   "Struct6_Deref"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:82:18",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useStruct_struct6",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useStruct_struct6"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:82:18",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useStruct_struct6",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useStruct_struct6"},
+                    fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "struct6_Deref",
@@ -4677,9 +5231,14 @@
                     (NameOriginRenamedFrom
                       (Name "struct6")),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:82:18")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4690,13 +5249,15 @@
                   "Struct6"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:83:11",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct6",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct6"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:83:11",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct6",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct6"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4704,9 +5265,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct6"}),
                   structFieldOffset = 192,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:83:11")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4717,13 +5283,15 @@
                   "Struct7a"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:86:12",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct7a",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct7a"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:86:12",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct7a",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct7a"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4731,9 +5299,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct7a"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:86:12")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4744,13 +5317,15 @@
                   "Struct7b"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:87:12",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct7b",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct7b"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:87:12",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct7b",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct7b"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4758,9 +5333,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct7b"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:87:12")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4771,13 +5351,15 @@
                   "Struct8"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:91:11",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct8",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct8"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:91:11",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct8",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct8"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct8")
@@ -4788,9 +5370,14 @@
                             "Struct8"}
                         NameOriginInSource)),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:91:11")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4801,13 +5388,15 @@
                   "Struct8b"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:92:12",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct8b",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct8b"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:92:12",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct8b",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct8b"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4815,9 +5404,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct8b"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:92:12")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4828,13 +5422,15 @@
                   "Struct9"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:96:11",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct9",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct9"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:96:11",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct9",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct9"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct9")
@@ -4845,9 +5441,14 @@
                             "Struct9"}
                         NameOriginInSource)),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:96:11")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4858,13 +5459,15 @@
                   "Struct9_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:97:13",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct9_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct9_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:97:13",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct9_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct9_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4872,9 +5475,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct9_t"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:97:13")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4885,13 +5493,15 @@
                   "Struct10_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:98:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct10_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct10_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:98:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct10_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct10_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct10_t")
@@ -4903,9 +5513,14 @@
                         (NameOriginRenamedFrom
                           (Name "struct10")))),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:98:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4916,13 +5531,15 @@
                   "Struct10_t_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:99:16",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct10_t_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct10_t_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:99:16",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct10_t_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct10_t_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -4930,9 +5547,14 @@
                         nameHsIdent = HsIdentifier
                           "Struct10_t_t"}),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:99:16")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4943,13 +5565,15 @@
                   "Struct11_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:102:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct11_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct11_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:102:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct11_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct11_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct11_t")
@@ -4961,9 +5585,14 @@
                         (NameOriginRenamedFrom
                           (Name "struct11")))),
                   structFieldOffset = 256,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:102:14")
+                  (Just "typedef_analysis.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4974,13 +5603,15 @@
                   "Struct12_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "typedef_analysis.h:103:14",
-                  structFieldName = NamePair {
-                    nameC = Name
-                      "useTypedef_struct12_t",
-                    nameHsIdent = HsIdentifier
-                      "use_sites_useTypedef_struct12_t"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "typedef_analysis.h:103:14",
+                    fieldName = NamePair {
+                      nameC = Name
+                        "useTypedef_struct12_t",
+                      nameHsIdent = HsIdentifier
+                        "use_sites_useTypedef_struct12_t"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct12_t")
@@ -4992,9 +5623,14 @@
                         (NameOriginRenamedFrom
                           (Name "struct12")))),
                   structFieldOffset = 384,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "typedef_analysis.h:103:14")
+                  (Just "typedef_analysis.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -5019,13 +5655,15 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:68:13",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct1_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct1_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:68:13",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct1_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct1_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct1_t")
@@ -5037,16 +5675,17 @@
                             (NameOriginRenamedFrom
                               (Name "struct1")))),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:71:13",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct2_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct2_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:71:13",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct2_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct2_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct2_t")
@@ -5058,16 +5697,17 @@
                             (NameOriginRenamedFrom
                               (Name "struct2")))),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:74:14",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct3_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct3_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:74:14",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct3_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct3_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
                           (TypedefSquashed
@@ -5080,16 +5720,17 @@
                               (NameOriginRenamedFrom
                                 (Name "struct3"))))),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:75:14",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct4_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct4_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:75:14",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct4_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct4_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
                           (TypedefSquashed
@@ -5102,16 +5743,17 @@
                               (NameOriginRenamedFrom
                                 (Name "struct4"))))),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:78:18",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useStruct_struct5",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useStruct_struct5"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:78:18",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useStruct_struct5",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useStruct_struct5"},
+                        fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "struct5",
@@ -5119,16 +5761,17 @@
                             "Struct5"}
                         NameOriginInSource,
                       structFieldOffset = 128,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:79:13",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct5_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct5_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:79:13",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct5_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct5_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5136,16 +5779,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct5_t"}),
                       structFieldOffset = 128,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:82:18",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useStruct_struct6",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useStruct_struct6"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:82:18",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useStruct_struct6",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useStruct_struct6"},
+                        fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "struct6_Deref",
@@ -5154,16 +5798,17 @@
                         (NameOriginRenamedFrom
                           (Name "struct6")),
                       structFieldOffset = 192,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:83:11",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct6",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct6"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:83:11",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct6",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct6"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5171,16 +5816,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct6"}),
                       structFieldOffset = 192,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:86:12",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct7a",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct7a"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:86:12",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct7a",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct7a"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5188,16 +5834,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct7a"}),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:87:12",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct7b",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct7b"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:87:12",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct7b",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct7b"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5205,16 +5852,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct7b"}),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:91:11",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct8",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct8"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:91:11",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct8",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct8"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct8")
@@ -5225,16 +5873,17 @@
                                 "Struct8"}
                             NameOriginInSource)),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:92:12",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct8b",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct8b"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:92:12",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct8b",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct8b"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5242,16 +5891,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct8b"}),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:96:11",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct9",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct9"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:96:11",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct9",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct9"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct9")
@@ -5262,16 +5912,17 @@
                                 "Struct9"}
                             NameOriginInSource)),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:97:13",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct9_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct9_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:97:13",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct9_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct9_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5279,16 +5930,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct9_t"}),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:98:14",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct10_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct10_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:98:14",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct10_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct10_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct10_t")
@@ -5300,16 +5952,17 @@
                             (NameOriginRenamedFrom
                               (Name "struct10")))),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:99:16",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct10_t_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct10_t_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:99:16",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct10_t_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct10_t_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -5317,16 +5970,17 @@
                             nameHsIdent = HsIdentifier
                               "Struct10_t_t"}),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:102:14",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct11_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct11_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:102:14",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct11_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct11_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct11_t")
@@ -5338,16 +5992,17 @@
                             (NameOriginRenamedFrom
                               (Name "struct11")))),
                       structFieldOffset = 256,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "typedef_analysis.h:103:14",
-                      structFieldName = NamePair {
-                        nameC = Name
-                          "useTypedef_struct12_t",
-                        nameHsIdent = HsIdentifier
-                          "use_sites_useTypedef_struct12_t"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "typedef_analysis.h:103:14",
+                        fieldName = NamePair {
+                          nameC = Name
+                            "useTypedef_struct12_t",
+                          nameHsIdent = HsIdentifier
+                            "use_sites_useTypedef_struct12_t"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct12_t")
@@ -5359,8 +6014,7 @@
                             (NameOriginRenamedFrom
                               (Name "struct12")))),
                       structFieldOffset = 384,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -5370,7 +6024,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "typedef_analysis.h:66:8")
+              (Just "typedef_analysis.h")
+              [])}
         StorableInstance {
           storableSizeOf = 64,
           storableAlignment = 8,
@@ -5396,13 +6055,15 @@
                           "Struct1_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:68:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct1_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct1_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:68:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct1_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct1_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct1_t")
@@ -5414,9 +6075,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct1")))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:68:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5427,13 +6093,15 @@
                           "Struct2_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:71:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct2_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct2_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:71:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct2_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct2_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct2_t")
@@ -5445,9 +6113,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct2")))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:71:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5459,13 +6132,15 @@
                             "Struct3_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:74:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct3_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct3_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:74:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct3_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct3_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -5478,9 +6153,14 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct3"))))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:74:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5492,13 +6172,15 @@
                             "Struct4_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:75:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct4_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct4_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:75:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct4_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct4_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -5511,9 +6193,14 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct4"))))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:75:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5524,13 +6211,15 @@
                           "Struct5"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:78:18",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useStruct_struct5",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useStruct_struct5"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:78:18",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useStruct_struct5",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useStruct_struct5"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "struct5",
@@ -5538,9 +6227,14 @@
                                 "Struct5"}
                             NameOriginInSource,
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:78:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5551,13 +6245,15 @@
                           "Struct5_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:79:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct5_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct5_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:79:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct5_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct5_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5565,9 +6261,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct5_t"}),
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:79:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5578,13 +6279,15 @@
                           "Struct6_Deref"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:82:18",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useStruct_struct6",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useStruct_struct6"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:82:18",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useStruct_struct6",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useStruct_struct6"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "struct6_Deref",
@@ -5593,9 +6296,14 @@
                             (NameOriginRenamedFrom
                               (Name "struct6")),
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:82:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5606,13 +6314,15 @@
                           "Struct6"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:83:11",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct6",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct6"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:83:11",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct6",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct6"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5620,9 +6330,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct6"}),
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:83:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5633,13 +6348,15 @@
                           "Struct7a"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:86:12",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct7a",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct7a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:86:12",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct7a",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct7a"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5647,9 +6364,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct7a"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:86:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5660,13 +6382,15 @@
                           "Struct7b"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:87:12",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct7b",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct7b"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:87:12",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct7b",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct7b"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5674,9 +6398,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct7b"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:87:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5687,13 +6416,15 @@
                           "Struct8"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:91:11",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct8",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct8"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:91:11",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct8",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct8"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct8")
@@ -5704,9 +6435,14 @@
                                     "Struct8"}
                                 NameOriginInSource)),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:91:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5717,13 +6453,15 @@
                           "Struct8b"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:92:12",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct8b",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct8b"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:92:12",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct8b",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct8b"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5731,9 +6469,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct8b"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:92:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5744,13 +6487,15 @@
                           "Struct9"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:96:11",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct9",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct9"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:96:11",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct9",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct9"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct9")
@@ -5761,9 +6506,14 @@
                                     "Struct9"}
                                 NameOriginInSource)),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:96:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5774,13 +6524,15 @@
                           "Struct9_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:97:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct9_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct9_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:97:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct9_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct9_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5788,9 +6540,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct9_t"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:97:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5801,13 +6558,15 @@
                           "Struct10_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:98:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct10_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct10_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:98:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct10_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct10_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct10_t")
@@ -5819,9 +6578,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct10")))),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:98:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5832,13 +6596,15 @@
                           "Struct10_t_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:99:16",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct10_t_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct10_t_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:99:16",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct10_t_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct10_t_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -5846,9 +6612,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct10_t_t"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:99:16")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5859,13 +6630,15 @@
                           "Struct11_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:102:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct11_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct11_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:102:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct11_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct11_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct11_t")
@@ -5877,9 +6650,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct11")))),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:102:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5890,13 +6668,15 @@
                           "Struct12_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:103:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct12_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct12_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:103:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct12_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct12_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct12_t")
@@ -5908,9 +6688,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct12")))),
                           structFieldOffset = 384,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:103:14")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -5935,13 +6720,15 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:68:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct1_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct1_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:68:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct1_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct1_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct1_t")
@@ -5953,16 +6740,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct1")))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:71:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct2_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct2_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:71:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct2_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct2_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct2_t")
@@ -5974,16 +6762,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct2")))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:74:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct3_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct3_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:74:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct3_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct3_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -5996,16 +6785,17 @@
                                       (NameOriginRenamedFrom
                                         (Name "struct3"))))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:75:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct4_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct4_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:75:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct4_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct4_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -6018,16 +6808,17 @@
                                       (NameOriginRenamedFrom
                                         (Name "struct4"))))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:78:18",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useStruct_struct5",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useStruct_struct5"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:78:18",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useStruct_struct5",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useStruct_struct5"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "struct5",
@@ -6035,16 +6826,17 @@
                                     "Struct5"}
                                 NameOriginInSource,
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:79:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct5_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct5_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:79:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct5_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct5_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6052,16 +6844,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct5_t"}),
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:82:18",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useStruct_struct6",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useStruct_struct6"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:82:18",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useStruct_struct6",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useStruct_struct6"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "struct6_Deref",
@@ -6070,16 +6863,17 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct6")),
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:83:11",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct6",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct6"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:83:11",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct6",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct6"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6087,16 +6881,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct6"}),
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:86:12",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct7a",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct7a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:86:12",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct7a",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct7a"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6104,16 +6899,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct7a"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:87:12",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct7b",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct7b"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:87:12",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct7b",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct7b"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6121,16 +6917,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct7b"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:91:11",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct8",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct8"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:91:11",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct8",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct8"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct8")
@@ -6141,16 +6938,17 @@
                                         "Struct8"}
                                     NameOriginInSource)),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:92:12",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct8b",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct8b"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:92:12",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct8b",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct8b"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6158,16 +6956,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct8b"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:96:11",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct9",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct9"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:96:11",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct9",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct9"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct9")
@@ -6178,16 +6977,17 @@
                                         "Struct9"}
                                     NameOriginInSource)),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:97:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct9_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct9_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:97:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct9_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct9_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6195,16 +6995,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct9_t"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:98:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct10_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct10_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:98:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct10_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct10_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct10_t")
@@ -6216,16 +7017,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct10")))),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:99:16",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct10_t_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct10_t_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:99:16",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct10_t_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct10_t_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6233,16 +7035,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct10_t_t"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:102:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct11_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct11_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:102:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct11_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct11_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct11_t")
@@ -6254,16 +7057,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct11")))),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:103:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct12_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct12_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:103:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct12_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct12_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct12_t")
@@ -6275,8 +7079,7 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct12")))),
                               structFieldOffset = 384,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -6286,7 +7089,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:66:8")
+                      (Just "typedef_analysis.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 0,
@@ -6330,13 +7138,15 @@
                           "Struct1_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:68:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct1_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct1_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:68:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct1_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct1_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct1_t")
@@ -6348,9 +7158,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct1")))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:68:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6361,13 +7176,15 @@
                           "Struct2_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:71:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct2_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct2_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:71:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct2_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct2_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct2_t")
@@ -6379,9 +7196,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct2")))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:71:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6393,13 +7215,15 @@
                             "Struct3_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:74:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct3_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct3_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:74:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct3_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct3_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -6412,9 +7236,14 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct3"))))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:74:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6426,13 +7255,15 @@
                             "Struct4_t")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:75:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct4_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct4_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:75:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct4_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct4_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
                               (TypedefSquashed
@@ -6445,9 +7276,14 @@
                                   (NameOriginRenamedFrom
                                     (Name "struct4"))))),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:75:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6458,13 +7294,15 @@
                           "Struct5"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:78:18",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useStruct_struct5",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useStruct_struct5"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:78:18",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useStruct_struct5",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useStruct_struct5"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "struct5",
@@ -6472,9 +7310,14 @@
                                 "Struct5"}
                             NameOriginInSource,
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:78:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6485,13 +7328,15 @@
                           "Struct5_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:79:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct5_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct5_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:79:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct5_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct5_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6499,9 +7344,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct5_t"}),
                           structFieldOffset = 128,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:79:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6512,13 +7362,15 @@
                           "Struct6_Deref"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:82:18",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useStruct_struct6",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useStruct_struct6"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:82:18",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useStruct_struct6",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useStruct_struct6"},
+                            fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "struct6_Deref",
@@ -6527,9 +7379,14 @@
                             (NameOriginRenamedFrom
                               (Name "struct6")),
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:82:18")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6540,13 +7397,15 @@
                           "Struct6"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:83:11",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct6",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct6"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:83:11",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct6",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct6"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6554,9 +7413,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct6"}),
                           structFieldOffset = 192,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:83:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6567,13 +7431,15 @@
                           "Struct7a"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:86:12",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct7a",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct7a"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:86:12",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct7a",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct7a"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6581,9 +7447,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct7a"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:86:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6594,13 +7465,15 @@
                           "Struct7b"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:87:12",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct7b",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct7b"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:87:12",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct7b",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct7b"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6608,9 +7481,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct7b"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:87:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6621,13 +7499,15 @@
                           "Struct8"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:91:11",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct8",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct8"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:91:11",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct8",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct8"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct8")
@@ -6638,9 +7518,14 @@
                                     "Struct8"}
                                 NameOriginInSource)),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:91:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6651,13 +7536,15 @@
                           "Struct8b"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:92:12",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct8b",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct8b"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:92:12",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct8b",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct8b"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6665,9 +7552,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct8b"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:92:12")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6678,13 +7570,15 @@
                           "Struct9"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:96:11",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct9",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct9"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:96:11",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct9",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct9"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct9")
@@ -6695,9 +7589,14 @@
                                     "Struct9"}
                                 NameOriginInSource)),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:96:11")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6708,13 +7607,15 @@
                           "Struct9_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:97:13",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct9_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct9_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:97:13",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct9_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct9_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6722,9 +7623,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct9_t"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:97:13")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6735,13 +7641,15 @@
                           "Struct10_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:98:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct10_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct10_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:98:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct10_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct10_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct10_t")
@@ -6753,9 +7661,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct10")))),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:98:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6766,13 +7679,15 @@
                           "Struct10_t_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:99:16",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct10_t_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct10_t_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:99:16",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct10_t_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct10_t_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -6780,9 +7695,14 @@
                                 nameHsIdent = HsIdentifier
                                   "Struct10_t_t"}),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:99:16")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6793,13 +7713,15 @@
                           "Struct11_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:102:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct11_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct11_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:102:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct11_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct11_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct11_t")
@@ -6811,9 +7733,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct11")))),
                           structFieldOffset = 256,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:102:14")
+                          (Just "typedef_analysis.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6824,13 +7751,15 @@
                           "Struct12_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "typedef_analysis.h:103:14",
-                          structFieldName = NamePair {
-                            nameC = Name
-                              "useTypedef_struct12_t",
-                            nameHsIdent = HsIdentifier
-                              "use_sites_useTypedef_struct12_t"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "typedef_analysis.h:103:14",
+                            fieldName = NamePair {
+                              nameC = Name
+                                "useTypedef_struct12_t",
+                              nameHsIdent = HsIdentifier
+                                "use_sites_useTypedef_struct12_t"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct12_t")
@@ -6842,9 +7771,14 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct12")))),
                           structFieldOffset = 384,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "typedef_analysis.h:103:14")
+                          (Just "typedef_analysis.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -6869,13 +7803,15 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:68:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct1_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct1_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:68:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct1_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct1_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct1_t")
@@ -6887,16 +7823,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct1")))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:71:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct2_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct2_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:71:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct2_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct2_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct2_t")
@@ -6908,16 +7845,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct2")))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:74:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct3_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct3_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:74:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct3_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct3_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -6930,16 +7868,17 @@
                                       (NameOriginRenamedFrom
                                         (Name "struct3"))))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:75:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct4_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct4_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:75:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct4_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct4_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
                                   (TypedefSquashed
@@ -6952,16 +7891,17 @@
                                       (NameOriginRenamedFrom
                                         (Name "struct4"))))),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:78:18",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useStruct_struct5",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useStruct_struct5"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:78:18",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useStruct_struct5",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useStruct_struct5"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "struct5",
@@ -6969,16 +7909,17 @@
                                     "Struct5"}
                                 NameOriginInSource,
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:79:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct5_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct5_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:79:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct5_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct5_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -6986,16 +7927,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct5_t"}),
                               structFieldOffset = 128,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:82:18",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useStruct_struct6",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useStruct_struct6"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:82:18",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useStruct_struct6",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useStruct_struct6"},
+                                fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "struct6_Deref",
@@ -7004,16 +7946,17 @@
                                 (NameOriginRenamedFrom
                                   (Name "struct6")),
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:83:11",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct6",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct6"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:83:11",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct6",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct6"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -7021,16 +7964,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct6"}),
                               structFieldOffset = 192,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:86:12",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct7a",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct7a"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:86:12",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct7a",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct7a"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -7038,16 +7982,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct7a"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:87:12",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct7b",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct7b"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:87:12",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct7b",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct7b"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -7055,16 +8000,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct7b"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:91:11",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct8",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct8"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:91:11",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct8",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct8"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct8")
@@ -7075,16 +8021,17 @@
                                         "Struct8"}
                                     NameOriginInSource)),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:92:12",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct8b",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct8b"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:92:12",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct8b",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct8b"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -7092,16 +8039,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct8b"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:96:11",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct9",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct9"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:96:11",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct9",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct9"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct9")
@@ -7112,16 +8060,17 @@
                                         "Struct9"}
                                     NameOriginInSource)),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:97:13",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct9_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct9_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:97:13",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct9_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct9_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -7129,16 +8078,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct9_t"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:98:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct10_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct10_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:98:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct10_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct10_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct10_t")
@@ -7150,16 +8100,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct10")))),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:99:16",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct10_t_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct10_t_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:99:16",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct10_t_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct10_t_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -7167,16 +8118,17 @@
                                     nameHsIdent = HsIdentifier
                                       "Struct10_t_t"}),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:102:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct11_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct11_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:102:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct11_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct11_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct11_t")
@@ -7188,16 +8140,17 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct11")))),
                               structFieldOffset = 256,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "typedef_analysis.h:103:14",
-                              structFieldName = NamePair {
-                                nameC = Name
-                                  "useTypedef_struct12_t",
-                                nameHsIdent = HsIdentifier
-                                  "use_sites_useTypedef_struct12_t"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "typedef_analysis.h:103:14",
+                                fieldName = NamePair {
+                                  nameC = Name
+                                    "useTypedef_struct12_t",
+                                  nameHsIdent = HsIdentifier
+                                    "use_sites_useTypedef_struct12_t"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct12_t")
@@ -7209,8 +8162,7 @@
                                     (NameOriginRenamedFrom
                                       (Name "struct12")))),
                               structFieldOffset = 384,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -7220,7 +8172,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "typedef_analysis.h:66:8")
+                      (Just "typedef_analysis.h")
+                      [])}
                 (Add 18)
                 (Seq
                   [

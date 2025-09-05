@@ -13,6 +13,7 @@ module HsBindgen.Config
 
 import Clang.Args
 import HsBindgen.Backend.Artefact.HsModule.Translation
+import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
@@ -80,6 +81,7 @@ data FrontendConfig = FrontendConfig {
 data BackendConfig = BackendConfig {
       backendTranslationOpts :: TranslationOpts
     , backendHsModuleOpts    :: HsModuleOpts
+    , backendHaddockConfig   :: HaddockConfig
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default

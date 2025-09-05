@@ -6,7 +6,6 @@ module HsBindgen.Backend.Artefact.HsModule.Render (
     -- * Rendering
     render
     -- * Rendering comments
-  , prettyCommentKind
   , CommentKind (..)
   ) where
 
@@ -19,6 +18,9 @@ import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Numeric (showHex)
 
+import Clang.HighLevel qualified as C
+
+import HsBindgen.Frontend.RootHeader (HashIncludeArg(..))
 import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -34,6 +36,11 @@ import Text.SimplePrettyPrint
 
 import C.Char (CharValue (..))
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
+
+import Text.Parsec.Text (Parser)
+import Text.Parsec qualified as Parsec
+
+import System.FilePath (takeFileName)
 
 {-------------------------------------------------------------------------------
   Rendering
@@ -122,44 +129,47 @@ data CommentKind
     -- ^ Comments that will not begin with any specific documentation string
     -- since they will be taken care of by Template Haskell
 
--- Once #947 is done this won't be needed
---
-prettyCommentKind :: Bool -> CommentKind -> CtxDoc
-prettyCommentKind includeCName commentKind =
-  let (commentStart, commentEnd, Hs.Comment {..}) =
-        case commentKind of
-          TopLevelComment c          -> ("{-|", "-}", c)
-          PartOfDeclarationComment c -> ("{- ^", "-}", c)
-          THComment c                -> ("", "", c)
-      indentation = length commentStart - 1
-      fromCCtxDoc =
-        case commentOrigin of
-          Nothing    -> empty
-          Just cName
-            | includeCName ->
-              nest indentation $
-                "__from C:__ @" >< textToCtxDoc cName >< "@"
-            | otherwise    -> empty
-      firstContent =
-        case commentTitle of
-          Nothing -> empty
-          Just ct -> hsep (map pretty ct)
-      -- If the comment only has the the origin C Name then use that has the
-      -- title.
-   in case commentChildren of
-        [] | Nothing <- commentTitle ->
-              string commentStart
-          <+> fromCCtxDoc
-          <+> string commentEnd
-
-        _  -> vsep (string commentStart <+> firstContent
-                   : map (nest indentation . pretty) commentChildren)
-          $+$ vcat [ fromCCtxDoc
-                   , string commentEnd
-                   ]
-
 instance Pretty CommentKind where
-  pretty = prettyCommentKind True
+  pretty commentKind =
+    let (commentStart, commentEnd, Hs.Comment {..}) =
+          case commentKind of
+            TopLevelComment c          -> ("{-|", "-}", c)
+            PartOfDeclarationComment c -> ("{- ^", "-}", c)
+            THComment c                -> ("", "", c)
+        indentation = length commentStart - 1
+        fromCCtxDoc =
+          case transformFilepath <$> commentOrigin of
+            Nothing    -> empty
+            Just cName ->
+              let parts = [ Just $ "__C declaration:__ @"
+                                >< textToCtxDoc cName
+                                >< "@"
+                          , (\loc -> "__defined at:__ @"
+                                  >< string (C.prettySingleLoc C.ShowFile loc)
+                                  >< "@") <$> commentLocation
+                          , (\header -> "__exported by:__ @"
+                                     >< (string . getHashIncludeArg $ header)
+                                     >< "@") <$> commentHeader
+                          ]
+              in vsep (catMaybes parts)
+        firstContent =
+          case commentTitle of
+            Nothing -> empty
+            Just ct -> hsep (map pretty ct)
+        -- If the comment only has the the origin C Name then use that has the
+        -- title.
+     in case commentChildren of
+          [] | Nothing <- commentTitle ->
+                string commentStart
+            <+> fromCCtxDoc
+             $$ string commentEnd
+             | otherwise -> empty
+
+          _  -> vsep (string commentStart <+> firstContent
+                     : map (nest indentation . pretty) commentChildren)
+            $+$ vcat [ fromCCtxDoc
+                     , string commentEnd
+                     ]
 
 instance Pretty Hs.CommentBlockContent where
   pretty = \case
@@ -719,3 +729,42 @@ instance Pretty ExtHsRef where
 unsnoc :: [a] -> Maybe ([a], a)
 unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
 {-# INLINABLE unsnoc #-}
+
+-- | Helper function that parses a string and sanitizes the filepath in such a
+-- way that it keeps only the file name.
+--
+-- This is needed due to anonimous structures not playing well with golden
+-- tests. See #966.
+--
+transformFilepath :: Text -> Text
+transformFilepath t =
+  case Parsec.parse parseUnnamed "" t of
+    Left _ -> t
+    Right r -> r
+  where
+
+    parseUnnamed :: Parser Text
+    parseUnnamed = do
+      -- Parse everything before the filepath
+      prefix <- Parsec.many (Parsec.noneOf "/")
+
+      -- Parse the filepath (starts with / and continues until :)
+      filepath <- pathParser
+
+      -- Parse everything after the filepath
+      suffix <- Parsec.many Parsec.anyChar
+
+      -- Extract just the filename from the full path
+      let filename = takeFileName filepath
+
+      -- Reconstruct with just the filename
+      return $ Text.pack (prefix ++ filename ++ suffix)
+
+    -- Parser for a filepath (anything with slashes ending before a colon)
+    pathParser :: Parser FilePath
+    pathParser = do
+      -- Must start with a slash to identify it as a path
+      slash <- Parsec.char '/'
+      -- Continue parsing until we hit a colon
+      rest <- Parsec.many1 (Parsec.noneOf ":")
+      return $ slash : rest

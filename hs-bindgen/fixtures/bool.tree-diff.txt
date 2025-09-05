@@ -19,27 +19,29 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [
             StructField {
-              structFieldLoc = "bool.h:2:11",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "bools1_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:2:11",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "bools1_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc = "bool.h:3:11",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "bools1_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:3:11",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "bools1_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 8,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -66,27 +68,29 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [
             StructField {
-              structFieldLoc = "bool.h:9:10",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "bools2_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:9:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "bools2_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc = "bool.h:10:10",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "bools2_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:10:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "bools2_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 8,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -141,11 +145,13 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [
             StructField {
-              structFieldLoc = "bool.h:16:10",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "bools3_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:16:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "bools3_x"},
+                fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
@@ -154,14 +160,15 @@ TranslationUnit {
                     "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc = "bool.h:17:10",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "bools3_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:17:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "bools3_y"},
+                fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
@@ -170,8 +177,7 @@ TranslationUnit {
                     "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 8,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

@@ -1,6 +1,31 @@
 -- addDependentFile examples/golden/nested_types.h
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @nested_types.h:1:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Foo
-    = Foo {foo_i :: CInt, foo_c :: CChar}
+    = Foo {foo_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @nested_types.h:2:9@
+
+                __exported by:__ @nested_types.h@
+           -},
+           foo_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @nested_types.h:3:10@
+
+                __exported by:__ @nested_types.h@
+           -}}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @nested_types.h:1:8@
+
+           __exported by:__ @nested_types.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Foo
     where sizeOf = \_ -> 8 :: Int
@@ -9,8 +34,33 @@ instance Storable Foo
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_i_3
                                        foo_c_4 -> pokeByteOff ptr_1 (0 :: Int) foo_i_3 >> pokeByteOff ptr_1 (4 :: Int) foo_c_4
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @nested_types.h:6:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Bar
-    = Bar {bar_foo1 :: Foo, bar_foo2 :: Foo}
+    = Bar {bar_foo1 :: Foo
+           {- ^ __C declaration:__ @foo1@
+
+                __defined at:__ @nested_types.h:7:16@
+
+                __exported by:__ @nested_types.h@
+           -},
+           bar_foo2 :: Foo
+           {- ^ __C declaration:__ @foo2@
+
+                __defined at:__ @nested_types.h:8:16@
+
+                __exported by:__ @nested_types.h@
+           -}}
+      {- ^ __C declaration:__ @bar@
+
+           __defined at:__ @nested_types.h:6:8@
+
+           __exported by:__ @nested_types.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Bar
     where sizeOf = \_ -> 16 :: Int
@@ -19,9 +69,33 @@ instance Storable Bar
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bar bar_foo1_3
                                        bar_foo2_4 -> pokeByteOff ptr_1 (0 :: Int) bar_foo1_3 >> pokeByteOff ptr_1 (8 :: Int) bar_foo2_4
+{-| __C declaration:__ @ex3_ex3_struct@
+
+    __defined at:__ @nested_types.h:12:5@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex3_ex3_struct
-    = Ex3_ex3_struct {ex3_ex3_struct_ex3_a :: CInt,
-                      ex3_ex3_struct_ex3_b :: CChar}
+    = Ex3_ex3_struct {ex3_ex3_struct_ex3_a :: CInt
+                      {- ^ __C declaration:__ @ex3_a@
+
+                           __defined at:__ @nested_types.h:13:13@
+
+                           __exported by:__ @nested_types.h@
+                      -},
+                      ex3_ex3_struct_ex3_b :: CChar
+                      {- ^ __C declaration:__ @ex3_b@
+
+                           __defined at:__ @nested_types.h:14:14@
+
+                           __exported by:__ @nested_types.h@
+                      -}}
+      {- ^ __C declaration:__ @ex3_ex3_struct@
+
+           __defined at:__ @nested_types.h:12:5@
+
+           __exported by:__ @nested_types.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Ex3_ex3_struct
     where sizeOf = \_ -> 8 :: Int
@@ -30,8 +104,33 @@ instance Storable Ex3_ex3_struct
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
                                                   ex3_ex3_struct_ex3_b_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_ex3_a_3 >> pokeByteOff ptr_1 (4 :: Int) ex3_ex3_struct_ex3_b_4
+{-| __C declaration:__ @ex3@
+
+    __defined at:__ @nested_types.h:11:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex3
-    = Ex3 {ex3_ex3_struct :: Ex3_ex3_struct, ex3_ex3_c :: CFloat}
+    = Ex3 {ex3_ex3_struct :: Ex3_ex3_struct
+           {- ^ __C declaration:__ @ex3_struct@
+
+                __defined at:__ @nested_types.h:15:7@
+
+                __exported by:__ @nested_types.h@
+           -},
+           ex3_ex3_c :: CFloat
+           {- ^ __C declaration:__ @ex3_c@
+
+                __defined at:__ @nested_types.h:16:11@
+
+                __exported by:__ @nested_types.h@
+           -}}
+      {- ^ __C declaration:__ @ex3@
+
+           __defined at:__ @nested_types.h:11:8@
+
+           __exported by:__ @nested_types.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Ex3
     where sizeOf = \_ -> 12 :: Int
@@ -40,9 +139,33 @@ instance Storable Ex3
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex3 ex3_ex3_struct_3
                                        ex3_ex3_c_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_3 >> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_4
+{-| __C declaration:__ @ex4_even@
+
+    __defined at:__ @nested_types.h:24:12@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex4_even
-    = Ex4_even {ex4_even_value :: CDouble,
-                ex4_even_next :: (Ptr Ex4_odd)}
+    = Ex4_even {ex4_even_value :: CDouble
+                {- ^ __C declaration:__ @value@
+
+                     __defined at:__ @nested_types.h:25:16@
+
+                     __exported by:__ @nested_types.h@
+                -},
+                ex4_even_next :: (Ptr Ex4_odd)
+                {- ^ __C declaration:__ @next@
+
+                     __defined at:__ @nested_types.h:26:25@
+
+                     __exported by:__ @nested_types.h@
+                -}}
+      {- ^ __C declaration:__ @ex4_even@
+
+           __defined at:__ @nested_types.h:24:12@
+
+           __exported by:__ @nested_types.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Ex4_even
     where sizeOf = \_ -> 16 :: Int
@@ -51,8 +174,33 @@ instance Storable Ex4_even
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex4_even ex4_even_value_3
                                             ex4_even_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_even_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_even_next_4
+{-| __C declaration:__ @ex4_odd@
+
+    __defined at:__ @nested_types.h:22:8@
+
+    __exported by:__ @nested_types.h@
+-}
 data Ex4_odd
-    = Ex4_odd {ex4_odd_value :: CInt, ex4_odd_next :: (Ptr Ex4_even)}
+    = Ex4_odd {ex4_odd_value :: CInt
+               {- ^ __C declaration:__ @value@
+
+                    __defined at:__ @nested_types.h:23:9@
+
+                    __exported by:__ @nested_types.h@
+               -},
+               ex4_odd_next :: (Ptr Ex4_even)
+               {- ^ __C declaration:__ @next@
+
+                    __defined at:__ @nested_types.h:27:8@
+
+                    __exported by:__ @nested_types.h@
+               -}}
+      {- ^ __C declaration:__ @ex4_odd@
+
+           __defined at:__ @nested_types.h:22:8@
+
+           __exported by:__ @nested_types.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Ex4_odd
     where sizeOf = \_ -> 16 :: Int

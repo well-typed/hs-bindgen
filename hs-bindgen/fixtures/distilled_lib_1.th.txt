@@ -7,9 +7,33 @@
 -- int32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
 -- /* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_4a8e737205def139 (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } 
 -- /* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } 
+{-| __C declaration:__ @another_typedef_struct_t@
+
+    __defined at:__ @distilled_lib_1.h:9:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 data Another_typedef_struct_t
-    = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt,
-                                another_typedef_struct_t_bar :: CChar}
+    = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt
+                                {- ^ __C declaration:__ @foo@
+
+                                     __defined at:__ @distilled_lib_1.h:9:22@
+
+                                     __exported by:__ @distilled_lib_1.h@
+                                -},
+                                another_typedef_struct_t_bar :: CChar
+                                {- ^ __C declaration:__ @bar@
+
+                                     __defined at:__ @distilled_lib_1.h:9:32@
+
+                                     __exported by:__ @distilled_lib_1.h@
+                                -}}
+      {- ^ __C declaration:__ @another_typedef_struct_t@
+
+           __defined at:__ @distilled_lib_1.h:9:9@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Another_typedef_struct_t
     where sizeOf = \_ -> 8 :: Int
@@ -18,8 +42,20 @@ instance Storable Another_typedef_struct_t
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Another_typedef_struct_t another_typedef_struct_t_foo_3
                                                             another_typedef_struct_t_bar_4 -> pokeByteOff ptr_1 (0 :: Int) another_typedef_struct_t_foo_3 >> pokeByteOff ptr_1 (4 :: Int) another_typedef_struct_t_bar_4
+{-| __C declaration:__ @another_typedef_enum_e@
+
+    __defined at:__ @distilled_lib_1.h:10:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
+      {- ^ __C declaration:__ @another_typedef_enum_e@
+
+           __defined at:__ @distilled_lib_1.h:10:9@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Ord)
 instance Storable Another_typedef_enum_e
     where sizeOf = \_ -> 4 :: Int
@@ -47,18 +83,90 @@ instance Read Another_typedef_enum_e
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
+{-| __C declaration:__ @FOO@
+
+    __defined at:__ @distilled_lib_1.h:10:16@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern FOO :: Another_typedef_enum_e
+{-| __C declaration:__ @FOO@
+
+    __defined at:__ @distilled_lib_1.h:10:16@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern FOO = Another_typedef_enum_e 0
+{-| __C declaration:__ @BAR@
+
+    __defined at:__ @distilled_lib_1.h:10:21@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern BAR :: Another_typedef_enum_e
+{-| __C declaration:__ @BAR@
+
+    __defined at:__ @distilled_lib_1.h:10:21@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern BAR = Another_typedef_enum_e 1
+{-| __C declaration:__ @A@
+
+    __defined at:__ @distilled_lib_1.h:11:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a :: CInt
+{-| __C declaration:__ @A@
+
+    __defined at:__ @distilled_lib_1.h:11:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a = 5 :: CInt
+{-| __C declaration:__ @B@
+
+    __defined at:__ @distilled_lib_1.h:12:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 b :: CInt
+{-| __C declaration:__ @B@
+
+    __defined at:__ @distilled_lib_1.h:12:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 b = 3 :: CInt
+{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+
+    __defined at:__ @distilled_lib_1.h:13:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 sOME_DEFINED_CONSTANT :: CInt
+{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+
+    __defined at:__ @distilled_lib_1.h:13:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 sOME_DEFINED_CONSTANT = 4 :: CInt
+{-| __C declaration:__ @a_type_t@
+
+    __defined at:__ @distilled_lib_1.h:14:13@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 newtype A_type_t
     = A_type_t {un_A_type_t :: CInt}
+      {- ^ __C declaration:__ @a_type_t@
+
+           __defined at:__ @distilled_lib_1.h:14:13@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -69,8 +177,20 @@ newtype A_type_t
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @var_t@
+
+    __defined at:__ @distilled_lib_1.h:15:13@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 newtype Var_t
     = Var_t {un_Var_t :: CInt}
+      {- ^ __C declaration:__ @var_t@
+
+           __defined at:__ @distilled_lib_1.h:15:13@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -81,22 +201,100 @@ newtype Var_t
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @a_typedef_struct_t@
+
+    __defined at:__ @distilled_lib_1.h:35:16@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 data A_typedef_struct_t
-    = A_typedef_struct_t {a_typedef_struct_t_field_0 :: CBool,
-                          a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8,
-                          a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16,
-                          a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32,
-                          a_typedef_struct_t_field_4 :: Another_typedef_struct_t,
-                          a_typedef_struct_t_field_5 :: (Ptr Another_typedef_struct_t),
-                          a_typedef_struct_t_field_6 :: (Ptr Void),
+    = A_typedef_struct_t {a_typedef_struct_t_field_0 :: CBool
+                          {- ^ __C declaration:__ @field_0@
+
+                               __defined at:__ @distilled_lib_1.h:37:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8
+                          {- ^ __C declaration:__ @field_1@
+
+                               __defined at:__ @distilled_lib_1.h:38:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16
+                          {- ^ __C declaration:__ @field_2@
+
+                               __defined at:__ @distilled_lib_1.h:39:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32
+                          {- ^ __C declaration:__ @field_3@
+
+                               __defined at:__ @distilled_lib_1.h:40:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_4 :: Another_typedef_struct_t
+                          {- ^ __C declaration:__ @field_4@
+
+                               __defined at:__ @distilled_lib_1.h:41:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_5 :: (Ptr Another_typedef_struct_t)
+                          {- ^ __C declaration:__ @field_5@
+
+                               __defined at:__ @distilled_lib_1.h:42:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_6 :: (Ptr Void)
+                          {- ^ __C declaration:__ @field_6@
+
+                               __defined at:__ @distilled_lib_1.h:43:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
                           a_typedef_struct_t_field_7 :: (ConstantArray 7
-                                                                       HsBindgen.Runtime.Prelude.Word32),
-                          a_typedef_struct_t_field_8 :: Another_typedef_enum_e,
+                                                                       HsBindgen.Runtime.Prelude.Word32)
+                          {- ^ __C declaration:__ @field_7@
+
+                               __defined at:__ @distilled_lib_1.h:44:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_8 :: Another_typedef_enum_e
+                          {- ^ __C declaration:__ @field_8@
+
+                               __defined at:__ @distilled_lib_1.h:45:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
                           a_typedef_struct_t_field_9 :: (ConstantArray 4
-                                                                       Another_typedef_enum_e),
+                                                                       Another_typedef_enum_e)
+                          {- ^ __C declaration:__ @field_9@
+
+                               __defined at:__ @distilled_lib_1.h:46:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -},
                           a_typedef_struct_t_field_10 :: (ConstantArray 5
                                                                         (ConstantArray 3
-                                                                                       Another_typedef_enum_e))}
+                                                                                       Another_typedef_enum_e))
+                          {- ^ __C declaration:__ @field_10@
+
+                               __defined at:__ @distilled_lib_1.h:47:31@
+
+                               __exported by:__ @distilled_lib_1.h@
+                          -}}
+      {- ^ __C declaration:__ @a_typedef_struct_t@
+
+           __defined at:__ @distilled_lib_1.h:35:16@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable A_typedef_struct_t
     where sizeOf = \_ -> 140 :: Int
@@ -114,16 +312,76 @@ instance Storable A_typedef_struct_t
                                                       a_typedef_struct_t_field_8_11
                                                       a_typedef_struct_t_field_9_12
                                                       a_typedef_struct_t_field_10_13 -> pokeByteOff ptr_1 (0 :: Int) a_typedef_struct_t_field_0_3 >> (pokeByteOff ptr_1 (1 :: Int) a_typedef_struct_t_field_1_4 >> (pokeByteOff ptr_1 (2 :: Int) a_typedef_struct_t_field_2_5 >> (pokeByteOff ptr_1 (4 :: Int) a_typedef_struct_t_field_3_6 >> (pokeByteOff ptr_1 (8 :: Int) a_typedef_struct_t_field_4_7 >> (pokeByteOff ptr_1 (16 :: Int) a_typedef_struct_t_field_5_8 >> (pokeByteOff ptr_1 (24 :: Int) a_typedef_struct_t_field_6_9 >> (pokeByteOff ptr_1 (32 :: Int) a_typedef_struct_t_field_7_10 >> (pokeByteOff ptr_1 (60 :: Int) a_typedef_struct_t_field_8_11 >> (pokeByteOff ptr_1 (64 :: Int) a_typedef_struct_t_field_9_12 >> pokeByteOff ptr_1 (80 :: Int) a_typedef_struct_t_field_10_13)))))))))
+{-| __C declaration:__ @A_DEFINE_0@
+
+    __defined at:__ @distilled_lib_1.h:53:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a_DEFINE_0 :: CInt
+{-| __C declaration:__ @A_DEFINE_0@
+
+    __defined at:__ @distilled_lib_1.h:53:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a_DEFINE_0 = 0 :: CInt
+{-| __C declaration:__ @A_DEFINE_1@
+
+    __defined at:__ @distilled_lib_1.h:54:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a_DEFINE_1 :: CUInt
+{-| __C declaration:__ @A_DEFINE_1@
+
+    __defined at:__ @distilled_lib_1.h:54:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a_DEFINE_1 = 20560 :: CUInt
+{-| __C declaration:__ @A_DEFINE_2@
+
+    __defined at:__ @distilled_lib_1.h:55:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a_DEFINE_2 :: CInt
+{-| __C declaration:__ @A_DEFINE_2@
+
+    __defined at:__ @distilled_lib_1.h:55:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 a_DEFINE_2 = 2 :: CInt
+{-| __C declaration:__ @TWO_ARGS@
+
+    __defined at:__ @distilled_lib_1.h:56:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 tWO_ARGS :: (,) CInt CInt
+{-| __C declaration:__ @TWO_ARGS@
+
+    __defined at:__ @distilled_lib_1.h:56:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
+{-| __C declaration:__ @a_typedef_enum_e@
+
+    __defined at:__ @distilled_lib_1.h:61:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 newtype A_typedef_enum_e
     = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
+      {- ^ __C declaration:__ @a_typedef_enum_e@
+
+           __defined at:__ @distilled_lib_1.h:61:9@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Ord)
 instance Storable A_typedef_enum_e
     where sizeOf = \_ -> 1 :: Int
@@ -153,15 +411,68 @@ instance Read A_typedef_enum_e
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
+{-| __C declaration:__ @ENUM_CASE_0@
+
+    __defined at:__ @distilled_lib_1.h:63:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_0 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_0@
+
+    __defined at:__ @distilled_lib_1.h:63:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_0 = A_typedef_enum_e 0
+{-| __C declaration:__ @ENUM_CASE_1@
+
+    __defined at:__ @distilled_lib_1.h:64:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_1 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_1@
+
+    __defined at:__ @distilled_lib_1.h:64:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_1 = A_typedef_enum_e 1
+{-| __C declaration:__ @ENUM_CASE_2@
+
+    __defined at:__ @distilled_lib_1.h:65:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_2 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_2@
+
+    __defined at:__ @distilled_lib_1.h:65:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_2 = A_typedef_enum_e 2
+{-| __C declaration:__ @ENUM_CASE_3@
+
+    __defined at:__ @distilled_lib_1.h:66:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_3 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_3@
+
+    __defined at:__ @distilled_lib_1.h:66:3@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
-{-| -}
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @distilled_lib_1.h:72:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper :: Ptr A_type_t ->
                                                                                                  HsBindgen.Runtime.Prelude.Word32 ->
                                                                                                  Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -171,6 +482,12 @@ some_fun :: Ptr A_type_t ->
             IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
             IO HsBindgen.Runtime.Prelude.Int32
 some_fun = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> some_fun_wrapper x_0 x_1 ptr_3)
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @distilled_lib_1.h:72:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_4a8e737205def139" hs_bindgen_test_distilled_lib_1_4a8e737205def139 :: IO (FunPtr (Ptr A_type_t ->
                                                                                                                                              HsBindgen.Runtime.Prelude.Word32 ->
                                                                                                                                              IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
@@ -181,12 +498,30 @@ some_fun_ptr :: FunPtr (Ptr A_type_t ->
                         IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
                         IO HsBindgen.Runtime.Prelude.Int32)
 some_fun_ptr = unsafePerformIO hs_bindgen_test_distilled_lib_1_4a8e737205def139
+{-| __C declaration:__ @callback_t@
+
+    __defined at:__ @distilled_lib_1.h:77:19@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 newtype Callback_t
     = Callback_t {un_Callback_t :: (FunPtr (Ptr Void ->
                                             HsBindgen.Runtime.Prelude.Word32 ->
                                             IO HsBindgen.Runtime.Prelude.Word32))}
+      {- ^ __C declaration:__ @callback_t@
+
+           __defined at:__ @distilled_lib_1.h:77:19@
+
+           __exported by:__ @distilled_lib_1.h@
+      -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| __C declaration:__ @v@
+
+    __defined at:__ @distilled_lib_1.h:91:14@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 :: IO (Ptr Var_t)
 {-# NOINLINE v_ptr #-}
 v_ptr :: Ptr Var_t

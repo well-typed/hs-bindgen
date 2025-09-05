@@ -64,7 +64,13 @@
           Num,
           Real,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "alltypes.h:131:25")
+          (Just
+            "program_slicing_simple.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -303,12 +309,14 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "program_slicing_simple.h:4:12",
-              structFieldName = NamePair {
-                nameC = Name "sixty_four",
-                nameHsIdent = HsIdentifier
-                  "foo_sixty_four"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_simple.h:4:12",
+                fieldName = NamePair {
+                  nameC = Name "sixty_four",
+                  nameHsIdent = HsIdentifier
+                    "foo_sixty_four"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -407,9 +415,15 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_simple.h:4:12")
+              (Just
+                "program_slicing_simple.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -420,12 +434,14 @@
               "Uint32_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "program_slicing_simple.h:5:12",
-              structFieldName = NamePair {
-                nameC = Name "thirty_two",
-                nameHsIdent = HsIdentifier
-                  "foo_thirty_two"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_simple.h:5:12",
+                fieldName = NamePair {
+                  nameC = Name "thirty_two",
+                  nameHsIdent = HsIdentifier
+                    "foo_thirty_two"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -433,9 +449,15 @@
                     nameHsIdent = HsIdentifier
                       "Uint32_t"}),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_simple.h:5:12")
+              (Just
+                "program_slicing_simple.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -458,12 +480,14 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_simple.h:4:12",
-                  structFieldName = NamePair {
-                    nameC = Name "sixty_four",
-                    nameHsIdent = HsIdentifier
-                      "foo_sixty_four"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_simple.h:4:12",
+                    fieldName = NamePair {
+                      nameC = Name "sixty_four",
+                      nameHsIdent = HsIdentifier
+                        "foo_sixty_four"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -562,15 +586,16 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_simple.h:5:12",
-                  structFieldName = NamePair {
-                    nameC = Name "thirty_two",
-                    nameHsIdent = HsIdentifier
-                      "foo_thirty_two"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_simple.h:5:12",
+                    fieldName = NamePair {
+                      nameC = Name "thirty_two",
+                      nameHsIdent = HsIdentifier
+                        "foo_thirty_two"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -578,8 +603,7 @@
                         nameHsIdent = HsIdentifier
                           "Uint32_t"}),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -589,7 +613,14 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_simple.h:3:8")
+          (Just
+            "program_slicing_simple.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -700,12 +731,14 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_simple.h:4:12",
-                  structFieldName = NamePair {
-                    nameC = Name "sixty_four",
-                    nameHsIdent = HsIdentifier
-                      "foo_sixty_four"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_simple.h:4:12",
+                    fieldName = NamePair {
+                      nameC = Name "sixty_four",
+                      nameHsIdent = HsIdentifier
+                        "foo_sixty_four"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -804,9 +837,15 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "program_slicing_simple.h:4:12")
+                  (Just
+                    "program_slicing_simple.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -817,12 +856,14 @@
                   "Uint32_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_simple.h:5:12",
-                  structFieldName = NamePair {
-                    nameC = Name "thirty_two",
-                    nameHsIdent = HsIdentifier
-                      "foo_thirty_two"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_simple.h:5:12",
+                    fieldName = NamePair {
+                      nameC = Name "thirty_two",
+                      nameHsIdent = HsIdentifier
+                        "foo_thirty_two"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -830,9 +871,15 @@
                         nameHsIdent = HsIdentifier
                           "Uint32_t"}),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "program_slicing_simple.h:5:12")
+                  (Just
+                    "program_slicing_simple.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -855,12 +902,14 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "program_slicing_simple.h:4:12",
-                      structFieldName = NamePair {
-                        nameC = Name "sixty_four",
-                        nameHsIdent = HsIdentifier
-                          "foo_sixty_four"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "program_slicing_simple.h:4:12",
+                        fieldName = NamePair {
+                          nameC = Name "sixty_four",
+                          nameHsIdent = HsIdentifier
+                            "foo_sixty_four"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -959,15 +1008,16 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "program_slicing_simple.h:5:12",
-                      structFieldName = NamePair {
-                        nameC = Name "thirty_two",
-                        nameHsIdent = HsIdentifier
-                          "foo_thirty_two"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "program_slicing_simple.h:5:12",
+                        fieldName = NamePair {
+                          nameC = Name "thirty_two",
+                          nameHsIdent = HsIdentifier
+                            "foo_thirty_two"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -975,8 +1025,7 @@
                             nameHsIdent = HsIdentifier
                               "Uint32_t"}),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -986,7 +1035,14 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_simple.h:3:8")
+              (Just
+                "program_slicing_simple.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -1100,12 +1156,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_simple.h:4:12",
-                          structFieldName = NamePair {
-                            nameC = Name "sixty_four",
-                            nameHsIdent = HsIdentifier
-                              "foo_sixty_four"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_simple.h:4:12",
+                            fieldName = NamePair {
+                              nameC = Name "sixty_four",
+                              nameHsIdent = HsIdentifier
+                                "foo_sixty_four"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -1204,9 +1262,15 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_simple.h:4:12")
+                          (Just
+                            "program_slicing_simple.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1217,12 +1281,14 @@
                           "Uint32_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_simple.h:5:12",
-                          structFieldName = NamePair {
-                            nameC = Name "thirty_two",
-                            nameHsIdent = HsIdentifier
-                              "foo_thirty_two"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_simple.h:5:12",
+                            fieldName = NamePair {
+                              nameC = Name "thirty_two",
+                              nameHsIdent = HsIdentifier
+                                "foo_thirty_two"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -1230,9 +1296,15 @@
                                 nameHsIdent = HsIdentifier
                                   "Uint32_t"}),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_simple.h:5:12")
+                          (Just
+                            "program_slicing_simple.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1255,12 +1327,14 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_simple.h:4:12",
-                              structFieldName = NamePair {
-                                nameC = Name "sixty_four",
-                                nameHsIdent = HsIdentifier
-                                  "foo_sixty_four"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_simple.h:4:12",
+                                fieldName = NamePair {
+                                  nameC = Name "sixty_four",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_sixty_four"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -1359,15 +1433,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_simple.h:5:12",
-                              structFieldName = NamePair {
-                                nameC = Name "thirty_two",
-                                nameHsIdent = HsIdentifier
-                                  "foo_thirty_two"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_simple.h:5:12",
+                                fieldName = NamePair {
+                                  nameC = Name "thirty_two",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_thirty_two"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -1375,8 +1450,7 @@
                                     nameHsIdent = HsIdentifier
                                       "Uint32_t"}),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1386,7 +1460,14 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "program_slicing_simple.h:3:8")
+                      (Just
+                        "program_slicing_simple.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -1502,12 +1583,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_simple.h:4:12",
-                          structFieldName = NamePair {
-                            nameC = Name "sixty_four",
-                            nameHsIdent = HsIdentifier
-                              "foo_sixty_four"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_simple.h:4:12",
+                            fieldName = NamePair {
+                              nameC = Name "sixty_four",
+                              nameHsIdent = HsIdentifier
+                                "foo_sixty_four"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -1606,9 +1689,15 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_simple.h:4:12")
+                          (Just
+                            "program_slicing_simple.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1619,12 +1708,14 @@
                           "Uint32_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_simple.h:5:12",
-                          structFieldName = NamePair {
-                            nameC = Name "thirty_two",
-                            nameHsIdent = HsIdentifier
-                              "foo_thirty_two"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_simple.h:5:12",
+                            fieldName = NamePair {
+                              nameC = Name "thirty_two",
+                              nameHsIdent = HsIdentifier
+                                "foo_thirty_two"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -1632,9 +1723,15 @@
                                 nameHsIdent = HsIdentifier
                                   "Uint32_t"}),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_simple.h:5:12")
+                          (Just
+                            "program_slicing_simple.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1657,12 +1754,14 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_simple.h:4:12",
-                              structFieldName = NamePair {
-                                nameC = Name "sixty_four",
-                                nameHsIdent = HsIdentifier
-                                  "foo_sixty_four"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_simple.h:4:12",
+                                fieldName = NamePair {
+                                  nameC = Name "sixty_four",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_sixty_four"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -1761,15 +1860,16 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_simple.h:5:12",
-                              structFieldName = NamePair {
-                                nameC = Name "thirty_two",
-                                nameHsIdent = HsIdentifier
-                                  "foo_thirty_two"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_simple.h:5:12",
+                                fieldName = NamePair {
+                                  nameC = Name "thirty_two",
+                                  nameHsIdent = HsIdentifier
+                                    "foo_thirty_two"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -1777,8 +1877,7 @@
                                     nameHsIdent = HsIdentifier
                                       "Uint32_t"}),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1788,7 +1887,14 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "program_slicing_simple.h:3:8")
+                      (Just
+                        "program_slicing_simple.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

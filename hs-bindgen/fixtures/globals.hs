@@ -21,13 +21,13 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
-              TextContent "Global variables"],
-          commentOrigin = Just
-            "simpleGlobal",
-          commentChildren = []},
+              TextContent "Global variables"])
+          (Just "globals.h:9:12")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -48,18 +48,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:13:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "config_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:13:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "config_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:13:7")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -68,18 +73,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:14:7",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "config_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:14:7",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "config_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:14:7")
+              (Just "globals.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -100,29 +110,29 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "globals.h:13:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "config_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:13:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "config_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:14:7",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "config_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:14:7",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "config_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -132,7 +142,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:12:8")
+          (Just "globals.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -153,18 +168,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:13:7",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "config_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:13:7",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "config_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:13:7")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -173,18 +193,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:14:7",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "config_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:14:7",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "config_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:14:7")
+                  (Just "globals.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -205,29 +230,29 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "globals.h:13:7",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "config_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:13:7",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "config_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:14:7",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "config_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:14:7",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "config_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -237,7 +262,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:12:8")
+              (Just "globals.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -261,18 +291,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:13:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "config_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:13:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "config_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:13:7")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -281,18 +316,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:14:7",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "config_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:14:7",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "config_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:14:7")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -313,29 +353,29 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:13:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "config_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:13:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "config_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:14:7",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "config_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:14:7",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "config_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -345,7 +385,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:12:8")
+                      (Just "globals.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -371,18 +416,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:13:7",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "config_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:13:7",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "config_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:13:7")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -391,18 +441,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:14:7",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "config_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:14:7",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "config_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:14:7")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -423,29 +478,29 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:13:7",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "config_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:13:7",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "config_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:14:7",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "config_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:14:7",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "config_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -455,7 +510,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:12:8")
+                      (Just "globals.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -514,7 +574,12 @@
             nameHsIdent = HsIdentifier
               "Config"}
           NameOriginInSource),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:16:22")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -535,18 +600,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:19:35",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "inline_struct_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:19:35",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "inline_struct_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:19:35")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -555,18 +625,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:19:42",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "inline_struct_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:19:42",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "inline_struct_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:19:42")
+              (Just "globals.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -589,29 +664,29 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "globals.h:19:35",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "inline_struct_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:19:35",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "inline_struct_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:19:42",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "inline_struct_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:19:42",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "inline_struct_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -621,7 +696,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:19:15")
+          (Just "globals.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -642,18 +722,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:19:35",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "inline_struct_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:19:35",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "inline_struct_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:19:35")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -662,18 +747,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:19:42",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "inline_struct_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:19:42",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "inline_struct_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:19:42")
+                  (Just "globals.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -696,29 +786,29 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "globals.h:19:35",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "inline_struct_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:19:35",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "inline_struct_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:19:42",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "inline_struct_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:19:42",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "inline_struct_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -728,7 +818,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:19:15")
+              (Just "globals.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -752,18 +847,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:19:35",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "inline_struct_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:19:35",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "inline_struct_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:19:35")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -772,18 +872,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:19:42",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "inline_struct_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:19:42",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "inline_struct_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:19:42")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -806,29 +911,29 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:19:35",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "inline_struct_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:19:35",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "inline_struct_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:19:42",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "inline_struct_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:19:42",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "inline_struct_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -838,7 +943,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:19:15")
+                      (Just "globals.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -864,18 +974,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:19:35",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "inline_struct_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:19:35",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "inline_struct_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:19:35")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -884,18 +999,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:19:42",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "inline_struct_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:19:42",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "inline_struct_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:19:42")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -918,29 +1038,29 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:19:35",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "inline_struct_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:19:35",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "inline_struct_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:19:42",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "inline_struct_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:19:42",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "inline_struct_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -950,7 +1070,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:19:15")
+                      (Just "globals.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -1009,7 +1134,12 @@
             nameHsIdent = HsIdentifier
               "Inline_struct"}
           NameOriginInSource),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:19:47")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1036,14 +1166,13 @@
           (PrimIntegral PrimInt Signed)),
       foreignImportComment =
       Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Non-extern non-static global variables"],
-          commentOrigin = Just
-            "nesInteger",
-          commentChildren =
+                "Non-extern non-static global variables"])
+          (Just "globals.h:35:9")
+          (Just "globals.h")
           [
             Paragraph
               [
@@ -1064,7 +1193,7 @@
             Paragraph
               [
                 TextContent
-                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
+                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1089,7 +1218,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:36:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1118,7 +1252,12 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:38:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1149,7 +1288,12 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:39:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1176,7 +1320,12 @@
           (PrimChar
             (PrimSignImplicit
               (Just Signed)))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:40:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1201,7 +1350,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:41:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1226,7 +1380,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:42:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1251,7 +1410,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:43:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1276,7 +1440,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:44:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1301,7 +1470,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:45:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1328,7 +1502,12 @@
         (TypePointer
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:46:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1581,7 +1760,12 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:47:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1605,7 +1789,12 @@
       CallConvUserlandCAPI,
       foreignImportOrigin = Global
         (TypePrim PrimBool),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:48:9")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1860,15 +2049,13 @@
                             ]})]}})),
       foreignImportComment =
       Just
-        Comment {
-          commentTitle =
-          Just
+        (Comment
+          (Just
             [
               TextContent
-                "Additional examples of global variables, abstracted from real examples"],
-          commentOrigin = Just
-            "streamBinary",
-          commentChildren =
+                "Additional examples of global variables, abstracted from real examples"])
+          (Just "globals.h:60:9")
+          (Just "globals.h")
           [
             Paragraph
               [
@@ -1884,7 +2071,7 @@
             Paragraph
               [
                 TextContent
-                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
+                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2133,7 +2320,12 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = [
                           ]})]}}),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:404:10")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2263,12 +2455,13 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:408:12",
-              structFieldName = NamePair {
-                nameC = Name "major",
-                nameHsIdent = HsIdentifier
-                  "version_t_major"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:408:12",
+                fieldName = NamePair {
+                  nameC = Name "major",
+                  nameHsIdent = HsIdentifier
+                    "version_t_major"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2386,9 +2579,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:408:12")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2506,12 +2703,13 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:409:12",
-              structFieldName = NamePair {
-                nameC = Name "minor",
-                nameHsIdent = HsIdentifier
-                  "version_t_minor"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:409:12",
+                fieldName = NamePair {
+                  nameC = Name "minor",
+                  nameHsIdent = HsIdentifier
+                    "version_t_minor"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2629,9 +2827,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:409:12")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2749,12 +2951,13 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:410:12",
-              structFieldName = NamePair {
-                nameC = Name "patch",
-                nameHsIdent = HsIdentifier
-                  "version_t_patch"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:410:12",
+                fieldName = NamePair {
+                  nameC = Name "patch",
+                  nameHsIdent = HsIdentifier
+                    "version_t_patch"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -2872,9 +3075,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:410:12")
+              (Just "globals.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2899,12 +3106,13 @@
               structAlignment = 2,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "globals.h:408:12",
-                  structFieldName = NamePair {
-                    nameC = Name "major",
-                    nameHsIdent = HsIdentifier
-                      "version_t_major"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:408:12",
+                    fieldName = NamePair {
+                      nameC = Name "major",
+                      nameHsIdent = HsIdentifier
+                        "version_t_major"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3022,15 +3230,15 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:409:12",
-                  structFieldName = NamePair {
-                    nameC = Name "minor",
-                    nameHsIdent = HsIdentifier
-                      "version_t_minor"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:409:12",
+                    fieldName = NamePair {
+                      nameC = Name "minor",
+                      nameHsIdent = HsIdentifier
+                        "version_t_minor"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3148,15 +3356,15 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:410:12",
-                  structFieldName = NamePair {
-                    nameC = Name "patch",
-                    nameHsIdent = HsIdentifier
-                      "version_t_patch"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:410:12",
+                    fieldName = NamePair {
+                      nameC = Name "patch",
+                      nameHsIdent = HsIdentifier
+                        "version_t_patch"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3274,8 +3482,7 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -3285,7 +3492,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:406:9")
+          (Just "globals.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3415,12 +3627,13 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:408:12",
-                  structFieldName = NamePair {
-                    nameC = Name "major",
-                    nameHsIdent = HsIdentifier
-                      "version_t_major"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:408:12",
+                    fieldName = NamePair {
+                      nameC = Name "major",
+                      nameHsIdent = HsIdentifier
+                        "version_t_major"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3538,9 +3751,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:408:12")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3658,12 +3875,13 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:409:12",
-                  structFieldName = NamePair {
-                    nameC = Name "minor",
-                    nameHsIdent = HsIdentifier
-                      "version_t_minor"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:409:12",
+                    fieldName = NamePair {
+                      nameC = Name "minor",
+                      nameHsIdent = HsIdentifier
+                        "version_t_minor"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -3781,9 +3999,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:409:12")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3901,12 +4123,13 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:410:12",
-                  structFieldName = NamePair {
-                    nameC = Name "patch",
-                    nameHsIdent = HsIdentifier
-                      "version_t_patch"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:410:12",
+                    fieldName = NamePair {
+                      nameC = Name "patch",
+                      nameHsIdent = HsIdentifier
+                        "version_t_patch"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -4024,9 +4247,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:410:12")
+                  (Just "globals.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -4051,12 +4278,13 @@
                   structAlignment = 2,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "globals.h:408:12",
-                      structFieldName = NamePair {
-                        nameC = Name "major",
-                        nameHsIdent = HsIdentifier
-                          "version_t_major"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:408:12",
+                        fieldName = NamePair {
+                          nameC = Name "major",
+                          nameHsIdent = HsIdentifier
+                            "version_t_major"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -4174,15 +4402,15 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:409:12",
-                      structFieldName = NamePair {
-                        nameC = Name "minor",
-                        nameHsIdent = HsIdentifier
-                          "version_t_minor"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:409:12",
+                        fieldName = NamePair {
+                          nameC = Name "minor",
+                          nameHsIdent = HsIdentifier
+                            "version_t_minor"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -4300,15 +4528,15 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 16,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:410:12",
-                      structFieldName = NamePair {
-                        nameC = Name "patch",
-                        nameHsIdent = HsIdentifier
-                          "version_t_patch"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:410:12",
+                        fieldName = NamePair {
+                          nameC = Name "patch",
+                          nameHsIdent = HsIdentifier
+                            "version_t_patch"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -4426,8 +4654,7 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -4437,7 +4664,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:406:9")
+              (Just "globals.h")
+              [])}
         StorableInstance {
           storableSizeOf = 6,
           storableAlignment = 2,
@@ -4570,12 +4802,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:408:12",
-                          structFieldName = NamePair {
-                            nameC = Name "major",
-                            nameHsIdent = HsIdentifier
-                              "version_t_major"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:408:12",
+                            fieldName = NamePair {
+                              nameC = Name "major",
+                              nameHsIdent = HsIdentifier
+                                "version_t_major"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -4693,9 +4926,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:408:12")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4813,12 +5050,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:409:12",
-                          structFieldName = NamePair {
-                            nameC = Name "minor",
-                            nameHsIdent = HsIdentifier
-                              "version_t_minor"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:409:12",
+                            fieldName = NamePair {
+                              nameC = Name "minor",
+                              nameHsIdent = HsIdentifier
+                                "version_t_minor"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -4936,9 +5174,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:409:12")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5056,12 +5298,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:410:12",
-                          structFieldName = NamePair {
-                            nameC = Name "patch",
-                            nameHsIdent = HsIdentifier
-                              "version_t_patch"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:410:12",
+                            fieldName = NamePair {
+                              nameC = Name "patch",
+                              nameHsIdent = HsIdentifier
+                                "version_t_patch"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -5179,9 +5422,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:410:12")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -5206,12 +5453,13 @@
                           structAlignment = 2,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:408:12",
-                              structFieldName = NamePair {
-                                nameC = Name "major",
-                                nameHsIdent = HsIdentifier
-                                  "version_t_major"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:408:12",
+                                fieldName = NamePair {
+                                  nameC = Name "major",
+                                  nameHsIdent = HsIdentifier
+                                    "version_t_major"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -5329,15 +5577,15 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:409:12",
-                              structFieldName = NamePair {
-                                nameC = Name "minor",
-                                nameHsIdent = HsIdentifier
-                                  "version_t_minor"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:409:12",
+                                fieldName = NamePair {
+                                  nameC = Name "minor",
+                                  nameHsIdent = HsIdentifier
+                                    "version_t_minor"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -5455,15 +5703,15 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:410:12",
-                              structFieldName = NamePair {
-                                nameC = Name "patch",
-                                nameHsIdent = HsIdentifier
-                                  "version_t_patch"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:410:12",
+                                fieldName = NamePair {
+                                  nameC = Name "patch",
+                                  nameHsIdent = HsIdentifier
+                                    "version_t_patch"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -5581,8 +5829,7 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -5592,7 +5839,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:406:9")
+                      (Just "globals.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 2,
@@ -5728,12 +5980,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:408:12",
-                          structFieldName = NamePair {
-                            nameC = Name "major",
-                            nameHsIdent = HsIdentifier
-                              "version_t_major"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:408:12",
+                            fieldName = NamePair {
+                              nameC = Name "major",
+                              nameHsIdent = HsIdentifier
+                                "version_t_major"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -5851,9 +6104,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:408:12")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5971,12 +6228,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:409:12",
-                          structFieldName = NamePair {
-                            nameC = Name "minor",
-                            nameHsIdent = HsIdentifier
-                              "version_t_minor"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:409:12",
+                            fieldName = NamePair {
+                              nameC = Name "minor",
+                              nameHsIdent = HsIdentifier
+                                "version_t_minor"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -6094,9 +6352,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:409:12")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6214,12 +6476,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:410:12",
-                          structFieldName = NamePair {
-                            nameC = Name "patch",
-                            nameHsIdent = HsIdentifier
-                              "version_t_patch"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:410:12",
+                            fieldName = NamePair {
+                              nameC = Name "patch",
+                              nameHsIdent = HsIdentifier
+                                "version_t_patch"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -6337,9 +6600,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:410:12")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -6364,12 +6631,13 @@
                           structAlignment = 2,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:408:12",
-                              structFieldName = NamePair {
-                                nameC = Name "major",
-                                nameHsIdent = HsIdentifier
-                                  "version_t_major"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:408:12",
+                                fieldName = NamePair {
+                                  nameC = Name "major",
+                                  nameHsIdent = HsIdentifier
+                                    "version_t_major"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -6487,15 +6755,15 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:409:12",
-                              structFieldName = NamePair {
-                                nameC = Name "minor",
-                                nameHsIdent = HsIdentifier
-                                  "version_t_minor"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:409:12",
+                                fieldName = NamePair {
+                                  nameC = Name "minor",
+                                  nameHsIdent = HsIdentifier
+                                    "version_t_minor"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -6613,15 +6881,15 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:410:12",
-                              structFieldName = NamePair {
-                                nameC = Name "patch",
-                                nameHsIdent = HsIdentifier
-                                  "version_t_patch"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:410:12",
+                                fieldName = NamePair {
+                                  nameC = Name "patch",
+                                  nameHsIdent = HsIdentifier
+                                    "version_t_patch"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -6739,8 +7007,7 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -6750,7 +7017,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:406:9")
+                      (Just "globals.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -6908,12 +7180,13 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:415:13",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "struct1_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:415:13",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "struct1_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -7031,9 +7304,13 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:415:13")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -7042,18 +7319,23 @@
             HsPrimCBool,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:416:13",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "struct1_t_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:416:13",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "struct1_t_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:416:13")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -7064,12 +7346,13 @@
               "Version_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:417:13",
-              structFieldName = NamePair {
-                nameC = Name "version",
-                nameHsIdent = HsIdentifier
-                  "struct1_t_version"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:417:13",
+                fieldName = NamePair {
+                  nameC = Name "version",
+                  nameHsIdent = HsIdentifier
+                    "struct1_t_version"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "version_t")
@@ -7081,9 +7364,13 @@
                     (NameOriginGenerated
                       (AnonId "globals.h:406:9")))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:417:13")
+              (Just "globals.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -7108,12 +7395,13 @@
               structAlignment = 2,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "globals.h:415:13",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "struct1_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:415:13",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "struct1_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -7231,27 +7519,27 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:416:13",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "struct1_t_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:416:13",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "struct1_t_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:417:13",
-                  structFieldName = NamePair {
-                    nameC = Name "version",
-                    nameHsIdent = HsIdentifier
-                      "struct1_t_version"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:417:13",
+                    fieldName = NamePair {
+                      nameC = Name "version",
+                      nameHsIdent = HsIdentifier
+                        "struct1_t_version"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "version_t")
@@ -7263,8 +7551,7 @@
                         (NameOriginGenerated
                           (AnonId "globals.h:406:9")))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -7274,7 +7561,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:413:9")
+          (Just "globals.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -7404,12 +7696,13 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:415:13",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "struct1_t_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:415:13",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "struct1_t_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -7527,9 +7820,13 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:415:13")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -7538,18 +7835,23 @@
                 HsPrimCBool,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:416:13",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "struct1_t_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:416:13",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "struct1_t_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     PrimBool,
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:416:13")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -7560,12 +7862,13 @@
                   "Version_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:417:13",
-                  structFieldName = NamePair {
-                    nameC = Name "version",
-                    nameHsIdent = HsIdentifier
-                      "struct1_t_version"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:417:13",
+                    fieldName = NamePair {
+                      nameC = Name "version",
+                      nameHsIdent = HsIdentifier
+                        "struct1_t_version"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "version_t")
@@ -7577,9 +7880,13 @@
                         (NameOriginGenerated
                           (AnonId "globals.h:406:9")))),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:417:13")
+                  (Just "globals.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -7604,12 +7911,13 @@
                   structAlignment = 2,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "globals.h:415:13",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "struct1_t_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:415:13",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "struct1_t_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -7727,27 +8035,27 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:416:13",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "struct1_t_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:416:13",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "struct1_t_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         PrimBool,
                       structFieldOffset = 16,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:417:13",
-                      structFieldName = NamePair {
-                        nameC = Name "version",
-                        nameHsIdent = HsIdentifier
-                          "struct1_t_version"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:417:13",
+                        fieldName = NamePair {
+                          nameC = Name "version",
+                          nameHsIdent = HsIdentifier
+                            "struct1_t_version"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "version_t")
@@ -7759,8 +8067,7 @@
                             (NameOriginGenerated
                               (AnonId "globals.h:406:9")))),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -7770,7 +8077,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:413:9")
+              (Just "globals.h")
+              [])}
         StorableInstance {
           storableSizeOf = 10,
           storableAlignment = 2,
@@ -7903,12 +8215,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:415:13",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "struct1_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:415:13",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "struct1_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -8026,9 +8339,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:415:13")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8037,18 +8354,23 @@
                         HsPrimCBool,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:416:13",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "struct1_t_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:416:13",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "struct1_t_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             PrimBool,
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:416:13")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8059,12 +8381,13 @@
                           "Version_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:417:13",
-                          structFieldName = NamePair {
-                            nameC = Name "version",
-                            nameHsIdent = HsIdentifier
-                              "struct1_t_version"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:417:13",
+                            fieldName = NamePair {
+                              nameC = Name "version",
+                              nameHsIdent = HsIdentifier
+                                "struct1_t_version"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "version_t")
@@ -8076,9 +8399,13 @@
                                 (NameOriginGenerated
                                   (AnonId "globals.h:406:9")))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:417:13")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -8103,12 +8430,13 @@
                           structAlignment = 2,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:415:13",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "struct1_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:415:13",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "struct1_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8226,27 +8554,27 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:416:13",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "struct1_t_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:416:13",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "struct1_t_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 PrimBool,
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:417:13",
-                              structFieldName = NamePair {
-                                nameC = Name "version",
-                                nameHsIdent = HsIdentifier
-                                  "struct1_t_version"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:417:13",
+                                fieldName = NamePair {
+                                  nameC = Name "version",
+                                  nameHsIdent = HsIdentifier
+                                    "struct1_t_version"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "version_t")
@@ -8258,8 +8586,7 @@
                                     (NameOriginGenerated
                                       (AnonId "globals.h:406:9")))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -8269,7 +8596,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:413:9")
+                      (Just "globals.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 2,
@@ -8405,12 +8737,13 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:415:13",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "struct1_t_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:415:13",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "struct1_t_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -8528,9 +8861,13 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:415:13")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8539,18 +8876,23 @@
                         HsPrimCBool,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:416:13",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "struct1_t_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:416:13",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "struct1_t_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             PrimBool,
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:416:13")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8561,12 +8903,13 @@
                           "Version_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:417:13",
-                          structFieldName = NamePair {
-                            nameC = Name "version",
-                            nameHsIdent = HsIdentifier
-                              "struct1_t_version"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:417:13",
+                            fieldName = NamePair {
+                              nameC = Name "version",
+                              nameHsIdent = HsIdentifier
+                                "struct1_t_version"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "version_t")
@@ -8578,9 +8921,13 @@
                                 (NameOriginGenerated
                                   (AnonId "globals.h:406:9")))),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:417:13")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -8605,12 +8952,13 @@
                           structAlignment = 2,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:415:13",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "struct1_t_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:415:13",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "struct1_t_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8728,27 +9076,27 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:416:13",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "struct1_t_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:416:13",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "struct1_t_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 PrimBool,
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:417:13",
-                              structFieldName = NamePair {
-                                nameC = Name "version",
-                                nameHsIdent = HsIdentifier
-                                  "struct1_t_version"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:417:13",
+                                fieldName = NamePair {
+                                  nameC = Name "version",
+                                  nameHsIdent = HsIdentifier
+                                    "struct1_t_version"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "version_t")
@@ -8760,8 +9108,7 @@
                                     (NameOriginGenerated
                                       (AnonId "globals.h:406:9")))),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -8771,7 +9118,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:413:9")
+                      (Just "globals.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -8822,12 +9174,13 @@
               "Struct1_t"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:422:13",
-              structFieldName = NamePair {
-                nameC = Name "field1",
-                nameHsIdent = HsIdentifier
-                  "struct2_t_field1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:422:13",
+                fieldName = NamePair {
+                  nameC = Name "field1",
+                  nameHsIdent = HsIdentifier
+                    "struct2_t_field1"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct1_t")
@@ -8839,9 +9192,13 @@
                     (NameOriginGenerated
                       (AnonId "globals.h:413:9")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:422:13")
+              (Just "globals.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -8866,12 +9223,13 @@
               structAlignment = 2,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "globals.h:422:13",
-                  structFieldName = NamePair {
-                    nameC = Name "field1",
-                    nameHsIdent = HsIdentifier
-                      "struct2_t_field1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:422:13",
+                    fieldName = NamePair {
+                      nameC = Name "field1",
+                      nameHsIdent = HsIdentifier
+                        "struct2_t_field1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct1_t")
@@ -8883,8 +9241,7 @@
                         (NameOriginGenerated
                           (AnonId "globals.h:413:9")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -8894,7 +9251,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:420:9")
+          (Just "globals.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -8917,12 +9279,13 @@
                   "Struct1_t"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:422:13",
-                  structFieldName = NamePair {
-                    nameC = Name "field1",
-                    nameHsIdent = HsIdentifier
-                      "struct2_t_field1"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:422:13",
+                    fieldName = NamePair {
+                      nameC = Name "field1",
+                      nameHsIdent = HsIdentifier
+                        "struct2_t_field1"},
+                    fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefSquashed
                       (Name "struct1_t")
@@ -8934,9 +9297,13 @@
                         (NameOriginGenerated
                           (AnonId "globals.h:413:9")))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:422:13")
+                  (Just "globals.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -8961,12 +9328,13 @@
                   structAlignment = 2,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "globals.h:422:13",
-                      structFieldName = NamePair {
-                        nameC = Name "field1",
-                        nameHsIdent = HsIdentifier
-                          "struct2_t_field1"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:422:13",
+                        fieldName = NamePair {
+                          nameC = Name "field1",
+                          nameHsIdent = HsIdentifier
+                            "struct2_t_field1"},
+                        fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefSquashed
                           (Name "struct1_t")
@@ -8978,8 +9346,7 @@
                             (NameOriginGenerated
                               (AnonId "globals.h:413:9")))),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -8989,7 +9356,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:420:9")
+              (Just "globals.h")
+              [])}
         StorableInstance {
           storableSizeOf = 10,
           storableAlignment = 2,
@@ -9015,12 +9387,13 @@
                           "Struct1_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:422:13",
-                          structFieldName = NamePair {
-                            nameC = Name "field1",
-                            nameHsIdent = HsIdentifier
-                              "struct2_t_field1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:422:13",
+                            fieldName = NamePair {
+                              nameC = Name "field1",
+                              nameHsIdent = HsIdentifier
+                                "struct2_t_field1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct1_t")
@@ -9032,9 +9405,13 @@
                                 (NameOriginGenerated
                                   (AnonId "globals.h:413:9")))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:422:13")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -9059,12 +9436,13 @@
                           structAlignment = 2,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:422:13",
-                              structFieldName = NamePair {
-                                nameC = Name "field1",
-                                nameHsIdent = HsIdentifier
-                                  "struct2_t_field1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:422:13",
+                                fieldName = NamePair {
+                                  nameC = Name "field1",
+                                  nameHsIdent = HsIdentifier
+                                    "struct2_t_field1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct1_t")
@@ -9076,8 +9454,7 @@
                                     (NameOriginGenerated
                                       (AnonId "globals.h:413:9")))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -9087,7 +9464,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:420:9")
+                      (Just "globals.h")
+                      [])})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -9113,12 +9495,13 @@
                           "Struct1_t"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:422:13",
-                          structFieldName = NamePair {
-                            nameC = Name "field1",
-                            nameHsIdent = HsIdentifier
-                              "struct2_t_field1"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:422:13",
+                            fieldName = NamePair {
+                              nameC = Name "field1",
+                              nameHsIdent = HsIdentifier
+                                "struct2_t_field1"},
+                            fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefSquashed
                               (Name "struct1_t")
@@ -9130,9 +9513,13 @@
                                 (NameOriginGenerated
                                   (AnonId "globals.h:413:9")))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:422:13")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -9157,12 +9544,13 @@
                           structAlignment = 2,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:422:13",
-                              structFieldName = NamePair {
-                                nameC = Name "field1",
-                                nameHsIdent = HsIdentifier
-                                  "struct2_t_field1"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:422:13",
+                                fieldName = NamePair {
+                                  nameC = Name "field1",
+                                  nameHsIdent = HsIdentifier
+                                    "struct2_t_field1"},
+                                fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefSquashed
                                   (Name "struct1_t")
@@ -9174,8 +9562,7 @@
                                     (NameOriginGenerated
                                       (AnonId "globals.h:413:9")))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -9185,7 +9572,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:420:9")
+                      (Just "globals.h")
+                      [])}
                 (Add 1)
                 (Seq
                   [
@@ -9247,7 +9639,12 @@
                   "Struct2_t"}
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:425:11")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9275,18 +9672,16 @@
             (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Constant"],
-          commentOrigin = Just
-            "globalConstant",
-          commentChildren =
+        (Comment
+          (Just [TextContent "Constant"])
+          (Just "globals.h:445:18")
+          (Just "globals.h")
           [
             Paragraph
               [
                 TextContent
                   "Although this is a constant, we don't expect an initializer (since it's",
-                TextContent "`extern`)."]]},
+                TextContent "`extern`)."]]),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9358,13 +9753,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Constant, through typedef"],
-          commentOrigin = Just "ConstInt",
-          commentChildren = []}},
+                "Constant, through typedef"])
+          (Just "globals.h:448:19")
+          (Just "globals.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -9524,7 +9920,12 @@
               nameC = Name "ConstInt",
               nameHsIdent = HsIdentifier
                 "ConstInt"})),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:449:17")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9554,19 +9955,18 @@
             (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "Constant, but local to the file"],
-          commentOrigin = Just
-            "staticConst",
-          commentChildren =
+                "Constant, but local to the file"])
+          (Just "globals.h:454:18")
+          (Just "globals.h")
           [
             Paragraph
               [
                 TextContent
-                  "Unlike with `extern`, in this we _do_ expect an initializer."]]},
+                  "Unlike with `extern`, in this we _do_ expect an initializer."]]),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9595,14 +9995,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "No storage class specified"],
-          commentOrigin = Just
-            "classless",
-          commentChildren = []},
+                "No storage class specified"])
+          (Just "globals.h:457:11")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9637,14 +10037,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "A an array of size 4 containing constant integers"],
-          commentOrigin = Just
-            "constArray1",
-          commentChildren = []},
+                "A an array of size 4 containing constant integers"])
+          (Just "globals.h:460:18")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9707,14 +10107,14 @@
       newtypeInstances = Set.fromList
         [Eq, Show],
       newtypeComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "An array of uknown size containing constant integers"],
-          commentOrigin = Just
-            "ConstIntArray",
-          commentChildren = []}},
+                "An array of uknown size containing constant integers"])
+          (Just "globals.h:463:19")
+          (Just "globals.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -9763,7 +10163,12 @@
               nameC = Name "ConstIntArray",
               nameHsIdent = HsIdentifier
                 "ConstIntArray"})),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:464:22")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9784,18 +10189,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:466:20",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "tuple_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:466:20",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "tuple_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:466:20")
+              (Just "globals.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -9804,19 +10214,24 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "globals.h:466:33",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "tuple_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:466:33",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "tuple_y"},
+                fieldComment = Nothing},
               structFieldType = TypeConst
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:466:33")
+              (Just "globals.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -9837,30 +10252,30 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "globals.h:466:20",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "tuple_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:466:20",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "tuple_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "globals.h:466:33",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "tuple_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:466:33",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "tuple_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConst
                     (TypePrim
                       (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -9870,7 +10285,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "globals.h:466:8")
+          (Just "globals.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -9891,18 +10311,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:466:20",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "tuple_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:466:20",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "tuple_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:466:20")
+                  (Just "globals.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -9911,19 +10336,24 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "globals.h:466:33",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "tuple_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "globals.h:466:33",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "tuple_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypeConst
                     (TypePrim
                       (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 32,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "globals.h:466:33")
+                  (Just "globals.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -9944,30 +10374,30 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "globals.h:466:20",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "tuple_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:466:20",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "tuple_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "globals.h:466:33",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "tuple_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "globals.h:466:33",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "tuple_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypeConst
                         (TypePrim
                           (PrimIntegral PrimInt Signed)),
                       structFieldOffset = 32,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -9977,7 +10407,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "globals.h:466:8")
+              (Just "globals.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -10001,18 +10436,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:466:20",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "tuple_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:466:20",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "tuple_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:466:20")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -10021,19 +10461,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:466:33",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "tuple_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:466:33",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "tuple_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConst
                             (TypePrim
                               (PrimIntegral PrimInt Signed)),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:466:33")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -10054,30 +10499,30 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:466:20",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "tuple_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:466:20",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "tuple_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:466:33",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "tuple_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:466:33",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "tuple_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConst
                                 (TypePrim
                                   (PrimIntegral PrimInt Signed)),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -10087,7 +10532,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:466:8")
+                      (Just "globals.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -10113,18 +10563,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:466:20",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "tuple_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:466:20",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "tuple_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:466:20")
+                          (Just "globals.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -10133,19 +10588,24 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "globals.h:466:33",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "tuple_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "globals.h:466:33",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "tuple_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypeConst
                             (TypePrim
                               (PrimIntegral PrimInt Signed)),
                           structFieldOffset = 32,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "globals.h:466:33")
+                          (Just "globals.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -10166,30 +10626,30 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "globals.h:466:20",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "tuple_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:466:20",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "tuple_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "globals.h:466:33",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "tuple_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "globals.h:466:33",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "tuple_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypeConst
                                 (TypePrim
                                   (PrimIntegral PrimInt Signed)),
                               structFieldOffset = 32,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -10199,7 +10659,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "globals.h:466:8")
+                      (Just "globals.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -10260,13 +10725,13 @@
                 "Tuple"}
             NameOriginInSource)),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
-              TextContent "A constant tuple"],
-          commentOrigin = Just
-            "constTuple",
-          commentChildren = []},
+              TextContent "A constant tuple"])
+          (Just "globals.h:468:27")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10301,14 +10766,14 @@
               "Tuple"}
           NameOriginInSource),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "A non-constant tuple with a constant member"],
-          commentOrigin = Just
-            "nonConstTuple",
-          commentChildren = []},
+                "A non-constant tuple with a constant member"])
+          (Just "globals.h:470:21")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10339,14 +10804,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "A pointer to const int"],
-          commentOrigin = Just
-            "ptrToConstInt",
-          commentChildren = []},
+                "A pointer to const int"])
+          (Just "globals.h:473:20")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10377,14 +10842,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "A const pointer to int"],
-          commentOrigin = Just
-            "constPtrToInt",
-          commentChildren = []},
+                "A const pointer to int"])
+          (Just "globals.h:475:20")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10418,14 +10883,14 @@
                   PrimInt
                   Signed))))),
       foreignImportComment = Just
-        Comment {
-          commentTitle = Just
+        (Comment
+          (Just
             [
               TextContent
-                "A const pointer to const int"],
-          commentOrigin = Just
-            "constPtrToConstInt",
-          commentChildren = []},
+                "A const pointer to const int"])
+          (Just "globals.h:477:26")
+          (Just "globals.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,

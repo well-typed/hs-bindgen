@@ -68,17 +68,18 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "redeclaration.h:26:16",
-              structFieldName = NamePair {
-                nameC = Name "n",
-                nameHsIdent = HsIdentifier
-                  "x_n"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "redeclaration.h:26:16",
+                fieldName = NamePair {
+                  nameC = Name "n",
+                  nameHsIdent = HsIdentifier
+                    "x_n"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -128,25 +129,29 @@ TranslationUnit {
           unionAlignment = 4,
           unionFields = [
             UnionField {
-              unionFieldLoc =
-              "redeclaration.h:30:15",
-              unionFieldName = NamePair {
-                nameC = Name "m",
-                nameHsIdent = HsIdentifier
-                  "y_m"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "redeclaration.h:30:15",
+                fieldName = NamePair {
+                  nameC = Name "m",
+                  nameHsIdent = HsIdentifier
+                    "y_m"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              unionFieldComment = Nothing},
+                (PrimIntegral PrimInt Signed)},
             UnionField {
-              unionFieldLoc =
-              "redeclaration.h:30:22",
-              unionFieldName = NamePair {
-                nameC = Name "o",
-                nameHsIdent = HsIdentifier
-                  "y_o"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "redeclaration.h:30:22",
+                fieldName = NamePair {
+                  nameC = Name "o",
+                  nameHsIdent = HsIdentifier
+                    "y_o"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              unionFieldComment = Nothing}]},
+                (PrimIntegral
+                  PrimInt
+                  Signed)}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

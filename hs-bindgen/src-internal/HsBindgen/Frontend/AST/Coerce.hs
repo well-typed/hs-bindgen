@@ -64,6 +64,16 @@ instance (
       DeclInfo{declLoc, declId, declAliases, declHeader, declComment} = info
 
 instance (
+      CoercePass Comment p p'
+    , FieldName p ~ FieldName p'
+    ) => CoercePass FieldInfo p p' where
+  coercePass info = FieldInfo{ fieldComment = fmap coercePass fieldComment
+                             , ..
+                             }
+    where
+      FieldInfo{fieldLoc, fieldName, fieldComment} = info
+
+instance (
       CoercePass Struct   p p'
     , CoercePass Enum     p p'
     , CoercePass Union    p p'
@@ -102,13 +112,11 @@ instance (
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass StructField p p' where
   coercePass StructField{..} = StructField {
-        structFieldLoc
-      , structFieldName
+        structFieldInfo = coercePass structFieldInfo
       , structFieldType = coercePass structFieldType
       , structFieldOffset
       , structFieldWidth
       , structFieldAnn
-      , structFieldComment = fmap coercePass structFieldComment
       }
 
 instance (
@@ -129,11 +137,9 @@ instance (
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass UnionField p p' where
   coercePass UnionField{..} = UnionField {
-        unionFieldLoc
-      , unionFieldName
+        unionFieldInfo = coercePass unionFieldInfo
       , unionFieldType = coercePass unionFieldType
       , unionFieldAnn
-      , unionFieldComment = fmap coercePass unionFieldComment
       }
 
 instance (
@@ -163,10 +169,8 @@ instance (
     , CoercePass C.Comment (Reference p) (Reference p')
     ) => CoercePass EnumConstant p p' where
   coercePass EnumConstant{..} = EnumConstant {
-        enumConstantLoc
-      , enumConstantName
+        enumConstantInfo = coercePass enumConstantInfo
       , enumConstantValue
-      , enumConstantComment = fmap coercePass enumConstantComment
       }
 
 instance (

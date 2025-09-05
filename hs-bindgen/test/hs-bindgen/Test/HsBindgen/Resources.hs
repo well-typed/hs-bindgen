@@ -21,6 +21,7 @@ import Test.Tasty
 import Clang.Args
 import Clang.Paths
 import HsBindgen.Backend.Artefact.HsModule.Translation
+import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
@@ -104,12 +105,13 @@ getTestDefaultClangArgs testResources extraIncludeDirs =
   Test configuration
 -------------------------------------------------------------------------------}
 
-getTestDefaultBackendConfig :: TestName -> BackendConfig
-getTestDefaultBackendConfig testName = def{
+getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
+getTestDefaultBackendConfig testName pathStyle = def{
       backendTranslationOpts = def {
         translationUniqueId = UniqueId $ "test." ++ testName
       }
     , backendHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
+    , backendHaddockConfig = HaddockConfig pathStyle
     }
 
 {-------------------------------------------------------------------------------

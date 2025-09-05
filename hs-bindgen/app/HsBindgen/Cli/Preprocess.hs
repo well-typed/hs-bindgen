@@ -20,6 +20,7 @@ import Options.Applicative hiding (info)
 import HsBindgen.Lib
 
 import HsBindgen.App
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -37,6 +38,7 @@ data Opts = Opts {
     , output            :: Maybe FilePath
     , outputBindingSpec :: Maybe FilePath
     , inputs            :: [UncheckedHashIncludeArg]
+    , haddockConfig     :: HaddockConfig
     }
 
 parseOpts :: Parser Opts
@@ -46,6 +48,7 @@ parseOpts =
       <*> optional parseOutput
       <*> optional parseGenBindingSpec
       <*> parseInputs
+      <*> parseHaddockConfig
 
 {-------------------------------------------------------------------------------
   Execution

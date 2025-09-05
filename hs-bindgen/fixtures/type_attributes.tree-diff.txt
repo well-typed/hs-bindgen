@@ -20,12 +20,14 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "type_attributes.h:8:18",
-              structFieldName = NamePair {
-                nameC = Name "f",
-                nameHsIdent = HsIdentifier
-                  "s_f"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:8:18",
+                fieldName = NamePair {
+                  nameC = Name "f",
+                  nameHsIdent = HsIdentifier
+                    "s_f"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 3
                 (TypePrim
@@ -33,8 +35,7 @@ TranslationUnit {
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -93,12 +94,14 @@ TranslationUnit {
           structAlignment = 16,
           structFields = [
             StructField {
-              structFieldLoc =
-              "type_attributes.h:11:19",
-              structFieldName = NamePair {
-                nameC = Name "f",
-                nameHsIdent = HsIdentifier
-                  "s2_f"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:11:19",
+                fieldName = NamePair {
+                  nameC = Name "f",
+                  nameHsIdent = HsIdentifier
+                    "s2_f"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 3
                 (TypePrim
@@ -106,8 +109,7 @@ TranslationUnit {
                     PrimShort
                     Signed)),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -139,31 +141,33 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "type_attributes.h:15:8",
-              structFieldName = NamePair {
-                nameC = Name "c",
-                nameHsIdent = HsIdentifier
-                  "my_unpacked_struct_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:15:8",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = HsIdentifier
+                    "my_unpacked_struct_c"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "type_attributes.h:16:7",
-              structFieldName = NamePair {
-                nameC = Name "i",
-                nameHsIdent = HsIdentifier
-                  "my_unpacked_struct_i"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:16:7",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier
+                    "my_unpacked_struct_i"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -194,38 +198,42 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [
             StructField {
-              structFieldLoc =
-              "type_attributes.h:21:9",
-              structFieldName = NamePair {
-                nameC = Name "c",
-                nameHsIdent = HsIdentifier
-                  "my_packed_struct_c"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:21:9",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = HsIdentifier
+                    "my_packed_struct_c"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "type_attributes.h:22:9",
-              structFieldName = NamePair {
-                nameC = Name "i",
-                nameHsIdent = HsIdentifier
-                  "my_packed_struct_i"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:22:9",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier
+                    "my_packed_struct_i"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 8,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "type_attributes.h:23:30",
-              structFieldName = NamePair {
-                nameC = Name "s",
-                nameHsIdent = HsIdentifier
-                  "my_packed_struct_s"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:23:30",
+                fieldName = NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier
+                    "my_packed_struct_s"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name
@@ -234,8 +242,7 @@ TranslationUnit {
                     "My_unpacked_struct"}
                 NameOriginInSource,
               structFieldOffset = 40,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -293,31 +300,33 @@ TranslationUnit {
           unionAlignment = 8,
           unionFields = [
             UnionField {
-              unionFieldLoc =
-              "type_attributes.h:28:8",
-              unionFieldName = NamePair {
-                nameC = Name "__ip",
-                nameHsIdent = HsIdentifier
-                  "wait_status_ptr_t___ip"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:28:8",
+                fieldName = NamePair {
+                  nameC = Name "__ip",
+                  nameHsIdent = HsIdentifier
+                    "wait_status_ptr_t___ip"},
+                fieldComment = Nothing},
               unionFieldType = TypePointer
                 (TypePrim
-                  (PrimIntegral PrimInt Signed)),
-              unionFieldComment = Nothing},
+                  (PrimIntegral PrimInt Signed))},
             UnionField {
-              unionFieldLoc =
-              "type_attributes.h:29:15",
-              unionFieldName = NamePair {
-                nameC = Name "__up",
-                nameHsIdent = HsIdentifier
-                  "wait_status_ptr_t___up"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "type_attributes.h:29:15",
+                fieldName = NamePair {
+                  nameC = Name "__up",
+                  nameHsIdent = HsIdentifier
+                    "wait_status_ptr_t___up"},
+                fieldComment = Nothing},
               unionFieldType = TypePointer
                 (TypeUnion
                   NamePair {
                     nameC = Name "wait",
                     nameHsIdent = HsIdentifier
                       "Wait"}
-                  NameOriginInSource),
-              unionFieldComment = Nothing}]},
+                  NameOriginInSource)}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

@@ -12,6 +12,12 @@ import Prelude (IO)
 
 $(CAPI.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_401ecb7e80957164 (void) { return &b; } \n")
 
+{-| __C declaration:__ @b@
+
+    __defined at:__ @bool_c23.h:3:13@
+
+    __exported by:__ @bool_c23.h@
+-}
 foreign import ccall unsafe "hs_bindgen_test_bool_c23_401ecb7e80957164" hs_bindgen_test_bool_c23_401ecb7e80957164
   :: IO (F.Ptr FC.CBool)
 

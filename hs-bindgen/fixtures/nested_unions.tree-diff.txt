@@ -25,27 +25,29 @@ TranslationUnit {
           unionAlignment = 4,
           unionFields = [
             UnionField {
-              unionFieldLoc =
-              "nested_unions.h:3:21",
-              unionFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "unionA_a"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:3:21",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "unionA_a"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              unionFieldComment = Nothing},
+                (PrimIntegral PrimInt Signed)},
             UnionField {
-              unionFieldLoc =
-              "nested_unions.h:4:22",
-              unionFieldName = NamePair {
-                nameC = Name "b",
-                nameHsIdent = HsIdentifier
-                  "unionA_b"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:4:22",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier
+                    "unionA_b"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
-                    (Just Signed))),
-              unionFieldComment = Nothing}]},
+                    (Just Signed)))}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -71,12 +73,14 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "nested_unions.h:5:11",
-              structFieldName = NamePair {
-                nameC = Name "fieldA1",
-                nameHsIdent = HsIdentifier
-                  "exA_fieldA1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:5:11",
+                fieldName = NamePair {
+                  nameC = Name "fieldA1",
+                  nameHsIdent = HsIdentifier
+                    "exA_fieldA1"},
+                fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "unionA",
@@ -84,8 +88,7 @@ TranslationUnit {
                     "UnionA"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -118,27 +121,29 @@ TranslationUnit {
           unionAlignment = 4,
           unionFields = [
             UnionField {
-              unionFieldLoc =
-              "nested_unions.h:10:21",
-              unionFieldName = NamePair {
-                nameC = Name "a",
-                nameHsIdent = HsIdentifier
-                  "exB_fieldB1_a"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:10:21",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier
+                    "exB_fieldB1_a"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              unionFieldComment = Nothing},
+                (PrimIntegral PrimInt Signed)},
             UnionField {
-              unionFieldLoc =
-              "nested_unions.h:11:22",
-              unionFieldName = NamePair {
-                nameC = Name "b",
-                nameHsIdent = HsIdentifier
-                  "exB_fieldB1_b"},
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:11:22",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier
+                    "exB_fieldB1_b"},
+                fieldComment = Nothing},
               unionFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
-                    (Just Signed))),
-              unionFieldComment = Nothing}]},
+                    (Just Signed)))}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -164,12 +169,14 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "nested_unions.h:12:11",
-              structFieldName = NamePair {
-                nameC = Name "fieldB1",
-                nameHsIdent = HsIdentifier
-                  "exB_fieldB1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_unions.h:12:11",
+                fieldName = NamePair {
+                  nameC = Name "fieldB1",
+                  nameHsIdent = HsIdentifier
+                    "exB_fieldB1"},
+                fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "exB_fieldB1",
@@ -178,8 +185,7 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "nested_unions.h:9:9")),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

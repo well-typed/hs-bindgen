@@ -23,6 +23,7 @@ backend BackendConfig{..} FrontendArtefact{..} =
       hsDecls :: [Hs.Decl]
       hsDecls = Hs.generateDeclarations
                   backendTranslationOpts
+                  backendHaddockConfig
                   moduleName
                   frontendCDecls
 

@@ -20,6 +20,8 @@ module HsBindgen.App (
   , parseGenTestsOutput
     -- ** Input arguments
   , parseInputs
+    -- ** Haddock arguments
+  , parseHaddockConfig
 
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -35,6 +37,7 @@ import Optics (set)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
@@ -159,6 +162,11 @@ parseBackendConfig :: Parser BackendConfig
 parseBackendConfig = BackendConfig
     <$> parseTranslationOpts
     <*> parseHsModuleOpts
+    <*> parseHaddockConfig
+
+parseHaddockConfig :: Parser HaddockConfig
+parseHaddockConfig = HaddockConfig
+    <$> parsePathStyle
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -522,6 +530,26 @@ parseInputs = some . strArgument $ mconcat [
       metavar "HEADER..."
     , help "Input C header(s), relative to an include path directory"
     ]
+
+{-------------------------------------------------------------------------------
+  Haddock options
+-------------------------------------------------------------------------------}
+
+parsePathStyle :: Parser PathStyle
+parsePathStyle = option readPathStyle $ mconcat [
+      long "path-style"
+    , metavar "STYLE"
+    , help "Path display style (short|full)"
+    , showDefault
+    , value Short
+    , help "Render style of file paths in Haddock comments"
+    ]
+  where
+    readPathStyle :: ReadM PathStyle
+    readPathStyle = eitherReader $ \s -> case s of
+      "full"  -> Right Full
+      "short" -> Right Short
+      _       -> Left $ "Invalid path style: " ++ s ++ ". Expected 'full' or 'short'"
 
 {-------------------------------------------------------------------------------
   Auxiliary optparse-applicative functions

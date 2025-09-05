@@ -9,6 +9,7 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Declarations
   , Decl(..)
   , DeclInfo(..)
+  , FieldInfo(..)
   , DeclKind(..)
   , Struct(..)
   , StructField(..)
@@ -124,6 +125,12 @@ data DeclInfo p = DeclInfo{
     , declComment :: Maybe (Comment p)
     }
 
+data FieldInfo p = FieldInfo {
+      fieldLoc     :: SingleLoc
+    , fieldName    :: FieldName p
+    , fieldComment :: Maybe (Comment p)
+    }
+
 data DeclKind p =
     DeclStruct (Struct p)
   | DeclStructOpaque
@@ -145,13 +152,11 @@ data Struct p = Struct {
     }
 
 data StructField p = StructField {
-      structFieldLoc     :: SingleLoc
-    , structFieldName    :: FieldName p
+      structFieldInfo    :: FieldInfo p
     , structFieldType    :: Type p
     , structFieldOffset  :: Int     -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
     , structFieldAnn     :: Ann "StructField" p
-    , structFieldComment :: Maybe (Comment p)
     }
 
 data Union p = Union {
@@ -162,11 +167,9 @@ data Union p = Union {
     }
 
 data UnionField p = UnionField {
-      unionFieldLoc     :: SingleLoc
-    , unionFieldName    :: FieldName p
+      unionFieldInfo    :: FieldInfo p
     , unionFieldType    :: Type p
     , unionFieldAnn     :: Ann "UnionField" p
-    , unionFieldComment :: Maybe (Comment p)
     }
 
 data Typedef p = Typedef {
@@ -183,10 +186,8 @@ data Enum p = Enum {
     }
 
 data EnumConstant p = EnumConstant {
-      enumConstantLoc     :: SingleLoc
-    , enumConstantName    :: FieldName p
-    , enumConstantValue   :: Integer
-    , enumConstantComment :: Maybe (Comment p)
+      enumConstantInfo  :: FieldInfo p
+    , enumConstantValue :: Integer
     }
 
 data Function p = Function {
@@ -438,6 +439,7 @@ deriving stock instance ValidPass p => Show (CheckedMacro     p)
 deriving stock instance ValidPass p => Show (CheckedMacroType p)
 deriving stock instance ValidPass p => Show (Decl             p)
 deriving stock instance ValidPass p => Show (DeclInfo         p)
+deriving stock instance ValidPass p => Show (FieldInfo        p)
 deriving stock instance ValidPass p => Show (DeclKind         p)
 deriving stock instance ValidPass p => Show (Enum             p)
 deriving stock instance ValidPass p => Show (EnumConstant     p)
@@ -456,6 +458,7 @@ deriving stock instance ValidPass p => Eq (CheckedMacro     p)
 deriving stock instance ValidPass p => Eq (CheckedMacroType p)
 deriving stock instance ValidPass p => Eq (Decl             p)
 deriving stock instance ValidPass p => Eq (DeclInfo         p)
+deriving stock instance ValidPass p => Eq (FieldInfo        p)
 deriving stock instance ValidPass p => Eq (DeclKind         p)
 deriving stock instance ValidPass p => Eq (Enum             p)
 deriving stock instance ValidPass p => Eq (EnumConstant     p)

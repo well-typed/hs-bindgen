@@ -13,6 +13,12 @@ import qualified HsBindgen.Runtime.CEnum
 import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 import qualified Text.Read
 
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @typenames.h:14:6@
+
+    __exported by:__ @typenames.h@
+-}
 newtype Foo = Foo
   { un_Foo :: FC.CUInt
   }
@@ -78,12 +84,30 @@ instance Read Foo where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| __C declaration:__ @FOO1@
+
+    __defined at:__ @typenames.h:15:2@
+
+    __exported by:__ @typenames.h@
+-}
 pattern FOO1 :: Foo
 pattern FOO1 = Foo 0
 
+{-| __C declaration:__ @FOO2@
+
+    __defined at:__ @typenames.h:16:2@
+
+    __exported by:__ @typenames.h@
+-}
 pattern FOO2 :: Foo
 pattern FOO2 = Foo 1
 
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @typenames.h:19:16@
+
+    __exported by:__ @typenames.h@
+-}
 newtype Foo = Foo
   { un_Foo :: FC.CDouble
   }

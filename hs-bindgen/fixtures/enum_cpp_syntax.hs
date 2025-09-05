@@ -268,30 +268,32 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "enum_cpp_syntax.h:4:27",
-                enumConstantName = NamePair {
-                  nameC = Name "A",
-                  nameHsIdent = HsIdentifier "A"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "enum_cpp_syntax.h:4:27",
+                  fieldName = NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "enum_cpp_syntax.h:4:30",
-                enumConstantName = NamePair {
-                  nameC = Name "B",
-                  nameHsIdent = HsIdentifier "B"},
-                enumConstantValue = 1,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "enum_cpp_syntax.h:4:30",
+                  fieldName = NamePair {
+                    nameC = Name "B",
+                    nameHsIdent = HsIdentifier "B"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1},
               EnumConstant {
-                enumConstantLoc =
-                "enum_cpp_syntax.h:4:33",
-                enumConstantName = NamePair {
-                  nameC = Name "C",
-                  nameHsIdent = HsIdentifier "C"},
-                enumConstantValue = 2,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "enum_cpp_syntax.h:4:33",
+                  fieldName = NamePair {
+                    nameC = Name "C",
+                    nameHsIdent = HsIdentifier "C"},
+                  fieldComment = Nothing},
+                enumConstantValue = 2}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -300,7 +302,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:9")
+          (Just "enum_cpp_syntax.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1408,14 +1415,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enum_cpp_syntax.h:4:27",
-          enumConstantName = NamePair {
-            nameC = Name "A",
-            nameHsIdent = HsIdentifier "A"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "enum_cpp_syntax.h:4:27",
+            fieldName = NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:27")
+          (Just "enum_cpp_syntax.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1430,14 +1443,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enum_cpp_syntax.h:4:30",
-          enumConstantName = NamePair {
-            nameC = Name "B",
-            nameHsIdent = HsIdentifier "B"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "enum_cpp_syntax.h:4:30",
+            fieldName = NamePair {
+              nameC = Name "B",
+              nameHsIdent = HsIdentifier "B"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:30")
+          (Just "enum_cpp_syntax.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1452,11 +1471,17 @@
       patSynValue = 2,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "enum_cpp_syntax.h:4:33",
-          enumConstantName = NamePair {
-            nameC = Name "C",
-            nameHsIdent = HsIdentifier "C"},
-          enumConstantValue = 2,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing}]
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "enum_cpp_syntax.h:4:33",
+            fieldName = NamePair {
+              nameC = Name "C",
+              nameHsIdent = HsIdentifier "C"},
+            fieldComment = Nothing},
+          enumConstantValue = 2},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "enum_cpp_syntax.h:4:33")
+          (Just "enum_cpp_syntax.h")
+          [])}]

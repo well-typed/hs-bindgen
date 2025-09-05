@@ -20,30 +20,32 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc = "flam.h:3:9",
-              structFieldName = NamePair {
-                nameC = Name "len",
-                nameHsIdent = HsIdentifier
-                  "pascal_len"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:3:9",
+                fieldName = NamePair {
+                  nameC = Name "len",
+                  nameHsIdent = HsIdentifier
+                    "pascal_len"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Just
             StructField {
-              structFieldLoc = "flam.h:4:10",
-              structFieldName = NamePair {
-                nameC = Name "data",
-                nameHsIdent = HsIdentifier
-                  "pascal_data"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:4:10",
+                fieldName = NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "pascal_data"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}},
+              structFieldWidth = Nothing}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -70,27 +72,29 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc = "flam.h:11:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "foo_bar_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:11:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "foo_bar_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc = "flam.h:12:7",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "foo_bar_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:12:7",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "foo_bar_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -117,23 +121,26 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc = "flam.h:9:6",
-              structFieldName = NamePair {
-                nameC = Name "len",
-                nameHsIdent = HsIdentifier
-                  "foo_len"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:9:6",
+                fieldName = NamePair {
+                  nameC = Name "len",
+                  nameHsIdent = HsIdentifier
+                    "foo_len"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Just
             StructField {
-              structFieldLoc = "flam.h:13:4",
-              structFieldName = NamePair {
-                nameC = Name "bar",
-                nameHsIdent = HsIdentifier
-                  "foo_bar"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:13:4",
+                fieldName = NamePair {
+                  nameC = Name "bar",
+                  nameHsIdent = HsIdentifier
+                    "foo_bar"},
+                fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "foo_bar",
@@ -142,8 +149,7 @@ TranslationUnit {
                 (NameOriginGenerated
                   (AnonId "flam.h:10:2")),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}},
+              structFieldWidth = Nothing}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -169,43 +175,46 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc = "flam.h:18:7",
-              structFieldName = NamePair {
-                nameC = Name "first",
-                nameHsIdent = HsIdentifier
-                  "diff_first"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:18:7",
+                fieldName = NamePair {
+                  nameC = Name "first",
+                  nameHsIdent = HsIdentifier
+                    "diff_first"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc = "flam.h:19:7",
-              structFieldName = NamePair {
-                nameC = Name "second",
-                nameHsIdent = HsIdentifier
-                  "diff_second"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:19:7",
+                fieldName = NamePair {
+                  nameC = Name "second",
+                  nameHsIdent = HsIdentifier
+                    "diff_second"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Just
             StructField {
-              structFieldLoc = "flam.h:20:7",
-              structFieldName = NamePair {
-                nameC = Name "flam",
-                nameHsIdent = HsIdentifier
-                  "diff_flam"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:20:7",
+                fieldName = NamePair {
+                  nameC = Name "flam",
+                  nameHsIdent = HsIdentifier
+                    "diff_flam"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 72,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}},
+              structFieldWidth = Nothing}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -242,30 +251,32 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc = "flam.h:27:7",
-              structFieldName = NamePair {
-                nameC = Name "len",
-                nameHsIdent = HsIdentifier
-                  "triplets_len"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:27:7",
+                fieldName = NamePair {
+                  nameC = Name "len",
+                  nameHsIdent = HsIdentifier
+                    "triplets_len"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Just
             StructField {
-              structFieldLoc = "flam.h:28:7",
-              structFieldName = NamePair {
-                nameC = Name "flam",
-                nameHsIdent = HsIdentifier
-                  "triplets_flam"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "flam.h:28:7",
+                fieldName = NamePair {
+                  nameC = Name "flam",
+                  nameHsIdent = HsIdentifier
+                    "triplets_flam"},
+                fieldComment = Nothing},
               structFieldType = TypeConstArray
                 3
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}},
+              structFieldWidth = Nothing}},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

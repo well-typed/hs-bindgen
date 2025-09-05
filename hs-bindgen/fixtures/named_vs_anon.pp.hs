@@ -6,6 +6,12 @@ module Example where
 import qualified Foreign as F
 import Prelude (Eq, Int, Show, pure, return)
 
+{-| __C declaration:__ @a@
+
+    __defined at:__ @named_vs_anon.h:15:8@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data A = A
   {}
   deriving stock (Eq, Show)
@@ -24,6 +30,12 @@ instance F.Storable A where
         case s1 of
           A -> return ()
 
+{-| __C declaration:__ @struct1@
+
+    __defined at:__ @named_vs_anon.h:16:8@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Struct1 = Struct1
   {}
   deriving stock (Eq, Show)
@@ -42,6 +54,12 @@ instance F.Storable Struct1 where
         case s1 of
           Struct1 -> return ()
 
+{-| __C declaration:__ @b_s@
+
+    __defined at:__ @named_vs_anon.h:19:8@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data B_s = B_s
   {}
   deriving stock (Eq, Show)
@@ -60,6 +78,12 @@ instance F.Storable B_s where
         case s1 of
           B_s -> return ()
 
+{-| __C declaration:__ @struct2_s@
+
+    __defined at:__ @named_vs_anon.h:20:8@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Struct2_s = Struct2_s
   {}
   deriving stock (Eq, Show)
@@ -78,6 +102,12 @@ instance F.Storable Struct2_s where
         case s1 of
           Struct2_s -> return ()
 
+{-| __C declaration:__ @c@
+
+    __defined at:__ @named_vs_anon.h:23:36@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data C = C
   {}
   deriving stock (Eq, Show)
@@ -96,6 +126,12 @@ instance F.Storable C where
         case s1 of
           C -> return ()
 
+{-| __C declaration:__ @struct3@
+
+    __defined at:__ @named_vs_anon.h:24:36@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Struct3 = Struct3
   {}
   deriving stock (Eq, Show)
@@ -114,6 +150,12 @@ instance F.Storable Struct3 where
         case s1 of
           Struct3 -> return ()
 
+{-| __C declaration:__ @d@
+
+    __defined at:__ @named_vs_anon.h:27:15@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data D = D
   {}
   deriving stock (Eq, Show)
@@ -132,6 +174,12 @@ instance F.Storable D where
         case s1 of
           D -> return ()
 
+{-| __C declaration:__ @struct4@
+
+    __defined at:__ @named_vs_anon.h:28:15@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Struct4 = Struct4
   {}
   deriving stock (Eq, Show)
@@ -150,6 +198,12 @@ instance F.Storable Struct4 where
         case s1 of
           Struct4 -> return ()
 
+{-| __C declaration:__ @e_s@
+
+    __defined at:__ @named_vs_anon.h:31:15@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data E_s = E_s
   {}
   deriving stock (Eq, Show)
@@ -168,6 +222,12 @@ instance F.Storable E_s where
         case s1 of
           E_s -> return ()
 
+{-| __C declaration:__ @struct5_s@
+
+    __defined at:__ @named_vs_anon.h:32:15@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Struct5_s = Struct5_s
   {}
   deriving stock (Eq, Show)
@@ -186,6 +246,12 @@ instance F.Storable Struct5_s where
         case s1 of
           Struct5_s -> return ()
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @named_vs_anon.h:35:9@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data F = F
   {}
   deriving stock (Eq, Show)
@@ -204,6 +270,12 @@ instance F.Storable F where
         case s1 of
           F -> return ()
 
+{-| __C declaration:__ @typedef1@
+
+    __defined at:__ @named_vs_anon.h:36:9@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Typedef1 = Typedef1
   {}
   deriving stock (Eq, Show)
@@ -222,6 +294,12 @@ instance F.Storable Typedef1 where
         case s1 of
           Typedef1 -> return ()
 
+{-| __C declaration:__ @g@
+
+    __defined at:__ @named_vs_anon.h:39:9@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data G = G
   {}
   deriving stock (Eq, Show)
@@ -240,6 +318,12 @@ instance F.Storable G where
         case s1 of
           G -> return ()
 
+{-| __C declaration:__ @typedef2@
+
+    __defined at:__ @named_vs_anon.h:40:9@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Typedef2 = Typedef2
   {}
   deriving stock (Eq, Show)
@@ -258,6 +342,12 @@ instance F.Storable Typedef2 where
         case s1 of
           Typedef2 -> return ()
 
+{-| __C declaration:__ @h@
+
+    __defined at:__ @named_vs_anon.h:43:9@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data H = H
   {}
   deriving stock (Eq, Show)
@@ -276,6 +366,12 @@ instance F.Storable H where
         case s1 of
           H -> return ()
 
+{-| __C declaration:__ @typedef3@
+
+    __defined at:__ @named_vs_anon.h:44:9@
+
+    __exported by:__ @named_vs_anon.h@
+-}
 data Typedef3 = Typedef3
   {}
   deriving stock (Eq, Show)

@@ -41,24 +41,23 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "typenames.h:15:2",
-                enumConstantName = NamePair {
-                  nameC = Name "FOO1",
-                  nameHsIdent = HsIdentifier
-                    "FOO1"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "typenames.h:15:2",
+                  fieldName = NamePair {
+                    nameC = Name "FOO1",
+                    nameHsIdent = HsIdentifier
+                      "FOO1"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "typenames.h:16:2",
-                enumConstantName = NamePair {
-                  nameC = Name "FOO2",
-                  nameHsIdent = HsIdentifier
-                    "FOO2"},
-                enumConstantValue = 1,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc = "typenames.h:16:2",
+                  fieldName = NamePair {
+                    nameC = Name "FOO2",
+                    nameHsIdent = HsIdentifier
+                      "FOO2"},
+                  fieldComment = Nothing},
+                enumConstantValue = 1}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -67,7 +66,12 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:14:6")
+          (Just "typenames.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -301,15 +305,20 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "typenames.h:15:2",
-          enumConstantName = NamePair {
-            nameC = Name "FOO1",
-            nameHsIdent = HsIdentifier
-              "FOO1"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "typenames.h:15:2",
+            fieldName = NamePair {
+              nameC = Name "FOO1",
+              nameHsIdent = HsIdentifier
+                "FOO1"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:15:2")
+          (Just "typenames.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -324,15 +333,20 @@
       patSynValue = 1,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "typenames.h:16:2",
-          enumConstantName = NamePair {
-            nameC = Name "FOO2",
-            nameHsIdent = HsIdentifier
-              "FOO2"},
-          enumConstantValue = 1,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc = "typenames.h:16:2",
+            fieldName = NamePair {
+              nameC = Name "FOO2",
+              nameHsIdent = HsIdentifier
+                "FOO2"},
+            fieldComment = Nothing},
+          enumConstantValue = 1},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:16:2")
+          (Just "typenames.h")
+          [])},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -391,7 +405,12 @@
           RealFloat,
           RealFrac,
           Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just "typenames.h:19:16")
+          (Just "typenames.h")
+          [])},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

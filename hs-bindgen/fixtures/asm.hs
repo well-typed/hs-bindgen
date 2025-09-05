@@ -20,7 +20,12 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "asm.h:2:12")
+          (Just "asm.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -39,20 +44,22 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -83,11 +90,11 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "asm_labeled_function",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just "asm.h:4:5")
+          (Just "asm.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude "asm.h",
   DeclInlineC
@@ -121,7 +128,12 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just "asm.h:4:5")
+          (Just "asm.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

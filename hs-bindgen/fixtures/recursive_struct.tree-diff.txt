@@ -26,24 +26,27 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:2:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "linked_list_A_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:2:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_A_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:3:27",
-              structFieldName = NamePair {
-                nameC = Name "next",
-                nameHsIdent = HsIdentifier
-                  "linked_list_A_t_next"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:3:27",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_A_t_next"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -53,8 +56,7 @@ TranslationUnit {
                   (NameOriginRenamedFrom
                     (Name "linked_list_A_s"))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -86,24 +88,27 @@ TranslationUnit {
           structAlignment = 8,
           structFields = [
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:10:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "linked_list_B_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:10:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_B_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "recursive_struct.h:11:20",
-              structFieldName = NamePair {
-                nameC = Name "next",
-                nameHsIdent = HsIdentifier
-                  "linked_list_B_t_next"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "recursive_struct.h:11:20",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = HsIdentifier
+                    "linked_list_B_t_next"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -115,8 +120,7 @@ TranslationUnit {
                           "Linked_list_B_t"}
                       NameOriginInSource))),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

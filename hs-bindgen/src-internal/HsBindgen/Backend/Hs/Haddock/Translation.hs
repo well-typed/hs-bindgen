@@ -1,4 +1,9 @@
-module HsBindgen.Backend.Hs.Haddock.Translation where
+module HsBindgen.Backend.Hs.Haddock.Translation
+  ( generateHaddocksWithInfo
+  , generateHaddocksWithFieldInfo
+  , generateHaddocksWithInfoParams
+  )
+  where
 
 import Data.Char (isDigit)
 import Data.Maybe (isJust)
@@ -10,18 +15,40 @@ import Text.Read (readMaybe)
 import GHC.Natural (Natural)
 
 import Clang.HighLevel.Documentation qualified as C
+import Clang.HighLevel.Types qualified as C
+import Clang.Paths qualified as C
 
-import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..))
+import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..), Name (..), DeclInfo (..), FieldInfo (..))
+import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Language.Haskell (HsName(..), HsIdentifier (..))
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
+import System.FilePath (takeFileName)
 
 -- | Convert a Clang comment to a Haddock comment
 --
-generateHaddocks :: Maybe (C.Comment Reference) -> Maybe Hs.Comment
-generateHaddocks comment = fst $ generateHaddocksWithParams comment []
+generateHaddocksWithInfo :: HaddockConfig -> DeclInfo -> Maybe Hs.Comment
+generateHaddocksWithInfo config DeclInfo{..} =
+  fst $ generateHaddocksWithParams config declLoc declHeader declId declComment []
+
+generateHaddocksWithFieldInfo
+  :: HaddockConfig
+  -> DeclInfo
+  -> FieldInfo
+  -> Maybe Hs.Comment
+generateHaddocksWithFieldInfo config DeclInfo{..} FieldInfo{..} =
+  fst $ generateHaddocksWithParams config fieldLoc declHeader fieldName fieldComment []
+
+generateHaddocksWithInfoParams
+  :: HaddockConfig
+  -> DeclInfo
+  -> [Hs.FunctionParameter]
+  -> (Maybe Hs.Comment, [Hs.FunctionParameter])
+generateHaddocksWithInfoParams config DeclInfo{..} params =
+  generateHaddocksWithParams config declLoc declHeader declId declComment params
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
 --
@@ -32,16 +59,28 @@ generateHaddocks comment = fst $ generateHaddocksWithParams comment []
 -- Returns the processed comment and the updated parameters list
 --
 generateHaddocksWithParams ::
-     Maybe (C.Comment Reference)
+     HaddockConfig
+  -> C.SingleLoc
+  -> HashIncludeArg
+  -> NamePair
+  -> Maybe (C.Comment Reference)
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])
-generateHaddocksWithParams Nothing params              =
+generateHaddocksWithParams HaddockConfig{..} declLoc declHeader declId Nothing params =
   -- If there's no C.Comment to associate with any function parameter we make
   -- sure to at least add a comment that will show the function parameter name
   -- if it exists.
   --
-  (Nothing, map addFunctionParameterComment params)
-generateHaddocksWithParams (Just C.Comment{..}) params =
+  ( Just
+     Hs.Comment {
+       Hs.commentTitle    = Nothing
+     , Hs.commentOrigin   = Just (getName (nameC declId))
+     , Hs.commentLocation = Just (updateSingleLoc pathStyle declLoc)
+     , Hs.commentHeader   = Just declHeader
+     , Hs.commentChildren = []
+     }
+  , map addFunctionParameterComment params)
+generateHaddocksWithParams HaddockConfig{..} declLoc header declId (Just C.Comment{..}) params =
   let (commentTitle, commentChildren') =
         case commentChildren of
           (C.Paragraph [C.TextContent ""]:rest) -> (Nothing, rest)
@@ -86,15 +125,17 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
    in ( Just Hs.Comment {
           commentTitle
         , commentOrigin   = if Text.null commentCName
-                               then Nothing
+                               then Just (getName (nameC declId))
                                else Just (Text.strip commentCName)
+        , commentLocation = Just (updateSingleLoc pathStyle declLoc)
+        , commentHeader   = Just header
         , commentChildren = finalChildren
         }
       , updatedParams
       )
   where
     filterParamCommands :: [C.CommentBlockContent Reference]
-                           -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
+                        -> [(Hs.Comment, Maybe C.CXCommentParamPassDirection)]
     filterParamCommands = \case
       [] -> []
       (blockContent@C.ParamCommand{..}:cmds)
@@ -109,6 +150,8 @@ generateHaddocksWithParams (Just C.Comment{..}) params =
                 , commentOrigin   = if Text.null paramCommandName
                                        then Nothing
                                        else Just (Text.strip paramCommandName)
+                , commentLocation = Nothing
+                , commentHeader   = Nothing
                 , commentChildren = convertBlockContent blockContent
                 }
            in (comment, paramCommandDirection):filterParamCommands cmds
@@ -151,6 +194,8 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
                    Just Hs.Comment {
                           commentTitle    = Nothing
                         , commentOrigin   = getHsName <$> functionParameterName
+                        , commentLocation = Nothing
+                        , commentHeader   = Nothing
                         , commentChildren = []
                         }
                }
@@ -438,3 +483,19 @@ formatParagraphContent = processGroups 1 []
             digits' <- readMaybe digits
             return (Hs.NumberedList digits', Text.pack rest, Nothing)
           _ -> Nothing
+
+-- | Depending on the configured 'PathStyle', update 'SingleLoc'
+-- to either have a short or full path name.
+--
+-- See #966.
+updateSingleLoc :: PathStyle -> C.SingleLoc -> C.SingleLoc
+updateSingleLoc Short C.SingleLoc{..} =
+  C.SingleLoc {
+    singleLocPath = C.SourcePath
+                  . Text.pack
+                  . takeFileName
+                  . C.getSourcePath
+                  $ singleLocPath
+  , ..
+  }
+updateSingleLoc _     sloc = sloc

@@ -34,15 +34,37 @@
 -- /* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } 
 -- /* get_constPtrToInt_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } 
 -- /* get_constPtrToConstInt_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } 
-{-| Global variables
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_9e13cdab849fd6a3" hs_bindgen_test_globals_9e13cdab849fd6a3 :: IO (Ptr CInt)
 {-# NOINLINE simpleGlobal_ptr #-}
 simpleGlobal_ptr :: Ptr CInt
 simpleGlobal_ptr = unsafePerformIO hs_bindgen_test_globals_9e13cdab849fd6a3
+{-| __C declaration:__ @config@
+
+    __defined at:__ @globals.h:12:8@
+
+    __exported by:__ @globals.h@
+-}
 data Config
-    = Config {config_x :: CInt, config_y :: CInt}
+    = Config {config_x :: CInt
+              {- ^ __C declaration:__ @x@
+
+                   __defined at:__ @globals.h:13:7@
+
+                   __exported by:__ @globals.h@
+              -},
+              config_y :: CInt
+              {- ^ __C declaration:__ @y@
+
+                   __defined at:__ @globals.h:14:7@
+
+                   __exported by:__ @globals.h@
+              -}}
+      {- ^ __C declaration:__ @config@
+
+           __defined at:__ @globals.h:12:8@
+
+           __exported by:__ @globals.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Config
     where sizeOf = \_ -> 8 :: Int
@@ -51,12 +73,43 @@ instance Storable Config
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Config config_x_3
                                           config_y_4 -> pokeByteOff ptr_1 (0 :: Int) config_x_3 >> pokeByteOff ptr_1 (4 :: Int) config_y_4
+{-| __C declaration:__ @compoundGlobal1@
+
+    __defined at:__ @globals.h:16:22@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_9093ee3b5b63dbb9" hs_bindgen_test_globals_9093ee3b5b63dbb9 :: IO (Ptr Config)
 {-# NOINLINE compoundGlobal1_ptr #-}
 compoundGlobal1_ptr :: Ptr Config
 compoundGlobal1_ptr = unsafePerformIO hs_bindgen_test_globals_9093ee3b5b63dbb9
+{-| __C declaration:__ @inline_struct@
+
+    __defined at:__ @globals.h:19:15@
+
+    __exported by:__ @globals.h@
+-}
 data Inline_struct
-    = Inline_struct {inline_struct_x :: CInt, inline_struct_y :: CInt}
+    = Inline_struct {inline_struct_x :: CInt
+                     {- ^ __C declaration:__ @x@
+
+                          __defined at:__ @globals.h:19:35@
+
+                          __exported by:__ @globals.h@
+                     -},
+                     inline_struct_y :: CInt
+                     {- ^ __C declaration:__ @y@
+
+                          __defined at:__ @globals.h:19:42@
+
+                          __exported by:__ @globals.h@
+                     -}}
+      {- ^ __C declaration:__ @inline_struct@
+
+           __defined at:__ @globals.h:19:15@
+
+           __exported by:__ @globals.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Inline_struct
     where sizeOf = \_ -> 8 :: Int
@@ -65,6 +118,12 @@ instance Storable Inline_struct
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Inline_struct inline_struct_x_3
                                                  inline_struct_y_4 -> pokeByteOff ptr_1 (0 :: Int) inline_struct_x_3 >> pokeByteOff ptr_1 (4 :: Int) inline_struct_y_4
+{-| __C declaration:__ @compoundGlobal2@
+
+    __defined at:__ @globals.h:19:47@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_35cfb530c6e3b540" hs_bindgen_test_globals_35cfb530c6e3b540 :: IO (Ptr Inline_struct)
 {-# NOINLINE compoundGlobal2_ptr #-}
 compoundGlobal2_ptr :: Ptr Inline_struct
@@ -77,58 +136,135 @@ compoundGlobal2_ptr = unsafePerformIO hs_bindgen_test_globals_35cfb530c6e3b540
 
   [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
 
+__C declaration:__ @nesInteger@
+
+__defined at:__ @globals.h:35:9@
+
+__exported by:__ @globals.h@
 -}
 foreign import ccall safe "hs_bindgen_test_globals_d0e555bab6218b45" hs_bindgen_test_globals_d0e555bab6218b45 :: IO (Ptr CInt)
 {-# NOINLINE nesInteger_ptr #-}
 nesInteger_ptr :: Ptr CInt
 nesInteger_ptr = unsafePerformIO hs_bindgen_test_globals_d0e555bab6218b45
+{-| __C declaration:__ @nesFloating@
+
+    __defined at:__ @globals.h:36:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_620d3eeb41be6814" hs_bindgen_test_globals_620d3eeb41be6814 :: IO (Ptr CFloat)
 {-# NOINLINE nesFloating_ptr #-}
 nesFloating_ptr :: Ptr CFloat
 nesFloating_ptr = unsafePerformIO hs_bindgen_test_globals_620d3eeb41be6814
+{-| __C declaration:__ @nesString1@
+
+    __defined at:__ @globals.h:38:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_58609a874bbd4939" hs_bindgen_test_globals_58609a874bbd4939 :: IO (Ptr (Ptr CChar))
 {-# NOINLINE nesString1_ptr #-}
 nesString1_ptr :: Ptr (Ptr CChar)
 nesString1_ptr = unsafePerformIO hs_bindgen_test_globals_58609a874bbd4939
+{-| __C declaration:__ @nesString2@
+
+    __defined at:__ @globals.h:39:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_d24d15726a247083" hs_bindgen_test_globals_d24d15726a247083 :: IO (Ptr (ConstantArray 3
                                                                                                                                         CChar))
 {-# NOINLINE nesString2_ptr #-}
 nesString2_ptr :: Ptr (ConstantArray 3 CChar)
 nesString2_ptr = unsafePerformIO hs_bindgen_test_globals_d24d15726a247083
+{-| __C declaration:__ @nesCharacter@
+
+    __defined at:__ @globals.h:40:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_472e8cff06767166" hs_bindgen_test_globals_472e8cff06767166 :: IO (Ptr CChar)
 {-# NOINLINE nesCharacter_ptr #-}
 nesCharacter_ptr :: Ptr CChar
 nesCharacter_ptr = unsafePerformIO hs_bindgen_test_globals_472e8cff06767166
+{-| __C declaration:__ @nesParen@
+
+    __defined at:__ @globals.h:41:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_3535fbeb41ad5a41" hs_bindgen_test_globals_3535fbeb41ad5a41 :: IO (Ptr CInt)
 {-# NOINLINE nesParen_ptr #-}
 nesParen_ptr :: Ptr CInt
 nesParen_ptr = unsafePerformIO hs_bindgen_test_globals_3535fbeb41ad5a41
+{-| __C declaration:__ @nesUnary@
+
+    __defined at:__ @globals.h:42:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_c2e1dc65064ad658" hs_bindgen_test_globals_c2e1dc65064ad658 :: IO (Ptr CInt)
 {-# NOINLINE nesUnary_ptr #-}
 nesUnary_ptr :: Ptr CInt
 nesUnary_ptr = unsafePerformIO hs_bindgen_test_globals_c2e1dc65064ad658
+{-| __C declaration:__ @nesBinary@
+
+    __defined at:__ @globals.h:43:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_3d0448526008a072" hs_bindgen_test_globals_3d0448526008a072 :: IO (Ptr CInt)
 {-# NOINLINE nesBinary_ptr #-}
 nesBinary_ptr :: Ptr CInt
 nesBinary_ptr = unsafePerformIO hs_bindgen_test_globals_3d0448526008a072
+{-| __C declaration:__ @nesConditional@
+
+    __defined at:__ @globals.h:44:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_6733c2e7c59bc620" hs_bindgen_test_globals_6733c2e7c59bc620 :: IO (Ptr CInt)
 {-# NOINLINE nesConditional_ptr #-}
 nesConditional_ptr :: Ptr CInt
 nesConditional_ptr = unsafePerformIO hs_bindgen_test_globals_6733c2e7c59bc620
+{-| __C declaration:__ @nesCast@
+
+    __defined at:__ @globals.h:45:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_d6e6e72f287d9b41" hs_bindgen_test_globals_d6e6e72f287d9b41 :: IO (Ptr CFloat)
 {-# NOINLINE nesCast_ptr #-}
 nesCast_ptr :: Ptr CFloat
 nesCast_ptr = unsafePerformIO hs_bindgen_test_globals_d6e6e72f287d9b41
+{-| __C declaration:__ @nesCompound@
+
+    __defined at:__ @globals.h:46:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_032905c6b7a5e39f" hs_bindgen_test_globals_032905c6b7a5e39f :: IO (Ptr (Ptr CInt))
 {-# NOINLINE nesCompound_ptr #-}
 nesCompound_ptr :: Ptr (Ptr CInt)
 nesCompound_ptr = unsafePerformIO hs_bindgen_test_globals_032905c6b7a5e39f
+{-| __C declaration:__ @nesInitList@
+
+    __defined at:__ @globals.h:47:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_4012de1fec3423a7" hs_bindgen_test_globals_4012de1fec3423a7 :: IO (Ptr (ConstantArray 4
                                                                                                                                         HsBindgen.Runtime.Prelude.Word8))
 {-# NOINLINE nesInitList_ptr #-}
 nesInitList_ptr :: Ptr (ConstantArray 4
                                       HsBindgen.Runtime.Prelude.Word8)
 nesInitList_ptr = unsafePerformIO hs_bindgen_test_globals_4012de1fec3423a7
+{-| __C declaration:__ @nesBool@
+
+    __defined at:__ @globals.h:48:9@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_f9fb23513d064767" hs_bindgen_test_globals_f9fb23513d064767 :: IO (Ptr CBool)
 {-# NOINLINE nesBool_ptr #-}
 nesBool_ptr :: Ptr CBool
@@ -139,6 +275,11 @@ nesBool_ptr = unsafePerformIO hs_bindgen_test_globals_f9fb23513d064767
 
   [1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325
 
+__C declaration:__ @streamBinary@
+
+__defined at:__ @globals.h:60:9@
+
+__exported by:__ @globals.h@
 -}
 foreign import ccall safe "hs_bindgen_test_globals_92e68af3ae2ed3fb" hs_bindgen_test_globals_92e68af3ae2ed3fb :: IO (Ptr (ConstantArray 4096
                                                                                                                                         HsBindgen.Runtime.Prelude.Word8))
@@ -146,14 +287,50 @@ foreign import ccall safe "hs_bindgen_test_globals_92e68af3ae2ed3fb" hs_bindgen_
 streamBinary_ptr :: Ptr (ConstantArray 4096
                                        HsBindgen.Runtime.Prelude.Word8)
 streamBinary_ptr = unsafePerformIO hs_bindgen_test_globals_92e68af3ae2ed3fb
+{-| __C declaration:__ @streamBinary_len@
+
+    __defined at:__ @globals.h:404:10@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_8d6f9f3043208163" hs_bindgen_test_globals_8d6f9f3043208163 :: IO (Ptr HsBindgen.Runtime.Prelude.Word32)
 {-# NOINLINE streamBinary_len_ptr #-}
 streamBinary_len_ptr :: Ptr HsBindgen.Runtime.Prelude.Word32
 streamBinary_len_ptr = unsafePerformIO hs_bindgen_test_globals_8d6f9f3043208163
+{-| __C declaration:__ @version_t@
+
+    __defined at:__ @globals.h:406:9@
+
+    __exported by:__ @globals.h@
+-}
 data Version_t
-    = Version_t {version_t_major :: HsBindgen.Runtime.Prelude.Word8,
-                 version_t_minor :: HsBindgen.Runtime.Prelude.Word16,
-                 version_t_patch :: HsBindgen.Runtime.Prelude.Word8}
+    = Version_t {version_t_major :: HsBindgen.Runtime.Prelude.Word8
+                 {- ^ __C declaration:__ @major@
+
+                      __defined at:__ @globals.h:408:12@
+
+                      __exported by:__ @globals.h@
+                 -},
+                 version_t_minor :: HsBindgen.Runtime.Prelude.Word16
+                 {- ^ __C declaration:__ @minor@
+
+                      __defined at:__ @globals.h:409:12@
+
+                      __exported by:__ @globals.h@
+                 -},
+                 version_t_patch :: HsBindgen.Runtime.Prelude.Word8
+                 {- ^ __C declaration:__ @patch@
+
+                      __defined at:__ @globals.h:410:12@
+
+                      __exported by:__ @globals.h@
+                 -}}
+      {- ^ __C declaration:__ @version_t@
+
+           __defined at:__ @globals.h:406:9@
+
+           __exported by:__ @globals.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Version_t
     where sizeOf = \_ -> 6 :: Int
@@ -163,10 +340,40 @@ instance Storable Version_t
                                    Version_t version_t_major_3
                                              version_t_minor_4
                                              version_t_patch_5 -> pokeByteOff ptr_1 (0 :: Int) version_t_major_3 >> (pokeByteOff ptr_1 (2 :: Int) version_t_minor_4 >> pokeByteOff ptr_1 (4 :: Int) version_t_patch_5)
+{-| __C declaration:__ @struct1_t@
+
+    __defined at:__ @globals.h:413:9@
+
+    __exported by:__ @globals.h@
+-}
 data Struct1_t
-    = Struct1_t {struct1_t_x :: HsBindgen.Runtime.Prelude.Word16,
-                 struct1_t_y :: CBool,
-                 struct1_t_version :: Version_t}
+    = Struct1_t {struct1_t_x :: HsBindgen.Runtime.Prelude.Word16
+                 {- ^ __C declaration:__ @x@
+
+                      __defined at:__ @globals.h:415:13@
+
+                      __exported by:__ @globals.h@
+                 -},
+                 struct1_t_y :: CBool
+                 {- ^ __C declaration:__ @y@
+
+                      __defined at:__ @globals.h:416:13@
+
+                      __exported by:__ @globals.h@
+                 -},
+                 struct1_t_version :: Version_t
+                 {- ^ __C declaration:__ @version@
+
+                      __defined at:__ @globals.h:417:13@
+
+                      __exported by:__ @globals.h@
+                 -}}
+      {- ^ __C declaration:__ @struct1_t@
+
+           __defined at:__ @globals.h:413:9@
+
+           __exported by:__ @globals.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Struct1_t
     where sizeOf = \_ -> 10 :: Int
@@ -176,8 +383,26 @@ instance Storable Struct1_t
                                    Struct1_t struct1_t_x_3
                                              struct1_t_y_4
                                              struct1_t_version_5 -> pokeByteOff ptr_1 (0 :: Int) struct1_t_x_3 >> (pokeByteOff ptr_1 (2 :: Int) struct1_t_y_4 >> pokeByteOff ptr_1 (4 :: Int) struct1_t_version_5)
+{-| __C declaration:__ @struct2_t@
+
+    __defined at:__ @globals.h:420:9@
+
+    __exported by:__ @globals.h@
+-}
 data Struct2_t
-    = Struct2_t {struct2_t_field1 :: Struct1_t}
+    = Struct2_t {struct2_t_field1 :: Struct1_t
+                 {- ^ __C declaration:__ @field1@
+
+                      __defined at:__ @globals.h:422:13@
+
+                      __exported by:__ @globals.h@
+                 -}}
+      {- ^ __C declaration:__ @struct2_t@
+
+           __defined at:__ @globals.h:420:9@
+
+           __exported by:__ @globals.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Struct2_t
     where sizeOf = \_ -> 10 :: Int
@@ -185,6 +410,12 @@ instance Storable Struct2_t
           peek = \ptr_0 -> pure Struct2_t <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct2_t struct2_t_field1_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_t_field1_3
+{-| __C declaration:__ @some_global_struct@
+
+    __defined at:__ @globals.h:425:11@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_88ad1f87a451c285" hs_bindgen_test_globals_88ad1f87a451c285 :: IO (Ptr Struct2_t)
 {-# NOINLINE some_global_struct_ptr #-}
 some_global_struct_ptr :: Ptr Struct2_t
@@ -193,6 +424,11 @@ some_global_struct_ptr = unsafePerformIO hs_bindgen_test_globals_88ad1f87a451c28
 
   Although this is a constant, we don't expect an initializer (since it's `extern`).
 
+__C declaration:__ @globalConstant@
+
+__defined at:__ @globals.h:445:18@
+
+__exported by:__ @globals.h@
 -}
 foreign import ccall safe "hs_bindgen_test_globals_2875ba0f7feba4fd" hs_bindgen_test_globals_2875ba0f7feba4fd :: IO (Ptr CInt)
 {-# NOINLINE globalConstant_ptr #-}
@@ -201,14 +437,8 @@ globalConstant_ptr = unsafePerformIO hs_bindgen_test_globals_2875ba0f7feba4fd
 {-# NOINLINE globalConstant #-}
 globalConstant :: CInt
 globalConstant = unsafePerformIO (peek globalConstant_ptr)
-{-| Constant, through typedef
-
--}
 newtype ConstInt
     = ConstInt {un_ConstInt :: CInt}
-      {- ^ Constant, through typedef
-
-      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -219,6 +449,12 @@ newtype ConstInt
                       Ix,
                       Num,
                       Real)
+{-| __C declaration:__ @anotherGlobalConstant@
+
+    __defined at:__ @globals.h:449:17@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_6ebecf881bce1334" hs_bindgen_test_globals_6ebecf881bce1334 :: IO (Ptr ConstInt)
 {-# NOINLINE anotherGlobalConstant_ptr #-}
 anotherGlobalConstant_ptr :: Ptr ConstInt
@@ -230,6 +466,11 @@ anotherGlobalConstant = unsafePerformIO (peek anotherGlobalConstant_ptr)
 
   Unlike with `extern`, in this we _do_ expect an initializer.
 
+__C declaration:__ @staticConst@
+
+__defined at:__ @globals.h:454:18@
+
+__exported by:__ @globals.h@
 -}
 foreign import ccall safe "hs_bindgen_test_globals_2eea936ed4beec74" hs_bindgen_test_globals_2eea936ed4beec74 :: IO (Ptr CInt)
 {-# NOINLINE staticConst_ptr #-}
@@ -238,9 +479,6 @@ staticConst_ptr = unsafePerformIO hs_bindgen_test_globals_2eea936ed4beec74
 {-# NOINLINE staticConst #-}
 staticConst :: CInt
 staticConst = unsafePerformIO (peek staticConst_ptr)
-{-| No storage class specified
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_5d631acbb16c0e7e" hs_bindgen_test_globals_5d631acbb16c0e7e :: IO (Ptr CInt)
 {-# NOINLINE classless_ptr #-}
 classless_ptr :: Ptr CInt
@@ -248,9 +486,6 @@ classless_ptr = unsafePerformIO hs_bindgen_test_globals_5d631acbb16c0e7e
 {-# NOINLINE classless #-}
 classless :: CInt
 classless = unsafePerformIO (peek classless_ptr)
-{-| A an array of size 4 containing constant integers
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_0d7a9340f4ef8b2e" hs_bindgen_test_globals_0d7a9340f4ef8b2e :: IO (Ptr (ConstantArray 4
                                                                                                                                         CInt))
 {-# NOINLINE constArray1_ptr #-}
@@ -259,21 +494,46 @@ constArray1_ptr = unsafePerformIO hs_bindgen_test_globals_0d7a9340f4ef8b2e
 {-# NOINLINE constArray1 #-}
 constArray1 :: ConstantArray 4 CInt
 constArray1 = unsafePerformIO (peek constArray1_ptr)
-{-| An array of uknown size containing constant integers
-
--}
 newtype ConstIntArray
     = ConstIntArray {un_ConstIntArray :: (IncompleteArray CInt)}
-      {- ^ An array of uknown size containing constant integers
-
-      -}
     deriving stock (Eq, Show)
+{-| __C declaration:__ @constArray2@
+
+    __defined at:__ @globals.h:464:22@
+
+    __exported by:__ @globals.h@
+-}
 foreign import ccall safe "hs_bindgen_test_globals_7e09340985caec8d" hs_bindgen_test_globals_7e09340985caec8d :: IO (Ptr ConstIntArray)
 {-# NOINLINE constArray2_ptr #-}
 constArray2_ptr :: Ptr ConstIntArray
 constArray2_ptr = unsafePerformIO hs_bindgen_test_globals_7e09340985caec8d
+{-| __C declaration:__ @tuple@
+
+    __defined at:__ @globals.h:466:8@
+
+    __exported by:__ @globals.h@
+-}
 data Tuple
-    = Tuple {tuple_x :: CInt, tuple_y :: CInt}
+    = Tuple {tuple_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @globals.h:466:20@
+
+                  __exported by:__ @globals.h@
+             -},
+             tuple_y :: CInt
+             {- ^ __C declaration:__ @y@
+
+                  __defined at:__ @globals.h:466:33@
+
+                  __exported by:__ @globals.h@
+             -}}
+      {- ^ __C declaration:__ @tuple@
+
+           __defined at:__ @globals.h:466:8@
+
+           __exported by:__ @globals.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Tuple
     where sizeOf = \_ -> 8 :: Int
@@ -282,9 +542,6 @@ instance Storable Tuple
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Tuple tuple_x_3
                                          tuple_y_4 -> pokeByteOff ptr_1 (0 :: Int) tuple_x_3 >> pokeByteOff ptr_1 (4 :: Int) tuple_y_4
-{-| A constant tuple
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_6f2e1968e15f0b9b" hs_bindgen_test_globals_6f2e1968e15f0b9b :: IO (Ptr Tuple)
 {-# NOINLINE constTuple_ptr #-}
 constTuple_ptr :: Ptr Tuple
@@ -292,23 +549,14 @@ constTuple_ptr = unsafePerformIO hs_bindgen_test_globals_6f2e1968e15f0b9b
 {-# NOINLINE constTuple #-}
 constTuple :: Tuple
 constTuple = unsafePerformIO (peek constTuple_ptr)
-{-| A non-constant tuple with a constant member
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_e8e62512a4e5d162" hs_bindgen_test_globals_e8e62512a4e5d162 :: IO (Ptr Tuple)
 {-# NOINLINE nonConstTuple_ptr #-}
 nonConstTuple_ptr :: Ptr Tuple
 nonConstTuple_ptr = unsafePerformIO hs_bindgen_test_globals_e8e62512a4e5d162
-{-| A pointer to const int
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_e41146f6df20fe0d" hs_bindgen_test_globals_e41146f6df20fe0d :: IO (Ptr (Ptr CInt))
 {-# NOINLINE ptrToConstInt_ptr #-}
 ptrToConstInt_ptr :: Ptr (Ptr CInt)
 ptrToConstInt_ptr = unsafePerformIO hs_bindgen_test_globals_e41146f6df20fe0d
-{-| A const pointer to int
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_83b0d0f5488b6a03" hs_bindgen_test_globals_83b0d0f5488b6a03 :: IO (Ptr (Ptr CInt))
 {-# NOINLINE constPtrToInt_ptr #-}
 constPtrToInt_ptr :: Ptr (Ptr CInt)
@@ -316,9 +564,6 @@ constPtrToInt_ptr = unsafePerformIO hs_bindgen_test_globals_83b0d0f5488b6a03
 {-# NOINLINE constPtrToInt #-}
 constPtrToInt :: Ptr CInt
 constPtrToInt = unsafePerformIO (peek constPtrToInt_ptr)
-{-| A const pointer to const int
-
--}
 foreign import ccall safe "hs_bindgen_test_globals_247c0c91ce28a18d" hs_bindgen_test_globals_247c0c91ce28a18d :: IO (Ptr (Ptr CInt))
 {-# NOINLINE constPtrToConstInt_ptr #-}
 constPtrToConstInt_ptr :: Ptr (Ptr CInt)

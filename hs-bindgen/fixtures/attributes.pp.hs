@@ -9,9 +9,27 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as F
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @attributes.h:10:36@
+
+    __exported by:__ @attributes.h@
+-}
 data Foo = Foo
   { foo_c :: FC.CChar
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @attributes.h:11:10@
+
+         __exported by:__ @attributes.h@
+    -}
   , foo_i :: FC.CInt
+    {- ^ __C declaration:__ @i@
+
+         __defined at:__ @attributes.h:12:10@
+
+         __exported by:__ @attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -35,9 +53,27 @@ instance F.Storable Foo where
                F.pokeByteOff ptr0 (0 :: Int) foo_c2
             >> F.pokeByteOff ptr0 (1 :: Int) foo_i3
 
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @attributes.h:16:15@
+
+    __exported by:__ @attributes.h@
+-}
 data Bar = Bar
   { bar_c :: FC.CChar
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @attributes.h:17:10@
+
+         __exported by:__ @attributes.h@
+    -}
   , bar_i :: FC.CInt
+    {- ^ __C declaration:__ @i@
+
+         __defined at:__ @attributes.h:18:10@
+
+         __exported by:__ @attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -61,9 +97,27 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_c2
             >> F.pokeByteOff ptr0 (1 :: Int) bar_i3
 
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @attributes.h:22:9@
+
+    __exported by:__ @attributes.h@
+-}
 data Baz = Baz
   { baz_c :: FC.CChar
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @attributes.h:23:10@
+
+         __exported by:__ @attributes.h@
+    -}
   , baz_i :: FC.CInt
+    {- ^ __C declaration:__ @i@
+
+         __defined at:__ @attributes.h:24:10@
+
+         __exported by:__ @attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -87,9 +141,27 @@ instance F.Storable Baz where
                F.pokeByteOff ptr0 (0 :: Int) baz_c2
             >> F.pokeByteOff ptr0 (1 :: Int) baz_i3
 
+{-| __C declaration:__ @qux@
+
+    __defined at:__ @attributes.h:28:9@
+
+    __exported by:__ @attributes.h@
+-}
 data Qux = Qux
   { qux_c :: FC.CChar
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @attributes.h:29:10@
+
+         __exported by:__ @attributes.h@
+    -}
   , qux_i :: FC.CInt
+    {- ^ __C declaration:__ @i@
+
+         __defined at:__ @attributes.h:30:10@
+
+         __exported by:__ @attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -113,10 +185,34 @@ instance F.Storable Qux where
                F.pokeByteOff ptr0 (0 :: Int) qux_c2
             >> F.pokeByteOff ptr0 (1 :: Int) qux_i3
 
+{-| __C declaration:__ @FILE@
+
+    __defined at:__ @attributes.h:34:16@
+
+    __exported by:__ @attributes.h@
+-}
 data FILE = FILE
   { fILE__r :: FC.CInt
+    {- ^ __C declaration:__ @_r@
+
+         __defined at:__ @attributes.h:35:9@
+
+         __exported by:__ @attributes.h@
+    -}
   , fILE__w :: FC.CInt
+    {- ^ __C declaration:__ @_w@
+
+         __defined at:__ @attributes.h:36:9@
+
+         __exported by:__ @attributes.h@
+    -}
   , fILE__close :: F.FunPtr ((F.Ptr Void) -> IO FC.CInt)
+    {- ^ __C declaration:__ @_close@
+
+         __defined at:__ @attributes.h:37:22@
+
+         __exported by:__ @attributes.h@
+    -}
   }
   deriving stock (Eq, Show)
 

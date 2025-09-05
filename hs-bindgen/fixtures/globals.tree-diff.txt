@@ -45,29 +45,29 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "globals.h:13:7",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "config_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:13:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "config_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:14:7",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "config_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:14:7",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "config_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -120,29 +120,29 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "globals.h:19:35",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "inline_struct_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:19:35",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "inline_struct_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:19:42",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "inline_struct_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:19:42",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "inline_struct_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -905,12 +905,13 @@ TranslationUnit {
           structAlignment = 2,
           structFields = [
             StructField {
-              structFieldLoc =
-              "globals.h:408:12",
-              structFieldName = NamePair {
-                nameC = Name "major",
-                nameHsIdent = HsIdentifier
-                  "version_t_major"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:408:12",
+                fieldName = NamePair {
+                  nameC = Name "major",
+                  nameHsIdent = HsIdentifier
+                    "version_t_major"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1028,15 +1029,15 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:409:12",
-              structFieldName = NamePair {
-                nameC = Name "minor",
-                nameHsIdent = HsIdentifier
-                  "version_t_minor"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:409:12",
+                fieldName = NamePair {
+                  nameC = Name "minor",
+                  nameHsIdent = HsIdentifier
+                    "version_t_minor"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1154,15 +1155,15 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:410:12",
-              structFieldName = NamePair {
-                nameC = Name "patch",
-                nameHsIdent = HsIdentifier
-                  "version_t_patch"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:410:12",
+                fieldName = NamePair {
+                  nameC = Name "patch",
+                  nameHsIdent = HsIdentifier
+                    "version_t_patch"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1280,8 +1281,7 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -1312,12 +1312,13 @@ TranslationUnit {
           structAlignment = 2,
           structFields = [
             StructField {
-              structFieldLoc =
-              "globals.h:415:13",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "struct1_t_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:415:13",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "struct1_t_x"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -1435,27 +1436,27 @@ TranslationUnit {
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:416:13",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "struct1_t_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:416:13",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "struct1_t_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 PrimBool,
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:417:13",
-              structFieldName = NamePair {
-                nameC = Name "version",
-                nameHsIdent = HsIdentifier
-                  "struct1_t_version"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:417:13",
+                fieldName = NamePair {
+                  nameC = Name "version",
+                  nameHsIdent = HsIdentifier
+                    "struct1_t_version"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "version_t")
@@ -1467,8 +1468,7 @@ TranslationUnit {
                     (NameOriginGenerated
                       (AnonId "globals.h:406:9")))),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -1499,12 +1499,13 @@ TranslationUnit {
           structAlignment = 2,
           structFields = [
             StructField {
-              structFieldLoc =
-              "globals.h:422:13",
-              structFieldName = NamePair {
-                nameC = Name "field1",
-                nameHsIdent = HsIdentifier
-                  "struct2_t_field1"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:422:13",
+                fieldName = NamePair {
+                  nameC = Name "field1",
+                  nameHsIdent = HsIdentifier
+                    "struct2_t_field1"},
+                fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefSquashed
                   (Name "struct1_t")
@@ -1516,8 +1517,7 @@ TranslationUnit {
                     (NameOriginGenerated
                       (AnonId "globals.h:413:9")))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {
@@ -1813,30 +1813,30 @@ TranslationUnit {
           structAlignment = 4,
           structFields = [
             StructField {
-              structFieldLoc =
-              "globals.h:466:20",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "tuple_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:466:20",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "tuple_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
+              structFieldWidth = Nothing},
             StructField {
-              structFieldLoc =
-              "globals.h:466:33",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "tuple_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "globals.h:466:33",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "tuple_y"},
+                fieldComment = Nothing},
               structFieldType = TypeConst
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing}],
+              structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
         TypeSpec {

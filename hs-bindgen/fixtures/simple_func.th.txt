@@ -10,19 +10,41 @@
 -- /* get_no_args_no_void_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_simple_func_1f43e6c47e963043 (void)) (void) { return &no_args_no_void; } 
 -- signed int hs_bindgen_test_simple_func_a2c97786cd1ecc82 (char arg1, double arg2) { return fun(arg1, arg2); }
 -- /* get_fun_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_simple_func_1400673a07a5e708 (void)) (char arg1, double arg2) { return &fun; } 
-{-| -}
+{-| __C declaration:__ @erf@
+
+    __defined at:__ @simple_func.h:1:8@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_3919a2f9a4498aaa" erf :: CDouble ->
                                                                                 IO CDouble
+{-| __C declaration:__ @erf@
+
+    __defined at:__ @simple_func.h:1:8@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_e3d5d1926d499ff8" hs_bindgen_test_simple_func_e3d5d1926d499ff8 :: IO (FunPtr (CDouble ->
                                                                                                                                      IO CDouble))
 {-# NOINLINE erf_ptr #-}
 erf_ptr :: FunPtr (CDouble -> IO CDouble)
 erf_ptr = unsafePerformIO hs_bindgen_test_simple_func_e3d5d1926d499ff8
-{-| -}
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @simple_func.h:3:22@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_6be780963284c499" bad_fma :: CDouble ->
                                                                                     CDouble ->
                                                                                     CDouble ->
                                                                                     IO CDouble
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @simple_func.h:3:22@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_6e78b576543cf13e" hs_bindgen_test_simple_func_6e78b576543cf13e :: IO (FunPtr (CDouble ->
                                                                                                                                      CDouble ->
                                                                                                                                      CDouble ->
@@ -30,21 +52,54 @@ foreign import ccall safe "hs_bindgen_test_simple_func_6e78b576543cf13e" hs_bind
 {-# NOINLINE bad_fma_ptr #-}
 bad_fma_ptr :: FunPtr (CDouble -> CDouble -> CDouble -> IO CDouble)
 bad_fma_ptr = unsafePerformIO hs_bindgen_test_simple_func_6e78b576543cf13e
-{-| -}
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @simple_func.h:7:6@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_63e35f316cc0a04e" no_args :: IO Unit
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @simple_func.h:7:6@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_a41af67e28348e9e" hs_bindgen_test_simple_func_a41af67e28348e9e :: IO (FunPtr (IO Unit))
 {-# NOINLINE no_args_ptr #-}
 no_args_ptr :: FunPtr (IO Unit)
 no_args_ptr = unsafePerformIO hs_bindgen_test_simple_func_a41af67e28348e9e
-{-| -}
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @simple_func.h:9:6@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_9d7e58d4e189732b" no_args_no_void :: IO Unit
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @simple_func.h:9:6@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_1f43e6c47e963043" hs_bindgen_test_simple_func_1f43e6c47e963043 :: IO (FunPtr (IO Unit))
 {-# NOINLINE no_args_no_void_ptr #-}
 no_args_no_void_ptr :: FunPtr (IO Unit)
 no_args_no_void_ptr = unsafePerformIO hs_bindgen_test_simple_func_1f43e6c47e963043
-{-| -}
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @simple_func.h:11:5@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_a2c97786cd1ecc82" fun :: CChar ->
                                                                                 CDouble -> IO CInt
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @simple_func.h:11:5@
+
+    __exported by:__ @simple_func.h@
+-}
 foreign import ccall safe "hs_bindgen_test_simple_func_1400673a07a5e708" hs_bindgen_test_simple_func_1400673a07a5e708 :: IO (FunPtr (CChar ->
                                                                                                                                      CDouble ->
                                                                                                                                      IO CInt))

@@ -44,62 +44,67 @@
             enumAlignment = 4,
             enumConstants = [
               EnumConstant {
-                enumConstantLoc =
-                "program_slicing_selection.h:8:3",
-                enumConstantName = NamePair {
-                  nameC = Name "SUCCESS",
-                  nameHsIdent = HsIdentifier
-                    "SUCCESS"},
-                enumConstantValue = 0,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "program_slicing_selection.h:8:3",
+                  fieldName = NamePair {
+                    nameC = Name "SUCCESS",
+                    nameHsIdent = HsIdentifier
+                      "SUCCESS"},
+                  fieldComment = Nothing},
+                enumConstantValue = 0},
               EnumConstant {
-                enumConstantLoc =
-                "program_slicing_selection.h:9:3",
-                enumConstantName = NamePair {
-                  nameC = Name "NOT_FOUND",
-                  nameHsIdent = HsIdentifier
-                    "NOT_FOUND"},
-                enumConstantValue = 2,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "program_slicing_selection.h:9:3",
+                  fieldName = NamePair {
+                    nameC = Name "NOT_FOUND",
+                    nameHsIdent = HsIdentifier
+                      "NOT_FOUND"},
+                  fieldComment = Nothing},
+                enumConstantValue = 2},
               EnumConstant {
-                enumConstantLoc =
-                "program_slicing_selection.h:10:3",
-                enumConstantName = NamePair {
-                  nameC = Name
-                    "PERMISSION_DENIED",
-                  nameHsIdent = HsIdentifier
-                    "PERMISSION_DENIED"},
-                enumConstantValue = 13,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "program_slicing_selection.h:10:3",
+                  fieldName = NamePair {
+                    nameC = Name
+                      "PERMISSION_DENIED",
+                    nameHsIdent = HsIdentifier
+                      "PERMISSION_DENIED"},
+                  fieldComment = Nothing},
+                enumConstantValue = 13},
               EnumConstant {
-                enumConstantLoc =
-                "program_slicing_selection.h:11:3",
-                enumConstantName = NamePair {
-                  nameC = Name "INVALID_ARGUMENT",
-                  nameHsIdent = HsIdentifier
-                    "INVALID_ARGUMENT"},
-                enumConstantValue = 22,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "program_slicing_selection.h:11:3",
+                  fieldName = NamePair {
+                    nameC = Name "INVALID_ARGUMENT",
+                    nameHsIdent = HsIdentifier
+                      "INVALID_ARGUMENT"},
+                  fieldComment = Nothing},
+                enumConstantValue = 22},
               EnumConstant {
-                enumConstantLoc =
-                "program_slicing_selection.h:12:3",
-                enumConstantName = NamePair {
-                  nameC = Name "OUT_OF_MEMORY",
-                  nameHsIdent = HsIdentifier
-                    "OUT_OF_MEMORY"},
-                enumConstantValue = 12,
-                enumConstantComment = Nothing},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "program_slicing_selection.h:12:3",
+                  fieldName = NamePair {
+                    nameC = Name "OUT_OF_MEMORY",
+                    nameHsIdent = HsIdentifier
+                      "OUT_OF_MEMORY"},
+                  fieldComment = Nothing},
+                enumConstantValue = 12},
               EnumConstant {
-                enumConstantLoc =
-                "program_slicing_selection.h:13:3",
-                enumConstantName = NamePair {
-                  nameC = Name
-                    "CUSTOM_ERROR_OTHER",
-                  nameHsIdent = HsIdentifier
-                    "CUSTOM_ERROR_OTHER"},
-                enumConstantValue = `-1`,
-                enumConstantComment =
-                Nothing}]},
+                enumConstantInfo = FieldInfo {
+                  fieldLoc =
+                  "program_slicing_selection.h:13:3",
+                  fieldName = NamePair {
+                    nameC = Name
+                      "CUSTOM_ERROR_OTHER",
+                    nameHsIdent = HsIdentifier
+                      "CUSTOM_ERROR_OTHER"},
+                  fieldComment = Nothing},
+                enumConstantValue = `-1`}]},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -108,7 +113,14 @@
               []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
-      newtypeComment = Nothing},
+      newtypeComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:7:6")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -331,15 +343,23 @@
       patSynValue = 0,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "program_slicing_selection.h:8:3",
-          enumConstantName = NamePair {
-            nameC = Name "SUCCESS",
-            nameHsIdent = HsIdentifier
-              "SUCCESS"},
-          enumConstantValue = 0,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "program_slicing_selection.h:8:3",
+            fieldName = NamePair {
+              nameC = Name "SUCCESS",
+              nameHsIdent = HsIdentifier
+                "SUCCESS"},
+            fieldComment = Nothing},
+          enumConstantValue = 0},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:8:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -354,15 +374,23 @@
       patSynValue = 2,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "program_slicing_selection.h:9:3",
-          enumConstantName = NamePair {
-            nameC = Name "NOT_FOUND",
-            nameHsIdent = HsIdentifier
-              "NOT_FOUND"},
-          enumConstantValue = 2,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "program_slicing_selection.h:9:3",
+            fieldName = NamePair {
+              nameC = Name "NOT_FOUND",
+              nameHsIdent = HsIdentifier
+                "NOT_FOUND"},
+            fieldComment = Nothing},
+          enumConstantValue = 2},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:9:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -377,16 +405,24 @@
       patSynValue = 13,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "program_slicing_selection.h:10:3",
-          enumConstantName = NamePair {
-            nameC = Name
-              "PERMISSION_DENIED",
-            nameHsIdent = HsIdentifier
-              "PERMISSION_DENIED"},
-          enumConstantValue = 13,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "program_slicing_selection.h:10:3",
+            fieldName = NamePair {
+              nameC = Name
+                "PERMISSION_DENIED",
+              nameHsIdent = HsIdentifier
+                "PERMISSION_DENIED"},
+            fieldComment = Nothing},
+          enumConstantValue = 13},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:10:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -401,15 +437,23 @@
       patSynValue = 22,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "program_slicing_selection.h:11:3",
-          enumConstantName = NamePair {
-            nameC = Name "INVALID_ARGUMENT",
-            nameHsIdent = HsIdentifier
-              "INVALID_ARGUMENT"},
-          enumConstantValue = 22,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "program_slicing_selection.h:11:3",
+            fieldName = NamePair {
+              nameC = Name "INVALID_ARGUMENT",
+              nameHsIdent = HsIdentifier
+                "INVALID_ARGUMENT"},
+            fieldComment = Nothing},
+          enumConstantValue = 22},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:11:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -424,15 +468,23 @@
       patSynValue = 12,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "program_slicing_selection.h:12:3",
-          enumConstantName = NamePair {
-            nameC = Name "OUT_OF_MEMORY",
-            nameHsIdent = HsIdentifier
-              "OUT_OF_MEMORY"},
-          enumConstantValue = 12,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "program_slicing_selection.h:12:3",
+            fieldName = NamePair {
+              nameC = Name "OUT_OF_MEMORY",
+              nameHsIdent = HsIdentifier
+                "OUT_OF_MEMORY"},
+            fieldComment = Nothing},
+          enumConstantValue = 12},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:12:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -447,16 +499,24 @@
       patSynValue = `-1`,
       patSynOrigin = EnumConstant
         EnumConstant {
-          enumConstantLoc =
-          "program_slicing_selection.h:13:3",
-          enumConstantName = NamePair {
-            nameC = Name
-              "CUSTOM_ERROR_OTHER",
-            nameHsIdent = HsIdentifier
-              "CUSTOM_ERROR_OTHER"},
-          enumConstantValue = `-1`,
-          enumConstantComment = Nothing},
-      patSynComment = Nothing},
+          enumConstantInfo = FieldInfo {
+            fieldLoc =
+            "program_slicing_selection.h:13:3",
+            fieldName = NamePair {
+              nameC = Name
+                "CUSTOM_ERROR_OTHER",
+              nameHsIdent = HsIdentifier
+                "CUSTOM_ERROR_OTHER"},
+            fieldComment = Nothing},
+          enumConstantValue = `-1`},
+      patSynComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:13:3")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -476,12 +536,14 @@
               "FileOperationStatus"),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "program_slicing_selection.h:17:28",
-              structFieldName = NamePair {
-                nameC = Name "status",
-                nameHsIdent = HsIdentifier
-                  "fileOperationRecord_status"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:17:28",
+                fieldName = NamePair {
+                  nameC = Name "status",
+                  nameHsIdent = HsIdentifier
+                    "fileOperationRecord_status"},
+                fieldComment = Nothing},
               structFieldType = TypeEnum
                 NamePair {
                   nameC = Name
@@ -490,9 +552,15 @@
                     "FileOperationStatus"}
                 NameOriginInSource,
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_selection.h:17:28")
+              (Just
+                "program_slicing_selection.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -610,12 +678,14 @@
                           ]})]},
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "program_slicing_selection.h:18:10",
-              structFieldName = NamePair {
-                nameC = Name "bytes_processed",
-                nameHsIdent = HsIdentifier
-                  "fileOperationRecord_bytes_processed"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:18:10",
+                fieldName = NamePair {
+                  nameC = Name "bytes_processed",
+                  nameHsIdent = HsIdentifier
+                    "fileOperationRecord_bytes_processed"},
+                fieldComment = Nothing},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -733,9 +803,15 @@
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_selection.h:18:10")
+              (Just
+                "program_slicing_selection.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -761,12 +837,14 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_selection.h:17:28",
-                  structFieldName = NamePair {
-                    nameC = Name "status",
-                    nameHsIdent = HsIdentifier
-                      "fileOperationRecord_status"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_selection.h:17:28",
+                    fieldName = NamePair {
+                      nameC = Name "status",
+                      nameHsIdent = HsIdentifier
+                        "fileOperationRecord_status"},
+                    fieldComment = Nothing},
                   structFieldType = TypeEnum
                     NamePair {
                       nameC = Name
@@ -775,15 +853,16 @@
                         "FileOperationStatus"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_selection.h:18:10",
-                  structFieldName = NamePair {
-                    nameC = Name "bytes_processed",
-                    nameHsIdent = HsIdentifier
-                      "fileOperationRecord_bytes_processed"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_selection.h:18:10",
+                    fieldName = NamePair {
+                      nameC = Name "bytes_processed",
+                      nameHsIdent = HsIdentifier
+                        "fileOperationRecord_bytes_processed"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -901,8 +980,7 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -912,7 +990,14 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:16:8")
+          (Just
+            "program_slicing_selection.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -935,12 +1020,14 @@
                   "FileOperationStatus"),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_selection.h:17:28",
-                  structFieldName = NamePair {
-                    nameC = Name "status",
-                    nameHsIdent = HsIdentifier
-                      "fileOperationRecord_status"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_selection.h:17:28",
+                    fieldName = NamePair {
+                      nameC = Name "status",
+                      nameHsIdent = HsIdentifier
+                        "fileOperationRecord_status"},
+                    fieldComment = Nothing},
                   structFieldType = TypeEnum
                     NamePair {
                       nameC = Name
@@ -949,9 +1036,15 @@
                         "FileOperationStatus"}
                     NameOriginInSource,
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "program_slicing_selection.h:17:28")
+                  (Just
+                    "program_slicing_selection.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1069,12 +1162,14 @@
                               ]})]},
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "program_slicing_selection.h:18:10",
-                  structFieldName = NamePair {
-                    nameC = Name "bytes_processed",
-                    nameHsIdent = HsIdentifier
-                      "fileOperationRecord_bytes_processed"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "program_slicing_selection.h:18:10",
+                    fieldName = NamePair {
+                      nameC = Name "bytes_processed",
+                      nameHsIdent = HsIdentifier
+                        "fileOperationRecord_bytes_processed"},
+                    fieldComment = Nothing},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -1192,9 +1287,15 @@
                                   instanceSpecConstraints = [
                                     ]})]}},
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "program_slicing_selection.h:18:10")
+                  (Just
+                    "program_slicing_selection.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1220,12 +1321,14 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "program_slicing_selection.h:17:28",
-                      structFieldName = NamePair {
-                        nameC = Name "status",
-                        nameHsIdent = HsIdentifier
-                          "fileOperationRecord_status"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "program_slicing_selection.h:17:28",
+                        fieldName = NamePair {
+                          nameC = Name "status",
+                          nameHsIdent = HsIdentifier
+                            "fileOperationRecord_status"},
+                        fieldComment = Nothing},
                       structFieldType = TypeEnum
                         NamePair {
                           nameC = Name
@@ -1234,15 +1337,16 @@
                             "FileOperationStatus"}
                         NameOriginInSource,
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "program_slicing_selection.h:18:10",
-                      structFieldName = NamePair {
-                        nameC = Name "bytes_processed",
-                        nameHsIdent = HsIdentifier
-                          "fileOperationRecord_bytes_processed"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "program_slicing_selection.h:18:10",
+                        fieldName = NamePair {
+                          nameC = Name "bytes_processed",
+                          nameHsIdent = HsIdentifier
+                            "fileOperationRecord_bytes_processed"},
+                        fieldComment = Nothing},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -1360,8 +1464,7 @@
                                       instanceSpecConstraints = [
                                         ]})]}},
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1371,7 +1474,14 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "program_slicing_selection.h:16:8")
+              (Just
+                "program_slicing_selection.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -1397,12 +1507,14 @@
                           "FileOperationStatus"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_selection.h:17:28",
-                          structFieldName = NamePair {
-                            nameC = Name "status",
-                            nameHsIdent = HsIdentifier
-                              "fileOperationRecord_status"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_selection.h:17:28",
+                            fieldName = NamePair {
+                              nameC = Name "status",
+                              nameHsIdent = HsIdentifier
+                                "fileOperationRecord_status"},
+                            fieldComment = Nothing},
                           structFieldType = TypeEnum
                             NamePair {
                               nameC = Name
@@ -1411,9 +1523,15 @@
                                 "FileOperationStatus"}
                             NameOriginInSource,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:17:28")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1531,12 +1649,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_selection.h:18:10",
-                          structFieldName = NamePair {
-                            nameC = Name "bytes_processed",
-                            nameHsIdent = HsIdentifier
-                              "fileOperationRecord_bytes_processed"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_selection.h:18:10",
+                            fieldName = NamePair {
+                              nameC = Name "bytes_processed",
+                              nameHsIdent = HsIdentifier
+                                "fileOperationRecord_bytes_processed"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -1654,9 +1774,15 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:18:10")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1682,12 +1808,14 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_selection.h:17:28",
-                              structFieldName = NamePair {
-                                nameC = Name "status",
-                                nameHsIdent = HsIdentifier
-                                  "fileOperationRecord_status"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_selection.h:17:28",
+                                fieldName = NamePair {
+                                  nameC = Name "status",
+                                  nameHsIdent = HsIdentifier
+                                    "fileOperationRecord_status"},
+                                fieldComment = Nothing},
                               structFieldType = TypeEnum
                                 NamePair {
                                   nameC = Name
@@ -1696,15 +1824,16 @@
                                     "FileOperationStatus"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_selection.h:18:10",
-                              structFieldName = NamePair {
-                                nameC = Name "bytes_processed",
-                                nameHsIdent = HsIdentifier
-                                  "fileOperationRecord_bytes_processed"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_selection.h:18:10",
+                                fieldName = NamePair {
+                                  nameC = Name "bytes_processed",
+                                  nameHsIdent = HsIdentifier
+                                    "fileOperationRecord_bytes_processed"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -1822,8 +1951,7 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1833,7 +1961,14 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "program_slicing_selection.h:16:8")
+                      (Just
+                        "program_slicing_selection.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -1861,12 +1996,14 @@
                           "FileOperationStatus"),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_selection.h:17:28",
-                          structFieldName = NamePair {
-                            nameC = Name "status",
-                            nameHsIdent = HsIdentifier
-                              "fileOperationRecord_status"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_selection.h:17:28",
+                            fieldName = NamePair {
+                              nameC = Name "status",
+                              nameHsIdent = HsIdentifier
+                                "fileOperationRecord_status"},
+                            fieldComment = Nothing},
                           structFieldType = TypeEnum
                             NamePair {
                               nameC = Name
@@ -1875,9 +2012,15 @@
                                 "FileOperationStatus"}
                             NameOriginInSource,
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:17:28")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1995,12 +2138,14 @@
                                       ]})]},
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "program_slicing_selection.h:18:10",
-                          structFieldName = NamePair {
-                            nameC = Name "bytes_processed",
-                            nameHsIdent = HsIdentifier
-                              "fileOperationRecord_bytes_processed"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "program_slicing_selection.h:18:10",
+                            fieldName = NamePair {
+                              nameC = Name "bytes_processed",
+                              nameHsIdent = HsIdentifier
+                                "fileOperationRecord_bytes_processed"},
+                            fieldComment = Nothing},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -2118,9 +2263,15 @@
                                           instanceSpecConstraints = [
                                             ]})]}},
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "program_slicing_selection.h:18:10")
+                          (Just
+                            "program_slicing_selection.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2146,12 +2297,14 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_selection.h:17:28",
-                              structFieldName = NamePair {
-                                nameC = Name "status",
-                                nameHsIdent = HsIdentifier
-                                  "fileOperationRecord_status"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_selection.h:17:28",
+                                fieldName = NamePair {
+                                  nameC = Name "status",
+                                  nameHsIdent = HsIdentifier
+                                    "fileOperationRecord_status"},
+                                fieldComment = Nothing},
                               structFieldType = TypeEnum
                                 NamePair {
                                   nameC = Name
@@ -2160,15 +2313,16 @@
                                     "FileOperationStatus"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "program_slicing_selection.h:18:10",
-                              structFieldName = NamePair {
-                                nameC = Name "bytes_processed",
-                                nameHsIdent = HsIdentifier
-                                  "fileOperationRecord_bytes_processed"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "program_slicing_selection.h:18:10",
+                                fieldName = NamePair {
+                                  nameC = Name "bytes_processed",
+                                  nameHsIdent = HsIdentifier
+                                    "fileOperationRecord_bytes_processed"},
+                                fieldComment = Nothing},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -2286,8 +2440,7 @@
                                               instanceSpecConstraints = [
                                                 ]})]}},
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2297,7 +2450,14 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "program_slicing_selection.h:16:8")
+                      (Just
+                        "program_slicing_selection.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -2357,20 +2517,22 @@
                 typeSpecInstances = Map.fromList
                   []}),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "file_ptr",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "buffer"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "buffer",
-              commentChildren = []}},
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2489,11 +2651,11 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "bytes_to_read",
-              commentChildren = []}}],
+            (Comment
+              Nothing
+              Nothing
+              Nothing
+              [])}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -2674,11 +2836,13 @@
                 "FileOperationStatus"}
             NameOriginInSource},
       foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "read_file_chunk",
-          commentChildren = []},
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:21:26")
+          (Just
+            "program_slicing_selection.h")
+          []),
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "program_slicing_selection.h",
@@ -2980,7 +3144,14 @@
               nameHsIdent = HsIdentifier
                 "FileOperationStatus"}
             NameOriginInSource)),
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        (Comment
+          Nothing
+          (Just
+            "program_slicing_selection.h:21:26")
+          (Just
+            "program_slicing_selection.h")
+          []),
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

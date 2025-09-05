@@ -1,6 +1,31 @@
 -- addDependentFile examples/golden/attributes.h
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @attributes.h:10:36@
+
+    __exported by:__ @attributes.h@
+-}
 data Foo
-    = Foo {foo_c :: CChar, foo_i :: CInt}
+    = Foo {foo_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @attributes.h:11:10@
+
+                __exported by:__ @attributes.h@
+           -},
+           foo_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @attributes.h:12:10@
+
+                __exported by:__ @attributes.h@
+           -}}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @attributes.h:10:36@
+
+           __exported by:__ @attributes.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Foo
     where sizeOf = \_ -> 5 :: Int
@@ -9,8 +34,33 @@ instance Storable Foo
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_c_3
                                        foo_i_4 -> pokeByteOff ptr_1 (0 :: Int) foo_c_3 >> pokeByteOff ptr_1 (1 :: Int) foo_i_4
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @attributes.h:16:15@
+
+    __exported by:__ @attributes.h@
+-}
 data Bar
-    = Bar {bar_c :: CChar, bar_i :: CInt}
+    = Bar {bar_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @attributes.h:17:10@
+
+                __exported by:__ @attributes.h@
+           -},
+           bar_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @attributes.h:18:10@
+
+                __exported by:__ @attributes.h@
+           -}}
+      {- ^ __C declaration:__ @bar@
+
+           __defined at:__ @attributes.h:16:15@
+
+           __exported by:__ @attributes.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Bar
     where sizeOf = \_ -> 5 :: Int
@@ -19,8 +69,33 @@ instance Storable Bar
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bar bar_c_3
                                        bar_i_4 -> pokeByteOff ptr_1 (0 :: Int) bar_c_3 >> pokeByteOff ptr_1 (1 :: Int) bar_i_4
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @attributes.h:22:9@
+
+    __exported by:__ @attributes.h@
+-}
 data Baz
-    = Baz {baz_c :: CChar, baz_i :: CInt}
+    = Baz {baz_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @attributes.h:23:10@
+
+                __exported by:__ @attributes.h@
+           -},
+           baz_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @attributes.h:24:10@
+
+                __exported by:__ @attributes.h@
+           -}}
+      {- ^ __C declaration:__ @baz@
+
+           __defined at:__ @attributes.h:22:9@
+
+           __exported by:__ @attributes.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Baz
     where sizeOf = \_ -> 5 :: Int
@@ -29,8 +104,33 @@ instance Storable Baz
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Baz baz_c_3
                                        baz_i_4 -> pokeByteOff ptr_1 (0 :: Int) baz_c_3 >> pokeByteOff ptr_1 (1 :: Int) baz_i_4
+{-| __C declaration:__ @qux@
+
+    __defined at:__ @attributes.h:28:9@
+
+    __exported by:__ @attributes.h@
+-}
 data Qux
-    = Qux {qux_c :: CChar, qux_i :: CInt}
+    = Qux {qux_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @attributes.h:29:10@
+
+                __exported by:__ @attributes.h@
+           -},
+           qux_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @attributes.h:30:10@
+
+                __exported by:__ @attributes.h@
+           -}}
+      {- ^ __C declaration:__ @qux@
+
+           __defined at:__ @attributes.h:28:9@
+
+           __exported by:__ @attributes.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Qux
     where sizeOf = \_ -> 5 :: Int
@@ -39,10 +139,40 @@ instance Storable Qux
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Qux qux_c_3
                                        qux_i_4 -> pokeByteOff ptr_1 (0 :: Int) qux_c_3 >> pokeByteOff ptr_1 (1 :: Int) qux_i_4
+{-| __C declaration:__ @FILE@
+
+    __defined at:__ @attributes.h:34:16@
+
+    __exported by:__ @attributes.h@
+-}
 data FILE
-    = FILE {fILE__r :: CInt,
-            fILE__w :: CInt,
-            fILE__close :: (FunPtr (Ptr Void -> IO CInt))}
+    = FILE {fILE__r :: CInt
+            {- ^ __C declaration:__ @_r@
+
+                 __defined at:__ @attributes.h:35:9@
+
+                 __exported by:__ @attributes.h@
+            -},
+            fILE__w :: CInt
+            {- ^ __C declaration:__ @_w@
+
+                 __defined at:__ @attributes.h:36:9@
+
+                 __exported by:__ @attributes.h@
+            -},
+            fILE__close :: (FunPtr (Ptr Void -> IO CInt))
+            {- ^ __C declaration:__ @_close@
+
+                 __defined at:__ @attributes.h:37:22@
+
+                 __exported by:__ @attributes.h@
+            -}}
+      {- ^ __C declaration:__ @FILE@
+
+           __defined at:__ @attributes.h:34:16@
+
+           __exported by:__ @attributes.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable FILE
     where sizeOf = \_ -> 16 :: Int

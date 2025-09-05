@@ -16,20 +16,25 @@
             HsPrimCChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:2:10",
-              structFieldName = NamePair {
-                nameC = Name "fieldX",
-                nameHsIdent = HsIdentifier
-                  "flags_fieldX"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:2:10",
+                fieldName = NamePair {
+                  nameC = Name "fieldX",
+                  nameHsIdent = HsIdentifier
+                    "flags_fieldX"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:2:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -38,18 +43,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:3:9",
-              structFieldName = NamePair {
-                nameC = Name "flagA",
-                nameHsIdent = HsIdentifier
-                  "flags_flagA"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:3:9",
+                fieldName = NamePair {
+                  nameC = Name "flagA",
+                  nameHsIdent = HsIdentifier
+                    "flags_flagA"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 8,
-              structFieldWidth = Just 1,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 1},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:3:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -58,18 +68,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:4:9",
-              structFieldName = NamePair {
-                nameC = Name "flagB",
-                nameHsIdent = HsIdentifier
-                  "flags_flagB"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:4:9",
+                fieldName = NamePair {
+                  nameC = Name "flagB",
+                  nameHsIdent = HsIdentifier
+                    "flags_flagB"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 9,
-              structFieldWidth = Just 1,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 1},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:4:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -78,18 +93,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:5:9",
-              structFieldName = NamePair {
-                nameC = Name "flagC",
-                nameHsIdent = HsIdentifier
-                  "flags_flagC"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:5:9",
+                fieldName = NamePair {
+                  nameC = Name "flagC",
+                  nameHsIdent = HsIdentifier
+                    "flags_flagC"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 10,
-              structFieldWidth = Just 1,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 1},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:5:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -98,20 +118,25 @@
             HsPrimCChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:6:10",
-              structFieldName = NamePair {
-                nameC = Name "fieldY",
-                nameHsIdent = HsIdentifier
-                  "flags_fieldY"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:6:10",
+                fieldName = NamePair {
+                  nameC = Name "fieldY",
+                  nameHsIdent = HsIdentifier
+                    "flags_fieldY"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignImplicit
                     (Just Signed))),
               structFieldOffset = 16,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:6:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -120,18 +145,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:7:9",
-              structFieldName = NamePair {
-                nameC = Name "bits",
-                nameHsIdent = HsIdentifier
-                  "flags_bits"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:7:9",
+                fieldName = NamePair {
+                  nameC = Name "bits",
+                  nameHsIdent = HsIdentifier
+                    "flags_bits"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 24,
-              structFieldWidth = Just 2,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 2},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:7:9")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -152,81 +182,81 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:2:10",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldX",
-                    nameHsIdent = HsIdentifier
-                      "flags_fieldX"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:2:10",
+                    fieldName = NamePair {
+                      nameC = Name "fieldX",
+                      nameHsIdent = HsIdentifier
+                        "flags_fieldX"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:3:9",
-                  structFieldName = NamePair {
-                    nameC = Name "flagA",
-                    nameHsIdent = HsIdentifier
-                      "flags_flagA"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:3:9",
+                    fieldName = NamePair {
+                      nameC = Name "flagA",
+                      nameHsIdent = HsIdentifier
+                        "flags_flagA"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 8,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 1},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:4:9",
-                  structFieldName = NamePair {
-                    nameC = Name "flagB",
-                    nameHsIdent = HsIdentifier
-                      "flags_flagB"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:4:9",
+                    fieldName = NamePair {
+                      nameC = Name "flagB",
+                      nameHsIdent = HsIdentifier
+                        "flags_flagB"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 9,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 1},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:5:9",
-                  structFieldName = NamePair {
-                    nameC = Name "flagC",
-                    nameHsIdent = HsIdentifier
-                      "flags_flagC"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:5:9",
+                    fieldName = NamePair {
+                      nameC = Name "flagC",
+                      nameHsIdent = HsIdentifier
+                        "flags_flagC"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 10,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 1},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:6:10",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldY",
-                    nameHsIdent = HsIdentifier
-                      "flags_fieldY"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:6:10",
+                    fieldName = NamePair {
+                      nameC = Name "fieldY",
+                      nameHsIdent = HsIdentifier
+                        "flags_fieldY"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:7:9",
-                  structFieldName = NamePair {
-                    nameC = Name "bits",
-                    nameHsIdent = HsIdentifier
-                      "flags_bits"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:7:9",
+                    fieldName = NamePair {
+                      nameC = Name "bits",
+                      nameHsIdent = HsIdentifier
+                        "flags_bits"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 24,
-                  structFieldWidth = Just 2,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 2}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -236,7 +266,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:1:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -257,20 +292,25 @@
                 HsPrimCChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:2:10",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldX",
-                    nameHsIdent = HsIdentifier
-                      "flags_fieldX"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:2:10",
+                    fieldName = NamePair {
+                      nameC = Name "fieldX",
+                      nameHsIdent = HsIdentifier
+                        "flags_fieldX"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:2:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -279,18 +319,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:3:9",
-                  structFieldName = NamePair {
-                    nameC = Name "flagA",
-                    nameHsIdent = HsIdentifier
-                      "flags_flagA"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:3:9",
+                    fieldName = NamePair {
+                      nameC = Name "flagA",
+                      nameHsIdent = HsIdentifier
+                        "flags_flagA"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 8,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 1},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:3:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -299,18 +344,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:4:9",
-                  structFieldName = NamePair {
-                    nameC = Name "flagB",
-                    nameHsIdent = HsIdentifier
-                      "flags_flagB"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:4:9",
+                    fieldName = NamePair {
+                      nameC = Name "flagB",
+                      nameHsIdent = HsIdentifier
+                        "flags_flagB"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 9,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 1},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:4:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -319,18 +369,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:5:9",
-                  structFieldName = NamePair {
-                    nameC = Name "flagC",
-                    nameHsIdent = HsIdentifier
-                      "flags_flagC"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:5:9",
+                    fieldName = NamePair {
+                      nameC = Name "flagC",
+                      nameHsIdent = HsIdentifier
+                        "flags_flagC"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 10,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 1},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:5:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -339,20 +394,25 @@
                 HsPrimCChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:6:10",
-                  structFieldName = NamePair {
-                    nameC = Name "fieldY",
-                    nameHsIdent = HsIdentifier
-                      "flags_fieldY"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:6:10",
+                    fieldName = NamePair {
+                      nameC = Name "fieldY",
+                      nameHsIdent = HsIdentifier
+                        "flags_fieldY"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignImplicit
                         (Just Signed))),
                   structFieldOffset = 16,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:6:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -361,18 +421,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:7:9",
-                  structFieldName = NamePair {
-                    nameC = Name "bits",
-                    nameHsIdent = HsIdentifier
-                      "flags_bits"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:7:9",
+                    fieldName = NamePair {
+                      nameC = Name "bits",
+                      nameHsIdent = HsIdentifier
+                        "flags_bits"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 24,
-                  structFieldWidth = Just 2,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 2},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:7:9")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -393,81 +458,81 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:2:10",
-                      structFieldName = NamePair {
-                        nameC = Name "fieldX",
-                        nameHsIdent = HsIdentifier
-                          "flags_fieldX"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:2:10",
+                        fieldName = NamePair {
+                          nameC = Name "fieldX",
+                          nameHsIdent = HsIdentifier
+                            "flags_fieldX"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignImplicit
                             (Just Signed))),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:3:9",
-                      structFieldName = NamePair {
-                        nameC = Name "flagA",
-                        nameHsIdent = HsIdentifier
-                          "flags_flagA"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:3:9",
+                        fieldName = NamePair {
+                          nameC = Name "flagA",
+                          nameHsIdent = HsIdentifier
+                            "flags_flagA"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 8,
-                      structFieldWidth = Just 1,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 1},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:4:9",
-                      structFieldName = NamePair {
-                        nameC = Name "flagB",
-                        nameHsIdent = HsIdentifier
-                          "flags_flagB"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:4:9",
+                        fieldName = NamePair {
+                          nameC = Name "flagB",
+                          nameHsIdent = HsIdentifier
+                            "flags_flagB"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 9,
-                      structFieldWidth = Just 1,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 1},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:5:9",
-                      structFieldName = NamePair {
-                        nameC = Name "flagC",
-                        nameHsIdent = HsIdentifier
-                          "flags_flagC"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:5:9",
+                        fieldName = NamePair {
+                          nameC = Name "flagC",
+                          nameHsIdent = HsIdentifier
+                            "flags_flagC"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 10,
-                      structFieldWidth = Just 1,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 1},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:6:10",
-                      structFieldName = NamePair {
-                        nameC = Name "fieldY",
-                        nameHsIdent = HsIdentifier
-                          "flags_fieldY"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:6:10",
+                        fieldName = NamePair {
+                          nameC = Name "fieldY",
+                          nameHsIdent = HsIdentifier
+                            "flags_fieldY"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignImplicit
                             (Just Signed))),
                       structFieldOffset = 16,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:7:9",
-                      structFieldName = NamePair {
-                        nameC = Name "bits",
-                        nameHsIdent = HsIdentifier
-                          "flags_bits"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:7:9",
+                        fieldName = NamePair {
+                          nameC = Name "bits",
+                          nameHsIdent = HsIdentifier
+                            "flags_bits"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 24,
-                      structFieldWidth = Just 2,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 2}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -477,7 +542,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:1:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -501,20 +571,25 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:2:10",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldX",
-                            nameHsIdent = HsIdentifier
-                              "flags_fieldX"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:2:10",
+                            fieldName = NamePair {
+                              nameC = Name "fieldX",
+                              nameHsIdent = HsIdentifier
+                                "flags_fieldX"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:2:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -523,18 +598,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:3:9",
-                          structFieldName = NamePair {
-                            nameC = Name "flagA",
-                            nameHsIdent = HsIdentifier
-                              "flags_flagA"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:3:9",
+                            fieldName = NamePair {
+                              nameC = Name "flagA",
+                              nameHsIdent = HsIdentifier
+                                "flags_flagA"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 8,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:3:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -543,18 +623,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:4:9",
-                          structFieldName = NamePair {
-                            nameC = Name "flagB",
-                            nameHsIdent = HsIdentifier
-                              "flags_flagB"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:4:9",
+                            fieldName = NamePair {
+                              nameC = Name "flagB",
+                              nameHsIdent = HsIdentifier
+                                "flags_flagB"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 9,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:4:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -563,18 +648,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:5:9",
-                          structFieldName = NamePair {
-                            nameC = Name "flagC",
-                            nameHsIdent = HsIdentifier
-                              "flags_flagC"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:5:9",
+                            fieldName = NamePair {
+                              nameC = Name "flagC",
+                              nameHsIdent = HsIdentifier
+                                "flags_flagC"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 10,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:5:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -583,20 +673,25 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:6:10",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldY",
-                            nameHsIdent = HsIdentifier
-                              "flags_fieldY"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:6:10",
+                            fieldName = NamePair {
+                              nameC = Name "fieldY",
+                              nameHsIdent = HsIdentifier
+                                "flags_fieldY"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:6:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -605,18 +700,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:7:9",
-                          structFieldName = NamePair {
-                            nameC = Name "bits",
-                            nameHsIdent = HsIdentifier
-                              "flags_bits"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:7:9",
+                            fieldName = NamePair {
+                              nameC = Name "bits",
+                              nameHsIdent = HsIdentifier
+                                "flags_bits"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 24,
-                          structFieldWidth = Just 2,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 2},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:7:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -637,81 +737,81 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:2:10",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldX",
-                                nameHsIdent = HsIdentifier
-                                  "flags_fieldX"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:2:10",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldX",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_fieldX"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:3:9",
-                              structFieldName = NamePair {
-                                nameC = Name "flagA",
-                                nameHsIdent = HsIdentifier
-                                  "flags_flagA"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:3:9",
+                                fieldName = NamePair {
+                                  nameC = Name "flagA",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_flagA"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 8,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:4:9",
-                              structFieldName = NamePair {
-                                nameC = Name "flagB",
-                                nameHsIdent = HsIdentifier
-                                  "flags_flagB"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:4:9",
+                                fieldName = NamePair {
+                                  nameC = Name "flagB",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_flagB"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 9,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:5:9",
-                              structFieldName = NamePair {
-                                nameC = Name "flagC",
-                                nameHsIdent = HsIdentifier
-                                  "flags_flagC"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:5:9",
+                                fieldName = NamePair {
+                                  nameC = Name "flagC",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_flagC"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 10,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:6:10",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldY",
-                                nameHsIdent = HsIdentifier
-                                  "flags_fieldY"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:6:10",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldY",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_fieldY"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:7:9",
-                              structFieldName = NamePair {
-                                nameC = Name "bits",
-                                nameHsIdent = HsIdentifier
-                                  "flags_bits"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:7:9",
+                                fieldName = NamePair {
+                                  nameC = Name "bits",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_bits"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 24,
-                              structFieldWidth = Just 2,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 2}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -721,7 +821,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:1:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekBitOffWidth (Idx 0) 8 1,
@@ -751,20 +856,25 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:2:10",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldX",
-                            nameHsIdent = HsIdentifier
-                              "flags_fieldX"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:2:10",
+                            fieldName = NamePair {
+                              nameC = Name "fieldX",
+                              nameHsIdent = HsIdentifier
+                                "flags_fieldX"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:2:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -773,18 +883,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:3:9",
-                          structFieldName = NamePair {
-                            nameC = Name "flagA",
-                            nameHsIdent = HsIdentifier
-                              "flags_flagA"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:3:9",
+                            fieldName = NamePair {
+                              nameC = Name "flagA",
+                              nameHsIdent = HsIdentifier
+                                "flags_flagA"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 8,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:3:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -793,18 +908,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:4:9",
-                          structFieldName = NamePair {
-                            nameC = Name "flagB",
-                            nameHsIdent = HsIdentifier
-                              "flags_flagB"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:4:9",
+                            fieldName = NamePair {
+                              nameC = Name "flagB",
+                              nameHsIdent = HsIdentifier
+                                "flags_flagB"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 9,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:4:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -813,18 +933,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:5:9",
-                          structFieldName = NamePair {
-                            nameC = Name "flagC",
-                            nameHsIdent = HsIdentifier
-                              "flags_flagC"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:5:9",
+                            fieldName = NamePair {
+                              nameC = Name "flagC",
+                              nameHsIdent = HsIdentifier
+                                "flags_flagC"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 10,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:5:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -833,20 +958,25 @@
                         HsPrimCChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:6:10",
-                          structFieldName = NamePair {
-                            nameC = Name "fieldY",
-                            nameHsIdent = HsIdentifier
-                              "flags_fieldY"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:6:10",
+                            fieldName = NamePair {
+                              nameC = Name "fieldY",
+                              nameHsIdent = HsIdentifier
+                                "flags_fieldY"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignImplicit
                                 (Just Signed))),
                           structFieldOffset = 16,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:6:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -855,18 +985,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:7:9",
-                          structFieldName = NamePair {
-                            nameC = Name "bits",
-                            nameHsIdent = HsIdentifier
-                              "flags_bits"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:7:9",
+                            fieldName = NamePair {
+                              nameC = Name "bits",
+                              nameHsIdent = HsIdentifier
+                                "flags_bits"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 24,
-                          structFieldWidth = Just 2,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 2},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:7:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -887,81 +1022,81 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:2:10",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldX",
-                                nameHsIdent = HsIdentifier
-                                  "flags_fieldX"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:2:10",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldX",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_fieldX"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:3:9",
-                              structFieldName = NamePair {
-                                nameC = Name "flagA",
-                                nameHsIdent = HsIdentifier
-                                  "flags_flagA"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:3:9",
+                                fieldName = NamePair {
+                                  nameC = Name "flagA",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_flagA"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 8,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:4:9",
-                              structFieldName = NamePair {
-                                nameC = Name "flagB",
-                                nameHsIdent = HsIdentifier
-                                  "flags_flagB"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:4:9",
+                                fieldName = NamePair {
+                                  nameC = Name "flagB",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_flagB"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 9,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:5:9",
-                              structFieldName = NamePair {
-                                nameC = Name "flagC",
-                                nameHsIdent = HsIdentifier
-                                  "flags_flagC"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:5:9",
+                                fieldName = NamePair {
+                                  nameC = Name "flagC",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_flagC"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 10,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:6:10",
-                              structFieldName = NamePair {
-                                nameC = Name "fieldY",
-                                nameHsIdent = HsIdentifier
-                                  "flags_fieldY"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:6:10",
+                                fieldName = NamePair {
+                                  nameC = Name "fieldY",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_fieldY"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignImplicit
                                     (Just Signed))),
                               structFieldOffset = 16,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:7:9",
-                              structFieldName = NamePair {
-                                nameC = Name "bits",
-                                nameHsIdent = HsIdentifier
-                                  "flags_bits"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:7:9",
+                                fieldName = NamePair {
+                                  nameC = Name "bits",
+                                  nameHsIdent = HsIdentifier
+                                    "flags_bits"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 24,
-                              structFieldWidth = Just 2,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 2}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -971,7 +1106,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:1:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 6)
                 (Seq
                   [
@@ -1036,18 +1176,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:13:9",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "overflow32_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:13:9",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "overflow32_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:13:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1056,18 +1201,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:14:9",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "overflow32_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:14:9",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "overflow32_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:14:9")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1076,18 +1226,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:15:9",
-              structFieldName = NamePair {
-                nameC = Name "z",
-                nameHsIdent = HsIdentifier
-                  "overflow32_z"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:15:9",
+                fieldName = NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier
+                    "overflow32_z"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 64,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:15:9")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1110,41 +1265,41 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:13:9",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow32_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:13:9",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow32_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 17},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:14:9",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow32_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:14:9",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow32_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 17},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:15:9",
-                  structFieldName = NamePair {
-                    nameC = Name "z",
-                    nameHsIdent = HsIdentifier
-                      "overflow32_z"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:15:9",
+                    fieldName = NamePair {
+                      nameC = Name "z",
+                      nameHsIdent = HsIdentifier
+                        "overflow32_z"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 17}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1154,7 +1309,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:12:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1175,18 +1335,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:13:9",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow32_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:13:9",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow32_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:13:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1195,18 +1360,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:14:9",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow32_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:14:9",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow32_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:14:9")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1215,18 +1385,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:15:9",
-                  structFieldName = NamePair {
-                    nameC = Name "z",
-                    nameHsIdent = HsIdentifier
-                      "overflow32_z"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:15:9",
+                    fieldName = NamePair {
+                      nameC = Name "z",
+                      nameHsIdent = HsIdentifier
+                        "overflow32_z"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:15:9")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1249,41 +1424,41 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:13:9",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "overflow32_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:13:9",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "overflow32_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 17},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:14:9",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "overflow32_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:14:9",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "overflow32_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 32,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 17},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:15:9",
-                      structFieldName = NamePair {
-                        nameC = Name "z",
-                        nameHsIdent = HsIdentifier
-                          "overflow32_z"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:15:9",
+                        fieldName = NamePair {
+                          nameC = Name "z",
+                          nameHsIdent = HsIdentifier
+                            "overflow32_z"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 64,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 17}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1293,7 +1468,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:12:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -1317,18 +1497,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:13:9",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow32_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:13:9",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow32_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:13:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1337,18 +1522,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:14:9",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow32_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:14:9",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow32_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:14:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1357,18 +1547,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:15:9",
-                          structFieldName = NamePair {
-                            nameC = Name "z",
-                            nameHsIdent = HsIdentifier
-                              "overflow32_z"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:15:9",
+                            fieldName = NamePair {
+                              nameC = Name "z",
+                              nameHsIdent = HsIdentifier
+                                "overflow32_z"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:15:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1391,41 +1586,41 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:13:9",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:13:9",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:14:9",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:14:9",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:15:9",
-                              structFieldName = NamePair {
-                                nameC = Name "z",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32_z"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:15:9",
+                                fieldName = NamePair {
+                                  nameC = Name "z",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32_z"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 17}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1435,7 +1630,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:12:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
                 PeekBitOffWidth (Idx 0) 32 17,
@@ -1462,18 +1662,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:13:9",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow32_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:13:9",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow32_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:13:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1482,18 +1687,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:14:9",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow32_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:14:9",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow32_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:14:9")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1502,18 +1712,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:15:9",
-                          structFieldName = NamePair {
-                            nameC = Name "z",
-                            nameHsIdent = HsIdentifier
-                              "overflow32_z"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:15:9",
+                            fieldName = NamePair {
+                              nameC = Name "z",
+                              nameHsIdent = HsIdentifier
+                                "overflow32_z"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:15:9")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1536,41 +1751,41 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:13:9",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:13:9",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:14:9",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:14:9",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:15:9",
-                              structFieldName = NamePair {
-                                nameC = Name "z",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32_z"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:15:9",
+                                fieldName = NamePair {
+                                  nameC = Name "z",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32_z"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 17}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -1580,7 +1795,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:12:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -1638,18 +1858,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:19:10",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "overflow32b_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:19:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "overflow32b_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:19:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1658,18 +1883,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:20:10",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "overflow32b_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:20:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "overflow32b_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 17,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:20:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1678,18 +1908,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:21:10",
-              structFieldName = NamePair {
-                nameC = Name "z",
-                nameHsIdent = HsIdentifier
-                  "overflow32b_z"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:21:10",
+                fieldName = NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier
+                    "overflow32b_z"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 34,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:21:10")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1712,41 +1947,41 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:19:10",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow32b_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:19:10",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow32b_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 17},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:20:10",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow32b_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:20:10",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow32b_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 17,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 17},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:21:10",
-                  structFieldName = NamePair {
-                    nameC = Name "z",
-                    nameHsIdent = HsIdentifier
-                      "overflow32b_z"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:21:10",
+                    fieldName = NamePair {
+                      nameC = Name "z",
+                      nameHsIdent = HsIdentifier
+                        "overflow32b_z"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 34,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 17}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -1756,7 +1991,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:18:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1777,18 +2017,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:19:10",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow32b_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:19:10",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow32b_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:19:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1797,18 +2042,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:20:10",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow32b_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:20:10",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow32b_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 17,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:20:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1817,18 +2067,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:21:10",
-                  structFieldName = NamePair {
-                    nameC = Name "z",
-                    nameHsIdent = HsIdentifier
-                      "overflow32b_z"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:21:10",
+                    fieldName = NamePair {
+                      nameC = Name "z",
+                      nameHsIdent = HsIdentifier
+                        "overflow32b_z"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 34,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:21:10")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1851,41 +2106,41 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:19:10",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "overflow32b_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:19:10",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "overflow32b_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 17},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:20:10",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "overflow32b_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:20:10",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "overflow32b_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 17,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 17},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:21:10",
-                      structFieldName = NamePair {
-                        nameC = Name "z",
-                        nameHsIdent = HsIdentifier
-                          "overflow32b_z"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:21:10",
+                        fieldName = NamePair {
+                          nameC = Name "z",
+                          nameHsIdent = HsIdentifier
+                            "overflow32b_z"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 34,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 17}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -1895,7 +2150,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:18:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 8,
@@ -1919,18 +2179,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:19:10",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow32b_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:19:10",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow32b_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:19:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1939,18 +2204,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:20:10",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow32b_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:20:10",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow32b_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 17,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:20:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1959,18 +2229,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:21:10",
-                          structFieldName = NamePair {
-                            nameC = Name "z",
-                            nameHsIdent = HsIdentifier
-                              "overflow32b_z"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:21:10",
+                            fieldName = NamePair {
+                              nameC = Name "z",
+                              nameHsIdent = HsIdentifier
+                                "overflow32b_z"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 34,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:21:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1993,41 +2268,41 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:19:10",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32b_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:19:10",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32b_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:20:10",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32b_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:20:10",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32b_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 17,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:21:10",
-                              structFieldName = NamePair {
-                                nameC = Name "z",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32b_z"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:21:10",
+                                fieldName = NamePair {
+                                  nameC = Name "z",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32b_z"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 34,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 17}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2037,7 +2312,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:18:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
                 PeekBitOffWidth (Idx 0) 17 17,
@@ -2064,18 +2344,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:19:10",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow32b_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:19:10",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow32b_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:19:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2084,18 +2369,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:20:10",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow32b_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:20:10",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow32b_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 17,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:20:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2104,18 +2394,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:21:10",
-                          structFieldName = NamePair {
-                            nameC = Name "z",
-                            nameHsIdent = HsIdentifier
-                              "overflow32b_z"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:21:10",
+                            fieldName = NamePair {
+                              nameC = Name "z",
+                              nameHsIdent = HsIdentifier
+                                "overflow32b_z"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 34,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:21:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2138,41 +2433,41 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:19:10",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32b_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:19:10",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32b_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:20:10",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32b_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:20:10",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32b_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 17,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:21:10",
-                              structFieldName = NamePair {
-                                nameC = Name "z",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32b_z"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:21:10",
+                                fieldName = NamePair {
+                                  nameC = Name "z",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32b_z"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 34,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 17}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2182,7 +2477,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:18:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -2240,18 +2540,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:25:10",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "overflow32c_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:25:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "overflow32c_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:25:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2260,18 +2565,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:26:10",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "overflow32c_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:26:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "overflow32c_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:26:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2280,18 +2590,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:27:10",
-              structFieldName = NamePair {
-                nameC = Name "z",
-                nameHsIdent = HsIdentifier
-                  "overflow32c_z"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:27:10",
+                fieldName = NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier
+                    "overflow32c_z"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 64,
-              structFieldWidth = Just 17,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 17},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:27:10")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2314,41 +2629,41 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:25:10",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow32c_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:25:10",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow32c_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 17},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:26:10",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow32c_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:26:10",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow32c_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 17},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:27:10",
-                  structFieldName = NamePair {
-                    nameC = Name "z",
-                    nameHsIdent = HsIdentifier
-                      "overflow32c_z"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:27:10",
+                    fieldName = NamePair {
+                      nameC = Name "z",
+                      nameHsIdent = HsIdentifier
+                        "overflow32c_z"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 17}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -2358,7 +2673,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:24:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2379,18 +2699,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:25:10",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow32c_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:25:10",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow32c_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:25:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2399,18 +2724,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:26:10",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow32c_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:26:10",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow32c_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:26:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2419,18 +2749,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:27:10",
-                  structFieldName = NamePair {
-                    nameC = Name "z",
-                    nameHsIdent = HsIdentifier
-                      "overflow32c_z"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:27:10",
+                    fieldName = NamePair {
+                      nameC = Name "z",
+                      nameHsIdent = HsIdentifier
+                        "overflow32c_z"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Just 17,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 17},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:27:10")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2453,41 +2788,41 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:25:10",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "overflow32c_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:25:10",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "overflow32c_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 17},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:26:10",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "overflow32c_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:26:10",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "overflow32c_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 32,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 17},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:27:10",
-                      structFieldName = NamePair {
-                        nameC = Name "z",
-                        nameHsIdent = HsIdentifier
-                          "overflow32c_z"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:27:10",
+                        fieldName = NamePair {
+                          nameC = Name "z",
+                          nameHsIdent = HsIdentifier
+                            "overflow32c_z"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 64,
-                      structFieldWidth = Just 17,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 17}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -2497,7 +2832,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:24:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2521,18 +2861,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:25:10",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow32c_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:25:10",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow32c_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:25:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2541,18 +2886,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:26:10",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow32c_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:26:10",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow32c_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:26:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2561,18 +2911,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:27:10",
-                          structFieldName = NamePair {
-                            nameC = Name "z",
-                            nameHsIdent = HsIdentifier
-                              "overflow32c_z"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:27:10",
+                            fieldName = NamePair {
+                              nameC = Name "z",
+                              nameHsIdent = HsIdentifier
+                                "overflow32c_z"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:27:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2595,41 +2950,41 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:25:10",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32c_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:25:10",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32c_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:26:10",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32c_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:26:10",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32c_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:27:10",
-                              structFieldName = NamePair {
-                                nameC = Name "z",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32c_z"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:27:10",
+                                fieldName = NamePair {
+                                  nameC = Name "z",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32c_z"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 17}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2639,7 +2994,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:24:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
                 PeekBitOffWidth (Idx 0) 32 17,
@@ -2666,18 +3026,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:25:10",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow32c_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:25:10",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow32c_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:25:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2686,18 +3051,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:26:10",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow32c_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:26:10",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow32c_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:26:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2706,18 +3076,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:27:10",
-                          structFieldName = NamePair {
-                            nameC = Name "z",
-                            nameHsIdent = HsIdentifier
-                              "overflow32c_z"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:27:10",
+                            fieldName = NamePair {
+                              nameC = Name "z",
+                              nameHsIdent = HsIdentifier
+                                "overflow32c_z"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Just 17,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 17},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:27:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2740,41 +3115,41 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:25:10",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32c_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:25:10",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32c_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:26:10",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32c_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:26:10",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32c_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 17},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:27:10",
-                              structFieldName = NamePair {
-                                nameC = Name "z",
-                                nameHsIdent = HsIdentifier
-                                  "overflow32c_z"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:27:10",
+                                fieldName = NamePair {
+                                  nameC = Name "z",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow32c_z"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Just 17,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 17}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -2784,7 +3159,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:24:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 3)
                 (Seq
                   [
@@ -2842,18 +3222,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:31:10",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "overflow64_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:31:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "overflow64_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 0,
-              structFieldWidth = Just 33,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 33},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:31:10")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2862,18 +3247,23 @@
             HsPrimCLong,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:32:10",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "overflow64_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:32:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "overflow64_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimLong Signed),
               structFieldOffset = 64,
-              structFieldWidth = Just 33,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 33},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:32:10")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2896,29 +3286,29 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:31:10",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow64_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:31:10",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow64_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 33,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 33},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:32:10",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow64_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:32:10",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow64_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Just 33,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 33}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -2928,7 +3318,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:30:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2949,18 +3344,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:31:10",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "overflow64_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:31:10",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "overflow64_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 33,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 33},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:31:10")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2969,18 +3369,23 @@
                 HsPrimCLong,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:32:10",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "overflow64_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:32:10",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "overflow64_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimLong Signed),
                   structFieldOffset = 64,
-                  structFieldWidth = Just 33,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 33},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:32:10")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3003,29 +3408,29 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:31:10",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "overflow64_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:31:10",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "overflow64_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 0,
-                      structFieldWidth = Just 33,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 33},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:32:10",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "overflow64_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:32:10",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "overflow64_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimLong Signed),
                       structFieldOffset = 64,
-                      structFieldWidth = Just 33,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 33}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -3035,7 +3440,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:30:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -3059,18 +3469,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:31:10",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow64_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:31:10",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow64_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 33,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 33},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:31:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3079,18 +3494,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:32:10",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow64_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:32:10",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow64_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Just 33,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 33},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:32:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3113,29 +3533,29 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:31:10",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow64_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:31:10",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow64_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 33,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 33},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:32:10",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow64_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:32:10",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow64_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Just 33,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 33}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3145,7 +3565,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:30:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 33,
                 PeekBitOffWidth (Idx 0) 64 33]),
@@ -3171,18 +3596,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:31:10",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "overflow64_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:31:10",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "overflow64_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 33,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 33},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:31:10")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3191,18 +3621,23 @@
                         HsPrimCLong,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:32:10",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "overflow64_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:32:10",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "overflow64_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimLong Signed),
                           structFieldOffset = 64,
-                          structFieldWidth = Just 33,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 33},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:32:10")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3225,29 +3660,29 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:31:10",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "overflow64_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:31:10",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow64_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 33,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 33},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:32:10",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "overflow64_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:32:10",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "overflow64_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimLong Signed),
                               structFieldOffset = 64,
-                              structFieldWidth = Just 33,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 33}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3257,7 +3692,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:30:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3310,19 +3750,24 @@
             HsPrimCUChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:37:16",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "alignA_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:37:16",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "alignA_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignExplicit Unsigned)),
               structFieldOffset = 0,
-              structFieldWidth = Just 1,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 1},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:37:16")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3331,18 +3776,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:38:6",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "alignA_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:38:6",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "alignA_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 1,
-              structFieldWidth = Just 10,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 10},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:38:6")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3363,30 +3813,30 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:37:16",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "alignA_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:37:16",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "alignA_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 1},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:38:6",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "alignA_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:38:6",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "alignA_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 1,
-                  structFieldWidth = Just 10,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 10}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -3396,7 +3846,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:36:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3417,19 +3872,24 @@
                 HsPrimCUChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:37:16",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "alignA_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:37:16",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "alignA_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 1,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 1},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:37:16")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3438,18 +3898,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:38:6",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "alignA_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:38:6",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "alignA_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 1,
-                  structFieldWidth = Just 10,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 10},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:38:6")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3470,30 +3935,30 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:37:16",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "alignA_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:37:16",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "alignA_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignExplicit Unsigned)),
                       structFieldOffset = 0,
-                      structFieldWidth = Just 1,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 1},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:38:6",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "alignA_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:38:6",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "alignA_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 1,
-                      structFieldWidth = Just 10,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 10}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -3503,7 +3968,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:36:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -3527,19 +3997,24 @@
                         HsPrimCUChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:37:16",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "alignA_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:37:16",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "alignA_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Unsigned)),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:37:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3548,18 +4023,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:38:6",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "alignA_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:38:6",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "alignA_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 1,
-                          structFieldWidth = Just 10,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 10},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:38:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3580,30 +4060,30 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:37:16",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "alignA_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:37:16",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "alignA_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Unsigned)),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:38:6",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "alignA_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:38:6",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "alignA_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 1,
-                              structFieldWidth = Just 10,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 10}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3613,7 +4093,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:36:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 1,
                 PeekBitOffWidth (Idx 0) 1 10]),
@@ -3639,19 +4124,24 @@
                         HsPrimCUChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:37:16",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "alignA_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:37:16",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "alignA_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Unsigned)),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 1,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 1},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:37:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3660,18 +4150,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:38:6",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "alignA_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:38:6",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "alignA_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 1,
-                          structFieldWidth = Just 10,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 10},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:38:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3692,30 +4187,30 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:37:16",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "alignA_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:37:16",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "alignA_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Unsigned)),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 1,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 1},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:38:6",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "alignA_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:38:6",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "alignA_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 1,
-                              structFieldWidth = Just 10,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 10}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -3725,7 +4220,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:36:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -3778,19 +4278,24 @@
             HsPrimCUChar,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:42:16",
-              structFieldName = NamePair {
-                nameC = Name "x",
-                nameHsIdent = HsIdentifier
-                  "alignB_x"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:42:16",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier
+                    "alignB_x"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimChar
                   (PrimSignExplicit Unsigned)),
               structFieldOffset = 0,
-              structFieldWidth = Just 7,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Just 7},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:42:16")
+              (Just "bitfields.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3799,18 +4304,23 @@
             HsPrimCInt,
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "bitfields.h:43:6",
-              structFieldName = NamePair {
-                nameC = Name "y",
-                nameHsIdent = HsIdentifier
-                  "alignB_y"},
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bitfields.h:43:6",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier
+                    "alignB_y"},
+                fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
               structFieldOffset = 32,
-              structFieldWidth = Just 31,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Just 31},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:43:6")
+              (Just "bitfields.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3831,30 +4341,30 @@
               structAlignment = 4,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:42:16",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "alignB_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:42:16",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "alignB_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 7,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Just 7},
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:43:6",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "alignB_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:43:6",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "alignB_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Just 31,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Just 31}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -3864,7 +4374,12 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just "bitfields.h:41:8")
+          (Just "bitfields.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3885,19 +4400,24 @@
                 HsPrimCUChar,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:42:16",
-                  structFieldName = NamePair {
-                    nameC = Name "x",
-                    nameHsIdent = HsIdentifier
-                      "alignB_x"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:42:16",
+                    fieldName = NamePair {
+                      nameC = Name "x",
+                      nameHsIdent = HsIdentifier
+                        "alignB_x"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimChar
                       (PrimSignExplicit Unsigned)),
                   structFieldOffset = 0,
-                  structFieldWidth = Just 7,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Just 7},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:42:16")
+                  (Just "bitfields.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3906,18 +4426,23 @@
                 HsPrimCInt,
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "bitfields.h:43:6",
-                  structFieldName = NamePair {
-                    nameC = Name "y",
-                    nameHsIdent = HsIdentifier
-                      "alignB_y"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "bitfields.h:43:6",
+                    fieldName = NamePair {
+                      nameC = Name "y",
+                      nameHsIdent = HsIdentifier
+                        "alignB_y"},
+                    fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 32,
-                  structFieldWidth = Just 31,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Just 31},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just "bitfields.h:43:6")
+                  (Just "bitfields.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3938,30 +4463,30 @@
                   structAlignment = 4,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:42:16",
-                      structFieldName = NamePair {
-                        nameC = Name "x",
-                        nameHsIdent = HsIdentifier
-                          "alignB_x"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:42:16",
+                        fieldName = NamePair {
+                          nameC = Name "x",
+                          nameHsIdent = HsIdentifier
+                            "alignB_x"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimChar
                           (PrimSignExplicit Unsigned)),
                       structFieldOffset = 0,
-                      structFieldWidth = Just 7,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Just 7},
                     StructField {
-                      structFieldLoc =
-                      "bitfields.h:43:6",
-                      structFieldName = NamePair {
-                        nameC = Name "y",
-                        nameHsIdent = HsIdentifier
-                          "alignB_y"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "bitfields.h:43:6",
+                        fieldName = NamePair {
+                          nameC = Name "y",
+                          nameHsIdent = HsIdentifier
+                            "alignB_y"},
+                        fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 32,
-                      structFieldWidth = Just 31,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Just 31}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -3971,7 +4496,12 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just "bitfields.h:41:8")
+              (Just "bitfields.h")
+              [])}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -3995,19 +4525,24 @@
                         HsPrimCUChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:42:16",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "alignB_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:42:16",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "alignB_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Unsigned)),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 7,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 7},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:42:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4016,18 +4551,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:43:6",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "alignB_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:43:6",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "alignB_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Just 31,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 31},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:43:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4048,30 +4588,30 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:42:16",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "alignB_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:42:16",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "alignB_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Unsigned)),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 7,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 7},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:43:6",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "alignB_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:43:6",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "alignB_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Just 31,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 31}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -4081,7 +4621,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:41:8")
+                      (Just "bitfields.h")
+                      [])})
               [
                 PeekBitOffWidth (Idx 0) 0 7,
                 PeekBitOffWidth (Idx 0) 32 31]),
@@ -4107,19 +4652,24 @@
                         HsPrimCUChar,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:42:16",
-                          structFieldName = NamePair {
-                            nameC = Name "x",
-                            nameHsIdent = HsIdentifier
-                              "alignB_x"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:42:16",
+                            fieldName = NamePair {
+                              nameC = Name "x",
+                              nameHsIdent = HsIdentifier
+                                "alignB_x"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimChar
                               (PrimSignExplicit Unsigned)),
                           structFieldOffset = 0,
-                          structFieldWidth = Just 7,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Just 7},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:42:16")
+                          (Just "bitfields.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4128,18 +4678,23 @@
                         HsPrimCInt,
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "bitfields.h:43:6",
-                          structFieldName = NamePair {
-                            nameC = Name "y",
-                            nameHsIdent = HsIdentifier
-                              "alignB_y"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "bitfields.h:43:6",
+                            fieldName = NamePair {
+                              nameC = Name "y",
+                              nameHsIdent = HsIdentifier
+                                "alignB_y"},
+                            fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
                           structFieldOffset = 32,
-                          structFieldWidth = Just 31,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Just 31},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just "bitfields.h:43:6")
+                          (Just "bitfields.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4160,30 +4715,30 @@
                           structAlignment = 4,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:42:16",
-                              structFieldName = NamePair {
-                                nameC = Name "x",
-                                nameHsIdent = HsIdentifier
-                                  "alignB_x"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:42:16",
+                                fieldName = NamePair {
+                                  nameC = Name "x",
+                                  nameHsIdent = HsIdentifier
+                                    "alignB_x"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimChar
                                   (PrimSignExplicit Unsigned)),
                               structFieldOffset = 0,
-                              structFieldWidth = Just 7,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Just 7},
                             StructField {
-                              structFieldLoc =
-                              "bitfields.h:43:6",
-                              structFieldName = NamePair {
-                                nameC = Name "y",
-                                nameHsIdent = HsIdentifier
-                                  "alignB_y"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "bitfields.h:43:6",
+                                fieldName = NamePair {
+                                  nameC = Name "y",
+                                  nameHsIdent = HsIdentifier
+                                    "alignB_y"},
+                                fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 32,
-                              structFieldWidth = Just 31,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Just 31}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -4193,7 +4748,12 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just "bitfields.h:41:8")
+                      (Just "bitfields.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [

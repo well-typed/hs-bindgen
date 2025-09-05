@@ -51,26 +51,6 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
 
   | not testHasOutput
   = FailingTrace.check testResources test
-
-  -- If there's unnamed structures libclang is going to parse the 'commentCName'
-  -- as something like "struct unnamed at /absolute/path/to/file:line" this is
-  -- troublesome because the fixture tests are not going to be run in the same
-  -- machine that generated them. So we disable the Hs and PP tests for this
-  -- header file.
-  --
-  -- See issue: #966
-  --
-  | testName test == "doxygen_docs"
-  = testGroup (testName test) [
-        C.check           testResources test
-      -- , Hs.check          testResources test
-      , Exts.check        testResources test
-      , TH.check          testResources test
-      -- , PP.check          testResources test
-      , BindingSpec.check testResources test
-      , Rust.check        testResources test
-      ]
-
   | otherwise
   = testGroup (testName test) [
         C.check           testResources test

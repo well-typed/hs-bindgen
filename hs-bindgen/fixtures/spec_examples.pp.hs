@@ -21,31 +21,57 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 $(CAPI.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } \n")
 
-{-| Examples from the initial specification
-
-  __from C:__ @int16_T@
--}
 newtype Int16_T = Int16_T
   { un_Int16_T :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __C declaration:__ @int32_T@
+
+    __defined at:__ @spec_examples.h:11:13@
+
+    __exported by:__ @spec_examples.h@
+-}
 newtype Int32_T = Int32_T
   { un_Int32_T :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __C declaration:__ @int64_T@
+
+    __defined at:__ @spec_examples.h:12:19@
+
+    __exported by:__ @spec_examples.h@
+-}
 newtype Int64_T = Int64_T
   { un_Int64_T :: FC.CLLong
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| __C declaration:__ @cint16_T@
+
+    __defined at:__ @spec_examples.h:14:9@
+
+    __exported by:__ @spec_examples.h@
+-}
 data Cint16_T = Cint16_T
   { cint16_T_re :: Int16_T
+    {- ^ __C declaration:__ @re@
+
+         __defined at:__ @spec_examples.h:15:11@
+
+         __exported by:__ @spec_examples.h@
+    -}
   , cint16_T_im :: Int16_T
+    {- ^ __C declaration:__ @im@
+
+         __defined at:__ @spec_examples.h:16:11@
+
+         __exported by:__ @spec_examples.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -69,6 +95,12 @@ instance F.Storable Cint16_T where
                F.pokeByteOff ptr0 (0 :: Int) cint16_T_re2
             >> F.pokeByteOff ptr0 (2 :: Int) cint16_T_im3
 
+{-| __C declaration:__ @B@
+
+    __defined at:__ @spec_examples.h:19:8@
+
+    __exported by:__ @spec_examples.h@
+-}
 data B = B
   {}
   deriving stock (Eq, Show)
@@ -87,14 +119,56 @@ instance F.Storable B where
         case s1 of
           B -> return ()
 
+{-| __C declaration:__ @C@
+
+    __defined at:__ @spec_examples.h:28:10@
+
+    __exported by:__ @spec_examples.h@
+-}
 data C
 
+{-| __C declaration:__ @A@
+
+    __defined at:__ @spec_examples.h:23:8@
+
+    __exported by:__ @spec_examples.h@
+-}
 data A = A
   { a_x :: FC.CDouble
+    {- ^ __C declaration:__ @x@
+
+         __defined at:__ @spec_examples.h:24:10@
+
+         __exported by:__ @spec_examples.h@
+    -}
   , a_label :: F.Ptr FC.CChar
+    {- ^ __C declaration:__ @label@
+
+         __defined at:__ @spec_examples.h:25:9@
+
+         __exported by:__ @spec_examples.h@
+    -}
   , a_samples :: (HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar
+    {- ^ __C declaration:__ @samples@
+
+         __defined at:__ @spec_examples.h:26:8@
+
+         __exported by:__ @spec_examples.h@
+    -}
   , a_b :: B
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @spec_examples.h:27:12@
+
+         __exported by:__ @spec_examples.h@
+    -}
   , a_c :: F.Ptr C
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @spec_examples.h:28:13@
+
+         __exported by:__ @spec_examples.h@
+    -}
   }
   deriving stock (Eq, Show)
 
@@ -124,18 +198,28 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
 
-{-| __from C:__ @resample@ -}
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @spec_examples.h:31:6@
+
+    __exported by:__ @spec_examples.h@
+-}
 foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper
   :: F.Ptr Int32_T
-     {- ^ __from C:__ @res_m_num_valid_samples@ -}
+     {- ^ __C declaration:__ @res_m_num_valid_samples@
+     -}
   -> F.Ptr Cint16_T
-     {- ^ __from C:__ @res_m_iq_int@ -}
+     {- ^ __C declaration:__ @res_m_iq_int@
+     -}
   -> Int64_T
-     {- ^ __from C:__ @res_m_old_rate@ -}
+     {- ^ __C declaration:__ @res_m_old_rate@
+     -}
   -> Int64_T
-     {- ^ __from C:__ @res_m_new_rate@ -}
+     {- ^ __C declaration:__ @res_m_new_rate@
+     -}
   -> F.Ptr Cint16_T
-     {- ^ __from C:__ @res_m_iq_resampled_int@ -}
+     {- ^ __C declaration:__ @res_m_iq_resampled_int@
+     -}
   -> IO ()
 
 resample :: (F.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()
@@ -149,6 +233,12 @@ resample =
                                                           HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr6 ->
                                                                                                         resample_wrapper x0 ptr6 x2 x3 ptr5))
 
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @spec_examples.h:31:6@
+
+    __exported by:__ @spec_examples.h@
+-}
 foreign import ccall unsafe "hs_bindgen_test_spec_examples_215c42c65ae193a6" hs_bindgen_test_spec_examples_215c42c65ae193a6
   :: IO (F.FunPtr ((F.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
 

@@ -30,6 +30,7 @@ import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
+import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Config
@@ -86,6 +87,13 @@ data TestCase = TestCase {
       -- handful of successful test cases which use features that aren't
       -- supported by rust-bindgen.
     , testRustBindgen :: TestRustBindgen
+
+      -- | Whether or not the tests show full paths when rendering Haddock
+      -- comments.
+      --
+      -- For tests this value should be 'Short' by default in order to avoid
+      -- #966.
+    , testPathStyle :: PathStyle
     }
 
 data TestRustBindgen =
@@ -127,6 +135,7 @@ defaultTest filename = TestCase{
     , testStdlibSpec          = EnableStdlibBindingSpec
     , testExtBindingSpecs     = []
     , testRustBindgen         = RustBindgenRun
+    , testPathStyle           = Short
     }
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
@@ -211,7 +220,7 @@ getTestFrontendConfig :: TestCase -> FrontendConfig
 getTestFrontendConfig TestCase{..} = testOnFrontendConfig def
 
 getTestBackendConfig :: TestCase -> BackendConfig
-getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName
+getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName testPathStyle
 
 withTestTraceConfig ::
      TestCase

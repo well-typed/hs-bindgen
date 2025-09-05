@@ -78,6 +78,7 @@ instance ToExpr ref => ToExpr (C.Comment ref) where
 
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
+instance ToExpr C.FieldInfo
 instance ToExpr C.DeclKind
 instance ToExpr C.DeclSpec
 instance ToExpr C.Enum
@@ -136,7 +137,22 @@ instance ToExpr Hs.ExtHsRef
 instance ToExpr Hs.CallConv
 instance ToExpr Hs.ImportStyle
 
-instance ToExpr Hs.Comment
+-- | If there are unnamed structures in the parsed C header files, then
+-- 'Hs.Comment.commentOriin is going to point to an absolute path and line
+-- number where the said structure is defined. This absolute path is
+-- troublesome for golden tests because they won't run on the same machine who
+-- generated the fixtures. With this being said, we remove the commentCName
+-- from the picture.
+--
+-- Once #947 is done this won't be needed
+instance ToExpr Hs.Comment where
+  toExpr Hs.Comment{..} =
+    Expr.App "Comment" [ toExpr commentTitle
+                       , toExpr commentLocation
+                       , toExpr commentHeader
+                       , toExpr commentChildren
+                       ]
+
 instance ToExpr Hs.ListType
 instance ToExpr Hs.HeaderLevel
 instance ToExpr Hs.CommentBlockContent

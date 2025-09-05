@@ -24,7 +24,13 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just
+            "opaque_declaration.h:1:8")
+          (Just "opaque_declaration.h")
+          [])},
   DeclData
     Struct {
       structName = HsName
@@ -43,12 +49,14 @@
               (HsName "@NsTypeConstr" "Foo")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "opaque_declaration.h:5:17",
-              structFieldName = NamePair {
-                nameC = Name "ptrA",
-                nameHsIdent = HsIdentifier
-                  "bar_ptrA"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "opaque_declaration.h:5:17",
+                fieldName = NamePair {
+                  nameC = Name "ptrA",
+                  nameHsIdent = HsIdentifier
+                    "bar_ptrA"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -57,9 +65,14 @@
                       "Foo"}
                   NameOriginInSource),
               structFieldOffset = 0,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing},
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "opaque_declaration.h:5:17")
+              (Just "opaque_declaration.h")
+              [])},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -69,12 +82,14 @@
               (HsName "@NsTypeConstr" "Bar")),
           fieldOrigin = StructField
             StructField {
-              structFieldLoc =
-              "opaque_declaration.h:6:17",
-              structFieldName = NamePair {
-                nameC = Name "ptrB",
-                nameHsIdent = HsIdentifier
-                  "bar_ptrB"},
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "opaque_declaration.h:6:17",
+                fieldName = NamePair {
+                  nameC = Name "ptrB",
+                  nameHsIdent = HsIdentifier
+                    "bar_ptrB"},
+                fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
@@ -83,9 +98,14 @@
                       "Bar"}
                   NameOriginInSource),
               structFieldOffset = 64,
-              structFieldWidth = Nothing,
-              structFieldComment = Nothing},
-          fieldComment = Nothing}],
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            (Comment
+              Nothing
+              (Just
+                "opaque_declaration.h:6:17")
+              (Just "opaque_declaration.h")
+              [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -108,12 +128,14 @@
               structAlignment = 8,
               structFields = [
                 StructField {
-                  structFieldLoc =
-                  "opaque_declaration.h:5:17",
-                  structFieldName = NamePair {
-                    nameC = Name "ptrA",
-                    nameHsIdent = HsIdentifier
-                      "bar_ptrA"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "opaque_declaration.h:5:17",
+                    fieldName = NamePair {
+                      nameC = Name "ptrA",
+                      nameHsIdent = HsIdentifier
+                        "bar_ptrA"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -122,15 +144,16 @@
                           "Foo"}
                       NameOriginInSource),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
+                  structFieldWidth = Nothing},
                 StructField {
-                  structFieldLoc =
-                  "opaque_declaration.h:6:17",
-                  structFieldName = NamePair {
-                    nameC = Name "ptrB",
-                    nameHsIdent = HsIdentifier
-                      "bar_ptrB"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "opaque_declaration.h:6:17",
+                    fieldName = NamePair {
+                      nameC = Name "ptrB",
+                      nameHsIdent = HsIdentifier
+                        "bar_ptrB"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -139,8 +162,7 @@
                           "Bar"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing}],
+                  structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
             TypeSpec {
@@ -150,7 +172,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "opaque_declaration.h:4:8")
+          (Just "opaque_declaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -172,12 +200,14 @@
                   (HsName "@NsTypeConstr" "Foo")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "opaque_declaration.h:5:17",
-                  structFieldName = NamePair {
-                    nameC = Name "ptrA",
-                    nameHsIdent = HsIdentifier
-                      "bar_ptrA"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "opaque_declaration.h:5:17",
+                    fieldName = NamePair {
+                      nameC = Name "ptrA",
+                      nameHsIdent = HsIdentifier
+                        "bar_ptrA"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -186,9 +216,14 @@
                           "Foo"}
                       NameOriginInSource),
                   structFieldOffset = 0,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing},
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "opaque_declaration.h:5:17")
+                  (Just "opaque_declaration.h")
+                  [])},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -198,12 +233,14 @@
                   (HsName "@NsTypeConstr" "Bar")),
               fieldOrigin = StructField
                 StructField {
-                  structFieldLoc =
-                  "opaque_declaration.h:6:17",
-                  structFieldName = NamePair {
-                    nameC = Name "ptrB",
-                    nameHsIdent = HsIdentifier
-                      "bar_ptrB"},
+                  structFieldInfo = FieldInfo {
+                    fieldLoc =
+                    "opaque_declaration.h:6:17",
+                    fieldName = NamePair {
+                      nameC = Name "ptrB",
+                      nameHsIdent = HsIdentifier
+                        "bar_ptrB"},
+                    fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
@@ -212,9 +249,14 @@
                           "Bar"}
                       NameOriginInSource),
                   structFieldOffset = 64,
-                  structFieldWidth = Nothing,
-                  structFieldComment = Nothing},
-              fieldComment = Nothing}],
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                (Comment
+                  Nothing
+                  (Just
+                    "opaque_declaration.h:6:17")
+                  (Just "opaque_declaration.h")
+                  [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -237,12 +279,14 @@
                   structAlignment = 8,
                   structFields = [
                     StructField {
-                      structFieldLoc =
-                      "opaque_declaration.h:5:17",
-                      structFieldName = NamePair {
-                        nameC = Name "ptrA",
-                        nameHsIdent = HsIdentifier
-                          "bar_ptrA"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "opaque_declaration.h:5:17",
+                        fieldName = NamePair {
+                          nameC = Name "ptrA",
+                          nameHsIdent = HsIdentifier
+                            "bar_ptrA"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
@@ -251,15 +295,16 @@
                               "Foo"}
                           NameOriginInSource),
                       structFieldOffset = 0,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing},
+                      structFieldWidth = Nothing},
                     StructField {
-                      structFieldLoc =
-                      "opaque_declaration.h:6:17",
-                      structFieldName = NamePair {
-                        nameC = Name "ptrB",
-                        nameHsIdent = HsIdentifier
-                          "bar_ptrB"},
+                      structFieldInfo = FieldInfo {
+                        fieldLoc =
+                        "opaque_declaration.h:6:17",
+                        fieldName = NamePair {
+                          nameC = Name "ptrB",
+                          nameHsIdent = HsIdentifier
+                            "bar_ptrB"},
+                        fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
@@ -268,8 +313,7 @@
                               "Bar"}
                           NameOriginInSource),
                       structFieldOffset = 64,
-                      structFieldWidth = Nothing,
-                      structFieldComment = Nothing}],
+                      structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
                 TypeSpec {
@@ -279,7 +323,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "opaque_declaration.h:4:8")
+              (Just "opaque_declaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -304,12 +354,14 @@
                           (HsName "@NsTypeConstr" "Foo")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "opaque_declaration.h:5:17",
-                          structFieldName = NamePair {
-                            nameC = Name "ptrA",
-                            nameHsIdent = HsIdentifier
-                              "bar_ptrA"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "opaque_declaration.h:5:17",
+                            fieldName = NamePair {
+                              nameC = Name "ptrA",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrA"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -318,9 +370,14 @@
                                   "Foo"}
                               NameOriginInSource),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "opaque_declaration.h:5:17")
+                          (Just "opaque_declaration.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -330,12 +387,14 @@
                           (HsName "@NsTypeConstr" "Bar")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "opaque_declaration.h:6:17",
-                          structFieldName = NamePair {
-                            nameC = Name "ptrB",
-                            nameHsIdent = HsIdentifier
-                              "bar_ptrB"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "opaque_declaration.h:6:17",
+                            fieldName = NamePair {
+                              nameC = Name "ptrB",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrB"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -344,9 +403,14 @@
                                   "Bar"}
                               NameOriginInSource),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "opaque_declaration.h:6:17")
+                          (Just "opaque_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -369,12 +433,14 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "opaque_declaration.h:5:17",
-                              structFieldName = NamePair {
-                                nameC = Name "ptrA",
-                                nameHsIdent = HsIdentifier
-                                  "bar_ptrA"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "opaque_declaration.h:5:17",
+                                fieldName = NamePair {
+                                  nameC = Name "ptrA",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_ptrA"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -383,15 +449,16 @@
                                       "Foo"}
                                   NameOriginInSource),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "opaque_declaration.h:6:17",
-                              structFieldName = NamePair {
-                                nameC = Name "ptrB",
-                                nameHsIdent = HsIdentifier
-                                  "bar_ptrB"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "opaque_declaration.h:6:17",
+                                fieldName = NamePair {
+                                  nameC = Name "ptrB",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_ptrB"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -400,8 +467,7 @@
                                       "Bar"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -411,7 +477,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "opaque_declaration.h:4:8")
+                      (Just "opaque_declaration.h")
+                      [])})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -438,12 +510,14 @@
                           (HsName "@NsTypeConstr" "Foo")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "opaque_declaration.h:5:17",
-                          structFieldName = NamePair {
-                            nameC = Name "ptrA",
-                            nameHsIdent = HsIdentifier
-                              "bar_ptrA"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "opaque_declaration.h:5:17",
+                            fieldName = NamePair {
+                              nameC = Name "ptrA",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrA"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -452,9 +526,14 @@
                                   "Foo"}
                               NameOriginInSource),
                           structFieldOffset = 0,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing},
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "opaque_declaration.h:5:17")
+                          (Just "opaque_declaration.h")
+                          [])},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -464,12 +543,14 @@
                           (HsName "@NsTypeConstr" "Bar")),
                       fieldOrigin = StructField
                         StructField {
-                          structFieldLoc =
-                          "opaque_declaration.h:6:17",
-                          structFieldName = NamePair {
-                            nameC = Name "ptrB",
-                            nameHsIdent = HsIdentifier
-                              "bar_ptrB"},
+                          structFieldInfo = FieldInfo {
+                            fieldLoc =
+                            "opaque_declaration.h:6:17",
+                            fieldName = NamePair {
+                              nameC = Name "ptrB",
+                              nameHsIdent = HsIdentifier
+                                "bar_ptrB"},
+                            fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
@@ -478,9 +559,14 @@
                                   "Bar"}
                               NameOriginInSource),
                           structFieldOffset = 64,
-                          structFieldWidth = Nothing,
-                          structFieldComment = Nothing},
-                      fieldComment = Nothing}],
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        (Comment
+                          Nothing
+                          (Just
+                            "opaque_declaration.h:6:17")
+                          (Just "opaque_declaration.h")
+                          [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -503,12 +589,14 @@
                           structAlignment = 8,
                           structFields = [
                             StructField {
-                              structFieldLoc =
-                              "opaque_declaration.h:5:17",
-                              structFieldName = NamePair {
-                                nameC = Name "ptrA",
-                                nameHsIdent = HsIdentifier
-                                  "bar_ptrA"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "opaque_declaration.h:5:17",
+                                fieldName = NamePair {
+                                  nameC = Name "ptrA",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_ptrA"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -517,15 +605,16 @@
                                       "Foo"}
                                   NameOriginInSource),
                               structFieldOffset = 0,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing},
+                              structFieldWidth = Nothing},
                             StructField {
-                              structFieldLoc =
-                              "opaque_declaration.h:6:17",
-                              structFieldName = NamePair {
-                                nameC = Name "ptrB",
-                                nameHsIdent = HsIdentifier
-                                  "bar_ptrB"},
+                              structFieldInfo = FieldInfo {
+                                fieldLoc =
+                                "opaque_declaration.h:6:17",
+                                fieldName = NamePair {
+                                  nameC = Name "ptrB",
+                                  nameHsIdent = HsIdentifier
+                                    "bar_ptrB"},
+                                fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
@@ -534,8 +623,7 @@
                                       "Bar"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
-                              structFieldWidth = Nothing,
-                              structFieldComment = Nothing}],
+                              structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         TypeSpec {
@@ -545,7 +633,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "opaque_declaration.h:4:8")
+                      (Just "opaque_declaration.h")
+                      [])}
                 (Add 2)
                 (Seq
                   [
@@ -615,7 +709,13 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Nothing},
+      structComment = Just
+        (Comment
+          Nothing
+          (Just
+            "opaque_declaration.h:9:8")
+          (Just "opaque_declaration.h")
+          [])},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -658,7 +758,13 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Nothing}
+          structComment = Just
+            (Comment
+              Nothing
+              (Just
+                "opaque_declaration.h:9:8")
+              (Just "opaque_declaration.h")
+              [])}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -704,7 +810,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing})
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "opaque_declaration.h:9:8")
+                      (Just "opaque_declaration.h")
+                      [])})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -750,7 +862,13 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Nothing}
+                  structComment = Just
+                    (Comment
+                      Nothing
+                      (Just
+                        "opaque_declaration.h:9:8")
+                      (Just "opaque_declaration.h")
+                      [])}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -800,7 +918,13 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing},
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just
+            "opaque_declaration.h:11:6")
+          (Just "opaque_declaration.h")
+          [])},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -826,4 +950,10 @@
             typeSpecIdentifier = Nothing,
             typeSpecInstances = Map.fromList
               []}},
-      emptyDataComment = Nothing}]
+      emptyDataComment = Just
+        (Comment
+          Nothing
+          (Just
+            "opaque_declaration.h:13:7")
+          (Just "opaque_declaration.h")
+          [])}]
