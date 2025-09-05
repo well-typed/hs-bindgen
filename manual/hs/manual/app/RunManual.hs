@@ -5,6 +5,8 @@
 module RunManual (main) where
 
 import Control.Exception (bracket)
+import Control.Monad (forM_)
+import Data.Complex
 import Data.Vector.Storable qualified as VS
 import Foreign as F
 import Foreign.C (castCCharToChar, withCString)
@@ -24,6 +26,7 @@ import Example
 import FunctionPointers as FPointers
 import Globals as Globals
 import Structs
+import Complex qualified
 
 import Game.Player
 import Game.State
@@ -183,8 +186,8 @@ main = do
 #else
     -- On macOS/LLVM (e.g.), call the safe functions defined in your bindings module.
     -- We assume they are named `gamma` and `byeBye` in Haskell.
-    byeBye
-    gamma
+    -- byeBye
+    -- gamma
 #endif
     import'
 
@@ -336,6 +339,115 @@ main = do
       print =<< FPointers.apply2 FPointers.plus_ptr 7 8
       print =<< FPointers.apply2 FPointers.plus_ptr 9 10
       print =<< FPointers.apply2 FPointers.plus_ptr 11 12
+
+    --
+    -- Complex types
+    section "Complex types"
+    --
+    do
+      subsection "Basic Complex Type Read/Write"
+
+      let test_integer_complex
+            :: ( Show a
+               , Eq a
+               , Storable a
+               )
+            => String -> Ptr a -> a -> IO ()
+          test_integer_complex name ptr value = do
+            read_val_1 <- F.peek ptr
+            putStrLn $ name <> ": " <> show read_val_1
+            F.poke ptr value
+            read_val_2 <- F.peek ptr
+            putStrLn $ name <> ": " <> show value <> " -> " <> show read_val_2 <>
+                      " (match: " <> show (value == read_val_2) <> ")"
+
+      test_integer_complex "unsigned short" Complex.global_complex_unsigned_short_ptr (42 :+ 24 :: Complex FC.CUShort)
+      test_integer_complex "short"          Complex.global_complex_short_ptr ((-10) :+ 15 :: Complex FC.CShort)
+      test_integer_complex "unsigned int"   Complex.global_complex_unsigned_int_ptr (1000 :+ 2000 :: Complex FC.CUInt)
+      test_integer_complex "int"            Complex.global_complex_int_ptr ((-500) :+ 750 :: Complex FC.CInt)
+      test_integer_complex "char"           Complex.global_complex_char_ptr (65 :+ 90 :: Complex FC.CChar)
+      test_integer_complex "float"          Complex.global_complex_float_ptr (1.5 :+ 2.5 :: Complex FC.CFloat)
+      test_integer_complex "double"         Complex.global_complex_double_ptr (3.14159 :+ 2.71828 :: Complex FC.CDouble)
+
+      subsection "Arithmetic Functions"
+
+      let a, b :: Complex FC.CDouble
+          a = 1.5 :+ 2.5
+          b = 4.7 :+ 4.2
+
+          c, d :: Complex FC.CFloat
+          c = 2.0 :+ 3.0
+          d = 4.0 :+ 5.0
+
+      result_add <- Complex.add_complex a b
+      result_mult <- Complex.multiply_complex_f c d
+
+      let expected_add :: Complex FC.CDouble
+          expected_add = 6.2 :+ 6.7
+
+          expected_mult :: Complex FC.CFloat
+          expected_mult = (-7.0) :+ 22.0 :: Complex FC.CFloat
+
+      putStrLn $ "add(" <> show c <> ", " <> show d <> ") = " <> show result_add
+      putStrLn $ "  Expected: " <> show expected_add <>
+                 ", Match: " <> show (abs (realPart result_add - realPart expected_add) < 1e-12 &&
+                                      abs (imagPart result_add - imagPart expected_add) < 1e-12)
+
+      putStrLn $ "multiply(" <> show a <> ", " <> show b <> ") = " <> show result_mult
+      putStrLn $ "  Expected: " <> show expected_mult <>
+                 ", Match: " <> show (abs (realPart result_mult - realPart expected_mult) < 1e-6 &&
+                                      abs (imagPart result_mult - imagPart expected_mult) < 1e-6)
+
+      subsection "Complex Struct"
+
+      let test_obj = Complex.Complex_object_t
+            { Complex.complex_object_t_velocity = 10.0 :+ 20.0
+            , Complex.complex_object_t_position = 100.0 :+ 200.0
+            , Complex.complex_object_t_id = 42
+            }
+
+      putStrLn $ "Created object: " <> show test_obj
+
+      F.alloca $ \ptr -> do
+        F.poke ptr test_obj
+        read_obj <- F.peek ptr
+        putStrLn $ "After round-trip: " <> show read_obj
+        putStrLn $ "  Match: " <> show (test_obj == read_obj)
+        putStrLn $ "  Size: " <> show (F.sizeOf test_obj) <> " bytes"
+        putStrLn $ "  Alignment: " <> show (F.alignment test_obj) <> " bytes"
+
+      subsection "Complex Arrays"
+
+      putStrLn "Reading first 5 elements of arrays:"
+      putStrLn "Float array:"
+      forM_ [0..4] $ \i -> do
+        val <- F.peekElemOff (F.castPtr Complex.complex_float_array_ptr) i
+        putStrLn $ "  [" <> show i <> "] = " <> show (val :: Complex FC.CFloat)
+
+      putStrLn "Double array:"
+      forM_ [0..4] $ \i -> do
+        val <- F.peekElemOff (F.castPtr Complex.complex_double_array_ptr) i
+        putStrLn $ "  [" <> show i <> "] = " <> show (val :: Complex FC.CDouble)
+
+      -- Modify and verify
+      putStrLn "Writing new values to index 0:"
+      let new_float :: Complex FC.CFloat
+          new_float = 99.9 :+ 88.8
+
+          new_double :: Complex FC.CDouble
+          new_double = 77.7 :+ 66.6
+
+      orig_float <- F.peekElemOff (F.castPtr Complex.complex_float_array_ptr) 0
+      orig_double <- F.peekElemOff (F.castPtr Complex.complex_double_array_ptr) 0
+
+      F.pokeElemOff (F.castPtr Complex.complex_float_array_ptr) 0 new_float
+      F.pokeElemOff (F.castPtr Complex.complex_double_array_ptr) 0 new_double
+
+      read_new_float :: Complex FC.CFloat   <- F.peekElemOff (F.castPtr Complex.complex_float_array_ptr) 0
+      read_new_double :: Complex FC.CDouble <- F.peekElemOff (F.castPtr Complex.complex_double_array_ptr) 0
+
+      putStrLn $ "  Float: " <> show (orig_float :: Complex FC.CFloat) <> " -> " <> show read_new_float
+      putStrLn $ "  Double: " <> show (orig_double :: Complex FC.CDouble) <> " -> " <> show read_new_double
 
 {-------------------------------------------------------------------------------
   Arrays
