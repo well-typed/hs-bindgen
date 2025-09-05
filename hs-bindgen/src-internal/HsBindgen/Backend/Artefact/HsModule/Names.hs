@@ -161,7 +161,10 @@ moduleOf ident m0 = case parts of
     ["GHC", "Ix"]                    -> HsImportModule "Data.Ix"   (Just "Ix")
     ("GHC" : "Foreign" : "C" : _)    -> HsImportModule "Foreign.C" (Just "FC")
     ("Foreign" : "C" : _)            -> HsImportModule "Foreign.C" (Just "FC")
-    ["GHC", "Ptr"]                   -> HsImportModule "Foreign"   (Just "F")
+    -- We'd prefer to use `Foreign.Ptr` because it is a stable and
+    -- compiler-agnostic interface in contrast to `GHC.Ptr`. However,
+    -- `Foreign.Ptr` does not export the constructor of `Ptr`, which we need.
+    ["GHC", "Ptr"]                   -> HsImportModule "GHC.Ptr"   (Just "F")
     ("GHC" : "Foreign" : _)          -> HsImportModule "Foreign"   (Just "F")
     ("Foreign" : _)                  -> HsImportModule "Foreign"   (Just "F")
 

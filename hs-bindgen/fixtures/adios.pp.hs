@@ -12,6 +12,7 @@ import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
+import qualified GHC.Ptr as F
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
