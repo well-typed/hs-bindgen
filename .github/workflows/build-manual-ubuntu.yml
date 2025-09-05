@@ -168,6 +168,9 @@ jobs:
         working-directory: ./manual
         run: ./generate.sh
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Run the manual executable
         working-directory: ./manual/hs
         run: |
