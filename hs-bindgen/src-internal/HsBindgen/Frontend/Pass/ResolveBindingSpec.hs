@@ -380,6 +380,7 @@ instance Resolve C.Type where
       C.TypePrim t         -> return (Set.empty, C.TypePrim t)
       C.TypeVoid           -> return (Set.empty, C.TypeVoid)
       C.TypeExtBinding ext -> absurd ext
+      C.TypeComplex t      -> return (Set.empty, C.TypeComplex t)
     where
       auxU ::
            (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)

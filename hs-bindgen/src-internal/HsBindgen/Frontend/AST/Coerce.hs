@@ -220,3 +220,4 @@ instance (
   coercePass (TypeExtBinding ext)      = TypeExtBinding ext
   coercePass (TypeBlock typ)           = TypeBlock (coercePass typ)
   coercePass (TypeConst typ)           = TypeConst (coercePass typ)
+  coercePass (TypeComplex prim)        = TypeComplex prim

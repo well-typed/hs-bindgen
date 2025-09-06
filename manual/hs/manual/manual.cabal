@@ -21,7 +21,7 @@ executable run-manual
   main-is:         RunManual.hs
   ghc-options:     -main-is RunManual
   hs-source-dirs:  app, generated
-  extra-libraries: example, structs, globals, arrays, functionpointers
+  extra-libraries: example, structs, globals, arrays, functionpointers, complex_test
 
   build-depends:
     -- Internal.
@@ -39,6 +39,7 @@ executable run-manual
       Structs
       Globals
       FunctionPointers
+      Complex
 
   ghc-options:
       -- Avoid gcc warnings about non-NFC characters

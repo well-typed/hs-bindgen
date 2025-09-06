@@ -205,6 +205,8 @@ instance HandleUseSites C.Type where
 
       go (C.TypeTypedef name) = squash name
 
+      go (C.TypeComplex prim) = C.TypeComplex prim
+
       rename ::
            (C.DeclId -> C.Type HandleTypedefs)
         -> (C.DeclId -> C.Type HandleTypedefs)
