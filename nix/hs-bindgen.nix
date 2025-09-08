@@ -72,5 +72,17 @@ in
       inherit pkgsDefault pkgsOverlay;
       inherit (pkgsDefault) llvmPackages;
     };
+    wlroots = devShellWith {
+      inherit pkgsDefault pkgsOverlay;
+      inherit (pkgsDefault) llvmPackages;
+      additionalPackages = [
+        pkgsDefault.pixman
+        pkgsDefault.wayland
+        pkgsDefault.wlroots
+      ];
+      appendToShellHook = ''
+        BINDGEN_EXTRA_CLANG_ARGS="-isystem ${pkgsDefault.wlroots}/include/wlroots-0.19 ''${BINDGEN_EXTRA_CLANG_ARGS}"
+      '';
+    };
   };
 }

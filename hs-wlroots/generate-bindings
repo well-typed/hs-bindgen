@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+c_flags=(
+    --clang-option -DWLR_USE_UNSTABLE
+    # Leads to "Unexpected type kind CXType_Unexposed".
+    --standard c23
+    --gnu
+)
+
+parse_flags=(
+    --parse-all
+)
+
+select_flags=(
+    --select-by-header-path wlr/backend.h
+    --enable-program-slicing
+)
+
+module_flags=(
+    --unique-id com.hs-bindgen.wlroots
+    --module Generated.Wlroots
+    --hs-output-dir src
+    --create-output-dirs
+)
+
+cabal run -- hs-bindgen-cli preprocess wlr/backend.h \
+    -v 2 \
+    "${c_flags[@]}" \
+    "${parse_flags[@]}" \
+    "${select_flags[@]}" \
+    "${module_flags[@]}"
