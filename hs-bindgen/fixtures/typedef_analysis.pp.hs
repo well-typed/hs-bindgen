@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
 data Struct1_t = Struct1_t
@@ -99,7 +99,7 @@ instance F.Storable Struct5 where
     __exported by:__ @typedef_analysis.h@
 -}
 newtype Struct5_t = Struct5_t
-  { un_Struct5_t :: F.Ptr Struct5
+  { un_Struct5_t :: Ptr.Ptr Struct5
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -135,7 +135,7 @@ instance F.Storable Struct6_Deref where
     __exported by:__ @typedef_analysis.h@
 -}
 newtype Struct6 = Struct6
-  { un_Struct6 :: F.Ptr Struct6_Deref
+  { un_Struct6 :: Ptr.Ptr Struct6_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -310,7 +310,7 @@ data Struct11_t = Struct11_t
 
          __exported by:__ @typedef_analysis.h@
     -}
-  , struct11_t_self :: F.Ptr Struct11_t
+  , struct11_t_self :: Ptr.Ptr Struct11_t
     {- ^ __C declaration:__ @self@
 
          __defined at:__ @typedef_analysis.h:53:20@
@@ -354,7 +354,7 @@ data Struct12_t = Struct12_t
 
          __exported by:__ @typedef_analysis.h@
     -}
-  , struct12_t_self :: F.Ptr Struct12_t
+  , struct12_t_self :: Ptr.Ptr Struct12_t
     {- ^ __C declaration:__ @self@
 
          __defined at:__ @typedef_analysis.h:62:15@
@@ -405,14 +405,14 @@ data Use_sites = Use_sites
 
          __exported by:__ @typedef_analysis.h@
     -}
-  , use_sites_useTypedef_struct3_t :: F.Ptr Struct3_t
+  , use_sites_useTypedef_struct3_t :: Ptr.Ptr Struct3_t
     {- ^ __C declaration:__ @useTypedef_struct3_t@
 
          __defined at:__ @typedef_analysis.h:74:14@
 
          __exported by:__ @typedef_analysis.h@
     -}
-  , use_sites_useTypedef_struct4_t :: F.Ptr Struct4_t
+  , use_sites_useTypedef_struct4_t :: Ptr.Ptr Struct4_t
     {- ^ __C declaration:__ @useTypedef_struct4_t@
 
          __defined at:__ @typedef_analysis.h:75:14@

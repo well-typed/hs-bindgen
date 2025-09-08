@@ -8,7 +8,7 @@ module Example where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
@@ -57,7 +57,7 @@ instance F.Storable Thing where
     __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_be997777eb388096" thing_fun_1_wrapper
-  :: F.Ptr Thing
+  :: Ptr.Ptr Thing
      {- ^ __C declaration:__ @x@
      -}
   -> IO FC.CInt
@@ -73,11 +73,11 @@ thing_fun_1 =
     __exported by:__ @struct_arg.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_struct_arg_d5cf000d627eba66" hs_bindgen_test_struct_arg_d5cf000d627eba66
-  :: IO (F.FunPtr (Thing -> IO FC.CInt))
+  :: IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 
 {-# NOINLINE thing_fun_1_ptr #-}
 
-thing_fun_1_ptr :: F.FunPtr (Thing -> IO FC.CInt)
+thing_fun_1_ptr :: Ptr.FunPtr (Thing -> IO FC.CInt)
 thing_fun_1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_d5cf000d627eba66
 
@@ -91,7 +91,7 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_c719e5e844a53956" thing_fu
   :: FC.CInt
      {- ^ __C declaration:__ @x@
      -}
-  -> F.Ptr Thing
+  -> Ptr.Ptr Thing
   -> IO ()
 
 thing_fun_2 :: FC.CInt -> IO Thing
@@ -107,11 +107,11 @@ thing_fun_2 =
     __exported by:__ @struct_arg.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_struct_arg_c5543d9dadeca704" hs_bindgen_test_struct_arg_c5543d9dadeca704
-  :: IO (F.FunPtr (FC.CInt -> IO Thing))
+  :: IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 
 {-# NOINLINE thing_fun_2_ptr #-}
 
-thing_fun_2_ptr :: F.FunPtr (FC.CInt -> IO Thing)
+thing_fun_2_ptr :: Ptr.FunPtr (FC.CInt -> IO Thing)
 thing_fun_2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_c5543d9dadeca704
 
@@ -125,13 +125,13 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_9540300ca2ef6349" thing_fu
   :: FC.CInt
      {- ^ __C declaration:__ @x@
      -}
-  -> F.Ptr Thing
+  -> Ptr.Ptr Thing
      {- ^ __C declaration:__ @y@
      -}
   -> FC.CDouble
      {- ^ __C declaration:__ @z@
      -}
-  -> F.Ptr Thing
+  -> Ptr.Ptr Thing
   -> IO ()
 
 thing_fun_3a :: FC.CInt -> Thing -> FC.CDouble -> IO Thing
@@ -150,11 +150,11 @@ thing_fun_3a =
     __exported by:__ @struct_arg.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_struct_arg_6f4d585feed7ca5e" hs_bindgen_test_struct_arg_6f4d585feed7ca5e
-  :: IO (F.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
+  :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
 
 {-# NOINLINE thing_fun_3a_ptr #-}
 
-thing_fun_3a_ptr :: F.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
+thing_fun_3a_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
 thing_fun_3a_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_6f4d585feed7ca5e
 
@@ -168,7 +168,7 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_f6f54b421741a2de" thing_fu
   :: FC.CInt
      {- ^ __C declaration:__ @x@
      -}
-  -> F.Ptr Thing
+  -> Ptr.Ptr Thing
      {- ^ __C declaration:__ @y@
      -}
   -> FC.CDouble
@@ -190,10 +190,10 @@ thing_fun_3b =
     __exported by:__ @struct_arg.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_struct_arg_ef6a607b6432889d" hs_bindgen_test_struct_arg_ef6a607b6432889d
-  :: IO (F.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
+  :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
 
 {-# NOINLINE thing_fun_3b_ptr #-}
 
-thing_fun_3b_ptr :: F.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
+thing_fun_3b_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
 thing_fun_3b_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_ef6a607b6432889d

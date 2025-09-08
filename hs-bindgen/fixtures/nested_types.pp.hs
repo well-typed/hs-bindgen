@@ -5,7 +5,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @foo@
@@ -198,7 +198,7 @@ data Ex4_even = Ex4_even
 
          __exported by:__ @nested_types.h@
     -}
-  , ex4_even_next :: F.Ptr Ex4_odd
+  , ex4_even_next :: Ptr.Ptr Ex4_odd
     {- ^ __C declaration:__ @next@
 
          __defined at:__ @nested_types.h:26:25@
@@ -242,7 +242,7 @@ data Ex4_odd = Ex4_odd
 
          __exported by:__ @nested_types.h@
     -}
-  , ex4_odd_next :: F.Ptr Ex4_even
+  , ex4_odd_next :: Ptr.Ptr Ex4_even
     {- ^ __C declaration:__ @next@
 
          __defined at:__ @nested_types.h:27:8@

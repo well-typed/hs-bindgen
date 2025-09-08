@@ -12,7 +12,7 @@ import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.Prelude
@@ -193,10 +193,10 @@ instance F.Storable FileOperationRecord where
     __exported by:__ @program_slicing_selection.h@
 -}
 foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk
-  :: F.Ptr HsBindgen.Runtime.Prelude.CFile
+  :: Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
      {- ^ __C declaration:__ @file_ptr@
      -}
-  -> F.Ptr Void
+  -> Ptr.Ptr Void
      {- ^ __C declaration:__ @buffer@
      -}
   -> HsBindgen.Runtime.Prelude.CSize
@@ -211,10 +211,10 @@ foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135
     __exported by:__ @program_slicing_selection.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86" hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86
-  :: IO (F.FunPtr ((F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
 
 {-# NOINLINE read_file_chunk_ptr #-}
 
-read_file_chunk_ptr :: F.FunPtr ((F.Ptr HsBindgen.Runtime.Prelude.CFile) -> (F.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
+read_file_chunk_ptr :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
 read_file_chunk_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86

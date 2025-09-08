@@ -6,7 +6,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
 {-| __C declaration:__ @S1@
@@ -161,7 +161,7 @@ data S4 = S4
 
          __exported by:__ @simple_structs.h@
     -}
-  , s4_c :: F.Ptr FC.CInt
+  , s4_c :: Ptr.Ptr FC.CInt
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @simple_structs.h:22:10@
@@ -332,7 +332,7 @@ instance F.Storable S7a_Deref where
     __exported by:__ @simple_structs.h@
 -}
 newtype S7a = S7a
-  { un_S7a :: F.Ptr S7a_Deref
+  { un_S7a :: Ptr.Ptr S7a_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -388,7 +388,7 @@ instance F.Storable S7b_Deref where
     __exported by:__ @simple_structs.h@
 -}
 newtype S7b = S7b
-  { un_S7b :: F.Ptr (F.Ptr (F.Ptr S7b_Deref))
+  { un_S7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Deref))
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

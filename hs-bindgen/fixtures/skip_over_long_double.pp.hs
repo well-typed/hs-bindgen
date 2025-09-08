@@ -8,7 +8,7 @@ module Example where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
@@ -31,11 +31,11 @@ foreign import ccall safe "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3e
     __exported by:__ @skip_over_long_double.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_skip_over_long_double_94047676e402a0bf" hs_bindgen_test_skip_over_long_double_94047676e402a0bf
-  :: IO (F.FunPtr (FC.CInt -> IO ()))
+  :: IO (Ptr.FunPtr (FC.CInt -> IO ()))
 
 {-# NOINLINE fun2_ptr #-}
 
-fun2_ptr :: F.FunPtr (FC.CInt -> IO ())
+fun2_ptr :: Ptr.FunPtr (FC.CInt -> IO ())
 fun2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_skip_over_long_double_94047676e402a0bf
 

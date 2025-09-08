@@ -12,7 +12,7 @@ import qualified Data.Array.Byte
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -39,11 +39,11 @@ foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
     __exported by:__ @definitions.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_definitions_fb3e409881d8c524" hs_bindgen_test_definitions_fb3e409881d8c524
-  :: IO (F.FunPtr (FC.CDouble -> IO FC.CInt))
+  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
 
 {-# NOINLINE foo_ptr #-}
 
-foo_ptr :: F.FunPtr (FC.CDouble -> IO FC.CInt)
+foo_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
 foo_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_fb3e409881d8c524
 
@@ -54,11 +54,11 @@ foo_ptr =
     __exported by:__ @definitions.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_definitions_fc2aad2af9befead" hs_bindgen_test_definitions_fc2aad2af9befead
-  :: IO (F.Ptr FC.CInt)
+  :: IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE n_ptr #-}
 
-n_ptr :: F.Ptr FC.CInt
+n_ptr :: Ptr.Ptr FC.CInt
 n_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_fc2aad2af9befead
 

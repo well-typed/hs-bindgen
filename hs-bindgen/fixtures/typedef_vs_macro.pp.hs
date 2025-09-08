@@ -9,7 +9,7 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -80,7 +80,7 @@ newtype M3 = M3
     __exported by:__ @typedef_vs_macro.h@
 -}
 newtype M4 = M4
-  { un_M4 :: F.Ptr FC.CInt
+  { un_M4 :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -170,7 +170,7 @@ newtype Uint64_t = Uint64_t
     __exported by:__ @typedef_vs_macro.h@
 -}
 data Foo = Foo
-  { foo_a :: F.Ptr Uint64_t
+  { foo_a :: Ptr.Ptr Uint64_t
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @typedef_vs_macro.h:19:13@

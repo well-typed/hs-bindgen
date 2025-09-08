@@ -18,7 +18,7 @@ import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
@@ -257,14 +257,14 @@ data A_typedef_struct_t = A_typedef_struct_t
 
          __exported by:__ @distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_5 :: F.Ptr Another_typedef_struct_t
+  , a_typedef_struct_t_field_5 :: Ptr.Ptr Another_typedef_struct_t
     {- ^ __C declaration:__ @field_5@
 
          __defined at:__ @distilled_lib_1.h:42:31@
 
          __exported by:__ @distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_6 :: F.Ptr Void
+  , a_typedef_struct_t_field_6 :: Ptr.Ptr Void
     {- ^ __C declaration:__ @field_6@
 
          __defined at:__ @distilled_lib_1.h:43:31@
@@ -503,18 +503,18 @@ pattern ENUM_CASE_3 = A_typedef_enum_e 3
     __exported by:__ @distilled_lib_1.h@
 -}
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper
-  :: F.Ptr A_type_t
+  :: Ptr.Ptr A_type_t
      {- ^ __C declaration:__ @i@
      -}
   -> HsBindgen.Runtime.Prelude.Word32
      {- ^ __C declaration:__ @j@
      -}
-  -> F.Ptr HsBindgen.Runtime.Prelude.Word8
+  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
      {- ^ __C declaration:__ @k@
      -}
   -> IO HsBindgen.Runtime.Prelude.Int32
 
-some_fun :: (F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
+some_fun :: (Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 some_fun =
   \x0 ->
     \x1 ->
@@ -529,11 +529,11 @@ some_fun =
     __exported by:__ @distilled_lib_1.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_4a8e737205def139" hs_bindgen_test_distilled_lib_1_4a8e737205def139
-  :: IO (F.FunPtr ((F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
 
 {-# NOINLINE some_fun_ptr #-}
 
-some_fun_ptr :: F.FunPtr ((F.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
+some_fun_ptr :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
 some_fun_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_4a8e737205def139
 
@@ -544,7 +544,7 @@ some_fun_ptr =
     __exported by:__ @distilled_lib_1.h@
 -}
 newtype Callback_t = Callback_t
-  { un_Callback_t :: F.FunPtr ((F.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
+  { un_Callback_t :: Ptr.FunPtr ((Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -556,10 +556,10 @@ newtype Callback_t = Callback_t
     __exported by:__ @distilled_lib_1.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" hs_bindgen_test_distilled_lib_1_0f967c83f73d0365
-  :: IO (F.Ptr Var_t)
+  :: IO (Ptr.Ptr Var_t)
 
 {-# NOINLINE v_ptr #-}
 
-v_ptr :: F.Ptr Var_t
+v_ptr :: Ptr.Ptr Var_t
 v_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_0f967c83f73d0365

@@ -6,7 +6,7 @@ module Example where
 
 import qualified C.Char
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude (Int)
 
 {-| __C declaration:__ @C1@
@@ -126,8 +126,8 @@ j3 =
 
     __exported by:__ @macro_strings.h@
 -}
-s1 :: ((,) (F.Ptr FC.CChar)) Int
-s1 = ((F.Ptr "a"#, 1) :: FC.CStringLen)
+s1 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s1 = ((Ptr.Ptr "a"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S2@
 
@@ -135,8 +135,8 @@ s1 = ((F.Ptr "a"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s2 :: ((,) (F.Ptr FC.CChar)) Int
-s2 = ((F.Ptr "\'"#, 1) :: FC.CStringLen)
+s2 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s2 = ((Ptr.Ptr "\'"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S3@
 
@@ -144,8 +144,8 @@ s2 = ((F.Ptr "\'"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s3 :: ((,) (F.Ptr FC.CChar)) Int
-s3 = ((F.Ptr "\t"#, 1) :: FC.CStringLen)
+s3 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s3 = ((Ptr.Ptr "\t"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S4@
 
@@ -153,8 +153,8 @@ s3 = ((F.Ptr "\t"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s4 :: ((,) (F.Ptr FC.CChar)) Int
-s4 = ((F.Ptr "\0"#, 1) :: FC.CStringLen)
+s4 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s4 = ((Ptr.Ptr "\0"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S5@
 
@@ -162,8 +162,8 @@ s4 = ((F.Ptr "\0"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s5 :: ((,) (F.Ptr FC.CChar)) Int
-s5 = ((F.Ptr "\'"#, 1) :: FC.CStringLen)
+s5 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s5 = ((Ptr.Ptr "\'"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S6@
 
@@ -171,8 +171,8 @@ s5 = ((F.Ptr "\'"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s6 :: ((,) (F.Ptr FC.CChar)) Int
-s6 = ((F.Ptr "?"#, 1) :: FC.CStringLen)
+s6 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s6 = ((Ptr.Ptr "?"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S7@
 
@@ -180,8 +180,8 @@ s6 = ((F.Ptr "?"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s7 :: ((,) (F.Ptr FC.CChar)) Int
-s7 = ((F.Ptr "S"#, 1) :: FC.CStringLen)
+s7 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s7 = ((Ptr.Ptr "S"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S8@
 
@@ -189,8 +189,8 @@ s7 = ((F.Ptr "S"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-s8 :: ((,) (F.Ptr FC.CChar)) Int
-s8 = ((F.Ptr "S"#, 1) :: FC.CStringLen)
+s8 :: ((,) (Ptr.Ptr FC.CChar)) Int
+s8 = ((Ptr.Ptr "S"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @T1@
 
@@ -198,8 +198,8 @@ s8 = ((F.Ptr "S"#, 1) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-t1 :: ((,) (F.Ptr FC.CChar)) Int
-t1 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
+t1 :: ((,) (Ptr.Ptr FC.CChar)) Int
+t1 = ((Ptr.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 {-| __C declaration:__ @T2@
 
@@ -207,8 +207,8 @@ t1 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-t2 :: ((,) (F.Ptr FC.CChar)) Int
-t2 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
+t2 :: ((,) (Ptr.Ptr FC.CChar)) Int
+t2 = ((Ptr.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 {-| __C declaration:__ @T3@
 
@@ -216,8 +216,8 @@ t2 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-t3 :: ((,) (F.Ptr FC.CChar)) Int
-t3 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
+t3 :: ((,) (Ptr.Ptr FC.CChar)) Int
+t3 = ((Ptr.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 {-| __C declaration:__ @U@
 
@@ -225,9 +225,9 @@ t3 = ((F.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-u :: ((,) (F.Ptr FC.CChar)) Int
+u :: ((,) (Ptr.Ptr FC.CChar)) Int
 u =
-  ((F.Ptr "\x1\xFF\x1\xFF\x1\xFF\x1\xFF"#, 8) :: FC.CStringLen)
+  ((Ptr.Ptr "\x1\xFF\x1\xFF\x1\xFF\x1\xFF"#, 8) :: FC.CStringLen)
 
 {-| __C declaration:__ @V@
 
@@ -235,9 +235,9 @@ u =
 
     __exported by:__ @macro_strings.h@
 -}
-v :: ((,) (F.Ptr FC.CChar)) Int
+v :: ((,) (Ptr.Ptr FC.CChar)) Int
 v =
-  ((F.Ptr "\x1\x2\x3\x4\x5\x6"#, 6) :: FC.CStringLen)
+  ((Ptr.Ptr "\x1\x2\x3\x4\x5\x6"#, 6) :: FC.CStringLen)
 
 {-| __C declaration:__ @W1@
 
@@ -245,8 +245,8 @@ v =
 
     __exported by:__ @macro_strings.h@
 -}
-w1 :: ((,) (F.Ptr FC.CChar)) Int
-w1 = ((F.Ptr "hij\0"#, 4) :: FC.CStringLen)
+w1 :: ((,) (Ptr.Ptr FC.CChar)) Int
+w1 = ((Ptr.Ptr "hij\0"#, 4) :: FC.CStringLen)
 
 {-| __C declaration:__ @W2@
 
@@ -254,5 +254,5 @@ w1 = ((F.Ptr "hij\0"#, 4) :: FC.CStringLen)
 
     __exported by:__ @macro_strings.h@
 -}
-w2 :: ((,) (F.Ptr FC.CChar)) Int
-w2 = ((F.Ptr "abc\0def\0g"#, 9) :: FC.CStringLen)
+w2 :: ((,) (Ptr.Ptr FC.CChar)) Int
+w2 = ((Ptr.Ptr "abc\0def\0g"#, 9) :: FC.CStringLen)

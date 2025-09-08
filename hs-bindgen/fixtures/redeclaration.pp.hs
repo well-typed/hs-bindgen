@@ -17,7 +17,7 @@ import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -32,11 +32,11 @@ $(CAPI.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((c
     __exported by:__ @redeclaration.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" hs_bindgen_test_redeclaration_59f22ffbb8d28119
-  :: IO (F.Ptr FC.CInt)
+  :: IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE x_ptr #-}
 
-x_ptr :: F.Ptr FC.CInt
+x_ptr :: Ptr.Ptr FC.CInt
 x_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_redeclaration_59f22ffbb8d28119
 

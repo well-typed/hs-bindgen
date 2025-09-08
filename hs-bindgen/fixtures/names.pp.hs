@@ -5,7 +5,7 @@
 module Example where
 
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
@@ -27,11 +27,11 @@ foreign import ccall safe "hs_bindgen_test_names_a08e966b63669ba8" by'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_bb58aea59417aa76" hs_bindgen_test_names_bb58aea59417aa76
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE by'_ptr #-}
 
-by'_ptr :: F.FunPtr (IO ())
+by'_ptr :: Ptr.FunPtr (IO ())
 by'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_bb58aea59417aa76
 
@@ -51,11 +51,11 @@ foreign import ccall safe "hs_bindgen_test_names_946148697abf4575" forall'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_4a4cda3da32bed2b" hs_bindgen_test_names_4a4cda3da32bed2b
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE forall'_ptr #-}
 
-forall'_ptr :: F.FunPtr (IO ())
+forall'_ptr :: Ptr.FunPtr (IO ())
 forall'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_4a4cda3da32bed2b
 
@@ -75,11 +75,11 @@ foreign import ccall safe "hs_bindgen_test_names_a1ece6a6fa8e9763" mdo'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_f3f3b62a0c9a709c" hs_bindgen_test_names_f3f3b62a0c9a709c
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE mdo'_ptr #-}
 
-mdo'_ptr :: F.FunPtr (IO ())
+mdo'_ptr :: Ptr.FunPtr (IO ())
 mdo'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_f3f3b62a0c9a709c
 
@@ -99,11 +99,11 @@ foreign import ccall safe "hs_bindgen_test_names_1e48788938305e48" pattern'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_d6de06049441d0d8" hs_bindgen_test_names_d6de06049441d0d8
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE pattern'_ptr #-}
 
-pattern'_ptr :: F.FunPtr (IO ())
+pattern'_ptr :: Ptr.FunPtr (IO ())
 pattern'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_d6de06049441d0d8
 
@@ -123,11 +123,11 @@ foreign import ccall safe "hs_bindgen_test_names_9bb16600c50998ed" proc'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_e5d464f87b7fe950" hs_bindgen_test_names_e5d464f87b7fe950
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE proc'_ptr #-}
 
-proc'_ptr :: F.FunPtr (IO ())
+proc'_ptr :: Ptr.FunPtr (IO ())
 proc'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_e5d464f87b7fe950
 
@@ -147,11 +147,11 @@ foreign import ccall safe "hs_bindgen_test_names_8dfd7fa26e360d8e" rec'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_ab3827c2d532dee0" hs_bindgen_test_names_ab3827c2d532dee0
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE rec'_ptr #-}
 
-rec'_ptr :: F.FunPtr (IO ())
+rec'_ptr :: Ptr.FunPtr (IO ())
 rec'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_ab3827c2d532dee0
 
@@ -171,11 +171,11 @@ foreign import ccall safe "hs_bindgen_test_names_57c5446244bcece1" using'
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_c00c761386bb1622" hs_bindgen_test_names_c00c761386bb1622
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE using'_ptr #-}
 
-using'_ptr :: F.FunPtr (IO ())
+using'_ptr :: Ptr.FunPtr (IO ())
 using'_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_c00c761386bb1622
 
@@ -195,11 +195,11 @@ foreign import ccall safe "hs_bindgen_test_names_a2a878b7e49c1a71" anyclass
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_4a396f85749a2639" hs_bindgen_test_names_4a396f85749a2639
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE anyclass_ptr #-}
 
-anyclass_ptr :: F.FunPtr (IO ())
+anyclass_ptr :: Ptr.FunPtr (IO ())
 anyclass_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_4a396f85749a2639
 
@@ -219,11 +219,11 @@ foreign import ccall safe "hs_bindgen_test_names_2f73a4347f70a468" capi
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_c343892e825ac083" hs_bindgen_test_names_c343892e825ac083
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE capi_ptr #-}
 
-capi_ptr :: F.FunPtr (IO ())
+capi_ptr :: Ptr.FunPtr (IO ())
 capi_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_c343892e825ac083
 
@@ -243,11 +243,11 @@ foreign import ccall safe "hs_bindgen_test_names_cb2993ce15743783" cases
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_142ad3bb39343793" hs_bindgen_test_names_142ad3bb39343793
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE cases_ptr #-}
 
-cases_ptr :: F.FunPtr (IO ())
+cases_ptr :: Ptr.FunPtr (IO ())
 cases_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_142ad3bb39343793
 
@@ -267,11 +267,11 @@ foreign import ccall safe "hs_bindgen_test_names_954c564a2bd129a5" ccall
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_c601c7e6cf3e8093" hs_bindgen_test_names_c601c7e6cf3e8093
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE ccall_ptr #-}
 
-ccall_ptr :: F.FunPtr (IO ())
+ccall_ptr :: Ptr.FunPtr (IO ())
 ccall_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_c601c7e6cf3e8093
 
@@ -291,11 +291,11 @@ foreign import ccall safe "hs_bindgen_test_names_3a96dcbee4c024e0" dynamic
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_041d2882439ff8ed" hs_bindgen_test_names_041d2882439ff8ed
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE dynamic_ptr #-}
 
-dynamic_ptr :: F.FunPtr (IO ())
+dynamic_ptr :: Ptr.FunPtr (IO ())
 dynamic_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_041d2882439ff8ed
 
@@ -315,11 +315,11 @@ foreign import ccall safe "hs_bindgen_test_names_2e78d006337ea551" export
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_8ab0ab2a4f7b30af" hs_bindgen_test_names_8ab0ab2a4f7b30af
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE export_ptr #-}
 
-export_ptr :: F.FunPtr (IO ())
+export_ptr :: Ptr.FunPtr (IO ())
 export_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_8ab0ab2a4f7b30af
 
@@ -339,11 +339,11 @@ foreign import ccall safe "hs_bindgen_test_names_10c8e433951b50a8" family
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_9c717aeb3b2a21a7" hs_bindgen_test_names_9c717aeb3b2a21a7
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE family_ptr #-}
 
-family_ptr :: F.FunPtr (IO ())
+family_ptr :: Ptr.FunPtr (IO ())
 family_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_9c717aeb3b2a21a7
 
@@ -363,11 +363,11 @@ foreign import ccall safe "hs_bindgen_test_names_6217d85466fed7df" group
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_21121f108b34a76f" hs_bindgen_test_names_21121f108b34a76f
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE group_ptr #-}
 
-group_ptr :: F.FunPtr (IO ())
+group_ptr :: Ptr.FunPtr (IO ())
 group_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_21121f108b34a76f
 
@@ -387,11 +387,11 @@ foreign import ccall safe "hs_bindgen_test_names_00164685ff44cb75" interruptible
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_99f8d337ba1ebac6" hs_bindgen_test_names_99f8d337ba1ebac6
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE interruptible_ptr #-}
 
-interruptible_ptr :: F.FunPtr (IO ())
+interruptible_ptr :: Ptr.FunPtr (IO ())
 interruptible_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_99f8d337ba1ebac6
 
@@ -411,11 +411,11 @@ foreign import ccall safe "hs_bindgen_test_names_c810b13a75ea93bc" javascript
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_4603bd39e6211039" hs_bindgen_test_names_4603bd39e6211039
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE javascript_ptr #-}
 
-javascript_ptr :: F.FunPtr (IO ())
+javascript_ptr :: Ptr.FunPtr (IO ())
 javascript_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_4603bd39e6211039
 
@@ -435,11 +435,11 @@ foreign import ccall safe "hs_bindgen_test_names_41d6d93a2614dff5" label
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_a0fbab6bd4868b8a" hs_bindgen_test_names_a0fbab6bd4868b8a
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE label_ptr #-}
 
-label_ptr :: F.FunPtr (IO ())
+label_ptr :: Ptr.FunPtr (IO ())
 label_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_a0fbab6bd4868b8a
 
@@ -459,11 +459,11 @@ foreign import ccall safe "hs_bindgen_test_names_bdfec7f41298a418" prim
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_a21123e386a2c566" hs_bindgen_test_names_a21123e386a2c566
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE prim_ptr #-}
 
-prim_ptr :: F.FunPtr (IO ())
+prim_ptr :: Ptr.FunPtr (IO ())
 prim_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_a21123e386a2c566
 
@@ -483,11 +483,11 @@ foreign import ccall safe "hs_bindgen_test_names_0d10aaa9ecbf0f2f" role
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_da0964ddbc3ebb7a" hs_bindgen_test_names_da0964ddbc3ebb7a
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE role_ptr #-}
 
-role_ptr :: F.FunPtr (IO ())
+role_ptr :: Ptr.FunPtr (IO ())
 role_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_da0964ddbc3ebb7a
 
@@ -507,11 +507,11 @@ foreign import ccall safe "hs_bindgen_test_names_0ebc368c3818b18b" safe
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_b7ed55355edeb6b7" hs_bindgen_test_names_b7ed55355edeb6b7
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE safe_ptr #-}
 
-safe_ptr :: F.FunPtr (IO ())
+safe_ptr :: Ptr.FunPtr (IO ())
 safe_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_b7ed55355edeb6b7
 
@@ -531,11 +531,11 @@ foreign import ccall safe "hs_bindgen_test_names_764bfbe5fbb4fac9" stdcall
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_71d621f5185b4a35" hs_bindgen_test_names_71d621f5185b4a35
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE stdcall_ptr #-}
 
-stdcall_ptr :: F.FunPtr (IO ())
+stdcall_ptr :: Ptr.FunPtr (IO ())
 stdcall_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_71d621f5185b4a35
 
@@ -555,11 +555,11 @@ foreign import ccall safe "hs_bindgen_test_names_6597a6eedc28f577" stock
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_1956b7d5c507eed1" hs_bindgen_test_names_1956b7d5c507eed1
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE stock_ptr #-}
 
-stock_ptr :: F.FunPtr (IO ())
+stock_ptr :: Ptr.FunPtr (IO ())
 stock_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_1956b7d5c507eed1
 
@@ -579,11 +579,11 @@ foreign import ccall safe "hs_bindgen_test_names_1aef1bdf2d1ba544" unsafe
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_b758151b55abc14a" hs_bindgen_test_names_b758151b55abc14a
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE unsafe_ptr #-}
 
-unsafe_ptr :: F.FunPtr (IO ())
+unsafe_ptr :: Ptr.FunPtr (IO ())
 unsafe_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_b758151b55abc14a
 
@@ -603,10 +603,10 @@ foreign import ccall safe "hs_bindgen_test_names_d428a3f008917f79" via
     __exported by:__ @names.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_names_426a163ac069db6c" hs_bindgen_test_names_426a163ac069db6c
-  :: IO (F.FunPtr (IO ()))
+  :: IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE via_ptr #-}
 
-via_ptr :: F.FunPtr (IO ())
+via_ptr :: Ptr.FunPtr (IO ())
 via_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_names_426a163ac069db6c
