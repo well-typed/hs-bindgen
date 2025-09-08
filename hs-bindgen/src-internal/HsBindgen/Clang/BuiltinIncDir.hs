@@ -40,7 +40,8 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((<+>), hangs', string, textToCtxDoc)
+import Text.SimplePrettyPrint ((<+>), string)
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Types
@@ -54,7 +55,10 @@ type BuiltinIncDir = FilePath
 -------------------------------------------------------------------------------}
 
 data BuiltinIncDirMsg =
-    BuiltinIncDirResourceDirEmpty
+    BuiltinIncDirEnvNone
+  | BuiltinIncDirEnvSet BuiltinIncDirConfig
+  | BuiltinIncDirEnvInvalid String
+  | BuiltinIncDirResourceDirEmpty
   | BuiltinIncDirResourceDirAbort
   | BuiltinIncDirResourceDirResolved FilePath
   | BuiltinIncDirAbsResourceDirIncDirNotFound BuiltinIncDir
@@ -86,6 +90,12 @@ data BuiltinIncDirMsg =
 
 instance PrettyForTrace BuiltinIncDirMsg where
   prettyForTrace = \case
+    BuiltinIncDirEnvNone ->
+      PP.string envName <+> "not set"
+    BuiltinIncDirEnvSet config ->
+      PP.string envName <+> "set:" <+> PP.string (show config)
+    BuiltinIncDirEnvInvalid s ->
+      PP.string envName <+> "invalid:" <+> PP.string (show s) <+> "(ignored)"
     BuiltinIncDirResourceDirEmpty ->
       "empty resource directory"
     BuiltinIncDirResourceDirAbort ->
@@ -121,9 +131,9 @@ instance PrettyForTrace BuiltinIncDirMsg where
     BuiltinIncDirClangNotFound _iur ->
       "clang not found"
     BuiltinIncDirClangVersionMismatch _iur libclangVersion clangVersion ->
-      hangs' "clang version mismatch:" 2 [
-          "libclang version:" <+> textToCtxDoc libclangVersion
-        , "clang version:   " <+> textToCtxDoc clangVersion
+      PP.hangs' "clang version mismatch:" 2 [
+          "libclang version:" <+> PP.textToCtxDoc libclangVersion
+        , "clang version:   " <+> PP.textToCtxDoc clangVersion
         ]
     BuiltinIncDirClangIncDirNotFound _iur path ->
       "builtin include directory not found using clang:" <+> string path
@@ -151,6 +161,9 @@ instance PrettyForTrace BuiltinIncDirMsg where
 
 instance IsTrace Level BuiltinIncDirMsg where
   getDefaultLogLevel = \case
+    BuiltinIncDirEnvNone                               -> Debug
+    BuiltinIncDirEnvSet{}                              -> Info
+    BuiltinIncDirEnvInvalid{}                          -> Warning
     BuiltinIncDirResourceDirEmpty{}                    -> Warning
     BuiltinIncDirResourceDirAbort{}                    -> Warning
     BuiltinIncDirResourceDirResolved{}                 -> Debug
@@ -277,20 +290,19 @@ getBuiltinIncDir ::
   -> BuiltinIncDirConfig
   -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
-    BuiltinIncDirCached mPath -> return mPath
-    BuiltinIncDirInitial -> saveState =<< case config of
-      BuiltinIncDirDisable -> return Nothing
-      BuiltinIncDirAuto ->
-        aux . fmap normWinPath =<< getResourceDir tracer Nothing
-      BuiltinIncDirAutoWithOverflow overflow ->
-        aux . fmap normWinPath =<< getResourceDir tracer (Just overflow)
-      BuiltinIncDirClang -> aux Nothing
+    BuiltinIncDirCached mBuiltinIncDir -> return mBuiltinIncDir
+    BuiltinIncDirInitial -> do
+      mEnvConfig <- getEnvConfig tracer
+      mBuiltinIncDir <- case fromMaybe config mEnvConfig of
+        BuiltinIncDirDisable -> return Nothing
+        BuiltinIncDirAuto ->
+          aux . fmap normWinPath =<< getResourceDir tracer Nothing
+        BuiltinIncDirAutoWithOverflow overflow ->
+          aux . fmap normWinPath =<< getResourceDir tracer (Just overflow)
+        BuiltinIncDirClang -> aux Nothing
+      IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
+      return mBuiltinIncDir
   where
-    saveState :: Maybe BuiltinIncDir -> IO (Maybe BuiltinIncDir)
-    saveState mPath = do
-      IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mPath)
-      return mPath
-
     aux :: Maybe FilePath -> IO (Maybe BuiltinIncDir)
     aux = runMaybeT . \case
       Just resourceDir
@@ -324,6 +336,22 @@ applyBuiltinIncDir mBuiltinIncDir config = case mBuiltinIncDir of
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
+
+-- | Environment variable name
+envName :: String
+envName = "BINDGEN_BUILTIN_INCLUDE_DIR"
+
+-- | Load configuration from system environment, when available
+getEnvConfig :: Tracer IO BuiltinIncDirMsg -> IO (Maybe BuiltinIncDirConfig)
+getEnvConfig tracer = Env.lookupEnv envName >>= \case
+    Nothing        -> Nothing <$ traceWith tracer BuiltinIncDirEnvNone
+    Just "disable" -> aux BuiltinIncDirDisable
+    Just "auto"    -> aux BuiltinIncDirAuto
+    Just "clang"   -> aux BuiltinIncDirClang
+    Just s         -> Nothing <$ traceWith tracer (BuiltinIncDirEnvInvalid s)
+  where
+    aux :: BuiltinIncDirConfig -> IO (Maybe BuiltinIncDirConfig)
+    aux config = Just config <$ traceWith tracer (BuiltinIncDirEnvSet config)
 
 -- | Try to get the resource directory from @libclang@
 --

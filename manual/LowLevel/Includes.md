@@ -246,6 +246,10 @@ Options that `hs-bindgen` passes to Clang, including those specified in
 `BINDGEN_EXTRA_CLANG_ARGS` take precedence over Clang environment variables
 such as `C_INCLUDE_PATH`.
 
+Environment variable `BINDGEN_BUILTIN_INCLUDE_DIR` can be used to set the
+builtin include directory configuration mode, described above.  Valid values
+are `disable`, `auto`, and `clang`.
+
 ### `hs-bindgen` header resolution
 
 Headers to translate are specified as arguments to `hs-bindgen-cli preprocess`
