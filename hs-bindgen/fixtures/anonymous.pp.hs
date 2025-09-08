@@ -5,7 +5,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @S1_c@
@@ -270,7 +270,7 @@ instance F.Storable S3_c where
     __exported by:__ @anonymous.h@
 -}
 data S3 = S3
-  { s3_c :: F.Ptr (F.Ptr S3_c)
+  { s3_c :: Ptr.Ptr (Ptr.Ptr S3_c)
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @anonymous.h:28:7@

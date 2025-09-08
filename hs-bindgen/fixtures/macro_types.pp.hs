@@ -9,7 +9,7 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
@@ -20,7 +20,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
     __exported by:__ @macro_types.h@
 -}
 newtype PtrInt = PtrInt
-  { un_PtrInt :: F.Ptr FC.CInt
+  { un_PtrInt :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -32,7 +32,7 @@ newtype PtrInt = PtrInt
     __exported by:__ @macro_types.h@
 -}
 newtype PtrPtrChar = PtrPtrChar
-  { un_PtrPtrChar :: F.Ptr (F.Ptr FC.CChar)
+  { un_PtrPtrChar :: Ptr.Ptr (Ptr.Ptr FC.CChar)
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -56,7 +56,7 @@ newtype Arr1 = Arr1
     __exported by:__ @macro_types.h@
 -}
 newtype Arr2 = Arr2
-  { un_Arr2 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) (F.Ptr FC.CFloat)
+  { un_Arr2 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) (Ptr.Ptr FC.CFloat)
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
@@ -68,7 +68,7 @@ newtype Arr2 = Arr2
     __exported by:__ @macro_types.h@
 -}
 newtype Arr3 = Arr3
-  { un_Arr3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) (F.FunPtr (FC.CDouble -> IO FC.CFloat))
+  { un_Arr3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) (Ptr.FunPtr (FC.CDouble -> IO FC.CFloat))
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
@@ -80,7 +80,7 @@ newtype Arr3 = Arr3
     __exported by:__ @macro_types.h@
 -}
 newtype Fun1 = Fun1
-  { un_Fun1 :: FC.CInt -> IO (F.Ptr FC.CFloat)
+  { un_Fun1 :: FC.CInt -> IO (Ptr.Ptr FC.CFloat)
   }
 
 {-| __C declaration:__ @Fun2@
@@ -90,7 +90,7 @@ newtype Fun1 = Fun1
     __exported by:__ @macro_types.h@
 -}
 newtype Fun2 = Fun2
-  { un_Fun2 :: F.FunPtr (FC.CFloat -> (F.Ptr FC.CDouble) -> IO FC.CInt)
+  { un_Fun2 :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr FC.CDouble) -> IO FC.CInt)
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -102,7 +102,7 @@ newtype Fun2 = Fun2
     __exported by:__ @macro_types.h@
 -}
 newtype Fun3 = Fun3
-  { un_Fun3 :: F.FunPtr ((F.Ptr FC.CFloat) -> IO (F.Ptr FC.CInt))
+  { un_Fun3 :: Ptr.FunPtr ((Ptr.Ptr FC.CFloat) -> IO (Ptr.Ptr FC.CInt))
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -114,7 +114,7 @@ newtype Fun3 = Fun3
     __exported by:__ @macro_types.h@
 -}
 newtype Fun4 = Fun4
-  { un_Fun4 :: FC.CInt -> (F.Ptr FC.CLong) -> IO (F.FunPtr (FC.CFloat -> (F.Ptr FC.CDouble) -> IO (F.Ptr FC.CLong)))
+  { un_Fun4 :: FC.CInt -> (Ptr.Ptr FC.CLong) -> IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr FC.CDouble) -> IO (Ptr.Ptr FC.CLong)))
   }
 
 {-| __C declaration:__ @Fun5@
@@ -124,7 +124,7 @@ newtype Fun4 = Fun4
     __exported by:__ @macro_types.h@
 -}
 newtype Fun5 = Fun5
-  { un_Fun5 :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 8) FC.CChar) -> IO (F.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) (F.Ptr FC.CShort)))
+  { un_Fun5 :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 8) FC.CChar) -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) (Ptr.Ptr FC.CShort)))
   }
 
 {-| __C declaration:__ @MTy@

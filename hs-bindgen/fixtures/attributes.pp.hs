@@ -6,7 +6,7 @@ module Example where
 import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @foo@
@@ -206,7 +206,7 @@ data FILE = FILE
 
          __exported by:__ @attributes.h@
     -}
-  , fILE__close :: F.FunPtr ((F.Ptr Void) -> IO FC.CInt)
+  , fILE__close :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt)
     {- ^ __C declaration:__ @_close@
 
          __defined at:__ @attributes.h:37:22@

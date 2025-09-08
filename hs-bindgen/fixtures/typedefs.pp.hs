@@ -9,7 +9,7 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @myint@
@@ -31,7 +31,7 @@ newtype Myint = Myint
     __exported by:__ @typedefs.h@
 -}
 newtype Intptr = Intptr
-  { un_Intptr :: F.Ptr FC.CInt
+  { un_Intptr :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

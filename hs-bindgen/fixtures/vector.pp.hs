@@ -8,7 +8,7 @@ module Example where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
@@ -71,7 +71,7 @@ foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
   -> FC.CDouble
      {- ^ __C declaration:__ @y@
      -}
-  -> IO (F.Ptr Vector)
+  -> IO (Ptr.Ptr Vector)
 
 {-| __C declaration:__ @new_vector@
 
@@ -80,10 +80,10 @@ foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
     __exported by:__ @vector.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_vector_94a1e2e4670c0a3e" hs_bindgen_test_vector_94a1e2e4670c0a3e
-  :: IO (F.FunPtr (FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector)))
+  :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
 
 {-# NOINLINE new_vector_ptr #-}
 
-new_vector_ptr :: F.FunPtr (FC.CDouble -> FC.CDouble -> IO (F.Ptr Vector))
+new_vector_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
 new_vector_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_vector_94a1e2e4670c0a3e

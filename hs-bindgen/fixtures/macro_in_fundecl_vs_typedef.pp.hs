@@ -12,7 +12,7 @@ import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -64,11 +64,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8" hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8
-  :: IO (F.FunPtr (MC -> TC -> IO FC.CChar))
+  :: IO (Ptr.FunPtr (MC -> TC -> IO FC.CChar))
 
 {-# NOINLINE quux1_ptr #-}
 
-quux1_ptr :: F.FunPtr (MC -> TC -> IO FC.CChar)
+quux1_ptr :: Ptr.FunPtr (MC -> TC -> IO FC.CChar)
 quux1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8
 
@@ -94,11 +94,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d39
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b" hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b
-  :: IO (F.FunPtr (MC -> FC.CChar -> IO TC))
+  :: IO (Ptr.FunPtr (MC -> FC.CChar -> IO TC))
 
 {-# NOINLINE quux2_ptr #-}
 
-quux2_ptr :: F.FunPtr (MC -> FC.CChar -> IO TC)
+quux2_ptr :: Ptr.FunPtr (MC -> FC.CChar -> IO TC)
 quux2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b
 
@@ -112,10 +112,10 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f
   :: FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
-  -> F.Ptr TC
+  -> Ptr.Ptr TC
      {- ^ __C declaration:__ @y@
      -}
-  -> IO (F.Ptr MC)
+  -> IO (Ptr.Ptr MC)
 
 {-| __C declaration:__ @wam1@
 
@@ -124,11 +124,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77" hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77
-  :: IO (F.FunPtr (FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC)))
+  :: IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC)))
 
 {-# NOINLINE wam1_ptr #-}
 
-wam1_ptr :: F.FunPtr (FC.CFloat -> (F.Ptr TC) -> IO (F.Ptr MC))
+wam1_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC))
 wam1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77
 
@@ -142,10 +142,10 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc
   :: FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
-  -> F.Ptr MC
+  -> Ptr.Ptr MC
      {- ^ __C declaration:__ @y@
      -}
-  -> IO (F.Ptr TC)
+  -> IO (Ptr.Ptr TC)
 
 {-| __C declaration:__ @wam2@
 
@@ -154,11 +154,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f" hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f
-  :: IO (F.FunPtr (FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC)))
+  :: IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC)))
 
 {-# NOINLINE wam2_ptr #-}
 
-wam2_ptr :: F.FunPtr (FC.CFloat -> (F.Ptr MC) -> IO (F.Ptr TC))
+wam2_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC))
 wam2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f
 
@@ -321,7 +321,7 @@ instance F.Storable Struct4 where
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0" struct_typedef1
-  :: F.Ptr Struct2
+  :: Ptr.Ptr Struct2
      {- ^ __C declaration:__ @s@
      -}
   -> MC
@@ -336,11 +336,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009" hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009
-  :: IO (F.FunPtr ((F.Ptr Struct2) -> MC -> IO ()))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ()))
 
 {-# NOINLINE struct_typedef1_ptr #-}
 
-struct_typedef1_ptr :: F.FunPtr ((F.Ptr Struct2) -> MC -> IO ())
+struct_typedef1_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ())
 struct_typedef1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009
 
@@ -351,7 +351,7 @@ struct_typedef1_ptr =
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d" struct_typedef2
-  :: F.Ptr Struct3_t
+  :: Ptr.Ptr Struct3_t
      {- ^ __C declaration:__ @s@
      -}
   -> MC
@@ -366,11 +366,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6e
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3" hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3
-  :: IO (F.FunPtr ((F.Ptr Struct3_t) -> MC -> IO ()))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ()))
 
 {-# NOINLINE struct_typedef2_ptr #-}
 
-struct_typedef2_ptr :: F.FunPtr ((F.Ptr Struct3_t) -> MC -> IO ())
+struct_typedef2_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ())
 struct_typedef2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3
 
@@ -381,7 +381,7 @@ struct_typedef2_ptr =
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94" struct_typedef3
-  :: F.Ptr Struct4
+  :: Ptr.Ptr Struct4
      {- ^ __C declaration:__ @s@
      -}
   -> MC
@@ -396,11 +396,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802" hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802
-  :: IO (F.FunPtr ((F.Ptr Struct4) -> MC -> IO ()))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
 
 {-# NOINLINE struct_typedef3_ptr #-}
 
-struct_typedef3_ptr :: F.FunPtr ((F.Ptr Struct4) -> MC -> IO ())
+struct_typedef3_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ())
 struct_typedef3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802
 
@@ -411,7 +411,7 @@ struct_typedef3_ptr =
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26" struct_name1
-  :: F.Ptr Struct1
+  :: Ptr.Ptr Struct1
      {- ^ __C declaration:__ @s@
      -}
   -> MC
@@ -426,11 +426,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca6
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835" hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835
-  :: IO (F.FunPtr ((F.Ptr Struct1) -> MC -> IO ()))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ()))
 
 {-# NOINLINE struct_name1_ptr #-}
 
-struct_name1_ptr :: F.FunPtr ((F.Ptr Struct1) -> MC -> IO ())
+struct_name1_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ())
 struct_name1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835
 
@@ -441,7 +441,7 @@ struct_name1_ptr =
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449" struct_name2
-  :: F.Ptr Struct3
+  :: Ptr.Ptr Struct3
      {- ^ __C declaration:__ @s@
      -}
   -> MC
@@ -456,11 +456,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8df
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636" hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636
-  :: IO (F.FunPtr ((F.Ptr Struct3) -> MC -> IO ()))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ()))
 
 {-# NOINLINE struct_name2_ptr #-}
 
-struct_name2_ptr :: F.FunPtr ((F.Ptr Struct3) -> MC -> IO ())
+struct_name2_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ())
 struct_name2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636
 
@@ -471,7 +471,7 @@ struct_name2_ptr =
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf" struct_name3
-  :: F.Ptr Struct4
+  :: Ptr.Ptr Struct4
      {- ^ __C declaration:__ @s@
      -}
   -> MC
@@ -486,10 +486,10 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb772118
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788" hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788
-  :: IO (F.FunPtr ((F.Ptr Struct4) -> MC -> IO ()))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
 
 {-# NOINLINE struct_name3_ptr #-}
 
-struct_name3_ptr :: F.FunPtr ((F.Ptr Struct4) -> MC -> IO ())
+struct_name3_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ())
 struct_name3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788

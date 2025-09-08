@@ -6,7 +6,7 @@ module Example where
 
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
@@ -19,11 +19,11 @@ $(CAPI.addCSource "#include <tentative_definitions.h>\n/* get_i1_ptr */ __attrib
     __exported by:__ @tentative_definitions.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_736e69defba46ab4" hs_bindgen_test_tentative_definitions_736e69defba46ab4
-  :: IO (F.Ptr FC.CInt)
+  :: IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i1_ptr #-}
 
-i1_ptr :: F.Ptr FC.CInt
+i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_tentative_definitions_736e69defba46ab4
 
@@ -34,11 +34,11 @@ i1_ptr =
     __exported by:__ @tentative_definitions.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_210c547ae5abcc02" hs_bindgen_test_tentative_definitions_210c547ae5abcc02
-  :: IO (F.Ptr FC.CInt)
+  :: IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i2_ptr #-}
 
-i2_ptr :: F.Ptr FC.CInt
+i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_tentative_definitions_210c547ae5abcc02
 
@@ -49,10 +49,10 @@ i2_ptr =
     __exported by:__ @tentative_definitions.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_d6bb66d7f7107274" hs_bindgen_test_tentative_definitions_d6bb66d7f7107274
-  :: IO (F.Ptr FC.CInt)
+  :: IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i3_ptr #-}
 
-i3_ptr :: F.Ptr FC.CInt
+i3_ptr :: Ptr.Ptr FC.CInt
 i3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_tentative_definitions_d6bb66d7f7107274

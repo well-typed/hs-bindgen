@@ -14,7 +14,7 @@ import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -227,7 +227,7 @@ __defined at:__ @type_attributes.h:28:8@
 
 __exported by:__ @type_attributes.h@
 -}
-get_wait_status_ptr_t___ip :: Wait_status_ptr_t -> F.Ptr FC.CInt
+get_wait_status_ptr_t___ip :: Wait_status_ptr_t -> Ptr.Ptr FC.CInt
 get_wait_status_ptr_t___ip =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -236,7 +236,7 @@ get_wait_status_ptr_t___ip =
   __See:__ 'get_wait_status_ptr_t___ip'
 
 -}
-set_wait_status_ptr_t___ip :: (F.Ptr FC.CInt) -> Wait_status_ptr_t
+set_wait_status_ptr_t___ip :: (Ptr.Ptr FC.CInt) -> Wait_status_ptr_t
 set_wait_status_ptr_t___ip =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -250,7 +250,7 @@ __defined at:__ @type_attributes.h:29:15@
 
 __exported by:__ @type_attributes.h@
 -}
-get_wait_status_ptr_t___up :: Wait_status_ptr_t -> F.Ptr Wait
+get_wait_status_ptr_t___up :: Wait_status_ptr_t -> Ptr.Ptr Wait
 get_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -259,7 +259,7 @@ get_wait_status_ptr_t___up =
   __See:__ 'get_wait_status_ptr_t___up'
 
 -}
-set_wait_status_ptr_t___up :: (F.Ptr Wait) -> Wait_status_ptr_t
+set_wait_status_ptr_t___up :: (Ptr.Ptr Wait) -> Wait_status_ptr_t
 set_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 

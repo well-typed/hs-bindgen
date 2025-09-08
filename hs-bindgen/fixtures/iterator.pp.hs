@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Block
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
@@ -43,11 +43,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_4f34fce61cc68c9f" makeToggle
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_03950e0c09bdb508" hs_bindgen_test_iterator_03950e0c09bdb508
-  :: IO (F.FunPtr (FC.CBool -> IO Toggle))
+  :: IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
 
 {-# NOINLINE makeToggle_ptr #-}
 
-makeToggle_ptr :: F.FunPtr (FC.CBool -> IO Toggle)
+makeToggle_ptr :: Ptr.FunPtr (FC.CBool -> IO Toggle)
 makeToggle_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_03950e0c09bdb508
 
@@ -70,11 +70,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_bfb4e32e3a824c7e" toggleNext
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_9c2755ef750f5d45" hs_bindgen_test_iterator_9c2755ef750f5d45
-  :: IO (F.FunPtr (Toggle -> IO FC.CBool))
+  :: IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
 
 {-# NOINLINE toggleNext_ptr #-}
 
-toggleNext_ptr :: F.FunPtr (Toggle -> IO FC.CBool)
+toggleNext_ptr :: Ptr.FunPtr (Toggle -> IO FC.CBool)
 toggleNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_9c2755ef750f5d45
 
@@ -97,11 +97,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_8d23fba933ba9584" releaseTog
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_2f7023ef559c7cdc" hs_bindgen_test_iterator_2f7023ef559c7cdc
-  :: IO (F.FunPtr (Toggle -> IO ()))
+  :: IO (Ptr.FunPtr (Toggle -> IO ()))
 
 {-# NOINLINE releaseToggle_ptr #-}
 
-releaseToggle_ptr :: F.FunPtr (Toggle -> IO ())
+releaseToggle_ptr :: Ptr.FunPtr (Toggle -> IO ())
 releaseToggle_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_2f7023ef559c7cdc
 
@@ -137,11 +137,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_5b455070cb6127b9" makeCounte
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_216174b924f641ef" hs_bindgen_test_iterator_216174b924f641ef
-  :: IO (F.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
+  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
 
 {-# NOINLINE makeCounter_ptr #-}
 
-makeCounter_ptr :: F.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
+makeCounter_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
 makeCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_216174b924f641ef
 
@@ -164,11 +164,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_1eb9473844c466c6" counterNex
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_9d967a23215cebaa" hs_bindgen_test_iterator_9d967a23215cebaa
-  :: IO (F.FunPtr (Counter -> IO FC.CInt))
+  :: IO (Ptr.FunPtr (Counter -> IO FC.CInt))
 
 {-# NOINLINE counterNext_ptr #-}
 
-counterNext_ptr :: F.FunPtr (Counter -> IO FC.CInt)
+counterNext_ptr :: Ptr.FunPtr (Counter -> IO FC.CInt)
 counterNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_9d967a23215cebaa
 
@@ -191,11 +191,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_4bd3562b992f2f1c" releaseCou
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_315c7ff0ed90e2c8" hs_bindgen_test_iterator_315c7ff0ed90e2c8
-  :: IO (F.FunPtr (Counter -> IO ()))
+  :: IO (Ptr.FunPtr (Counter -> IO ()))
 
 {-# NOINLINE releaseCounter_ptr #-}
 
-releaseCounter_ptr :: F.FunPtr (Counter -> IO ())
+releaseCounter_ptr :: Ptr.FunPtr (Counter -> IO ())
 releaseCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_315c7ff0ed90e2c8
 
@@ -228,11 +228,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_0fc005ef62990438" makeVarCou
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_a29c0a830311b22a" hs_bindgen_test_iterator_a29c0a830311b22a
-  :: IO (F.FunPtr (FC.CInt -> IO VarCounter))
+  :: IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
 
 {-# NOINLINE makeVarCounter_ptr #-}
 
-makeVarCounter_ptr :: F.FunPtr (FC.CInt -> IO VarCounter)
+makeVarCounter_ptr :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
 makeVarCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_a29c0a830311b22a
 
@@ -258,11 +258,11 @@ foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounter
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_cd9433fb0fa76d19" hs_bindgen_test_iterator_cd9433fb0fa76d19
-  :: IO (F.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
+  :: IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE varCounterNext_ptr #-}
 
-varCounterNext_ptr :: F.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
+varCounterNext_ptr :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
 varCounterNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_cd9433fb0fa76d19
 
@@ -285,10 +285,10 @@ foreign import ccall safe "hs_bindgen_test_iterator_2d2d26e60eea04a8" releaseVar
     __exported by:__ @iterator.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_iterator_bad5305a8cb077b0" hs_bindgen_test_iterator_bad5305a8cb077b0
-  :: IO (F.FunPtr (VarCounter -> IO ()))
+  :: IO (Ptr.FunPtr (VarCounter -> IO ()))
 
 {-# NOINLINE releaseVarCounter_ptr #-}
 
-releaseVarCounter_ptr :: F.FunPtr (VarCounter -> IO ())
+releaseVarCounter_ptr :: Ptr.FunPtr (VarCounter -> IO ())
 releaseVarCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_bad5305a8cb077b0

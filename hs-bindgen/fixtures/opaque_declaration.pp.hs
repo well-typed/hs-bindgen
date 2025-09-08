@@ -5,7 +5,7 @@
 module Example where
 
 import qualified Foreign as F
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
 {-| __C declaration:__ @foo@
@@ -23,14 +23,14 @@ data Foo
     __exported by:__ @opaque_declaration.h@
 -}
 data Bar = Bar
-  { bar_ptrA :: F.Ptr Foo
+  { bar_ptrA :: Ptr.Ptr Foo
     {- ^ __C declaration:__ @ptrA@
 
          __defined at:__ @opaque_declaration.h:5:17@
 
          __exported by:__ @opaque_declaration.h@
     -}
-  , bar_ptrB :: F.Ptr Bar
+  , bar_ptrB :: Ptr.Ptr Bar
     {- ^ __C declaration:__ @ptrB@
 
          __defined at:__ @opaque_declaration.h:6:17@

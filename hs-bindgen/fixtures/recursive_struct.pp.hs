@@ -5,7 +5,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
-import qualified GHC.Ptr as F
+import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @linked_list_A_t@
@@ -22,7 +22,7 @@ data Linked_list_A_t = Linked_list_A_t
 
          __exported by:__ @recursive_struct.h@
     -}
-  , linked_list_A_t_next :: F.Ptr Linked_list_A_t
+  , linked_list_A_t_next :: Ptr.Ptr Linked_list_A_t
     {- ^ __C declaration:__ @next@
 
          __defined at:__ @recursive_struct.h:3:27@
@@ -66,7 +66,7 @@ data Linked_list_B_t = Linked_list_B_t
 
          __exported by:__ @recursive_struct.h@
     -}
-  , linked_list_B_t_next :: F.Ptr Linked_list_B_t
+  , linked_list_B_t_next :: Ptr.Ptr Linked_list_B_t
     {- ^ __C declaration:__ @next@
 
          __defined at:__ @recursive_struct.h:11:20@
