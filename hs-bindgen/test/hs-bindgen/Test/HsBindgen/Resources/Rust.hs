@@ -20,6 +20,7 @@ import System.Process (readProcessWithExitCode)
 import System.Process qualified as P
 
 import Clang.Args
+import HsBindgen.Config.ClangArgs
 
 {-------------------------------------------------------------------------------
   Get rust-bindgen
@@ -80,12 +81,13 @@ freeRustBindgen = \case
 --
 -- Returns the process' exit code, stdout and stderr.
 runRustBindgen ::
-     ClangArgs
+     ClangArgsConfig
   -> FilePath -- ^ Path to the @rust-bindgen@ executable
   -> FilePath -- ^ Input header to run it on
   -> IO (ExitCode, String, String)
-runRustBindgen clangArgs pathToExe input = do
-    clangArgs' <- either throwIO return $ fromClangArgs clangArgs
+runRustBindgen clangArgsConfig pathToExe input = do
+    clangArgs <- either throwIO (return . unClangArgs) $
+      getClangArgs clangArgsConfig
     -- We use `--formatter=prettyplease`, as we don't necessarily have the Rust
     -- toolchain installed.
     let args :: [String]
@@ -95,7 +97,7 @@ runRustBindgen clangArgs pathToExe input = do
               , input
               , "--"
               ]
-            , clangArgs'
+            , clangArgs
             ]
     readProcessWithExitCode pathToExe args ""
 

@@ -109,7 +109,9 @@ library internal
       HsBindgen.Boot
       HsBindgen.Clang
       HsBindgen.Clang.BuiltinIncDir
+      HsBindgen.Clang.ExtraClangArgs
       HsBindgen.Config
+      HsBindgen.Config.ClangArgs
       HsBindgen.Config.FixCandidate
       HsBindgen.Config.FixCandidate.ReservedNames
       HsBindgen.Eff

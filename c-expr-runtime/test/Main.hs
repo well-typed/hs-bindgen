@@ -11,6 +11,8 @@ module Main where
 -- base
 import Control.Arrow
   ( first )
+import Control.Exception
+  ( throwIO )
 import Data.List
   ( isPrefixOf )
 import Data.String
@@ -19,7 +21,7 @@ import Control.Monad
   ( when )
 
 import Data.Maybe
-  ( catMaybes, maybeToList, isNothing )
+  ( catMaybes, isNothing )
 import Data.Traversable
   ( for )
 import System.Exit
@@ -28,9 +30,6 @@ import System.Exit
 import Data.Map.Strict
   ( Map )
 import Data.Map.Strict qualified as Map
-
--- data-default
-import Data.Default (Default(def))
 
 -- directory
 import System.Directory
@@ -109,27 +108,17 @@ main = do
       , "The test-suite will use whichever C header files it finds on your system."
       ]
 
-
+  stdClangArg <- either throwIO return $
+    Clang.getStdClangArg Clang.C23 Clang.DisableGnu
   let platform = hostPlatform
-      clangArgs0 =
-        def
-          { Clang.clangCStandard = Just Clang.C23 }
-      clangArgs =
+      clangArgs = Clang.ClangArgs $ stdClangArg :
         case platformOS hostPlatform of
-          Windows ->
-            clangArgs0
-              { Clang.clangTarget =
-                  Just (Clang.Target_Windows_X86_64, Clang.TargetEnvDefault)
-              }
-          Posix ->
-            clangArgs0
-              { Clang.clangTarget =
-                  Just (Clang.Target_Linux_X86_64, Clang.TargetEnvDefault)
-              , Clang.clangExtraIncludeDirs =
-                  [ fromString (hsBindgenDir </> "musl-include/x86_64")
-                  | hsBindgenDir <- maybeToList mbHsBindgenDir
-                  ]
-              }
+          Windows -> ["-target", "x86_64-pc-windows"]
+          Posix   -> ["-target", "x86_64-pc-linux"] ++
+            case mbHsBindgenDir of
+              Just hsBindgenDir ->
+                ["-I", fromString (hsBindgenDir </> "musl-include/x86_64")]
+              Nothing -> []
 
   let extendedInts = [ PtrDiff, Size ]
   canonTys <-

@@ -5,8 +5,6 @@ module HsBindgen.Clang.BuiltinIncDir (
     BuiltinIncDir
     -- * Trace messages
   , BuiltinIncDirMsg(..)
-    -- * Configuration
-  , BuiltinIncDirConfig(..)
     -- * API
   , getBuiltinIncDir
   , applyBuiltinIncDir
@@ -38,6 +36,7 @@ import Clang.Args
 import Clang.LowLevel.Core
 import Clang.Version (clang_getClangVersion)
 import HsBindgen.Clang
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -193,30 +192,6 @@ instance IsTrace Level BuiltinIncDirMsg where
   getTraceId = const "builtin-include-dir"
 
 {-------------------------------------------------------------------------------
-  Configuration
--------------------------------------------------------------------------------}
-
--- | Configure how to get the builtin include directory
-data BuiltinIncDirConfig =
-    -- | Do not configure the builtin include directory
-    BuiltinIncDirDisable
-
-    -- | Configure the builtin include directory using the resource directory
-    -- from @libclang@, using the default overflow string
-  | BuiltinIncDirAuto
-
-    -- | Configure the builtin include directory using the resource directory
-    -- from @libclang@, using a custom overflow string (not including newline)
-  | BuiltinIncDirAutoWithOverflow Text
-
-    -- | Configure the builtin include directory using just @clang@
-  | BuiltinIncDirClang
-  deriving (Eq, Show)
-
-instance Default BuiltinIncDirConfig where
-  def = BuiltinIncDirAuto
-
-{-------------------------------------------------------------------------------
   Global state
 -------------------------------------------------------------------------------}
 
@@ -339,11 +314,11 @@ getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
 -- When configured, the builtin include directory is passed with @-isystem@ as
 -- the last argument.  This ensures that it is prioritized as close to the
 -- default include directories as possible.
-applyBuiltinIncDir :: ClangArgs -> Maybe BuiltinIncDir -> ClangArgs
-applyBuiltinIncDir args = \case
-    Nothing            -> args
-    Just builtinIncDir -> args{
-        clangArgsAfter = clangArgsAfter args ++ ["-isystem", builtinIncDir]
+applyBuiltinIncDir :: Maybe BuiltinIncDir -> ClangArgsConfig -> ClangArgsConfig
+applyBuiltinIncDir mBuiltinIncDir config = case mBuiltinIncDir of
+    Nothing            -> config
+    Just builtinIncDir -> config{
+        clangArgsAfter = clangArgsAfter config ++ ["-isystem", builtinIncDir]
       }
 
 {-------------------------------------------------------------------------------
@@ -447,7 +422,7 @@ getResourceDir tracer mOverflow = auxOut 0 >>= \case
     -- This function must not trace any output (to @STDOUT@).
     auxPrintResourceDir :: IO ()
     auxPrintResourceDir = void $
-      let args'       = def { clangArgsBefore = ["-print-resource-dir"] }
+      let args'       = ClangArgs ["-print-resource-dir"]
           clangSetup' = defaultClangSetup args' $ ClangInputMemory filename ""
       in  withClang' nullTracer clangSetup' $ const (return Nothing)
 

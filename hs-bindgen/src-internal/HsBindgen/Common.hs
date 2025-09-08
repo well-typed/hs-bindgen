@@ -7,20 +7,21 @@ module HsBindgen.Common (
 
     -- ** Boot
     Config.BootConfig(..)
-    -- *** Builtin include directory
-  , BuiltinIncDir.BuiltinIncDirConfig(..)
+    -- *** Clang arguments
+  , ClangArgs.ClangArgsConfig(..)
+  , ClangArgs.CStandard(..)
+  , ClangArgs.Gnu(..)
+  , ClangArgs.getStdClangArg
+  , ClangArgs.Target(..)
+  , ClangArgs.TargetEnv(..)
+  , ClangArgs.targetTriple
+  , ClangArgs.BuiltinIncDirConfig(..)
     -- *** Binding specifications
   , BindingSpec.BindingSpecConfig(..)
   , BindingSpec.EnableStdlibBindingSpec(..)
 
     -- ** Frontend
   , Config.FrontendConfig(..)
-    -- *** Clang arguments
-  , Args.ClangArgs(..)
-  , Args.Target(..)
-  , Args.TargetEnv(..)
-  , Args.targetTriple
-  , Args.CStandard(..)
     -- *** Predicates
   , Predicate.Predicate(..)
   , Predicate.HeaderPathPredicate(..)
@@ -106,7 +107,6 @@ module HsBindgen.Common (
 
 import System.FilePath qualified as FilePath
 
-import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 
 import HsBindgen.Backend.Artefact.HsModule.Translation qualified as HsModule
@@ -115,7 +115,7 @@ import HsBindgen.Backend.Hs.Translation qualified as Hs
 import HsBindgen.Backend.UniqueId qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config qualified as Config
-import HsBindgen.Clang.BuiltinIncDir qualified as BuiltinIncDir
+import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.RootHeader qualified as RootHeader

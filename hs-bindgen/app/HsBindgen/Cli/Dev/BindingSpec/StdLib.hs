@@ -18,7 +18,7 @@ import Data.ByteString qualified as BS
 
 import Options.Applicative hiding (info)
 
-import HsBindgen.Clang.BuiltinIncDir
+import HsBindgen.Boot (getClangArgs)
 import HsBindgen.Imports
 import HsBindgen.Lib
 
@@ -35,16 +35,12 @@ info = progDesc "Write stdlib external binding specification"
   Options
 -------------------------------------------------------------------------------}
 
-data Opts = Opts {
-      builtinIncDirConfig :: BuiltinIncDirConfig
-    , clangArgs           :: ClangArgs
+newtype Opts = Opts {
+      clangArgsConfig :: ClangArgsConfig
     }
 
 parseOpts :: Parser Opts
-parseOpts =
-    Opts
-      <$> parseBuiltinIncDirConfig
-      <*> parseClangArgs
+parseOpts = Opts <$> parseClangArgsConfig
 
 {-------------------------------------------------------------------------------
   Execution
@@ -53,16 +49,15 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
-      clangArgs' <- applyBuiltinIncDir clangArgs <$>
-        getBuiltinIncDir
-          (contramap TraceBuiltinIncDir tracer)
-          builtinIncDirConfig'
+      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig'
       getStdlibBindingSpec
         (contramap (TraceBoot . BootBindingSpec) tracer)
-        clangArgs'
+        clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
   where
-    builtinIncDirConfig' :: BuiltinIncDirConfig
-    builtinIncDirConfig' = case builtinIncDirConfig of
-      BuiltinIncDirAuto -> BuiltinIncDirAutoWithOverflow ""
-      config            -> config
+    clangArgsConfig' :: ClangArgsConfig
+    clangArgsConfig' = clangArgsConfig {
+        clangBuiltinIncDir = case clangBuiltinIncDir clangArgsConfig of
+          BuiltinIncDirAuto -> BuiltinIncDirAutoWithOverflow ""
+          config            -> config
+      }

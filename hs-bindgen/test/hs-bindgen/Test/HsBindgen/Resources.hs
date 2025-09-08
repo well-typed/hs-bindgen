@@ -6,7 +6,7 @@ module Test.HsBindgen.Resources (
   , withTestResources
     -- * Use the resources
   , getTestPackageRoot
-  , getTestDefaultClangArgs
+  , getTestDefaultClangArgsConfig
   , getTestDefaultBackendConfig
     -- ** rust-bindgen
   , RustBindgenResult(..)
@@ -25,6 +25,7 @@ import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
+import HsBindgen.Config.ClangArgs
 
 import Test.Common.Util.Cabal
 import Test.HsBindgen.Resources.Rust
@@ -37,10 +38,10 @@ data TestResources = TestResources {
       -- | Package root
       testPackageRoot :: FilePath
 
-      -- | Clang arguments we use when running the tests
+      -- | Clang arguments configuration we use when running the tests
       --
       -- NOTE: Individual tests will need to add their required include dirs.
-    , testClangArgs :: ClangArgs
+    , testClangArgsConfig :: ClangArgsConfig
 
       -- | Path to @rust-bindgen@, if available
     , testRustBindgen :: RustBindgen
@@ -56,7 +57,7 @@ withTestResources = withResource initTestResources freeTestResources
 initTestResources :: IO TestResources
 initTestResources = do
     testPackageRoot <- findPackageDirectory "hs-bindgen"
-    let testClangArgs = mkTestClangArgs testPackageRoot
+    let testClangArgsConfig = mkTestClangArgsConfig testPackageRoot
     testRustBindgen <- initRustBindgen
     return TestResources{..}
 
@@ -75,8 +76,8 @@ getTestPackageRoot = fmap testPackageRoot
   Clang arguments
 -------------------------------------------------------------------------------}
 
-mkTestClangArgs :: FilePath -> ClangArgs
-mkTestClangArgs packageRoot = def {
+mkTestClangArgsConfig :: FilePath -> ClangArgsConfig
+mkTestClangArgsConfig packageRoot = def {
       clangTarget = Just $
         (Target_Linux_X86_64, TargetEnvOverride "gnu")
     , clangCStandard = Just $
@@ -86,19 +87,22 @@ mkTestClangArgs packageRoot = def {
         ]
     }
 
-getTestDefaultClangArgs :: IO TestResources -> [FilePath] -> IO ClangArgs
-getTestDefaultClangArgs testResources extraIncludeDirs =
+getTestDefaultClangArgsConfig ::
+     IO TestResources
+  -> [FilePath]
+  -> IO ClangArgsConfig
+getTestDefaultClangArgsConfig testResources extraIncludeDirs =
     aux <$> testResources
   where
-    aux :: TestResources -> ClangArgs
-    aux TestResources{testPackageRoot, testClangArgs} = testClangArgs{
+    aux :: TestResources -> ClangArgsConfig
+    aux TestResources{..} = testClangArgsConfig{
           clangExtraIncludeDirs =
                -- NOTE: The include search path is traversed from left to right.
                -- That is, earlier flags overrule later flags, and so, the
                -- test-specific include directories must come before the default
                -- include directories.
                map (CIncludeDir . (</>) testPackageRoot) extraIncludeDirs
-            <> clangExtraIncludeDirs testClangArgs
+            <> clangExtraIncludeDirs testClangArgsConfig
         }
 
 {-------------------------------------------------------------------------------
@@ -125,15 +129,15 @@ data RustBindgenResult =
 
 callRustBindgen ::
      IO TestResources
-  -> ClangArgs
-     -- ^ Clang arguments
+  -> ClangArgsConfig
+     -- ^ Clang arguments configuration
      --
      -- We take this as an explicit argument rather than calling
-     -- 'getTestDefaultClangArgs' here, because individual tests may override
-     -- those default arguments.
+     -- 'getTestDefaultClangArgsConfig' here, because individual tests may
+     -- override the default configuration.
   -> FilePath
   -> IO RustBindgenResult
-callRustBindgen testResources clangArgs input = do
+callRustBindgen testResources clangArgsConfig input = do
     TestResources{..} <- testResources
     case testRustBindgen of
       RustBindgenInPath     path -> go path
@@ -142,7 +146,7 @@ callRustBindgen testResources clangArgs input = do
   where
     go :: FilePath -> IO RustBindgenResult
     go path = do
-        (exitCode, stdout, stderr) <- runRustBindgen clangArgs path input
+        (exitCode, stdout, stderr) <- runRustBindgen clangArgsConfig path input
         case exitCode of
           ExitSuccess -> return $ RustBindgenSuccess stdout
           _otherwise  -> return $ RustBindgenFailed exitCode stderr

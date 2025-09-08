@@ -4,9 +4,10 @@ import System.Environment (setEnv, unsetEnv)
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Clang.Args
 import Clang.LowLevel.Core
 import HsBindgen.Clang
+import HsBindgen.Clang.ExtraClangArgs (getExtraClangArgs, splitArguments)
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -31,7 +32,8 @@ tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
 
 testGetTargetTriple :: IO TestResources -> Assertion
 testGetTargetTriple testResources = do
-    clangArgs <- getTestDefaultClangArgs testResources []
+    clangArgsConfig <- getTestDefaultClangArgsConfig testResources []
+    clangArgs <- either (panicIO . show) return $ getClangArgs clangArgsConfig
 
     let setup :: ClangSetup
         setup = defaultClangSetup clangArgs $
@@ -129,4 +131,3 @@ withEnv xs k = do
 
 assertWithEnv :: (Eq a, Show a) => [(EnvVar, EnvVal)] -> IO a -> a -> Assertion
 assertWithEnv xs k x = withEnv xs k >>= \r -> r @?= x
-

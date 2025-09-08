@@ -32,8 +32,8 @@ import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
-import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Config
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -205,10 +205,11 @@ failingTestCustom filename expected trace =
 getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
 getTestBootConfig testResources TestCase{..} = do
     root <- getTestPackageRoot testResources
-    clangArgs <- getTestDefaultClangArgs testResources [testDir]
+    clangArgsConfig <- getTestDefaultClangArgsConfig testResources [testDir]
     return $ testOnBootConfig BootConfig {
-        bootBuiltinIncDirConfig = BuiltinIncDirDisable
-      , bootClangArgs = clangArgs
+        bootClangArgsConfig = clangArgsConfig {
+            clangBuiltinIncDir = BuiltinIncDirDisable
+          }
       , bootBindingSpecConfig = BindingSpecConfig {
             bindingSpecStdlibSpec = testStdlibSpec
           , bindingSpecExtBindingSpecs = map (root </>) testExtBindingSpecs
@@ -262,5 +263,5 @@ runTestRustBindgen testResources test = do
     bootConfig <- getTestBootConfig testResources test
     callRustBindgen
       testResources
-      (bootClangArgs bootConfig)
+      (bootClangArgsConfig bootConfig)
       (testInputPath test)

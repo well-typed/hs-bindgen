@@ -17,8 +17,8 @@ import Prettyprinter.Util qualified as PP
 
 import Options.Applicative hiding (info)
 
+import HsBindgen.Boot (getClangArgs)
 import HsBindgen.Clang
-import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Imports
 import HsBindgen.Lib
 
@@ -43,16 +43,12 @@ info = mconcat [
   Options
 -------------------------------------------------------------------------------}
 
-data Opts = Opts {
-      builtinIncDirConfig :: BuiltinIncDirConfig
-    , clangArgs           :: ClangArgs
+newtype Opts = Opts {
+      clangArgsConfig :: ClangArgsConfig
     }
 
 parseOpts :: Parser Opts
-parseOpts =
-    Opts
-      <$> parseBuiltinIncDirConfig
-      <*> parseClangArgs
+parseOpts = Opts <$> parseClangArgsConfig
 
 {-------------------------------------------------------------------------------
   Execution
@@ -61,11 +57,8 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
     void . withTracer tracerConfig $ \tracer -> do
-      clangArgs' <- applyBuiltinIncDir clangArgs <$>
-        getBuiltinIncDir
-          (contramap TraceBuiltinIncDir tracer)
-          builtinIncDirConfig
-      let setup = defaultClangSetup clangArgs' $
+      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
+      let setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""
       withClang
         (contramap (TraceFrontend . FrontendClang) tracer)
