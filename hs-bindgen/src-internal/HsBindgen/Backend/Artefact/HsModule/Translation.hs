@@ -9,9 +9,12 @@ module HsBindgen.Backend.Artefact.HsModule.Translation (
   , HsModule(..)
     -- * Translation
   , HsModuleOpts(..)
+  , ModuleOrg(..)
   , translateModule
+  , mergeDecls
   ) where
 
+import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
@@ -20,6 +23,7 @@ import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
+import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -40,25 +44,12 @@ newtype GhcPragma = GhcPragma { unGhcPragma :: String }
 
 -- | Import list item
 data ImportListItem =
-    UnqualifiedImportListItem HsImportModule [ResolvedName]
-  | QualifiedImportListItem   HsImportModule
-  deriving stock (Eq)
-
-instance Ord ImportListItem where
-  compare :: ImportListItem -> ImportListItem -> Ordering
-  compare l r = case l of
-    UnqualifiedImportListItem iL nsL -> case r of
-      UnqualifiedImportListItem iR nsR -> case compare iL iR of
-        EQ -> compare nsL nsR
-        o  -> o
-      QualifiedImportListItem iR -> case compare iL iR of
-        EQ -> LT
-        o  -> o
-    QualifiedImportListItem iL -> case r of
-      UnqualifiedImportListItem iR _nsR -> case compare iL iR of
-        EQ -> GT
-        o  -> o
-      QualifiedImportListItem iR -> compare iL iR
+    QualifiedImportListItem   HsImportModule
+    -- An empty import list (@Just []@) means "import instances only", and
+    -- differs greatly from having no import list (@Nothing@), which is an open,
+    -- unqualified import.
+  | UnqualifiedImportListItem HsImportModule (Maybe [ResolvedName])
+  deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
   HsModule
@@ -66,41 +57,110 @@ instance Ord ImportListItem where
 
 -- | Haskell module
 data HsModule = HsModule {
-      hsModulePragmas :: [GhcPragma]
-    , hsModuleName    :: String
-    , hsModuleImports :: [ImportListItem]
-    , hsModuleDecls   :: [SDecl]
+      hsModulePragmas              :: [GhcPragma]
+    , hsModuleName                 :: String
+    , hsModuleImports              :: [ImportListItem]
+    , hsModuleUserlandCapiWrappers :: [UserlandCapiWrapper]
+    , hsModuleDecls                :: [SDecl]
     }
+
+-- | Organization of modules.
+data ModuleOrg =
+    -- | Create a separate module for each 'BindingCategory'.
+    Multiple
+    -- | Create one module containing all declarations. Both binding categories,
+    -- 'BSafe' and 'BUnsafe' contain the same set of declarations, and so, we
+    -- must decide if the single module should contains either 'Safe' or
+    -- 'Unsafe' declarations.
+  | Single Safety
+  deriving stock (Show, Eq, Generic)
+
+instance Default ModuleOrg where
+  def = Multiple
 
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
-newtype HsModuleOpts = HsModuleOpts {
-      hsModuleOptsName :: HsModuleName
+data HsModuleOpts = HsModuleOpts {
+      hsModuleOptsBaseName  :: HsModuleName
+    , hsModuleOptsModuleOrg :: ModuleOrg
     }
   deriving stock (Show, Eq, Generic)
 
 instance Default HsModuleOpts where
-  def = HsModuleOpts { hsModuleOptsName = "Generated" }
+  def = HsModuleOpts {
+      hsModuleOptsBaseName  = "Generated"
+    , hsModuleOptsModuleOrg = def
+    }
 
-translateModule :: HsModuleOpts -> [SDecl] -> HsModule
-translateModule HsModuleOpts{..} hsModuleDecls =
-    let hsModulePragmas = resolvePragmas hsModuleDecls
-        hsModuleImports = resolveImports hsModuleDecls
-        hsModuleName    = Text.unpack $ getHsModuleName $ hsModuleOptsName
+translateModule ::
+  HsModuleOpts -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> Either HsModule (ByCategory HsModule)
+translateModule HsModuleOpts{..} declsByCat = case hsModuleOptsModuleOrg of
+  Multiple -> Right $ translateModuleMultiple hsModuleOptsBaseName declsByCat
+  Single s -> Left  $ translateModuleSingle s hsModuleOptsBaseName declsByCat
+
+translateModuleMultiple ::
+  HsModuleName -> ByCategory ([UserlandCapiWrapper], [SDecl]) -> ByCategory HsModule
+translateModuleMultiple moduleBaseName declsByCat =
+  mapByCategory go declsByCat
+  where
+    go :: BindingCategory -> ([UserlandCapiWrapper], [SDecl]) -> HsModule
+    go cat (wrappers, decls) =
+      translateModule' (Just cat) moduleBaseName wrappers decls
+
+translateModuleSingle ::
+     Safety -> HsModuleName -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> HsModule
+translateModuleSingle safety name declsByCat =
+  translateModule' Nothing name wrappers decls
+  where
+    wrappers :: [UserlandCapiWrapper]
+    decls :: [SDecl]
+    (wrappers, decls) = mergeDecls safety declsByCat
+
+mergeDecls ::
+  Safety
+  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ([UserlandCapiWrapper], [SDecl])
+mergeDecls safety declsByCat =
+    Foldable.fold $ ByCategory $ removeSafetyCategory $ unByCategory declsByCat
+  where
+    safetyToRemove = case safety of
+      Safe   -> BUnsafe
+      Unsafe -> BSafe
+    removeSafetyCategory = Map.filterWithKey (\k _ -> k /= safetyToRemove)
+
+translateModule' ::
+  Maybe BindingCategory -> HsModuleName -> [UserlandCapiWrapper] -> [SDecl] -> HsModule
+translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls =
+    let hsModulePragmas =
+          resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
+        hsModuleImports =
+          resolveImports moduleBaseName mcat hsModuleUserlandCapiWrappers hsModuleDecls
+        addSubModule = case mcat of
+          Nothing         -> id
+          (Just BType)    -> id
+          (Just otherCat) -> (<> ('.' : displayBindingCategory otherCat))
+        hsModuleName = addSubModule $ Text.unpack $ getHsModuleName moduleBaseName
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
 -------------------------------------------------------------------------------}
 
-resolvePragmas :: [SDecl] -> [GhcPragma]
-resolvePragmas ds =
-    Set.toAscList . mconcat $ constPragmas : map resolveDeclPragmas ds
+resolvePragmas :: [UserlandCapiWrapper] -> [SDecl] -> [GhcPragma]
+resolvePragmas wrappers ds =
+    Set.toAscList . mconcat $ userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
   where
     constPragmas :: Set GhcPragma
     constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
+
+    userlandCapiPragmas :: Set GhcPragma
+    userlandCapiPragmas = case wrappers of
+      []  -> Set.empty
+      _xs -> Set.singleton "LANGUAGE TemplateHaskell"
 
 resolveDeclPragmas :: SDecl -> Set GhcPragma
 resolveDeclPragmas decl =
@@ -113,15 +173,31 @@ resolveDeclPragmas decl =
 -------------------------------------------------------------------------------}
 
 -- | Resolve imports in a list of declarations
-resolveImports :: [SDecl] -> [ImportListItem]
-resolveImports ds =
+resolveImports ::
+  HsModuleName -> Maybe BindingCategory -> [UserlandCapiWrapper] -> [SDecl] -> [ImportListItem]
+resolveImports baseModule cat wrappers ds =
     let (qs, us) = unImportAcc . mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
-            Set.map QualifiedImportListItem qs
+            bindingCatImport
+          : Set.map QualifiedImportListItem (userlandCapiImport <> qs)
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
   where
     mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
-    mkUImportListItem imp = UnqualifiedImportListItem imp . Set.toAscList
+    mkUImportListItem imp xs = UnqualifiedImportListItem imp (Just $ Set.toAscList xs)
+
+    bindingCatImport :: Set ImportListItem
+    bindingCatImport = case cat of
+      Nothing      -> mempty
+      (Just BType) -> mempty
+      _otherCat ->
+        let mdl = HsImportModule (Text.unpack $ getHsModuleName baseModule) Nothing
+        in  Set.singleton $ UnqualifiedImportListItem mdl Nothing
+
+    userlandCapiImport :: Set HsImportModule
+    userlandCapiImport = case wrappers of
+      []  -> mempty
+      _xs -> let mdl = HsImportModule "HsBindgen.Runtime.CAPI" (Just "CAPI")
+             in  Set.singleton mdl
 
 -- | Accumulator for resolving imports
 --
@@ -165,8 +241,6 @@ resolveDeclImports = \case
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
         resolvePatExprImports patSynRHS
-    DCSource _ ->
-        ImportAcc (Set.singleton (HsImportModule "HsBindgen.Runtime.CAPI" (Just "CAPI")), Map.empty)
     DPragma {} -> mempty
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)

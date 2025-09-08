@@ -14,6 +14,7 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Control.Monad (void)
+import GHC.Generics (Generic)
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
@@ -39,6 +40,7 @@ data Opts = Opts {
     , inputs            :: [UncheckedHashIncludeArg]
     -- NOTE inputs (arguments) must be last, options must go before it
     }
+  deriving (Generic)
 
 parseOpts :: Parser Opts
 parseOpts =

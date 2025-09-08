@@ -5,6 +5,7 @@
 module HsBindgen.Backend.Artefact.HsModule.Render (
     -- * Rendering
     render
+  , renderWrappers
     -- * Rendering comments
   , CommentKind (..)
   ) where
@@ -57,6 +58,7 @@ instance Pretty HsModule where
       vcat (map pretty hsModulePragmas)
     : hsep ["module", string hsModuleName, "where"]
     : vcat (map pretty hsModuleImports)
+    : (renderWrappers hsModuleUserlandCapiWrappers)
     : map pretty hsModuleDecls
 
 {-------------------------------------------------------------------------------
@@ -75,7 +77,11 @@ resolve = ResolvedBackendName . resolveGlobal
 
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem HsImportModule{..} ns -> hsep
+    UnqualifiedImportListItem HsImportModule{..} Nothing -> hsep
+      [ "import"
+      , string hsImportModuleName
+      ]
+    UnqualifiedImportListItem HsImportModule{..} (Just ns) -> hsep
       [ "import"
       , string hsImportModuleName
       , parens . hcat . List.intersperse ", " $ map pretty ns
@@ -234,6 +240,16 @@ instance Pretty Hs.CommentMeta where
   Declaration pretty-printing
 -------------------------------------------------------------------------------}
 
+renderWrappers :: [UserlandCapiWrapper] -> CtxDoc
+renderWrappers wrappers
+  | null src  = empty
+  | otherwise =
+      -- The single string literal is quite ugly but simple.
+      "$(CAPI.addCSource" <+> fromString (show src) >< ")"
+  where
+    src :: String
+    src = getUserlandCapiWrappersSource wrappers
+
 instance Pretty SDecl where
   pretty = \case
     DVar Var {..} ->
@@ -349,10 +365,6 @@ instance Pretty SDecl where
                , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
                , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
                ]
-
-    DCSource src ->
-      -- The single string literal is quite ugly but simple.
-      "$(CAPI.addCSource" <+> fromString (show src) >< ")"
 
     DPragma p -> pragma p
 

@@ -1,6 +1,7 @@
 -- | Golden test: language extensions required by generated code
 module Test.HsBindgen.Golden.Check.Exts (check) where
 
+import Data.Foldable qualified as Foldable
 import Data.List qualified as List
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
@@ -25,7 +26,7 @@ check testResources test =
       let artefacts = FinalDecls :* Nil
       (I decls :* Nil) <- runTestHsBindgen testResources test artefacts
       let requiredExts :: Set TH.Extension
-          requiredExts = getExtensions decls
+          requiredExts = Foldable.fold $ fmap (uncurry getExtensions) decls
 
           output :: String
           output = unlines $ map show $ List.sort $ toList $ requiredExts
@@ -34,4 +35,3 @@ check testResources test =
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".exts.txt")
-

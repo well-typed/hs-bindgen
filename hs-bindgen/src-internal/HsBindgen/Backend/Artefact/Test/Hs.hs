@@ -2,16 +2,10 @@ module HsBindgen.Backend.Artefact.Test.Hs (
     genTestsHs
   ) where
 
---import Data.Bits qualified as Bits
---import Data.List qualified as List
---import Data.Vec.Lazy qualified as Vec
---import System.FilePath qualified as FilePath
-
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Language.Haskell
---import HsBindgen.Backend.Hs.AST.Name
---import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Generation
@@ -24,7 +18,7 @@ genTestsHs ::
   -> FilePath     -- ^ Main module path
   -> HsModuleName -- ^ Generated Haskell module name
   -> FilePath     -- ^ C test header file path
-  -> [Hs.Decl]    -- ^ Declarations
+  -> ByCategory [Hs.Decl]    -- ^ Declarations
   -> IO ()
 genTestsHs = throwPure_TODO 22 "generate test suite"
 

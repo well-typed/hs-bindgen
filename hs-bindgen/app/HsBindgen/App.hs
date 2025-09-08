@@ -35,11 +35,13 @@ import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
+import HsBindgen.Backend.Artefact.HsModule.Translation (ModuleOrg (..))
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
+import HsBindgen.Backend.SHs.AST
+import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.Lib
 
 import Optics (set)
-
 {-------------------------------------------------------------------------------
   Global options
 -------------------------------------------------------------------------------}
@@ -477,13 +479,63 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
 -------------------------------------------------------------------------------}
 
 parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts = fmap HsModuleOpts . strOption $ mconcat [
+parseHsModuleOpts =
+  HsModuleOpts <$> parseHsModuleName <*> parseModuleOrg
+
+parseHsModuleName :: Parser HsModuleName
+parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value $ hsModuleOptsName def
+    , value $ hsModuleOptsBaseName def
     , help "Name of the generated Haskell module"
     ]
+
+-- parseModuleOrg :: Parser ModuleOrg
+-- parseModuleOrg = option (eitherReader auxParse) $ mconcat [
+--       long "single-module"
+--     , metavar "SAFETY"
+--     , showDefaultWith auxRender
+--     , value def
+--     , help
+--       "Generate single module with one foreign import safety (supported: safe, unsafe, disable)"
+--     ]
+--   where
+--     auxParse :: String -> Either String ModuleOrg
+--     auxParse = \case
+--       "safe"    -> Right $ SingleModule Safe
+--       "unsafe"  -> Right $ SingleModule Unsafe
+--       "disable" -> Right ModulesByBindingCategory
+--       other     -> Left $ "invalid module structure: " ++ other
+
+--     auxRender :: ModuleOrg -> String
+--     auxRender = \case
+--       ModulesByBindingCategory -> "disable"
+--       SingleModule (Safe)      -> "safe"
+--       SingleModule (Unsafe)    -> "unsafe"
+
+parseModuleOrg :: Parser ModuleOrg
+parseModuleOrg = asum [
+      flag' Multiple $ mconcat [
+          long "modules-multiple"
+        , help $ "Generate one for each binding category (" <> catsStr <> "; default)"
+        ]
+    , flag' (Single Safe) $ mconcat [
+          long "modules-safe"
+        , help "Generate one module with _safe_ foreign function imports"
+        ]
+    , flag' (Single Unsafe) $ mconcat [
+          long "modules-unsafe"
+        , help "Generate one module with _unsafe_ foreign function imports"
+        ]
+    , pure Multiple
+    ]
+  where
+    cats :: [BindingCategory]
+    cats = [minBound .. maxBound]
+
+    catsStr :: String
+    catsStr = List.intercalate ", "  $ map show cats
 
 {-------------------------------------------------------------------------------
   Output options

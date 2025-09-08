@@ -12,6 +12,7 @@ import HsBindgen.Backend.Artefact.Test.C (genTestsC)
 import HsBindgen.Backend.Artefact.Test.Hs (genTestsHs)
 import HsBindgen.Backend.Artefact.Test.Readme (genTestsReadme)
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.SHs.AST (ByCategory)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
@@ -23,7 +24,7 @@ import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
 -- | Generate test suite
 genTests ::
      [HashIncludeArg]
-  -> [Hs.Decl]
+  -> ByCategory [Hs.Decl]
   -> HsModuleName -- ^ Generated Haskell module name
   -> FilePath     -- ^ Test suite directory path
   -> IO ()

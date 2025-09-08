@@ -28,7 +28,9 @@ check testResources test =
           output = UTF8.toString $
               BindingSpec.genBindingSpecYaml [HashIncludeArg $ testInputInclude test]
                 (Hs.HsModuleName "Example")
-                decls
+                -- TODO https://github.com/well-typed/hs-bindgen/issues/1089:
+                -- Test all binding categories.
+                (concat decls)
 
       return $ ActualValue output
   where

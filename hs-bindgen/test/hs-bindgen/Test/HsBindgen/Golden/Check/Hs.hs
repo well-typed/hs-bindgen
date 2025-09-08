@@ -19,7 +19,9 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenEDiff "hs" fixture $ \_report -> do
       (I hsDecls :* Nil) <- runTestHsBindgen testResources test (HsDecls :* Nil)
-      pure $ ActualValue hsDecls
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1089: Test all
+      -- binding categories.
+      pure $ ActualValue $ concat hsDecls
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".hs")

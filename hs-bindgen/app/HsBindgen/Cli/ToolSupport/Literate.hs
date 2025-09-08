@@ -33,6 +33,7 @@ data Opts = Opts {
       input  :: FilePath
     , output :: FilePath
     }
+  deriving (Show, Eq)
 
 parseOpts :: Parser Opts
 parseOpts = do

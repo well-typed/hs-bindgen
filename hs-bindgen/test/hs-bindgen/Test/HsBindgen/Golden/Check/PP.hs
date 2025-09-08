@@ -19,7 +19,7 @@ check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
       let artefacts = getBindings :* Nil
       (I output :* Nil) <- runTestHsBindgen testResources test artefacts
-      return $ ActualValue output
+      return $ ActualValue $ either id concat output
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".pp.hs")

@@ -28,6 +28,7 @@ cabal run hs-bindgen-cli -- \
     -I c/ \
     -o hs/manual/generated/Example.hs \
     --module Example \
+    --modules-safe \
     manual_examples.h
 
 cabal run hs-bindgen-cli -- \
@@ -35,6 +36,7 @@ cabal run hs-bindgen-cli -- \
     -I c \
     -o hs/manual/generated/Structs.hs \
     --module Structs \
+    --modules-safe \
     structs.h
 
 cabal run hs-bindgen-cli -- \
@@ -42,6 +44,7 @@ cabal run hs-bindgen-cli -- \
     -I c \
     -o hs/manual/generated/Globals.hs \
     --module Globals \
+    --modules-safe \
     globals.h
 
 cabal run hs-bindgen-cli -- \
@@ -49,6 +52,7 @@ cabal run hs-bindgen-cli -- \
     -I c \
     -o hs/manual/generated/Arrays.hs \
     --module Arrays \
+    --modules-safe \
     arrays.h
 
 cabal run hs-bindgen-cli -- \
@@ -56,6 +60,7 @@ cabal run hs-bindgen-cli -- \
     -I c \
     -o hs/manual/generated/FunctionPointers.hs \
     --module FunctionPointers \
+    --modules-safe \
     function_pointers.h
 
 cabal run hs-bindgen-cli -- \
@@ -63,6 +68,7 @@ cabal run hs-bindgen-cli -- \
     -I c/ \
     -o hs/manual/generated/Complex.hs \
     --module Complex \
+    --modules-safe \
     complex_test.h
 
 echo "# "
@@ -75,6 +81,7 @@ cabal run hs-bindgen-cli -- \
     -o hs/hs-vector/generated/Vector.hs \
     --gen-binding-spec external/vector.yaml \
     --module Vector \
+    --modules-safe \
     vector.h
 
 mkdir -p hs/hs-vector/generated/Vector
@@ -85,6 +92,7 @@ cabal run hs-bindgen-cli -- \
     -o hs/hs-vector/generated/Vector/Rotate.hs \
     --external-binding-spec external/vector.yaml \
     --module Vector.Rotate \
+    --modules-safe \
     vector_rotate.h
 
 cabal run hs-bindgen-cli -- \
@@ -93,6 +101,7 @@ cabal run hs-bindgen-cli -- \
     -o hs/hs-vector/generated/Vector/Length.hs \
     --external-binding-spec external/vector.yaml \
     --module Vector.Length \
+    --modules-safe \
     vector_length.h
 
 echo "# "
@@ -108,6 +117,7 @@ cabal run hs-bindgen-cli -- \
     -o hs/hs-game/generated/Game/State.hs \
     --gen-binding-spec external/game.yaml \
     --module Game.State \
+    --modules-safe \
     game_world.h \
     game_player.h
 
@@ -117,6 +127,7 @@ cabal run hs-bindgen-cli -- \
     -o hs/hs-game/generated/Game/World.hs \
     --external-binding-spec external/game.yaml \
     --module Game.World \
+    --modules-safe \
     game_world.h
 
 cabal run hs-bindgen-cli -- \
@@ -125,4 +136,5 @@ cabal run hs-bindgen-cli -- \
     -o hs/hs-game/generated/Game/Player.hs \
     --external-binding-spec external/game.yaml \
     --module Game.Player \
+    --modules-safe \
     game_player.h

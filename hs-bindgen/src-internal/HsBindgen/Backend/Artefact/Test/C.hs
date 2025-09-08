@@ -2,24 +2,10 @@ module HsBindgen.Backend.Artefact.Test.C (
     genTestsC
   ) where
 
---import Data.Char qualified as Char
---import Data.List qualified as List
---import Data.Text qualified as T
---import Data.Typeable (typeOf)
---import Data.Vec.Lazy qualified as Vec
---import System.FilePath qualified as FilePath
---import System.FilePath.Posix qualified as Posix
-
-
---import HsBindgen.Errors
---import HsBindgen.C.AST qualified as C
---import HsBindgen.C.AST.Name
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
---import HsBindgen.Backend.Hs.AST.Name
---import HsBindgen.Backend.Hs.AST.Type qualified as HsT
---import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Generation
@@ -30,7 +16,7 @@ genTestsC ::
      FilePath             -- ^ C test header file path
   -> FilePath             -- ^ C test source file path
   -> [HashIncludeArg] -- ^ C header paths
-  -> [Hs.Decl]            -- ^ Declarations
+  -> ByCategory [Hs.Decl]            -- ^ Declarations
   -> IO ()
 genTestsC = throwPure_TODO 22 "generate test suite"
 

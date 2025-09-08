@@ -2,7 +2,7 @@
 
 module Main (main) where
 
-import Control.Exception (Exception (..), SomeException (..), handle)
+import Control.Exception (Exception (..), SomeException (..), handle, throw)
 import Data.List qualified as List
 import Data.Text qualified as Text
 import Data.Version (showVersion)
@@ -15,6 +15,8 @@ import Text.Read (readMaybe)
 import Clang.Version (clang_getClangVersion)
 
 import HsBindgen.App
+import HsBindgen.Backend.Artefact.HsModule.Translation (ModuleOrg (..))
+import HsBindgen.Backend.SHs.AST (Safety (..))
 import HsBindgen.Cli qualified as Cli
 import HsBindgen.Cli.Preprocess qualified as Preprocess
 import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
@@ -22,6 +24,7 @@ import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Lib
 
+import Optics (over, (%))
 import Paths_hs_bindgen qualified as Package
 
 {-------------------------------------------------------------------------------
@@ -75,18 +78,37 @@ main = handle exceptionHandler $ do
 
 execLiterate :: Literate.Opts -> IO ()
 execLiterate literateOpts = do
-    args <- maybe (throw' "cannot parse literate file") return . readMaybe
+    args <- maybe (throwIO' "cannot parse literate file") return . readMaybe
       =<< readFile literateOpts.input
-    Cli{..} <- maybe (throw' "cannot parse arguments in literate file") return $
+    Cli{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseCmdPreprocess args
     void . Cli.exec cliGlobalOpts $ case cliCmd of
-      Cli.CmdPreprocess opts -> Cli.CmdPreprocess opts{
-          Preprocess.output = Just literateOpts.output
-        }
-      _otherwise             -> cliCmd
+      Cli.CmdPreprocess opts ->
+        Cli.CmdPreprocess $ setModuleStructure opts{
+            Preprocess.output = Just literateOpts.output
+          }
+      _otherwise ->
+        throw' "literate mode only supports 'preprocess' command"
   where
-    throw' :: String -> IO a
-    throw' = throwIO . LiterateFileException literateOpts.input
+    throwIO' :: String -> IO a
+    throwIO' = throwIO . LiterateFileException literateOpts.input
+
+    throw' :: String -> a
+    throw' = throw . LiterateFileException literateOpts.input
+
+    setModuleStructure :: Preprocess.Opts -> Preprocess.Opts
+    setModuleStructure =
+      over
+        ( #bindgenConfig
+        % #bindgenBackendConfig
+        % #backendHsModuleOpts
+        % #hsModuleOptsModuleOrg
+        )
+        setModuleStructure'
+
+    setModuleStructure' :: ModuleOrg -> ModuleOrg
+    setModuleStructure' Multiple = Single Safe
+    setModuleStructure' x = x
 
     pureParseCmdPreprocess :: [String] -> Maybe Cli
     pureParseCmdPreprocess =
