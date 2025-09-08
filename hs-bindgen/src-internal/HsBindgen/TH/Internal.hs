@@ -20,6 +20,8 @@ module HsBindgen.TH.Internal (
   ) where
 
 import Control.Monad.State (State, execState, modify)
+import Data.Foldable qualified as Foldable
+import Data.Map qualified as Map
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
@@ -28,6 +30,7 @@ import Clang.Args
 import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -134,11 +137,16 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
 
         artefacts = Dependencies :* FinalDecls :* Nil
 
-    (I deps :* I decls :* Nil) <- liftIO $
+    (I deps :* I decls' :* Nil) <- liftIO $
       hsBindgen tracerConfig bindgenConfig uncheckedHashIncludeArgs artefacts
-    let requiredExts = getExtensions decls
+    -- TODO_PR: TH category language. For now, we throw away 'BUnsafe` bindings
+    -- to avoid duplicate definitions.
+    let removeUnsafeCategory = Map.filterWithKey (\k _ -> k /= SHs.BUnsafe)
+        decls = SHs.ByCategory $ removeUnsafeCategory $ SHs.unByCategory decls'
+        foldedDecls = Foldable.fold decls
+        requiredExts = uncurry getExtensions $ foldedDecls
     checkLanguageExtensions requiredExts
-    getThDecls deps decls
+    uncurry (getThDecls deps) foldedDecls
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (RelativeToPkgRoot x) = root </> x
@@ -190,22 +198,33 @@ hashInclude arg = do
 -------------------------------------------------------------------------------}
 
 -- | Get required extensions.
-getExtensions :: [SHs.SDecl] -> Set TH.Extension
-getExtensions decls = foldMap requiredExtensions decls
+getExtensions :: [UserlandCapiWrapper] -> [SHs.SDecl] -> Set TH.Extension
+getExtensions wrappers decls = userlandCapiExt <> foldMap requiredExtensions decls
+  where
+    userlandCapiExt = case wrappers of
+      []  -> Set.empty
+      _xs -> Set.singleton TH.TemplateHaskell
 
 -- | Internal; Get Template Haskell declarations; non-IO part of
 -- 'withHsBindgen'.
 getThDecls
     :: Guasi q
     => [SourcePath]
+    -> [UserlandCapiWrapper]
     -> [SHs.SDecl]
     -> q [TH.Dec]
-getThDecls deps decls = do
+getThDecls deps wrappers decls = do
     -- Record dependencies, including transitively included headers.
     mapM_ (addDependentFile . getSourcePath) deps
 
+    -- Add userland-CAPI wrappers source code.
+    addCSource wrapperSrc
+
     -- Generate TH declarations.
     fmap concat $ traverse mkDecl decls
+  where
+    wrapperSrc :: String
+    wrapperSrc = getUserlandCapiWrappersSource wrappers
 
 {-------------------------------------------------------------------------------
   Helpers

@@ -7,6 +7,7 @@ import Test.Tasty
 
 import HsBindgen.Imports
 
+import Data.Foldable qualified as Foldable
 import HsBindgen
 import HsBindgen.TH.Internal
 import Language.Haskell.TH qualified as TH
@@ -25,7 +26,7 @@ check testResources test =
       let artefacts = FinalDecls :* Nil
       (I decls :* Nil) <- runTestHsBindgen testResources test artefacts
       let requiredExts :: Set TH.Extension
-          requiredExts = getExtensions decls
+          requiredExts = Foldable.fold $ fmap (uncurry getExtensions) decls
 
           output :: String
           output = unlines $ map show $ List.sort $ toList $ requiredExts
