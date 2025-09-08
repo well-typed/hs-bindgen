@@ -135,20 +135,39 @@ ghcNonReservedKeywords = [
 
 -- | Names in the type namespace that @hs-bindgen@ may use unqualified
 --
--- * '~'
+-- The following names are used but are /not/ reserved because they are not
+-- valid C identifiers:
+--
+-- * @~@
+-- * @<*>@
+-- * @>>@
 hsBindgenReservedTypeNames :: [Text]
 hsBindgenReservedTypeNames =
-    [ "~"
+    [ "Bounded"
+    , "Enum"
+    , "Eq"
+    , "FiniteBits"
+    , "Floating"
+    , "Fractional"
+    , "IO"
+    , "Int"
+    , "Integral"
+    , "Num"
+    , "Ord"
+    , "Read"
+    , "Real"
+    , "RealFloat"
+    , "RealFrac"
+    , "Show"
+    , "Void"
     ]
 
 -- | Names in the variable namespace that @hs-bindgen@ may use unqualified
---
--- * 'pure'
--- * 'return'
 hsBindgenReservedVarNames :: [Text]
 hsBindgenReservedVarNames =
     [ "pure"
     , "return"
+    , "showsPrec"
     ]
 
 -- | Names in the type namespace that are reserved because using them could
