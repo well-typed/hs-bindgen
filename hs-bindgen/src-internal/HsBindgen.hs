@@ -18,7 +18,10 @@ module HsBindgen
   , NP (..)
   ) where
 
+import Data.Map qualified as Map
 import Generics.SOP (I (..), NP (..))
+import System.Directory (createDirectoryIfMissing)
+import System.FilePath (splitExtension, takeDirectory, (<.>), (</>))
 
 import Clang.Paths
 import HsBindgen.Backend
@@ -26,6 +29,8 @@ import HsBindgen.Backend.Artefact.HsModule.Render
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Artefact.Test (genTests)
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
@@ -83,21 +88,21 @@ hsBindgen
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
-  HashIncludeArgs :: Artefact [HashIncludeArg]
+  HashIncludeArgs     :: Artefact [HashIncludeArg]
   -- * Frontend
-  IncludeGraph    :: Artefact IncludeGraph.IncludeGraph
-  DeclIndex       :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph    :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph    :: Artefact DeclUseGraph.DeclUseGraph
-  ReifiedC        :: Artefact [C.Decl]
-  Dependencies    :: Artefact [SourcePath]
+  IncludeGraph        :: Artefact IncludeGraph.IncludeGraph
+  DeclIndex           :: Artefact DeclIndex.DeclIndex
+  UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
+  DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
+  ReifiedC            :: Artefact [C.Decl]
+  Dependencies        :: Artefact [SourcePath]
   -- * Backend
-  HsDecls         :: Artefact [Hs.Decl]
-  FinalDecls      :: Artefact [SHs.SDecl]
-  FinalModuleName :: Artefact HsModuleName
-  FinalModule     :: Artefact HsModule
+  HsDecls             :: Artefact (ByCategory [Hs.Decl])
+  FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
+  FinalModuleBaseName :: Artefact HsModuleName
+  FinalModule         :: Artefact (ByCategory HsModule)
   -- * Lift
-  Lift            :: Artefacts as -> (NP I as -> IO b) -> Artefact b
+  Lift                :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
 instance Functor Artefact where
   fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
@@ -107,58 +112,50 @@ type Artefacts as = NP Artefact as
 
 -- | Write the include graph to file.
 writeIncludeGraph :: FilePath -> Artefact ()
-writeIncludeGraph file =
-  Lift
-    (IncludeGraph :* Nil)
-    (\(I includeGraph :* Nil) ->
-       writeFile file (IncludeGraph.dumpMermaid includeGraph))
+writeIncludeGraph file = Lift (IncludeGraph :* Nil) $
+    \(I includeGraph :* Nil) ->
+      writeFile file (IncludeGraph.dumpMermaid includeGraph)
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()
-writeUseDeclGraph file =
-  Lift
-    (DeclIndex :* UseDeclGraph :* Nil)
-    (\(I index :* I useDeclGraph :* Nil) ->
-       writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
-    )
+writeUseDeclGraph file = Lift (DeclIndex :* UseDeclGraph :* Nil) $
+    \(I index :* I useDeclGraph :* Nil) ->
+      writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
 
 -- | Get bindings.
-getBindings :: Artefact String
-getBindings =
-  Lift
-    (FinalModule :* Nil)
-    (\(I finalModule :* Nil) ->
-       pure . render $ finalModule
-    )
+getBindings :: Artefact (ByCategory String)
+getBindings = Lift (FinalModule :* Nil) $
+    \(I finalModule :* Nil) ->
+      pure . fmap render $ finalModule
 
--- | Write bindings to file. If no file is given, print to standard output.
+-- | Write bindings to files.
+--
+-- Each file contains a different binding category.
+--
+-- If no file is given, print to standard output.
 writeBindings :: Maybe FilePath -> Artefact ()
-writeBindings mfile =
-  Lift
-    (getBindings :* Nil)
-    (\(I bindings :* Nil) -> write mfile bindings)
+writeBindings mBasePath = Lift (getBindings :* Nil) $
+    \(I bindings :* Nil) -> writeByCategory mBasePath bindings
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec file =
-  Lift
-    (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
-    (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-       genBindingSpec moduleName hashIncludeArgs file hsDecls
-    )
+  Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
+    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
+      -- TODO_PR @Travis: Do we have to amend the module names according to
+      -- BindingCategory?
+      genBindingSpec moduleBaseName hashIncludeArgs file $ concat hsDecls
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
 writeTests testDir =
-  Lift
-    (FinalModuleName :* HashIncludeArgs :* HsDecls :* Nil)
-    (\(I moduleName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-       genTests
-         hashIncludeArgs
-         hsDecls
-         moduleName
-         testDir
-    )
+  Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
+    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
+      genTests
+        hashIncludeArgs
+        hsDecls
+        moduleBaseName
+        testDir
 
 {-------------------------------------------------------------------------------
   Artefacts
@@ -183,29 +180,45 @@ runArtefacts
     runArtefact :: Artefact a -> IO a
     runArtefact = \case
       --Boot.
-      HashIncludeArgs -> pure bootHashIncludeArgs
+      HashIncludeArgs     -> pure bootHashIncludeArgs
       -- Frontend.
-      IncludeGraph    -> pure frontendIncludeGraph
-      DeclIndex       -> pure frontendIndex
-      UseDeclGraph    -> pure frontendUseDeclGraph
-      DeclUseGraph    -> pure frontendDeclUseGraph
-      ReifiedC        -> pure frontendCDecls
-      Dependencies    -> pure frontendDependencies
+      IncludeGraph        -> pure frontendIncludeGraph
+      DeclIndex           -> pure frontendIndex
+      UseDeclGraph        -> pure frontendUseDeclGraph
+      DeclUseGraph        -> pure frontendDeclUseGraph
+      ReifiedC            -> pure frontendCDecls
+      Dependencies        -> pure frontendDependencies
       -- Backend.
-      HsDecls         -> pure backendHsDecls
-      FinalDecls      -> pure backendFinalDecls
-      FinalModuleName -> pure backendFinalModuleName
-      FinalModule     -> pure backendFinalModule
+      HsDecls             -> pure backendHsDecls
+      FinalDecls          -> pure backendFinalDecls
+      FinalModuleBaseName -> pure backendFinalModuleBaseName
+      FinalModule         -> pure backendFinalModule
       -- Lift.
-      (Lift as' f)    -> go as' >>= f
+      (Lift as' f)        -> go as' >>= f
 
 {-------------------------------------------------------------------------------
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: Maybe FilePath -> String -> IO ()
-write mfile str =
-    let out = case mfile of
-          Nothing -> putStr
-          Just file -> writeFile file
-    in  out str
+writeByCategory :: Maybe FilePath -> ByCategory String -> IO ()
+writeByCategory Nothing =
+    mapM_ putStrLn . unByCategory
+-- TODO_PR: Think about how we treat extensions. At the moment, the base path
+-- includes the extension. In my opinion, that should not be the case, because
+-- only `.hs` is making sense here (to my knowledge).
+writeByCategory (Just basePath) =
+    mapM_ (uncurry writeCategory) . Map.toList . unByCategory
+  where
+    writeCategory :: BindingCategory -> String -> IO ()
+    writeCategory cat str = do
+      let addSubModule = case cat of
+            BType   -> id
+            BSafe   -> (</> "Safe")
+            BUnsafe -> (</> "Unsafe")
+            BFunPtr -> (</> "FunPtr")
+            BGlobal -> (</> "Global")
+          path = addSubModule basePathNoExt <.> ext
+      createDirectoryIfMissing True $ takeDirectory path
+      writeFile path str
+
+    (basePathNoExt, ext) = splitExtension basePath

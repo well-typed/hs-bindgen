@@ -19,6 +19,7 @@ import HsBindgen.Frontend.RootHeader
 --import HsBindgen.Backend.Artefact.Test.Internal
 --    ( CFunPrefix, getCFunPrefix, prettyHsName )
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.SHs.AST (ByCategory)
 --import HsBindgen.Backend.Hs.AST.Name
 --import HsBindgen.Backend.Hs.AST.Type qualified as HsT
 --import Text.SimplePrettyPrint
@@ -32,7 +33,7 @@ genTestsC ::
      FilePath             -- ^ C test header file path
   -> FilePath             -- ^ C test source file path
   -> [HashIncludeArg] -- ^ C header paths
-  -> [Hs.Decl]            -- ^ Declarations
+  -> ByCategory [Hs.Decl]            -- ^ Declarations
   -> IO ()
 genTestsC = throwPure_TODO 22 "generate test suite"
 

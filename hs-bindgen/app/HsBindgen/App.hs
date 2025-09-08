@@ -35,8 +35,13 @@ import Optics (set)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Lib
+
+-- NOTE: Internal imports; remove?
+import HsBindgen.Backend.Artefact.HsModule.Translation (HsModuleStructure (ModulesByBindingCategory, SingleModule))
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
+import HsBindgen.Backend.SHs.AST (Safety (..))
+import HsBindgen.Language.Haskell (HsModuleName)
 
 {-------------------------------------------------------------------------------
   Global options
@@ -475,13 +480,40 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
 -------------------------------------------------------------------------------}
 
 parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts = fmap HsModuleOpts . strOption $ mconcat [
+parseHsModuleOpts =
+  HsModuleOpts <$> parseHsModuleName <*> parseHsModuleStructure
+
+parseHsModuleName :: Parser HsModuleName
+parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value $ hsModuleOptsName def
+    , value $ hsModuleOptsBaseName def
     , help "Name of the generated Haskell module"
     ]
+
+parseHsModuleStructure :: Parser HsModuleStructure
+parseHsModuleStructure = option (eitherReader auxParse) $ mconcat [
+      long "single-module"
+    , metavar "SAFETY"
+    , showDefaultWith auxRender
+    , value def
+    , help
+      "Generate single module with one foreign import safety (supported: safe, unsafe, disable)"
+    ]
+  where
+    auxParse :: String -> Either String HsModuleStructure
+    auxParse = \case
+      "safe"    -> Right $ SingleModule Safe
+      "unsafe"  -> Right $ SingleModule Unsafe
+      "disable" -> Right ModulesByBindingCategory
+      other     -> Left $ "invalid module structure: " ++ other
+
+    auxRender :: HsModuleStructure -> String
+    auxRender = \case
+      ModulesByBindingCategory -> "disable"
+      SingleModule (Safe)      -> "safe"
+      SingleModule (Unsafe)    -> "unsafe"
 
 {-------------------------------------------------------------------------------
   Output options

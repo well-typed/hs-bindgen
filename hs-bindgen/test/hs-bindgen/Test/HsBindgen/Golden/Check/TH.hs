@@ -20,6 +20,7 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import System.FilePath (makeRelative, (</>))
 
+import Data.Foldable qualified as Foldable
 import HsBindgen
 import HsBindgen.Backend.Artefact.HsModule.Render
 import HsBindgen.Backend.Hs.Haddock.Documentation
@@ -51,7 +52,7 @@ check testResources test =
           runTestHsBindgen testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
-            thDecls = getThDecls deps decls
+            thDecls = uncurry (getThDecls deps) $ Foldable.fold decls
 
             (QuState{..}, thdecs) = runQu thDecls
 

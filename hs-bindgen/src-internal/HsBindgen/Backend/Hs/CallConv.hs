@@ -3,11 +3,13 @@
 -- Intended for unqualified import.
 module HsBindgen.Backend.Hs.CallConv (
     UserlandCapiWrapper(..)
+  , getUserlandCapiWrappersSource
   , CallConv(..)
   , ImportStyle(..)
   ) where
 
 import GHC.Generics (Generic)
+import Witherable (ordNub)
 
 import HsBindgen.Frontend.RootHeader
 
@@ -22,6 +24,19 @@ data UserlandCapiWrapper = UserlandCapiWrapper {
     , capiWrapperImport     :: HashIncludeArg
     }
   deriving (Show, Generic)
+
+getUserlandCapiWrappersSource :: [UserlandCapiWrapper] -> String
+getUserlandCapiWrappersSource wrappers = unlines $ headers ++ bodies
+    where
+      getImport :: UserlandCapiWrapper -> String
+      getImport =
+        (\h -> "#include <" ++ getHashIncludeArg h ++ ">") . capiWrapperImport
+
+      headers, bodies :: [String]
+      -- It is important that we don't include the same header more than once,
+      -- /especially/ for non-extern non-static globals.
+      headers = ordNub $ map getImport wrappers
+      bodies = map capiWrapperDefinition wrappers
 
 data CallConv =
     -- | Our default calling convention: userland CAPI

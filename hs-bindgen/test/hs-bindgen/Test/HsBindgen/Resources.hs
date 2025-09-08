@@ -23,6 +23,7 @@ import Clang.Paths
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.SHs.AST (Safety (..))
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
@@ -114,7 +115,11 @@ getTestDefaultBackendConfig testName pathStyle = def{
       backendTranslationOpts = def {
         translationUniqueId = UniqueId $ "test." ++ testName
       }
-    , backendHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
+    , backendHsModuleOpts = HsModuleOpts{
+        hsModuleOptsBaseName  = "Example"
+        -- TODO_PR: Tests with multiple categories.
+      , hsModuleOptsStructure = SingleModule Safe
+      }
     , backendHaddockConfig = HaddockConfig pathStyle
     }
 
