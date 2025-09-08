@@ -168,12 +168,12 @@ instance IsTrace Level BuiltinIncDirMsg where
     BuiltinIncDirResourceDirAbort{}                    -> Warning
     BuiltinIncDirResourceDirResolved{}                 -> Debug
     BuiltinIncDirAbsResourceDirIncDirNotFound{}        -> Warning
-    BuiltinIncDirAbsResourceDirIncDirFound{}           -> Debug
+    BuiltinIncDirAbsResourceDirIncDirFound{}           -> Info
     BuiltinIncDirLlvmPathNotFound{}                    -> Warning
     BuiltinIncDirLlvmPathIncDirNotFound{}              -> Warning
-    BuiltinIncDirLlvmPathIncDirFound{}                 -> Debug
+    BuiltinIncDirLlvmPathIncDirFound{}                 -> Info
     BuiltinIncDirLlvmConfigIncDirNotFound{}            -> Warning
-    BuiltinIncDirLlvmConfigIncDirFound{}               -> Debug
+    BuiltinIncDirLlvmConfigIncDirFound{}               -> Info
     BuiltinIncDirLlvmConfigEnvNotFound{}               -> Warning
     BuiltinIncDirLlvmConfigEnvFound{}                  -> Debug
     BuiltinIncDirLlvmConfigPathFound{}                 -> Debug
@@ -185,7 +185,7 @@ instance IsTrace Level BuiltinIncDirMsg where
       if iur == UserRequested then Error else Warning
     BuiltinIncDirClangIncDirNotFound iur _             ->
       if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangIncDirFound{}                    -> Debug
+    BuiltinIncDirClangIncDirFound{}                    -> Info
     BuiltinIncDirLlvmPathClangExeNotFound{}            -> Debug
     BuiltinIncDirLlvmPathClangExeFound{}               -> Debug
     BuiltinIncDirLlvmConfigClangExeNotFound{}          -> Debug
