@@ -1,8 +1,4 @@
 [
-  DeclInlineCInclude
-    "type_qualifiers.h",
-  DeclInlineC
-    "/* get_a_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_type_qualifiers_be05c6870fad4f33 (void) { return &a; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -17,7 +13,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_type_qualifiers_be05c6870fad4f33",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_a_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_type_qualifiers_be05c6870fad4f33 (void) { return &a; } ",
+          capiWrapperImport =
+          "type_qualifiers.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePrim
@@ -36,10 +37,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "type_qualifiers.h",
-  DeclInlineC
-    "/* get_b_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_type_qualifiers_401ecb7e80957164 (void) { return &b; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -55,7 +52,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_type_qualifiers_401ecb7e80957164",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_b_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_type_qualifiers_401ecb7e80957164 (void) { return &b; } ",
+          capiWrapperImport =
+          "type_qualifiers.h"},
       foreignImportOrigin = Global
         (TypePointer
           (TypeConst
@@ -75,10 +77,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "type_qualifiers.h",
-  DeclInlineC
-    "/* get_c_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_type_qualifiers_0b370289c6c19db4 (void) { return &c; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -94,7 +92,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_type_qualifiers_0b370289c6c19db4",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_c_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_type_qualifiers_0b370289c6c19db4 (void) { return &c; } ",
+          capiWrapperImport =
+          "type_qualifiers.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePointer
@@ -116,10 +119,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "type_qualifiers.h",
-  DeclInlineC
-    "/* get_d_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_type_qualifiers_cc41ed0d2b848565 (void) { return &d; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -135,7 +134,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_type_qualifiers_cc41ed0d2b848565",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_d_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_type_qualifiers_cc41ed0d2b848565 (void) { return &d; } ",
+          capiWrapperImport =
+          "type_qualifiers.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePointer
@@ -158,10 +162,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "type_qualifiers.h",
-  DeclInlineC
-    "_Bool hs_bindgen_test_type_qualifiers_9d6d039971edcd60 (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -309,7 +309,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_type_qualifiers_9d6d039971edcd60",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_type_qualifiers_9d6d039971edcd60 (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperImport =
+          "type_qualifiers.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -464,10 +469,6 @@
             "type_qualifiers.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "type_qualifiers.h",
-  DeclInlineC
-    "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_type_qualifiers_c40a51053a97fb29 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -599,7 +600,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_type_qualifiers_c40a51053a97fb29",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_type_qualifiers_c40a51053a97fb29 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
+          capiWrapperImport =
+          "type_qualifiers.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

@@ -397,9 +397,6 @@
         "C\25968\23383",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "void hs_bindgen_test_adios_8e1936b23d816eb2 (void) { \978(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -412,7 +409,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_8e1936b23d816eb2",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_8e1936b23d816eb2 (void) { \978(); }",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -429,9 +430,6 @@
           commentHeader = Just "adios.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "/* get_\978_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_64cbec67bc73ad5c (void)) (void) { return &\978; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -447,7 +445,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_64cbec67bc73ad5c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_\978_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_64cbec67bc73ad5c (void)) (void) { return &\978; } ",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
       foreignImportComment = Just
@@ -461,9 +463,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_52f5e750c2f31c7b (void) { return &\978\978; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -478,7 +477,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_52f5e750c2f31c7b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_52f5e750c2f31c7b (void) { return &\978\978; } ",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -493,9 +496,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -510,7 +510,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_13030842ed540098",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePrim
@@ -529,9 +533,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "void hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -544,7 +545,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_5c74896d56245684",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -562,9 +567,6 @@
           commentHeader = Just "adios.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "/* get_\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8472427dddbc4eb1 (void)) (void) { return &\25308\25308; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -580,7 +582,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_8472427dddbc4eb1",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8472427dddbc4eb1 (void)) (void) { return &\25308\25308; } ",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
       foreignImportComment = Just
@@ -595,9 +601,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -610,7 +613,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_e8498bfc0fabc9e9",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -628,9 +635,6 @@
           commentHeader = Just "adios.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "adios.h",
-  DeclInlineC
-    "/* get_Say\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_7b73f645a5d28e6b (void)) (void) { return &Say\25308\25308; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -646,7 +650,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_adios_7b73f645a5d28e6b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_Say\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_7b73f645a5d28e6b (void)) (void) { return &Say\25308\25308; } ",
+          capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
       foreignImportComment = Just

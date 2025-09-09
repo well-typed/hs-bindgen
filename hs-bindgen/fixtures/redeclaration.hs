@@ -1,8 +1,4 @@
 [
-  DeclInlineCInclude
-    "redeclaration.h",
-  DeclInlineC
-    "/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -17,7 +13,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_redeclaration_59f22ffbb8d28119",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } ",
+          capiWrapperImport =
+          "redeclaration.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),

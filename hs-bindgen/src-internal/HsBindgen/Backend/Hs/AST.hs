@@ -59,20 +59,20 @@ module HsBindgen.Backend.Hs.AST (
 
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
-import DeBruijn (Ctx, EmptyCtx, Wk (..), Add (..), Idx (..))
+import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
-import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Backend.Hs.AST.SigmaType
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
-import HsBindgen.Backend.SHs.AST qualified as SHs
 
 import C.Char qualified
 
@@ -191,8 +191,6 @@ data Decl where
     DeclPatSyn          :: PatSyn -> Decl
     DeclDefineInstance  :: DefineInstance -> Decl
     DeclDeriveInstance  :: DeriveInstance -> Decl
-    DeclInlineCInclude  :: String -> Decl
-    DeclInlineC         :: String -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclVar             :: VarDecl -> Decl
     DeclUnionGetter     :: UnionGetter -> Decl

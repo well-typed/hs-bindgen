@@ -56,9 +56,6 @@
           commentHeader = Just
             "iterator.h",
           commentChildren = []}},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "Toggle hs_bindgen_test_iterator_4f34fce61cc68c9f (_Bool arg1) { return makeToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -87,7 +84,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_4f34fce61cc68c9f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "Toggle hs_bindgen_test_iterator_4f34fce61cc68c9f (_Bool arg1) { return makeToggle(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -118,9 +120,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_03950e0c09bdb508 (void)) (_Bool arg1) { return &makeToggle; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -141,7 +140,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_03950e0c09bdb508",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_03950e0c09bdb508 (void)) (_Bool arg1) { return &makeToggle; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [TypePrim PrimBool]
@@ -164,9 +168,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "_Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -193,7 +194,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_bfb4e32e3a824c7e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -225,9 +231,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_9c2755ef750f5d45 (void)) (Toggle arg1) { return &toggleNext; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -248,7 +251,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_9c2755ef750f5d45",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_9c2755ef750f5d45 (void)) (Toggle arg1) { return &toggleNext; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -272,9 +280,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "void hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -301,7 +306,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_8d23fba933ba9584",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -332,9 +342,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_2f7023ef559c7cdc (void)) (Toggle arg1) { return &releaseToggle; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -355,7 +362,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_2f7023ef559c7cdc",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_2f7023ef559c7cdc (void)) (Toggle arg1) { return &releaseToggle; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -439,9 +451,6 @@
           commentHeader = Just
             "iterator.h",
           commentChildren = []}},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "Counter hs_bindgen_test_iterator_5b455070cb6127b9 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -483,7 +492,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_5b455070cb6127b9",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "Counter hs_bindgen_test_iterator_5b455070cb6127b9 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -523,9 +537,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_216174b924f641ef (void)) (signed int arg1, signed int arg2) { return &makeCounter; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -548,7 +559,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_216174b924f641ef",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_216174b924f641ef (void)) (signed int arg1, signed int arg2) { return &makeCounter; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -575,9 +591,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -604,7 +617,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_1eb9473844c466c6",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -636,9 +654,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_9d967a23215cebaa (void)) (Counter arg1) { return &counterNext; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -659,7 +674,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_9d967a23215cebaa",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_9d967a23215cebaa (void)) (Counter arg1) { return &counterNext; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -684,9 +704,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "void hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -713,7 +730,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_4bd3562b992f2f1c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -744,9 +766,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_315c7ff0ed90e2c8 (void)) (Counter arg1) { return &releaseCounter; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -767,7 +786,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_315c7ff0ed90e2c8",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_315c7ff0ed90e2c8 (void)) (Counter arg1) { return &releaseCounter; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -856,9 +880,6 @@
           commentHeader = Just
             "iterator.h",
           commentChildren = []}},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "VarCounter hs_bindgen_test_iterator_0fc005ef62990438 (signed int arg1) { return makeVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -887,7 +908,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_0fc005ef62990438",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "VarCounter hs_bindgen_test_iterator_0fc005ef62990438 (signed int arg1) { return makeVarCounter(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -919,9 +945,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_a29c0a830311b22a (void)) (signed int arg1) { return &makeVarCounter; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -942,7 +965,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_a29c0a830311b22a",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_a29c0a830311b22a (void)) (signed int arg1) { return &makeVarCounter; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -967,9 +995,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1009,7 +1034,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_a88cd5c9559b5d52",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1049,9 +1079,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_cd9433fb0fa76d19 (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1074,7 +1101,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_cd9433fb0fa76d19",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_cd9433fb0fa76d19 (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1101,9 +1133,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1130,7 +1159,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_2d2d26e60eea04a8",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1161,9 +1195,6 @@
             "iterator.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "iterator.h",
-  DeclInlineC
-    "/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bad5305a8cb077b0 (void)) (VarCounter arg1) { return &releaseVarCounter; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1184,7 +1215,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_iterator_bad5305a8cb077b0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bad5305a8cb077b0 (void)) (VarCounter arg1) { return &releaseVarCounter; } ",
+          capiWrapperImport =
+          "iterator.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

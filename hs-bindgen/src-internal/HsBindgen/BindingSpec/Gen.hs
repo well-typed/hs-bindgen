@@ -83,8 +83,6 @@ genBindingSpec' hashIncludeArgs hsModuleName = foldr aux BindingSpec.empty
       Hs.DeclPatSyn{}         -> id
       Hs.DeclDefineInstance{} -> id
       Hs.DeclDeriveInstance{} -> id
-      Hs.DeclInlineCInclude{} -> id
-      Hs.DeclInlineC{}        -> id
       Hs.DeclForeignImport{}  -> id
       Hs.DeclVar{}            -> id
       Hs.DeclUnionGetter{}    -> id

@@ -404,10 +404,6 @@
         "TC",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "char hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -444,7 +440,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -485,10 +486,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_quux1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8 (void)) (MC arg1, TC arg2) { return &quux1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -510,7 +507,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_quux1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8 (void)) (MC arg1, TC arg2) { return &quux1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -540,10 +542,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2 (MC arg1, char arg2) { return quux2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -582,7 +580,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2 (MC arg1, char arg2) { return quux2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -623,10 +626,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_quux2_ptr */ __attribute__ ((const)) TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b (void)) (MC arg1, char arg2) { return &quux2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -650,7 +649,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_quux2_ptr */ __attribute__ ((const)) TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b (void)) (MC arg1, char arg2) { return &quux2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -680,10 +684,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -726,7 +726,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -768,10 +773,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_wam1_ptr */ __attribute__ ((const)) MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77 (void)) (float arg1, TC *arg2) { return &wam1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -797,7 +798,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_wam1_ptr */ __attribute__ ((const)) MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77 (void)) (float arg1, TC *arg2) { return &wam1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -828,10 +834,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -874,7 +876,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -916,10 +923,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_wam2_ptr */ __attribute__ ((const)) TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f (void)) (float arg1, MC *arg2) { return &wam2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -945,7 +948,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_wam2_ptr */ __attribute__ ((const)) TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f (void)) (float arg1, MC *arg2) { return &wam2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2698,10 +2706,6 @@
         "Struct4",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2741,7 +2745,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2787,10 +2796,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_struct_typedef1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009 (void)) (struct2 *arg1, MC arg2) { return &struct_typedef1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2815,7 +2820,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_typedef1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009 (void)) (struct2 *arg1, MC arg2) { return &struct_typedef1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2850,10 +2860,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2893,7 +2899,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2934,10 +2945,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_struct_typedef2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3 (void)) (struct3_t *arg1, MC arg2) { return &struct_typedef2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2962,7 +2969,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_typedef2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3 (void)) (struct3_t *arg1, MC arg2) { return &struct_typedef2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2992,10 +3004,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3035,7 +3043,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -3079,10 +3092,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_struct_typedef3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802 (void)) (struct4 *arg1, MC arg2) { return &struct_typedef3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3107,7 +3116,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_typedef3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802 (void)) (struct4 *arg1, MC arg2) { return &struct_typedef3; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -3140,10 +3154,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3183,7 +3193,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -3224,10 +3239,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_struct_name1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835 (void)) (struct struct1 *arg1, MC arg2) { return &struct_name1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3252,7 +3263,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_name1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835 (void)) (struct struct1 *arg1, MC arg2) { return &struct_name1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -3282,10 +3298,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3325,7 +3337,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -3366,10 +3383,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3394,7 +3407,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -3424,10 +3442,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3467,7 +3481,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -3508,10 +3527,6 @@
             "macro_in_fundecl_vs_typedef.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl_vs_typedef.h",
-  DeclInlineC
-    "/* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788 (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3536,7 +3551,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788 (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

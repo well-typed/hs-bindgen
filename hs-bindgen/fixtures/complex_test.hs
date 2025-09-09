@@ -1,8 +1,4 @@
 [
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_63b5c3b086238e05 (void) { return &global_complex_float; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -17,7 +13,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_63b5c3b086238e05",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_63b5c3b086238e05 (void) { return &global_complex_float; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -34,10 +35,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_2ed91230aab82376 (void) { return &global_complex_double; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -52,7 +49,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_2ed91230aab82376",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_2ed91230aab82376 (void) { return &global_complex_double; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -69,10 +71,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_ea446b8a5a69af19 (void) { return &global_complex_float_flipped; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -87,7 +85,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_ea446b8a5a69af19",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_ea446b8a5a69af19 (void) { return &global_complex_float_flipped; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -104,10 +107,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_a0899c5bdb02279b (void) { return &global_complex_double_flipped; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -122,7 +121,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_a0899c5bdb02279b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_a0899c5bdb02279b (void) { return &global_complex_double_flipped; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -139,10 +143,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_Complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_345c1b40f2d7b54f (void) { return &global_Complex_float; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -157,7 +157,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_345c1b40f2d7b54f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_Complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_345c1b40f2d7b54f (void) { return &global_Complex_float; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -174,10 +179,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_Complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_c763714b3940be5c (void) { return &global_Complex_double; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -192,7 +193,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_c763714b3940be5c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_Complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_c763714b3940be5c (void) { return &global_Complex_double; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -209,10 +215,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_Complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_46446e3edea6ac39 (void) { return &global_Complex_float_flipped; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -227,7 +229,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_46446e3edea6ac39",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_Complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_46446e3edea6ac39 (void) { return &global_Complex_float_flipped; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -244,10 +251,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_global_Complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_d20b177e8f928028 (void) { return &global_Complex_double_flipped; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -262,7 +265,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_d20b177e8f928028",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_Complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_d20b177e8f928028 (void) { return &global_Complex_double_flipped; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -279,10 +287,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_const_complex_float_ptr */ __attribute__ ((const)) float _Complex const *hs_bindgen_test_complex_test_2dd314fd18809932 (void) { return &const_complex_float; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -297,7 +301,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_2dd314fd18809932",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_const_complex_float_ptr */ __attribute__ ((const)) float _Complex const *hs_bindgen_test_complex_test_2dd314fd18809932 (void) { return &const_complex_float; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypeComplex
@@ -317,10 +326,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_const_complex_double_ptr */ __attribute__ ((const)) double _Complex const *hs_bindgen_test_complex_test_b5b8880ccf90cfdf (void) { return &const_complex_double; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -335,7 +340,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_b5b8880ccf90cfdf",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_const_complex_double_ptr */ __attribute__ ((const)) double _Complex const *hs_bindgen_test_complex_test_b5b8880ccf90cfdf (void) { return &const_complex_double; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypeComplex
@@ -355,10 +365,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_volatile_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_b531c99cc65a9770 (void) { return &volatile_complex_float; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -373,7 +379,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_b531c99cc65a9770",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_volatile_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_b531c99cc65a9770 (void) { return &volatile_complex_float; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -390,10 +401,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_volatile_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_fce1584dbb259ede (void) { return &volatile_complex_double; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -408,7 +415,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_fce1584dbb259ede",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_volatile_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_fce1584dbb259ede (void) { return &volatile_complex_double; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -425,10 +437,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "void hs_bindgen_test_complex_test_34bc3d67e3017a3b (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -466,7 +474,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_34bc3d67e3017a3b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_complex_test_34bc3d67e3017a3b (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -501,10 +514,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_multiply_complex_f_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_complex_test_ddb79318dfa04cfe (void)) (float _Complex arg1, float _Complex arg2) { return &multiply_complex_f; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -525,7 +534,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_ddb79318dfa04cfe",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_multiply_complex_f_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_complex_test_ddb79318dfa04cfe (void)) (float _Complex arg1, float _Complex arg2) { return &multiply_complex_f; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -548,10 +562,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "void hs_bindgen_test_complex_test_c287eef299676eff (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -589,7 +599,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_c287eef299676eff",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_complex_test_c287eef299676eff (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -624,10 +639,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_add_complex_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_complex_test_e40839114bbc4cf0 (void)) (double _Complex arg1, double _Complex arg2) { return &add_complex; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -648,7 +659,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_e40839114bbc4cf0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_add_complex_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_complex_test_e40839114bbc4cf0 (void)) (double _Complex arg1, double _Complex arg2) { return &add_complex; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1428,10 +1444,6 @@
         "Complex_object_t",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_complex_float_array_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_complex_test_c0e2d238404ba14c (void))[10] { return &complex_float_array; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1448,7 +1460,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_c0e2d238404ba14c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_complex_float_array_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_complex_test_c0e2d238404ba14c (void))[10] { return &complex_float_array; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           10
@@ -1467,10 +1484,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_test.h",
-  DeclInlineC
-    "/* get_complex_double_array_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_complex_test_43f5f653ea4bf18c (void))[10] { return &complex_double_array; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1488,7 +1501,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_test_43f5f653ea4bf18c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_complex_double_array_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_complex_test_43f5f653ea4bf18c (void))[10] { return &complex_double_array; } ",
+          capiWrapperImport =
+          "complex_test.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           10

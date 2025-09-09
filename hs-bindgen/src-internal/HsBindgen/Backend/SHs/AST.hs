@@ -24,14 +24,14 @@ module HsBindgen.Backend.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import DeBruijn (Ctx, EmptyCtx, Idx, Add)
+import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -255,6 +255,8 @@ data SDecl =
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
   | DPragma Pragma
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/94: Pull 'DCSource'
+  -- out of the AST.
   | DCSource String
   deriving stock (Show)
 

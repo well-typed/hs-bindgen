@@ -1,7 +1,4 @@
 [
-  DeclInlineCInclude "varargs.h",
-  DeclInlineC
-    "void hs_bindgen_test_varargs_0fd77c5efa209398 (void) { h(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -14,7 +11,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_varargs_0fd77c5efa209398",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_varargs_0fd77c5efa209398 (void) { h(); }",
+          capiWrapperImport =
+          "varargs.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -32,9 +34,6 @@
             "varargs.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "varargs.h",
-  DeclInlineC
-    "/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_0a93e926c5626347 (void)) (void) { return &h; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -50,7 +49,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_varargs_0a93e926c5626347",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_0a93e926c5626347 (void)) (void) { return &h; } ",
+          capiWrapperImport =
+          "varargs.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
       foreignImportComment = Just

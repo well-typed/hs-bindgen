@@ -1,8 +1,4 @@
 [
-  DeclInlineCInclude
-    "definitions.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -27,7 +23,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_definitions_a7d624773bb0585c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }",
+          capiWrapperImport =
+          "definitions.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -53,10 +54,6 @@
             "definitions.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "definitions.h",
-  DeclInlineC
-    "/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_fb3e409881d8c524 (void)) (double arg1) { return &foo; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -74,7 +71,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_definitions_fb3e409881d8c524",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_fb3e409881d8c524 (void)) (double arg1) { return &foo; } ",
+          capiWrapperImport =
+          "definitions.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -94,10 +96,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "definitions.h",
-  DeclInlineC
-    "/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -112,7 +110,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_definitions_fc2aad2af9befead",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } ",
+          capiWrapperImport =
+          "definitions.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),

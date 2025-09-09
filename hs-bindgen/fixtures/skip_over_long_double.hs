@@ -1,8 +1,4 @@
 [
-  DeclInlineCInclude
-    "skip_over_long_double.h",
-  DeclInlineC
-    "void hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -21,7 +17,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }",
+          capiWrapperImport =
+          "skip_over_long_double.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -43,10 +44,6 @@
             "skip_over_long_double.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "skip_over_long_double.h",
-  DeclInlineC
-    "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_94047676e402a0bf (void)) (signed int arg1) { return &fun2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -64,7 +61,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_skip_over_long_double_94047676e402a0bf",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_94047676e402a0bf (void)) (signed int arg1) { return &fun2; } ",
+          capiWrapperImport =
+          "skip_over_long_double.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

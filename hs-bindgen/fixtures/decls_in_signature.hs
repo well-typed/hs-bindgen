@@ -608,10 +608,6 @@
         "Outside",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "void hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -675,7 +671,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -732,10 +733,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -768,7 +765,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
+          capiWrapperImport =
+          "decls_in_signature.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1482,10 +1484,6 @@
         "Named_struct",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "void hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1513,7 +1511,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_8b60d38de80093fa",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1553,10 +1556,6 @@
                   "and the edge cases below)."]]},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1577,7 +1576,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } ",
+          capiWrapperImport =
+          "decls_in_signature.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1794,10 +1798,6 @@
                 Bold [TextContent "See:"],
                 Identifier
                   "get_named_union_y"]]}},
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "void hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1825,7 +1825,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_4a86b0420a250963",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1856,10 +1861,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "decls_in_signature.h",
-  DeclInlineC
-    "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1880,7 +1881,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } ",
+          capiWrapperImport =
+          "decls_in_signature.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

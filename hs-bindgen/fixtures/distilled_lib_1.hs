@@ -10217,10 +10217,6 @@
           commentHeader = Just
             "distilled_lib_1.h",
           commentChildren = []}},
-  DeclInlineCInclude
-    "distilled_lib_1.h",
-  DeclInlineC
-    "int32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10603,7 +10599,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_distilled_lib_1_a1099223f16f8637",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "int32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "distilled_lib_1.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -10992,10 +10993,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "distilled_lib_1.h",
-  DeclInlineC
-    "/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_4a8e737205def139 (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11352,7 +11349,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_distilled_lib_1_4a8e737205def139",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_4a8e737205def139 (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } ",
+          capiWrapperImport =
+          "distilled_lib_1.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -12281,10 +12283,6 @@
         "Callback_t",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "distilled_lib_1.h",
-  DeclInlineC
-    "/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -12302,7 +12300,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } ",
+          capiWrapperImport =
+          "distilled_lib_1.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular

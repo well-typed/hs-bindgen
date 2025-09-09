@@ -1,7 +1,4 @@
 [
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_5c54826466f2e87b (void))[3] { return &arr0; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -18,7 +15,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_5c54826466f2e87b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_5c54826466f2e87b (void))[3] { return &arr0; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -38,9 +39,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ec6a481a47ca4eb1 (void))[3] { return &arr1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -57,7 +55,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_ec6a481a47ca4eb1",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ec6a481a47ca4eb1 (void))[3] { return &arr1; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -77,9 +79,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_34db8d8b69220fcc (void))[3] { return &arr2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -96,7 +95,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_34db8d8b69220fcc",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_34db8d8b69220fcc (void))[3] { return &arr2; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -116,9 +119,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_f4e746193b856003 (void))[3] { return &arr3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -135,7 +135,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_f4e746193b856003",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_f4e746193b856003 (void))[3] { return &arr3; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -155,9 +159,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bf91904b3049fdd2 (void))[1] { return &arr6; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -174,7 +175,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_bf91904b3049fdd2",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bf91904b3049fdd2 (void))[1] { return &arr6; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           1
@@ -194,9 +199,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9be06c66ecc3a933 (void))[] { return &arr7; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -212,7 +214,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_9be06c66ecc3a933",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9be06c66ecc3a933 (void))[] { return &arr7; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
           (TypePrim
@@ -1173,9 +1179,6 @@
         "Example",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_16bca3ac468967d9 (void))[3] { return &arr_1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1192,7 +1195,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_16bca3ac468967d9",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_16bca3ac468967d9 (void))[3] { return &arr_1; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -1212,9 +1219,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_07e58c5432be4a35 (void) { return &arr_2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1232,7 +1236,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_07e58c5432be4a35",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_07e58c5432be4a35 (void) { return &arr_2; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular
@@ -1254,9 +1262,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_63e072530b04d3b9 (void))[] { return &arr_3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1272,7 +1277,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_63e072530b04d3b9",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_63e072530b04d3b9 (void))[] { return &arr_3; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
           (TypePrim
@@ -1291,9 +1300,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_3db8d1257bc10233 (void) { return &arr_4; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1311,7 +1317,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_3db8d1257bc10233",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_3db8d1257bc10233 (void) { return &arr_4; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular
@@ -1333,9 +1343,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0f74917ee2000dc5 (void))[4][3] { return &arr_5; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1354,7 +1361,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_0f74917ee2000dc5",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0f74917ee2000dc5 (void))[4][3] { return &arr_5; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           4
@@ -1378,9 +1389,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_a48940bd219530d0 (void) { return &arr_6; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1398,7 +1406,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_a48940bd219530d0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_a48940bd219530d0 (void) { return &arr_6; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular
@@ -1420,9 +1432,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1196efca365094f7 (void))[][3] { return &arr_7; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1440,7 +1449,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_1196efca365094f7",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1196efca365094f7 (void))[][3] { return &arr_7; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
           (TypeConstArray
@@ -1463,9 +1476,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_31b6cf83380518c3 (void) { return &arr_8; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1483,7 +1493,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_31b6cf83380518c3",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_31b6cf83380518c3 (void) { return &arr_8; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular
@@ -1505,9 +1519,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_c3dd28889d5b2858 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1544,7 +1555,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_c3dd28889d5b2858",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_c3dd28889d5b2858 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1585,9 +1600,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_93382555f3789d90 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1609,7 +1621,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_93382555f3789d90",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_93382555f3789d90 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1635,9 +1651,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_3a8794adaf677495 (signed int *arg1) { return fun_2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1662,7 +1675,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_3a8794adaf677495",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_3a8794adaf677495 (signed int *arg1) { return fun_2(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1696,9 +1713,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_4afbbb57351eed54 (void)) (triplet arg1) { return &fun_2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1719,7 +1733,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_4afbbb57351eed54",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_4afbbb57351eed54 (void)) (triplet arg1) { return &fun_2; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1745,9 +1763,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_9d59f0f165a2f5cf (signed int *arg1) { return fun_3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1772,7 +1787,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_9d59f0f165a2f5cf",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_9d59f0f165a2f5cf (signed int *arg1) { return fun_3(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1805,9 +1824,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3f63bc5e6ab55421 (void)) (signed int arg1[]) { return &fun_3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1826,7 +1842,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_3f63bc5e6ab55421",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3f63bc5e6ab55421 (void)) (signed int arg1[]) { return &fun_3; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1849,9 +1869,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_c650da1d5d7cf63d (signed int *arg1) { return fun_4(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1876,7 +1893,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_c650da1d5d7cf63d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_c650da1d5d7cf63d (signed int *arg1) { return fun_4(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1910,9 +1931,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_4_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_41b8a0c3ba0ec9e1 (void)) (list arg1) { return &fun_4; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1931,7 +1949,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_41b8a0c3ba0ec9e1",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_4_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_41b8a0c3ba0ec9e1 (void)) (list arg1) { return &fun_4; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1957,9 +1979,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_cfa709c8c74d1eb7 (signed int (*arg1)[3]) { return fun_5(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1986,7 +2005,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_cfa709c8c74d1eb7",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_cfa709c8c74d1eb7 (signed int (*arg1)[3]) { return fun_5(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2022,9 +2045,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_d1abe7db131e3b19 (void)) (signed int arg1[4][3]) { return &fun_5; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2046,7 +2066,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_d1abe7db131e3b19",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_d1abe7db131e3b19 (void)) (signed int arg1[4][3]) { return &fun_5; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2072,9 +2096,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_0432f7eb5cf9a91a (signed int (*arg1)[3]) { return fun_6(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2101,7 +2122,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_0432f7eb5cf9a91a",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_0432f7eb5cf9a91a (signed int (*arg1)[3]) { return fun_6(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2135,9 +2160,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_7c972f297f91d659 (void)) (matrix arg1) { return &fun_6; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2158,7 +2180,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_7c972f297f91d659",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_7c972f297f91d659 (void)) (matrix arg1) { return &fun_6; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2184,9 +2210,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_8dff35caae296df4 (signed int (*arg1)[3]) { return fun_7(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2213,7 +2236,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_8dff35caae296df4",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_8dff35caae296df4 (signed int (*arg1)[3]) { return fun_7(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2248,9 +2275,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_6b3f3d6a5093e5cc (void)) (signed int arg1[][3]) { return &fun_7; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2271,7 +2295,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_6b3f3d6a5093e5cc",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_6b3f3d6a5093e5cc (void)) (signed int arg1[][3]) { return &fun_7; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2296,9 +2324,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_array_b7ed421e8d20e910 (signed int (*arg1)[3]) { return fun_8(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2325,7 +2350,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_b7ed421e8d20e910",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_b7ed421e8d20e910 (signed int (*arg1)[3]) { return fun_8(arg1); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2359,9 +2388,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_c26b88304638d612 (void)) (tripletlist arg1) { return &fun_8; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2382,7 +2408,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_c26b88304638d612",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_c26b88304638d612 (void)) (tripletlist arg1) { return &fun_8; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2408,9 +2438,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_array_c189d8ac4373a49e (void))[3] { return fun_9(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2427,7 +2454,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_c189d8ac4373a49e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_c189d8ac4373a49e (void))[3] { return fun_9(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2453,9 +2484,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_a9f13cbd15057404 (void)) (void))[3] { return &fun_9; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2474,7 +2502,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_a9f13cbd15057404",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_a9f13cbd15057404 (void)) (void))[3] { return &fun_9; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -2499,9 +2531,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "triplet *hs_bindgen_test_array_8c628ce09b6680aa (void) { return fun_10(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2519,7 +2548,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_8c628ce09b6680aa",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "triplet *hs_bindgen_test_array_8c628ce09b6680aa (void) { return fun_10(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2545,9 +2578,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_e0071a6c4a5b4bfc (void)) (void) { return &fun_10; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2567,7 +2597,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_e0071a6c4a5b4bfc",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_e0071a6c4a5b4bfc (void)) (void) { return &fun_10; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -2592,9 +2626,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_array_1b95257f679dfafa (void))[] { return fun_11(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2610,7 +2641,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_1b95257f679dfafa",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_1b95257f679dfafa (void))[] { return fun_11(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2635,9 +2670,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_c242f0482c8c80e3 (void)) (void))[] { return &fun_11; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2655,7 +2687,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_c242f0482c8c80e3",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_c242f0482c8c80e3 (void)) (void))[] { return &fun_11; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -2679,9 +2715,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "list *hs_bindgen_test_array_41c7417f447a711d (void) { return fun_12(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2699,7 +2732,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_41c7417f447a711d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "list *hs_bindgen_test_array_41c7417f447a711d (void) { return fun_12(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2725,9 +2762,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_12_ptr */ __attribute__ ((const)) list *(*hs_bindgen_test_array_29c3e7c11a23c44f (void)) (void) { return &fun_12; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2747,7 +2781,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_29c3e7c11a23c44f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_12_ptr */ __attribute__ ((const)) list *(*hs_bindgen_test_array_29c3e7c11a23c44f (void)) (void) { return &fun_12; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -2772,9 +2810,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_array_752ccb7f8f99f330 (void))[4][3] { return fun_13(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2793,7 +2828,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_752ccb7f8f99f330",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_752ccb7f8f99f330 (void))[4][3] { return fun_13(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2821,9 +2860,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_13_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_c30eaebfadb99814 (void)) (void))[4][3] { return &fun_13; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2844,7 +2880,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_c30eaebfadb99814",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_13_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_c30eaebfadb99814 (void)) (void))[4][3] { return &fun_13; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -2871,9 +2911,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "matrix *hs_bindgen_test_array_6f6335641a10b824 (void) { return fun_14(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2891,7 +2928,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_6f6335641a10b824",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "matrix *hs_bindgen_test_array_6f6335641a10b824 (void) { return fun_14(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2917,9 +2958,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_51fe3407a9c308d6 (void)) (void) { return &fun_14; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2939,7 +2977,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_51fe3407a9c308d6",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_51fe3407a9c308d6 (void)) (void) { return &fun_14; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -2964,9 +3006,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_array_22a4737ff5651e15 (void))[][3] { return fun_15(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2984,7 +3023,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_22a4737ff5651e15",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_22a4737ff5651e15 (void))[][3] { return fun_15(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -3011,9 +3054,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_74204588fdafa1a9 (void)) (void))[][3] { return &fun_15; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3033,7 +3073,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_74204588fdafa1a9",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_74204588fdafa1a9 (void)) (void))[][3] { return &fun_15; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
@@ -3059,9 +3103,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "tripletlist *hs_bindgen_test_array_bce26548e8519620 (void) { return fun_16(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3079,7 +3120,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_bce26548e8519620",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "tripletlist *hs_bindgen_test_array_bce26548e8519620 (void) { return fun_16(); }",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -3105,9 +3150,6 @@
           commentHeader = Just "array.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "array.h",
-  DeclInlineC
-    "/* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_58a2b1249489d65b (void)) (void) { return &fun_16; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3127,7 +3169,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_array_58a2b1249489d65b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_58a2b1249489d65b (void)) (void) { return &fun_16; } ",
+          capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
           []
