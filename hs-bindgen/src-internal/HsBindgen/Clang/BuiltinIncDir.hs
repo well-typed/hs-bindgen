@@ -287,21 +287,23 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- returns the cached value.
 getBuiltinIncDir ::
      Tracer IO BuiltinIncDirMsg
+  -> ClangArgs
   -> BuiltinIncDirConfig
   -> IO (Maybe BuiltinIncDir)
-getBuiltinIncDir tracer config = IORef.readIORef builtinIncDirState >>= \case
-    BuiltinIncDirCached mBuiltinIncDir -> return mBuiltinIncDir
-    BuiltinIncDirInitial -> do
-      mEnvConfig <- getEnvConfig tracer
-      mBuiltinIncDir <- case fromMaybe config mEnvConfig of
-        BuiltinIncDirDisable -> return Nothing
-        BuiltinIncDirAuto ->
-          aux . fmap normWinPath =<< getResourceDir tracer Nothing
-        BuiltinIncDirAutoWithOverflow overflow ->
-          aux . fmap normWinPath =<< getResourceDir tracer (Just overflow)
-        BuiltinIncDirClang -> aux Nothing
-      IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
-      return mBuiltinIncDir
+getBuiltinIncDir tracer args config =
+    IORef.readIORef builtinIncDirState >>= \case
+      BuiltinIncDirCached mBuiltinIncDir -> return mBuiltinIncDir
+      BuiltinIncDirInitial -> do
+        mEnvConfig <- getEnvConfig tracer
+        mBuiltinIncDir <- case fromMaybe config mEnvConfig of
+          BuiltinIncDirDisable -> return Nothing
+          BuiltinIncDirAuto -> aux . fmap normWinPath
+            =<< getResourceDir tracer args Nothing
+          BuiltinIncDirAutoWithOverflow overflow -> aux . fmap normWinPath
+            =<< getResourceDir tracer args (Just overflow)
+          BuiltinIncDirClang -> aux Nothing
+        IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
+        return mBuiltinIncDir
   where
     aux :: Maybe FilePath -> IO (Maybe BuiltinIncDir)
     aux = runMaybeT . \case
@@ -376,9 +378,10 @@ getEnvConfig tracer = Env.lookupEnv envName >>= \case
 -- because the @outs@ buffer is only flushed when overfull.
 getResourceDir ::
      Tracer IO BuiltinIncDirMsg
+  -> ClangArgs
   -> Maybe Text  -- ^ 'Just' overflow string or 'Nothing' for default
   -> IO (Maybe FilePath)
-getResourceDir tracer mOverflow = auxOut 0 >>= \case
+getResourceDir tracer args mOverflow = auxOut 0 >>= \case
     -- Assumption: printed resource directory is significantly shorter than the
     -- size of the buffer
     Just (out, numFillBytes) -> do
@@ -450,7 +453,7 @@ getResourceDir tracer mOverflow = auxOut 0 >>= \case
     -- This function must not trace any output (to @STDOUT@).
     auxPrintResourceDir :: IO ()
     auxPrintResourceDir = void $
-      let args'       = ClangArgs ["-print-resource-dir"]
+      let args'       = ClangArgs $ unClangArgs args ++ ["-print-resource-dir"]
           clangSetup' = defaultClangSetup args' $ ClangInputMemory filename ""
       in  withClang' nullTracer clangSetup' $ const (return Nothing)
 
@@ -510,7 +513,7 @@ getResourceDir tracer mOverflow = auxOut 0 >>= \case
         return Nothing
 
     clangSetup :: ClangSetup
-    clangSetup = defaultClangSetup def $ ClangInputMemory filename ""
+    clangSetup = defaultClangSetup args $ ClangInputMemory filename ""
 
     filename :: FilePath
     filename = "hs-bindgen-print-resource-dir.h"

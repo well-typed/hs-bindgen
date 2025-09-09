@@ -64,13 +64,16 @@ getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig -> IO ClangArgs
 getClangArgs tracer config = do
     extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
       fst <$> ClangArgs.clangTarget config
-    mBuiltinIncDir <- getBuiltinIncDir (contramap BootBuiltinIncDir tracer) $
-      ClangArgs.clangBuiltinIncDir config
-    either throwIO return
-      . ClangArgs.getClangArgs
-      . applyExtraClangArgs extraClangArgs
-      . applyBuiltinIncDir  mBuiltinIncDir
-      $ config
+    -- NOTE getBuiltinIncDir may need extraClangArgs
+    let configExtra = applyExtraClangArgs extraClangArgs config
+    argsExtra <- either throwIO return $ ClangArgs.getClangArgs configExtra
+    mBuiltinIncDir <-
+      getBuiltinIncDir
+        (contramap BootBuiltinIncDir tracer)
+        argsExtra
+        (ClangArgs.clangBuiltinIncDir config)
+    let configBuiltin = applyBuiltinIncDir mBuiltinIncDir configExtra
+    either throwIO return $ ClangArgs.getClangArgs configBuiltin
 
 {-------------------------------------------------------------------------------
   Artefact
