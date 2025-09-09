@@ -1,0 +1,44 @@
+# Simple CI for non-linux setups
+name: Haskell-Simple-MQ
+on:
+  # TODO_PR: Remove PR trigger.
+  pull_request:
+    branches:
+      - main
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "GHC ${{ matrix.ghc }} / LLVM ${{ matrix.llvm }} / ${{ matrix.runner }}"
+    strategy:
+      matrix:
+        include:
+          - runner: 'macos-latest'
+            ghc:    '9.4.8'
+            llvm:   '14'
+          - runner: 'windows-latest'
+            ghc:    '9.4.8'
+            llvm:   '14'
+          # # Tested before merging PR and in Haskell-CI.
+          # - runner: 'ubuntu-latest'
+          #   ghc:    '9.4.8'
+          #   llvm:   '14'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.4.8'
+            llvm:   '16'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.4.8'
+            llvm:   '18'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.4.8'
+            llvm:   '20'
+      fail-fast: false
+    uses: ./.github/workflows/haskell-simple-base.yml
+    with:
+      runner: ${{ matrix.runner }}
+      ghc:    ${{ matrix.ghc }}
+      llvm:   ${{ matrix.llvm }}
