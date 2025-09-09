@@ -79,19 +79,18 @@ data ClangArgsConfig = ClangArgsConfig {
 
       -- | Arguments passed to @libclang@
       --
-      -- The complete list of arguments passed to @libclang@ is
+      -- Complete list of arguments passed to @libclang@:
       --
       -- @
       -- concat [
       --     'clangArgsBefore'
-      --   , clangArgsInternal
+      --   , clangArgsInternal  -- other ClangArgsConfig options
       --   , 'clangArgsInner'
+      --   , clangArgsExtra     -- BINDGEN_EXTRA_CLANG_ARGS
       --   , 'clangArgsAfter'
+      --   , clangArgsBuiltin   -- builtin include directory
       --   ]
       -- @
-      --
-      -- where we assemble @clangArgsInternal@ using the specialized
-      -- 'ClangArgsConfig' records above.
       --
       -- See https://clang.llvm.org/docs/ClangCommandLineReference.html
     , clangArgsInner :: [String]

@@ -158,6 +158,7 @@ clangArgsFooter = Help.vcat [
     , "  3. --clang-option options"
     , "  4. BINDGEN_EXTRA_CLANG_ARGS options"
     , "  5. --clang-option-after options"
+    , "  6. Builtin include directory options"
     ]
 
 selectSliceFooter :: Help.Doc
