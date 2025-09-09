@@ -57,11 +57,14 @@
               VarDeclVar (Idx 0),
               VarDeclIntegral 1 HsPrimCInt])),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:1:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "INCR",
+          commentLocation = Just
+            "macro_functions.h:1:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -102,11 +105,14 @@
                   VarDeclVar (Idx 1),
                   VarDeclVar (Idx 0)])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:2:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "ADD",
+          commentLocation = Just
+            "macro_functions.h:2:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -125,11 +131,14 @@
           (NameHint "x")
           (VarDeclVar (Idx 0))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:4:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "ID",
+          commentLocation = Just
+            "macro_functions.h:4:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -154,11 +163,14 @@
               (NameHint "y")
               (VarDeclVar (Idx 1))))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:5:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "CONST",
+          commentLocation = Just
+            "macro_functions.h:5:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -206,11 +218,14 @@
                   VarDeclVar (Idx 1),
                   VarDeclVar (Idx 0)])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:7:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "CMP",
+          commentLocation = Just
+            "macro_functions.h:7:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -313,11 +328,14 @@
                         HsPrimCULLong,
                       VarDeclVar (Idx 0)]])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:8:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "FUN1",
+          commentLocation = Just
+            "macro_functions.h:8:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -398,11 +416,14 @@
                       VarDeclIntegral 3 HsPrimCULLong,
                       VarDeclVar (Idx 0)]])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:9:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "FUN2",
+          commentLocation = Just
+            "macro_functions.h:9:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -474,11 +495,14 @@
                       (HsName "@NsVar" "iD"))
                     [VarDeclVar (Idx 1)]])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:11:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "G",
+          commentLocation = Just
+            "macro_functions.h:11:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -578,11 +602,14 @@
                         12
                         HsPrimCUInt]])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:13:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "DIV1",
+          commentLocation = Just
+            "macro_functions.h:13:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -674,11 +701,14 @@
                       VarDeclVar (Idx 1)],
                   VarDeclVar (Idx 0)])))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:14:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "DIV2",
+          commentLocation = Just
+            "macro_functions.h:14:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -852,11 +882,14 @@
                     16711680
                     HsPrimCInt]])),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:18:9")
-          (Just "macro_functions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SWAP32",
+          commentLocation = Just
+            "macro_functions.h:18:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -988,8 +1021,12 @@
                               VarDeclIntegral 8 HsPrimCInt]],
                       VarDeclVar (Idx 0)])))))),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_functions.h:19:9")
-          (Just "macro_functions.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "AV_VERSION_INT",
+          commentLocation = Just
+            "macro_functions.h:19:9",
+          commentHeader = Just
+            "macro_functions.h",
+          commentChildren = []}}]

@@ -12,11 +12,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Global variables"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Global variables"]])},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -187,31 +188,32 @@ TranslationUnit {
         declHeader = "globals.h",
         declComment =
         Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Non-extern non-static global variables"],
-            Paragraph
-              [
-                TextContent
-                  "These kinds of variables need to be treated with care, to avoid duplicate",
-                TextContent
-                  "symbols, but do exist in the wild."],
-            Paragraph
-              [
-                TextContent
-                  "We test with various kinds of initializers as we must explicitly ignore them",
-                TextContent
-                  "in our parser. The list here roughly follows the definition of `CXCursor`",
-                TextContent
-                  "[1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl'",
-                TextContent
-                  "in `HsBindgen.Frontend.Pass.Parse.Decl`."],
-            Paragraph
-              [
-                TextContent
-                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Non-extern non-static global variables"],
+              Paragraph
+                [
+                  TextContent
+                    "These kinds of variables need to be treated with care, to avoid duplicate",
+                  TextContent
+                    "symbols, but do exist in the wild."],
+              Paragraph
+                [
+                  TextContent
+                    "We test with various kinds of initializers as we must explicitly ignore them",
+                  TextContent
+                    "in our parser. The list here roughly follows the definition of `CXCursor`",
+                  TextContent
+                    "[1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl'",
+                  TextContent
+                    "in `HsBindgen.Frontend.Pass.Parse.Decl`."],
+              Paragraph
+                [
+                  TextContent
+                    "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]])},
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -599,30 +601,31 @@ TranslationUnit {
         declHeader = "globals.h",
         declComment =
         Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Additional examples of global variables, abstracted from real examples"],
-            Paragraph
-              [
-                TextContent
-                  "The `streamBinary`/`streamBinary_len` example comes from [1], and is an",
-                TextContent
-                  "example of a non-extern non-static global (indeed, the header does not even",
-                TextContent "use",
-                InlineCommand {
-                  inlineCommandName = "pragma",
-                  inlineCommandRenderKind =
-                  CXCommentInlineCommandRenderKind_Normal,
-                  inlineCommandArgs = []},
-                TextContent "once",
-                TextContent "@",
-                TextContent "or similar)."],
-            Paragraph
-              [
-                TextContent
-                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Additional examples of global variables, abstracted from real examples"],
+              Paragraph
+                [
+                  TextContent
+                    "The `streamBinary`/`streamBinary_len` example comes from [1], and is an",
+                  TextContent
+                    "example of a non-extern non-static global (indeed, the header does not even",
+                  TextContent "use",
+                  InlineCommand {
+                    inlineCommandName = "pragma",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Normal,
+                    inlineCommandArgs = []},
+                  TextContent "once",
+                  TextContent "@",
+                  TextContent "or similar)."],
+              Paragraph
+                [
+                  TextContent
+                    "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]])},
       declKind = DeclGlobal
         (TypeConstArray
           4096
@@ -1567,14 +1570,15 @@ TranslationUnit {
         declHeader = "globals.h",
         declComment =
         Just
-          [
-            Paragraph
-              [TextContent "Constant"],
-            Paragraph
-              [
-                TextContent
-                  "Although this is a constant, we don't expect an initializer (since it's",
-                TextContent "`extern`)."]]},
+          (Comment
+            [
+              Paragraph
+                [TextContent "Constant"],
+              Paragraph
+                [
+                  TextContent
+                    "Although this is a constant, we don't expect an initializer (since it's",
+                  TextContent "`extern`)."]])},
       declKind = DeclGlobal
         (TypeConst
           (TypePrim
@@ -1596,11 +1600,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Constant, through typedef"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Constant, through typedef"]])},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1657,15 +1662,16 @@ TranslationUnit {
         declHeader = "globals.h",
         declComment =
         Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Constant, but local to the file"],
-            Paragraph
-              [
-                TextContent
-                  "Unlike with `extern`, in this we _do_ expect an initializer."]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Constant, but local to the file"],
+              Paragraph
+                [
+                  TextContent
+                    "Unlike with `extern`, in this we _do_ expect an initializer."]])},
       declKind = DeclGlobal
         (TypeConst
           (TypePrim
@@ -1687,11 +1693,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "No storage class specified"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "No storage class specified"]])},
       declKind = DeclGlobal
         (TypeConst
           (TypePrim
@@ -1713,11 +1720,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "A an array of size 4 containing constant integers"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A an array of size 4 containing constant integers"]])},
       declKind = DeclGlobal
         (TypeConstArray
           4
@@ -1743,11 +1751,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "An array of uknown size containing constant integers"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "An array of uknown size containing constant integers"]])},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
@@ -1855,11 +1864,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "A constant tuple"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A constant tuple"]])},
       declKind = DeclGlobal
         (TypeConst
           (TypeStruct
@@ -1885,11 +1895,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "A non-constant tuple with a constant member"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A non-constant tuple with a constant member"]])},
       declKind = DeclGlobal
         (TypeStruct
           NamePair {
@@ -1914,11 +1925,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "A pointer to const int"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A pointer to const int"]])},
       declKind = DeclGlobal
         (TypePointer
           (TypeConst
@@ -1943,11 +1955,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "A const pointer to int"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A const pointer to int"]])},
       declKind = DeclGlobal
         (TypeConst
           (TypePointer
@@ -1973,11 +1986,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "globals.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "A const pointer to const int"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A const pointer to const int"]])},
       declKind = DeclGlobal
         (TypeConst
           (TypePointer

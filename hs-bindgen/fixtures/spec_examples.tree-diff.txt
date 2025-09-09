@@ -12,11 +12,12 @@ TranslationUnit {
         declAliases = [],
         declHeader = "spec_examples.h",
         declComment = Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Examples from the initial specification"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Examples from the initial specification"]])},
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {

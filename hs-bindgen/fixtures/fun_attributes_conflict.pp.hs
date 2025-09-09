@@ -16,7 +16,7 @@ $(CAPI.addCSource "#include <fun_attributes_conflict.h>\nsigned int hs_bindgen_t
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-__C declaration:__ @square_cp(int)@
+__C declaration:__ @square_cp@
 
 __defined at:__ @fun_attributes_conflict.h:9:5@
 
@@ -32,7 +32,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_10e6b4d386eec
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-__C declaration:__ @square_cp(int)@
+__C declaration:__ @square_cp@
 
 __defined at:__ @fun_attributes_conflict.h:9:5@
 

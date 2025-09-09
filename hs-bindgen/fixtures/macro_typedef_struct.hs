@@ -61,12 +61,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_typedef_struct.h:1:9")
-          (Just "macro_typedef_struct.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "MY_TYPE",
+          commentLocation = Just
+            "macro_typedef_struct.h:1:9",
+          commentHeader = Just
+            "macro_typedef_struct.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -228,12 +230,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_typedef_struct.h:4:7")
-              (Just "macro_typedef_struct.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "macro_typedef_struct.h:4:7",
+              commentHeader = Just
+                "macro_typedef_struct.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -262,12 +266,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_typedef_struct.h:5:11")
-              (Just "macro_typedef_struct.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "macro_typedef_struct.h:5:11",
+              commentHeader = Just
+                "macro_typedef_struct.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -332,12 +338,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_typedef_struct.h:3:9")
-          (Just "macro_typedef_struct.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bar",
+          commentLocation = Just
+            "macro_typedef_struct.h:3:9",
+          commentHeader = Just
+            "macro_typedef_struct.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -371,12 +379,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "macro_typedef_struct.h:4:7")
-                  (Just "macro_typedef_struct.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "macro_typedef_struct.h:4:7",
+                  commentHeader = Just
+                    "macro_typedef_struct.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -405,12 +415,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "macro_typedef_struct.h:5:11")
-                  (Just "macro_typedef_struct.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "macro_typedef_struct.h:5:11",
+                  commentHeader = Just
+                    "macro_typedef_struct.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -475,12 +487,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_typedef_struct.h:3:9")
-              (Just "macro_typedef_struct.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "bar",
+              commentLocation = Just
+                "macro_typedef_struct.h:3:9",
+              commentHeader = Just
+                "macro_typedef_struct.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -517,12 +531,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_typedef_struct.h:4:7")
-                          (Just "macro_typedef_struct.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "macro_typedef_struct.h:4:7",
+                          commentHeader = Just
+                            "macro_typedef_struct.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -551,12 +567,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_typedef_struct.h:5:11")
-                          (Just "macro_typedef_struct.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "macro_typedef_struct.h:5:11",
+                          commentHeader = Just
+                            "macro_typedef_struct.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -621,12 +639,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_typedef_struct.h:3:9")
-                      (Just "macro_typedef_struct.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "bar",
+                      commentLocation = Just
+                        "macro_typedef_struct.h:3:9",
+                      commentHeader = Just
+                        "macro_typedef_struct.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -665,12 +685,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_typedef_struct.h:4:7")
-                          (Just "macro_typedef_struct.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "macro_typedef_struct.h:4:7",
+                          commentHeader = Just
+                            "macro_typedef_struct.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -699,12 +721,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_typedef_struct.h:5:11")
-                          (Just "macro_typedef_struct.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "macro_typedef_struct.h:5:11",
+                          commentHeader = Just
+                            "macro_typedef_struct.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -769,12 +793,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_typedef_struct.h:3:9")
-                      (Just "macro_typedef_struct.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "bar",
+                      commentLocation = Just
+                        "macro_typedef_struct.h:3:9",
+                      commentHeader = Just
+                        "macro_typedef_struct.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [

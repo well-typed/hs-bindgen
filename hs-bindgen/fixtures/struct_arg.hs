@@ -28,11 +28,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "struct_arg.h:3:9")
-              (Just "struct_arg.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "struct_arg.h:3:9",
+              commentHeader = Just
+                "struct_arg.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -74,11 +77,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:2:8")
-          (Just "struct_arg.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "thing",
+          commentLocation = Just
+            "struct_arg.h:2:8",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -111,11 +117,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "struct_arg.h:3:9")
-                  (Just "struct_arg.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "struct_arg.h:3:9",
+                  commentHeader = Just
+                    "struct_arg.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -157,11 +166,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "struct_arg.h:2:8")
-              (Just "struct_arg.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "thing",
+              commentLocation = Just
+                "struct_arg.h:2:8",
+              commentHeader = Just
+                "struct_arg.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -197,11 +209,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "struct_arg.h:3:9")
-                          (Just "struct_arg.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "struct_arg.h:3:9",
+                          commentHeader = Just
+                            "struct_arg.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -243,11 +258,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "struct_arg.h:2:8")
-                      (Just "struct_arg.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "thing",
+                      commentLocation = Just
+                        "struct_arg.h:2:8",
+                      commentHeader = Just
+                        "struct_arg.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -283,11 +301,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "struct_arg.h:3:9")
-                          (Just "struct_arg.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "struct_arg.h:3:9",
+                          commentHeader = Just
+                            "struct_arg.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -329,11 +350,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "struct_arg.h:2:8")
-                      (Just "struct_arg.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "thing",
+                      commentLocation = Just
+                        "struct_arg.h:2:8",
+                      commentHeader = Just
+                        "struct_arg.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -382,11 +406,12 @@
                 "@NsTypeConstr"
                 "Thing")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -414,11 +439,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:6:5")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_1",
+          commentLocation = Just
+            "struct_arg.h:6:5",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -458,11 +487,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:6:5")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_1",
+          commentLocation = Just
+            "struct_arg.h:6:5",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -482,11 +515,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -518,11 +552,15 @@
                 "Thing"}
             NameOriginInSource},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:7:14")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_2",
+          commentLocation = Just
+            "struct_arg.h:7:14",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -562,11 +600,15 @@
                 "Thing"}
             NameOriginInSource)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:7:14")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_2",
+          commentLocation = Just
+            "struct_arg.h:7:14",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -586,11 +628,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
@@ -600,22 +643,24 @@
                 "@NsTypeConstr"
                 "Thing")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "z",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -665,11 +710,15 @@
                 "Thing"}
             NameOriginInSource},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:9:14")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3a",
+          commentLocation = Just
+            "struct_arg.h:9:14",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -724,11 +773,15 @@
                 "Thing"}
             NameOriginInSource)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:9:14")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3a",
+          commentLocation = Just
+            "struct_arg.h:9:14",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -748,11 +801,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
@@ -762,22 +816,24 @@
                 "@NsTypeConstr"
                 "Thing")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "z",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCChar)),
@@ -821,11 +877,15 @@
               (PrimSignImplicit
                 (Just Signed)))},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:10:6")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3b",
+          commentLocation = Just
+            "struct_arg.h:10:6",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -875,11 +935,15 @@
               (PrimSignImplicit
                 (Just Signed))))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "struct_arg.h:10:6")
-          (Just "struct_arg.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3b",
+          commentLocation = Just
+            "struct_arg.h:10:6",
+          commentHeader = Just
+            "struct_arg.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

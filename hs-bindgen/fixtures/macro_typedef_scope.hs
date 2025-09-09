@@ -61,12 +61,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_typedef_scope.h:4:9")
-          (Just "macro_typedef_scope.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T1",
+          commentLocation = Just
+            "macro_typedef_scope.h:4:9",
+          commentHeader = Just
+            "macro_typedef_scope.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -263,12 +265,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_typedef_scope.h:5:12")
-          (Just "macro_typedef_scope.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T2",
+          commentLocation = Just
+            "macro_typedef_scope.h:5:12",
+          commentHeader = Just
+            "macro_typedef_scope.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -466,12 +470,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_typedef_scope.h:6:9")
-          (Just "macro_typedef_scope.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T3",
+          commentLocation = Just
+            "macro_typedef_scope.h:6:9",
+          commentHeader = Just
+            "macro_typedef_scope.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -668,12 +674,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_typedef_scope.h:7:12")
-          (Just "macro_typedef_scope.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T4",
+          commentLocation = Just
+            "macro_typedef_scope.h:7:12",
+          commentHeader = Just
+            "macro_typedef_scope.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

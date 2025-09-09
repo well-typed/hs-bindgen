@@ -25,11 +25,15 @@
         64
         HsPrimCInt,
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:39:9")
-          (Just "doxygen_docs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "MAX_NAME_LENGTH",
+          commentLocation = Just
+            "doxygen_docs.h:39:9",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -167,25 +171,26 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph
-                [
-                  TextContent
-                    "This is the comment",
-                  InlineCommand {
-                    inlineCommandName = "b",
-                    inlineCommandRenderKind =
-                    CXCommentInlineCommandRenderKind_Bold,
-                    inlineCommandArgs = ["title"]},
-                  TextContent ""],
-              VerbatimLine "size_type",
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Size type for this library"]}]},
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "This is the comment",
+                    InlineCommand {
+                      inlineCommandName = "b",
+                      inlineCommandRenderKind =
+                      CXCommentInlineCommandRenderKind_Bold,
+                      inlineCommandArgs = ["title"]},
+                    TextContent ""],
+                VerbatimLine "size_type",
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Size type for this library"]}])},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -333,20 +338,24 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
                 "This is the comment",
-              Bold [TextContent "title"]])
-          (Just "doxygen_docs.h:54:16")
-          (Just "doxygen_docs.h")
-          [
+              Bold [TextContent "title"]],
+          commentOrigin = Just
+            "size_type",
+          commentLocation = Just
+            "doxygen_docs.h:54:16",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim "size_type",
             Paragraph
               [
                 TextContent
-                  "Size type for this library"]])},
+                  "Size type for this library"]]}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -501,11 +510,15 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:61:12")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_counter",
+          commentLocation = Just
+            "doxygen_docs.h:61:12",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim
               "extern int global_counter",
             Paragraph
@@ -515,7 +528,7 @@
             Paragraph
               [
                 TextContent
-                  "This variable tracks the number of operations performed."]]),
+                  "This variable tracks the number of operations performed."]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -547,17 +560,21 @@
                 (PrimSignImplicit
                   (Just Signed)))))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:67:20")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "version_string",
+          commentLocation = Just
+            "doxygen_docs.h:67:20",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim
               "extern const char* version_string",
             Paragraph
               [
                 TextContent
-                  "Version string constant"]]),
+                  "Version string constant"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -578,23 +595,24 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph
-                [
-                  TextContent
-                    "This is the comment",
-                  InlineCommand {
-                    inlineCommandName = "c",
-                    inlineCommandRenderKind =
-                    CXCommentInlineCommandRenderKind_Monospaced,
-                    inlineCommandArgs = ["title"]},
-                  TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Forward declaration with documentation"]}]},
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "This is the comment",
+                    InlineCommand {
+                      inlineCommandName = "c",
+                      inlineCommandRenderKind =
+                      CXCommentInlineCommandRenderKind_Monospaced,
+                      inlineCommandArgs = ["title"]},
+                    TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Forward declaration with documentation"]}])},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
           TypeSpec {
@@ -603,20 +621,24 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
                 "This is the comment",
               Monospace
-                [TextContent "title"]])
-          (Just "doxygen_docs.h:72:8")
-          (Just "doxygen_docs.h")
-          [
+                [TextContent "title"]],
+          commentOrigin = Just
+            "forward_declared_struct",
+          commentLocation = Just
+            "doxygen_docs.h:72:8",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
-                  "Forward declaration with documentation"]])},
+                  "Forward declaration with documentation"]]}},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -634,14 +656,15 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Forward declaration of union"]}]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Forward declaration of union"]}])},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
           TypeSpec {
@@ -650,15 +673,19 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:77:7")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "forward_declared_union",
+          commentLocation = Just
+            "doxygen_docs.h:77:7",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
-                  "Forward declaration of union"]])},
+                  "Forward declaration of union"]]}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -686,16 +713,17 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph [TextContent ""],
-              VerbatimLine "color_enum",
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Color enumeration without typedef"]}]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                VerbatimLine "color_enum",
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Color enumeration without typedef"]}])},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -719,9 +747,10 @@
                     nameHsIdent = HsIdentifier
                       "COLOR_RED"},
                   fieldComment = Just
-                    [
-                      Paragraph
-                        [TextContent "Red color"]]},
+                    (Comment
+                      [
+                        Paragraph
+                          [TextContent "Red color"]])},
                 enumConstantValue = 0},
               EnumConstant {
                 enumConstantInfo = FieldInfo {
@@ -732,9 +761,10 @@
                     nameHsIdent = HsIdentifier
                       "COLOR_GREEN"},
                   fieldComment = Just
-                    [
-                      Paragraph
-                        [TextContent "Green color"]]},
+                    (Comment
+                      [
+                        Paragraph
+                          [TextContent "Green color"]])},
                 enumConstantValue = 1},
               EnumConstant {
                 enumConstantInfo = FieldInfo {
@@ -745,9 +775,10 @@
                     nameHsIdent = HsIdentifier
                       "COLOR_BLUE"},
                   fieldComment = Just
-                    [
-                      Paragraph
-                        [TextContent "Blue color"]]},
+                    (Comment
+                      [
+                        Paragraph
+                          [TextContent "Blue color"]])},
                 enumConstantValue = 2}]},
         declSpec = DeclSpec
           TypeSpec {
@@ -758,16 +789,20 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:83:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "color_enum",
+          commentLocation = Just
+            "doxygen_docs.h:83:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim "color_enum",
             Paragraph
               [
                 TextContent
-                  "Color enumeration without typedef"]])},
+                  "Color enumeration without typedef"]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1018,16 +1053,22 @@
               nameHsIdent = HsIdentifier
                 "COLOR_RED"},
             fieldComment = Just
-              [
-                Paragraph
-                  [TextContent "Red color"]]},
+              (Comment
+                [
+                  Paragraph
+                    [TextContent "Red color"]])},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          (Just [TextContent "Red color"])
-          (Just "doxygen_docs.h:84:5")
-          (Just "doxygen_docs.h")
-          [])},
+        Comment {
+          commentTitle = Just
+            [TextContent "Red color"],
+          commentOrigin = Just
+            "COLOR_RED",
+          commentLocation = Just
+            "doxygen_docs.h:84:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1050,17 +1091,22 @@
               nameHsIdent = HsIdentifier
                 "COLOR_GREEN"},
             fieldComment = Just
-              [
-                Paragraph
-                  [TextContent "Green color"]]},
+              (Comment
+                [
+                  Paragraph
+                    [TextContent "Green color"]])},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          (Just
-            [TextContent "Green color"])
-          (Just "doxygen_docs.h:85:5")
-          (Just "doxygen_docs.h")
-          [])},
+        Comment {
+          commentTitle = Just
+            [TextContent "Green color"],
+          commentOrigin = Just
+            "COLOR_GREEN",
+          commentLocation = Just
+            "doxygen_docs.h:85:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1083,17 +1129,22 @@
               nameHsIdent = HsIdentifier
                 "COLOR_BLUE"},
             fieldComment = Just
-              [
-                Paragraph
-                  [TextContent "Blue color"]]},
+              (Comment
+                [
+                  Paragraph
+                    [TextContent "Blue color"]])},
           enumConstantValue = 2},
       patSynComment = Just
-        (Comment
-          (Just
-            [TextContent "Blue color"])
-          (Just "doxygen_docs.h:86:5")
-          (Just "doxygen_docs.h")
-          [])},
+        Comment {
+          commentTitle = Just
+            [TextContent "Blue color"],
+          commentOrigin = Just
+            "COLOR_BLUE",
+          commentLocation = Just
+            "doxygen_docs.h:86:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []}},
   DeclInlineCInclude
     "doxygen_docs.h",
   DeclInlineC
@@ -1220,11 +1271,13 @@
                           instanceSpecConstraints = [
                             ]})]}),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "input_data",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -1235,7 +1288,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Input data buffer"]]}])},
+                          "Input data buffer"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "output_data"),
@@ -1352,11 +1405,13 @@
                           instanceSpecConstraints = [
                             ]})]}),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "output_data",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -1367,7 +1422,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Output data buffer"]]}])},
+                          "Output data buffer"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "size"),
@@ -1484,11 +1539,12 @@
                           instanceSpecConstraints = [
                             ]})]}),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -1499,7 +1555,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Size of data, updated on return"]]}])}],
+                          "Size of data, updated on return"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -1887,10 +1943,15 @@
             (PrimIntegral PrimInt Signed)},
       foreignImportComment =
       Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:105:5")
-          (Just "doxygen_docs.h")
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_data",
+          commentLocation = Just
+            "doxygen_docs.h:105:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren =
           [
             Paragraph
               [
@@ -1937,7 +1998,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Status code (0 = success, -1 = error)"]]),
+                  "Status code (0 = success, -1 = error)"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -2657,10 +2718,15 @@
             (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:105:5")
-          (Just "doxygen_docs.h")
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_data",
+          commentLocation = Just
+            "doxygen_docs.h:105:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren =
           [
             Paragraph
               [
@@ -2707,7 +2773,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Status code (0 = success, -1 = error)"]]),
+                  "Status code (0 = success, -1 = error)"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2727,11 +2793,12 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "filename",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -2744,7 +2811,7 @@
                         TextContent "The",
                         Monospace [TextContent "char*"],
                         TextContent
-                          "filename to process"]]}])}],
+                          "filename to process"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCBool)),
@@ -2771,11 +2838,15 @@
           functionRes = TypePrim
             PrimBool},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:116:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_file",
+          commentLocation = Just
+            "doxygen_docs.h:116:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -2813,7 +2884,7 @@
                 Monospace [TextContent "true"],
                 TextContent "if successful,",
                 Monospace [TextContent "false"],
-                TextContent "otherwise"]]),
+                TextContent "otherwise"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -2846,11 +2917,15 @@
                   (PrimSignImplicit Nothing)))]
           (TypePrim PrimBool)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:116:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_file",
+          commentLocation = Just
+            "doxygen_docs.h:116:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -2888,7 +2963,7 @@
                 Monospace [TextContent "true"],
                 TextContent "if successful,",
                 Monospace [TextContent "false"],
-                TextContent "otherwise"]]),
+                TextContent "otherwise"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2908,11 +2983,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "base",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -2920,18 +2996,20 @@
                       Emph [TextContent "(input)"]],
                   definitionListContent = [
                     Paragraph
-                      [TextContent "Base value"]]}])},
+                      [TextContent "Base value"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "multiplier"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "multiplier",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -2942,7 +3020,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Multiplier value"]]}])}],
+                          "Multiplier value"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -2975,11 +3053,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:131:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "calculate_value",
+          commentLocation = Just
+            "doxygen_docs.h:131:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -3013,7 +3095,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Calculated result"]]),
+                  "Calculated result"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -3049,11 +3131,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:131:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "calculate_value",
+          commentLocation = Just
+            "doxygen_docs.h:131:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -3087,7 +3173,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Calculated result"]]),
+                  "Calculated result"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3107,11 +3193,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "value",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -3121,7 +3208,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Input value"]]}])}],
+                          "Input value"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCBool)),
@@ -3146,11 +3233,15 @@
           functionRes = TypePrim
             PrimBool},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:148:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "html_example",
+          commentLocation = Just
+            "doxygen_docs.h:148:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -3185,7 +3276,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Boolean result"]]),
+                TextContent "Boolean result"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -3216,11 +3307,15 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim PrimBool)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:148:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "html_example",
+          commentLocation = Just
+            "doxygen_docs.h:148:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -3255,7 +3350,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Boolean result"]]),
+                TextContent "Boolean result"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3276,11 +3371,12 @@
             (HsPtr
               (HsPrimType HsPrimCChar)),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "items",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -3290,7 +3386,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Array of items"]]}])},
+                          "Array of items"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "count"),
@@ -3407,11 +3503,12 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "count",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -3421,7 +3518,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Number of items"]]}])}],
+                          "Number of items"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCBool)),
@@ -3573,11 +3670,15 @@
           functionRes = TypePrim
             PrimBool},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:174:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "doxygen_docs.h:174:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -3685,7 +3786,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Success status"]]),
+                TextContent "Success status"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -3951,11 +4052,15 @@
                               ]})]}}]
           (TypePrim PrimBool)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:174:6")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "doxygen_docs.h:174:6",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4063,7 +4168,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Success status"]]),
+                TextContent "Success status"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4083,11 +4188,12 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "ptr",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -4097,7 +4203,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Pointer to data"]]}])}],
+                          "Pointer to data"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -4123,11 +4229,15 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:186:7")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "dangerous_function",
+          commentLocation = Just
+            "doxygen_docs.h:186:7",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4162,7 +4272,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Modified pointer"]]),
+                  "Modified pointer"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -4192,11 +4302,15 @@
           [TypePointer TypeVoid]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:186:7")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "dangerous_function",
+          commentLocation = Just
+            "doxygen_docs.h:186:7",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4231,7 +4345,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Modified pointer"]]),
+                  "Modified pointer"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4251,11 +4365,12 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "input",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -4265,7 +4380,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Input string"]]}])}],
+                          "Input string"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -4294,11 +4409,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:197:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "detailed_return_codes",
+          commentLocation = Just
+            "doxygen_docs.h:197:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4332,7 +4451,7 @@
                 Bold [TextContent "returns:"],
                 TextContent "-3",
                 TextContent
-                  "Processing error"]]),
+                  "Processing error"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -4368,11 +4487,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:197:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "detailed_return_codes",
+          commentLocation = Just
+            "doxygen_docs.h:197:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4406,7 +4529,7 @@
                 Bold [TextContent "returns:"],
                 TextContent "-3",
                 TextContent
-                  "Processing error"]]),
+                  "Processing error"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4426,11 +4549,13 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "old_param",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -4441,7 +4566,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Legacy parameter"]]}])}],
+                          "Legacy parameter"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -4466,11 +4591,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:206:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "old_function",
+          commentLocation = Just
+            "doxygen_docs.h:206:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4495,7 +4624,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Legacy result"]]),
+                TextContent "Legacy result"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -4527,11 +4656,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:206:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "old_function",
+          commentLocation = Just
+            "doxygen_docs.h:206:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4556,7 +4689,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Legacy result"]]),
+                TextContent "Legacy result"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4576,11 +4709,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -4605,11 +4739,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:216:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "versioned_function",
+          commentLocation = Just
+            "doxygen_docs.h:216:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4627,7 +4765,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Processed data"]]),
+                TextContent "Processed data"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -4659,11 +4797,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:216:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "versioned_function",
+          commentLocation = Just
+            "doxygen_docs.h:216:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4681,7 +4823,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Processed data"]]),
+                TextContent "Processed data"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4718,46 +4860,47 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Callback function type"]},
-              Paragraph [TextContent ""],
-              ParamCommand {
-                paramCommandName = "event_type",
-                paramCommandIndex = Just 0,
-                paramCommandDirection = Just
-                  CXCommentParamPassDirection_In,
-                paramCommandIsDirectionExplicit =
-                False,
-                paramCommandContent = [
-                  Paragraph
-                    [
-                      TextContent "Type of event",
-                      TextContent ""]]},
-              ParamCommand {
-                paramCommandName = "user_data",
-                paramCommandIndex = Just 1,
-                paramCommandDirection = Just
-                  CXCommentParamPassDirection_In,
-                paramCommandIsDirectionExplicit =
-                False,
-                paramCommandContent = [
-                  Paragraph
-                    [
-                      TextContent
-                        "User-provided data",
-                      TextContent ""]]},
-              BlockCommand {
-                blockCommandName = "return",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Handling result"]}]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Callback function type"]},
+                Paragraph [TextContent ""],
+                ParamCommand {
+                  paramCommandName = "event_type",
+                  paramCommandIndex = Just 0,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent "Type of event",
+                        TextContent ""]]},
+                ParamCommand {
+                  paramCommandName = "user_data",
+                  paramCommandIndex = Just 1,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "User-provided data",
+                        TextContent ""]]},
+                BlockCommand {
+                  blockCommandName = "return",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Handling result"]}])},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -4786,11 +4929,15 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:225:15")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "event_callback_t",
+          commentLocation = Just
+            "doxygen_docs.h:225:15",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -4819,7 +4966,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Handling result"]])},
+                  "Handling result"]]}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -4994,14 +5141,15 @@
                   nameHsIdent = HsIdentifier
                     "config_t_id"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Unique identifier"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Unique identifier"]}])},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -5121,15 +5269,18 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:234:14")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "id",
+              commentLocation = Just
+                "doxygen_docs.h:234:14",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Unique identifier"]])},
+                      "Unique identifier"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -5147,14 +5298,15 @@
                   nameHsIdent = HsIdentifier
                     "config_t_name"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Human-readable name"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Human-readable name"]}])},
               structFieldType = TypeConstArray
                 64
                 (TypePrim
@@ -5164,15 +5316,18 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:237:10")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "name",
+              commentLocation = Just
+                "doxygen_docs.h:237:10",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Human-readable name"]])},
+                      "Human-readable name"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -5298,14 +5453,15 @@
                   nameHsIdent = HsIdentifier
                     "config_t_flags"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Configuration flags"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Configuration flags"]}])},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -5425,15 +5581,18 @@
               structFieldOffset = 544,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:240:14")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "flags",
+              commentLocation = Just
+                "doxygen_docs.h:240:14",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Configuration flags"]])},
+                      "Configuration flags"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -5452,24 +5611,25 @@
                   nameHsIdent = HsIdentifier
                     "config_t_callback"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Optional callback function"]},
-                    Paragraph
-                      [
-                        TextContent "See also:",
-                        InlineRefCommand
-                          (ById
-                            NamePair {
-                              nameC = Name "event_callback_t",
-                              nameHsIdent = HsIdentifier
-                                "Event_callback_t"})],
-                    Paragraph [TextContent ""]]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Optional callback function"]},
+                      Paragraph
+                        [
+                          TextContent "See also:",
+                          InlineRefCommand
+                            (ById
+                              NamePair {
+                                nameC = Name "event_callback_t",
+                                nameHsIdent = HsIdentifier
+                                  "Event_callback_t"})],
+                      Paragraph [TextContent ""]])},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
@@ -5479,11 +5639,14 @@
               structFieldOffset = 576,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:247:22")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "callback",
+              commentLocation = Just
+                "doxygen_docs.h:247:22",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
@@ -5492,7 +5655,7 @@
                   [
                     TextContent "See also:",
                     Identifier
-                      "Event_callback_t"]])},
+                      "Event_callback_t"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -5509,28 +5672,33 @@
                   nameHsIdent = HsIdentifier
                     "config_t_user_data"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "User data for callback"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "User data for callback"]}])},
               structFieldType = TypePointer
                 TypeVoid,
               structFieldOffset = 640,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:250:11")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "user_data",
+              commentLocation = Just
+                "doxygen_docs.h:250:11",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "User data for callback"]])}],
+                      "User data for callback"]]}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -5545,18 +5713,19 @@
             declAliases = [Name "config_t"],
             declHeader = "doxygen_docs.h",
             declComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Structure with documented fields"]},
-                Paragraph
-                  [
-                    TextContent
-                      "This structure demonstrates field documentation."]]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Structure with documented fields"]},
+                  Paragraph
+                    [
+                      TextContent
+                        "This structure demonstrates field documentation."]])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -5573,14 +5742,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_id"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Unique identifier"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Unique identifier"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -5708,14 +5878,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_name"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Human-readable name"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Human-readable name"]}])},
                   structFieldType = TypeConstArray
                     64
                     (TypePrim
@@ -5733,14 +5904,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_flags"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Configuration flags"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Configuration flags"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -5868,24 +6040,25 @@
                       nameHsIdent = HsIdentifier
                         "config_t_callback"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Optional callback function"]},
-                        Paragraph
-                          [
-                            TextContent "See also:",
-                            InlineRefCommand
-                              (ById
-                                NamePair {
-                                  nameC = Name "event_callback_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Event_callback_t"})],
-                        Paragraph [TextContent ""]]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Optional callback function"]},
+                          Paragraph
+                            [
+                              TextContent "See also:",
+                              InlineRefCommand
+                                (ById
+                                  NamePair {
+                                    nameC = Name "event_callback_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Event_callback_t"})],
+                          Paragraph [TextContent ""]])},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -5903,14 +6076,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_user_data"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "User data for callback"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "User data for callback"]}])},
                   structFieldType = TypePointer
                     TypeVoid,
                   structFieldOffset = 640,
@@ -5925,11 +6099,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:232:9")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "config_t",
+          commentLocation = Just
+            "doxygen_docs.h:232:9",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -5937,7 +6114,7 @@
             Paragraph
               [
                 TextContent
-                  "This structure demonstrates field documentation."]])},
+                  "This structure demonstrates field documentation."]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -6075,14 +6252,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_id"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Unique identifier"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Unique identifier"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -6202,15 +6380,18 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:234:14")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "id",
+                  commentLocation = Just
+                    "doxygen_docs.h:234:14",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Unique identifier"]])},
+                          "Unique identifier"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -6228,14 +6409,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_name"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Human-readable name"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Human-readable name"]}])},
                   structFieldType = TypeConstArray
                     64
                     (TypePrim
@@ -6245,15 +6427,18 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:237:10")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "name",
+                  commentLocation = Just
+                    "doxygen_docs.h:237:10",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Human-readable name"]])},
+                          "Human-readable name"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -6379,14 +6564,15 @@
                       nameHsIdent = HsIdentifier
                         "config_t_flags"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Configuration flags"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Configuration flags"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -6506,15 +6692,18 @@
                   structFieldOffset = 544,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:240:14")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "flags",
+                  commentLocation = Just
+                    "doxygen_docs.h:240:14",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Configuration flags"]])},
+                          "Configuration flags"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -6533,24 +6722,25 @@
                       nameHsIdent = HsIdentifier
                         "config_t_callback"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Optional callback function"]},
-                        Paragraph
-                          [
-                            TextContent "See also:",
-                            InlineRefCommand
-                              (ById
-                                NamePair {
-                                  nameC = Name "event_callback_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Event_callback_t"})],
-                        Paragraph [TextContent ""]]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Optional callback function"]},
+                          Paragraph
+                            [
+                              TextContent "See also:",
+                              InlineRefCommand
+                                (ById
+                                  NamePair {
+                                    nameC = Name "event_callback_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Event_callback_t"})],
+                          Paragraph [TextContent ""]])},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
@@ -6560,11 +6750,14 @@
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:247:22")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "callback",
+                  commentLocation = Just
+                    "doxygen_docs.h:247:22",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
@@ -6573,7 +6766,7 @@
                       [
                         TextContent "See also:",
                         Identifier
-                          "Event_callback_t"]])},
+                          "Event_callback_t"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -6590,31 +6783,38 @@
                       nameHsIdent = HsIdentifier
                         "config_t_user_data"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "User data for callback"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "User data for callback"]}])},
                   structFieldType = TypePointer
                     TypeVoid,
                   structFieldOffset = 640,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:250:11")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "user_data",
+                  commentLocation = Just
+                    "doxygen_docs.h:250:11",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "User data for callback"]])}],
-          structOrigin = Just
+                          "User data for callback"]]}}],
+          structOrigin =
+          Just
             Decl {
-              declInfo = DeclInfo {
+              declInfo =
+              DeclInfo {
                 declLoc =
                 "doxygen_docs.h:232:9",
                 declId = NamePair {
@@ -6625,19 +6825,21 @@
                   (AnonId "doxygen_docs.h:232:9"),
                 declAliases = [Name "config_t"],
                 declHeader = "doxygen_docs.h",
-                declComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Structure with documented fields"]},
-                    Paragraph
-                      [
-                        TextContent
-                          "This structure demonstrates field documentation."]]},
+                declComment =
+                Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Structure with documented fields"]},
+                      Paragraph
+                        [
+                          TextContent
+                            "This structure demonstrates field documentation."]])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -6654,14 +6856,15 @@
                           nameHsIdent = HsIdentifier
                             "config_t_id"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Unique identifier"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Unique identifier"]}])},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -6789,14 +6992,15 @@
                           nameHsIdent = HsIdentifier
                             "config_t_name"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Human-readable name"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Human-readable name"]}])},
                       structFieldType = TypeConstArray
                         64
                         (TypePrim
@@ -6814,14 +7018,15 @@
                           nameHsIdent = HsIdentifier
                             "config_t_flags"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Configuration flags"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Configuration flags"]}])},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -6949,24 +7154,25 @@
                           nameHsIdent = HsIdentifier
                             "config_t_callback"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Optional callback function"]},
-                            Paragraph
-                              [
-                                TextContent "See also:",
-                                InlineRefCommand
-                                  (ById
-                                    NamePair {
-                                      nameC = Name "event_callback_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Event_callback_t"})],
-                            Paragraph [TextContent ""]]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Optional callback function"]},
+                              Paragraph
+                                [
+                                  TextContent "See also:",
+                                  InlineRefCommand
+                                    (ById
+                                      NamePair {
+                                        nameC = Name "event_callback_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Event_callback_t"})],
+                              Paragraph [TextContent ""]])},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
@@ -6984,14 +7190,15 @@
                           nameHsIdent = HsIdentifier
                             "config_t_user_data"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "User data for callback"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "User data for callback"]}])},
                       structFieldType = TypePointer
                         TypeVoid,
                       structFieldOffset = 640,
@@ -7006,11 +7213,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:232:9")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "config_t",
+              commentLocation = Just
+                "doxygen_docs.h:232:9",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
@@ -7018,7 +7228,7 @@
                 Paragraph
                   [
                     TextContent
-                      "This structure demonstrates field documentation."]])}
+                      "This structure demonstrates field documentation."]]}}
         StorableInstance {
           storableSizeOf = 88,
           storableAlignment = 8,
@@ -7160,14 +7370,15 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_id"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Unique identifier"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Unique identifier"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -7287,15 +7498,18 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:234:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "id",
+                          commentLocation = Just
+                            "doxygen_docs.h:234:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Unique identifier"]])},
+                                  "Unique identifier"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7313,14 +7527,15 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_name"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Human-readable name"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Human-readable name"]}])},
                           structFieldType = TypeConstArray
                             64
                             (TypePrim
@@ -7330,15 +7545,18 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:237:10")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "name",
+                          commentLocation = Just
+                            "doxygen_docs.h:237:10",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Human-readable name"]])},
+                                  "Human-readable name"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7464,14 +7682,15 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_flags"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Configuration flags"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Configuration flags"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -7591,15 +7810,18 @@
                           structFieldOffset = 544,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:240:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "flags",
+                          commentLocation = Just
+                            "doxygen_docs.h:240:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Configuration flags"]])},
+                                  "Configuration flags"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7618,24 +7840,25 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_callback"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Optional callback function"]},
-                                Paragraph
-                                  [
-                                    TextContent "See also:",
-                                    InlineRefCommand
-                                      (ById
-                                        NamePair {
-                                          nameC = Name "event_callback_t",
-                                          nameHsIdent = HsIdentifier
-                                            "Event_callback_t"})],
-                                Paragraph [TextContent ""]]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Optional callback function"]},
+                                  Paragraph
+                                    [
+                                      TextContent "See also:",
+                                      InlineRefCommand
+                                        (ById
+                                          NamePair {
+                                            nameC = Name "event_callback_t",
+                                            nameHsIdent = HsIdentifier
+                                              "Event_callback_t"})],
+                                  Paragraph [TextContent ""]])},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -7645,11 +7868,14 @@
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:247:22")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "callback",
+                          commentLocation = Just
+                            "doxygen_docs.h:247:22",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
@@ -7658,7 +7884,7 @@
                               [
                                 TextContent "See also:",
                                 Identifier
-                                  "Event_callback_t"]])},
+                                  "Event_callback_t"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7675,28 +7901,33 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_user_data"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "User data for callback"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "User data for callback"]}])},
                           structFieldType = TypePointer
                             TypeVoid,
                           structFieldOffset = 640,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:250:11")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "user_data",
+                          commentLocation = Just
+                            "doxygen_docs.h:250:11",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "User data for callback"]])}],
+                                  "User data for callback"]]}}],
                   structOrigin =
                   Just
                     Decl {
@@ -7714,18 +7945,19 @@
                         declHeader = "doxygen_docs.h",
                         declComment =
                         Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Structure with documented fields"]},
-                            Paragraph
-                              [
-                                TextContent
-                                  "This structure demonstrates field documentation."]]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Structure with documented fields"]},
+                              Paragraph
+                                [
+                                  TextContent
+                                    "This structure demonstrates field documentation."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -7742,14 +7974,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_id"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Unique identifier"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Unique identifier"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -7877,14 +8110,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_name"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Human-readable name"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Human-readable name"]}])},
                               structFieldType = TypeConstArray
                                 64
                                 (TypePrim
@@ -7902,14 +8136,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_flags"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Configuration flags"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Configuration flags"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8037,24 +8272,25 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_callback"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Optional callback function"]},
-                                    Paragraph
-                                      [
-                                        TextContent "See also:",
-                                        InlineRefCommand
-                                          (ById
-                                            NamePair {
-                                              nameC = Name "event_callback_t",
-                                              nameHsIdent = HsIdentifier
-                                                "Event_callback_t"})],
-                                    Paragraph [TextContent ""]]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Optional callback function"]},
+                                      Paragraph
+                                        [
+                                          TextContent "See also:",
+                                          InlineRefCommand
+                                            (ById
+                                              NamePair {
+                                                nameC = Name "event_callback_t",
+                                                nameHsIdent = HsIdentifier
+                                                  "Event_callback_t"})],
+                                      Paragraph [TextContent ""]])},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -8072,14 +8308,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_user_data"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "User data for callback"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "User data for callback"]}])},
                               structFieldType = TypePointer
                                 TypeVoid,
                               structFieldOffset = 640,
@@ -8095,10 +8332,14 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:232:9")
-                      (Just "doxygen_docs.h")
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "config_t",
+                      commentLocation = Just
+                        "doxygen_docs.h:232:9",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren =
                       [
                         Paragraph
                           [
@@ -8107,7 +8348,7 @@
                         Paragraph
                           [
                             TextContent
-                              "This structure demonstrates field documentation."]])})
+                              "This structure demonstrates field documentation."]]}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4,
@@ -8254,14 +8495,15 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_id"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Unique identifier"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Unique identifier"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -8381,15 +8623,18 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:234:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "id",
+                          commentLocation = Just
+                            "doxygen_docs.h:234:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Unique identifier"]])},
+                                  "Unique identifier"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8407,14 +8652,15 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_name"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Human-readable name"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Human-readable name"]}])},
                           structFieldType = TypeConstArray
                             64
                             (TypePrim
@@ -8424,15 +8670,18 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:237:10")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "name",
+                          commentLocation = Just
+                            "doxygen_docs.h:237:10",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Human-readable name"]])},
+                                  "Human-readable name"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8558,14 +8807,15 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_flags"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Configuration flags"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Configuration flags"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -8685,15 +8935,18 @@
                           structFieldOffset = 544,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:240:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "flags",
+                          commentLocation = Just
+                            "doxygen_docs.h:240:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Configuration flags"]])},
+                                  "Configuration flags"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8712,24 +8965,25 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_callback"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Optional callback function"]},
-                                Paragraph
-                                  [
-                                    TextContent "See also:",
-                                    InlineRefCommand
-                                      (ById
-                                        NamePair {
-                                          nameC = Name "event_callback_t",
-                                          nameHsIdent = HsIdentifier
-                                            "Event_callback_t"})],
-                                Paragraph [TextContent ""]]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Optional callback function"]},
+                                  Paragraph
+                                    [
+                                      TextContent "See also:",
+                                      InlineRefCommand
+                                        (ById
+                                          NamePair {
+                                            nameC = Name "event_callback_t",
+                                            nameHsIdent = HsIdentifier
+                                              "Event_callback_t"})],
+                                  Paragraph [TextContent ""]])},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
@@ -8739,11 +8993,14 @@
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:247:22")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "callback",
+                          commentLocation = Just
+                            "doxygen_docs.h:247:22",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
@@ -8752,7 +9009,7 @@
                               [
                                 TextContent "See also:",
                                 Identifier
-                                  "Event_callback_t"]])},
+                                  "Event_callback_t"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8769,28 +9026,33 @@
                               nameHsIdent = HsIdentifier
                                 "config_t_user_data"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "User data for callback"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "User data for callback"]}])},
                           structFieldType = TypePointer
                             TypeVoid,
                           structFieldOffset = 640,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:250:11")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "user_data",
+                          commentLocation = Just
+                            "doxygen_docs.h:250:11",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "User data for callback"]])}],
+                                  "User data for callback"]]}}],
                   structOrigin =
                   Just
                     Decl {
@@ -8808,18 +9070,19 @@
                         declHeader = "doxygen_docs.h",
                         declComment =
                         Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Structure with documented fields"]},
-                            Paragraph
-                              [
-                                TextContent
-                                  "This structure demonstrates field documentation."]]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Structure with documented fields"]},
+                              Paragraph
+                                [
+                                  TextContent
+                                    "This structure demonstrates field documentation."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -8836,14 +9099,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_id"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Unique identifier"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Unique identifier"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -8971,14 +9235,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_name"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Human-readable name"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Human-readable name"]}])},
                               structFieldType = TypeConstArray
                                 64
                                 (TypePrim
@@ -8996,14 +9261,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_flags"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Configuration flags"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Configuration flags"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -9131,24 +9397,25 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_callback"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Optional callback function"]},
-                                    Paragraph
-                                      [
-                                        TextContent "See also:",
-                                        InlineRefCommand
-                                          (ById
-                                            NamePair {
-                                              nameC = Name "event_callback_t",
-                                              nameHsIdent = HsIdentifier
-                                                "Event_callback_t"})],
-                                    Paragraph [TextContent ""]]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Optional callback function"]},
+                                      Paragraph
+                                        [
+                                          TextContent "See also:",
+                                          InlineRefCommand
+                                            (ById
+                                              NamePair {
+                                                nameC = Name "event_callback_t",
+                                                nameHsIdent = HsIdentifier
+                                                  "Event_callback_t"})],
+                                      Paragraph [TextContent ""]])},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
@@ -9166,14 +9433,15 @@
                                   nameHsIdent = HsIdentifier
                                     "config_t_user_data"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "User data for callback"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "User data for callback"]}])},
                               structFieldType = TypePointer
                                 TypeVoid,
                               structFieldOffset = 640,
@@ -9189,10 +9457,14 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:232:9")
-                      (Just "doxygen_docs.h")
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "config_t",
+                      commentLocation = Just
+                        "doxygen_docs.h:232:9",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren =
                       [
                         Paragraph
                           [
@@ -9201,7 +9473,7 @@
                         Paragraph
                           [
                             TextContent
-                              "This structure demonstrates field documentation."]])}
+                              "This structure demonstrates field documentation."]]}}
                 (Add 5)
                 (Seq
                   [
@@ -9265,18 +9537,19 @@
             Name "status_code_t"],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Enumeration with documented values"]},
-              Paragraph
-                [
-                  TextContent
-                    "This enum shows different status codes."]]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Enumeration with documented values"]},
+                Paragraph
+                  [
+                    TextContent
+                      "This enum shows different status codes."]])},
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
@@ -9300,14 +9573,15 @@
                     nameHsIdent = HsIdentifier
                       "STATUS_OK"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Operation successful"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Operation successful"]}])},
                 enumConstantValue = 0},
               EnumConstant {
                 enumConstantInfo = FieldInfo {
@@ -9319,14 +9593,15 @@
                     nameHsIdent = HsIdentifier
                       "STATUS_INVALID_PARAM"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Invalid parameter provided"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Invalid parameter provided"]}])},
                 enumConstantValue = `-1`},
               EnumConstant {
                 enumConstantInfo = FieldInfo {
@@ -9337,14 +9612,15 @@
                     nameHsIdent = HsIdentifier
                       "STATUS_NO_MEMORY"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Memory allocation failed"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Memory allocation failed"]}])},
                 enumConstantValue = `-2`},
               EnumConstant {
                 enumConstantInfo = FieldInfo {
@@ -9355,14 +9631,15 @@
                     nameHsIdent = HsIdentifier
                       "STATUS_TIMEOUT"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Operation timed out"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Operation timed out"]}])},
                 enumConstantValue = `-3`},
               EnumConstant {
                 enumConstantInfo = FieldInfo {
@@ -9373,13 +9650,15 @@
                     nameHsIdent = HsIdentifier
                       "STATUS_ERROR"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent "Generic error"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Generic error"]}])},
                 enumConstantValue = `-99`}]},
         declSpec = DeclSpec
           TypeSpec {
@@ -9390,11 +9669,15 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:258:9")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "status_code_t",
+          commentLocation = Just
+            "doxygen_docs.h:258:9",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -9402,7 +9685,7 @@
             Paragraph
               [
                 TextContent
-                  "This enum shows different status codes."]])},
+                  "This enum shows different status codes."]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -9632,25 +9915,30 @@
               nameHsIdent = HsIdentifier
                 "STATUS_OK"},
             fieldComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Operation successful"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Operation successful"]}])},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:260:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "STATUS_OK",
+          commentLocation = Just
+            "doxygen_docs.h:260:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
-                  "Operation successful"]])},
+                  "Operation successful"]]}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9674,25 +9962,30 @@
               nameHsIdent = HsIdentifier
                 "STATUS_INVALID_PARAM"},
             fieldComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Invalid parameter provided"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Invalid parameter provided"]}])},
           enumConstantValue = `-1`},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:263:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "STATUS_INVALID_PARAM",
+          commentLocation = Just
+            "doxygen_docs.h:263:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
-                  "Invalid parameter provided"]])},
+                  "Invalid parameter provided"]]}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9715,25 +10008,30 @@
               nameHsIdent = HsIdentifier
                 "STATUS_NO_MEMORY"},
             fieldComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Memory allocation failed"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Memory allocation failed"]}])},
           enumConstantValue = `-2`},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:266:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "STATUS_NO_MEMORY",
+          commentLocation = Just
+            "doxygen_docs.h:266:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
-                  "Memory allocation failed"]])},
+                  "Memory allocation failed"]]}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9756,25 +10054,30 @@
               nameHsIdent = HsIdentifier
                 "STATUS_TIMEOUT"},
             fieldComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Operation timed out"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Operation timed out"]}])},
           enumConstantValue = `-3`},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:269:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "STATUS_TIMEOUT",
+          commentLocation = Just
+            "doxygen_docs.h:269:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
-                  "Operation timed out"]])},
+                  "Operation timed out"]]}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -9797,23 +10100,29 @@
               nameHsIdent = HsIdentifier
                 "STATUS_ERROR"},
             fieldComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent "Generic error"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Generic error"]}])},
           enumConstantValue = `-99`},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:272:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "STATUS_ERROR",
+          commentLocation = Just
+            "doxygen_docs.h:272:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
-                TextContent "Generic error"]])},
+                TextContent "Generic error"]]}},
   DeclData
     Struct {
       structName = HsName
@@ -9948,13 +10257,14 @@
                   nameHsIdent = HsIdentifier
                     "data_union_t_as_parts_low"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent "Low 16 bits"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent "Low 16 bits"]}])},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -10074,13 +10384,16 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:291:18")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "low",
+              commentLocation = Just
+                "doxygen_docs.h:291:18",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
-                  [TextContent "Low 16 bits"]])},
+                  [TextContent "Low 16 bits"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -10206,13 +10519,14 @@
                   nameHsIdent = HsIdentifier
                     "data_union_t_as_parts_high"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent "High 16 bits"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent "High 16 bits"]}])},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -10332,14 +10646,17 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:292:18")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "high",
+              commentLocation = Just
+                "doxygen_docs.h:292:18",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
-                    TextContent "High 16 bits"]])}],
+                    TextContent "High 16 bits"]]}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -10355,21 +10672,22 @@
             declAliases = [],
             declHeader = "doxygen_docs.h",
             declComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Structured representation",
-                    TextContent ""]},
-                BlockCommand {
-                  blockCommandName = "details",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Allows access to high and low parts separately"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Structured representation",
+                      TextContent ""]},
+                  BlockCommand {
+                    blockCommandName = "details",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Allows access to high and low parts separately"]}])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -10388,13 +10706,14 @@
                       nameHsIdent = HsIdentifier
                         "data_union_t_as_parts_low"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent "Low 16 bits"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent "Low 16 bits"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -10522,13 +10841,14 @@
                       nameHsIdent = HsIdentifier
                         "data_union_t_as_parts_high"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent "High 16 bits"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent "High 16 bits"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -10657,11 +10977,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:290:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "data_union_t_as_parts",
+          commentLocation = Just
+            "doxygen_docs.h:290:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -10669,7 +10993,7 @@
             Paragraph
               [
                 TextContent
-                  "Allows access to high and low parts separately"]])},
+                  "Allows access to high and low parts separately"]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -10807,13 +11131,14 @@
                       nameHsIdent = HsIdentifier
                         "data_union_t_as_parts_low"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent "Low 16 bits"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent "Low 16 bits"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -10933,13 +11258,16 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:291:18")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "low",
+                  commentLocation = Just
+                    "doxygen_docs.h:291:18",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
-                      [TextContent "Low 16 bits"]])},
+                      [TextContent "Low 16 bits"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -11065,13 +11393,14 @@
                       nameHsIdent = HsIdentifier
                         "data_union_t_as_parts_high"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent "High 16 bits"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent "High 16 bits"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -11191,17 +11520,22 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:292:18")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "high",
+                  commentLocation = Just
+                    "doxygen_docs.h:292:18",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
-                        TextContent "High 16 bits"]])}],
-          structOrigin = Just
+                        TextContent "High 16 bits"]]}}],
+          structOrigin =
+          Just
             Decl {
-              declInfo = DeclInfo {
+              declInfo =
+              DeclInfo {
                 declLoc =
                 "doxygen_docs.h:290:5",
                 declId = NamePair {
@@ -11213,22 +11547,25 @@
                   (AnonId "doxygen_docs.h:290:5"),
                 declAliases = [],
                 declHeader = "doxygen_docs.h",
-                declComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Structured representation",
-                        TextContent ""]},
-                    BlockCommand {
-                      blockCommandName = "details",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Allows access to high and low parts separately"]}]},
+                declComment =
+                Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Structured representation",
+                          TextContent ""]},
+                      BlockCommand {
+                        blockCommandName = "details",
+                        blockCommandArgs = [],
+                        blockCommandParagraph =
+                        [
+                          TextContent
+                            "Allows access to high and low parts separately"]}])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -11247,13 +11584,14 @@
                           nameHsIdent = HsIdentifier
                             "data_union_t_as_parts_low"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent "Low 16 bits"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent "Low 16 bits"]}])},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -11381,13 +11719,14 @@
                           nameHsIdent = HsIdentifier
                             "data_union_t_as_parts_high"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent "High 16 bits"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent "High 16 bits"]}])},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -11516,11 +11855,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:290:5")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "data_union_t_as_parts",
+              commentLocation = Just
+                "doxygen_docs.h:290:5",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
@@ -11528,7 +11871,7 @@
                 Paragraph
                   [
                     TextContent
-                      "Allows access to high and low parts separately"]])}
+                      "Allows access to high and low parts separately"]]}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 2,
@@ -11670,13 +12013,14 @@
                               nameHsIdent = HsIdentifier
                                 "data_union_t_as_parts_low"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent "Low 16 bits"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent "Low 16 bits"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -11796,13 +12140,16 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:291:18")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "low",
+                          commentLocation = Just
+                            "doxygen_docs.h:291:18",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
-                              [TextContent "Low 16 bits"]])},
+                              [TextContent "Low 16 bits"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -11928,13 +12275,14 @@
                               nameHsIdent = HsIdentifier
                                 "data_union_t_as_parts_high"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent "High 16 bits"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent "High 16 bits"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -12054,14 +12402,17 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:292:18")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "high",
+                          commentLocation = Just
+                            "doxygen_docs.h:292:18",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
-                                TextContent "High 16 bits"]])}],
+                                TextContent "High 16 bits"]]}}],
                   structOrigin =
                   Just
                     Decl {
@@ -12080,22 +12431,23 @@
                         declHeader = "doxygen_docs.h",
                         declComment =
                         Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Structured representation",
-                                TextContent ""]},
-                            BlockCommand {
-                              blockCommandName = "details",
-                              blockCommandArgs = [],
-                              blockCommandParagraph =
-                              [
-                                TextContent
-                                  "Allows access to high and low parts separately"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Structured representation",
+                                  TextContent ""]},
+                              BlockCommand {
+                                blockCommandName = "details",
+                                blockCommandArgs = [],
+                                blockCommandParagraph =
+                                [
+                                  TextContent
+                                    "Allows access to high and low parts separately"]}])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -12114,13 +12466,14 @@
                                   nameHsIdent = HsIdentifier
                                     "data_union_t_as_parts_low"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent "Low 16 bits"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent "Low 16 bits"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -12248,13 +12601,14 @@
                                   nameHsIdent = HsIdentifier
                                     "data_union_t_as_parts_high"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent "High 16 bits"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent "High 16 bits"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -12384,10 +12738,15 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:290:5")
-                      (Just "doxygen_docs.h")
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "data_union_t_as_parts",
+                      commentLocation = Just
+                        "doxygen_docs.h:290:5",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren =
                       [
                         Paragraph
                           [
@@ -12396,7 +12755,7 @@
                         Paragraph
                           [
                             TextContent
-                              "Allows access to high and low parts separately"]])})
+                              "Allows access to high and low parts separately"]]}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 2]),
@@ -12540,13 +12899,14 @@
                               nameHsIdent = HsIdentifier
                                 "data_union_t_as_parts_low"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent "Low 16 bits"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent "Low 16 bits"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -12666,13 +13026,16 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:291:18")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "low",
+                          commentLocation = Just
+                            "doxygen_docs.h:291:18",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
-                              [TextContent "Low 16 bits"]])},
+                              [TextContent "Low 16 bits"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -12798,13 +13161,14 @@
                               nameHsIdent = HsIdentifier
                                 "data_union_t_as_parts_high"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent "High 16 bits"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent "High 16 bits"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -12924,14 +13288,17 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:292:18")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "high",
+                          commentLocation = Just
+                            "doxygen_docs.h:292:18",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
-                                TextContent "High 16 bits"]])}],
+                                TextContent "High 16 bits"]]}}],
                   structOrigin =
                   Just
                     Decl {
@@ -12950,22 +13317,23 @@
                         declHeader = "doxygen_docs.h",
                         declComment =
                         Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Structured representation",
-                                TextContent ""]},
-                            BlockCommand {
-                              blockCommandName = "details",
-                              blockCommandArgs = [],
-                              blockCommandParagraph =
-                              [
-                                TextContent
-                                  "Allows access to high and low parts separately"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Structured representation",
+                                  TextContent ""]},
+                              BlockCommand {
+                                blockCommandName = "details",
+                                blockCommandArgs = [],
+                                blockCommandParagraph =
+                                [
+                                  TextContent
+                                    "Allows access to high and low parts separately"]}])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -12984,13 +13352,14 @@
                                   nameHsIdent = HsIdentifier
                                     "data_union_t_as_parts_low"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent "Low 16 bits"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent "Low 16 bits"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -13118,13 +13487,14 @@
                                   nameHsIdent = HsIdentifier
                                     "data_union_t_as_parts_high"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent "High 16 bits"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent "High 16 bits"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -13254,10 +13624,15 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:290:5")
-                      (Just "doxygen_docs.h")
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "data_union_t_as_parts",
+                      commentLocation = Just
+                        "doxygen_docs.h:290:5",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren =
                       [
                         Paragraph
                           [
@@ -13266,7 +13641,7 @@
                         Paragraph
                           [
                             TextContent
-                              "Allows access to high and low parts separately"]])}
+                              "Allows access to high and low parts separately"]]}}
                 (Add 2)
                 (Seq
                   [
@@ -13329,20 +13704,21 @@
           declHeader = "doxygen_docs.h",
           declComment =
           Just
-            [
-              Paragraph [TextContent ""],
-              VerbatimLine "data_union_t",
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Union with documented fields"]},
-              Paragraph
-                [
-                  TextContent
-                    "This union demonstrates different data representations."]]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                VerbatimLine "data_union_t",
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Union with documented fields"]},
+                Paragraph
+                  [
+                    TextContent
+                      "This union demonstrates different data representations."]])},
         declKind = Union
           Union {
             unionNames = NewtypeNames {
@@ -13364,14 +13740,15 @@
                     nameHsIdent = HsIdentifier
                       "data_union_t_as_int"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Integer representation"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Integer representation"]}])},
                 unionFieldType = TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -13497,14 +13874,15 @@
                     nameHsIdent = HsIdentifier
                       "data_union_t_as_float"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Float representation"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Float representation"]}])},
                 unionFieldType = TypePrim
                   (PrimFloating PrimFloat)},
               UnionField {
@@ -13516,14 +13894,15 @@
                     nameHsIdent = HsIdentifier
                       "data_union_t_as_bytes"},
                   fieldComment = Just
-                    [
-                      Paragraph [TextContent ""],
-                      BlockCommand {
-                        blockCommandName = "brief",
-                        blockCommandArgs = [],
-                        blockCommandParagraph = [
-                          TextContent
-                            "Byte array representation"]}]},
+                    (Comment
+                      [
+                        Paragraph [TextContent ""],
+                        BlockCommand {
+                          blockCommandName = "brief",
+                          blockCommandArgs = [],
+                          blockCommandParagraph = [
+                            TextContent
+                              "Byte array representation"]}])},
                 unionFieldType = TypeConstArray
                   4
                   (TypeExtBinding
@@ -13651,11 +14030,12 @@
                     nameHsIdent = HsIdentifier
                       "data_union_t_as_parts"},
                   fieldComment = Just
-                    [
-                      Paragraph
-                        [
-                          TextContent
-                            "As Parts Struct"]]},
+                    (Comment
+                      [
+                        Paragraph
+                          [
+                            TextContent
+                              "As Parts Struct"]])},
                 unionFieldType = TypeStruct
                   NamePair {
                     nameC = Name
@@ -13674,11 +14054,15 @@
       newtypeInstances = Set.fromList
         [Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:281:9")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "data_union_t",
+          commentLocation = Just
+            "doxygen_docs.h:281:9",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim "data_union_t",
             Paragraph
               [
@@ -13687,7 +14071,7 @@
             Paragraph
               [
                 TextContent
-                  "This union demonstrates different data representations."]])},
+                  "This union demonstrates different data representations."]]}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -13819,11 +14203,14 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:282:13")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "as_int",
+          commentLocation = Just
+            "doxygen_docs.h:282:13",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -13832,7 +14219,7 @@
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_data_union_t_as_int"]])},
+                  "set_data_union_t_as_int"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -13953,16 +14340,17 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_data_union_t_as_int"]])},
+                  "get_data_union_t_as_int"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -13974,11 +14362,14 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:283:11")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "as_float",
+          commentLocation = Just
+            "doxygen_docs.h:283:11",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -13987,7 +14378,7 @@
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_data_union_t_as_float"]])},
+                  "set_data_union_t_as_float"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -13999,16 +14390,17 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_data_union_t_as_float"]])},
+                  "get_data_union_t_as_float"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -14131,11 +14523,14 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:284:13")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "as_bytes",
+          commentLocation = Just
+            "doxygen_docs.h:284:13",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -14144,7 +14539,7 @@
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_data_union_t_as_bytes"]])},
+                  "set_data_union_t_as_bytes"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -14267,16 +14662,17 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_data_union_t_as_bytes"]])},
+                  "get_data_union_t_as_bytes"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -14290,17 +14686,20 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
-        (Comment
-          (Just
-            [TextContent "As Parts Struct"])
-          (Just "doxygen_docs.h:293:30")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Just
+            [TextContent "As Parts Struct"],
+          commentOrigin = Just "as_parts",
+          commentLocation = Just
+            "doxygen_docs.h:293:30",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_data_union_t_as_parts"]])},
+                  "set_data_union_t_as_parts"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -14314,16 +14713,17 @@
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_data_union_t_as_parts"]])},
+                  "get_data_union_t_as_parts"]]}},
   DeclData
     Struct {
       structName = HsName
@@ -14349,28 +14749,32 @@
                   nameHsIdent = HsIdentifier
                     "bitfield_t_flag1"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "First flag (1 bit)"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "First flag (1 bit)"]}])},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 0,
               structFieldWidth = Just 1},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:303:14")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "flag1",
+              commentLocation = Just
+                "doxygen_docs.h:303:14",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "First flag (1 bit)"]])},
+                      "First flag (1 bit)"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -14387,28 +14791,32 @@
                   nameHsIdent = HsIdentifier
                     "bitfield_t_flag2"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Second flag (1 bit)"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Second flag (1 bit)"]}])},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 1,
               structFieldWidth = Just 1},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:304:14")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "flag2",
+              commentLocation = Just
+                "doxygen_docs.h:304:14",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Second flag (1 bit)"]])},
+                      "Second flag (1 bit)"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -14425,28 +14833,32 @@
                   nameHsIdent = HsIdentifier
                     "bitfield_t_counter"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Counter value (6 bits)"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Counter value (6 bits)"]}])},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 2,
               structFieldWidth = Just 6},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:305:14")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "counter",
+              commentLocation = Just
+                "doxygen_docs.h:305:14",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Counter value (6 bits)"]])},
+                      "Counter value (6 bits)"]]}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -14463,28 +14875,32 @@
                   nameHsIdent = HsIdentifier
                     "bitfield_t_reserved"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Reserved bits (24 bits)"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Reserved bits (24 bits)"]}])},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Unsigned),
               structFieldOffset = 8,
               structFieldWidth = Just 24},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:306:14")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "reserved",
+              commentLocation = Just
+                "doxygen_docs.h:306:14",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Reserved bits (24 bits)"]])}],
+                      "Reserved bits (24 bits)"]]}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -14500,20 +14916,21 @@
               Name "bitfield_t"],
             declHeader = "doxygen_docs.h",
             declComment = Just
-              [
-                Paragraph [TextContent ""],
-                VerbatimLine "bitfield_t",
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Bit field structure"]},
-                Paragraph
-                  [
-                    TextContent
-                      "Demonstrates bit field documentation."]]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  VerbatimLine "bitfield_t",
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Bit field structure"]},
+                  Paragraph
+                    [
+                      TextContent
+                        "Demonstrates bit field documentation."]])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -14532,14 +14949,15 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_flag1"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "First flag (1 bit)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "First flag (1 bit)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 0,
@@ -14553,14 +14971,15 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_flag2"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Second flag (1 bit)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Second flag (1 bit)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 1,
@@ -14574,14 +14993,15 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_counter"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Counter value (6 bits)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Counter value (6 bits)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 2,
@@ -14595,14 +15015,15 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_reserved"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Reserved bits (24 bits)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Reserved bits (24 bits)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 8,
@@ -14617,11 +15038,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:302:9")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "bitfield_t",
+          commentLocation = Just
+            "doxygen_docs.h:302:9",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim "bitfield_t",
             Paragraph
               [
@@ -14630,7 +15055,7 @@
             Paragraph
               [
                 TextContent
-                  "Demonstrates bit field documentation."]])},
+                  "Demonstrates bit field documentation."]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -14659,28 +15084,32 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_flag1"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "First flag (1 bit)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "First flag (1 bit)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 0,
                   structFieldWidth = Just 1},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:303:14")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "flag1",
+                  commentLocation = Just
+                    "doxygen_docs.h:303:14",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "First flag (1 bit)"]])},
+                          "First flag (1 bit)"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -14697,28 +15126,32 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_flag2"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Second flag (1 bit)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Second flag (1 bit)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 1,
                   structFieldWidth = Just 1},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:304:14")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "flag2",
+                  commentLocation = Just
+                    "doxygen_docs.h:304:14",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Second flag (1 bit)"]])},
+                          "Second flag (1 bit)"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -14735,28 +15168,32 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_counter"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Counter value (6 bits)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Counter value (6 bits)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 2,
                   structFieldWidth = Just 6},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:305:14")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "counter",
+                  commentLocation = Just
+                    "doxygen_docs.h:305:14",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Counter value (6 bits)"]])},
+                          "Counter value (6 bits)"]]}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -14773,28 +15210,32 @@
                       nameHsIdent = HsIdentifier
                         "bitfield_t_reserved"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Reserved bits (24 bits)"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Reserved bits (24 bits)"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Unsigned),
                   structFieldOffset = 8,
                   structFieldWidth = Just 24},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:306:14")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "reserved",
+                  commentLocation = Just
+                    "doxygen_docs.h:306:14",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Reserved bits (24 bits)"]])}],
+                          "Reserved bits (24 bits)"]]}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -14810,20 +15251,21 @@
                   Name "bitfield_t"],
                 declHeader = "doxygen_docs.h",
                 declComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    VerbatimLine "bitfield_t",
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Bit field structure"]},
-                    Paragraph
-                      [
-                        TextContent
-                          "Demonstrates bit field documentation."]]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      VerbatimLine "bitfield_t",
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Bit field structure"]},
+                      Paragraph
+                        [
+                          TextContent
+                            "Demonstrates bit field documentation."]])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -14842,14 +15284,15 @@
                           nameHsIdent = HsIdentifier
                             "bitfield_t_flag1"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "First flag (1 bit)"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "First flag (1 bit)"]}])},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Unsigned),
                       structFieldOffset = 0,
@@ -14863,14 +15306,15 @@
                           nameHsIdent = HsIdentifier
                             "bitfield_t_flag2"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Second flag (1 bit)"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Second flag (1 bit)"]}])},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Unsigned),
                       structFieldOffset = 1,
@@ -14884,14 +15328,15 @@
                           nameHsIdent = HsIdentifier
                             "bitfield_t_counter"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Counter value (6 bits)"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Counter value (6 bits)"]}])},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Unsigned),
                       structFieldOffset = 2,
@@ -14905,14 +15350,15 @@
                           nameHsIdent = HsIdentifier
                             "bitfield_t_reserved"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Reserved bits (24 bits)"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Reserved bits (24 bits)"]}])},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Unsigned),
                       structFieldOffset = 8,
@@ -14927,11 +15373,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:302:9")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "bitfield_t",
+              commentLocation = Just
+                "doxygen_docs.h:302:9",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Verbatim "bitfield_t",
                 Paragraph
                   [
@@ -14940,7 +15390,7 @@
                 Paragraph
                   [
                     TextContent
-                      "Demonstrates bit field documentation."]])}
+                      "Demonstrates bit field documentation."]]}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -14972,28 +15422,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_flag1"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "First flag (1 bit)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "First flag (1 bit)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 0,
                           structFieldWidth = Just 1},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:303:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "flag1",
+                          commentLocation = Just
+                            "doxygen_docs.h:303:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "First flag (1 bit)"]])},
+                                  "First flag (1 bit)"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -15010,28 +15464,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_flag2"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Second flag (1 bit)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Second flag (1 bit)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 1,
                           structFieldWidth = Just 1},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:304:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "flag2",
+                          commentLocation = Just
+                            "doxygen_docs.h:304:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Second flag (1 bit)"]])},
+                                  "Second flag (1 bit)"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -15048,28 +15506,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_counter"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Counter value (6 bits)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Counter value (6 bits)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 2,
                           structFieldWidth = Just 6},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:305:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "counter",
+                          commentLocation = Just
+                            "doxygen_docs.h:305:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Counter value (6 bits)"]])},
+                                  "Counter value (6 bits)"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -15086,28 +15548,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_reserved"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Reserved bits (24 bits)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Reserved bits (24 bits)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 8,
                           structFieldWidth = Just 24},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:306:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "reserved",
+                          commentLocation = Just
+                            "doxygen_docs.h:306:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Reserved bits (24 bits)"]])}],
+                                  "Reserved bits (24 bits)"]]}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -15123,20 +15589,21 @@
                           Name "bitfield_t"],
                         declHeader = "doxygen_docs.h",
                         declComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            VerbatimLine "bitfield_t",
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Bit field structure"]},
-                            Paragraph
-                              [
-                                TextContent
-                                  "Demonstrates bit field documentation."]]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              VerbatimLine "bitfield_t",
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Bit field structure"]},
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Demonstrates bit field documentation."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -15155,14 +15622,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_flag1"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "First flag (1 bit)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "First flag (1 bit)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 0,
@@ -15176,14 +15644,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_flag2"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Second flag (1 bit)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Second flag (1 bit)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 1,
@@ -15197,14 +15666,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_counter"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Counter value (6 bits)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Counter value (6 bits)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 2,
@@ -15218,14 +15688,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_reserved"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Reserved bits (24 bits)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Reserved bits (24 bits)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 8,
@@ -15240,11 +15711,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:302:9")
-                      (Just "doxygen_docs.h")
-                      [
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "bitfield_t",
+                      commentLocation = Just
+                        "doxygen_docs.h:302:9",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren = [
                         Verbatim "bitfield_t",
                         Paragraph
                           [
@@ -15253,7 +15728,7 @@
                         Paragraph
                           [
                             TextContent
-                              "Demonstrates bit field documentation."]])})
+                              "Demonstrates bit field documentation."]]}})
               [
                 PeekBitOffWidth (Idx 0) 0 1,
                 PeekBitOffWidth (Idx 0) 1 1,
@@ -15289,28 +15764,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_flag1"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "First flag (1 bit)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "First flag (1 bit)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 0,
                           structFieldWidth = Just 1},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:303:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "flag1",
+                          commentLocation = Just
+                            "doxygen_docs.h:303:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "First flag (1 bit)"]])},
+                                  "First flag (1 bit)"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -15327,28 +15806,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_flag2"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Second flag (1 bit)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Second flag (1 bit)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 1,
                           structFieldWidth = Just 1},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:304:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "flag2",
+                          commentLocation = Just
+                            "doxygen_docs.h:304:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Second flag (1 bit)"]])},
+                                  "Second flag (1 bit)"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -15365,28 +15848,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_counter"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Counter value (6 bits)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Counter value (6 bits)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 2,
                           structFieldWidth = Just 6},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:305:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "counter",
+                          commentLocation = Just
+                            "doxygen_docs.h:305:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Counter value (6 bits)"]])},
+                                  "Counter value (6 bits)"]]}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -15403,28 +15890,32 @@
                               nameHsIdent = HsIdentifier
                                 "bitfield_t_reserved"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Reserved bits (24 bits)"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Reserved bits (24 bits)"]}])},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Unsigned),
                           structFieldOffset = 8,
                           structFieldWidth = Just 24},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:306:14")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "reserved",
+                          commentLocation = Just
+                            "doxygen_docs.h:306:14",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Reserved bits (24 bits)"]])}],
+                                  "Reserved bits (24 bits)"]]}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -15440,20 +15931,21 @@
                           Name "bitfield_t"],
                         declHeader = "doxygen_docs.h",
                         declComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            VerbatimLine "bitfield_t",
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Bit field structure"]},
-                            Paragraph
-                              [
-                                TextContent
-                                  "Demonstrates bit field documentation."]]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              VerbatimLine "bitfield_t",
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Bit field structure"]},
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Demonstrates bit field documentation."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -15472,14 +15964,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_flag1"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "First flag (1 bit)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "First flag (1 bit)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 0,
@@ -15493,14 +15986,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_flag2"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Second flag (1 bit)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Second flag (1 bit)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 1,
@@ -15514,14 +16008,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_counter"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Counter value (6 bits)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Counter value (6 bits)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 2,
@@ -15535,14 +16030,15 @@
                                   nameHsIdent = HsIdentifier
                                     "bitfield_t_reserved"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Reserved bits (24 bits)"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Reserved bits (24 bits)"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Unsigned),
                               structFieldOffset = 8,
@@ -15557,11 +16053,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:302:9")
-                      (Just "doxygen_docs.h")
-                      [
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "bitfield_t",
+                      commentLocation = Just
+                        "doxygen_docs.h:302:9",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren = [
                         Verbatim "bitfield_t",
                         Paragraph
                           [
@@ -15570,7 +16070,7 @@
                         Paragraph
                           [
                             TextContent
-                              "Demonstrates bit field documentation."]])}
+                              "Demonstrates bit field documentation."]]}}
                 (Add 4)
                 (Seq
                   [
@@ -15649,47 +16149,48 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph [TextContent ""],
-              VerbatimLine "processor_fn_t",
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Function pointer typedef"]},
-              Paragraph [TextContent ""],
-              ParamCommand {
-                paramCommandName = "input",
-                paramCommandIndex = Just 0,
-                paramCommandDirection = Just
-                  CXCommentParamPassDirection_In,
-                paramCommandIsDirectionExplicit =
-                False,
-                paramCommandContent = [
-                  Paragraph
-                    [
-                      TextContent "Input value",
-                      TextContent ""]]},
-              ParamCommand {
-                paramCommandName = "context",
-                paramCommandIndex = Just 1,
-                paramCommandDirection = Just
-                  CXCommentParamPassDirection_In,
-                paramCommandIsDirectionExplicit =
-                False,
-                paramCommandContent = [
-                  Paragraph
-                    [
-                      TextContent "Context pointer",
-                      TextContent ""]]},
-              BlockCommand {
-                blockCommandName = "return",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Processed value"]}]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                VerbatimLine "processor_fn_t",
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Function pointer typedef"]},
+                Paragraph [TextContent ""],
+                ParamCommand {
+                  paramCommandName = "input",
+                  paramCommandIndex = Just 0,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent "Input value",
+                        TextContent ""]]},
+                ParamCommand {
+                  paramCommandName = "context",
+                  paramCommandIndex = Just 1,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent "Context pointer",
+                        TextContent ""]]},
+                BlockCommand {
+                  blockCommandName = "return",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Processed value"]}])},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -15718,11 +16219,15 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:317:15")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "processor_fn_t",
+          commentLocation = Just
+            "doxygen_docs.h:317:15",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim "processor_fn_t",
             Paragraph
               [
@@ -15751,7 +16256,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Processed value"]])},
+                  "Processed value"]]}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -15821,16 +16326,17 @@
           declAliases = [],
           declHeader = "doxygen_docs.h",
           declComment = Just
-            [
-              Paragraph [TextContent ""],
-              VerbatimLine "filename_t",
-              Paragraph [TextContent ""],
-              BlockCommand {
-                blockCommandName = "brief",
-                blockCommandArgs = [],
-                blockCommandParagraph = [
-                  TextContent
-                    "Array typedef with size"]}]},
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                VerbatimLine "filename_t",
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Array typedef with size"]}])},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -15855,16 +16361,20 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:323:14")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "filename_t",
+          commentLocation = Just
+            "doxygen_docs.h:323:14",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Verbatim "filename_t",
             Paragraph
               [
                 TextContent
-                  "Array typedef with size"]])},
+                  "Array typedef with size"]]}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -15911,11 +16421,12 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "buffer",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -15926,7 +16437,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Buffer with minimum size"]]}])},
+                          "Buffer with minimum size"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "size"),
@@ -16043,11 +16554,12 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -16057,7 +16569,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Actual buffer size"]]}])}],
+                          "Actual buffer size"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -16208,11 +16720,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:332:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_buffer",
+          commentLocation = Just
+            "doxygen_docs.h:332:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -16242,7 +16758,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Number of bytes written"]]),
+                  "Number of bytes written"]]},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -16509,11 +17025,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:332:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_buffer",
+          commentLocation = Just
+            "doxygen_docs.h:332:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -16543,7 +17063,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Number of bytes written"]]),
+                  "Number of bytes written"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -16563,11 +17083,12 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "dest",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -16577,18 +17098,19 @@
                     Paragraph
                       [
                         TextContent
-                          "Destination buffer (restrict)"]]}])},
+                          "Destination buffer (restrict)"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "src"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "src",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -16598,7 +17120,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Source buffer (restrict)"]]}])},
+                          "Source buffer (restrict)"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "n"),
@@ -16715,11 +17237,12 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "n",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -16729,7 +17252,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Number of bytes"]]}])}],
+                          "Number of bytes"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -16884,11 +17407,15 @@
           functionRes = TypePointer
             TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:342:7")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memcpy",
+          commentLocation = Just
+            "doxygen_docs.h:342:7",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -16927,7 +17454,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Destination pointer"]]),
+                  "Destination pointer"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -17190,11 +17717,15 @@
                               ]})]}}]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:342:7")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memcpy",
+          commentLocation = Just
+            "doxygen_docs.h:342:7",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -17233,7 +17764,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Destination pointer"]]),
+                  "Destination pointer"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -17253,11 +17784,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -17267,7 +17799,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Input value"]]}])}],
+                          "Input value"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -17291,11 +17823,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:350:19")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "double_value",
+          commentLocation = Just
+            "doxygen_docs.h:350:19",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [TextContent "Inline function"],
             DefinitionList {
@@ -17309,7 +17845,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Doubled value"]]),
+                TextContent "Doubled value"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -17341,11 +17877,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:350:19")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "double_value",
+          commentLocation = Just
+            "doxygen_docs.h:350:19",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [TextContent "Inline function"],
             DefinitionList {
@@ -17359,7 +17899,7 @@
             Paragraph
               [
                 Bold [TextContent "returns:"],
-                TextContent "Doubled value"]]),
+                TextContent "Doubled value"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -17497,14 +18037,15 @@
                   nameHsIdent = HsIdentifier
                     "flexible_array_count"},
                 fieldComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Number of elements"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Number of elements"]}])},
               structFieldType = TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
@@ -17624,15 +18165,18 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:361:12")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "count",
+              commentLocation = Just
+                "doxygen_docs.h:361:12",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
-                      "Number of elements"]])}],
+                      "Number of elements"]]}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -17646,34 +18190,35 @@
             declAliases = [],
             declHeader = "doxygen_docs.h",
             declComment = Just
-              [
-                Paragraph [TextContent ""],
-                BlockCommand {
-                  blockCommandName = "brief",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Function with flexible array member"]},
-                Paragraph [TextContent ""],
-                ParamCommand {
-                  paramCommandName = "count",
-                  paramCommandIndex = Nothing,
-                  paramCommandDirection = Just
-                    CXCommentParamPassDirection_In,
-                  paramCommandIsDirectionExplicit =
-                  False,
-                  paramCommandContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Number of elements",
-                        TextContent ""]]},
-                BlockCommand {
-                  blockCommandName = "return",
-                  blockCommandArgs = [],
-                  blockCommandParagraph = [
-                    TextContent
-                      "Allocated structure"]}]},
+              (Comment
+                [
+                  Paragraph [TextContent ""],
+                  BlockCommand {
+                    blockCommandName = "brief",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Function with flexible array member"]},
+                  Paragraph [TextContent ""],
+                  ParamCommand {
+                    paramCommandName = "count",
+                    paramCommandIndex = Nothing,
+                    paramCommandDirection = Just
+                      CXCommentParamPassDirection_In,
+                    paramCommandIsDirectionExplicit =
+                    False,
+                    paramCommandContent = [
+                      Paragraph
+                        [
+                          TextContent
+                            "Number of elements",
+                          TextContent ""]]},
+                  BlockCommand {
+                    blockCommandName = "return",
+                    blockCommandArgs = [],
+                    blockCommandParagraph = [
+                      TextContent
+                        "Allocated structure"]}])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -17692,14 +18237,15 @@
                       nameHsIdent = HsIdentifier
                         "flexible_array_count"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Number of elements"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Number of elements"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -17828,14 +18374,15 @@
                       nameHsIdent = HsIdentifier
                         "flexible_array_data"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Flexible array member"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Flexible array member"]}])},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
                   structFieldOffset = 64,
@@ -17849,11 +18396,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:360:8")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "flexible_array",
+          commentLocation = Just
+            "doxygen_docs.h:360:8",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent
@@ -17872,7 +18423,7 @@
               [
                 Bold [TextContent "returns:"],
                 TextContent
-                  "Allocated structure"]])},
+                  "Allocated structure"]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -18010,14 +18561,15 @@
                       nameHsIdent = HsIdentifier
                         "flexible_array_count"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Number of elements"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Number of elements"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -18137,15 +18689,18 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:361:12")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "count",
+                  commentLocation = Just
+                    "doxygen_docs.h:361:12",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Number of elements"]])}],
+                          "Number of elements"]]}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -18159,34 +18714,35 @@
                 declAliases = [],
                 declHeader = "doxygen_docs.h",
                 declComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Function with flexible array member"]},
-                    Paragraph [TextContent ""],
-                    ParamCommand {
-                      paramCommandName = "count",
-                      paramCommandIndex = Nothing,
-                      paramCommandDirection = Just
-                        CXCommentParamPassDirection_In,
-                      paramCommandIsDirectionExplicit =
-                      False,
-                      paramCommandContent = [
-                        Paragraph
-                          [
-                            TextContent
-                              "Number of elements",
-                            TextContent ""]]},
-                    BlockCommand {
-                      blockCommandName = "return",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Allocated structure"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Function with flexible array member"]},
+                      Paragraph [TextContent ""],
+                      ParamCommand {
+                        paramCommandName = "count",
+                        paramCommandIndex = Nothing,
+                        paramCommandDirection = Just
+                          CXCommentParamPassDirection_In,
+                        paramCommandIsDirectionExplicit =
+                        False,
+                        paramCommandContent = [
+                          Paragraph
+                            [
+                              TextContent
+                                "Number of elements",
+                              TextContent ""]]},
+                      BlockCommand {
+                        blockCommandName = "return",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Allocated structure"]}])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -18205,14 +18761,15 @@
                           nameHsIdent = HsIdentifier
                             "flexible_array_count"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Number of elements"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Number of elements"]}])},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -18341,14 +18898,15 @@
                           nameHsIdent = HsIdentifier
                             "flexible_array_data"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Flexible array member"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Flexible array member"]}])},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 64,
@@ -18362,11 +18920,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:360:8")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "flexible_array",
+              commentLocation = Just
+                "doxygen_docs.h:360:8",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
@@ -18385,7 +18947,7 @@
                   [
                     Bold [TextContent "returns:"],
                     TextContent
-                      "Allocated structure"]])}
+                      "Allocated structure"]]}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 8,
@@ -18526,14 +19088,15 @@
                               nameHsIdent = HsIdentifier
                                 "flexible_array_count"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Number of elements"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Number of elements"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -18653,15 +19216,18 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:361:12")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "count",
+                          commentLocation = Just
+                            "doxygen_docs.h:361:12",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Number of elements"]])}],
+                                  "Number of elements"]]}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -18675,34 +19241,35 @@
                         declAliases = [],
                         declHeader = "doxygen_docs.h",
                         declComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Function with flexible array member"]},
-                            Paragraph [TextContent ""],
-                            ParamCommand {
-                              paramCommandName = "count",
-                              paramCommandIndex = Nothing,
-                              paramCommandDirection = Just
-                                CXCommentParamPassDirection_In,
-                              paramCommandIsDirectionExplicit =
-                              False,
-                              paramCommandContent = [
-                                Paragraph
-                                  [
-                                    TextContent
-                                      "Number of elements",
-                                    TextContent ""]]},
-                            BlockCommand {
-                              blockCommandName = "return",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Allocated structure"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Function with flexible array member"]},
+                              Paragraph [TextContent ""],
+                              ParamCommand {
+                                paramCommandName = "count",
+                                paramCommandIndex = Nothing,
+                                paramCommandDirection = Just
+                                  CXCommentParamPassDirection_In,
+                                paramCommandIsDirectionExplicit =
+                                False,
+                                paramCommandContent = [
+                                  Paragraph
+                                    [
+                                      TextContent
+                                        "Number of elements",
+                                      TextContent ""]]},
+                              BlockCommand {
+                                blockCommandName = "return",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Allocated structure"]}])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -18721,14 +19288,15 @@
                                   nameHsIdent = HsIdentifier
                                     "flexible_array_count"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Number of elements"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Number of elements"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -18857,14 +19425,15 @@
                                   nameHsIdent = HsIdentifier
                                     "flexible_array_data"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Flexible array member"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Flexible array member"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 64,
@@ -18878,11 +19447,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:360:8")
-                      (Just "doxygen_docs.h")
-                      [
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "flexible_array",
+                      commentLocation = Just
+                        "doxygen_docs.h:360:8",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren = [
                         Paragraph
                           [
                             TextContent
@@ -18901,7 +19474,7 @@
                           [
                             Bold [TextContent "returns:"],
                             TextContent
-                              "Allocated structure"]])})
+                              "Allocated structure"]]}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -19042,14 +19615,15 @@
                               nameHsIdent = HsIdentifier
                                 "flexible_array_count"},
                             fieldComment = Just
-                              [
-                                Paragraph [TextContent ""],
-                                BlockCommand {
-                                  blockCommandName = "brief",
-                                  blockCommandArgs = [],
-                                  blockCommandParagraph = [
-                                    TextContent
-                                      "Number of elements"]}]},
+                              (Comment
+                                [
+                                  Paragraph [TextContent ""],
+                                  BlockCommand {
+                                    blockCommandName = "brief",
+                                    blockCommandArgs = [],
+                                    blockCommandParagraph = [
+                                      TextContent
+                                        "Number of elements"]}])},
                           structFieldType = TypeExtBinding
                             ResolvedExtBinding {
                               extCName = QualName {
@@ -19169,15 +19743,18 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "doxygen_docs.h:361:12")
-                          (Just "doxygen_docs.h")
-                          [
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "count",
+                          commentLocation = Just
+                            "doxygen_docs.h:361:12",
+                          commentHeader = Just
+                            "doxygen_docs.h",
+                          commentChildren = [
                             Paragraph
                               [
                                 TextContent
-                                  "Number of elements"]])}],
+                                  "Number of elements"]]}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -19191,34 +19768,35 @@
                         declAliases = [],
                         declHeader = "doxygen_docs.h",
                         declComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Function with flexible array member"]},
-                            Paragraph [TextContent ""],
-                            ParamCommand {
-                              paramCommandName = "count",
-                              paramCommandIndex = Nothing,
-                              paramCommandDirection = Just
-                                CXCommentParamPassDirection_In,
-                              paramCommandIsDirectionExplicit =
-                              False,
-                              paramCommandContent = [
-                                Paragraph
-                                  [
-                                    TextContent
-                                      "Number of elements",
-                                    TextContent ""]]},
-                            BlockCommand {
-                              blockCommandName = "return",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Allocated structure"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Function with flexible array member"]},
+                              Paragraph [TextContent ""],
+                              ParamCommand {
+                                paramCommandName = "count",
+                                paramCommandIndex = Nothing,
+                                paramCommandDirection = Just
+                                  CXCommentParamPassDirection_In,
+                                paramCommandIsDirectionExplicit =
+                                False,
+                                paramCommandContent = [
+                                  Paragraph
+                                    [
+                                      TextContent
+                                        "Number of elements",
+                                      TextContent ""]]},
+                              BlockCommand {
+                                blockCommandName = "return",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Allocated structure"]}])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -19237,14 +19815,15 @@
                                   nameHsIdent = HsIdentifier
                                     "flexible_array_count"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Number of elements"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Number of elements"]}])},
                               structFieldType = TypeExtBinding
                                 ResolvedExtBinding {
                                   extCName = QualName {
@@ -19373,14 +19952,15 @@
                                   nameHsIdent = HsIdentifier
                                     "flexible_array_data"},
                                 fieldComment = Just
-                                  [
-                                    Paragraph [TextContent ""],
-                                    BlockCommand {
-                                      blockCommandName = "brief",
-                                      blockCommandArgs = [],
-                                      blockCommandParagraph = [
-                                        TextContent
-                                          "Flexible array member"]}]},
+                                  (Comment
+                                    [
+                                      Paragraph [TextContent ""],
+                                      BlockCommand {
+                                        blockCommandName = "brief",
+                                        blockCommandArgs = [],
+                                        blockCommandParagraph = [
+                                          TextContent
+                                            "Flexible array member"]}])},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
                               structFieldOffset = 64,
@@ -19394,11 +19974,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "doxygen_docs.h:360:8")
-                      (Just "doxygen_docs.h")
-                      [
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "flexible_array",
+                      commentLocation = Just
+                        "doxygen_docs.h:360:8",
+                      commentHeader = Just
+                        "doxygen_docs.h",
+                      commentChildren = [
                         Paragraph
                           [
                             TextContent
@@ -19417,7 +20001,7 @@
                           [
                             Bold [TextContent "returns:"],
                             TextContent
-                              "Allocated structure"]])}
+                              "Allocated structure"]]}}
                 (Add 1)
                 (Seq
                   [
@@ -19584,14 +20168,15 @@
                       nameHsIdent = HsIdentifier
                         "flexible_array_count"},
                     fieldComment = Just
-                      [
-                        Paragraph [TextContent ""],
-                        BlockCommand {
-                          blockCommandName = "brief",
-                          blockCommandArgs = [],
-                          blockCommandParagraph = [
-                            TextContent
-                              "Number of elements"]}]},
+                      (Comment
+                        [
+                          Paragraph [TextContent ""],
+                          BlockCommand {
+                            blockCommandName = "brief",
+                            blockCommandArgs = [],
+                            blockCommandParagraph = [
+                              TextContent
+                                "Number of elements"]}])},
                   structFieldType = TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -19711,15 +20296,18 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "doxygen_docs.h:361:12")
-                  (Just "doxygen_docs.h")
-                  [
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "count",
+                  commentLocation = Just
+                    "doxygen_docs.h:361:12",
+                  commentHeader = Just
+                    "doxygen_docs.h",
+                  commentChildren = [
                     Paragraph
                       [
                         TextContent
-                          "Number of elements"]])}],
+                          "Number of elements"]]}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -19733,34 +20321,35 @@
                 declAliases = [],
                 declHeader = "doxygen_docs.h",
                 declComment = Just
-                  [
-                    Paragraph [TextContent ""],
-                    BlockCommand {
-                      blockCommandName = "brief",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Function with flexible array member"]},
-                    Paragraph [TextContent ""],
-                    ParamCommand {
-                      paramCommandName = "count",
-                      paramCommandIndex = Nothing,
-                      paramCommandDirection = Just
-                        CXCommentParamPassDirection_In,
-                      paramCommandIsDirectionExplicit =
-                      False,
-                      paramCommandContent = [
-                        Paragraph
-                          [
-                            TextContent
-                              "Number of elements",
-                            TextContent ""]]},
-                    BlockCommand {
-                      blockCommandName = "return",
-                      blockCommandArgs = [],
-                      blockCommandParagraph = [
-                        TextContent
-                          "Allocated structure"]}]},
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Function with flexible array member"]},
+                      Paragraph [TextContent ""],
+                      ParamCommand {
+                        paramCommandName = "count",
+                        paramCommandIndex = Nothing,
+                        paramCommandDirection = Just
+                          CXCommentParamPassDirection_In,
+                        paramCommandIsDirectionExplicit =
+                        False,
+                        paramCommandContent = [
+                          Paragraph
+                            [
+                              TextContent
+                                "Number of elements",
+                              TextContent ""]]},
+                      BlockCommand {
+                        blockCommandName = "return",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Allocated structure"]}])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -19779,14 +20368,15 @@
                           nameHsIdent = HsIdentifier
                             "flexible_array_count"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Number of elements"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Number of elements"]}])},
                       structFieldType = TypeExtBinding
                         ResolvedExtBinding {
                           extCName = QualName {
@@ -19915,14 +20505,15 @@
                           nameHsIdent = HsIdentifier
                             "flexible_array_data"},
                         fieldComment = Just
-                          [
-                            Paragraph [TextContent ""],
-                            BlockCommand {
-                              blockCommandName = "brief",
-                              blockCommandArgs = [],
-                              blockCommandParagraph = [
-                                TextContent
-                                  "Flexible array member"]}]},
+                          (Comment
+                            [
+                              Paragraph [TextContent ""],
+                              BlockCommand {
+                                blockCommandName = "brief",
+                                blockCommandArgs = [],
+                                blockCommandParagraph = [
+                                  TextContent
+                                    "Flexible array member"]}])},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
                       structFieldOffset = 64,
@@ -19936,11 +20527,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "doxygen_docs.h:360:8")
-              (Just "doxygen_docs.h")
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "flexible_array",
+              commentLocation = Just
+                "doxygen_docs.h:360:8",
+              commentHeader = Just
+                "doxygen_docs.h",
+              commentChildren = [
                 Paragraph
                   [
                     TextContent
@@ -19959,7 +20554,7 @@
                   [
                     Bold [TextContent "returns:"],
                     TextContent
-                      "Allocated structure"]])}
+                      "Allocated structure"]]}}
         (HsPrimType HsPrimCInt)
         8,
       defineInstanceComment =
@@ -19983,11 +20578,12 @@
                 "@NsTypeConstr"
                 "Config_t")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "config",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -20000,7 +20596,7 @@
                         TextContent
                           "Configuration structure (see",
                         Identifier "Config_t",
-                        TextContent ")"]]}])},
+                        TextContent ")"]]}]}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "data'"),
@@ -20117,11 +20713,12 @@
                           instanceSpecConstraints = [
                             ]})]}),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "size"),
@@ -20238,11 +20835,12 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
                     [
@@ -20252,7 +20850,7 @@
                     Paragraph
                       [
                         TextContent
-                          "Size of input data"]]}])}],
+                          "Size of input data"]]}]}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -20547,10 +21145,15 @@
                     "doxygen_docs.h:258:9"))))},
       foreignImportComment =
       Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:423:15")
-          (Just "doxygen_docs.h")
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "complex_function",
+          commentLocation = Just
+            "doxygen_docs.h:423:15",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren =
           [
             Paragraph
               [
@@ -20717,7 +21320,7 @@
                 Bold
                   [Emph [TextContent "WARNING:"]],
                 TextContent
-                  "Sets errno to EINVAL if parameters are invalid"]]),
+                  "Sets errno to EINVAL if parameters are invalid"]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -21235,10 +21838,15 @@
                     "doxygen_docs.h:258:9")))))),
       foreignImportComment =
       Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:423:15")
-          (Just "doxygen_docs.h")
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "complex_function",
+          commentLocation = Just
+            "doxygen_docs.h:423:15",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren =
           [
             Paragraph
               [
@@ -21405,7 +22013,7 @@
                 Bold
                   [Emph [TextContent "WARNING:"]],
                 TextContent
-                  "Sets errno to EINVAL if parameters are invalid"]]),
+                  "Sets errno to EINVAL if parameters are invalid"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -21425,11 +22033,12 @@
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -21456,11 +22065,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:427:5")
-          (Just "doxygen_docs.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "hash",
+          commentLocation = Just
+            "doxygen_docs.h:427:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = [
             Paragraph
               [
                 TextContent "Marked",
@@ -21469,7 +22081,7 @@
                     Bold
                       [
                         TextContent
-                          "attribute((pure))"]]]]),
+                          "attribute((pure))"]]]]},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -21504,11 +22116,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:427:5")
-          (Just "doxygen_docs.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "hash",
+          commentLocation = Just
+            "doxygen_docs.h:427:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -21528,11 +22143,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsPrimType HsPrimCInt),
@@ -21556,11 +22172,14 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:429:5")
-          (Just "doxygen_docs.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "square",
+          commentLocation = Just
+            "doxygen_docs.h:429:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "doxygen_docs.h",
@@ -21592,11 +22211,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "doxygen_docs.h:429:5")
-          (Just "doxygen_docs.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "square",
+          commentLocation = Just
+            "doxygen_docs.h:429:5",
+          commentHeader = Just
+            "doxygen_docs.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

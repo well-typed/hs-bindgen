@@ -28,11 +28,12 @@
             "typedef_analysis.h",
             declComment =
             Just
-              [
-                Paragraph
-                  [
-                    TextContent
-                      "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
+              (Comment
+                [
+                  Paragraph
+                    [
+                      TextContent
+                        "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -53,14 +54,19 @@
         [Eq, Show, Storable],
       structComment =
       Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle =
+          Just
             [
               TextContent
-                "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
-          (Just "typedef_analysis.h:7:8")
-          (Just "typedef_analysis.h")
-          [])},
+                "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
+          commentOrigin = Just
+            "struct1_t",
+          commentLocation = Just
+            "typedef_analysis.h:7:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -93,11 +99,12 @@
                 "typedef_analysis.h",
                 declComment =
                 Just
-                  [
-                    Paragraph
-                      [
-                        TextContent
-                          "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
+                  (Comment
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -118,14 +125,19 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            (Comment
-              (Just
+            Comment {
+              commentTitle =
+              Just
                 [
                   TextContent
-                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
-              (Just "typedef_analysis.h:7:8")
-              (Just "typedef_analysis.h")
-              [])}
+                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
+              commentOrigin = Just
+                "struct1_t",
+              commentLocation = Just
+                "typedef_analysis.h:7:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -162,11 +174,12 @@
                         "typedef_analysis.h",
                         declComment =
                         Just
-                          [
-                            Paragraph
-                              [
-                                TextContent
-                                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
+                          (Comment
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -187,14 +200,19 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      (Just
+                    Comment {
+                      commentTitle =
+                      Just
                         [
                           TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
-                      (Just "typedef_analysis.h:7:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
+                      commentOrigin = Just
+                        "struct1_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:7:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke =
           Lambda
@@ -231,11 +249,12 @@
                         "typedef_analysis.h",
                         declComment =
                         Just
-                          [
-                            Paragraph
-                              [
-                                TextContent
-                                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
+                          (Comment
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -256,14 +275,19 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      (Just
+                    Comment {
+                      commentTitle =
+                      Just
                         [
                           TextContent
-                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"])
-                      (Just "typedef_analysis.h:7:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                            "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"],
+                      commentOrigin = Just
+                        "struct1_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:7:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -333,12 +357,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:11:16")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct2_t",
+          commentLocation = Just
+            "typedef_analysis.h:11:16",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -387,12 +414,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:11:16")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct2_t",
+              commentLocation = Just
+                "typedef_analysis.h:11:16",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -444,12 +474,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "typedef_analysis.h:11:16")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct2_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:11:16",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -501,12 +534,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "typedef_analysis.h:11:16")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct2_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:11:16",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -560,11 +596,15 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:14:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct3_t",
+          commentLocation = Just
+            "typedef_analysis.h:14:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -594,12 +634,15 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:18:16")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct4_t",
+          commentLocation = Just
+            "typedef_analysis.h:18:16",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclData
     Struct {
       structName = HsName
@@ -640,11 +683,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:21:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct5",
+          commentLocation = Just
+            "typedef_analysis.h:21:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -688,11 +734,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:21:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct5",
+              commentLocation = Just
+                "typedef_analysis.h:21:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -739,11 +788,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:21:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct5",
+                      commentLocation = Just
+                        "typedef_analysis.h:21:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -790,11 +842,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:21:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct5",
+                      commentLocation = Just
+                        "typedef_analysis.h:21:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -876,12 +931,15 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:22:25")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct5_t",
+          commentLocation = Just
+            "typedef_analysis.h:22:25",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -966,12 +1024,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:25:16")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct6_Deref",
+          commentLocation = Just
+            "typedef_analysis.h:25:16",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1019,12 +1080,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:25:16")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct6_Deref",
+              commentLocation = Just
+                "typedef_analysis.h:25:16",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1075,12 +1139,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "typedef_analysis.h:25:16")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct6_Deref",
+                      commentLocation = Just
+                        "typedef_analysis.h:25:16",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1131,12 +1198,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "typedef_analysis.h:25:16")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct6_Deref",
+                      commentLocation = Just
+                        "typedef_analysis.h:25:16",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1219,12 +1289,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:25:28")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct6",
+          commentLocation = Just
+            "typedef_analysis.h:25:28",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1307,11 +1379,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:28:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct7",
+          commentLocation = Just
+            "typedef_analysis.h:28:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1357,11 +1432,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:28:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct7",
+              commentLocation = Just
+                "typedef_analysis.h:28:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1410,11 +1488,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:28:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct7",
+                      commentLocation = Just
+                        "typedef_analysis.h:28:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1463,11 +1544,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:28:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct7",
+                      commentLocation = Just
+                        "typedef_analysis.h:28:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1547,12 +1631,14 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:29:24")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct7a",
+          commentLocation = Just
+            "typedef_analysis.h:29:24",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1638,12 +1724,14 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:30:24")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct7b",
+          commentLocation = Just
+            "typedef_analysis.h:30:24",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1716,11 +1804,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:33:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct8",
+          commentLocation = Just
+            "typedef_analysis.h:33:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1766,11 +1857,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:33:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct8",
+              commentLocation = Just
+                "typedef_analysis.h:33:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1819,11 +1913,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:33:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct8",
+                      commentLocation = Just
+                        "typedef_analysis.h:33:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1872,11 +1969,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:33:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct8",
+                      commentLocation = Just
+                        "typedef_analysis.h:33:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1956,12 +2056,14 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:35:24")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct8b",
+          commentLocation = Just
+            "typedef_analysis.h:35:24",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2032,11 +2134,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:38:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct9",
+          commentLocation = Just
+            "typedef_analysis.h:38:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2080,11 +2185,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:38:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct9",
+              commentLocation = Just
+                "typedef_analysis.h:38:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2131,11 +2239,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:38:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct9",
+                      commentLocation = Just
+                        "typedef_analysis.h:38:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2182,11 +2293,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:38:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct9",
+                      commentLocation = Just
+                        "typedef_analysis.h:38:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2269,12 +2383,15 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:40:17")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct9_t",
+          commentLocation = Just
+            "typedef_analysis.h:40:17",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2350,11 +2467,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:46:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct10_t",
+          commentLocation = Just
+            "typedef_analysis.h:46:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2403,11 +2524,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:46:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct10_t",
+              commentLocation = Just
+                "typedef_analysis.h:46:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2459,11 +2584,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:46:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct10_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:46:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2515,11 +2644,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:46:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct10_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:46:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2603,12 +2736,15 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "typedef_analysis.h:48:20")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct10_t_t",
+          commentLocation = Just
+            "typedef_analysis.h:48:20",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2669,11 +2805,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:52:7")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "typedef_analysis.h:52:7",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2704,12 +2843,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:53:20")
-              (Just "typedef_analysis.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "self",
+              commentLocation = Just
+                "typedef_analysis.h:53:20",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2778,11 +2919,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:51:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct11_t",
+          commentLocation = Just
+            "typedef_analysis.h:51:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2816,11 +2961,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "typedef_analysis.h:52:7")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "typedef_analysis.h:52:7",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2851,12 +2999,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:53:20")
-                  (Just "typedef_analysis.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "self",
+                  commentLocation = Just
+                    "typedef_analysis.h:53:20",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2925,11 +3075,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:51:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct11_t",
+              commentLocation = Just
+                "typedef_analysis.h:51:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2966,11 +3120,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_analysis.h:52:7")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "typedef_analysis.h:52:7",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3001,12 +3158,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:53:20")
-                          (Just "typedef_analysis.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "self",
+                          commentLocation = Just
+                            "typedef_analysis.h:53:20",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3075,11 +3234,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:51:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct11_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:51:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -3118,11 +3281,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_analysis.h:52:7")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "typedef_analysis.h:52:7",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3153,12 +3319,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:53:20")
-                          (Just "typedef_analysis.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "self",
+                          commentLocation = Just
+                            "typedef_analysis.h:53:20",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3227,11 +3395,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:51:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct11_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:51:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -3292,11 +3464,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:61:7")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "typedef_analysis.h:61:7",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3330,12 +3505,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:62:15")
-              (Just "typedef_analysis.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "self",
+              commentLocation = Just
+                "typedef_analysis.h:62:15",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3407,11 +3584,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:60:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct12_t",
+          commentLocation = Just
+            "typedef_analysis.h:60:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3445,11 +3626,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "typedef_analysis.h:61:7")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "typedef_analysis.h:61:7",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3483,12 +3667,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:62:15")
-                  (Just "typedef_analysis.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "self",
+                  commentLocation = Just
+                    "typedef_analysis.h:62:15",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3560,11 +3746,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:60:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct12_t",
+              commentLocation = Just
+                "typedef_analysis.h:60:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -3601,11 +3791,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_analysis.h:61:7")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "typedef_analysis.h:61:7",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3639,12 +3832,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:62:15")
-                          (Just "typedef_analysis.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "self",
+                          commentLocation = Just
+                            "typedef_analysis.h:62:15",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3716,11 +3911,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:60:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct12_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:60:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -3759,11 +3958,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_analysis.h:61:7")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "typedef_analysis.h:61:7",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3797,12 +3999,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:62:15")
-                          (Just "typedef_analysis.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "self",
+                          commentLocation = Just
+                            "typedef_analysis.h:62:15",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3874,11 +4078,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:60:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct12_t",
+                      commentLocation = Just
+                        "typedef_analysis.h:60:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -3950,12 +4158,15 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:68:13")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct1_t",
+              commentLocation = Just
+                "typedef_analysis.h:68:13",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3988,12 +4199,15 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:71:13")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct2_t",
+              commentLocation = Just
+                "typedef_analysis.h:71:13",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4028,12 +4242,15 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:74:14")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct3_t",
+              commentLocation = Just
+                "typedef_analysis.h:74:14",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4068,12 +4285,15 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:75:14")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct4_t",
+              commentLocation = Just
+                "typedef_analysis.h:75:14",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4102,12 +4322,15 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:78:18")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useStruct_struct5",
+              commentLocation = Just
+                "typedef_analysis.h:78:18",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4136,12 +4359,15 @@
               structFieldOffset = 128,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:79:13")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct5_t",
+              commentLocation = Just
+                "typedef_analysis.h:79:13",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4171,12 +4397,15 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:82:18")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useStruct_struct6",
+              commentLocation = Just
+                "typedef_analysis.h:82:18",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4205,12 +4434,15 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:83:11")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct6",
+              commentLocation = Just
+                "typedef_analysis.h:83:11",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4239,12 +4471,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:86:12")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct7a",
+              commentLocation = Just
+                "typedef_analysis.h:86:12",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4273,12 +4508,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:87:12")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct7b",
+              commentLocation = Just
+                "typedef_analysis.h:87:12",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4310,12 +4548,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:91:11")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct8",
+              commentLocation = Just
+                "typedef_analysis.h:91:11",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4344,12 +4585,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:92:12")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct8b",
+              commentLocation = Just
+                "typedef_analysis.h:92:12",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4381,12 +4625,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:96:11")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct9",
+              commentLocation = Just
+                "typedef_analysis.h:96:11",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4415,12 +4662,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:97:13")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct9_t",
+              commentLocation = Just
+                "typedef_analysis.h:97:13",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4453,12 +4703,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:98:14")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct10_t",
+              commentLocation = Just
+                "typedef_analysis.h:98:14",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4487,12 +4740,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:99:16")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct10_t_t",
+              commentLocation = Just
+                "typedef_analysis.h:99:16",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4525,12 +4781,15 @@
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:102:14")
-              (Just "typedef_analysis.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct11_t",
+              commentLocation = Just
+                "typedef_analysis.h:102:14",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4563,12 +4822,15 @@
               structFieldOffset = 384,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_analysis.h:103:14")
-              (Just "typedef_analysis.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "useTypedef_struct12_t",
+              commentLocation = Just
+                "typedef_analysis.h:103:14",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -4963,11 +5225,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_analysis.h:66:8")
-          (Just "typedef_analysis.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "use_sites",
+          commentLocation = Just
+            "typedef_analysis.h:66:8",
+          commentHeader = Just
+            "typedef_analysis.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -5012,12 +5278,15 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:68:13")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct1_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:68:13",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5050,12 +5319,15 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:71:13")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct2_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:71:13",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5090,12 +5362,15 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:74:14")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct3_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:74:14",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5130,12 +5405,15 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:75:14")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct4_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:75:14",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5164,12 +5442,15 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:78:18")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useStruct_struct5",
+                  commentLocation = Just
+                    "typedef_analysis.h:78:18",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5198,12 +5479,15 @@
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:79:13")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct5_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:79:13",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5233,12 +5517,15 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:82:18")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useStruct_struct6",
+                  commentLocation = Just
+                    "typedef_analysis.h:82:18",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5267,12 +5554,15 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:83:11")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct6",
+                  commentLocation = Just
+                    "typedef_analysis.h:83:11",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5301,12 +5591,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:86:12")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct7a",
+                  commentLocation = Just
+                    "typedef_analysis.h:86:12",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5335,12 +5628,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:87:12")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct7b",
+                  commentLocation = Just
+                    "typedef_analysis.h:87:12",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5372,12 +5668,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:91:11")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct8",
+                  commentLocation = Just
+                    "typedef_analysis.h:91:11",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5406,12 +5705,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:92:12")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct8b",
+                  commentLocation = Just
+                    "typedef_analysis.h:92:12",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5443,12 +5745,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:96:11")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct9",
+                  commentLocation = Just
+                    "typedef_analysis.h:96:11",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5477,12 +5782,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:97:13")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct9_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:97:13",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5515,12 +5823,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:98:14")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct10_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:98:14",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5549,12 +5860,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:99:16")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct10_t_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:99:16",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5587,12 +5901,15 @@
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:102:14")
-                  (Just "typedef_analysis.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct11_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:102:14",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -5625,12 +5942,15 @@
                   structFieldOffset = 384,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_analysis.h:103:14")
-                  (Just "typedef_analysis.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "useTypedef_struct12_t",
+                  commentLocation = Just
+                    "typedef_analysis.h:103:14",
+                  commentHeader = Just
+                    "typedef_analysis.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -6025,11 +6345,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_analysis.h:66:8")
-              (Just "typedef_analysis.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "use_sites",
+              commentLocation = Just
+                "typedef_analysis.h:66:8",
+              commentHeader = Just
+                "typedef_analysis.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 64,
           storableAlignment = 8,
@@ -6077,12 +6401,15 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:68:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct1_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:68:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6115,12 +6442,15 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:71:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct2_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:71:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6155,12 +6485,15 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:74:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct3_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:74:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6195,12 +6528,15 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:75:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct4_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:75:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6229,12 +6565,15 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:78:18")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useStruct_struct5",
+                          commentLocation = Just
+                            "typedef_analysis.h:78:18",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6263,12 +6602,15 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:79:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct5_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:79:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6298,12 +6640,15 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:82:18")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useStruct_struct6",
+                          commentLocation = Just
+                            "typedef_analysis.h:82:18",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6332,12 +6677,15 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:83:11")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct6",
+                          commentLocation = Just
+                            "typedef_analysis.h:83:11",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6366,12 +6714,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:86:12")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct7a",
+                          commentLocation = Just
+                            "typedef_analysis.h:86:12",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6400,12 +6751,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:87:12")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct7b",
+                          commentLocation = Just
+                            "typedef_analysis.h:87:12",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6437,12 +6791,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:91:11")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct8",
+                          commentLocation = Just
+                            "typedef_analysis.h:91:11",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6471,12 +6828,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:92:12")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct8b",
+                          commentLocation = Just
+                            "typedef_analysis.h:92:12",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6508,12 +6868,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:96:11")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct9",
+                          commentLocation = Just
+                            "typedef_analysis.h:96:11",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6542,12 +6905,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:97:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct9_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:97:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6580,12 +6946,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:98:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct10_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:98:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6614,12 +6983,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:99:16")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct10_t_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:99:16",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6652,12 +7024,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:102:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct11_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:102:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6690,12 +7065,15 @@
                           structFieldOffset = 384,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:103:14")
-                          (Just "typedef_analysis.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct12_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:103:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -7090,11 +7468,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:66:8")
-                      (Just "typedef_analysis.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "use_sites",
+                      commentLocation = Just
+                        "typedef_analysis.h:66:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 0,
@@ -7160,12 +7542,15 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:68:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct1_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:68:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7198,12 +7583,15 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:71:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct2_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:71:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7238,12 +7626,15 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:74:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct3_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:74:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7278,12 +7669,15 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:75:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct4_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:75:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7312,12 +7706,15 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:78:18")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useStruct_struct5",
+                          commentLocation = Just
+                            "typedef_analysis.h:78:18",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7346,12 +7743,15 @@
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:79:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct5_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:79:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7381,12 +7781,15 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:82:18")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useStruct_struct6",
+                          commentLocation = Just
+                            "typedef_analysis.h:82:18",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7415,12 +7818,15 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:83:11")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct6",
+                          commentLocation = Just
+                            "typedef_analysis.h:83:11",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7449,12 +7855,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:86:12")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct7a",
+                          commentLocation = Just
+                            "typedef_analysis.h:86:12",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7483,12 +7892,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:87:12")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct7b",
+                          commentLocation = Just
+                            "typedef_analysis.h:87:12",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7520,12 +7932,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:91:11")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct8",
+                          commentLocation = Just
+                            "typedef_analysis.h:91:11",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7554,12 +7969,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:92:12")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct8b",
+                          commentLocation = Just
+                            "typedef_analysis.h:92:12",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7591,12 +8009,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:96:11")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct9",
+                          commentLocation = Just
+                            "typedef_analysis.h:96:11",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7625,12 +8046,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:97:13")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct9_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:97:13",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7663,12 +8087,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:98:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct10_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:98:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7697,12 +8124,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:99:16")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct10_t_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:99:16",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7735,12 +8165,15 @@
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:102:14")
-                          (Just "typedef_analysis.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct11_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:102:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -7773,12 +8206,15 @@
                           structFieldOffset = 384,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_analysis.h:103:14")
-                          (Just "typedef_analysis.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "useTypedef_struct12_t",
+                          commentLocation = Just
+                            "typedef_analysis.h:103:14",
+                          commentHeader = Just
+                            "typedef_analysis.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -8173,11 +8609,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_analysis.h:66:8")
-                      (Just "typedef_analysis.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "use_sites",
+                      commentLocation = Just
+                        "typedef_analysis.h:66:8",
+                      commentHeader = Just
+                        "typedef_analysis.h",
+                      commentChildren = []}}
                 (Add 18)
                 (Seq
                   [

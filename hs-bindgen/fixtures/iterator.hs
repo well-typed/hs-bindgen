@@ -48,11 +48,14 @@
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:3:16")
-          (Just "iterator.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "Toggle",
+          commentLocation = Just
+            "iterator.h:3:16",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "Toggle hs_bindgen_test_iterator_4f34fce61cc68c9f (_Bool arg1) { return makeToggle(arg1); }",
@@ -68,11 +71,12 @@
           functionParameterType =
           HsPrimType HsPrimCBool,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "start",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -104,11 +108,15 @@
                 nameHsIdent = HsIdentifier
                   "Toggle"})},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:4:8")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeToggle",
+          commentLocation = Just
+            "iterator.h:4:8",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -144,11 +152,15 @@
                 nameHsIdent = HsIdentifier
                   "Toggle"}))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:4:8")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeToggle",
+          commentLocation = Just
+            "iterator.h:4:8",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -169,11 +181,12 @@
               "@NsTypeConstr"
               "Toggle"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "block",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCBool)),
@@ -202,11 +215,15 @@
           functionRes = TypePrim
             PrimBool},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:5:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "toggleNext",
+          commentLocation = Just
+            "iterator.h:5:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -243,11 +260,15 @@
                     "Toggle"})]
           (TypePrim PrimBool)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:5:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "toggleNext",
+          commentLocation = Just
+            "iterator.h:5:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -268,11 +289,12 @@
               "@NsTypeConstr"
               "Toggle"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "block",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -300,11 +322,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:6:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseToggle",
+          commentLocation = Just
+            "iterator.h:6:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -341,11 +367,15 @@
                     "Toggle"})]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:6:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseToggle",
+          commentLocation = Just
+            "iterator.h:6:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -401,11 +431,14 @@
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:10:14")
-          (Just "iterator.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "Counter",
+          commentLocation = Just
+            "iterator.h:10:14",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "Counter hs_bindgen_test_iterator_5b455070cb6127b9 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
@@ -421,22 +454,25 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "start",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "increment"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "increment",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -477,11 +513,15 @@
                 nameHsIdent = HsIdentifier
                   "Counter"})},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:11:9")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeCounter",
+          commentLocation = Just
+            "iterator.h:11:9",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -523,11 +563,15 @@
                 nameHsIdent = HsIdentifier
                   "Counter"}))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:11:9")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeCounter",
+          commentLocation = Just
+            "iterator.h:11:9",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -548,11 +592,12 @@
               "@NsTypeConstr"
               "Counter"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "block",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -581,11 +626,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:12:5")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "counterNext",
+          commentLocation = Just
+            "iterator.h:12:5",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -623,11 +672,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:12:5")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "counterNext",
+          commentLocation = Just
+            "iterator.h:12:5",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -648,11 +701,12 @@
               "@NsTypeConstr"
               "Counter"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "block",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -680,11 +734,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:13:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseCounter",
+          commentLocation = Just
+            "iterator.h:13:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -721,11 +779,15 @@
                     "Counter"})]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:13:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseCounter",
+          commentLocation = Just
+            "iterator.h:13:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -785,11 +847,15 @@
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:17:14")
-          (Just "iterator.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "VarCounter",
+          commentLocation = Just
+            "iterator.h:17:14",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []}},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
     "VarCounter hs_bindgen_test_iterator_0fc005ef62990438 (signed int arg1) { return makeVarCounter(arg1); }",
@@ -805,11 +871,12 @@
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "start",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -842,11 +909,15 @@
                 nameHsIdent = HsIdentifier
                   "VarCounter"})},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:18:12")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeVarCounter",
+          commentLocation = Just
+            "iterator.h:18:12",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -884,11 +955,15 @@
                 nameHsIdent = HsIdentifier
                   "VarCounter"}))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:18:12")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "makeVarCounter",
+          commentLocation = Just
+            "iterator.h:18:12",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -909,22 +984,25 @@
               "@NsTypeConstr"
               "VarCounter"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "block",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "increment"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "increment",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -961,11 +1039,15 @@
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:19:5")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "varCounterNext",
+          commentLocation = Just
+            "iterator.h:19:5",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -1007,11 +1089,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:19:5")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "varCounterNext",
+          commentLocation = Just
+            "iterator.h:19:5",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1032,11 +1118,12 @@
               "@NsTypeConstr"
               "VarCounter"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "block",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -1064,11 +1151,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:20:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseVarCounter",
+          commentLocation = Just
+            "iterator.h:20:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude "iterator.h",
   DeclInlineC
@@ -1105,11 +1196,15 @@
                     "VarCounter"})]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "iterator.h:20:6")
-          (Just "iterator.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "releaseVarCounter",
+          commentLocation = Just
+            "iterator.h:20:6",
+          commentHeader = Just
+            "iterator.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

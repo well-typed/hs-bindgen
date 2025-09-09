@@ -19,11 +19,14 @@
           Prim.byteArrayFromList [97],
           unicodeCodePoint = Just 'a'},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:4:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C1",
+          commentLocation = Just
+            "macro_strings.h:4:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -44,11 +47,14 @@
           Prim.byteArrayFromList [34],
           unicodeCodePoint = Just `'"'`},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:5:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C2",
+          commentLocation = Just
+            "macro_strings.h:5:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -69,11 +75,14 @@
           Prim.byteArrayFromList [9],
           unicodeCodePoint = Just '\t'},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:6:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C3",
+          commentLocation = Just
+            "macro_strings.h:6:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -94,11 +103,14 @@
           Prim.byteArrayFromList [0],
           unicodeCodePoint = Just '\NUL'},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:7:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C4",
+          commentLocation = Just
+            "macro_strings.h:7:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -119,11 +131,14 @@
           Prim.byteArrayFromList [39],
           unicodeCodePoint = Just '\''},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:8:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C5",
+          commentLocation = Just
+            "macro_strings.h:8:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -144,11 +159,14 @@
           Prim.byteArrayFromList [63],
           unicodeCodePoint = Just '?'},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:9:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C6",
+          commentLocation = Just
+            "macro_strings.h:9:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -169,11 +187,14 @@
           Prim.byteArrayFromList [83],
           unicodeCodePoint = Nothing},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:10:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C7",
+          commentLocation = Just
+            "macro_strings.h:10:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -194,11 +215,14 @@
           Prim.byteArrayFromList [83],
           unicodeCodePoint = Nothing},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:11:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C8",
+          commentLocation = Just
+            "macro_strings.h:11:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -219,11 +243,14 @@
           Prim.byteArrayFromList [1, 255],
           unicodeCodePoint = Nothing},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:13:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "D",
+          commentLocation = Just
+            "macro_strings.h:13:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -246,11 +273,14 @@
           unicodeCodePoint = Just
             '\12354'},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:15:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "J1",
+          commentLocation = Just
+            "macro_strings.h:15:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -273,11 +303,14 @@
           unicodeCodePoint = Just
             '\12354'},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:16:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "J2",
+          commentLocation = Just
+            "macro_strings.h:16:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -299,11 +332,14 @@
             [227, 129, 130],
           unicodeCodePoint = Nothing},
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:17:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "J3",
+          commentLocation = Just
+            "macro_strings.h:17:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -350,11 +386,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [97]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:20:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S1",
+          commentLocation = Just
+            "macro_strings.h:20:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -401,11 +440,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [39]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:21:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S2",
+          commentLocation = Just
+            "macro_strings.h:21:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -452,11 +494,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [9]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:22:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S3",
+          commentLocation = Just
+            "macro_strings.h:22:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -503,11 +548,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [0]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:23:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S4",
+          commentLocation = Just
+            "macro_strings.h:23:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -554,11 +602,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [39]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:24:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S5",
+          commentLocation = Just
+            "macro_strings.h:24:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -605,11 +656,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [63]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:25:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S6",
+          commentLocation = Just
+            "macro_strings.h:25:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -656,11 +710,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [83]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:26:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S7",
+          commentLocation = Just
+            "macro_strings.h:26:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -707,11 +764,14 @@
       varDeclBody = VarDeclString
         (Prim.byteArrayFromList [83]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:27:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S8",
+          commentLocation = Just
+            "macro_strings.h:27:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -759,11 +819,14 @@
         (Prim.byteArrayFromList
           [227, 129, 130]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:29:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T1",
+          commentLocation = Just
+            "macro_strings.h:29:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -811,11 +874,14 @@
         (Prim.byteArrayFromList
           [227, 129, 130]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:30:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T2",
+          commentLocation = Just
+            "macro_strings.h:30:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -863,11 +929,14 @@
         (Prim.byteArrayFromList
           [227, 129, 130]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:31:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T3",
+          commentLocation = Just
+            "macro_strings.h:31:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -923,11 +992,14 @@
             1,
             255]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:33:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "U",
+          commentLocation = Just
+            "macro_strings.h:33:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -975,11 +1047,14 @@
         (Prim.byteArrayFromList
           [1, 2, 3, 4, 5, 6]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:34:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "V",
+          commentLocation = Just
+            "macro_strings.h:34:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -1027,11 +1102,14 @@
         (Prim.byteArrayFromList
           [104, 105, 106, 0]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:36:9")
-          (Just "macro_strings.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "W1",
+          commentLocation = Just
+            "macro_strings.h:36:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}},
   DeclVar
     VarDecl {
       varDeclName = HsName
@@ -1088,8 +1166,11 @@
             0,
             103]),
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just "macro_strings.h:37:9")
-          (Just "macro_strings.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "W2",
+          commentLocation = Just
+            "macro_strings.h:37:9",
+          commentHeader = Just
+            "macro_strings.h",
+          commentChildren = []}}]

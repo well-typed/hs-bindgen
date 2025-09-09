@@ -16,15 +16,16 @@ TranslationUnit {
         "fun_attributes_conflict.h",
         declComment =
         Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Conflicting attributes on functions for llvm/clang versions 18 and up"],
-            Paragraph
-              [
-                TextContent
-                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Conflicting attributes on functions for llvm/clang versions 18 and up"],
+              Paragraph
+                [
+                  TextContent
+                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]])},
       declKind = DeclFunction
         Function {
           functionArgs = [

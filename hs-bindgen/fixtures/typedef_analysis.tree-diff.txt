@@ -19,11 +19,12 @@ TranslationUnit {
         "typedef_analysis.h",
         declComment =
         Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`"]])},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames

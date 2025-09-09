@@ -153,15 +153,16 @@ TranslationUnit {
         "decls_in_signature.h",
         declComment =
         Just
-          [
-            Paragraph
-              [TextContent "Error cases"],
-            Paragraph
-              [
-                TextContent
-                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                TextContent
-                  "and the edge cases below)."]]},
+          (Comment
+            [
+              Paragraph
+                [TextContent "Error cases"],
+              Paragraph
+                [
+                  TextContent
+                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                  TextContent
+                    "and the edge cases below)."]])},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
@@ -219,15 +220,16 @@ TranslationUnit {
         "decls_in_signature.h",
         declComment =
         Just
-          [
-            Paragraph
-              [TextContent "Error cases"],
-            Paragraph
-              [
-                TextContent
-                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                TextContent
-                  "and the edge cases below)."]]},
+          (Comment
+            [
+              Paragraph
+                [TextContent "Error cases"],
+              Paragraph
+                [
+                  TextContent
+                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                  TextContent
+                    "and the edge cases below)."]])},
       declKind = DeclFunction
         Function {
           functionArgs = [

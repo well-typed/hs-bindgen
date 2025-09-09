@@ -47,11 +47,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:2:9")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "PtrInt",
+          commentLocation = Just
+            "macro_types.h:2:9",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -143,11 +146,15 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:5:9")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "PtrPtrChar",
+          commentLocation = Just
+            "macro_types.h:5:9",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -247,11 +254,14 @@
           RealFrac,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:8:9")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "MTy",
+          commentLocation = Just
+            "macro_types.h:8:9",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -436,11 +446,14 @@
           RealFrac,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:9:13")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "tty",
+          commentLocation = Just
+            "macro_types.h:9:13",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -623,11 +636,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:11:9")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "UINT8_T",
+          commentLocation = Just
+            "macro_types.h:11:9",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -825,11 +841,15 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:12:9")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "BOOLEAN_T",
+          commentLocation = Just
+            "macro_types.h:12:9",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1027,11 +1047,15 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "macro_types.h:13:19")
-          (Just "macro_types.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "boolean_T",
+          commentLocation = Just
+            "macro_types.h:13:19",
+          commentHeader = Just
+            "macro_types.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

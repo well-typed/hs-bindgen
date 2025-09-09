@@ -71,11 +71,14 @@
       newtypeInstances = Set.fromList
         [Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:2:15")
-          (Just "nested_unions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "unionA",
+          commentLocation = Just
+            "nested_unions.h:2:15",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -98,15 +101,18 @@
         "@NsTypeConstr"
         "UnionA",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:3:21")
-          (Just "nested_unions.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "a",
+          commentLocation = Just
+            "nested_unions.h:3:21",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_unionA_a"]])},
+                Identifier "set_unionA_a"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -118,15 +124,16 @@
         "@NsTypeConstr"
         "UnionA",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_unionA_a"]])},
+                Identifier "get_unionA_a"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -138,15 +145,18 @@
         "@NsTypeConstr"
         "UnionA",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:4:22")
-          (Just "nested_unions.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "b",
+          commentLocation = Just
+            "nested_unions.h:4:22",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_unionA_b"]])},
+                Identifier "set_unionA_b"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -158,15 +168,16 @@
         "@NsTypeConstr"
         "UnionA",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_unionA_b"]])},
+                Identifier "get_unionA_b"]]}},
   DeclData
     Struct {
       structName = HsName
@@ -203,11 +214,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "nested_unions.h:5:11")
-              (Just "nested_unions.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "fieldA1",
+              commentLocation = Just
+                "nested_unions.h:5:11",
+              commentHeader = Just
+                "nested_unions.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -254,11 +268,14 @@
       structInstances = Set.fromList
         [Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:1:8")
-          (Just "nested_unions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "exA",
+          commentLocation = Just
+            "nested_unions.h:1:8",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -298,11 +315,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "nested_unions.h:5:11")
-                  (Just "nested_unions.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "fieldA1",
+                  commentLocation = Just
+                    "nested_unions.h:5:11",
+                  commentHeader = Just
+                    "nested_unions.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -349,11 +369,14 @@
           structInstances = Set.fromList
             [Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "nested_unions.h:1:8")
-              (Just "nested_unions.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "exA",
+              commentLocation = Just
+                "nested_unions.h:1:8",
+              commentHeader = Just
+                "nested_unions.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -396,11 +419,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "nested_unions.h:5:11")
-                          (Just "nested_unions.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "fieldA1",
+                          commentLocation = Just
+                            "nested_unions.h:5:11",
+                          commentHeader = Just
+                            "nested_unions.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -447,11 +473,14 @@
                   structInstances = Set.fromList
                     [Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "nested_unions.h:1:8")
-                      (Just "nested_unions.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "exA",
+                      commentLocation = Just
+                        "nested_unions.h:1:8",
+                      commentHeader = Just
+                        "nested_unions.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -494,11 +523,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "nested_unions.h:5:11")
-                          (Just "nested_unions.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "fieldA1",
+                          commentLocation = Just
+                            "nested_unions.h:5:11",
+                          commentHeader = Just
+                            "nested_unions.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -545,11 +577,14 @@
                   structInstances = Set.fromList
                     [Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "nested_unions.h:1:8")
-                      (Just "nested_unions.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "exA",
+                      commentLocation = Just
+                        "nested_unions.h:1:8",
+                      commentHeader = Just
+                        "nested_unions.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -631,11 +666,15 @@
       newtypeInstances = Set.fromList
         [Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:9:9")
-          (Just "nested_unions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "exB_fieldB1",
+          commentLocation = Just
+            "nested_unions.h:9:9",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -658,16 +697,19 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:10:21")
-          (Just "nested_unions.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "a",
+          commentLocation = Just
+            "nested_unions.h:10:21",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_exB_fieldB1_a"]])},
+                  "set_exB_fieldB1_a"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -679,16 +721,17 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_exB_fieldB1_a"]])},
+                  "get_exB_fieldB1_a"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -700,16 +743,19 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:11:22")
-          (Just "nested_unions.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "b",
+          commentLocation = Just
+            "nested_unions.h:11:22",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_exB_fieldB1_b"]])},
+                  "set_exB_fieldB1_b"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -721,16 +767,17 @@
         "@NsTypeConstr"
         "ExB_fieldB1",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_exB_fieldB1_b"]])},
+                  "get_exB_fieldB1_b"]]}},
   DeclData
     Struct {
       structName = HsName
@@ -768,11 +815,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "nested_unions.h:12:11")
-              (Just "nested_unions.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "fieldB1",
+              commentLocation = Just
+                "nested_unions.h:12:11",
+              commentHeader = Just
+                "nested_unions.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -820,11 +870,14 @@
       structInstances = Set.fromList
         [Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "nested_unions.h:8:8")
-          (Just "nested_unions.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "exB",
+          commentLocation = Just
+            "nested_unions.h:8:8",
+          commentHeader = Just
+            "nested_unions.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -865,11 +918,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "nested_unions.h:12:11")
-                  (Just "nested_unions.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "fieldB1",
+                  commentLocation = Just
+                    "nested_unions.h:12:11",
+                  commentHeader = Just
+                    "nested_unions.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -917,11 +973,14 @@
           structInstances = Set.fromList
             [Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "nested_unions.h:8:8")
-              (Just "nested_unions.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "exB",
+              commentLocation = Just
+                "nested_unions.h:8:8",
+              commentHeader = Just
+                "nested_unions.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -965,11 +1024,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "nested_unions.h:12:11")
-                          (Just "nested_unions.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "fieldB1",
+                          commentLocation = Just
+                            "nested_unions.h:12:11",
+                          commentHeader = Just
+                            "nested_unions.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1017,11 +1079,14 @@
                   structInstances = Set.fromList
                     [Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "nested_unions.h:8:8")
-                      (Just "nested_unions.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "exB",
+                      commentLocation = Just
+                        "nested_unions.h:8:8",
+                      commentHeader = Just
+                        "nested_unions.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1065,11 +1130,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "nested_unions.h:12:11")
-                          (Just "nested_unions.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "fieldB1",
+                          commentLocation = Just
+                            "nested_unions.h:12:11",
+                          commentHeader = Just
+                            "nested_unions.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1117,11 +1185,14 @@
                   structInstances = Set.fromList
                     [Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "nested_unions.h:8:8")
-                      (Just "nested_unions.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "exB",
+                      commentLocation = Just
+                        "nested_unions.h:8:8",
+                      commentHeader = Just
+                        "nested_unions.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [

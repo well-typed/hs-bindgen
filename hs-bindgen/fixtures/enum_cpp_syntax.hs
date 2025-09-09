@@ -303,11 +303,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enum_cpp_syntax.h:4:9")
-          (Just "enum_cpp_syntax.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo_enum",
+          commentLocation = Just
+            "enum_cpp_syntax.h:4:9",
+          commentHeader = Just
+            "enum_cpp_syntax.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1424,11 +1427,14 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enum_cpp_syntax.h:4:27")
-          (Just "enum_cpp_syntax.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "A",
+          commentLocation = Just
+            "enum_cpp_syntax.h:4:27",
+          commentHeader = Just
+            "enum_cpp_syntax.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1452,11 +1458,14 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enum_cpp_syntax.h:4:30")
-          (Just "enum_cpp_syntax.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "B",
+          commentLocation = Just
+            "enum_cpp_syntax.h:4:30",
+          commentHeader = Just
+            "enum_cpp_syntax.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1480,8 +1489,11 @@
             fieldComment = Nothing},
           enumConstantValue = 2},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enum_cpp_syntax.h:4:33")
-          (Just "enum_cpp_syntax.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C",
+          commentLocation = Just
+            "enum_cpp_syntax.h:4:33",
+          commentHeader = Just
+            "enum_cpp_syntax.h",
+          commentChildren = []}}]

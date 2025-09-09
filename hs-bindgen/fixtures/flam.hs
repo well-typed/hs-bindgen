@@ -28,11 +28,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:3:9")
-              (Just "flam.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "len",
+              commentLocation = Just
+                "flam.h:3:9",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -88,11 +90,13 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "flam.h:2:8")
-          (Just "flam.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "pascal",
+          commentLocation = Just
+            "flam.h:2:8",
+          commentHeader = Just "flam.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -125,11 +129,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:3:9")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "len",
+                  commentLocation = Just
+                    "flam.h:3:9",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -185,11 +191,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:2:8")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "pascal",
+              commentLocation = Just
+                "flam.h:2:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -225,11 +233,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:3:9")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "len",
+                          commentLocation = Just
+                            "flam.h:3:9",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -285,11 +295,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:2:8")
-                      (Just "flam.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "pascal",
+                      commentLocation = Just
+                        "flam.h:2:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -325,11 +337,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:3:9")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "len",
+                          commentLocation = Just
+                            "flam.h:3:9",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -385,11 +399,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:2:8")
-                      (Just "flam.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "pascal",
+                      commentLocation = Just
+                        "flam.h:2:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -451,11 +467,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:3:9")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "len",
+                  commentLocation = Just
+                    "flam.h:3:9",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -511,11 +529,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:2:8")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "pascal",
+              commentLocation = Just
+                "flam.h:2:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         (HsPrimType HsPrimCChar)
         4,
       defineInstanceComment =
@@ -549,11 +569,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:11:7")
-              (Just "flam.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "flam.h:11:7",
+              commentHeader = Just "flam.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -574,11 +596,13 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:12:7")
-              (Just "flam.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "flam.h:12:7",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -633,11 +657,13 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "flam.h:10:2")
-          (Just "flam.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo_bar",
+          commentLocation = Just
+            "flam.h:10:2",
+          commentHeader = Just "flam.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -670,11 +696,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:11:7")
-                  (Just "flam.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "flam.h:11:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -695,11 +723,13 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:12:7")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "flam.h:12:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -754,11 +784,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:10:2")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "foo_bar",
+              commentLocation = Just
+                "flam.h:10:2",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -794,11 +826,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:11:7")
-                          (Just "flam.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "flam.h:11:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -819,11 +853,13 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:12:7")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "flam.h:12:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -878,11 +914,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:10:2")
-                      (Just "flam.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "foo_bar",
+                      commentLocation = Just
+                        "flam.h:10:2",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -920,11 +958,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:11:7")
-                          (Just "flam.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "flam.h:11:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -945,11 +985,13 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:12:7")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "flam.h:12:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1004,11 +1046,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:10:2")
-                      (Just "flam.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "foo_bar",
+                      commentLocation = Just
+                        "flam.h:10:2",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -1068,11 +1112,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:9:6")
-              (Just "flam.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "len",
+              commentLocation = Just
+                "flam.h:9:6",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1131,11 +1177,13 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "flam.h:8:8")
-          (Just "flam.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "flam.h:8:8",
+          commentHeader = Just "flam.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1168,11 +1216,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:9:6")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "len",
+                  commentLocation = Just
+                    "flam.h:9:6",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1231,11 +1281,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:8:8")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "foo",
+              commentLocation = Just
+                "flam.h:8:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -1271,11 +1323,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:9:6")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "len",
+                          commentLocation = Just
+                            "flam.h:9:6",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1334,11 +1388,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:8:8")
-                      (Just "flam.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "foo",
+                      commentLocation = Just
+                        "flam.h:8:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1374,11 +1430,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:9:6")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "len",
+                          commentLocation = Just
+                            "flam.h:9:6",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1437,11 +1495,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:8:8")
-                      (Just "flam.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "foo",
+                      commentLocation = Just
+                        "flam.h:8:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -1503,11 +1563,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:9:6")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "len",
+                  commentLocation = Just
+                    "flam.h:9:6",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1566,11 +1628,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:8:8")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "foo",
+              commentLocation = Just
+                "flam.h:8:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         (HsTypRef
           (HsName
             "@NsTypeConstr"
@@ -1607,11 +1671,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:18:7")
-              (Just "flam.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "first",
+              commentLocation = Just
+                "flam.h:18:7",
+              commentHeader = Just "flam.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1634,11 +1700,13 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:19:7")
-              (Just "flam.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "second",
+              commentLocation = Just
+                "flam.h:19:7",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1708,11 +1776,13 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "flam.h:17:8")
-          (Just "flam.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "diff",
+          commentLocation = Just
+            "flam.h:17:8",
+          commentHeader = Just "flam.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1745,11 +1815,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:18:7")
-                  (Just "flam.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "first",
+                  commentLocation = Just
+                    "flam.h:18:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1772,11 +1844,13 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:19:7")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "second",
+                  commentLocation = Just
+                    "flam.h:19:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1846,11 +1920,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:17:8")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "diff",
+              commentLocation = Just
+                "flam.h:17:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -1886,11 +1962,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:18:7")
-                          (Just "flam.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "first",
+                          commentLocation = Just
+                            "flam.h:18:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1913,11 +1991,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:19:7")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "second",
+                          commentLocation = Just
+                            "flam.h:19:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1987,11 +2067,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:17:8")
-                      (Just "flam.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "diff",
+                      commentLocation = Just
+                        "flam.h:17:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2029,11 +2111,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:18:7")
-                          (Just "flam.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "first",
+                          commentLocation = Just
+                            "flam.h:18:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2056,11 +2140,13 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:19:7")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "second",
+                          commentLocation = Just
+                            "flam.h:19:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2130,11 +2216,13 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "flam.h:17:8")
-                      (Just "flam.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "diff",
+                      commentLocation = Just
+                        "flam.h:17:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -2197,11 +2285,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:18:7")
-                  (Just "flam.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "first",
+                  commentLocation = Just
+                    "flam.h:18:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2224,11 +2314,13 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:19:7")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "second",
+                  commentLocation = Just
+                    "flam.h:19:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2298,11 +2390,13 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:17:8")
-              (Just "flam.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "diff",
+              commentLocation = Just
+                "flam.h:17:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         (HsPrimType HsPrimCChar)
         9,
       defineInstanceComment =
@@ -2336,11 +2430,13 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "flam.h:27:7")
-              (Just "flam.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "len",
+              commentLocation = Just
+                "flam.h:27:7",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}],
       structOrigin =
       Just
         Decl {
@@ -2356,15 +2452,16 @@
             declHeader = "flam.h",
             declComment =
             Just
-              [
-                Paragraph
-                  [
-                    TextContent
-                      "The flexible array member is a multi-dimensional array of unknown size. In",
-                    TextContent
-                      "particular, it is a is an array of unknown size, where each element is of",
-                    TextContent
-                      "type length-3-array-of-int."]]},
+              (Comment
+                [
+                  Paragraph
+                    [
+                      TextContent
+                        "The flexible array member is a multi-dimensional array of unknown size. In",
+                      TextContent
+                        "particular, it is a is an array of unknown size, where each element is of",
+                      TextContent
+                        "type length-3-array-of-int."]])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -2409,18 +2506,21 @@
         [Eq, Show, Storable],
       structComment =
       Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle =
+          Just
             [
               TextContent
                 "The flexible array member is a multi-dimensional array of unknown size. In",
               TextContent
                 "particular, it is a is an array of unknown size, where each element is of",
               TextContent
-                "type length-3-array-of-int."])
-          (Just "flam.h:26:8")
-          (Just "flam.h")
-          [])},
+                "type length-3-array-of-int."],
+          commentOrigin = Just "triplets",
+          commentLocation = Just
+            "flam.h:26:8",
+          commentHeader = Just "flam.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2453,11 +2553,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:27:7")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "len",
+                  commentLocation = Just
+                    "flam.h:27:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin =
           Just
             Decl {
@@ -2473,15 +2575,16 @@
                 declHeader = "flam.h",
                 declComment =
                 Just
-                  [
-                    Paragraph
-                      [
-                        TextContent
-                          "The flexible array member is a multi-dimensional array of unknown size. In",
-                        TextContent
-                          "particular, it is a is an array of unknown size, where each element is of",
-                        TextContent
-                          "type length-3-array-of-int."]]},
+                  (Comment
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "The flexible array member is a multi-dimensional array of unknown size. In",
+                          TextContent
+                            "particular, it is a is an array of unknown size, where each element is of",
+                          TextContent
+                            "type length-3-array-of-int."]])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -2526,18 +2629,21 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            (Comment
-              (Just
+            Comment {
+              commentTitle =
+              Just
                 [
                   TextContent
                     "The flexible array member is a multi-dimensional array of unknown size. In",
                   TextContent
                     "particular, it is a is an array of unknown size, where each element is of",
                   TextContent
-                    "type length-3-array-of-int."])
-              (Just "flam.h:26:8")
-              (Just "flam.h")
-              [])}
+                    "type length-3-array-of-int."],
+              commentOrigin = Just "triplets",
+              commentLocation = Just
+                "flam.h:26:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -2574,11 +2680,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:27:7")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "len",
+                          commentLocation = Just
+                            "flam.h:27:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin =
                   Just
                     Decl {
@@ -2594,15 +2702,16 @@
                         declHeader = "flam.h",
                         declComment =
                         Just
-                          [
-                            Paragraph
-                              [
-                                TextContent
-                                  "The flexible array member is a multi-dimensional array of unknown size. In",
-                                TextContent
-                                  "particular, it is a is an array of unknown size, where each element is of",
-                                TextContent
-                                  "type length-3-array-of-int."]]},
+                          (Comment
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                                  TextContent
+                                    "particular, it is a is an array of unknown size, where each element is of",
+                                  TextContent
+                                    "type length-3-array-of-int."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -2647,18 +2756,21 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      (Just
+                    Comment {
+                      commentTitle =
+                      Just
                         [
                           TextContent
                             "The flexible array member is a multi-dimensional array of unknown size. In",
                           TextContent
                             "particular, it is a is an array of unknown size, where each element is of",
                           TextContent
-                            "type length-3-array-of-int."])
-                      (Just "flam.h:26:8")
-                      (Just "flam.h")
-                      [])})
+                            "type length-3-array-of-int."],
+                      commentOrigin = Just "triplets",
+                      commentLocation = Just
+                        "flam.h:26:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke =
           Lambda
@@ -2695,11 +2807,13 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "flam.h:27:7")
-                          (Just "flam.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "len",
+                          commentLocation = Just
+                            "flam.h:27:7",
+                          commentHeader = Just "flam.h",
+                          commentChildren = []}}],
                   structOrigin =
                   Just
                     Decl {
@@ -2715,15 +2829,16 @@
                         declHeader = "flam.h",
                         declComment =
                         Just
-                          [
-                            Paragraph
-                              [
-                                TextContent
-                                  "The flexible array member is a multi-dimensional array of unknown size. In",
-                                TextContent
-                                  "particular, it is a is an array of unknown size, where each element is of",
-                                TextContent
-                                  "type length-3-array-of-int."]]},
+                          (Comment
+                            [
+                              Paragraph
+                                [
+                                  TextContent
+                                    "The flexible array member is a multi-dimensional array of unknown size. In",
+                                  TextContent
+                                    "particular, it is a is an array of unknown size, where each element is of",
+                                  TextContent
+                                    "type length-3-array-of-int."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -2768,18 +2883,21 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      (Just
+                    Comment {
+                      commentTitle =
+                      Just
                         [
                           TextContent
                             "The flexible array member is a multi-dimensional array of unknown size. In",
                           TextContent
                             "particular, it is a is an array of unknown size, where each element is of",
                           TextContent
-                            "type length-3-array-of-int."])
-                      (Just "flam.h:26:8")
-                      (Just "flam.h")
-                      [])}
+                            "type length-3-array-of-int."],
+                      commentOrigin = Just "triplets",
+                      commentLocation = Just
+                        "flam.h:26:8",
+                      commentHeader = Just "flam.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -2841,11 +2959,13 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "flam.h:27:7")
-                  (Just "flam.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "len",
+                  commentLocation = Just
+                    "flam.h:27:7",
+                  commentHeader = Just "flam.h",
+                  commentChildren = []}}],
           structOrigin =
           Just
             Decl {
@@ -2861,15 +2981,16 @@
                 declHeader = "flam.h",
                 declComment =
                 Just
-                  [
-                    Paragraph
-                      [
-                        TextContent
-                          "The flexible array member is a multi-dimensional array of unknown size. In",
-                        TextContent
-                          "particular, it is a is an array of unknown size, where each element is of",
-                        TextContent
-                          "type length-3-array-of-int."]]},
+                  (Comment
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "The flexible array member is a multi-dimensional array of unknown size. In",
+                          TextContent
+                            "particular, it is a is an array of unknown size, where each element is of",
+                          TextContent
+                            "type length-3-array-of-int."]])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -2914,18 +3035,21 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            (Comment
-              (Just
+            Comment {
+              commentTitle =
+              Just
                 [
                   TextContent
                     "The flexible array member is a multi-dimensional array of unknown size. In",
                   TextContent
                     "particular, it is a is an array of unknown size, where each element is of",
                   TextContent
-                    "type length-3-array-of-int."])
-              (Just "flam.h:26:8")
-              (Just "flam.h")
-              [])}
+                    "type length-3-array-of-int."],
+              commentOrigin = Just "triplets",
+              commentLocation = Just
+                "flam.h:26:8",
+              commentHeader = Just "flam.h",
+              commentChildren = []}}
         (HsConstArray
           3
           (HsPrimType HsPrimCInt))

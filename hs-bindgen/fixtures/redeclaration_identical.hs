@@ -25,10 +25,11 @@
         5
         HsPrimCInt,
       varDeclComment = Just
-        (Comment
-          Nothing
-          (Just
-            "redeclaration_identical.h:3:9")
-          (Just
-            "redeclaration_identical.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "A",
+          commentLocation = Just
+            "redeclaration_identical.h:3:9",
+          commentHeader = Just
+            "redeclaration_identical.h",
+          commentChildren = []}}]

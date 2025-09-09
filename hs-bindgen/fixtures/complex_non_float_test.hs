@@ -24,13 +24,15 @@
             PrimShort
             Unsigned)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "complex_non_float_test.h:3:32")
-          (Just
-            "complex_non_float_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_unsigned_short",
+          commentLocation = Just
+            "complex_non_float_test.h:3:32",
+          commentHeader = Just
+            "complex_non_float_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -59,13 +61,15 @@
             PrimShort
             Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "complex_non_float_test.h:4:32")
-          (Just
-            "complex_non_float_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_short",
+          commentLocation = Just
+            "complex_non_float_test.h:4:32",
+          commentHeader = Just
+            "complex_non_float_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -94,13 +98,15 @@
             PrimInt
             Unsigned)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "complex_non_float_test.h:5:32")
-          (Just
-            "complex_non_float_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_unsigned_int",
+          commentLocation = Just
+            "complex_non_float_test.h:5:32",
+          commentHeader = Just
+            "complex_non_float_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -127,13 +133,15 @@
         (TypeComplex
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "complex_non_float_test.h:6:32")
-          (Just
-            "complex_non_float_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_int",
+          commentLocation = Just
+            "complex_non_float_test.h:6:32",
+          commentHeader = Just
+            "complex_non_float_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -162,13 +170,15 @@
             (PrimSignImplicit
               (Just Signed)))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "complex_non_float_test.h:7:32")
-          (Just
-            "complex_non_float_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_char",
+          commentLocation = Just
+            "complex_non_float_test.h:7:32",
+          commentHeader = Just
+            "complex_non_float_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]
