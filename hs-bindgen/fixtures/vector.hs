@@ -542,9 +542,6 @@
         "Vector",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "vector.h",
-  DeclInlineC
-    "vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -586,7 +583,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_vector_72a6c90b1b14a9b0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          capiWrapperImport = "vector.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -628,9 +629,6 @@
           commentHeader = Just "vector.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "vector.h",
-  DeclInlineC
-    "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -654,7 +652,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_vector_94a1e2e4670c0a3e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } ",
+          capiWrapperImport = "vector.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

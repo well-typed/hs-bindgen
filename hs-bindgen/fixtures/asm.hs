@@ -1,7 +1,4 @@
 [
-  DeclInlineCInclude "asm.h",
-  DeclInlineC
-    "/* get_asm_labeled_variable_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_asm_d2d42e5b0c00988a (void) { return &asm_labeled_variable; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -16,7 +13,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_asm_d2d42e5b0c00988a",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_asm_labeled_variable_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_asm_d2d42e5b0c00988a (void) { return &asm_labeled_variable; } ",
+          capiWrapperImport = "asm.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -32,9 +33,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "asm.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_asm_54c5278e738a284f (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -71,7 +69,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_asm_54c5278e738a284f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_asm_54c5278e738a284f (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }",
+          capiWrapperImport = "asm.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -104,9 +106,6 @@
           commentHeader = Just "asm.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude "asm.h",
-  DeclInlineC
-    "/* get_asm_labeled_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_asm_6a616a08348f146e (void)) (signed int arg1, signed int arg2) { return &asm_labeled_function; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -126,7 +125,11 @@
       foreignImportOrigName =
       "hs_bindgen_test_asm_6a616a08348f146e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_asm_labeled_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_asm_6a616a08348f146e (void)) (signed int arg1, signed int arg2) { return &asm_labeled_function; } ",
+          capiWrapperImport = "asm.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

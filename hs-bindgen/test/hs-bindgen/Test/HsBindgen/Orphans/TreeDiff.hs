@@ -122,6 +122,7 @@ instance ToExpr Hs.HsIdentifier
 instance ToExpr Hs.HsTypeClass
 instance ToExpr Hs.ExtHsRef
 
+instance ToExpr Hs.UserlandCapiWrapper
 instance ToExpr Hs.CallConv
 instance ToExpr Hs.ImportStyle
 
@@ -255,10 +256,6 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclInstance" [toExpr inst]
     Hs.DeclDeriveInstance di ->
       Expr.App "DeclNewtypeInstance" [toExpr di]
-    Hs.DeclInlineCInclude header ->
-      Expr.App "DeclInlineCInclude" [toExpr header]
-    Hs.DeclInlineC src ->
-      Expr.App "DeclInlineC" [toExpr src]
     Hs.DeclForeignImport foreignImport ->
       Expr.App "DeclForeignImport" [toExpr foreignImport]
     Hs.DeclVar v ->

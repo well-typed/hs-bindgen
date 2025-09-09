@@ -13,19 +13,21 @@ import Data.Text qualified as T
 import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec
 
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.AST.Syntax qualified as C
 import HsBindgen.Frontend.Macro.Tc qualified as Macro hiding (IntegralType)
-import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import HsBindgen.Backend.SHs.AST
 
 import DeBruijn (rzeroAdd)
 import DeBruijn.Internal.Size (Size (UnsafeSize))
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import Witherable (ordNub)
 
 {-------------------------------------------------------------------------------
@@ -37,24 +39,32 @@ translateDecls decls
     | null csources' =                      concatMap translateDecl decls
     | otherwise      = DCSource csources' : concatMap translateDecl decls
   where
-    csources' = csources decls
+    csources' = getCSources decls
 
--- 20250429 this function will change,
--- but for now we find the includes to test addCSource functionality
-csources :: [Hs.Decl] -> String
-csources decls = unlines $ headers ++ bodies
+-- Find and assemble C sources required by foreign imports.
+getCSources :: [Hs.Decl] -> String
+getCSources decls = unlines $ headers ++ bodies
   where
+    getUserlandCapiWrapper :: Hs.Decl -> Maybe UserlandCapiWrapper
+    getUserlandCapiWrapper = \case
+      Hs.DeclForeignImport (Hs.ForeignImportDecl{foreignImportCallConv}) ->
+        case foreignImportCallConv of
+          CallConvUserlandCAPI w -> Just w
+          _otherCallConv         -> Nothing
+      _otherDecl          -> Nothing
+
+    wrappers :: [UserlandCapiWrapper]
+    wrappers = mapMaybe getUserlandCapiWrapper decls
+
+    getImport :: UserlandCapiWrapper -> String
+    getImport =
+      (\h -> "#include <" ++ getHashIncludeArg h ++ ">") . capiWrapperImport
+
     -- It is important that we don't include the same header more than once,
     -- /especially/ for non-extern non-static globals.
-    headers = ordNub
-      [ "#include <" ++ header ++ ">"
-      | Hs.DeclInlineCInclude header <- decls
-      ]
-
-    bodies =
-      [ body
-      | Hs.DeclInlineC body <- decls
-      ]
+    headers, bodies :: [String]
+    headers = ordNub $ map getImport wrappers
+    bodies = map capiWrapperDefinition wrappers
 
 translateDecl :: Hs.Decl -> [SDecl]
 translateDecl (Hs.DeclData d) = singleton $ translateDeclData d
@@ -68,9 +78,6 @@ translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
 translateDecl (Hs.DeclUnionGetter u) = singleton $ translateUnionGetter u
 translateDecl (Hs.DeclUnionSetter u) = singleton $ translateUnionSetter u
 translateDecl (Hs.DeclSimple d) = [d]
--- these are processed by 'csources'
-translateDecl Hs.DeclInlineCInclude {} = []
-translateDecl Hs.DeclInlineC {}        = []
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl Hs.DefineInstance {..} =

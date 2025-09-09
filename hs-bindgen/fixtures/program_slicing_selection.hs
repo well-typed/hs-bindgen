@@ -2521,10 +2521,6 @@
         "FileOperationRecord",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "program_slicing_selection.h",
-  DeclInlineC
-    "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2703,7 +2699,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_program_slicing_selection_2e587488135cbef3",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "program_slicing_selection.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2883,10 +2884,6 @@
             "program_slicing_selection.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "program_slicing_selection.h",
-  DeclInlineC
-    "/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -3035,7 +3032,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } ",
+          capiWrapperImport =
+          "program_slicing_selection.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
