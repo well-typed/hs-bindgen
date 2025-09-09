@@ -124,9 +124,7 @@ generateHaddocksWithParams HaddockConfig{..} declLoc header declId (Just C.Comme
 
    in ( Just Hs.Comment {
           commentTitle
-        , commentOrigin   = if Text.null commentCName
-                               then Just (getName (nameC declId))
-                               else Just (Text.strip commentCName)
+        , commentOrigin   = Just (getName (nameC declId))
         , commentLocation = Just (updateSingleLoc pathStyle declLoc)
         , commentHeader   = Just header
         , commentChildren = finalChildren
