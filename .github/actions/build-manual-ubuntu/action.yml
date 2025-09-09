@@ -1,0 +1,77 @@
+name: Manual (Ubuntu)
+description: Build and run the manual on Ubuntu
+
+# If needed, we can SSH into the machine executing the job and
+# figure out what's going on:
+# - name: Setup tmate session
+#   uses: mxschmitt/action-tmate@v3
+
+runs:
+  using: composite
+  steps:
+    # Ubuntu doesn't have an issue with Unicode characters. Note also that we
+    # are passing '-DSUPPORTS_UNICODE' this option passes SUPPORTS_UNICODE macro
+    # to libclang preprocessor.
+    - name: Configure environment variables
+      shell: bash
+      run: |
+        export SUPPORTS_UNICODE=1
+        echo $SUPPORTS_UNICODE
+        echo "SUPPORTS_UNICODE=$SUPPORTS_UNICODE" >> "$GITHUB_ENV"
+        export LD_LIBRARY_PATH=${{ github.workspace }}/manual/c/:$LD_LIBRARY_PATH
+        echo $LD_LIBRARY_PATH
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
+        export BINDGEN_EXTRA_CLANG_ARGS=-DSUPPORTS_UNICODE
+        echo $BINDGEN_EXTRA_CLANG_ARGS
+        echo "BINDGEN_EXTRA_CLANG_ARGS=$BINDGEN_EXTRA_CLANG_ARGS" >> "$GITHUB_ENV"
+
+    # Note that -DSUPPORTS_UNICODE is set, but is only needed to run the manual,
+    # not to actually compile the project.
+    - name: Create cabal.project.local
+      shell: bash
+      working-directory: ./manual/hs
+      run: |
+        echo "Writing cabal.project.local to configure C paths..."
+        cat <<EOF > cabal.project.local
+        package *
+          ghc-options:
+            -optc-DSUPPORTS_UNICODE
+            -DSUPPORTS_UNICODE
+        package manual
+          extra-include-dirs:
+              ${{ github.workspace }}/manual/c
+          extra-lib-dirs:
+              ${{ github.workspace }}/manual/c
+
+        package hs-game
+          extra-include-dirs:
+              ${{ github.workspace }}/manual/c
+          extra-lib-dirs:
+              ${{ github.workspace }}/manual/c
+
+        package hs-vector
+          extra-include-dirs:
+              ${{ github.workspace }}/manual/c
+          extra-lib-dirs:
+              ${{ github.workspace }}/manual/c
+        EOF
+
+    - name: Build the C libraries
+      shell: bash
+      working-directory: ./manual/c
+      run: make
+
+    - name: Run binding generation script
+      shell: bash
+      working-directory: ./manual
+      run: ./generate.sh
+
+    - name: Build the manual
+      shell: bash
+      working-directory: ./manual/hs
+      run: cabal build all
+
+    - name: Run the manual executable
+      shell: bash
+      working-directory: ./manual/hs
+      run: cabal run manual
