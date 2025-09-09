@@ -15,6 +15,8 @@ module Data.DynGraph.Labelled (
   , dff
   , dfFindMember
   , findTrailFrom
+  , findAllPaths
+  , FindAllPathsResult(..)
     -- * Deletion
   , deleteEdges
     -- * Debugging
@@ -33,8 +35,11 @@ import Data.Array.ST.Safe qualified as Array
 import Data.Bifunctor
 import Data.IntMap.Strict (IntMap)
 import Data.IntMap.Strict qualified as IntMap
+import Data.IntSet (IntSet)
 import Data.IntSet qualified as IntSet
 import Data.List qualified as List
+import Data.List.NonEmpty (NonEmpty((:|)))
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe, mapMaybe)
@@ -185,6 +190,69 @@ findTrailFrom DynGraph{..} f = go
             currIx <- Map.lookup curr vtxMap
             next   <- Set.toList <$> IntMap.lookup currIx edges
             return $ map (first (idxMap IntMap.!)) next
+
+-- | Find all paths to target vertices from the specified starting vertex
+--
+-- This function may only be used with acyclic graphs.  (A version that works
+-- with cyclic graphs requires more space.)
+findAllPaths :: forall l a.
+     Ord a
+  => Set a
+  -> DynGraph l a
+  -> a
+  -> FindAllPathsResult l a
+findAllPaths targets DynGraph{..} v
+    | v `Set.member` targets                    = FindAllPathsTarget
+    | Set.size targets /= IntSet.size targetIxs = FindAllPathsInvalid
+    | Just ix <- Map.lookup v vtxMap            = aux [] (step ix [])
+    | otherwise                                 = FindAllPathsInvalid
+  where
+    targetIxs :: IntSet
+    targetIxs = IntSet.fromList $
+      mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
+
+    aux ::
+         [NonEmpty (a, l)]
+      -- ^ Accumulator (reversed)
+      -> [(Int, NonEmpty (a, l))]
+      -- ^ Next vertex index, path to that vertex (reversed)
+      -> FindAllPathsResult l a
+    aux acc [] = maybe FindAllPathsNotFound FindAllPathsFound $
+      NonEmpty.nonEmpty (List.reverse acc)
+    aux acc ((ix, rpath) : rest)
+      | ix `IntSet.member` targetIxs = aux (rpath : acc) rest
+      | otherwise = aux acc $ step ix (NonEmpty.toList rpath) ++ rest
+
+    step ::
+         Int
+      -- ^ Current vertex index
+      -> [(a, l)]
+      -- ^ Path to that vertex (reversed)
+      -> [(Int, NonEmpty (a, l))]
+      -- ^ Next vertex index, path to that vertex (reversed)
+    step ix rpath = case Set.toList <$> IntMap.lookup ix edges of
+      Nothing -> []
+      Just ps -> flip mapMaybe ps $ \(ix', l) ->
+        case IntMap.lookup ix' idxMap of
+          Just v' -> Just (ix', (v', l) :| rpath)
+          Nothing -> Nothing
+
+-- | 'findAllPaths' result
+data FindAllPathsResult l a  =
+    -- | Starting vertex or target vertex not in the graph
+    FindAllPathsInvalid
+
+    -- | Starting vertex is a target vertex
+  | FindAllPathsTarget
+
+    -- | No paths from starting vertex to any target vertex
+  | FindAllPathsNotFound
+
+    -- | All paths from starting vertex to target vertices
+    --
+    -- Paths are in /reverse/ order (from a target vertex).  The starting vertex
+    -- is /not/ included.
+  | FindAllPathsFound (NonEmpty (NonEmpty (a, l)))
 
 {-------------------------------------------------------------------------------
   Deletion
