@@ -89,15 +89,10 @@ prim ty _ = return $ C.TypePrim ty
 complex :: CXType -> ParseType (C.Type Parse)
 complex ty = do
   complexType <- clang_getElementType ty
-  primTy <- pure $ do
-    cty <- cxtype complexType
-    case cty of
-      C.TypePrim p -> pure p
-      _            -> throwError $ UnexpectedComplexType complexType
-
-  primTy' <- primTy
-
-  pure (C.TypeComplex primTy')
+  cty         <- cxtype complexType
+  case cty of
+    C.TypePrim p -> pure (C.TypeComplex p)
+    _            -> throwError $ UnexpectedComplexType complexType
 
 elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype

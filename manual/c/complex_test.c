@@ -31,3 +31,21 @@ float complex multiply_complex_f(float complex a, float complex b) {
 double complex add_complex(double complex a, double complex b) {
     return a + b;
 }
+
+void swap_velocity_position(complex_object_t *obj) {
+    if (!obj) return;
+
+    double complex temp = obj->position;
+    obj->position = obj->velocity;
+    obj->velocity = temp;
+}
+
+double complex sum_complex_array(double complex arr[10]) {
+    double complex sum = 0.0 + 0.0 * I;
+
+    for (int i = 0; i < 10; i++) {
+        sum += arr[i];
+    }
+
+    return sum;
+}
