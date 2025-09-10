@@ -148,41 +148,6 @@ TranslationUnit {
               newtypeField = HsName
                 "@NsVar"
                 "un_M3"},
-            macroType = TypeConstArray
-              3
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
-        "typedef_vs_macro.h:7:9",
-        declId = NamePair {
-          nameC = Name "M4",
-          nameHsIdent = HsIdentifier
-            "M4"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "M4",
-              newtypeField = HsName
-                "@NsVar"
-                "un_M4"},
             macroType = TypePointer
               (TypePrim
                 (PrimIntegral
@@ -197,7 +162,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "typedef_vs_macro.h:9:8",
+        "typedef_vs_macro.h:8:8",
         declId = NamePair {
           nameC = Name "ExampleStruct",
           nameHsIdent = HsIdentifier
@@ -219,7 +184,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:10:6",
+                "typedef_vs_macro.h:9:6",
                 fieldName = NamePair {
                   nameC = Name "t1",
                   nameHsIdent = HsIdentifier
@@ -236,7 +201,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:11:6",
+                "typedef_vs_macro.h:10:6",
                 fieldName = NamePair {
                   nameC = Name "t2",
                   nameHsIdent = HsIdentifier
@@ -253,7 +218,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:12:6",
+                "typedef_vs_macro.h:11:6",
                 fieldName = NamePair {
                   nameC = Name "m1",
                   nameHsIdent = HsIdentifier
@@ -270,7 +235,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:13:6",
+                "typedef_vs_macro.h:12:6",
                 fieldName = NamePair {
                   nameC = Name "m2",
                   nameHsIdent = HsIdentifier
@@ -294,7 +259,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "typedef_vs_macro.h:16:9",
+        "typedef_vs_macro.h:15:9",
         declId = NamePair {
           nameC = Name "uint64_t",
           nameHsIdent = HsIdentifier
@@ -325,7 +290,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "typedef_vs_macro.h:18:8",
+        "typedef_vs_macro.h:17:8",
         declId = NamePair {
           nameC = Name "foo",
           nameHsIdent = HsIdentifier
@@ -345,7 +310,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:19:13",
+                "typedef_vs_macro.h:18:13",
                 fieldName = NamePair {
                   nameC = Name "a",
                   nameHsIdent = HsIdentifier

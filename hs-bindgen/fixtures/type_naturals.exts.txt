@@ -1,4 +1,0 @@
-DerivingStrategies
-FlexibleContexts
-GeneralizedNewtypeDeriving
-ExplicitForAll

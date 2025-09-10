@@ -31,135 +31,9 @@ newtype PtrPtrChar
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
-{-| __C declaration:__ @Arr1@
-
-    __defined at:__ @macro_types.h:8:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Arr1
-    = Arr1 {un_Arr1 :: (ConstantArray 2 CInt)}
-      {- ^ __C declaration:__ @Arr1@
-
-           __defined at:__ @macro_types.h:8:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
-{-| __C declaration:__ @Arr2@
-
-    __defined at:__ @macro_types.h:11:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Arr2
-    = Arr2 {un_Arr2 :: (ConstantArray 3 (Ptr CFloat))}
-      {- ^ __C declaration:__ @Arr2@
-
-           __defined at:__ @macro_types.h:11:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
-{-| __C declaration:__ @Arr3@
-
-    __defined at:__ @macro_types.h:14:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Arr3
-    = Arr3 {un_Arr3 :: (ConstantArray 4
-                                      (FunPtr (CDouble -> IO CFloat)))}
-      {- ^ __C declaration:__ @Arr3@
-
-           __defined at:__ @macro_types.h:14:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
-{-| __C declaration:__ @Fun1@
-
-    __defined at:__ @macro_types.h:17:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Fun1
-    = Fun1 {un_Fun1 :: (CInt -> IO (Ptr CFloat))}
-      {- ^ __C declaration:__ @Fun1@
-
-           __defined at:__ @macro_types.h:17:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-{-| __C declaration:__ @Fun2@
-
-    __defined at:__ @macro_types.h:20:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Fun2
-    = Fun2 {un_Fun2 :: (FunPtr (CFloat -> Ptr CDouble -> IO CInt))}
-      {- ^ __C declaration:__ @Fun2@
-
-           __defined at:__ @macro_types.h:20:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-    deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
-{-| __C declaration:__ @Fun3@
-
-    __defined at:__ @macro_types.h:23:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Fun3
-    = Fun3 {un_Fun3 :: (FunPtr (Ptr CFloat -> IO (Ptr CInt)))}
-      {- ^ __C declaration:__ @Fun3@
-
-           __defined at:__ @macro_types.h:23:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-    deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
-{-| __C declaration:__ @Fun4@
-
-    __defined at:__ @macro_types.h:26:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Fun4
-    = Fun4 {un_Fun4 :: (CInt ->
-                        Ptr CLong ->
-                        IO (FunPtr (CFloat -> Ptr CDouble -> IO (Ptr CLong))))}
-      {- ^ __C declaration:__ @Fun4@
-
-           __defined at:__ @macro_types.h:26:9@
-
-           __exported by:__ @macro_types.h@
-      -}
-{-| __C declaration:__ @Fun5@
-
-    __defined at:__ @macro_types.h:29:9@
-
-    __exported by:__ @macro_types.h@
--}
-newtype Fun5
-    = Fun5 {un_Fun5 :: (ConstantArray 8 CChar ->
-                        IO (Ptr (ConstantArray 2 (Ptr CShort))))}
-      {- ^ __C declaration:__ @Fun5@
-
-           __defined at:__ @macro_types.h:29:9@
-
-           __exported by:__ @macro_types.h@
-      -}
 {-| __C declaration:__ @MTy@
 
-    __defined at:__ @macro_types.h:33:9@
+    __defined at:__ @macro_types.h:8:9@
 
     __exported by:__ @macro_types.h@
 -}
@@ -167,7 +41,7 @@ newtype MTy
     = MTy {un_MTy :: CFloat}
       {- ^ __C declaration:__ @MTy@
 
-           __defined at:__ @macro_types.h:33:9@
+           __defined at:__ @macro_types.h:8:9@
 
            __exported by:__ @macro_types.h@
       -}
@@ -182,7 +56,7 @@ newtype MTy
                       RealFrac)
 {-| __C declaration:__ @tty@
 
-    __defined at:__ @macro_types.h:34:13@
+    __defined at:__ @macro_types.h:9:13@
 
     __exported by:__ @macro_types.h@
 -}
@@ -190,7 +64,7 @@ newtype Tty
     = Tty {un_Tty :: MTy}
       {- ^ __C declaration:__ @tty@
 
-           __defined at:__ @macro_types.h:34:13@
+           __defined at:__ @macro_types.h:9:13@
 
            __exported by:__ @macro_types.h@
       -}
@@ -205,7 +79,7 @@ newtype Tty
                       RealFrac)
 {-| __C declaration:__ @UINT8_T@
 
-    __defined at:__ @macro_types.h:36:9@
+    __defined at:__ @macro_types.h:11:9@
 
     __exported by:__ @macro_types.h@
 -}
@@ -213,7 +87,7 @@ newtype UINT8_T
     = UINT8_T {un_UINT8_T :: CUChar}
       {- ^ __C declaration:__ @UINT8_T@
 
-           __defined at:__ @macro_types.h:36:9@
+           __defined at:__ @macro_types.h:11:9@
 
            __exported by:__ @macro_types.h@
       -}
@@ -229,7 +103,7 @@ newtype UINT8_T
                       Real)
 {-| __C declaration:__ @BOOLEAN_T@
 
-    __defined at:__ @macro_types.h:37:9@
+    __defined at:__ @macro_types.h:12:9@
 
     __exported by:__ @macro_types.h@
 -}
@@ -237,7 +111,7 @@ newtype BOOLEAN_T
     = BOOLEAN_T {un_BOOLEAN_T :: UINT8_T}
       {- ^ __C declaration:__ @BOOLEAN_T@
 
-           __defined at:__ @macro_types.h:37:9@
+           __defined at:__ @macro_types.h:12:9@
 
            __exported by:__ @macro_types.h@
       -}
@@ -253,7 +127,7 @@ newtype BOOLEAN_T
                       Real)
 {-| __C declaration:__ @boolean_T@
 
-    __defined at:__ @macro_types.h:38:19@
+    __defined at:__ @macro_types.h:13:19@
 
     __exported by:__ @macro_types.h@
 -}
@@ -261,7 +135,7 @@ newtype Boolean_T
     = Boolean_T {un_Boolean_T :: BOOLEAN_T}
       {- ^ __C declaration:__ @boolean_T@
 
-           __defined at:__ @macro_types.h:38:19@
+           __defined at:__ @macro_types.h:13:19@
 
            __exported by:__ @macro_types.h@
       -}

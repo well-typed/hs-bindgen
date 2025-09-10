@@ -10,7 +10,6 @@ import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstantArray
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @T1@
@@ -68,26 +67,14 @@ newtype M2 = M2
     __exported by:__ @typedef_vs_macro.h@
 -}
 newtype M3 = M3
-  { un_M3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
-  }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
-
-{-| __C declaration:__ @M4@
-
-    __defined at:__ @typedef_vs_macro.h:7:9@
-
-    __exported by:__ @typedef_vs_macro.h@
--}
-newtype M4 = M4
-  { un_M4 :: Ptr.Ptr FC.CInt
+  { un_M3 :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
 {-| __C declaration:__ @ExampleStruct@
 
-    __defined at:__ @typedef_vs_macro.h:9:8@
+    __defined at:__ @typedef_vs_macro.h:8:8@
 
     __exported by:__ @typedef_vs_macro.h@
 -}
@@ -95,28 +82,28 @@ data ExampleStruct = ExampleStruct
   { exampleStruct_t1 :: T1
     {- ^ __C declaration:__ @t1@
 
-         __defined at:__ @typedef_vs_macro.h:10:6@
+         __defined at:__ @typedef_vs_macro.h:9:6@
 
          __exported by:__ @typedef_vs_macro.h@
     -}
   , exampleStruct_t2 :: T2
     {- ^ __C declaration:__ @t2@
 
-         __defined at:__ @typedef_vs_macro.h:11:6@
+         __defined at:__ @typedef_vs_macro.h:10:6@
 
          __exported by:__ @typedef_vs_macro.h@
     -}
   , exampleStruct_m1 :: M1
     {- ^ __C declaration:__ @m1@
 
-         __defined at:__ @typedef_vs_macro.h:12:6@
+         __defined at:__ @typedef_vs_macro.h:11:6@
 
          __exported by:__ @typedef_vs_macro.h@
     -}
   , exampleStruct_m2 :: M2
     {- ^ __C declaration:__ @m2@
 
-         __defined at:__ @typedef_vs_macro.h:13:6@
+         __defined at:__ @typedef_vs_macro.h:12:6@
 
          __exported by:__ @typedef_vs_macro.h@
     -}
@@ -153,7 +140,7 @@ instance F.Storable ExampleStruct where
 
 {-| __C declaration:__ @uint64_t@
 
-    __defined at:__ @typedef_vs_macro.h:16:9@
+    __defined at:__ @typedef_vs_macro.h:15:9@
 
     __exported by:__ @typedef_vs_macro.h@
 -}
@@ -165,7 +152,7 @@ newtype Uint64_t = Uint64_t
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @typedef_vs_macro.h:18:8@
+    __defined at:__ @typedef_vs_macro.h:17:8@
 
     __exported by:__ @typedef_vs_macro.h@
 -}
@@ -173,7 +160,7 @@ data Foo = Foo
   { foo_a :: Ptr.Ptr Uint64_t
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @typedef_vs_macro.h:19:13@
+         __defined at:__ @typedef_vs_macro.h:18:13@
 
          __exported by:__ @typedef_vs_macro.h@
     -}
