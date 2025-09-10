@@ -191,6 +191,7 @@ getInstances instanceMap name = aux
             in  aux acc' hsTypes
           HsBlock t ->
             aux acc (t:hsTypes)
+          HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
@@ -1016,6 +1017,8 @@ typ' ctx = go ctx
         Hs.HsExtBinding (C.extHsRef ext) (C.extHsSpec ext)
     go c (C.TypeConst ty) =
         go c ty
+    go _ (C.TypeComplex p) =
+        Hs.HsComplexType (goPrim p)
 
     goPrim :: C.PrimType -> HsPrimType
     goPrim C.PrimBool           = HsPrimCBool
@@ -1286,6 +1289,7 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
         go = \case
           C.TypeStruct {}             -> HeapType ty
           C.TypeUnion {}              -> HeapType ty
+          C.TypeComplex {}            -> HeapType ty
           (C.TypeConstArray n ty')    -> CAType   ty n ty'
           (C.TypeIncompleteArray ty') -> AType    ty ty'
           (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty

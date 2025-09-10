@@ -51,6 +51,7 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
 
   | not testHasOutput
   = FailingTrace.check testResources test
+
   | otherwise
   = testGroup (testName test) [
         C.check           testResources test
@@ -76,6 +77,7 @@ testCases = [
     , defaultTest "anonymous"
     , defaultTest "bitfields"
     , defaultTest "bool"
+    , defaultTest "complex_test"
     , defaultTest "distilled_lib_1"
     , defaultTest "enums"
     , defaultTest "enum_cpp_syntax"
@@ -441,6 +443,11 @@ testCases = [
             _otherwise ->
               Nothing
         }
+      -- Rust bindgen does not support non-float complex types.
+    , (defaultTest "complex_non_float_test") {
+          testRustBindgen = RustBindgenIgnore
+      }
+
     , let declsWithWarnings :: [C.PrelimDeclId]
           declsWithWarnings = [
                 -- non-extern non-static globals

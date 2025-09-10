@@ -57,6 +57,7 @@ cxtype ty = do
       CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
       CXType_LongDouble -> failure UnsupportedLongDouble
       CXType_Bool       -> prim $ C.PrimBool
+      CXType_Complex    -> complex
 
       CXType_Attributed      -> attributed
       CXType_BlockPointer    -> blockPointer
@@ -84,6 +85,14 @@ cxtype ty = do
 
 prim :: C.PrimType -> CXType -> ParseType (C.Type Parse)
 prim ty _ = return $ C.TypePrim ty
+
+complex :: CXType -> ParseType (C.Type Parse)
+complex ty = do
+  complexType <- clang_getElementType ty
+  cty         <- cxtype complexType
+  case cty of
+    C.TypePrim p -> pure (C.TypeComplex p)
+    _            -> throwError $ UnexpectedComplexType complexType
 
 elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype

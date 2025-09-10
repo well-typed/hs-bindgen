@@ -284,6 +284,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
   finalize (Int.TypeConst typ)                 = Ext.TypeConst (finalize typ)
   finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
+  finalize (Int.TypeComplex prim)              = Ext.TypeComplex prim
 
 instance Finalize Int.RenamedTypedefRef where
   type Finalized Int.RenamedTypedefRef = Ext.TypedefRef

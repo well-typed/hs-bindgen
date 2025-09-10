@@ -194,6 +194,7 @@ showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) 
 --
 -- > int const * const f();
 showsType x (TypeConst t) = showsType (\_d -> showString "const " . x 0) t
+showsType x (TypeComplex p) = C.showsPrimType p . showChar ' ' . showString "_Complex " . x 0
 
 -- | The precedence of various constructs in C declarations.
 type CTypePrecedence = Int

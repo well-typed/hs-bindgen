@@ -104,6 +104,10 @@ data ParseTypeException =
 
     -- | Clang built-in declaration
   | UnsupportedBuiltin C.Name
+
+    -- | Complex types can only be defined using primitive types, e.g.
+    -- @double complex@. @struct Point complex@ is not allowed.
+  | UnexpectedComplexType CXType
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace ParseTypeException where
@@ -122,6 +126,8 @@ instance PrettyForTrace ParseTypeException where
           "Unsupported long double."
       UnsupportedBuiltin name ->
           "Unsupported built-in " >< prettyForTrace name
+      UnexpectedComplexType ty ->
+          "Unexpected complex type " >< PP.showToCtxDoc ty
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
@@ -140,6 +146,7 @@ instance IsTrace Level ParseTypeException where
     UnsupportedVariadicFunction -> Warning
     UnsupportedLongDouble       -> Warning
     UnsupportedBuiltin{}        -> Warning
+    UnexpectedComplexType{}     -> Error
   getSource  = const HsBindgen
   getTraceId = const "parse-type-exception"
 
