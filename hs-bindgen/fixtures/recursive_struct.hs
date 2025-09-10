@@ -29,11 +29,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "recursive_struct.h:2:7")
-              (Just "recursive_struct.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "recursive_struct.h:2:7",
+              commentHeader = Just
+                "recursive_struct.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -64,11 +67,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "recursive_struct.h:3:27")
-              (Just "recursive_struct.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "next",
+              commentLocation = Just
+                "recursive_struct.h:3:27",
+              commentHeader = Just
+                "recursive_struct.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -137,11 +143,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "recursive_struct.h:1:16")
-          (Just "recursive_struct.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "linked_list_A_t",
+          commentLocation = Just
+            "recursive_struct.h:1:16",
+          commentHeader = Just
+            "recursive_struct.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -175,11 +185,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "recursive_struct.h:2:7")
-                  (Just "recursive_struct.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "recursive_struct.h:2:7",
+                  commentHeader = Just
+                    "recursive_struct.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -210,11 +223,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "recursive_struct.h:3:27")
-                  (Just "recursive_struct.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "next",
+                  commentLocation = Just
+                    "recursive_struct.h:3:27",
+                  commentHeader = Just
+                    "recursive_struct.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -283,11 +299,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "recursive_struct.h:1:16")
-              (Just "recursive_struct.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "linked_list_A_t",
+              commentLocation = Just
+                "recursive_struct.h:1:16",
+              commentHeader = Just
+                "recursive_struct.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -324,11 +344,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "recursive_struct.h:2:7")
-                          (Just "recursive_struct.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "recursive_struct.h:2:7",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -359,11 +382,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "recursive_struct.h:3:27")
-                          (Just "recursive_struct.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "next",
+                          commentLocation = Just
+                            "recursive_struct.h:3:27",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -432,11 +458,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "recursive_struct.h:1:16")
-                      (Just "recursive_struct.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "linked_list_A_t",
+                      commentLocation = Just
+                        "recursive_struct.h:1:16",
+                      commentHeader = Just
+                        "recursive_struct.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -475,11 +505,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "recursive_struct.h:2:7")
-                          (Just "recursive_struct.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "recursive_struct.h:2:7",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -510,11 +543,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "recursive_struct.h:3:27")
-                          (Just "recursive_struct.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "next",
+                          commentLocation = Just
+                            "recursive_struct.h:3:27",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -583,11 +619,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "recursive_struct.h:1:16")
-                      (Just "recursive_struct.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "linked_list_A_t",
+                      commentLocation = Just
+                        "recursive_struct.h:1:16",
+                      commentHeader = Just
+                        "recursive_struct.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -648,11 +688,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "recursive_struct.h:10:7")
-              (Just "recursive_struct.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "recursive_struct.h:10:7",
+              commentHeader = Just
+                "recursive_struct.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -685,12 +728,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "recursive_struct.h:11:20")
-              (Just "recursive_struct.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "next",
+              commentLocation = Just
+                "recursive_struct.h:11:20",
+              commentHeader = Just
+                "recursive_struct.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -759,11 +804,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "recursive_struct.h:9:8")
-          (Just "recursive_struct.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "linked_list_B_t",
+          commentLocation = Just
+            "recursive_struct.h:9:8",
+          commentHeader = Just
+            "recursive_struct.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -797,11 +846,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "recursive_struct.h:10:7")
-                  (Just "recursive_struct.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "recursive_struct.h:10:7",
+                  commentHeader = Just
+                    "recursive_struct.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -834,12 +886,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "recursive_struct.h:11:20")
-                  (Just "recursive_struct.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "next",
+                  commentLocation = Just
+                    "recursive_struct.h:11:20",
+                  commentHeader = Just
+                    "recursive_struct.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -908,11 +962,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "recursive_struct.h:9:8")
-              (Just "recursive_struct.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "linked_list_B_t",
+              commentLocation = Just
+                "recursive_struct.h:9:8",
+              commentHeader = Just
+                "recursive_struct.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -949,11 +1007,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "recursive_struct.h:10:7")
-                          (Just "recursive_struct.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "recursive_struct.h:10:7",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -986,12 +1047,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "recursive_struct.h:11:20")
-                          (Just "recursive_struct.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "next",
+                          commentLocation = Just
+                            "recursive_struct.h:11:20",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1060,11 +1123,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "recursive_struct.h:9:8")
-                      (Just "recursive_struct.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "linked_list_B_t",
+                      commentLocation = Just
+                        "recursive_struct.h:9:8",
+                      commentHeader = Just
+                        "recursive_struct.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -1103,11 +1170,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "recursive_struct.h:10:7")
-                          (Just "recursive_struct.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "recursive_struct.h:10:7",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1140,12 +1210,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "recursive_struct.h:11:20")
-                          (Just "recursive_struct.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "next",
+                          commentLocation = Just
+                            "recursive_struct.h:11:20",
+                          commentHeader = Just
+                            "recursive_struct.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1214,11 +1286,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "recursive_struct.h:9:8")
-                      (Just "recursive_struct.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "linked_list_B_t",
+                      commentLocation = Just
+                        "recursive_struct.h:9:8",
+                      commentHeader = Just
+                        "recursive_struct.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [

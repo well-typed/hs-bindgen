@@ -114,13 +114,15 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:7:6")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "FileOperationStatus",
+          commentLocation = Just
+            "program_slicing_selection.h:7:6",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -353,13 +355,14 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:8:3")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SUCCESS",
+          commentLocation = Just
+            "program_slicing_selection.h:8:3",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -384,13 +387,15 @@
             fieldComment = Nothing},
           enumConstantValue = 2},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:9:3")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "NOT_FOUND",
+          commentLocation = Just
+            "program_slicing_selection.h:9:3",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -416,13 +421,15 @@
             fieldComment = Nothing},
           enumConstantValue = 13},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:10:3")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "PERMISSION_DENIED",
+          commentLocation = Just
+            "program_slicing_selection.h:10:3",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -447,13 +454,15 @@
             fieldComment = Nothing},
           enumConstantValue = 22},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:11:3")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "INVALID_ARGUMENT",
+          commentLocation = Just
+            "program_slicing_selection.h:11:3",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -478,13 +487,15 @@
             fieldComment = Nothing},
           enumConstantValue = 12},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:12:3")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "OUT_OF_MEMORY",
+          commentLocation = Just
+            "program_slicing_selection.h:12:3",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -510,13 +521,15 @@
             fieldComment = Nothing},
           enumConstantValue = `-1`},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:13:3")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "CUSTOM_ERROR_OTHER",
+          commentLocation = Just
+            "program_slicing_selection.h:13:3",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclData
     Struct {
       structName = HsName
@@ -554,13 +567,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "program_slicing_selection.h:17:28")
-              (Just
-                "program_slicing_selection.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "status",
+              commentLocation = Just
+                "program_slicing_selection.h:17:28",
+              commentHeader = Just
+                "program_slicing_selection.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -805,13 +819,15 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "program_slicing_selection.h:18:10")
-              (Just
-                "program_slicing_selection.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "bytes_processed",
+              commentLocation = Just
+                "program_slicing_selection.h:18:10",
+              commentHeader = Just
+                "program_slicing_selection.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -991,13 +1007,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:16:8")
-          (Just
-            "program_slicing_selection.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "FileOperationRecord",
+          commentLocation = Just
+            "program_slicing_selection.h:16:8",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1038,13 +1056,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "program_slicing_selection.h:17:28")
-                  (Just
-                    "program_slicing_selection.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "status",
+                  commentLocation = Just
+                    "program_slicing_selection.h:17:28",
+                  commentHeader = Just
+                    "program_slicing_selection.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1289,13 +1308,15 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "program_slicing_selection.h:18:10")
-                  (Just
-                    "program_slicing_selection.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just
+                    "bytes_processed",
+                  commentLocation = Just
+                    "program_slicing_selection.h:18:10",
+                  commentHeader = Just
+                    "program_slicing_selection.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1475,13 +1496,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "program_slicing_selection.h:16:8")
-              (Just
-                "program_slicing_selection.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "FileOperationRecord",
+              commentLocation = Just
+                "program_slicing_selection.h:16:8",
+              commentHeader = Just
+                "program_slicing_selection.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -1525,13 +1548,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "program_slicing_selection.h:17:28")
-                          (Just
-                            "program_slicing_selection.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "status",
+                          commentLocation = Just
+                            "program_slicing_selection.h:17:28",
+                          commentHeader = Just
+                            "program_slicing_selection.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1776,13 +1800,15 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "program_slicing_selection.h:18:10")
-                          (Just
-                            "program_slicing_selection.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "bytes_processed",
+                          commentLocation = Just
+                            "program_slicing_selection.h:18:10",
+                          commentHeader = Just
+                            "program_slicing_selection.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1962,13 +1988,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "program_slicing_selection.h:16:8")
-                      (Just
-                        "program_slicing_selection.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "FileOperationRecord",
+                      commentLocation = Just
+                        "program_slicing_selection.h:16:8",
+                      commentHeader = Just
+                        "program_slicing_selection.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -2014,13 +2042,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "program_slicing_selection.h:17:28")
-                          (Just
-                            "program_slicing_selection.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "status",
+                          commentLocation = Just
+                            "program_slicing_selection.h:17:28",
+                          commentHeader = Just
+                            "program_slicing_selection.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2265,13 +2294,15 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "program_slicing_selection.h:18:10")
-                          (Just
-                            "program_slicing_selection.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just
+                            "bytes_processed",
+                          commentLocation = Just
+                            "program_slicing_selection.h:18:10",
+                          commentHeader = Just
+                            "program_slicing_selection.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2451,13 +2482,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "program_slicing_selection.h:16:8")
-                      (Just
-                        "program_slicing_selection.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "FileOperationRecord",
+                      commentLocation = Just
+                        "program_slicing_selection.h:16:8",
+                      commentHeader = Just
+                        "program_slicing_selection.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -2517,22 +2550,24 @@
                 typeSpecInstances = Map.fromList
                   []}),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "file_ptr",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "buffer"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "buffer",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -2651,11 +2686,13 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "bytes_to_read",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -2836,13 +2873,15 @@
                 "FileOperationStatus"}
             NameOriginInSource},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:21:26")
-          (Just
-            "program_slicing_selection.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "read_file_chunk",
+          commentLocation = Just
+            "program_slicing_selection.h:21:26",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "program_slicing_selection.h",
@@ -3145,13 +3184,15 @@
                 "FileOperationStatus"}
             NameOriginInSource)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "program_slicing_selection.h:21:26")
-          (Just
-            "program_slicing_selection.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "read_file_chunk",
+          commentLocation = Just
+            "program_slicing_selection.h:21:26",
+          commentHeader = Just
+            "program_slicing_selection.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

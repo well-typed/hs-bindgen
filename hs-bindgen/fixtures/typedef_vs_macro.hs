@@ -61,11 +61,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:1:13")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T1",
+          commentLocation = Just
+            "typedef_vs_macro.h:1:13",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -261,11 +264,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:2:14")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "T2",
+          commentLocation = Just
+            "typedef_vs_macro.h:2:14",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -459,11 +465,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:4:9")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "M1",
+          commentLocation = Just
+            "typedef_vs_macro.h:4:9",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -658,11 +667,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:5:9")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "M2",
+          commentLocation = Just
+            "typedef_vs_macro.h:5:9",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -844,11 +856,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:6:9")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "M3",
+          commentLocation = Just
+            "typedef_vs_macro.h:6:9",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -923,11 +938,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_vs_macro.h:9:6")
-              (Just "typedef_vs_macro.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "t1",
+              commentLocation = Just
+                "typedef_vs_macro.h:9:6",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -953,11 +971,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_vs_macro.h:10:6")
-              (Just "typedef_vs_macro.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "t2",
+              commentLocation = Just
+                "typedef_vs_macro.h:10:6",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -983,11 +1004,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_vs_macro.h:11:6")
-              (Just "typedef_vs_macro.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "m1",
+              commentLocation = Just
+                "typedef_vs_macro.h:11:6",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1013,11 +1037,14 @@
               structFieldOffset = 96,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_vs_macro.h:12:6")
-              (Just "typedef_vs_macro.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "m2",
+              commentLocation = Just
+                "typedef_vs_macro.h:12:6",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1119,11 +1146,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:8:8")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "ExampleStruct",
+          commentLocation = Just
+            "typedef_vs_macro.h:8:8",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1161,11 +1192,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "typedef_vs_macro.h:9:6")
-                  (Just "typedef_vs_macro.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "t1",
+                  commentLocation = Just
+                    "typedef_vs_macro.h:9:6",
+                  commentHeader = Just
+                    "typedef_vs_macro.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1191,11 +1225,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "typedef_vs_macro.h:10:6")
-                  (Just "typedef_vs_macro.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "t2",
+                  commentLocation = Just
+                    "typedef_vs_macro.h:10:6",
+                  commentHeader = Just
+                    "typedef_vs_macro.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1221,11 +1258,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "typedef_vs_macro.h:11:6")
-                  (Just "typedef_vs_macro.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "m1",
+                  commentLocation = Just
+                    "typedef_vs_macro.h:11:6",
+                  commentHeader = Just
+                    "typedef_vs_macro.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1251,11 +1291,14 @@
                   structFieldOffset = 96,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "typedef_vs_macro.h:12:6")
-                  (Just "typedef_vs_macro.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "m2",
+                  commentLocation = Just
+                    "typedef_vs_macro.h:12:6",
+                  commentHeader = Just
+                    "typedef_vs_macro.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1357,11 +1400,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_vs_macro.h:8:8")
-              (Just "typedef_vs_macro.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ExampleStruct",
+              commentLocation = Just
+                "typedef_vs_macro.h:8:8",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 4,
@@ -1402,11 +1449,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:9:6")
-                          (Just "typedef_vs_macro.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "t1",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:9:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1432,11 +1482,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:10:6")
-                          (Just "typedef_vs_macro.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "t2",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:10:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1462,11 +1515,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:11:6")
-                          (Just "typedef_vs_macro.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "m1",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:11:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1492,11 +1548,14 @@
                           structFieldOffset = 96,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:12:6")
-                          (Just "typedef_vs_macro.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "m2",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:12:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1598,11 +1657,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_vs_macro.h:8:8")
-                      (Just "typedef_vs_macro.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "ExampleStruct",
+                      commentLocation = Just
+                        "typedef_vs_macro.h:8:8",
+                      commentHeader = Just
+                        "typedef_vs_macro.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4,
@@ -1647,11 +1710,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:9:6")
-                          (Just "typedef_vs_macro.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "t1",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:9:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1677,11 +1743,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:10:6")
-                          (Just "typedef_vs_macro.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "t2",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:10:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1707,11 +1776,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:11:6")
-                          (Just "typedef_vs_macro.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "m1",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:11:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1737,11 +1809,14 @@
                           structFieldOffset = 96,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "typedef_vs_macro.h:12:6")
-                          (Just "typedef_vs_macro.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "m2",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:12:6",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1843,11 +1918,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_vs_macro.h:8:8")
-                      (Just "typedef_vs_macro.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "ExampleStruct",
+                      commentLocation = Just
+                        "typedef_vs_macro.h:8:8",
+                      commentHeader = Just
+                        "typedef_vs_macro.h",
+                      commentChildren = []}}
                 (Add 4)
                 (Seq
                   [
@@ -1942,11 +2021,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:15:9")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "uint64_t",
+          commentLocation = Just
+            "typedef_vs_macro.h:15:9",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2116,12 +2198,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "typedef_vs_macro.h:18:13")
-              (Just "typedef_vs_macro.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "typedef_vs_macro.h:18:13",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2171,11 +2255,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:17:8")
-          (Just "typedef_vs_macro.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "typedef_vs_macro.h:17:8",
+          commentHeader = Just
+            "typedef_vs_macro.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2217,12 +2304,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "typedef_vs_macro.h:18:13")
-                  (Just "typedef_vs_macro.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "typedef_vs_macro.h:18:13",
+                  commentHeader = Just
+                    "typedef_vs_macro.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2272,11 +2361,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "typedef_vs_macro.h:17:8")
-              (Just "typedef_vs_macro.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "foo",
+              commentLocation = Just
+                "typedef_vs_macro.h:17:8",
+              commentHeader = Just
+                "typedef_vs_macro.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 8,
@@ -2321,12 +2413,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_vs_macro.h:18:13")
-                          (Just "typedef_vs_macro.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:18:13",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2376,11 +2470,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_vs_macro.h:17:8")
-                      (Just "typedef_vs_macro.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "foo",
+                      commentLocation = Just
+                        "typedef_vs_macro.h:17:8",
+                      commentHeader = Just
+                        "typedef_vs_macro.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2425,12 +2522,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "typedef_vs_macro.h:18:13")
-                          (Just "typedef_vs_macro.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "typedef_vs_macro.h:18:13",
+                          commentHeader = Just
+                            "typedef_vs_macro.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2480,11 +2579,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "typedef_vs_macro.h:17:8")
-                      (Just "typedef_vs_macro.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "foo",
+                      commentLocation = Just
+                        "typedef_vs_macro.h:17:8",
+                      commentHeader = Just
+                        "typedef_vs_macro.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [

@@ -20,11 +20,14 @@
       foreignImportOrigin = Global
         (TypePrim PrimBool),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "bool_c23.h:3:13")
-          (Just "bool_c23.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "b",
+          commentLocation = Just
+            "bool_c23.h:3:13",
+          commentHeader = Just
+            "bool_c23.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

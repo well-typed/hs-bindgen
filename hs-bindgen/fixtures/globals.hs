@@ -21,13 +21,17 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
-              TextContent "Global variables"])
-          (Just "globals.h:9:12")
-          (Just "globals.h")
-          []),
+              TextContent "Global variables"],
+          commentOrigin = Just
+            "simpleGlobal",
+          commentLocation = Just
+            "globals.h:9:12",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -60,11 +64,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:13:7")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "globals.h:13:7",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -85,11 +92,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:14:7")
-              (Just "globals.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "globals.h:14:7",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -143,11 +153,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:12:8")
-          (Just "globals.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "config",
+          commentLocation = Just
+            "globals.h:12:8",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -180,11 +193,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:13:7")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "globals.h:13:7",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -205,11 +221,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:14:7")
-                  (Just "globals.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "globals.h:14:7",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -263,11 +282,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:12:8")
-              (Just "globals.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "config",
+              commentLocation = Just
+                "globals.h:12:8",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -303,11 +325,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:13:7")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:13:7",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -328,11 +353,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:14:7")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:14:7",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -386,11 +414,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:12:8")
-                      (Just "globals.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "config",
+                      commentLocation = Just
+                        "globals.h:12:8",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -428,11 +459,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:13:7")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:13:7",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -453,11 +487,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:14:7")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:14:7",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -511,11 +548,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:12:8")
-                      (Just "globals.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "config",
+                      commentLocation = Just
+                        "globals.h:12:8",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -575,11 +615,15 @@
               "Config"}
           NameOriginInSource),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:16:22")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "compoundGlobal1",
+          commentLocation = Just
+            "globals.h:16:22",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -612,11 +656,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:19:35")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "globals.h:19:35",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -637,11 +684,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:19:42")
-              (Just "globals.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "globals.h:19:42",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -697,11 +747,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:19:15")
-          (Just "globals.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "inline_struct",
+          commentLocation = Just
+            "globals.h:19:15",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -734,11 +788,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:19:35")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "globals.h:19:35",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -759,11 +816,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:19:42")
-                  (Just "globals.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "globals.h:19:42",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -819,11 +879,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:19:15")
-              (Just "globals.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "inline_struct",
+              commentLocation = Just
+                "globals.h:19:15",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -859,11 +923,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:19:35")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:19:35",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -884,11 +951,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:19:42")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:19:42",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -944,11 +1014,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:19:15")
-                      (Just "globals.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "inline_struct",
+                      commentLocation = Just
+                        "globals.h:19:15",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -986,11 +1060,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:19:35")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:19:35",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1011,11 +1088,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:19:42")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:19:42",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1071,11 +1151,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:19:15")
-                      (Just "globals.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "inline_struct",
+                      commentLocation = Just
+                        "globals.h:19:15",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -1135,11 +1219,15 @@
               "Inline_struct"}
           NameOriginInSource),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:19:47")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "compoundGlobal2",
+          commentLocation = Just
+            "globals.h:19:47",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1166,13 +1254,18 @@
           (PrimIntegral PrimInt Signed)),
       foreignImportComment =
       Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "Non-extern non-static global variables"])
-          (Just "globals.h:35:9")
-          (Just "globals.h")
+                "Non-extern non-static global variables"],
+          commentOrigin = Just
+            "nesInteger",
+          commentLocation = Just
+            "globals.h:35:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren =
           [
             Paragraph
               [
@@ -1193,7 +1286,7 @@
             Paragraph
               [
                 TextContent
-                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]),
+                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1219,11 +1312,15 @@
         (TypePrim
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:36:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesFloating",
+          commentLocation = Just
+            "globals.h:36:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1253,11 +1350,15 @@
               (PrimSignImplicit
                 (Just Signed))))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:38:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesString1",
+          commentLocation = Just
+            "globals.h:38:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1289,11 +1390,15 @@
               (PrimSignImplicit
                 (Just Signed))))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:39:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesString2",
+          commentLocation = Just
+            "globals.h:39:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1321,11 +1426,15 @@
             (PrimSignImplicit
               (Just Signed)))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:40:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesCharacter",
+          commentLocation = Just
+            "globals.h:40:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1351,11 +1460,14 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:41:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "nesParen",
+          commentLocation = Just
+            "globals.h:41:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1381,11 +1493,14 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:42:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "nesUnary",
+          commentLocation = Just
+            "globals.h:42:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1411,11 +1526,15 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:43:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesBinary",
+          commentLocation = Just
+            "globals.h:43:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1441,11 +1560,15 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:44:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesConditional",
+          commentLocation = Just
+            "globals.h:44:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1471,11 +1594,14 @@
         (TypePrim
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:45:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "nesCast",
+          commentLocation = Just
+            "globals.h:45:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1503,11 +1629,15 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:46:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesCompound",
+          commentLocation = Just
+            "globals.h:46:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1761,11 +1891,15 @@
                           instanceSpecConstraints = [
                             ]})]}})),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:47:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "nesInitList",
+          commentLocation = Just
+            "globals.h:47:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1790,11 +1924,14 @@
       foreignImportOrigin = Global
         (TypePrim PrimBool),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:48:9")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "nesBool",
+          commentLocation = Just
+            "globals.h:48:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2049,13 +2186,19 @@
                             ]})]}})),
       foreignImportComment =
       Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle =
+          Just
             [
               TextContent
-                "Additional examples of global variables, abstracted from real examples"])
-          (Just "globals.h:60:9")
-          (Just "globals.h")
+                "Additional examples of global variables, abstracted from real examples"],
+          commentOrigin = Just
+            "streamBinary",
+          commentLocation = Just
+            "globals.h:60:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren =
           [
             Paragraph
               [
@@ -2071,7 +2214,7 @@
             Paragraph
               [
                 TextContent
-                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]),
+                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2321,11 +2464,15 @@
                         instanceSpecConstraints = [
                           ]})]}}),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:404:10")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "streamBinary_len",
+          commentLocation = Just
+            "globals.h:404:10",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2581,11 +2728,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:408:12")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "major",
+              commentLocation = Just
+                "globals.h:408:12",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2829,11 +2979,14 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:409:12")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "minor",
+              commentLocation = Just
+                "globals.h:409:12",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3077,11 +3230,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:410:12")
-              (Just "globals.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "patch",
+              commentLocation = Just
+                "globals.h:410:12",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3493,11 +3649,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:406:9")
-          (Just "globals.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "version_t",
+          commentLocation = Just
+            "globals.h:406:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3753,11 +3913,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:408:12")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "major",
+                  commentLocation = Just
+                    "globals.h:408:12",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4001,11 +4164,14 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:409:12")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "minor",
+                  commentLocation = Just
+                    "globals.h:409:12",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4249,11 +4415,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:410:12")
-                  (Just "globals.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "patch",
+                  commentLocation = Just
+                    "globals.h:410:12",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -4665,11 +4834,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:406:9")
-              (Just "globals.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "version_t",
+              commentLocation = Just
+                "globals.h:406:9",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 6,
           storableAlignment = 2,
@@ -4928,11 +5101,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:408:12")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "major",
+                          commentLocation = Just
+                            "globals.h:408:12",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5176,11 +5352,14 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:409:12")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "minor",
+                          commentLocation = Just
+                            "globals.h:409:12",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -5424,11 +5603,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:410:12")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "patch",
+                          commentLocation = Just
+                            "globals.h:410:12",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -5840,11 +6022,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:406:9")
-                      (Just "globals.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "version_t",
+                      commentLocation = Just
+                        "globals.h:406:9",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 2,
@@ -6106,11 +6292,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:408:12")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "major",
+                          commentLocation = Just
+                            "globals.h:408:12",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6354,11 +6543,14 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:409:12")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "minor",
+                          commentLocation = Just
+                            "globals.h:409:12",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -6602,11 +6794,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:410:12")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "patch",
+                          commentLocation = Just
+                            "globals.h:410:12",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -7018,11 +7213,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:406:9")
-                      (Just "globals.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "version_t",
+                      commentLocation = Just
+                        "globals.h:406:9",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}}
                 (Add 3)
                 (Seq
                   [
@@ -7306,11 +7505,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:415:13")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "globals.h:415:13",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -7331,11 +7533,14 @@
               structFieldOffset = 16,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:416:13")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "globals.h:416:13",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -7366,11 +7571,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:417:13")
-              (Just "globals.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "version",
+              commentLocation = Just
+                "globals.h:417:13",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -7562,11 +7770,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:413:9")
-          (Just "globals.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct1_t",
+          commentLocation = Just
+            "globals.h:413:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -7822,11 +8034,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:415:13")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "globals.h:415:13",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -7847,11 +8062,14 @@
                   structFieldOffset = 16,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:416:13")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "globals.h:416:13",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -7882,11 +8100,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:417:13")
-                  (Just "globals.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "version",
+                  commentLocation = Just
+                    "globals.h:417:13",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -8078,11 +8299,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:413:9")
-              (Just "globals.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct1_t",
+              commentLocation = Just
+                "globals.h:413:9",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 10,
           storableAlignment = 2,
@@ -8341,11 +8566,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:415:13")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:415:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8366,11 +8594,14 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:416:13")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:416:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8401,11 +8632,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:417:13")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "version",
+                          commentLocation = Just
+                            "globals.h:417:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -8597,11 +8831,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:413:9")
-                      (Just "globals.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct1_t",
+                      commentLocation = Just
+                        "globals.h:413:9",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 2,
@@ -8863,11 +9101,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:415:13")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:415:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8888,11 +9129,14 @@
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:416:13")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:416:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -8923,11 +9167,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:417:13")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "version",
+                          commentLocation = Just
+                            "globals.h:417:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -9119,11 +9366,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:413:9")
-                      (Just "globals.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct1_t",
+                      commentLocation = Just
+                        "globals.h:413:9",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}}
                 (Add 3)
                 (Seq
                   [
@@ -9194,11 +9445,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:422:13")
-              (Just "globals.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "field1",
+              commentLocation = Just
+                "globals.h:422:13",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -9252,11 +9506,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:420:9")
-          (Just "globals.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct2_t",
+          commentLocation = Just
+            "globals.h:420:9",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -9299,11 +9557,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:422:13")
-                  (Just "globals.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "field1",
+                  commentLocation = Just
+                    "globals.h:422:13",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -9357,11 +9618,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:420:9")
-              (Just "globals.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct2_t",
+              commentLocation = Just
+                "globals.h:420:9",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 10,
           storableAlignment = 2,
@@ -9407,11 +9672,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:422:13")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "field1",
+                          commentLocation = Just
+                            "globals.h:422:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -9465,11 +9733,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:420:9")
-                      (Just "globals.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct2_t",
+                      commentLocation = Just
+                        "globals.h:420:9",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -9515,11 +9787,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:422:13")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "field1",
+                          commentLocation = Just
+                            "globals.h:422:13",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -9573,11 +9848,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:420:9")
-                      (Just "globals.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct2_t",
+                      commentLocation = Just
+                        "globals.h:420:9",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -9640,11 +9919,15 @@
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:425:11")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "some_global_struct",
+          commentLocation = Just
+            "globals.h:425:11",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9672,16 +9955,22 @@
             (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
-        (Comment
-          (Just [TextContent "Constant"])
-          (Just "globals.h:445:18")
-          (Just "globals.h")
+        Comment {
+          commentTitle = Just
+            [TextContent "Constant"],
+          commentOrigin = Just
+            "globalConstant",
+          commentLocation = Just
+            "globals.h:445:18",
+          commentHeader = Just
+            "globals.h",
+          commentChildren =
           [
             Paragraph
               [
                 TextContent
                   "Although this is a constant, we don't expect an initializer (since it's",
-                TextContent "`extern`)."]]),
+                TextContent "`extern`)."]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9714,11 +10003,12 @@
           declAliases = [],
           declHeader = "globals.h",
           declComment = Just
-            [
-              Paragraph
-                [
-                  TextContent
-                    "Constant, through typedef"]]},
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Constant, through typedef"]])},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -9753,14 +10043,17 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "Constant, through typedef"])
-          (Just "globals.h:448:19")
-          (Just "globals.h")
-          [])},
+                "Constant, through typedef"],
+          commentOrigin = Just "ConstInt",
+          commentLocation = Just
+            "globals.h:448:19",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -9921,11 +10214,15 @@
               nameHsIdent = HsIdentifier
                 "ConstInt"})),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:449:17")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "anotherGlobalConstant",
+          commentLocation = Just
+            "globals.h:449:17",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9955,18 +10252,23 @@
             (PrimIntegral PrimInt Signed))),
       foreignImportComment =
       Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "Constant, but local to the file"])
-          (Just "globals.h:454:18")
-          (Just "globals.h")
+                "Constant, but local to the file"],
+          commentOrigin = Just
+            "staticConst",
+          commentLocation = Just
+            "globals.h:454:18",
+          commentHeader = Just
+            "globals.h",
+          commentChildren =
           [
             Paragraph
               [
                 TextContent
-                  "Unlike with `extern`, in this we _do_ expect an initializer."]]),
+                  "Unlike with `extern`, in this we _do_ expect an initializer."]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9995,14 +10297,18 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "No storage class specified"])
-          (Just "globals.h:457:11")
-          (Just "globals.h")
-          []),
+                "No storage class specified"],
+          commentOrigin = Just
+            "classless",
+          commentLocation = Just
+            "globals.h:457:11",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10037,14 +10343,18 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "A an array of size 4 containing constant integers"])
-          (Just "globals.h:460:18")
-          (Just "globals.h")
-          []),
+                "A an array of size 4 containing constant integers"],
+          commentOrigin = Just
+            "constArray1",
+          commentLocation = Just
+            "globals.h:460:18",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10066,8 +10376,10 @@
           (HsPrimType HsPrimCInt),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
+      newtypeOrigin =
+      Decl {
+        declInfo =
+        DeclInfo {
           declLoc = "globals.h:463:19",
           declId = NamePair {
             nameC = Name "ConstIntArray",
@@ -10076,12 +10388,14 @@
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeader = "globals.h",
-          declComment = Just
-            [
-              Paragraph
-                [
-                  TextContent
-                    "An array of uknown size containing constant integers"]]},
+          declComment =
+          Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "An array of uknown size containing constant integers"]])},
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
@@ -10107,14 +10421,18 @@
       newtypeInstances = Set.fromList
         [Eq, Show],
       newtypeComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "An array of uknown size containing constant integers"])
-          (Just "globals.h:463:19")
-          (Just "globals.h")
-          [])},
+                "An array of uknown size containing constant integers"],
+          commentOrigin = Just
+            "ConstIntArray",
+          commentLocation = Just
+            "globals.h:463:19",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -10164,11 +10482,15 @@
               nameHsIdent = HsIdentifier
                 "ConstIntArray"})),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:464:22")
-          (Just "globals.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "constArray2",
+          commentLocation = Just
+            "globals.h:464:22",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10201,11 +10523,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:466:20")
-              (Just "globals.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "globals.h:466:20",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -10227,11 +10552,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:466:33")
-              (Just "globals.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "globals.h:466:33",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -10286,11 +10614,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "globals.h:466:8")
-          (Just "globals.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "tuple",
+          commentLocation = Just
+            "globals.h:466:8",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -10323,11 +10654,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:466:20")
-                  (Just "globals.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "globals.h:466:20",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -10349,11 +10683,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "globals.h:466:33")
-                  (Just "globals.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "globals.h:466:33",
+                  commentHeader = Just
+                    "globals.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -10408,11 +10745,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "globals.h:466:8")
-              (Just "globals.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "tuple",
+              commentLocation = Just
+                "globals.h:466:8",
+              commentHeader = Just
+                "globals.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -10448,11 +10788,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:466:20")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:466:20",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -10474,11 +10817,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:466:33")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:466:33",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -10533,11 +10879,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:466:8")
-                      (Just "globals.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "tuple",
+                      commentLocation = Just
+                        "globals.h:466:8",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -10575,11 +10924,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:466:20")
-                          (Just "globals.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "globals.h:466:20",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -10601,11 +10953,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "globals.h:466:33")
-                          (Just "globals.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "globals.h:466:33",
+                          commentHeader = Just
+                            "globals.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -10660,11 +11015,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "globals.h:466:8")
-                      (Just "globals.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "tuple",
+                      commentLocation = Just
+                        "globals.h:466:8",
+                      commentHeader = Just
+                        "globals.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -10725,13 +11083,17 @@
                 "Tuple"}
             NameOriginInSource)),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
-              TextContent "A constant tuple"])
-          (Just "globals.h:468:27")
-          (Just "globals.h")
-          []),
+              TextContent "A constant tuple"],
+          commentOrigin = Just
+            "constTuple",
+          commentLocation = Just
+            "globals.h:468:27",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10766,14 +11128,18 @@
               "Tuple"}
           NameOriginInSource),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "A non-constant tuple with a constant member"])
-          (Just "globals.h:470:21")
-          (Just "globals.h")
-          []),
+                "A non-constant tuple with a constant member"],
+          commentOrigin = Just
+            "nonConstTuple",
+          commentLocation = Just
+            "globals.h:470:21",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10804,14 +11170,18 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "A pointer to const int"])
-          (Just "globals.h:473:20")
-          (Just "globals.h")
-          []),
+                "A pointer to const int"],
+          commentOrigin = Just
+            "ptrToConstInt",
+          commentLocation = Just
+            "globals.h:473:20",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10842,14 +11212,18 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "A const pointer to int"])
-          (Just "globals.h:475:20")
-          (Just "globals.h")
-          []),
+                "A const pointer to int"],
+          commentOrigin = Just
+            "constPtrToInt",
+          commentLocation = Just
+            "globals.h:475:20",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10883,14 +11257,18 @@
                   PrimInt
                   Signed))))),
       foreignImportComment = Just
-        (Comment
-          (Just
+        Comment {
+          commentTitle = Just
             [
               TextContent
-                "A const pointer to const int"])
-          (Just "globals.h:477:26")
-          (Just "globals.h")
-          []),
+                "A const pointer to const int"],
+          commentOrigin = Just
+            "constPtrToConstInt",
+          commentLocation = Just
+            "globals.h:477:26",
+          commentHeader = Just
+            "globals.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,

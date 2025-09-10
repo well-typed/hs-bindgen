@@ -22,12 +22,14 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "tentative_definitions.h:17:5")
-          (Just "tentative_definitions.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "i1",
+          commentLocation = Just
+            "tentative_definitions.h:17:5",
+          commentHeader = Just
+            "tentative_definitions.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -54,12 +56,14 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "tentative_definitions.h:21:12")
-          (Just "tentative_definitions.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "i2",
+          commentLocation = Just
+            "tentative_definitions.h:21:12",
+          commentHeader = Just
+            "tentative_definitions.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -86,12 +90,14 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "tentative_definitions.h:30:5")
-          (Just "tentative_definitions.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "i3",
+          commentLocation = Just
+            "tentative_definitions.h:30:5",
+          commentHeader = Just
+            "tentative_definitions.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

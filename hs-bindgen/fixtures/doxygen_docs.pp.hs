@@ -233,7 +233,7 @@ pattern COLOR_BLUE = Color_enum 2
 
   __returns:__ Status code (0 = success, -1 = error)
 
-__C declaration:__ @process_data(const uint8_t *, uint8_t *, size_t *)@
+__C declaration:__ @process_data@
 
 __defined at:__ @doxygen_docs.h:105:5@
 
@@ -277,7 +277,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_d3011436e073569c" proces
 
   __returns:__ Status code (0 = success, -1 = error)
 
-__C declaration:__ @process_data(const uint8_t *, uint8_t *, size_t *)@
+__C declaration:__ @process_data@
 
 __defined at:__ @doxygen_docs.h:105:5@
 
@@ -302,7 +302,7 @@ process_data_ptr =
 
   __returns:__ @true@ if successful, @false@ otherwise
 
-__C declaration:__ @process_file(const char *)@
+__C declaration:__ @process_file@
 
 __defined at:__ @doxygen_docs.h:116:6@
 
@@ -328,7 +328,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_4e9b999ed81440c0" proces
 
   __returns:__ @true@ if successful, @false@ otherwise
 
-__C declaration:__ @process_file(const char *)@
+__C declaration:__ @process_file@
 
 __defined at:__ @doxygen_docs.h:116:6@
 
@@ -360,7 +360,7 @@ process_file_ptr =
 
   __returns:__ Calculated result
 
-__C declaration:__ @calculate_value(int, int)@
+__C declaration:__ @calculate_value@
 
 __defined at:__ @doxygen_docs.h:131:5@
 
@@ -400,7 +400,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_788bfbb9e824261c" calcul
 
   __returns:__ Calculated result
 
-__C declaration:__ @calculate_value(int, int)@
+__C declaration:__ @calculate_value@
 
 __defined at:__ @doxygen_docs.h:131:5@
 
@@ -427,7 +427,7 @@ calculate_value_ptr =
 
   __returns:__ Boolean result
 
-__C declaration:__ @html_example(int)@
+__C declaration:__ @html_example@
 
 __defined at:__ @doxygen_docs.h:148:6@
 
@@ -455,7 +455,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_3763cc54606bc611" html_e
 
   __returns:__ Boolean result
 
-__C declaration:__ @html_example(int)@
+__C declaration:__ @html_example@
 
 __defined at:__ @doxygen_docs.h:148:6@
 
@@ -510,7 +510,7 @@ html_example_ptr =
 
   __returns:__ Success status
 
-__C declaration:__ @list_example(const char **, size_t)@
+__C declaration:__ @list_example@
 
 __defined at:__ @doxygen_docs.h:174:6@
 
@@ -573,7 +573,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_e
 
   __returns:__ Success status
 
-__C declaration:__ @list_example(const char **, size_t)@
+__C declaration:__ @list_example@
 
 __defined at:__ @doxygen_docs.h:174:6@
 
@@ -602,7 +602,7 @@ list_example_ptr =
 
   __returns:__ Modified pointer
 
-__C declaration:__ @dangerous_function(void *)@
+__C declaration:__ @dangerous_function@
 
 __defined at:__ @doxygen_docs.h:186:7@
 
@@ -632,7 +632,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9" danger
 
   __returns:__ Modified pointer
 
-__C declaration:__ @dangerous_function(void *)@
+__C declaration:__ @dangerous_function@
 
 __defined at:__ @doxygen_docs.h:186:7@
 
@@ -661,7 +661,7 @@ dangerous_function_ptr =
 
   __returns:__ -3 Processing error
 
-__C declaration:__ @detailed_return_codes(const char *)@
+__C declaration:__ @detailed_return_codes@
 
 __defined at:__ @doxygen_docs.h:197:5@
 
@@ -691,7 +691,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_fb3e3158714e01f5" detail
 
   __returns:__ -3 Processing error
 
-__C declaration:__ @detailed_return_codes(const char *)@
+__C declaration:__ @detailed_return_codes@
 
 __defined at:__ @doxygen_docs.h:197:5@
 
@@ -716,7 +716,7 @@ detailed_return_codes_ptr =
 
   __returns:__ Legacy result
 
-__C declaration:__ @old_function(int)@
+__C declaration:__ @old_function@
 
 __defined at:__ @doxygen_docs.h:206:5@
 
@@ -742,7 +742,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_84140a44d1bd8380" old_fu
 
   __returns:__ Legacy result
 
-__C declaration:__ @old_function(int)@
+__C declaration:__ @old_function@
 
 __defined at:__ @doxygen_docs.h:206:5@
 
@@ -767,7 +767,7 @@ old_function_ptr =
 
   __returns:__ Processed data
 
-__C declaration:__ @versioned_function(int)@
+__C declaration:__ @versioned_function@
 
 __defined at:__ @doxygen_docs.h:216:5@
 
@@ -789,7 +789,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8" versio
 
   __returns:__ Processed data
 
-__C declaration:__ @versioned_function(int)@
+__C declaration:__ @versioned_function@
 
 __defined at:__ @doxygen_docs.h:216:5@
 
@@ -1071,7 +1071,7 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
   Allows access to high and low parts separately
 
-__C declaration:__ @struct (unnamed at doxygen_docs.h:290:5)@
+__C declaration:__ @data_union_t_as_parts@
 
 __defined at:__ @doxygen_docs.h:290:5@
 
@@ -1383,7 +1383,7 @@ newtype Filename_t = Filename_t
 
   __returns:__ Number of bytes written
 
-__C declaration:__ @process_buffer(char *, size_t)@
+__C declaration:__ @process_buffer@
 
 __defined at:__ @doxygen_docs.h:332:5@
 
@@ -1423,7 +1423,7 @@ process_buffer =
 
   __returns:__ Number of bytes written
 
-__C declaration:__ @process_buffer(char *, size_t)@
+__C declaration:__ @process_buffer@
 
 __defined at:__ @doxygen_docs.h:332:5@
 
@@ -1450,7 +1450,7 @@ process_buffer_ptr =
 
   __returns:__ Destination pointer
 
-__C declaration:__ @my_memcpy(void *restrict, const void *restrict, size_t)@
+__C declaration:__ @my_memcpy@
 
 __defined at:__ @doxygen_docs.h:342:7@
 
@@ -1492,7 +1492,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f" my_mem
 
   __returns:__ Destination pointer
 
-__C declaration:__ @my_memcpy(void *restrict, const void *restrict, size_t)@
+__C declaration:__ @my_memcpy@
 
 __defined at:__ @doxygen_docs.h:342:7@
 
@@ -1515,7 +1515,7 @@ my_memcpy_ptr =
 
   __returns:__ Doubled value
 
-__C declaration:__ @double_value(int)@
+__C declaration:__ @double_value@
 
 __defined at:__ @doxygen_docs.h:350:19@
 
@@ -1539,7 +1539,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_1c952f01cc07bb64" double
 
   __returns:__ Doubled value
 
-__C declaration:__ @double_value(int)@
+__C declaration:__ @double_value@
 
 __defined at:__ @doxygen_docs.h:350:19@
 
@@ -1670,7 +1670,7 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CInt Fl
 
   __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
 
-__C declaration:__ @complex_function(config_t *, const uint8_t *, size_t)@
+__C declaration:__ @complex_function@
 
 __defined at:__ @doxygen_docs.h:423:15@
 
@@ -1761,7 +1761,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe" comple
 
   __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
 
-__C declaration:__ @complex_function(config_t *, const uint8_t *, size_t)@
+__C declaration:__ @complex_function@
 
 __defined at:__ @doxygen_docs.h:423:15@
 

@@ -44,15 +44,9 @@ import GHC.Generics (Generic)
 -- passes. This data type will allow one to cross reference C identifiers when
 -- translating from Doxygen to Haddocks.
 --
-data Comment ref = Comment {
-      -- | Clang display name of the cursor
-      --
-      -- This is included so the original C name can be included in the
-      -- translated documentation.
-      commentCName :: Text
-
+newtype Comment ref = Comment {
       -- | Children of a the comment
-    , commentChildren :: [CommentBlockContent ref]
+      commentChildren :: [CommentBlockContent ref]
     }
   deriving stock (Functor, Foldable, Traversable, Show, Eq, Ord, Generic)
 
@@ -124,7 +118,6 @@ clang_getComment cursor = do
     case eCommentKind of
       Right CXComment_Null -> pure Nothing
       Right CXComment_FullComment -> do
-        commentCName <- clang_getCursorDisplayName cursor
         commentChildren <- getChildren (getBlockContent cursor) comment
         pure $ Just Comment{..}
       Right commentKind ->

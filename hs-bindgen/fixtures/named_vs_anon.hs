@@ -37,11 +37,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:15:8")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "a",
+          commentLocation = Just
+            "named_vs_anon.h:15:8",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -83,11 +86,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:15:8")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "named_vs_anon.h:15:8",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -132,11 +138,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:15:8")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "a",
+                      commentLocation = Just
+                        "named_vs_anon.h:15:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -181,11 +190,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:15:8")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "a",
+                      commentLocation = Just
+                        "named_vs_anon.h:15:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -249,11 +261,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:16:8")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct1",
+          commentLocation = Just
+            "named_vs_anon.h:16:8",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -296,11 +311,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:16:8")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct1",
+              commentLocation = Just
+                "named_vs_anon.h:16:8",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -346,11 +364,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:16:8")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct1",
+                      commentLocation = Just
+                        "named_vs_anon.h:16:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -396,11 +417,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:16:8")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct1",
+                      commentLocation = Just
+                        "named_vs_anon.h:16:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -464,11 +488,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:19:8")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "b_s",
+          commentLocation = Just
+            "named_vs_anon.h:19:8",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -511,11 +538,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:19:8")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b_s",
+              commentLocation = Just
+                "named_vs_anon.h:19:8",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -561,11 +591,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:19:8")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "b_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:19:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -611,11 +644,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:19:8")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "b_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:19:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -681,11 +717,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:20:8")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct2_s",
+          commentLocation = Just
+            "named_vs_anon.h:20:8",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -730,11 +770,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:20:8")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct2_s",
+              commentLocation = Just
+                "named_vs_anon.h:20:8",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -782,11 +826,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:20:8")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct2_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:20:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -834,11 +882,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:20:8")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct2_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:20:8",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -901,11 +953,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:23:36")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "c",
+          commentLocation = Just
+            "named_vs_anon.h:23:36",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -947,11 +1002,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:23:36")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "c",
+              commentLocation = Just
+                "named_vs_anon.h:23:36",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -996,11 +1054,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:23:36")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "c",
+                      commentLocation = Just
+                        "named_vs_anon.h:23:36",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1045,11 +1106,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:23:36")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "c",
+                      commentLocation = Just
+                        "named_vs_anon.h:23:36",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1113,11 +1177,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:24:36")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct3",
+          commentLocation = Just
+            "named_vs_anon.h:24:36",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1160,11 +1227,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:24:36")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct3",
+              commentLocation = Just
+                "named_vs_anon.h:24:36",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1210,11 +1280,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:24:36")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct3",
+                      commentLocation = Just
+                        "named_vs_anon.h:24:36",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1260,11 +1333,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:24:36")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct3",
+                      commentLocation = Just
+                        "named_vs_anon.h:24:36",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1327,11 +1403,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:27:15")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "d",
+          commentLocation = Just
+            "named_vs_anon.h:27:15",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1373,11 +1452,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:27:15")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "d",
+              commentLocation = Just
+                "named_vs_anon.h:27:15",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1422,11 +1504,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:27:15")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "d",
+                      commentLocation = Just
+                        "named_vs_anon.h:27:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1471,11 +1556,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:27:15")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "d",
+                      commentLocation = Just
+                        "named_vs_anon.h:27:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1539,11 +1627,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:28:15")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct4",
+          commentLocation = Just
+            "named_vs_anon.h:28:15",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1586,11 +1677,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:28:15")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct4",
+              commentLocation = Just
+                "named_vs_anon.h:28:15",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1636,11 +1730,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:28:15")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct4",
+                      commentLocation = Just
+                        "named_vs_anon.h:28:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1686,11 +1783,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:28:15")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct4",
+                      commentLocation = Just
+                        "named_vs_anon.h:28:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1754,11 +1854,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:31:15")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "e_s",
+          commentLocation = Just
+            "named_vs_anon.h:31:15",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1801,11 +1904,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:31:15")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "e_s",
+              commentLocation = Just
+                "named_vs_anon.h:31:15",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1851,11 +1957,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:31:15")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "e_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:31:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1901,11 +2010,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:31:15")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "e_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:31:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -1971,11 +2083,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:32:15")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct5_s",
+          commentLocation = Just
+            "named_vs_anon.h:32:15",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2020,11 +2136,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:32:15")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "struct5_s",
+              commentLocation = Just
+                "named_vs_anon.h:32:15",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2072,11 +2192,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:32:15")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct5_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:32:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2124,11 +2248,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:32:15")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "struct5_s",
+                      commentLocation = Just
+                        "named_vs_anon.h:32:15",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2192,11 +2320,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:35:9")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f",
+          commentLocation = Just
+            "named_vs_anon.h:35:9",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2239,11 +2370,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:35:9")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "f",
+              commentLocation = Just
+                "named_vs_anon.h:35:9",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2289,11 +2423,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:35:9")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "f",
+                      commentLocation = Just
+                        "named_vs_anon.h:35:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2339,11 +2476,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:35:9")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "f",
+                      commentLocation = Just
+                        "named_vs_anon.h:35:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2408,11 +2548,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:36:9")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "typedef1",
+          commentLocation = Just
+            "named_vs_anon.h:36:9",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2456,11 +2599,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:36:9")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "typedef1",
+              commentLocation = Just
+                "named_vs_anon.h:36:9",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2507,11 +2653,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:36:9")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "typedef1",
+                      commentLocation = Just
+                        "named_vs_anon.h:36:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2558,11 +2707,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:36:9")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "typedef1",
+                      commentLocation = Just
+                        "named_vs_anon.h:36:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2626,11 +2778,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:39:9")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "g",
+          commentLocation = Just
+            "named_vs_anon.h:39:9",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2673,11 +2828,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:39:9")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "g",
+              commentLocation = Just
+                "named_vs_anon.h:39:9",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2723,11 +2881,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:39:9")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "g",
+                      commentLocation = Just
+                        "named_vs_anon.h:39:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2773,11 +2934,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:39:9")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "g",
+                      commentLocation = Just
+                        "named_vs_anon.h:39:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -2842,11 +3006,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:40:9")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "typedef2",
+          commentLocation = Just
+            "named_vs_anon.h:40:9",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2890,11 +3057,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:40:9")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "typedef2",
+              commentLocation = Just
+                "named_vs_anon.h:40:9",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -2941,11 +3111,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:40:9")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "typedef2",
+                      commentLocation = Just
+                        "named_vs_anon.h:40:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2992,11 +3165,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:40:9")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "typedef2",
+                      commentLocation = Just
+                        "named_vs_anon.h:40:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -3060,11 +3236,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:43:9")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "h",
+          commentLocation = Just
+            "named_vs_anon.h:43:9",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3107,11 +3286,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:43:9")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "h",
+              commentLocation = Just
+                "named_vs_anon.h:43:9",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -3157,11 +3339,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:43:9")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "h",
+                      commentLocation = Just
+                        "named_vs_anon.h:43:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -3207,11 +3392,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:43:9")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "h",
+                      commentLocation = Just
+                        "named_vs_anon.h:43:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -3276,11 +3464,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "named_vs_anon.h:44:9")
-          (Just "named_vs_anon.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "typedef3",
+          commentLocation = Just
+            "named_vs_anon.h:44:9",
+          commentHeader = Just
+            "named_vs_anon.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3324,11 +3515,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "named_vs_anon.h:44:9")
-              (Just "named_vs_anon.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "typedef3",
+              commentLocation = Just
+                "named_vs_anon.h:44:9",
+              commentHeader = Just
+                "named_vs_anon.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -3375,11 +3569,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:44:9")
-                      (Just "named_vs_anon.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "typedef3",
+                      commentLocation = Just
+                        "named_vs_anon.h:44:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -3426,11 +3623,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "named_vs_anon.h:44:9")
-                      (Just "named_vs_anon.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "typedef3",
+                      commentLocation = Just
+                        "named_vs_anon.h:44:9",
+                      commentHeader = Just
+                        "named_vs_anon.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =

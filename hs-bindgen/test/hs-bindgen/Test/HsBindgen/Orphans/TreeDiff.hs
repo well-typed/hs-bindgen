@@ -63,19 +63,7 @@ instance ToExpr C.CXCommentParamPassDirection
 instance ToExpr ref => ToExpr (C.CommentInlineContent ref)
 instance ToExpr C.CXCommentInlineCommandRenderKind
 instance ToExpr ref => ToExpr (C.CommentBlockContent ref)
-
--- | If there are unnamed structures in the parsed C header files, then
--- 'C.Comment.commentCName' is going to point to an absolute path and line
--- number where the said structure is defined. This absolute path is
--- troublesome for golden tests because they won't run on the same machine who
--- generated the fixtures. With this being said, we remove the commentCName
--- from the picture.
---
--- Once #947 is done this won't be needed
-instance ToExpr ref => ToExpr (C.Comment ref) where
-  toExpr C.Comment{..} =
-    toExpr commentChildren
-
+instance ToExpr ref => ToExpr (C.Comment ref)
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
 instance ToExpr C.FieldInfo
@@ -137,21 +125,7 @@ instance ToExpr Hs.ExtHsRef
 instance ToExpr Hs.CallConv
 instance ToExpr Hs.ImportStyle
 
--- | If there are unnamed structures in the parsed C header files, then
--- 'Hs.Comment.commentOriin is going to point to an absolute path and line
--- number where the said structure is defined. This absolute path is
--- troublesome for golden tests because they won't run on the same machine who
--- generated the fixtures. With this being said, we remove the commentCName
--- from the picture.
---
--- Once #947 is done this won't be needed
 instance ToExpr Hs.Comment where
-  toExpr Hs.Comment{..} =
-    Expr.App "Comment" [ toExpr commentTitle
-                       , toExpr commentLocation
-                       , toExpr commentHeader
-                       , toExpr commentChildren
-                       ]
 
 instance ToExpr Hs.ListType
 instance ToExpr Hs.HeaderLevel

@@ -34,12 +34,14 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "skip_over_long_double.h:7:6")
-          (Just "skip_over_long_double.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun2",
+          commentLocation = Just
+            "skip_over_long_double.h:7:6",
+          commentHeader = Just
+            "skip_over_long_double.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "skip_over_long_double.h",
@@ -70,12 +72,14 @@
               (PrimIntegral PrimInt Signed)]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "skip_over_long_double.h:7:6")
-          (Just "skip_over_long_double.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun2",
+          commentLocation = Just
+            "skip_over_long_double.h:7:6",
+          commentHeader = Just
+            "skip_over_long_double.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -109,12 +113,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "skip_over_long_double.h:14:7")
-              (Just "skip_over_long_double.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "skip_over_long_double.h:14:7",
+              commentHeader = Just
+                "skip_over_long_double.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -159,12 +165,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "skip_over_long_double.h:13:8")
-          (Just "skip_over_long_double.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct2",
+          commentLocation = Just
+            "skip_over_long_double.h:13:8",
+          commentHeader = Just
+            "skip_over_long_double.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -198,12 +206,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "skip_over_long_double.h:14:7")
-                  (Just "skip_over_long_double.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "skip_over_long_double.h:14:7",
+                  commentHeader = Just
+                    "skip_over_long_double.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -248,12 +258,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "skip_over_long_double.h:13:8")
-              (Just "skip_over_long_double.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct2",
+              commentLocation = Just
+                "skip_over_long_double.h:13:8",
+              commentHeader = Just
+                "skip_over_long_double.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -290,12 +302,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "skip_over_long_double.h:14:7")
-                          (Just "skip_over_long_double.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "skip_over_long_double.h:14:7",
+                          commentHeader = Just
+                            "skip_over_long_double.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -340,12 +354,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "skip_over_long_double.h:13:8")
-                      (Just "skip_over_long_double.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct2",
+                      commentLocation = Just
+                        "skip_over_long_double.h:13:8",
+                      commentHeader = Just
+                        "skip_over_long_double.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -382,12 +398,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "skip_over_long_double.h:14:7")
-                          (Just "skip_over_long_double.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "skip_over_long_double.h:14:7",
+                          commentHeader = Just
+                            "skip_over_long_double.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -432,12 +450,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "skip_over_long_double.h:13:8")
-                      (Just "skip_over_long_double.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct2",
+                      commentLocation = Just
+                        "skip_over_long_double.h:13:8",
+                      commentHeader = Just
+                        "skip_over_long_double.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [

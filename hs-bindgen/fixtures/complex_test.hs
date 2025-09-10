@@ -22,11 +22,15 @@
         (TypeComplex
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:3:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_float",
+          commentLocation = Just
+            "complex_test.h:3:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -53,11 +57,15 @@
         (TypeComplex
           (PrimFloating PrimDouble)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:4:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_double",
+          commentLocation = Just
+            "complex_test.h:4:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -84,11 +92,15 @@
         (TypeComplex
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:6:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_float_flipped",
+          commentLocation = Just
+            "complex_test.h:6:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -115,11 +127,15 @@
         (TypeComplex
           (PrimFloating PrimDouble)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:7:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_complex_double_flipped",
+          commentLocation = Just
+            "complex_test.h:7:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -146,11 +162,15 @@
         (TypeComplex
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:9:24")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_Complex_float",
+          commentLocation = Just
+            "complex_test.h:9:24",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -177,11 +197,15 @@
         (TypeComplex
           (PrimFloating PrimDouble)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:10:24")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_Complex_double",
+          commentLocation = Just
+            "complex_test.h:10:24",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -208,11 +232,15 @@
         (TypeComplex
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:12:24")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_Complex_float_flipped",
+          commentLocation = Just
+            "complex_test.h:12:24",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -239,11 +267,15 @@
         (TypeComplex
           (PrimFloating PrimDouble)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:13:24")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_Complex_double_flipped",
+          commentLocation = Just
+            "complex_test.h:13:24",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -271,11 +303,15 @@
           (TypeComplex
             (PrimFloating PrimFloat))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:15:29")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_complex_float",
+          commentLocation = Just
+            "complex_test.h:15:29",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -305,11 +341,15 @@
           (TypeComplex
             (PrimFloating PrimDouble))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:16:29")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_complex_double",
+          commentLocation = Just
+            "complex_test.h:16:29",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -338,11 +378,15 @@
         (TypeComplex
           (PrimFloating PrimFloat)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:18:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "volatile_complex_float",
+          commentLocation = Just
+            "complex_test.h:18:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -369,11 +413,15 @@
         (TypeComplex
           (PrimFloating PrimDouble)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:19:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "volatile_complex_double",
+          commentLocation = Just
+            "complex_test.h:19:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -393,22 +441,24 @@
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -440,11 +490,15 @@
           functionRes = TypeComplex
             (PrimFloating PrimFloat)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:21:16")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "multiply_complex_f",
+          commentLocation = Just
+            "complex_test.h:21:16",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -482,11 +536,15 @@
           (TypeComplex
             (PrimFloating PrimFloat))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:21:16")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "multiply_complex_f",
+          commentLocation = Just
+            "complex_test.h:21:16",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -506,22 +564,24 @@
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -553,11 +613,15 @@
           functionRes = TypeComplex
             (PrimFloating PrimDouble)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:22:16")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "add_complex",
+          commentLocation = Just
+            "complex_test.h:22:16",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -595,11 +659,15 @@
           (TypeComplex
             (PrimFloating PrimDouble))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:22:16")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "add_complex",
+          commentLocation = Just
+            "complex_test.h:22:16",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -633,11 +701,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "complex_test.h:25:20")
-              (Just "complex_test.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "velocity",
+              commentLocation = Just
+                "complex_test.h:25:20",
+              commentHeader = Just
+                "complex_test.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -659,11 +730,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "complex_test.h:26:20")
-              (Just "complex_test.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "position",
+              commentLocation = Just
+                "complex_test.h:26:20",
+              commentHeader = Just
+                "complex_test.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -685,11 +759,14 @@
               structFieldOffset = 192,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "complex_test.h:27:9")
-              (Just "complex_test.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "id",
+              commentLocation = Just
+                "complex_test.h:27:9",
+              commentHeader = Just
+                "complex_test.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -762,11 +839,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:24:9")
-          (Just "complex_test.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "complex_object_t",
+          commentLocation = Just
+            "complex_test.h:24:9",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -800,11 +881,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "complex_test.h:25:20")
-                  (Just "complex_test.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "velocity",
+                  commentLocation = Just
+                    "complex_test.h:25:20",
+                  commentHeader = Just
+                    "complex_test.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -826,11 +910,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "complex_test.h:26:20")
-                  (Just "complex_test.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "position",
+                  commentLocation = Just
+                    "complex_test.h:26:20",
+                  commentHeader = Just
+                    "complex_test.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -852,11 +939,14 @@
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "complex_test.h:27:9")
-                  (Just "complex_test.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "id",
+                  commentLocation = Just
+                    "complex_test.h:27:9",
+                  commentHeader = Just
+                    "complex_test.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -929,11 +1019,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "complex_test.h:24:9")
-              (Just "complex_test.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "complex_object_t",
+              commentLocation = Just
+                "complex_test.h:24:9",
+              commentHeader = Just
+                "complex_test.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 32,
           storableAlignment = 8,
@@ -970,11 +1064,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "complex_test.h:25:20")
-                          (Just "complex_test.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "velocity",
+                          commentLocation = Just
+                            "complex_test.h:25:20",
+                          commentHeader = Just
+                            "complex_test.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -996,11 +1093,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "complex_test.h:26:20")
-                          (Just "complex_test.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "position",
+                          commentLocation = Just
+                            "complex_test.h:26:20",
+                          commentHeader = Just
+                            "complex_test.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1022,11 +1122,14 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "complex_test.h:27:9")
-                          (Just "complex_test.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "id",
+                          commentLocation = Just
+                            "complex_test.h:27:9",
+                          commentHeader = Just
+                            "complex_test.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1099,11 +1202,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "complex_test.h:24:9")
-                      (Just "complex_test.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "complex_object_t",
+                      commentLocation = Just
+                        "complex_test.h:24:9",
+                      commentHeader = Just
+                        "complex_test.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8,
@@ -1143,11 +1250,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "complex_test.h:25:20")
-                          (Just "complex_test.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "velocity",
+                          commentLocation = Just
+                            "complex_test.h:25:20",
+                          commentHeader = Just
+                            "complex_test.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1169,11 +1279,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "complex_test.h:26:20")
-                          (Just "complex_test.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "position",
+                          commentLocation = Just
+                            "complex_test.h:26:20",
+                          commentHeader = Just
+                            "complex_test.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1195,11 +1308,14 @@
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "complex_test.h:27:9")
-                          (Just "complex_test.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "id",
+                          commentLocation = Just
+                            "complex_test.h:27:9",
+                          commentHeader = Just
+                            "complex_test.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1272,11 +1388,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "complex_test.h:24:9")
-                      (Just "complex_test.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "complex_object_t",
+                      commentLocation = Just
+                        "complex_test.h:24:9",
+                      commentHeader = Just
+                        "complex_test.h",
+                      commentChildren = []}}
                 (Add 3)
                 (Seq
                   [
@@ -1335,11 +1455,15 @@
           (TypeComplex
             (PrimFloating PrimFloat))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:30:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "complex_float_array",
+          commentLocation = Just
+            "complex_test.h:30:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1371,11 +1495,15 @@
           (TypeComplex
             (PrimFloating PrimDouble))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "complex_test.h:31:23")
-          (Just "complex_test.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "complex_double_array",
+          commentLocation = Just
+            "complex_test.h:31:23",
+          commentHeader = Just
+            "complex_test.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

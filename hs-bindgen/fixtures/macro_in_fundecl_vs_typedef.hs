@@ -62,13 +62,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:4:9")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "MC",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:4:9",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -264,13 +265,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:5:14")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "TC",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:5:14",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -418,22 +420,24 @@
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "TC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCChar)),
@@ -472,13 +476,14 @@
             (PrimChar
               (PrimSignImplicit Nothing))},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:8:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:8:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -524,13 +529,14 @@
             (PrimChar
               (PrimSignImplicit Nothing)))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:8:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:8:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -550,22 +556,24 @@
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCChar,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -606,13 +614,14 @@
                 nameHsIdent = HsIdentifier
                   "TC"})},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:9:4")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:9:4",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -660,13 +669,14 @@
                 nameHsIdent = HsIdentifier
                   "TC"}))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:9:4")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:9:4",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -686,11 +696,12 @@
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
@@ -698,11 +709,12 @@
             (HsTypRef
               (HsName "@NsTypeConstr" "TC")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -747,13 +759,14 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource)},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:10:5")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:10:5",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -804,13 +817,14 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:10:5")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:10:5",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -830,11 +844,12 @@
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "y"),
@@ -842,11 +857,12 @@
             (HsTypRef
               (HsName "@NsTypeConstr" "MC")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -891,13 +907,14 @@
                   nameHsIdent = HsIdentifier
                     "TC"}))},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:11:5")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:11:5",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -948,13 +965,14 @@
                   nameHsIdent = HsIdentifier
                     "TC"})))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:11:5")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:11:5",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -988,13 +1006,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:18:30")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:18:30",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1039,13 +1058,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:18:16")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:18:16",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1079,13 +1099,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h:18:30")
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "macro_in_fundecl_vs_typedef.h:18:30",
+                  commentHeader = Just
+                    "macro_in_fundecl_vs_typedef.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1130,13 +1151,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:18:16")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct1",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:18:16",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -1173,13 +1195,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:18:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:18:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1224,13 +1247,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:18:16")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct1",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:18:16",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1267,13 +1291,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:18:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:18:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1318,13 +1343,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:18:16")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct1",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:18:16",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -1384,13 +1410,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:19:30")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:19:30",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1437,13 +1464,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:19:9")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:19:9",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1477,13 +1505,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h:19:30")
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "macro_in_fundecl_vs_typedef.h:19:30",
+                  commentHeader = Just
+                    "macro_in_fundecl_vs_typedef.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1530,13 +1559,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:19:9")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct2",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:19:9",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -1573,13 +1603,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:19:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:19:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1626,13 +1657,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:19:9")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct2",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:19:9",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1669,13 +1701,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:19:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:19:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1722,13 +1755,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:19:9")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct2",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:19:9",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -1788,13 +1822,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:20:30")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:20:30",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1840,13 +1875,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:20:16")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:20:16",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1880,13 +1916,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h:20:30")
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "macro_in_fundecl_vs_typedef.h:20:30",
+                  commentHeader = Just
+                    "macro_in_fundecl_vs_typedef.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1932,13 +1969,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:20:16")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct3",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:20:16",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -1975,13 +2013,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:20:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:20:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2027,13 +2066,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:20:16")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct3",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:20:16",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2070,13 +2110,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:20:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:20:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2122,13 +2163,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:20:16")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct3",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:20:16",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -2213,13 +2255,15 @@
       newtypeInstances = Set.fromList
         [Eq, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:20:35")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct3_t",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:20:35",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2280,13 +2324,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:21:30")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:21:30",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2331,13 +2376,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:21:16")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "struct4",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:21:16",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2371,13 +2417,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h:21:30")
-                  (Just
-                    "macro_in_fundecl_vs_typedef.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "macro_in_fundecl_vs_typedef.h:21:30",
+                  commentHeader = Just
+                    "macro_in_fundecl_vs_typedef.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2422,13 +2469,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "macro_in_fundecl_vs_typedef.h:21:16")
-              (Just
-                "macro_in_fundecl_vs_typedef.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "struct4",
+              commentLocation = Just
+                "macro_in_fundecl_vs_typedef.h:21:16",
+              commentHeader = Just
+                "macro_in_fundecl_vs_typedef.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -2465,13 +2513,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:21:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:21:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2516,13 +2565,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:21:16")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct4",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:21:16",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -2559,13 +2609,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h:21:30")
-                          (Just
-                            "macro_in_fundecl_vs_typedef.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "macro_in_fundecl_vs_typedef.h:21:30",
+                          commentHeader = Just
+                            "macro_in_fundecl_vs_typedef.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2610,13 +2661,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h:21:16")
-                      (Just
-                        "macro_in_fundecl_vs_typedef.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "struct4",
+                      commentLocation = Just
+                        "macro_in_fundecl_vs_typedef.h:21:16",
+                      commentHeader = Just
+                        "macro_in_fundecl_vs_typedef.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -2665,22 +2717,24 @@
                 "@NsTypeConstr"
                 "Struct2")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -2723,13 +2777,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:23:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:23:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -2782,13 +2838,15 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:23:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:23:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2811,22 +2869,24 @@
                 "@NsTypeConstr"
                 "Struct3_t")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -2864,13 +2924,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:24:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:24:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -2918,13 +2980,15 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:24:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:24:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2947,22 +3011,24 @@
                 "@NsTypeConstr"
                 "Struct4")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -3003,13 +3069,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:25:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:25:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -3060,13 +3128,15 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:25:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:25:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3089,22 +3159,24 @@
                 "@NsTypeConstr"
                 "Struct1")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -3142,13 +3214,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:27:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:27:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -3196,13 +3270,15 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:27:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:27:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3225,22 +3301,24 @@
                 "@NsTypeConstr"
                 "Struct3")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -3278,13 +3356,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:28:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:28:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -3332,13 +3412,15 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:28:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:28:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3361,22 +3443,24 @@
                 "@NsTypeConstr"
                 "Struct4")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "MC"),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -3414,13 +3498,15 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:29:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:29:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "macro_in_fundecl_vs_typedef.h",
@@ -3468,13 +3554,15 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "macro_in_fundecl_vs_typedef.h:29:6")
-          (Just
-            "macro_in_fundecl_vs_typedef.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:29:6",
+          commentHeader = Just
+            "macro_in_fundecl_vs_typedef.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

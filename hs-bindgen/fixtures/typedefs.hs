@@ -59,11 +59,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedefs.h:1:13")
-          (Just "typedefs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "myint",
+          commentLocation = Just
+            "typedefs.h:1:13",
+          commentHeader = Just
+            "typedefs.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -243,11 +246,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedefs.h:2:15")
-          (Just "typedefs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "intptr",
+          commentLocation = Just
+            "typedefs.h:2:15",
+          commentHeader = Just
+            "typedefs.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

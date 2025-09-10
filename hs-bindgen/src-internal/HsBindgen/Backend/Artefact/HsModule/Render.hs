@@ -37,11 +37,6 @@ import Text.SimplePrettyPrint
 import C.Char (CharValue (..))
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 
-import Text.Parsec.Text (Parser)
-import Text.Parsec qualified as Parsec
-
-import System.FilePath (takeFileName)
-
 {-------------------------------------------------------------------------------
   Rendering
 -------------------------------------------------------------------------------}
@@ -138,7 +133,7 @@ instance Pretty CommentKind where
             THComment c                -> ("", "", c)
         indentation = length commentStart - 1
         fromCCtxDoc =
-          case transformFilepath <$> commentOrigin of
+          case commentOrigin of
             Nothing    -> empty
             Just cName ->
               let parts = [ Just $ "__C declaration:__ @"
@@ -729,42 +724,3 @@ instance Pretty ExtHsRef where
 unsnoc :: [a] -> Maybe ([a], a)
 unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
 {-# INLINABLE unsnoc #-}
-
--- | Helper function that parses a string and sanitizes the filepath in such a
--- way that it keeps only the file name.
---
--- This is needed due to anonimous structures not playing well with golden
--- tests. See #966.
---
-transformFilepath :: Text -> Text
-transformFilepath t =
-  case Parsec.parse parseUnnamed "" t of
-    Left _ -> t
-    Right r -> r
-  where
-
-    parseUnnamed :: Parser Text
-    parseUnnamed = do
-      -- Parse everything before the filepath
-      prefix <- Parsec.many (Parsec.noneOf "/")
-
-      -- Parse the filepath (starts with / and continues until :)
-      filepath <- pathParser
-
-      -- Parse everything after the filepath
-      suffix <- Parsec.many Parsec.anyChar
-
-      -- Extract just the filename from the full path
-      let filename = takeFileName filepath
-
-      -- Reconstruct with just the filename
-      return $ Text.pack (prefix ++ filename ++ suffix)
-
-    -- Parser for a filepath (anything with slashes ending before a colon)
-    pathParser :: Parser FilePath
-    pathParser = do
-      -- Must start with a slash to identify it as a path
-      slash <- Parsec.char '/'
-      -- Continue parsing until we hit a colon
-      rest <- Parsec.many1 (Parsec.noneOf ":")
-      return $ slash : rest

@@ -25,12 +25,14 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just
-            "opaque_declaration.h:1:8")
-          (Just "opaque_declaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "opaque_declaration.h:1:8",
+          commentHeader = Just
+            "opaque_declaration.h",
+          commentChildren = []}},
   DeclData
     Struct {
       structName = HsName
@@ -67,12 +69,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "opaque_declaration.h:5:17")
-              (Just "opaque_declaration.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "ptrA",
+              commentLocation = Just
+                "opaque_declaration.h:5:17",
+              commentHeader = Just
+                "opaque_declaration.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -100,12 +104,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "opaque_declaration.h:6:17")
-              (Just "opaque_declaration.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "ptrB",
+              commentLocation = Just
+                "opaque_declaration.h:6:17",
+              commentHeader = Just
+                "opaque_declaration.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -173,12 +179,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "opaque_declaration.h:4:8")
-          (Just "opaque_declaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "bar",
+          commentLocation = Just
+            "opaque_declaration.h:4:8",
+          commentHeader = Just
+            "opaque_declaration.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -218,12 +226,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "opaque_declaration.h:5:17")
-                  (Just "opaque_declaration.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "ptrA",
+                  commentLocation = Just
+                    "opaque_declaration.h:5:17",
+                  commentHeader = Just
+                    "opaque_declaration.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -251,12 +261,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "opaque_declaration.h:6:17")
-                  (Just "opaque_declaration.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "ptrB",
+                  commentLocation = Just
+                    "opaque_declaration.h:6:17",
+                  commentHeader = Just
+                    "opaque_declaration.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -324,12 +336,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "opaque_declaration.h:4:8")
-              (Just "opaque_declaration.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "bar",
+              commentLocation = Just
+                "opaque_declaration.h:4:8",
+              commentHeader = Just
+                "opaque_declaration.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -372,12 +386,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "opaque_declaration.h:5:17")
-                          (Just "opaque_declaration.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "ptrA",
+                          commentLocation = Just
+                            "opaque_declaration.h:5:17",
+                          commentHeader = Just
+                            "opaque_declaration.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -405,12 +421,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "opaque_declaration.h:6:17")
-                          (Just "opaque_declaration.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "ptrB",
+                          commentLocation = Just
+                            "opaque_declaration.h:6:17",
+                          commentHeader = Just
+                            "opaque_declaration.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -478,12 +496,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "opaque_declaration.h:4:8")
-                      (Just "opaque_declaration.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "bar",
+                      commentLocation = Just
+                        "opaque_declaration.h:4:8",
+                      commentHeader = Just
+                        "opaque_declaration.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 8]),
@@ -528,12 +548,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "opaque_declaration.h:5:17")
-                          (Just "opaque_declaration.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "ptrA",
+                          commentLocation = Just
+                            "opaque_declaration.h:5:17",
+                          commentHeader = Just
+                            "opaque_declaration.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -561,12 +583,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "opaque_declaration.h:6:17")
-                          (Just "opaque_declaration.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "ptrB",
+                          commentLocation = Just
+                            "opaque_declaration.h:6:17",
+                          commentHeader = Just
+                            "opaque_declaration.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -634,12 +658,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "opaque_declaration.h:4:8")
-                      (Just "opaque_declaration.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "bar",
+                      commentLocation = Just
+                        "opaque_declaration.h:4:8",
+                      commentHeader = Just
+                        "opaque_declaration.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -710,12 +736,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "opaque_declaration.h:9:8")
-          (Just "opaque_declaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "baz",
+          commentLocation = Just
+            "opaque_declaration.h:9:8",
+          commentHeader = Just
+            "opaque_declaration.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -759,12 +787,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "opaque_declaration.h:9:8")
-              (Just "opaque_declaration.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "baz",
+              commentLocation = Just
+                "opaque_declaration.h:9:8",
+              commentHeader = Just
+                "opaque_declaration.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -811,12 +841,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "opaque_declaration.h:9:8")
-                      (Just "opaque_declaration.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "baz",
+                      commentLocation = Just
+                        "opaque_declaration.h:9:8",
+                      commentHeader = Just
+                        "opaque_declaration.h",
+                      commentChildren = []}})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -863,12 +895,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "opaque_declaration.h:9:8")
-                      (Just "opaque_declaration.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "baz",
+                      commentLocation = Just
+                        "opaque_declaration.h:9:8",
+                      commentHeader = Just
+                        "opaque_declaration.h",
+                      commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =
@@ -919,12 +953,14 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just
-            "opaque_declaration.h:11:6")
-          (Just "opaque_declaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quu",
+          commentLocation = Just
+            "opaque_declaration.h:11:6",
+          commentHeader = Just
+            "opaque_declaration.h",
+          commentChildren = []}},
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -951,9 +987,12 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just
-            "opaque_declaration.h:13:7")
-          (Just "opaque_declaration.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "opaque_union",
+          commentLocation = Just
+            "opaque_declaration.h:13:7",
+          commentHeader = Just
+            "opaque_declaration.h",
+          commentChildren = []}}]

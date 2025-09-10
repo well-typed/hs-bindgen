@@ -67,11 +67,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typenames.h:14:6")
-          (Just "typenames.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "typenames.h:14:6",
+          commentHeader = Just
+            "typenames.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -314,11 +317,14 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "typenames.h:15:2")
-          (Just "typenames.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "FOO1",
+          commentLocation = Just
+            "typenames.h:15:2",
+          commentHeader = Just
+            "typenames.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -342,11 +348,14 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "typenames.h:16:2")
-          (Just "typenames.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "FOO2",
+          commentLocation = Just
+            "typenames.h:16:2",
+          commentHeader = Just
+            "typenames.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -406,11 +415,14 @@
           RealFrac,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typenames.h:19:16")
-          (Just "typenames.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "typenames.h:19:16",
+          commentHeader = Just
+            "typenames.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

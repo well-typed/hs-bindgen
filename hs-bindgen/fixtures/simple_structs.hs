@@ -29,11 +29,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:3:9")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:3:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -57,11 +60,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:4:10")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:4:10",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -120,11 +126,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:2:8")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S1",
+          commentLocation = Just
+            "simple_structs.h:2:8",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -158,11 +167,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:3:9")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:3:9",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -186,11 +198,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:4:10")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:4:10",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -249,11 +264,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:2:8")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "S1",
+              commentLocation = Just
+                "simple_structs.h:2:8",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -290,11 +308,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:3:9")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:3:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -318,11 +339,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:4:10")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:4:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -381,11 +405,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:2:8")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S1",
+                      commentLocation = Just
+                        "simple_structs.h:2:8",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -424,11 +451,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:3:9")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:3:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -452,11 +482,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:4:10")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:4:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -515,11 +548,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:2:8")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S1",
+                      commentLocation = Just
+                        "simple_structs.h:2:8",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -582,11 +618,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:9:10")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:9:10",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -608,11 +647,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:10:9")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:10:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -634,11 +676,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:11:11")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "c",
+              commentLocation = Just
+                "simple_structs.h:11:11",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -712,11 +757,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:8:16")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S2_t",
+          commentLocation = Just
+            "simple_structs.h:8:16",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -752,11 +800,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:9:10")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:9:10",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -778,11 +829,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:10:9")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:10:9",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -804,11 +858,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:11:11")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "c",
+                  commentLocation = Just
+                    "simple_structs.h:11:11",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -882,11 +939,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:8:16")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "S2_t",
+              commentLocation = Just
+                "simple_structs.h:8:16",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
           storableAlignment = 4,
@@ -925,11 +985,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:9:10")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:9:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -951,11 +1014,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:10:9")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:10:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -977,11 +1043,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:11:11")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "c",
+                          commentLocation = Just
+                            "simple_structs.h:11:11",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1055,11 +1124,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:8:16")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S2_t",
+                      commentLocation = Just
+                        "simple_structs.h:8:16",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4,
@@ -1101,11 +1173,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:9:10")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:9:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1127,11 +1202,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:10:9")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:10:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1153,11 +1231,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:11:11")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "c",
+                          commentLocation = Just
+                            "simple_structs.h:11:11",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1231,11 +1312,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:8:16")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S2_t",
+                      commentLocation = Just
+                        "simple_structs.h:8:16",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 3)
                 (Seq
                   [
@@ -1299,11 +1383,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:16:10")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:16:10",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1351,11 +1438,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:15:9")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S3_t",
+          commentLocation = Just
+            "simple_structs.h:15:9",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1391,11 +1481,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:16:10")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:16:10",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1443,11 +1536,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:15:9")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "S3_t",
+              commentLocation = Just
+                "simple_structs.h:15:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 1,
           storableAlignment = 1,
@@ -1486,11 +1582,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:16:10")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:16:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1538,11 +1637,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:15:9")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S3_t",
+                      commentLocation = Just
+                        "simple_structs.h:15:9",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1581,11 +1683,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:16:10")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:16:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -1633,11 +1738,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:15:9")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S3_t",
+                      commentLocation = Just
+                        "simple_structs.h:15:9",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -1699,11 +1807,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:20:10")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:20:10",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1725,11 +1836,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:21:9")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:21:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -1752,11 +1866,14 @@
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:22:10")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "c",
+              commentLocation = Just
+                "simple_structs.h:22:10",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -1829,11 +1946,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:19:8")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S4",
+          commentLocation = Just
+            "simple_structs.h:19:8",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1869,11 +1989,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:20:10")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:20:10",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1895,11 +2018,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:21:9")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:21:9",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -1922,11 +2048,14 @@
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:22:10")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "c",
+                  commentLocation = Just
+                    "simple_structs.h:22:10",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -1999,11 +2128,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:19:8")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "S4",
+              commentLocation = Just
+                "simple_structs.h:19:8",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
           storableAlignment = 8,
@@ -2042,11 +2174,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:20:10")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:20:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2068,11 +2203,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:21:9")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:21:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2095,11 +2233,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:22:10")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "c",
+                          commentLocation = Just
+                            "simple_structs.h:22:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2172,11 +2313,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:19:8")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S4",
+                      commentLocation = Just
+                        "simple_structs.h:19:8",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4,
@@ -2218,11 +2362,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:20:10")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:20:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2244,11 +2391,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:21:9")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:21:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2271,11 +2421,14 @@
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:22:10")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "c",
+                          commentLocation = Just
+                            "simple_structs.h:22:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2348,11 +2501,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:19:8")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S4",
+                      commentLocation = Just
+                        "simple_structs.h:19:8",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 3)
                 (Seq
                   [
@@ -2416,11 +2572,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:27:10")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:27:10",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2442,11 +2601,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:28:9")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:28:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -2505,11 +2667,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:26:16")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S5",
+          commentLocation = Just
+            "simple_structs.h:26:16",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2545,11 +2710,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:27:10")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:27:10",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -2571,11 +2739,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:28:9")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:28:9",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -2634,11 +2805,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:26:16")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "S5",
+              commentLocation = Just
+                "simple_structs.h:26:16",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -2677,11 +2851,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:27:10")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:27:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2703,11 +2880,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:28:9")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:28:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2766,11 +2946,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:26:16")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S5",
+                      commentLocation = Just
+                        "simple_structs.h:26:16",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -2811,11 +2994,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:27:10")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:27:10",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -2837,11 +3023,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:28:9")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:28:9",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -2900,11 +3089,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:26:16")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S5",
+                      commentLocation = Just
+                        "simple_structs.h:26:16",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -2967,11 +3159,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:31:18")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:31:18",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -2993,11 +3188,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:31:25")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:31:25",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3056,11 +3254,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:31:8")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S6",
+          commentLocation = Just
+            "simple_structs.h:31:8",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3096,11 +3297,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:31:18")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:31:18",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3122,11 +3326,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:31:25")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:31:25",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3185,11 +3392,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:31:8")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "S6",
+              commentLocation = Just
+                "simple_structs.h:31:8",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -3228,11 +3438,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:31:18")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:31:18",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3254,11 +3467,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:31:25")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:31:25",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3317,11 +3533,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:31:8")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S6",
+                      commentLocation = Just
+                        "simple_structs.h:31:8",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -3362,11 +3581,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:31:18")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:31:18",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3388,11 +3610,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:31:25")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:31:25",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3451,11 +3676,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:31:8")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "S6",
+                      commentLocation = Just
+                        "simple_structs.h:31:8",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -3518,11 +3746,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:34:23")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:34:23",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -3544,11 +3775,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:34:30")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:34:30",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -3611,11 +3845,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:34:9")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "S7a_Deref",
+          commentLocation = Just
+            "simple_structs.h:34:9",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3651,11 +3889,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:34:23")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:34:23",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -3677,11 +3918,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:34:30")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:34:30",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -3744,11 +3988,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:34:9")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "S7a_Deref",
+              commentLocation = Just
+                "simple_structs.h:34:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -3787,11 +4035,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:34:23")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:34:23",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3813,11 +4064,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:34:30")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:34:30",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -3880,11 +4134,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:34:9")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "S7a_Deref",
+                      commentLocation = Just
+                        "simple_structs.h:34:9",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -3925,11 +4183,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:34:23")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:34:23",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -3951,11 +4212,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:34:30")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:34:30",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4018,11 +4282,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:34:9")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "S7a_Deref",
+                      commentLocation = Just
+                        "simple_structs.h:34:9",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -4111,11 +4379,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:34:36")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S7a",
+          commentLocation = Just
+            "simple_structs.h:34:36",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -4188,11 +4459,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:35:23")
-              (Just "simple_structs.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "simple_structs.h:35:23",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -4214,11 +4488,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:35:30")
-              (Just "simple_structs.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "simple_structs.h:35:30",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -4281,11 +4558,15 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:35:9")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "S7b_Deref",
+          commentLocation = Just
+            "simple_structs.h:35:9",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -4321,11 +4602,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:35:23")
-                  (Just "simple_structs.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "simple_structs.h:35:23",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -4347,11 +4631,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "simple_structs.h:35:30")
-                  (Just "simple_structs.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "simple_structs.h:35:30",
+                  commentHeader = Just
+                    "simple_structs.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -4414,11 +4701,15 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "simple_structs.h:35:9")
-              (Just "simple_structs.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "S7b_Deref",
+              commentLocation = Just
+                "simple_structs.h:35:9",
+              commentHeader = Just
+                "simple_structs.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -4457,11 +4748,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:35:23")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:35:23",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4483,11 +4777,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:35:30")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:35:30",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4550,11 +4847,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:35:9")
-                      (Just "simple_structs.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "S7b_Deref",
+                      commentLocation = Just
+                        "simple_structs.h:35:9",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -4595,11 +4896,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:35:23")
-                          (Just "simple_structs.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "simple_structs.h:35:23",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -4621,11 +4925,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "simple_structs.h:35:30")
-                          (Just "simple_structs.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "simple_structs.h:35:30",
+                          commentHeader = Just
+                            "simple_structs.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -4688,11 +4995,15 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "simple_structs.h:35:9")
-                      (Just "simple_structs.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just
+                        "S7b_Deref",
+                      commentLocation = Just
+                        "simple_structs.h:35:9",
+                      commentHeader = Just
+                        "simple_structs.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -4785,11 +5096,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "simple_structs.h:35:38")
-          (Just "simple_structs.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "S7b",
+          commentLocation = Just
+            "simple_structs.h:35:38",
+          commentHeader = Just
+            "simple_structs.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =

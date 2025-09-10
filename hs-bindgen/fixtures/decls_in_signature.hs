@@ -25,12 +25,14 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:2:8")
-          (Just "decls_in_signature.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "opaque",
+          commentLocation = Just
+            "decls_in_signature.h:2:8",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []}},
   DeclData
     Struct {
       structName = HsName
@@ -61,12 +63,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "decls_in_signature.h:4:7")
-              (Just "decls_in_signature.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "decls_in_signature.h:4:7",
+              commentHeader = Just
+                "decls_in_signature.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -88,12 +92,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "decls_in_signature.h:5:7")
-              (Just "decls_in_signature.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "decls_in_signature.h:5:7",
+              commentHeader = Just
+                "decls_in_signature.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -151,12 +157,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:3:8")
-          (Just "decls_in_signature.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "outside",
+          commentLocation = Just
+            "decls_in_signature.h:3:8",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -190,12 +198,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "decls_in_signature.h:4:7")
-                  (Just "decls_in_signature.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "decls_in_signature.h:4:7",
+                  commentHeader = Just
+                    "decls_in_signature.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -217,12 +227,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "decls_in_signature.h:5:7")
-                  (Just "decls_in_signature.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "decls_in_signature.h:5:7",
+                  commentHeader = Just
+                    "decls_in_signature.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -280,12 +292,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just
-                "decls_in_signature.h:3:8")
-              (Just "decls_in_signature.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "outside",
+              commentLocation = Just
+                "decls_in_signature.h:3:8",
+              commentHeader = Just
+                "decls_in_signature.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -322,12 +336,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:4:7")
-                          (Just "decls_in_signature.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "decls_in_signature.h:4:7",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -349,12 +365,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:5:7")
-                          (Just "decls_in_signature.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "decls_in_signature.h:5:7",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -412,12 +430,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "decls_in_signature.h:3:8")
-                      (Just "decls_in_signature.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "outside",
+                      commentLocation = Just
+                        "decls_in_signature.h:3:8",
+                      commentHeader = Just
+                        "decls_in_signature.h",
+                      commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -456,12 +476,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:4:7")
-                          (Just "decls_in_signature.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "decls_in_signature.h:4:7",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -483,12 +505,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:5:7")
-                          (Just "decls_in_signature.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "decls_in_signature.h:5:7",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -546,12 +570,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just
-                        "decls_in_signature.h:3:8")
-                      (Just "decls_in_signature.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "outside",
+                      commentLocation = Just
+                        "decls_in_signature.h:3:8",
+                      commentHeader = Just
+                        "decls_in_signature.h",
+                      commentChildren = []}}
                 (Add 2)
                 (Seq
                   [
@@ -603,11 +629,13 @@
                 "@NsTypeConstr"
                 "Opaque")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_opaque",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName
@@ -619,11 +647,13 @@
                 "@NsTypeConstr"
                 "Outside")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_defined",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "by_value"),
@@ -633,11 +663,12 @@
                 "@NsTypeConstr"
                 "Outside")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "by_value",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -691,12 +722,14 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:7:6")
-          (Just "decls_in_signature.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentLocation = Just
+            "decls_in_signature.h:7:6",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -761,12 +794,14 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:7:6")
-          (Just "decls_in_signature.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentLocation = Just
+            "decls_in_signature.h:7:6",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -800,12 +835,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "decls_in_signature.h:17:35")
-              (Just "decls_in_signature.h")
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Just
+                "decls_in_signature.h:17:35",
+              commentHeader = Just
+                "decls_in_signature.h",
+              commentChildren = []}},
         Field {
           fieldName = HsName
             "@NsVar"
@@ -827,12 +864,14 @@
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just
-                "decls_in_signature.h:17:42")
-              (Just "decls_in_signature.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Just
+                "decls_in_signature.h:17:42",
+              commentHeader = Just
+                "decls_in_signature.h",
+              commentChildren = []}}],
       structOrigin =
       Just
         Decl {
@@ -850,15 +889,16 @@
             "decls_in_signature.h",
             declComment =
             Just
-              [
-                Paragraph
-                  [TextContent "Error cases"],
-                Paragraph
-                  [
-                    TextContent
-                      "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                    TextContent
-                      "and the edge cases below)."]]},
+              (Comment
+                [
+                  Paragraph
+                    [TextContent "Error cases"],
+                  Paragraph
+                    [
+                      TextContent
+                        "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                      TextContent
+                        "and the edge cases below)."]])},
           declKind = Struct
             Struct {
               structNames = RecordNames
@@ -905,19 +945,23 @@
         [Eq, Show, Storable],
       structComment =
       Just
-        (Comment
-          (Just
-            [TextContent "Error cases"])
-          (Just
-            "decls_in_signature.h:17:16")
-          (Just "decls_in_signature.h")
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just
+            "named_struct",
+          commentLocation = Just
+            "decls_in_signature.h:17:16",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren =
           [
             Paragraph
               [
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]])},
+                  "and the edge cases below)."]]}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -951,12 +995,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "decls_in_signature.h:17:35")
-                  (Just "decls_in_signature.h")
-                  [])},
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "x",
+                  commentLocation = Just
+                    "decls_in_signature.h:17:35",
+                  commentHeader = Just
+                    "decls_in_signature.h",
+                  commentChildren = []}},
             Field {
               fieldName = HsName
                 "@NsVar"
@@ -978,12 +1024,14 @@
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just
-                    "decls_in_signature.h:17:42")
-                  (Just "decls_in_signature.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "y",
+                  commentLocation = Just
+                    "decls_in_signature.h:17:42",
+                  commentHeader = Just
+                    "decls_in_signature.h",
+                  commentChildren = []}}],
           structOrigin =
           Just
             Decl {
@@ -1001,15 +1049,16 @@
                 "decls_in_signature.h",
                 declComment =
                 Just
-                  [
-                    Paragraph
-                      [TextContent "Error cases"],
-                    Paragraph
-                      [
-                        TextContent
-                          "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                        TextContent
-                          "and the edge cases below)."]]},
+                  (Comment
+                    [
+                      Paragraph
+                        [TextContent "Error cases"],
+                      Paragraph
+                        [
+                          TextContent
+                            "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                          TextContent
+                            "and the edge cases below)."]])},
               declKind = Struct
                 Struct {
                   structNames = RecordNames
@@ -1056,19 +1105,23 @@
             [Eq, Show, Storable],
           structComment =
           Just
-            (Comment
-              (Just
-                [TextContent "Error cases"])
-              (Just
-                "decls_in_signature.h:17:16")
-              (Just "decls_in_signature.h")
+            Comment {
+              commentTitle = Just
+                [TextContent "Error cases"],
+              commentOrigin = Just
+                "named_struct",
+              commentLocation = Just
+                "decls_in_signature.h:17:16",
+              commentHeader = Just
+                "decls_in_signature.h",
+              commentChildren =
               [
                 Paragraph
                   [
                     TextContent
                       "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                     TextContent
-                      "and the edge cases below)."]])}
+                      "and the edge cases below)."]]}}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -1106,12 +1159,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:17:35")
-                          (Just "decls_in_signature.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "decls_in_signature.h:17:35",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1133,12 +1188,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:17:42")
-                          (Just "decls_in_signature.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "decls_in_signature.h:17:42",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}}],
                   structOrigin =
                   Just
                     Decl {
@@ -1156,15 +1213,16 @@
                         "decls_in_signature.h",
                         declComment =
                         Just
-                          [
-                            Paragraph
-                              [TextContent "Error cases"],
-                            Paragraph
-                              [
-                                TextContent
-                                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                                TextContent
-                                  "and the edge cases below)."]]},
+                          (Comment
+                            [
+                              Paragraph
+                                [TextContent "Error cases"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                  TextContent
+                                    "and the edge cases below)."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -1211,19 +1269,23 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      (Just
-                        [TextContent "Error cases"])
-                      (Just
-                        "decls_in_signature.h:17:16")
-                      (Just "decls_in_signature.h")
+                    Comment {
+                      commentTitle = Just
+                        [TextContent "Error cases"],
+                      commentOrigin = Just
+                        "named_struct",
+                      commentLocation = Just
+                        "decls_in_signature.h:17:16",
+                      commentHeader = Just
+                        "decls_in_signature.h",
+                      commentChildren =
                       [
                         Paragraph
                           [
                             TextContent
                               "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                             TextContent
-                              "and the edge cases below)."]])})
+                              "and the edge cases below)."]]}})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -1263,12 +1325,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:17:35")
-                          (Just "decls_in_signature.h")
-                          [])},
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "x",
+                          commentLocation = Just
+                            "decls_in_signature.h:17:35",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}},
                     Field {
                       fieldName = HsName
                         "@NsVar"
@@ -1290,12 +1354,14 @@
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just
-                            "decls_in_signature.h:17:42")
-                          (Just "decls_in_signature.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "y",
+                          commentLocation = Just
+                            "decls_in_signature.h:17:42",
+                          commentHeader = Just
+                            "decls_in_signature.h",
+                          commentChildren = []}}],
                   structOrigin =
                   Just
                     Decl {
@@ -1313,15 +1379,16 @@
                         "decls_in_signature.h",
                         declComment =
                         Just
-                          [
-                            Paragraph
-                              [TextContent "Error cases"],
-                            Paragraph
-                              [
-                                TextContent
-                                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                                TextContent
-                                  "and the edge cases below)."]]},
+                          (Comment
+                            [
+                              Paragraph
+                                [TextContent "Error cases"],
+                              Paragraph
+                                [
+                                  TextContent
+                                    "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                                  TextContent
+                                    "and the edge cases below)."]])},
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
@@ -1368,19 +1435,23 @@
                     [Eq, Show, Storable],
                   structComment =
                   Just
-                    (Comment
-                      (Just
-                        [TextContent "Error cases"])
-                      (Just
-                        "decls_in_signature.h:17:16")
-                      (Just "decls_in_signature.h")
+                    Comment {
+                      commentTitle = Just
+                        [TextContent "Error cases"],
+                      commentOrigin = Just
+                        "named_struct",
+                      commentLocation = Just
+                        "decls_in_signature.h:17:16",
+                      commentHeader = Just
+                        "decls_in_signature.h",
+                      commentChildren =
                       [
                         Paragraph
                           [
                             TextContent
                               "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                             TextContent
-                              "and the edge cases below)."]])}
+                              "and the edge cases below)."]]}}
                 (Add 2)
                 (Seq
                   [
@@ -1430,11 +1501,12 @@
                 "@NsTypeConstr"
                 "Named_struct")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -1463,19 +1535,22 @@
           functionRes = TypeVoid},
       foreignImportComment =
       Just
-        (Comment
-          (Just
-            [TextContent "Error cases"])
-          (Just
-            "decls_in_signature.h:17:6")
-          (Just "decls_in_signature.h")
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just "f1",
+          commentLocation = Just
+            "decls_in_signature.h:17:6",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren =
           [
             Paragraph
               [
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]]),
+                  "and the edge cases below)."]]},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -1515,19 +1590,22 @@
           TypeVoid),
       foreignImportComment =
       Just
-        (Comment
-          (Just
-            [TextContent "Error cases"])
-          (Just
-            "decls_in_signature.h:17:6")
-          (Just "decls_in_signature.h")
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just "f1",
+          commentLocation = Just
+            "decls_in_signature.h:17:6",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren =
           [
             Paragraph
               [
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]]),
+                  "and the edge cases below)."]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1604,12 +1682,15 @@
       newtypeInstances = Set.fromList
         [Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:20:15")
-          (Just "decls_in_signature.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "named_union",
+          commentLocation = Just
+            "decls_in_signature.h:20:15",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1632,17 +1713,19 @@
         "@NsTypeConstr"
         "Named_union",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:20:33")
-          (Just "decls_in_signature.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x",
+          commentLocation = Just
+            "decls_in_signature.h:20:33",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_named_union_x"]])},
+                  "set_named_union_x"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1654,16 +1737,17 @@
         "@NsTypeConstr"
         "Named_union",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_named_union_x"]])},
+                  "get_named_union_x"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -1675,17 +1759,19 @@
         "@NsTypeConstr"
         "Named_union",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:20:41")
-          (Just "decls_in_signature.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y",
+          commentLocation = Just
+            "decls_in_signature.h:20:41",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "set_named_union_y"]])},
+                  "set_named_union_y"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -1697,16 +1783,17 @@
         "@NsTypeConstr"
         "Named_union",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_named_union_y"]])},
+                  "get_named_union_y"]]}},
   DeclInlineCInclude
     "decls_in_signature.h",
   DeclInlineC
@@ -1726,11 +1813,12 @@
                 "@NsTypeConstr"
                 "Named_union")),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -1758,12 +1846,14 @@
             ImpureFunction,
           functionRes = TypeVoid},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:20:6")
-          (Just "decls_in_signature.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentLocation = Just
+            "decls_in_signature.h:20:6",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
   DeclInlineCInclude
@@ -1802,12 +1892,14 @@
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just
-            "decls_in_signature.h:20:6")
-          (Just "decls_in_signature.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentLocation = Just
+            "decls_in_signature.h:20:6",
+          commentHeader = Just
+            "decls_in_signature.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

@@ -23,11 +23,14 @@
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "type_qualifiers.h:5:18")
-          (Just "type_qualifiers.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "a",
+          commentLocation = Just
+            "type_qualifiers.h:5:18",
+          commentHeader = Just
+            "type_qualifiers.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -61,11 +64,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "type_qualifiers.h:7:19")
-          (Just "type_qualifiers.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "b",
+          commentLocation = Just
+            "type_qualifiers.h:7:19",
+          commentHeader = Just
+            "type_qualifiers.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -97,11 +103,14 @@
                 PrimInt
                 Signed)))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "type_qualifiers.h:9:19")
-          (Just "type_qualifiers.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "c",
+          commentLocation = Just
+            "type_qualifiers.h:9:19",
+          commentHeader = Just
+            "type_qualifiers.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -136,11 +145,14 @@
                   PrimInt
                   Signed))))),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "type_qualifiers.h:11:25")
-          (Just "type_qualifiers.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "d",
+          commentLocation = Just
+            "type_qualifiers.h:11:25",
+          commentHeader = Just
+            "type_qualifiers.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -163,11 +175,12 @@
             (HsPtr
               (HsPrimType HsPrimCChar)),
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])},
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "items",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "count"),
@@ -284,11 +297,12 @@
                         instanceSpecConstraints = [
                           ]})]},
           functionParameterComment = Just
-            (Comment
-              Nothing
-              Nothing
-              Nothing
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "count",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCBool)),
@@ -440,11 +454,15 @@
           functionRes = TypePrim
             PrimBool},
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "type_qualifiers.h:14:6")
-          (Just "type_qualifiers.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "type_qualifiers.h:14:6",
+          commentHeader = Just
+            "type_qualifiers.h",
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclInlineCInclude
     "type_qualifiers.h",
@@ -710,11 +728,15 @@
                               ]})]}}]
           (TypePrim PrimBool)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "type_qualifiers.h:14:6")
-          (Just "type_qualifiers.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "type_qualifiers.h:14:6",
+          commentHeader = Just
+            "type_qualifiers.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

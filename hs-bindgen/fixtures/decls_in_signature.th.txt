@@ -121,7 +121,7 @@ instance Storable Named_struct
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-__C declaration:__ @f1(struct named_struct)@
+__C declaration:__ @f1@
 
 __defined at:__ @decls_in_signature.h:17:6@
 
@@ -135,7 +135,7 @@ f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-__C declaration:__ @f1(struct named_struct)@
+__C declaration:__ @f1@
 
 __defined at:__ @decls_in_signature.h:17:6@
 

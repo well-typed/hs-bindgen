@@ -67,11 +67,14 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "uses_utf8.h:4:6")
-          (Just "uses_utf8.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "MyEnum",
+          commentLocation = Just
+            "uses_utf8.h:4:6",
+          commentHeader = Just
+            "uses_utf8.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -324,11 +327,15 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "uses_utf8.h:5:9")
-          (Just "uses_utf8.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "Say\20320\22909",
+          commentLocation = Just
+            "uses_utf8.h:5:9",
+          commentHeader = Just
+            "uses_utf8.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -352,8 +359,12 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "uses_utf8.h:6:9")
-          (Just "uses_utf8.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "Say\25308\25308",
+          commentLocation = Just
+            "uses_utf8.h:6:9",
+          commentHeader = Just
+            "uses_utf8.h",
+          commentChildren = []}}]

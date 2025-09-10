@@ -22,11 +22,14 @@
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       foreignImportComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:11:5")
-          (Just "redeclaration.h")
-          []),
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x",
+          commentLocation = Just
+            "redeclaration.h:11:5",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -91,11 +94,14 @@
           Real,
           Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:20:13")
-          (Just "redeclaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "int_t",
+          commentLocation = Just
+            "redeclaration.h:20:13",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -257,11 +263,14 @@
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
-            (Comment
-              Nothing
-              (Just "redeclaration.h:26:16")
-              (Just "redeclaration.h")
-              [])}],
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "n",
+              commentLocation = Just
+                "redeclaration.h:26:16",
+              commentHeader = Just
+                "redeclaration.h",
+              commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
@@ -304,11 +313,14 @@
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:26:8")
-          (Just "redeclaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "X",
+          commentLocation = Just
+            "redeclaration.h:26:8",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -342,11 +354,14 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
-                (Comment
-                  Nothing
-                  (Just "redeclaration.h:26:16")
-                  (Just "redeclaration.h")
-                  [])}],
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "n",
+                  commentLocation = Just
+                    "redeclaration.h:26:16",
+                  commentHeader = Just
+                    "redeclaration.h",
+                  commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
@@ -389,11 +404,14 @@
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
-            (Comment
-              Nothing
-              (Just "redeclaration.h:26:8")
-              (Just "redeclaration.h")
-              [])}
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "X",
+              commentLocation = Just
+                "redeclaration.h:26:8",
+              commentHeader = Just
+                "redeclaration.h",
+              commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
           storableAlignment = 4,
@@ -430,11 +448,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "redeclaration.h:26:16")
-                          (Just "redeclaration.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "n",
+                          commentLocation = Just
+                            "redeclaration.h:26:16",
+                          commentHeader = Just
+                            "redeclaration.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -477,11 +498,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "redeclaration.h:26:8")
-                      (Just "redeclaration.h")
-                      [])})
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "X",
+                      commentLocation = Just
+                        "redeclaration.h:26:8",
+                      commentHeader = Just
+                        "redeclaration.h",
+                      commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -518,11 +542,14 @@
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
-                        (Comment
-                          Nothing
-                          (Just "redeclaration.h:26:16")
-                          (Just "redeclaration.h")
-                          [])}],
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "n",
+                          commentLocation = Just
+                            "redeclaration.h:26:16",
+                          commentHeader = Just
+                            "redeclaration.h",
+                          commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
@@ -565,11 +592,14 @@
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
-                    (Comment
-                      Nothing
-                      (Just "redeclaration.h:26:8")
-                      (Just "redeclaration.h")
-                      [])}
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Just "X",
+                      commentLocation = Just
+                        "redeclaration.h:26:8",
+                      commentHeader = Just
+                        "redeclaration.h",
+                      commentChildren = []}}
                 (Add 1)
                 (Seq
                   [
@@ -623,11 +653,14 @@
             typeSpecInstances = Map.fromList
               []}},
       emptyDataComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:29:7")
-          (Just "redeclaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y",
+          commentLocation = Just
+            "redeclaration.h:29:7",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -699,11 +732,14 @@
       newtypeInstances = Set.fromList
         [Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:30:7")
-          (Just "redeclaration.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "Y",
+          commentLocation = Just
+            "redeclaration.h:30:7",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -726,15 +762,18 @@
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:30:15")
-          (Just "redeclaration.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "m",
+          commentLocation = Just
+            "redeclaration.h:30:15",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_y_m"]])},
+                Identifier "set_y_m"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -746,15 +785,16 @@
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_m"]])},
+                Identifier "get_y_m"]]}},
   DeclUnionGetter
     UnionGetter {
       unionGetterName = HsName
@@ -766,15 +806,18 @@
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
-        (Comment
-          Nothing
-          (Just "redeclaration.h:30:22")
-          (Just "redeclaration.h")
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "o",
+          commentLocation = Just
+            "redeclaration.h:30:22",
+          commentHeader = Just
+            "redeclaration.h",
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "set_y_o"]])},
+                Identifier "set_y_o"]]}},
   DeclUnionSetter
     UnionSetter {
       unionSetterName = HsName
@@ -786,12 +829,13 @@
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
-        (Comment
-          Nothing
-          Nothing
-          Nothing
-          [
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_o"]])}]
+                Identifier "get_y_o"]]}}]

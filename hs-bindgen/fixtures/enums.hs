@@ -67,11 +67,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:4:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "first",
+          commentLocation = Just
+            "enums.h:4:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -314,11 +316,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:5:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "FIRST1",
+          commentLocation = Just
+            "enums.h:5:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -342,11 +346,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:6:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "FIRST2",
+          commentLocation = Just
+            "enums.h:6:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -424,11 +430,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:9:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "second",
+          commentLocation = Just
+            "enums.h:9:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -678,11 +686,13 @@
             fieldComment = Nothing},
           enumConstantValue = `-1`},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:10:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SECOND_A",
+          commentLocation = Just
+            "enums.h:10:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -706,11 +716,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:11:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SECOND_B",
+          commentLocation = Just
+            "enums.h:11:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -734,11 +746,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:12:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SECOND_C",
+          commentLocation = Just
+            "enums.h:12:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -807,11 +821,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:15:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "same",
+          commentLocation = Just
+            "enums.h:15:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1056,11 +1072,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:16:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SAME_A",
+          commentLocation = Just
+            "enums.h:16:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1084,11 +1102,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:17:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "SAME_B",
+          commentLocation = Just
+            "enums.h:17:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1166,11 +1186,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:20:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "nonseq",
+          commentLocation = Just
+            "enums.h:20:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1392,11 +1414,13 @@
             fieldComment = Nothing},
           enumConstantValue = 200},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:21:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "NONSEQ_A",
+          commentLocation = Just
+            "enums.h:21:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1420,11 +1444,13 @@
             fieldComment = Nothing},
           enumConstantValue = 301},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:22:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "NONSEQ_B",
+          commentLocation = Just
+            "enums.h:22:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1448,11 +1474,13 @@
             fieldComment = Nothing},
           enumConstantValue = 404},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:23:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "NONSEQ_C",
+          commentLocation = Just
+            "enums.h:23:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1531,11 +1559,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:26:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "packed",
+          commentLocation = Just
+            "enums.h:26:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1785,11 +1815,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:27:5")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "PACKED_A",
+          commentLocation = Just
+            "enums.h:27:5",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1813,11 +1845,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:27:15")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "PACKED_B",
+          commentLocation = Just
+            "enums.h:27:15",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -1841,11 +1875,13 @@
             fieldComment = Nothing},
           enumConstantValue = 2},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:27:25")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "PACKED_C",
+          commentLocation = Just
+            "enums.h:27:25",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1915,11 +1951,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:30:9")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "enumA",
+          commentLocation = Just
+            "enums.h:30:9",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2162,11 +2200,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:30:16")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "A_FOO",
+          commentLocation = Just
+            "enums.h:30:16",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2190,11 +2230,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:30:23")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "A_BAR",
+          commentLocation = Just
+            "enums.h:30:23",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2263,11 +2305,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:32:14")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "enumB",
+          commentLocation = Just
+            "enums.h:32:14",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2510,11 +2554,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:32:22")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "B_FOO",
+          commentLocation = Just
+            "enums.h:32:22",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2538,11 +2584,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:32:29")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "B_BAR",
+          commentLocation = Just
+            "enums.h:32:29",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2611,11 +2659,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:34:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "enumC",
+          commentLocation = Just
+            "enums.h:34:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -2858,11 +2908,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:34:14")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C_FOO",
+          commentLocation = Just
+            "enums.h:34:14",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -2886,11 +2938,13 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:34:21")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C_BAR",
+          commentLocation = Just
+            "enums.h:34:21",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -2961,11 +3015,13 @@
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:37:6")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "enumD_t",
+          commentLocation = Just
+            "enums.h:37:6",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -3208,11 +3264,13 @@
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:37:14")
-          (Just "enums.h")
-          [])},
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "D_FOO",
+          commentLocation = Just
+            "enums.h:37:14",
+          commentHeader = Just "enums.h",
+          commentChildren = []}},
   DeclPatSyn
     PatSyn {
       patSynName = HsName
@@ -3236,8 +3294,10 @@
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
-        (Comment
-          Nothing
-          (Just "enums.h:37:21")
-          (Just "enums.h")
-          [])}]
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "D_BAR",
+          commentLocation = Just
+            "enums.h:37:21",
+          commentHeader = Just "enums.h",
+          commentChildren = []}}]

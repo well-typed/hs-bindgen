@@ -16,15 +16,16 @@ TranslationUnit {
         declHeader = "fun_attributes.h",
         declComment =
         Just
-          [
-            Paragraph
-              [
-                TextContent
-                  "Attributes on functions"],
-            Paragraph
-              [
-                TextContent
-                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Attributes on functions"],
+              Paragraph
+                [
+                  TextContent
+                    "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]])},
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
