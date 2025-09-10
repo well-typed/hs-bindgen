@@ -102,26 +102,10 @@ newtype M2
     __exported by:__ @typedef_vs_macro.h@
 -}
 newtype M3
-    = M3 {un_M3 :: (ConstantArray 3 CInt)}
+    = M3 {un_M3 :: (Ptr CInt)}
       {- ^ __C declaration:__ @M3@
 
            __defined at:__ @typedef_vs_macro.h:6:9@
-
-           __exported by:__ @typedef_vs_macro.h@
-      -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
-{-| __C declaration:__ @M4@
-
-    __defined at:__ @typedef_vs_macro.h:7:9@
-
-    __exported by:__ @typedef_vs_macro.h@
--}
-newtype M4
-    = M4 {un_M4 :: (Ptr CInt)}
-      {- ^ __C declaration:__ @M4@
-
-           __defined at:__ @typedef_vs_macro.h:7:9@
 
            __exported by:__ @typedef_vs_macro.h@
       -}
@@ -129,7 +113,7 @@ newtype M4
     deriving newtype Storable
 {-| __C declaration:__ @ExampleStruct@
 
-    __defined at:__ @typedef_vs_macro.h:9:8@
+    __defined at:__ @typedef_vs_macro.h:8:8@
 
     __exported by:__ @typedef_vs_macro.h@
 -}
@@ -137,34 +121,34 @@ data ExampleStruct
     = ExampleStruct {exampleStruct_t1 :: T1
                      {- ^ __C declaration:__ @t1@
 
-                          __defined at:__ @typedef_vs_macro.h:10:6@
+                          __defined at:__ @typedef_vs_macro.h:9:6@
 
                           __exported by:__ @typedef_vs_macro.h@
                      -},
                      exampleStruct_t2 :: T2
                      {- ^ __C declaration:__ @t2@
 
-                          __defined at:__ @typedef_vs_macro.h:11:6@
+                          __defined at:__ @typedef_vs_macro.h:10:6@
 
                           __exported by:__ @typedef_vs_macro.h@
                      -},
                      exampleStruct_m1 :: M1
                      {- ^ __C declaration:__ @m1@
 
-                          __defined at:__ @typedef_vs_macro.h:12:6@
+                          __defined at:__ @typedef_vs_macro.h:11:6@
 
                           __exported by:__ @typedef_vs_macro.h@
                      -},
                      exampleStruct_m2 :: M2
                      {- ^ __C declaration:__ @m2@
 
-                          __defined at:__ @typedef_vs_macro.h:13:6@
+                          __defined at:__ @typedef_vs_macro.h:12:6@
 
                           __exported by:__ @typedef_vs_macro.h@
                      -}}
       {- ^ __C declaration:__ @ExampleStruct@
 
-           __defined at:__ @typedef_vs_macro.h:9:8@
+           __defined at:__ @typedef_vs_macro.h:8:8@
 
            __exported by:__ @typedef_vs_macro.h@
       -}
@@ -180,7 +164,7 @@ instance Storable ExampleStruct
                                                  exampleStruct_m2_6 -> pokeByteOff ptr_1 (0 :: Int) exampleStruct_t1_3 >> (pokeByteOff ptr_1 (4 :: Int) exampleStruct_t2_4 >> (pokeByteOff ptr_1 (8 :: Int) exampleStruct_m1_5 >> pokeByteOff ptr_1 (12 :: Int) exampleStruct_m2_6))
 {-| __C declaration:__ @uint64_t@
 
-    __defined at:__ @typedef_vs_macro.h:16:9@
+    __defined at:__ @typedef_vs_macro.h:15:9@
 
     __exported by:__ @typedef_vs_macro.h@
 -}
@@ -188,7 +172,7 @@ newtype Uint64_t
     = Uint64_t {un_Uint64_t :: CInt}
       {- ^ __C declaration:__ @uint64_t@
 
-           __defined at:__ @typedef_vs_macro.h:16:9@
+           __defined at:__ @typedef_vs_macro.h:15:9@
 
            __exported by:__ @typedef_vs_macro.h@
       -}
@@ -204,7 +188,7 @@ newtype Uint64_t
                       Real)
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @typedef_vs_macro.h:18:8@
+    __defined at:__ @typedef_vs_macro.h:17:8@
 
     __exported by:__ @typedef_vs_macro.h@
 -}
@@ -212,13 +196,13 @@ data Foo
     = Foo {foo_a :: (Ptr Uint64_t)
            {- ^ __C declaration:__ @a@
 
-                __defined at:__ @typedef_vs_macro.h:19:13@
+                __defined at:__ @typedef_vs_macro.h:18:13@
 
                 __exported by:__ @typedef_vs_macro.h@
            -}}
       {- ^ __C declaration:__ @foo@
 
-           __defined at:__ @typedef_vs_macro.h:18:8@
+           __defined at:__ @typedef_vs_macro.h:17:8@
 
            __exported by:__ @typedef_vs_macro.h@
       -}

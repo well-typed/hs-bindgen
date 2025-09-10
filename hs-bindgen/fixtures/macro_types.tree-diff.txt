@@ -68,307 +68,6 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "macro_types.h:8:9",
         declId = NamePair {
-          nameC = Name "Arr1",
-          nameHsIdent = HsIdentifier
-            "Arr1"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Arr1",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Arr1"},
-            macroType = TypeConstArray
-              2
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:11:9",
-        declId = NamePair {
-          nameC = Name "Arr2",
-          nameHsIdent = HsIdentifier
-            "Arr2"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Arr2",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Arr2"},
-            macroType = TypeConstArray
-              3
-              (TypePointer
-                (TypePrim
-                  (PrimFloating PrimFloat)))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:14:9",
-        declId = NamePair {
-          nameC = Name "Arr3",
-          nameHsIdent = HsIdentifier
-            "Arr3"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Arr3",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Arr3"},
-            macroType = TypeConstArray
-              4
-              (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimFloating PrimDouble)]
-                  (TypePrim
-                    (PrimFloating PrimFloat))))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:17:9",
-        declId = NamePair {
-          nameC = Name "Fun1",
-          nameHsIdent = HsIdentifier
-            "Fun1"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Fun1",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Fun1"},
-            macroType = TypeFun
-              [
-                TypePrim
-                  (PrimIntegral PrimInt Signed)]
-              (TypePointer
-                (TypePrim
-                  (PrimFloating PrimFloat)))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:20:9",
-        declId = NamePair {
-          nameC = Name "Fun2",
-          nameHsIdent = HsIdentifier
-            "Fun2"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Fun2",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Fun2"},
-            macroType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimFloating PrimFloat),
-                  TypePointer
-                    (TypePrim
-                      (PrimFloating PrimDouble))]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:23:9",
-        declId = NamePair {
-          nameC = Name "Fun3",
-          nameHsIdent = HsIdentifier
-            "Fun3"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Fun3",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Fun3"},
-            macroType = TypePointer
-              (TypeFun
-                [
-                  TypePointer
-                    (TypePrim
-                      (PrimFloating PrimFloat))]
-                (TypePointer
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:26:9",
-        declId = NamePair {
-          nameC = Name "Fun4",
-          nameHsIdent = HsIdentifier
-            "Fun4"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Fun4",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Fun4"},
-            macroType = TypeFun
-              [
-                TypePrim
-                  (PrimIntegral PrimInt Signed),
-                TypePointer
-                  (TypePrim
-                    (PrimIntegral PrimLong Signed))]
-              (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimFloating PrimFloat),
-                    TypePointer
-                      (TypePrim
-                        (PrimFloating PrimDouble))]
-                  (TypePointer
-                    (TypePrim
-                      (PrimIntegral
-                        PrimLong
-                        Signed)))))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:29:9",
-        declId = NamePair {
-          nameC = Name "Fun5",
-          nameHsIdent = HsIdentifier
-            "Fun5"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeader = "macro_types.h",
-        declComment = Nothing},
-      declKind = DeclMacro
-        (MacroType
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "Fun5",
-              newtypeField = HsName
-                "@NsVar"
-                "un_Fun5"},
-            macroType = TypeFun
-              [
-                TypeConstArray
-                  8
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit Nothing)))]
-              (TypePointer
-                (TypeConstArray
-                  2
-                  (TypePointer
-                    (TypePrim
-                      (PrimIntegral
-                        PrimShort
-                        Signed)))))}),
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "macro_types.h:33:9",
-        declId = NamePair {
           nameC = Name "MTy",
           nameHsIdent = HsIdentifier
             "MTy"},
@@ -396,7 +95,7 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "macro_types.h:34:13",
+        declLoc = "macro_types.h:9:13",
         declId = NamePair {
           nameC = Name "tty",
           nameHsIdent = HsIdentifier
@@ -428,7 +127,7 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "macro_types.h:36:9",
+        declLoc = "macro_types.h:11:9",
         declId = NamePair {
           nameC = Name "UINT8_T",
           nameHsIdent = HsIdentifier
@@ -458,7 +157,7 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "macro_types.h:37:9",
+        declLoc = "macro_types.h:12:9",
         declId = NamePair {
           nameC = Name "BOOLEAN_T",
           nameHsIdent = HsIdentifier
@@ -491,7 +190,7 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "macro_types.h:38:19",
+        declLoc = "macro_types.h:13:19",
         declId = NamePair {
           nameC = Name "boolean_T",
           nameHsIdent = HsIdentifier

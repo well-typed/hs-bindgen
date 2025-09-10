@@ -1,29 +1,5 @@
 types:
 - headers: macro_types.h
-  cname: Arr1
-  module: Example
-  identifier: Arr1
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: macro_types.h
-  cname: Arr2
-  module: Example
-  identifier: Arr2
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: macro_types.h
-  cname: Arr3
-  module: Example
-  identifier: Arr3
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: macro_types.h
   cname: BOOLEAN_T
   module: Example
   identifier: BOOLEAN_T
@@ -41,36 +17,6 @@ types:
   - Num
   - Real
   - Storable
-- headers: macro_types.h
-  cname: Fun1
-  module: Example
-  identifier: Fun1
-- headers: macro_types.h
-  cname: Fun2
-  module: Example
-  identifier: Fun2
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
-- headers: macro_types.h
-  cname: Fun3
-  module: Example
-  identifier: Fun3
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
-- headers: macro_types.h
-  cname: Fun4
-  module: Example
-  identifier: Fun4
-- headers: macro_types.h
-  cname: Fun5
-  module: Example
-  identifier: Fun5
 - headers: macro_types.h
   cname: MTy
   module: Example

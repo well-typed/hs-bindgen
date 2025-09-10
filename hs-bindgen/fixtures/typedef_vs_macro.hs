@@ -806,8 +806,7 @@
         fieldName = HsName
           "@NsVar"
           "un_M3",
-        fieldType = HsConstArray
-          3
+        fieldType = HsPtr
           (HsPrimType HsPrimCInt),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
@@ -833,8 +832,7 @@
               newtypeField = HsName
                 "@NsVar"
                 "un_M3"},
-            macroType = TypeConstArray
-              3
+            macroType = TypePointer
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
@@ -844,7 +842,7 @@
             typeSpecInstances = Map.fromList
               []}},
       newtypeInstances = Set.fromList
-        [Eq, Show, Storable],
+        [Eq, Ord, Show, Storable],
       newtypeComment = Just
         (Comment
           Nothing
@@ -875,97 +873,12 @@
     DeriveInstance {
       deriveInstanceStrategy =
       DeriveStock,
-      deriveInstanceClass = Show,
+      deriveInstanceClass = Ord,
       deriveInstanceName = HsName
         "@NsTypeConstr"
         "M3",
       deriveInstanceComment =
       Nothing},
-  DeclNewtype
-    Newtype {
-      newtypeName = HsName
-        "@NsTypeConstr"
-        "M4",
-      newtypeConstr = HsName
-        "@NsConstr"
-        "M4",
-      newtypeField = Field {
-        fieldName = HsName
-          "@NsVar"
-          "un_M4",
-        fieldType = HsPtr
-          (HsPrimType HsPrimCInt),
-        fieldOrigin = GeneratedField,
-        fieldComment = Nothing},
-      newtypeOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "typedef_vs_macro.h:7:9",
-          declId = NamePair {
-            nameC = Name "M4",
-            nameHsIdent = HsIdentifier
-              "M4"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
-          declComment = Nothing},
-        declKind = Macro
-          CheckedMacroType {
-            macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
-                "@NsConstr"
-                "M4",
-              newtypeField = HsName
-                "@NsVar"
-                "un_M4"},
-            macroType = TypePointer
-              (TypePrim
-                (PrimIntegral PrimInt Signed))},
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      newtypeInstances = Set.fromList
-        [Eq, Ord, Show, Storable],
-      newtypeComment = Just
-        (Comment
-          Nothing
-          (Just "typedef_vs_macro.h:7:9")
-          (Just "typedef_vs_macro.h")
-          [])},
-  DeclNewtypeInstance
-    DeriveInstance {
-      deriveInstanceStrategy =
-      DeriveNewtype,
-      deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
-        "@NsTypeConstr"
-        "M4",
-      deriveInstanceComment =
-      Nothing},
-  DeclNewtypeInstance
-    DeriveInstance {
-      deriveInstanceStrategy =
-      DeriveStock,
-      deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
-        "@NsTypeConstr"
-        "M4",
-      deriveInstanceComment =
-      Nothing},
-  DeclNewtypeInstance
-    DeriveInstance {
-      deriveInstanceStrategy =
-      DeriveStock,
-      deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
-        "@NsTypeConstr"
-        "M4",
-      deriveInstanceComment =
-      Nothing},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -973,7 +886,7 @@
       deriveInstanceClass = Show,
       deriveInstanceName = HsName
         "@NsTypeConstr"
-        "M4",
+        "M3",
       deriveInstanceComment =
       Nothing},
   DeclData
@@ -995,7 +908,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:10:6",
+                "typedef_vs_macro.h:9:6",
                 fieldName = NamePair {
                   nameC = Name "t1",
                   nameHsIdent = HsIdentifier
@@ -1012,7 +925,7 @@
           fieldComment = Just
             (Comment
               Nothing
-              (Just "typedef_vs_macro.h:10:6")
+              (Just "typedef_vs_macro.h:9:6")
               (Just "typedef_vs_macro.h")
               [])},
         Field {
@@ -1025,7 +938,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:11:6",
+                "typedef_vs_macro.h:10:6",
                 fieldName = NamePair {
                   nameC = Name "t2",
                   nameHsIdent = HsIdentifier
@@ -1042,7 +955,7 @@
           fieldComment = Just
             (Comment
               Nothing
-              (Just "typedef_vs_macro.h:11:6")
+              (Just "typedef_vs_macro.h:10:6")
               (Just "typedef_vs_macro.h")
               [])},
         Field {
@@ -1055,7 +968,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:12:6",
+                "typedef_vs_macro.h:11:6",
                 fieldName = NamePair {
                   nameC = Name "m1",
                   nameHsIdent = HsIdentifier
@@ -1072,7 +985,7 @@
           fieldComment = Just
             (Comment
               Nothing
-              (Just "typedef_vs_macro.h:12:6")
+              (Just "typedef_vs_macro.h:11:6")
               (Just "typedef_vs_macro.h")
               [])},
         Field {
@@ -1085,7 +998,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:13:6",
+                "typedef_vs_macro.h:12:6",
                 fieldName = NamePair {
                   nameC = Name "m2",
                   nameHsIdent = HsIdentifier
@@ -1102,14 +1015,14 @@
           fieldComment = Just
             (Comment
               Nothing
-              (Just "typedef_vs_macro.h:13:6")
+              (Just "typedef_vs_macro.h:12:6")
               (Just "typedef_vs_macro.h")
               [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
             declLoc =
-            "typedef_vs_macro.h:9:8",
+            "typedef_vs_macro.h:8:8",
             declId = NamePair {
               nameC = Name "ExampleStruct",
               nameHsIdent = HsIdentifier
@@ -1131,7 +1044,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:10:6",
+                    "typedef_vs_macro.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "t1",
                       nameHsIdent = HsIdentifier
@@ -1148,7 +1061,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:11:6",
+                    "typedef_vs_macro.h:10:6",
                     fieldName = NamePair {
                       nameC = Name "t2",
                       nameHsIdent = HsIdentifier
@@ -1165,7 +1078,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:12:6",
+                    "typedef_vs_macro.h:11:6",
                     fieldName = NamePair {
                       nameC = Name "m1",
                       nameHsIdent = HsIdentifier
@@ -1182,7 +1095,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:13:6",
+                    "typedef_vs_macro.h:12:6",
                     fieldName = NamePair {
                       nameC = Name "m2",
                       nameHsIdent = HsIdentifier
@@ -1208,7 +1121,7 @@
       structComment = Just
         (Comment
           Nothing
-          (Just "typedef_vs_macro.h:9:8")
+          (Just "typedef_vs_macro.h:8:8")
           (Just "typedef_vs_macro.h")
           [])},
   DeclInstance
@@ -1233,7 +1146,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:10:6",
+                    "typedef_vs_macro.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "t1",
                       nameHsIdent = HsIdentifier
@@ -1250,7 +1163,7 @@
               fieldComment = Just
                 (Comment
                   Nothing
-                  (Just "typedef_vs_macro.h:10:6")
+                  (Just "typedef_vs_macro.h:9:6")
                   (Just "typedef_vs_macro.h")
                   [])},
             Field {
@@ -1263,7 +1176,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:11:6",
+                    "typedef_vs_macro.h:10:6",
                     fieldName = NamePair {
                       nameC = Name "t2",
                       nameHsIdent = HsIdentifier
@@ -1280,7 +1193,7 @@
               fieldComment = Just
                 (Comment
                   Nothing
-                  (Just "typedef_vs_macro.h:11:6")
+                  (Just "typedef_vs_macro.h:10:6")
                   (Just "typedef_vs_macro.h")
                   [])},
             Field {
@@ -1293,7 +1206,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:12:6",
+                    "typedef_vs_macro.h:11:6",
                     fieldName = NamePair {
                       nameC = Name "m1",
                       nameHsIdent = HsIdentifier
@@ -1310,7 +1223,7 @@
               fieldComment = Just
                 (Comment
                   Nothing
-                  (Just "typedef_vs_macro.h:12:6")
+                  (Just "typedef_vs_macro.h:11:6")
                   (Just "typedef_vs_macro.h")
                   [])},
             Field {
@@ -1323,7 +1236,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:13:6",
+                    "typedef_vs_macro.h:12:6",
                     fieldName = NamePair {
                       nameC = Name "m2",
                       nameHsIdent = HsIdentifier
@@ -1340,14 +1253,14 @@
               fieldComment = Just
                 (Comment
                   Nothing
-                  (Just "typedef_vs_macro.h:13:6")
+                  (Just "typedef_vs_macro.h:12:6")
                   (Just "typedef_vs_macro.h")
                   [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
                 declLoc =
-                "typedef_vs_macro.h:9:8",
+                "typedef_vs_macro.h:8:8",
                 declId = NamePair {
                   nameC = Name "ExampleStruct",
                   nameHsIdent = HsIdentifier
@@ -1369,7 +1282,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "typedef_vs_macro.h:10:6",
+                        "typedef_vs_macro.h:9:6",
                         fieldName = NamePair {
                           nameC = Name "t1",
                           nameHsIdent = HsIdentifier
@@ -1386,7 +1299,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "typedef_vs_macro.h:11:6",
+                        "typedef_vs_macro.h:10:6",
                         fieldName = NamePair {
                           nameC = Name "t2",
                           nameHsIdent = HsIdentifier
@@ -1403,7 +1316,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "typedef_vs_macro.h:12:6",
+                        "typedef_vs_macro.h:11:6",
                         fieldName = NamePair {
                           nameC = Name "m1",
                           nameHsIdent = HsIdentifier
@@ -1420,7 +1333,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "typedef_vs_macro.h:13:6",
+                        "typedef_vs_macro.h:12:6",
                         fieldName = NamePair {
                           nameC = Name "m2",
                           nameHsIdent = HsIdentifier
@@ -1446,7 +1359,7 @@
           structComment = Just
             (Comment
               Nothing
-              (Just "typedef_vs_macro.h:9:8")
+              (Just "typedef_vs_macro.h:8:8")
               (Just "typedef_vs_macro.h")
               [])}
         StorableInstance {
@@ -1474,7 +1387,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:10:6",
+                            "typedef_vs_macro.h:9:6",
                             fieldName = NamePair {
                               nameC = Name "t1",
                               nameHsIdent = HsIdentifier
@@ -1491,7 +1404,7 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:10:6")
+                          (Just "typedef_vs_macro.h:9:6")
                           (Just "typedef_vs_macro.h")
                           [])},
                     Field {
@@ -1504,7 +1417,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:11:6",
+                            "typedef_vs_macro.h:10:6",
                             fieldName = NamePair {
                               nameC = Name "t2",
                               nameHsIdent = HsIdentifier
@@ -1521,7 +1434,7 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:11:6")
+                          (Just "typedef_vs_macro.h:10:6")
                           (Just "typedef_vs_macro.h")
                           [])},
                     Field {
@@ -1534,7 +1447,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:12:6",
+                            "typedef_vs_macro.h:11:6",
                             fieldName = NamePair {
                               nameC = Name "m1",
                               nameHsIdent = HsIdentifier
@@ -1551,7 +1464,7 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:12:6")
+                          (Just "typedef_vs_macro.h:11:6")
                           (Just "typedef_vs_macro.h")
                           [])},
                     Field {
@@ -1564,7 +1477,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:13:6",
+                            "typedef_vs_macro.h:12:6",
                             fieldName = NamePair {
                               nameC = Name "m2",
                               nameHsIdent = HsIdentifier
@@ -1581,14 +1494,14 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:13:6")
+                          (Just "typedef_vs_macro.h:12:6")
                           (Just "typedef_vs_macro.h")
                           [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
                         declLoc =
-                        "typedef_vs_macro.h:9:8",
+                        "typedef_vs_macro.h:8:8",
                         declId = NamePair {
                           nameC = Name "ExampleStruct",
                           nameHsIdent = HsIdentifier
@@ -1610,7 +1523,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:10:6",
+                                "typedef_vs_macro.h:9:6",
                                 fieldName = NamePair {
                                   nameC = Name "t1",
                                   nameHsIdent = HsIdentifier
@@ -1627,7 +1540,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:11:6",
+                                "typedef_vs_macro.h:10:6",
                                 fieldName = NamePair {
                                   nameC = Name "t2",
                                   nameHsIdent = HsIdentifier
@@ -1644,7 +1557,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:12:6",
+                                "typedef_vs_macro.h:11:6",
                                 fieldName = NamePair {
                                   nameC = Name "m1",
                                   nameHsIdent = HsIdentifier
@@ -1661,7 +1574,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:13:6",
+                                "typedef_vs_macro.h:12:6",
                                 fieldName = NamePair {
                                   nameC = Name "m2",
                                   nameHsIdent = HsIdentifier
@@ -1687,7 +1600,7 @@
                   structComment = Just
                     (Comment
                       Nothing
-                      (Just "typedef_vs_macro.h:9:8")
+                      (Just "typedef_vs_macro.h:8:8")
                       (Just "typedef_vs_macro.h")
                       [])})
               [
@@ -1719,7 +1632,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:10:6",
+                            "typedef_vs_macro.h:9:6",
                             fieldName = NamePair {
                               nameC = Name "t1",
                               nameHsIdent = HsIdentifier
@@ -1736,7 +1649,7 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:10:6")
+                          (Just "typedef_vs_macro.h:9:6")
                           (Just "typedef_vs_macro.h")
                           [])},
                     Field {
@@ -1749,7 +1662,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:11:6",
+                            "typedef_vs_macro.h:10:6",
                             fieldName = NamePair {
                               nameC = Name "t2",
                               nameHsIdent = HsIdentifier
@@ -1766,7 +1679,7 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:11:6")
+                          (Just "typedef_vs_macro.h:10:6")
                           (Just "typedef_vs_macro.h")
                           [])},
                     Field {
@@ -1779,7 +1692,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:12:6",
+                            "typedef_vs_macro.h:11:6",
                             fieldName = NamePair {
                               nameC = Name "m1",
                               nameHsIdent = HsIdentifier
@@ -1796,7 +1709,7 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:12:6")
+                          (Just "typedef_vs_macro.h:11:6")
                           (Just "typedef_vs_macro.h")
                           [])},
                     Field {
@@ -1809,7 +1722,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:13:6",
+                            "typedef_vs_macro.h:12:6",
                             fieldName = NamePair {
                               nameC = Name "m2",
                               nameHsIdent = HsIdentifier
@@ -1826,14 +1739,14 @@
                       fieldComment = Just
                         (Comment
                           Nothing
-                          (Just "typedef_vs_macro.h:13:6")
+                          (Just "typedef_vs_macro.h:12:6")
                           (Just "typedef_vs_macro.h")
                           [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
                         declLoc =
-                        "typedef_vs_macro.h:9:8",
+                        "typedef_vs_macro.h:8:8",
                         declId = NamePair {
                           nameC = Name "ExampleStruct",
                           nameHsIdent = HsIdentifier
@@ -1855,7 +1768,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:10:6",
+                                "typedef_vs_macro.h:9:6",
                                 fieldName = NamePair {
                                   nameC = Name "t1",
                                   nameHsIdent = HsIdentifier
@@ -1872,7 +1785,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:11:6",
+                                "typedef_vs_macro.h:10:6",
                                 fieldName = NamePair {
                                   nameC = Name "t2",
                                   nameHsIdent = HsIdentifier
@@ -1889,7 +1802,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:12:6",
+                                "typedef_vs_macro.h:11:6",
                                 fieldName = NamePair {
                                   nameC = Name "m1",
                                   nameHsIdent = HsIdentifier
@@ -1906,7 +1819,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:13:6",
+                                "typedef_vs_macro.h:12:6",
                                 fieldName = NamePair {
                                   nameC = Name "m2",
                                   nameHsIdent = HsIdentifier
@@ -1932,7 +1845,7 @@
                   structComment = Just
                     (Comment
                       Nothing
-                      (Just "typedef_vs_macro.h:9:8")
+                      (Just "typedef_vs_macro.h:8:8")
                       (Just "typedef_vs_macro.h")
                       [])}
                 (Add 4)
@@ -1986,7 +1899,7 @@
       newtypeOrigin = Decl {
         declInfo = DeclInfo {
           declLoc =
-          "typedef_vs_macro.h:16:9",
+          "typedef_vs_macro.h:15:9",
           declId = NamePair {
             nameC = Name "uint64_t",
             nameHsIdent = HsIdentifier
@@ -2031,7 +1944,7 @@
       newtypeComment = Just
         (Comment
           Nothing
-          (Just "typedef_vs_macro.h:16:9")
+          (Just "typedef_vs_macro.h:15:9")
           (Just "typedef_vs_macro.h")
           [])},
   DeclNewtypeInstance
@@ -2187,7 +2100,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "typedef_vs_macro.h:19:13",
+                "typedef_vs_macro.h:18:13",
                 fieldName = NamePair {
                   nameC = Name "a",
                   nameHsIdent = HsIdentifier
@@ -2206,14 +2119,14 @@
             (Comment
               Nothing
               (Just
-                "typedef_vs_macro.h:19:13")
+                "typedef_vs_macro.h:18:13")
               (Just "typedef_vs_macro.h")
               [])}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
             declLoc =
-            "typedef_vs_macro.h:18:8",
+            "typedef_vs_macro.h:17:8",
             declId = NamePair {
               nameC = Name "foo",
               nameHsIdent = HsIdentifier
@@ -2233,7 +2146,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:19:13",
+                    "typedef_vs_macro.h:18:13",
                     fieldName = NamePair {
                       nameC = Name "a",
                       nameHsIdent = HsIdentifier
@@ -2260,7 +2173,7 @@
       structComment = Just
         (Comment
           Nothing
-          (Just "typedef_vs_macro.h:18:8")
+          (Just "typedef_vs_macro.h:17:8")
           (Just "typedef_vs_macro.h")
           [])},
   DeclInstance
@@ -2288,7 +2201,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "typedef_vs_macro.h:19:13",
+                    "typedef_vs_macro.h:18:13",
                     fieldName = NamePair {
                       nameC = Name "a",
                       nameHsIdent = HsIdentifier
@@ -2307,14 +2220,14 @@
                 (Comment
                   Nothing
                   (Just
-                    "typedef_vs_macro.h:19:13")
+                    "typedef_vs_macro.h:18:13")
                   (Just "typedef_vs_macro.h")
                   [])}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
                 declLoc =
-                "typedef_vs_macro.h:18:8",
+                "typedef_vs_macro.h:17:8",
                 declId = NamePair {
                   nameC = Name "foo",
                   nameHsIdent = HsIdentifier
@@ -2334,7 +2247,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "typedef_vs_macro.h:19:13",
+                        "typedef_vs_macro.h:18:13",
                         fieldName = NamePair {
                           nameC = Name "a",
                           nameHsIdent = HsIdentifier
@@ -2361,7 +2274,7 @@
           structComment = Just
             (Comment
               Nothing
-              (Just "typedef_vs_macro.h:18:8")
+              (Just "typedef_vs_macro.h:17:8")
               (Just "typedef_vs_macro.h")
               [])}
         StorableInstance {
@@ -2392,7 +2305,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:19:13",
+                            "typedef_vs_macro.h:18:13",
                             fieldName = NamePair {
                               nameC = Name "a",
                               nameHsIdent = HsIdentifier
@@ -2411,14 +2324,14 @@
                         (Comment
                           Nothing
                           (Just
-                            "typedef_vs_macro.h:19:13")
+                            "typedef_vs_macro.h:18:13")
                           (Just "typedef_vs_macro.h")
                           [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
                         declLoc =
-                        "typedef_vs_macro.h:18:8",
+                        "typedef_vs_macro.h:17:8",
                         declId = NamePair {
                           nameC = Name "foo",
                           nameHsIdent = HsIdentifier
@@ -2438,7 +2351,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:19:13",
+                                "typedef_vs_macro.h:18:13",
                                 fieldName = NamePair {
                                   nameC = Name "a",
                                   nameHsIdent = HsIdentifier
@@ -2465,7 +2378,7 @@
                   structComment = Just
                     (Comment
                       Nothing
-                      (Just "typedef_vs_macro.h:18:8")
+                      (Just "typedef_vs_macro.h:17:8")
                       (Just "typedef_vs_macro.h")
                       [])})
               [PeekByteOff (Idx 0) 0]),
@@ -2496,7 +2409,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "typedef_vs_macro.h:19:13",
+                            "typedef_vs_macro.h:18:13",
                             fieldName = NamePair {
                               nameC = Name "a",
                               nameHsIdent = HsIdentifier
@@ -2515,14 +2428,14 @@
                         (Comment
                           Nothing
                           (Just
-                            "typedef_vs_macro.h:19:13")
+                            "typedef_vs_macro.h:18:13")
                           (Just "typedef_vs_macro.h")
                           [])}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
                         declLoc =
-                        "typedef_vs_macro.h:18:8",
+                        "typedef_vs_macro.h:17:8",
                         declId = NamePair {
                           nameC = Name "foo",
                           nameHsIdent = HsIdentifier
@@ -2542,7 +2455,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "typedef_vs_macro.h:19:13",
+                                "typedef_vs_macro.h:18:13",
                                 fieldName = NamePair {
                                   nameC = Name "a",
                                   nameHsIdent = HsIdentifier
@@ -2569,7 +2482,7 @@
                   structComment = Just
                     (Comment
                       Nothing
-                      (Just "typedef_vs_macro.h:18:8")
+                      (Just "typedef_vs_macro.h:17:8")
                       (Just "typedef_vs_macro.h")
                       [])}
                 (Add 1)
