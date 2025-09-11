@@ -59,19 +59,19 @@ data BuiltinIncDirMsg =
   | BuiltinIncDirLlvmConfigPathFound FilePath
   | BuiltinIncDirLlvmConfigPrefixUnexpected String
   | BuiltinIncDirLlvmConfigPrefixIOError IOError
-  | BuiltinIncDirClangNotFound IsUserRequested
-  | BuiltinIncDirClangVersionMismatch IsUserRequested Text Text
-  | BuiltinIncDirClangIncDirNotFound IsUserRequested BuiltinIncDir
+  | BuiltinIncDirClangNotFound
+  | BuiltinIncDirClangVersionMismatch Text Text
+  | BuiltinIncDirClangIncDirNotFound BuiltinIncDir
   | BuiltinIncDirClangIncDirFound BuiltinIncDir
   | BuiltinIncDirLlvmPathClangExeNotFound FilePath
   | BuiltinIncDirLlvmPathClangExeFound FilePath
   | BuiltinIncDirLlvmConfigClangExeNotFound FilePath
   | BuiltinIncDirLlvmConfigClangExeFound FilePath
   | BuiltinIncDirClangPathFound FilePath
-  | BuiltinIncDirClangVersionUnexpected IsUserRequested String
-  | BuiltinIncDirClangVersionIOError IsUserRequested IOError
-  | BuiltinIncDirClangPrintResourceDirUnexpected IsUserRequested String
-  | BuiltinIncDirClangPrintResourceDirIOError IsUserRequested IOError
+  | BuiltinIncDirClangVersionUnexpected String
+  | BuiltinIncDirClangVersionIOError IOError
+  | BuiltinIncDirClangPrintResourceDirUnexpected String
+  | BuiltinIncDirClangPrintResourceDirIOError IOError
   deriving stock (Eq, Show)
 
 instance PrettyForTrace BuiltinIncDirMsg where
@@ -94,14 +94,14 @@ instance PrettyForTrace BuiltinIncDirMsg where
       "llvm-config --prefix output is unexpected:" <+> string (show s)
     BuiltinIncDirLlvmConfigPrefixIOError e ->
       "IO error calling llvm-config --prefix:" <+> string (displayException e)
-    BuiltinIncDirClangNotFound _iur ->
+    BuiltinIncDirClangNotFound ->
       "clang not found"
-    BuiltinIncDirClangVersionMismatch _iur libclangVersion clangVersion ->
+    BuiltinIncDirClangVersionMismatch libclangVersion clangVersion ->
       PP.hangs' "clang version mismatch:" 2 [
           "libclang version:" <+> PP.textToCtxDoc libclangVersion
         , "clang version:   " <+> PP.textToCtxDoc clangVersion
         ]
-    BuiltinIncDirClangIncDirNotFound _iur path ->
+    BuiltinIncDirClangIncDirNotFound path ->
       "builtin include directory not found using clang:" <+> string path
     BuiltinIncDirClangIncDirFound path ->
       "builtin include directory found using clang:" <+> string path
@@ -115,47 +115,40 @@ instance PrettyForTrace BuiltinIncDirMsg where
       "clang found using llvm-config:" <+> string path
     BuiltinIncDirClangPathFound path ->
       "clang found using $PATH:" <+> string path
-    BuiltinIncDirClangVersionUnexpected _iur s ->
+    BuiltinIncDirClangVersionUnexpected s ->
       "clang --version output is unexpected:" <+> string (show s)
-    BuiltinIncDirClangVersionIOError _iur e ->
+    BuiltinIncDirClangVersionIOError e ->
       "IO error calling clang --version:" <+> string (displayException e)
-    BuiltinIncDirClangPrintResourceDirUnexpected _iur s ->
+    BuiltinIncDirClangPrintResourceDirUnexpected s ->
       "clang -print-resource-dir output is unexpected:" <+> string (show s)
-    BuiltinIncDirClangPrintResourceDirIOError _iur e ->
+    BuiltinIncDirClangPrintResourceDirIOError e ->
       "IO error calling clang -print-resource-dir:"
         <+> string (displayException e)
 
 instance IsTrace Level BuiltinIncDirMsg where
   getDefaultLogLevel = \case
-    BuiltinIncDirEnvNone                               -> Debug
-    BuiltinIncDirEnvSet{}                              -> Info
-    BuiltinIncDirEnvInvalid{}                          -> Warning
-    BuiltinIncDirLlvmPathNotFound{}                    -> Warning
-    BuiltinIncDirLlvmConfigEnvNotFound{}               -> Warning
-    BuiltinIncDirLlvmConfigEnvFound{}                  -> Debug
-    BuiltinIncDirLlvmConfigPathFound{}                 -> Debug
-    BuiltinIncDirLlvmConfigPrefixUnexpected{}          -> Warning
-    BuiltinIncDirLlvmConfigPrefixIOError{}             -> Warning
-    BuiltinIncDirClangNotFound iur                     ->
-      if iur == UserRequested then Error else Debug
-    BuiltinIncDirClangVersionMismatch iur _ _          ->
-      if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangIncDirNotFound iur _             ->
-      if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangIncDirFound{}                    -> Info
-    BuiltinIncDirLlvmPathClangExeNotFound{}            -> Debug
-    BuiltinIncDirLlvmPathClangExeFound{}               -> Debug
-    BuiltinIncDirLlvmConfigClangExeNotFound{}          -> Debug
-    BuiltinIncDirLlvmConfigClangExeFound{}             -> Debug
-    BuiltinIncDirClangPathFound{}                      -> Debug
-    BuiltinIncDirClangVersionUnexpected iur _          ->
-      if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangVersionIOError iur _             ->
-      if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangPrintResourceDirUnexpected iur _ ->
-      if iur == UserRequested then Error else Warning
-    BuiltinIncDirClangPrintResourceDirIOError iur _    ->
-      if iur == UserRequested then Error else Warning
+    BuiltinIncDirEnvNone                           -> Debug
+    BuiltinIncDirEnvSet{}                          -> Info
+    BuiltinIncDirEnvInvalid{}                      -> Warning
+    BuiltinIncDirLlvmPathNotFound{}                -> Warning
+    BuiltinIncDirLlvmConfigEnvNotFound{}           -> Warning
+    BuiltinIncDirLlvmConfigEnvFound{}              -> Debug
+    BuiltinIncDirLlvmConfigPathFound{}             -> Debug
+    BuiltinIncDirLlvmConfigPrefixUnexpected{}      -> Warning
+    BuiltinIncDirLlvmConfigPrefixIOError{}         -> Warning
+    BuiltinIncDirClangNotFound                     -> Debug
+    BuiltinIncDirClangVersionMismatch _ _          -> Warning
+    BuiltinIncDirClangIncDirNotFound _             -> Warning
+    BuiltinIncDirClangIncDirFound{}                -> Info
+    BuiltinIncDirLlvmPathClangExeNotFound{}        -> Debug
+    BuiltinIncDirLlvmPathClangExeFound{}           -> Debug
+    BuiltinIncDirLlvmConfigClangExeNotFound{}      -> Debug
+    BuiltinIncDirLlvmConfigClangExeFound{}         -> Debug
+    BuiltinIncDirClangPathFound{}                  -> Debug
+    BuiltinIncDirClangVersionUnexpected _          -> Warning
+    BuiltinIncDirClangVersionIOError _             -> Warning
+    BuiltinIncDirClangPrintResourceDirUnexpected _ -> Warning
+    BuiltinIncDirClangPrintResourceDirIOError _    -> Warning
 
   getSource = const HsBindgen
 
@@ -222,8 +215,7 @@ getBuiltinIncDir tracer config =
         mEnvConfig <- getEnvConfig tracer
         mBuiltinIncDir <- case fromMaybe config mEnvConfig of
           BuiltinIncDirDisable -> return Nothing
-          BuiltinIncDirClang -> runMaybeT . getBuiltinIncDirWithClang tracer $
-            userRequestedIf (config == BuiltinIncDirClang)
+          BuiltinIncDirClang -> runMaybeT $ getBuiltinIncDirWithClang tracer
         IORef.writeIORef builtinIncDirState (BuiltinIncDirCached mBuiltinIncDir)
         return mBuiltinIncDir
 
@@ -262,24 +254,21 @@ getEnvConfig tracer = Env.lookupEnv envName >>= \case
 --
 -- @clang -print-file-name=include@ is called to get the builtin include
 -- directory.
-getBuiltinIncDirWithClang ::
-     Tracer IO BuiltinIncDirMsg
-  -> IsUserRequested
-  -> MaybeT IO BuiltinIncDir
-getBuiltinIncDirWithClang tracer isUserRequested = do
+getBuiltinIncDirWithClang :: Tracer IO BuiltinIncDirMsg -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithClang tracer = do
     exe <- findClangExe tracer <|> do
-      lift $ traceWith tracer (BuiltinIncDirClangNotFound isUserRequested)
+      lift $ traceWith tracer BuiltinIncDirClangNotFound
       MaybeT $ return Nothing
-    clangVer <- getClangVersion tracer isUserRequested exe
+    clangVer <- getClangVersion tracer exe
     libclangVer <- lift clang_getClangVersion
     unless (clangVer == libclangVer) $ do
       lift . traceWith tracer $
-        BuiltinIncDirClangVersionMismatch isUserRequested libclangVer clangVer
+        BuiltinIncDirClangVersionMismatch libclangVer clangVer
       MaybeT $ return Nothing
-    resourceDir <- getClangResourceDir tracer isUserRequested exe
+    resourceDir <- getClangResourceDir tracer exe
     ifM
      tracer
-     (BuiltinIncDirClangIncDirNotFound isUserRequested)
+     BuiltinIncDirClangIncDirNotFound
      BuiltinIncDirClangIncDirFound
      Dir.doesDirectoryExist
      (FilePath.joinPath [resourceDir, "include"])
@@ -392,14 +381,13 @@ getLlvmConfigPrefix tracer exe =
 -- version string in the first line is returned.
 getClangVersion ::
      Tracer IO BuiltinIncDirMsg
-  -> IsUserRequested
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO Text
-getClangVersion tracer isUserRequested exe =
+getClangVersion tracer exe =
     checkOutput
       tracer
-      (BuiltinIncDirClangVersionUnexpected isUserRequested)
-      (BuiltinIncDirClangVersionIOError isUserRequested)
+      BuiltinIncDirClangVersionUnexpected
+      BuiltinIncDirClangVersionIOError
       (fmap Text.pack . parseFirstLine)
       (readProcess exe ["--version"] "")
 
@@ -408,14 +396,13 @@ getClangVersion tracer isUserRequested exe =
 -- This function calls @clang -print-resource-dir@ and captures the output.
 getClangResourceDir ::
      Tracer IO BuiltinIncDirMsg
-  -> IsUserRequested
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO FilePath
-getClangResourceDir tracer isUserRequested exe =
+getClangResourceDir tracer exe =
     checkOutput
       tracer
-      (BuiltinIncDirClangPrintResourceDirUnexpected isUserRequested)
-      (BuiltinIncDirClangPrintResourceDirIOError isUserRequested)
+      BuiltinIncDirClangPrintResourceDirUnexpected
+      BuiltinIncDirClangPrintResourceDirIOError
       (fmap normWinPath . parseSingleLine)
       (readProcess exe ["-print-resource-dir"] "")
 
