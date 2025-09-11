@@ -306,14 +306,12 @@ clangWithTranslationUnit userClangArgs srcContents k =
     src = Paths.SourcePath $ Text.pack headerName
 
     args :: Clang.ClangArgs
-    args = userClangArgs
-      { Clang.clangArgsBefore =
-          Clang.clangArgsBefore userClangArgs
-            ++
-            [ "-Werror=pointer-integer-compare"
-            , "-Werror=compare-distinct-pointer-types"
-            ]
-      }
+    args = Clang.ClangArgs $
+      Clang.unClangArgs userClangArgs
+        ++
+        [ "-Werror=pointer-integer-compare"
+        , "-Werror=compare-distinct-pointer-types"
+        ]
 
     opts :: Clang.BitfieldEnum Clang.CXTranslationUnit_Flags
     opts = Clang.bitfieldEnum

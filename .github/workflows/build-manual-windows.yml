@@ -157,8 +157,6 @@ jobs:
           cabal run hs-bindgen-cli -- --version
           echo '### libclang -v'
           cabal run hs-bindgen-cli -- dev clang --clang-option=-v
-          echo '### Resolve (auto)'
-          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=auto stdint.h
           echo '### Resolve (clang)'
           cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=clang stdint.h
 

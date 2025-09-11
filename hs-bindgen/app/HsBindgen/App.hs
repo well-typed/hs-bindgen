@@ -10,10 +10,8 @@ module HsBindgen.App (
     -- * Argument/option parsers
     -- ** Bindgen configuration
   , parseBindgenConfig
-    -- ** Builtin include directory
-  , parseBuiltinIncDirConfig
-    -- ** Clang Arguments
-  , parseClangArgs
+    -- ** Clang arguments
+  , parseClangArgsConfig
     -- ** Output options
   , parseOutput
   , parseGenBindingSpec
@@ -148,8 +146,7 @@ parseBindgenConfig = BindgenConfig
 
 parseBootConfig :: Parser BootConfig
 parseBootConfig = BootConfig
-    <$> parseBuiltinIncDirConfig
-    <*> parseClangArgs
+    <$> parseClangArgsConfig
     <*> parseBindingSpecConfig
 
 parseFrontendConfig :: Parser FrontendConfig
@@ -211,42 +208,40 @@ parseBuiltinIncDirConfig = option (eitherReader auxParse) $ mconcat [
     , showDefaultWith auxRender
     , value def
     , help
-        "Configure builtin include directory (supported: auto, clang, disable)"
+        "Configure builtin include directory (supported: clang, disable)"
     ]
   where
     auxParse :: String -> Either String BuiltinIncDirConfig
     auxParse = \case
-      "auto"    -> Right BuiltinIncDirAuto
       "clang"   -> Right BuiltinIncDirClang
       "disable" -> Right BuiltinIncDirDisable
       other     -> Left $ "invalid builtin include directory mode: " ++ other
 
     auxRender :: BuiltinIncDirConfig -> String
     auxRender = \case
-      BuiltinIncDirAuto               -> "auto"
-      BuiltinIncDirClang              -> "clang"
-      BuiltinIncDirDisable            -> "disable"
-      BuiltinIncDirAutoWithOverflow{} -> "auto"  -- never default value
+      BuiltinIncDirClang   -> "clang"
+      BuiltinIncDirDisable -> "disable"
 
 {-------------------------------------------------------------------------------
   Clang arguments
 -------------------------------------------------------------------------------}
 
-parseClangArgs :: Parser ClangArgs
-parseClangArgs = do
+parseClangArgsConfig :: Parser ClangArgsConfig
+parseClangArgsConfig = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
     clangTarget           <- optional parseTarget
     clangCStandard        <- Just <$> parseCStandard
-    clangEnableGnu        <- parseGnu
+    clangGnu              <- parseGnu
     clangEnableBlocks     <- parseEnableBlocks
+    clangBuiltinIncDir    <- parseBuiltinIncDirConfig
     clangExtraIncludeDirs <- many parseIncludeDir
     clangDefineMacros     <- many parseDefineMacro
     clangArgsBefore       <- many parseClangOptionBefore
     clangArgsInner        <- many parseClangOptionInner
     clangArgsAfter        <- many parseClangOptionAfter
-    pure $ ClangArgs {..}
+    pure $ ClangArgsConfig {..}
 
 parseTarget :: Parser (Target, TargetEnv)
 parseTarget = option (maybeReader readTarget) $ mconcat [
@@ -308,8 +303,8 @@ parseCStandard = option (eitherReader readCStandard) $ mconcat [
       Just cStandard -> Right cStandard
       Nothing -> Left $ "unknown C standard: " ++ s
 
-parseGnu :: Parser Bool
-parseGnu = switch $ mconcat [
+parseGnu :: Parser Gnu
+parseGnu = flag DisableGnu EnableGnu $ mconcat [
       long "gnu"
     , help "Enable GNU extensions"
     ]

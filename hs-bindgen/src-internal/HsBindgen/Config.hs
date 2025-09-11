@@ -11,13 +11,12 @@ module HsBindgen.Config
   , checkBackendConfig
   ) where
 
-import Clang.Args
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
-import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirConfig)
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
 import HsBindgen.Imports
@@ -47,8 +46,7 @@ data BindgenConfig = BindgenConfig {
 -------------------------------------------------------------------------------}
 
 data BootConfig = BootConfig {
-      bootBuiltinIncDirConfig :: BuiltinIncDirConfig
-    , bootClangArgs           :: ClangArgs
+      bootClangArgsConfig     :: ClangArgsConfig
     , bootBindingSpecConfig   :: BindingSpecConfig
     }
   deriving stock (Show, Eq, Generic)

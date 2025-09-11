@@ -1,5 +1,6 @@
 module HsBindgen.Boot
   ( boot
+  , getClangArgs
   , BootArtefact (..)
   , BootMsg (..)
   ) where
@@ -7,8 +8,10 @@ module HsBindgen.Boot
 import Clang.Args
 import HsBindgen.BindingSpec
 import HsBindgen.Clang.BuiltinIncDir
+import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Config
-import HsBindgen.Config qualified as Config
+import HsBindgen.Config.ClangArgs (ClangArgsConfig)
+import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -20,34 +23,30 @@ import Text.SimplePrettyPrint qualified as PP
 -- Basic setup and checks.
 --
 -- - Check arguments to @#include@.
---
--- - Load external binding specifications.
---
--- - Load prescriptive binding specifications.
+-- - Determine Clang arguments.
+-- - Load external and prescriptive binding specifications.
 boot ::
      Tracer IO BootMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
 boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
-    let tracerBootStatus = contramap BootStatus tracer
     traceWith tracerBootStatus $ BootStart bindgenConfig
-    let tracerBackendConfig :: Tracer IO BackendConfigMsg
-        tracerBackendConfig = contramap BootBackendConfig tracer
-    checkBackendConfig tracerBackendConfig bindgenBackendConfig
-    let tracerHashInclude :: Tracer IO HashIncludeArgMsg
-        tracerHashInclude = contramap BootHashIncludeArg tracer
+
+    checkBackendConfig (contramap BootBackendConfig tracer) bindgenBackendConfig
+
     hashIncludeArgs <-
-      mapM (hashIncludeArgWithTrace tracerHashInclude) uncheckedHashIncludeArgs
-    let tracerBuiltinIncDir :: Tracer IO BuiltinIncDirMsg
-        tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
-    clangArgs <-
-      applyBuiltinIncDir (Config.bootClangArgs bindgenBootConfig) <$>
-        getBuiltinIncDir tracerBuiltinIncDir builtinIncDirConfig
-    let tracerBindingSpec :: Tracer IO BindingSpecMsg
-        tracerBindingSpec = contramap BootBindingSpec tracer
+      let tracer' = contramap BootHashIncludeArg tracer
+      in  mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
+
+    clangArgs <- getClangArgs tracer $ bootClangArgsConfig bindgenBootConfig
+
     (extSpec, pSpec) <-
-      loadBindingSpecs tracerBindingSpec clangArgs bindingSpecConfig
+      loadBindingSpecs
+        (contramap BootBindingSpec tracer)
+        clangArgs
+        (bootBindingSpecConfig bindgenBootConfig)
+
     let bootArtefact = BootArtefact {
           bootClangArgs               = clangArgs
         , bootHashIncludeArgs         = hashIncludeArgs
@@ -55,13 +54,23 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
         , bootPrescriptiveBindingSpec = pSpec
         }
     traceWith tracerBootStatus $ BootEnd bootArtefact
-    pure bootArtefact
+    return bootArtefact
   where
-    builtinIncDirConfig :: BuiltinIncDirConfig
-    builtinIncDirConfig = bootBuiltinIncDirConfig bindgenBootConfig
+    tracerBootStatus :: Tracer IO BootStatusMsg
+    tracerBootStatus = contramap BootStatus tracer
 
-    bindingSpecConfig :: BindingSpecConfig
-    bindingSpecConfig = bootBindingSpecConfig bindgenBootConfig
+-- | Determine Clang arguments
+getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig -> IO ClangArgs
+getClangArgs tracer config = do
+    extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
+      fst <$> ClangArgs.clangTarget config
+    mBuiltinIncDir <- getBuiltinIncDir (contramap BootBuiltinIncDir tracer) $
+      ClangArgs.clangBuiltinIncDir config
+    either throwIO return
+      . ClangArgs.getClangArgs
+      . applyExtraClangArgs extraClangArgs
+      . applyBuiltinIncDir  mBuiltinIncDir
+      $ config
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -101,6 +110,7 @@ data BootMsg =
     BootBackendConfig  BackendConfigMsg
   | BootBindingSpec    BindingSpecMsg
   | BootBuiltinIncDir  BuiltinIncDirMsg
+  | BootExtraClangArgs ExtraClangArgsMsg
   | BootHashIncludeArg HashIncludeArgMsg
   | BootStatus         BootStatusMsg
   deriving stock (Show, Eq, Generic)

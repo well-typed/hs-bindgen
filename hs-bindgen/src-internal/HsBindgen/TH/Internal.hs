@@ -24,7 +24,6 @@ import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
 
-import Clang.Args
 import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Extensions
@@ -34,6 +33,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -113,11 +113,11 @@ withHsBindgen :: BindgenOpts -> Bindgen () -> TH.Q [TH.Dec]
 withHsBindgen BindgenOpts{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
     includeDirs <- toFilePaths extraIncludeDirs
-    let clangArgs :: ClangArgs
-        clangArgs = def {
+    let clangArgsConfig :: ClangArgsConfig
+        clangArgsConfig = def {
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
-        bootConfig = baseBootConfig { bootClangArgs = clangArgs }
+        bootConfig = baseBootConfig { bootClangArgsConfig = clangArgsConfig }
     backendConfig <- ensureUniqueId baseBackendConfig
 
     let bindgenConfig =

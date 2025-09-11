@@ -663,16 +663,15 @@ clang_parseTranslationUnit ::
   -> [CXUnsavedFile]                       -- ^ @unsaved_files@
   -> BitfieldEnum CXTranslationUnit_Flags  -- ^ @options@
   -> m CXTranslationUnit
-clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $ do
-    args' <- either throwIO return $ fromClangArgs args
+clang_parseTranslationUnit cIdx src args unsavedFiles options = liftIO $
     withOptCString (getSourcePath <$> src) $ \src' ->
-      withCStrings args' $ \args'' numArgs ->
+      withCStrings (unClangArgs args) $ \args' numArgs ->
         withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
           ensureNotNull $
             nowrapper_parseTranslationUnit
               cIdx
               src'
-              args''
+              args'
               numArgs
               unsavedFiles'
               (fromIntegral numUnsavedFiles)
@@ -714,16 +713,15 @@ clang_parseTranslationUnit2 ::
      -- ^ Options that affects how the translation unit is managed but not its
      -- compilation.
   -> m (Either (SimpleEnum CXErrorCode) CXTranslationUnit)
-clang_parseTranslationUnit2 cIdx src args unsavedFiles options = liftIO $ do
-    args' <- either throwIO return $ fromClangArgs args
+clang_parseTranslationUnit2 cIdx src args unsavedFiles options = liftIO $
     withOptCString (getSourcePath <$> src) $ \src' ->
-      withCStrings args' $ \args'' numArgs ->
+      withCStrings (unClangArgs args) $ \args' numArgs ->
         withArrayOrNull unsavedFiles $ \unsavedFiles' numUnsavedFiles ->
           alloca $ \outPtr -> do
             mError <- nowrapper_parseTranslationUnit2
               cIdx
               src'
-              args''
+              args'
               numArgs
               unsavedFiles'
               (fromIntegral numUnsavedFiles)

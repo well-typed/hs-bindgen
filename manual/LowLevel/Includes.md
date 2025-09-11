@@ -163,26 +163,7 @@ found" or similar include resolution errors.  `hs-bindgen` can attempt to
 determine and configure the builtin include directory automatically so that it
 does not have to be done manually.
 
-`hs-bingden` has three modes for configuring the builtin include directory:
-
-* Automatic configuration (`auto`) does not require the Clang compiler to be
-  installed.  It needs to know the LLVM installation prefix (directory) and
-  determines the builtin include directory by getting the relative resource
-  directory from `libclang`.  The Clang resource directory (`{{RESOURCE_DIR}}`
-  below) contains the executables, headers, and libraries used by the Clang
-  compiler, including the builtin include directory.  The LLVM prefix can be
-  set using the `LLVM_PATH` environment variable or determined using
-  `llvm-config` (optionally configured using the `LLVM_CONFIG` environment
-  variable).  Automatic configuration tries to determine the builtin include
-  directory using `clang` if all else fails.
-
-    1. `${LLVM_PATH}/{{RESOURCE_DIR}}/include`
-    2. `$(${LLVM_CONFIG} --prefix)/{{RESOURCE_DIR}}/include`
-    3. `$(llvm-config --prefix)/{{RESOURCE_DIR}}/include`
-    4. `$(${LLVM_PATH}/bin/clang -print-resource-dir)/include`
-    5. `$($(${LLVM_CONFIG} --prefix)/bin/clang -print-resource-dir)/include`
-    6. `$($(llvm-config --prefix)/bin/clang -print-resource-dir)/include`
-    7. `$(clang -print-resource-dir)/include`
+`hs-bingden` has two modes for configuring the builtin include directory:
 
 * Clang configuration (`clang`) determines the builtin include directory using
   the Clang compiler, which must match the version of `libclang` being used.
@@ -206,12 +187,6 @@ does not have to be done manually.
 > therefore do not have builtin include directory issues (when using the
 > distribution packages).  When `hs-bindgen` automatically configures the same
 > directory, `libclang` ignores it as a duplicate.  It works without issue.
-
-> [!NOTE]
-> When using automatic configuration, `hs-bindgen` temporary redirects `STDOUT`
-> in order to capture `libclang` output.  This requires filling the `libclang`
-> output buffer, and there is unavoidable overflow that is printed to the real
-> `STDOUT`.  We print `-- Clang buffer flushed` by default.
 
 ### `hs-bindgen` command-line options
 
@@ -245,6 +220,10 @@ As described in [Clang options][], environment variable
 Options that `hs-bindgen` passes to Clang, including those specified in
 `BINDGEN_EXTRA_CLANG_ARGS` take precedence over Clang environment variables
 such as `C_INCLUDE_PATH`.
+
+Environment variable `BINDGEN_BUILTIN_INCLUDE_DIR` can be used to set the
+builtin include directory configuration mode, described above.  Valid values
+are `disable` and `clang`.
 
 ### `hs-bindgen` header resolution
 

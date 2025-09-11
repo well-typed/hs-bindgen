@@ -23,7 +23,14 @@ module HsBindgen.Lib (
 
     -- ** Boot
   , Common.BootConfig(..)
-    -- *** Builtin include directory
+    -- *** Clang arguments
+  , Common.ClangArgsConfig(..)
+  , Common.CStandard(..)
+  , Common.Gnu(..)
+  , Common.getStdClangArg
+  , Common.Target(..)
+  , Common.TargetEnv(..)
+  , Common.targetTriple
   , Common.BuiltinIncDirConfig(..)
     -- *** Binding specifications
   , Common.BindingSpecConfig(..)
@@ -41,12 +48,6 @@ module HsBindgen.Lib (
 
     -- ** Frontend
   , Common.FrontendConfig(..)
-    -- *** Clang arguments
-  , Common.ClangArgs(..)
-  , Common.Target(..)
-  , Common.TargetEnv(..)
-  , Common.targetTriple
-  , Common.CStandard(..)
     -- *** Predicates
   , Common.Predicate(..)
   , Common.HeaderPathPredicate (..)
@@ -136,6 +137,7 @@ import Data.Set (Set)
 
 import HsBindgen.Common qualified as Common
 
+import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
 import HsBindgen qualified
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -146,7 +148,7 @@ import HsBindgen.Util.Tracer qualified as Tracer
 -- | Resolve headers, used for debugging
 resolveHeaders ::
      Tracer.Tracer IO Common.ResolveHeaderMsg
-  -> Common.ClangArgs
+  -> Args.ClangArgs
   -> Set Common.HashIncludeArg
   -> IO (Map Common.HashIncludeArg FilePath)
 resolveHeaders tracer args headers =

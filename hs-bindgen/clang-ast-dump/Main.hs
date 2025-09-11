@@ -15,7 +15,6 @@ import Data.Text qualified as T
 import Foreign.C.Types (CUInt)
 import Options.Applicative qualified as OA
 
-import Clang.Args
 import Clang.Enum.Bitfield
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -25,6 +24,7 @@ import Clang.LowLevel.Doxygen
 import Clang.Paths
 import GHC.Generics (Generic)
 import HsBindgen.Clang
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Resolve (resolveHeaders)
 import HsBindgen.TraceMsg
@@ -75,6 +75,7 @@ clangAstDump opts@Options{..} = do
     putStrLn ""
 
     eitherRes <- withTracer tracerConf $ \tracer -> do
+      cArgs <- either throwIO return $ getClangArgs cArgsConfig
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return . Map.lookup optFile
@@ -102,8 +103,8 @@ clangAstDump opts@Options{..} = do
         tVerbosity = Verbosity Debug
       }
 
-    cArgs :: ClangArgs
-    cArgs = def {
+    cArgsConfig :: ClangArgsConfig
+    cArgsConfig = def {
         clangExtraIncludeDirs = optIncludePath
       , clangArgsInner        = optClangArgsInner
       }
