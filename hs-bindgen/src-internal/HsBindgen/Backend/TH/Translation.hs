@@ -605,7 +605,7 @@ mkDecl = \case
             impent   :: String
             (callconv, impent) =
               case foreignImportCallConv of
-                CallConvUserlandCAPI -> (TH.CCall,
+                CallConvUserlandCAPI _ -> (TH.CCall,
                     Text.unpack foreignImportOrigName
                   )
                 CallConvGhcCAPI header -> (TH.CApi, concat [

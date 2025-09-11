@@ -387,10 +387,6 @@
         "Thing",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "signed int hs_bindgen_test_struct_arg_be997777eb388096 (struct thing *arg1) { return thing_fun_1(*arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -418,7 +414,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_be997777eb388096",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_struct_arg_be997777eb388096 (struct thing *arg1) { return thing_fun_1(*arg1); }",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -450,10 +451,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "/* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_d5cf000d627eba66 (void)) (struct thing arg1) { return &thing_fun_1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -474,7 +471,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_d5cf000d627eba66",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_d5cf000d627eba66 (void)) (struct thing arg1) { return &thing_fun_1; } ",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -499,10 +501,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "void hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -531,7 +529,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_c719e5e844a53956",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_struct_arg_c719e5e844a53956 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -563,10 +566,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "/* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_c5543d9dadeca704 (void)) (signed int arg1) { return &thing_fun_2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -587,7 +586,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_c5543d9dadeca704",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_c5543d9dadeca704 (void)) (signed int arg1) { return &thing_fun_2; } ",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -612,10 +616,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "void hs_bindgen_test_struct_arg_9540300ca2ef6349 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -671,7 +671,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_9540300ca2ef6349",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_struct_arg_9540300ca2ef6349 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -721,10 +726,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "/* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_6f4d585feed7ca5e (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -752,7 +753,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_6f4d585feed7ca5e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_6f4d585feed7ca5e (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } ",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -785,10 +791,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "char hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -840,7 +842,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_f6f54b421741a2de",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char hs_bindgen_test_struct_arg_f6f54b421741a2de (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -888,10 +895,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "struct_arg.h",
-  DeclInlineC
-    "/* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_ef6a607b6432889d (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -916,7 +919,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_struct_arg_ef6a607b6432889d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_ef6a607b6432889d (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } ",
+          capiWrapperImport =
+          "struct_arg.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

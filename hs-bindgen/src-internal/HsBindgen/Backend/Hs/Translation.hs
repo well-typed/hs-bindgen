@@ -28,8 +28,8 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocksWithInfo,
-                                                 generateHaddocksWithFieldInfo,
+import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocksWithFieldInfo,
+                                                 generateHaddocksWithInfo,
                                                  generateHaddocksWithInfoParams)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -41,7 +41,6 @@ import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macro.Tc qualified as Macro
-import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -334,7 +333,13 @@ generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
       C.DeclTypedef d ->
         typedefDecs opts haddockConfig info d spec
       C.DeclFunction f ->
-        return $ functionDecs opts haddockConfig moduleName typedefs info f spec
+        let funDecls = functionDecs opts haddockConfig moduleName typedefs info f spec
+            funType  = (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
+            -- Declare a function pointer. We can pass this 'FunPtr' to C
+            -- functions that take a function pointer of the appropriate type.
+            funPtrDecls = fst $
+              addressStubDecs opts haddockConfig moduleName info funType spec
+        in pure $ funDecls ++ funPtrDecls
       C.DeclMacro macro ->
         macroDecs opts haddockConfig info macro spec
       C.DeclGlobal ty ->
@@ -1220,41 +1225,33 @@ functionDecs ::
   -> C.DeclSpec
   -> [Hs.Decl]
 functionDecs opts haddockConfig moduleName typedefs info f _spec =
-    [ Hs.DeclInlineCInclude $ getHashIncludeArg $ C.declHeader info
-    , Hs.DeclInlineC $ PC.prettyDecl (wrapperDecl innerName wrapperName res wrappedArgTypes) ""
-    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = importName
+    funDecl : [
+        Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
+      | anyFancy
+      ]
+  where
+    funDecl :: Hs.Decl
+    funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
+        { foreignImportName       = importName
         , foreignImportResultType = resType
         , foreignImportParameters = parsedArgs
-        , foreignImportOrigName = T.pack wrapperName
-        , foreignImportCallConv = CallConvUserlandCAPI
-        , foreignImportOrigin   = Origin.Function f
-        , foreignImportComment  = mbFIComment
-                               <> ioComment
-        , foreignImportSafety   = SHs.Safe
+        , foreignImportOrigName   = T.pack wrapperName
+        , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
+        , foreignImportOrigin     = Origin.Function f
+        , foreignImportComment    = mbFIComment <> ioComment
+        , foreignImportSafety     = SHs.Safe
         }
-    ] ++
-    [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
-    | anyFancy
-    ] ++ concat [
-      -- The address stub returns the address of the function as a function
-      -- pointer. This 'FunPtr' can then be passed to any C function that takes
-      -- a function pointer of the appropriate type.
-      --
-      -- For now, we generate address stubs for /all/ function declarations. We
-      -- might be able to be smart and generate address stubs only for a subset
-      -- of /useful/ functions, but we'll stick with this simpler approach
-      -- for now.
-      stubDecs
-    | let (stubDecs, _stubImportName) =
-            addressStubDecs opts haddockConfig moduleName
-              info
-              (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
-              _spec
-    ]
-  where
-    -- fancy types are heap types or constant arrays,
-    -- i.e. ones we create high-level wrapper.
+
+    userlandCapiWrapper :: UserlandCapiWrapper
+    userlandCapiWrapper = UserlandCapiWrapper {
+          capiWrapperDefinition =
+            PC.prettyDecl (wrapperDecl innerName wrapperName res wrappedArgTypes) ""
+        , capiWrapperImport =
+            C.declHeader info
+        }
+
+    -- Fancy types are heap types or constant arrays. We create high-level
+    -- wrapper for fancy types.
     anyFancy = any p (res : wrappedArgTypes) where
         p WrapType {} = False
         p HeapType {} = True
@@ -1282,7 +1279,7 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
       | (_, ty) <- C.functionArgs f
       ]
 
-    -- types which we cannot pass directly using C FFI.
+    -- Types that we cannot directly pass via C FFI.
     wrapType :: C.Type -> WrappedType
     wrapType ty = go ty
       where
@@ -1501,23 +1498,8 @@ addressStubDecs ::
   -> ( [Hs.Decl]
      , HsName 'NsVar
      )
-addressStubDecs opts haddockConfig moduleName info ty _spec = (,runnerName) $
-    [ Hs.DeclInlineCInclude (getHashIncludeArg $ C.declHeader info)
-    , Hs.DeclInlineC prettyStub
-    , Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = stubImportName
-        , foreignImportParameters = []
-        , foreignImportResultType = stubImportType
-        , foreignImportOrigName = T.pack stubNameMangled
-        , foreignImportCallConv = CallConvUserlandCAPI
-        , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = generateHaddocksWithInfo haddockConfig info
-          -- These imports can be unsafe. We're binding to simple address stubs,
-          -- so there are no callbacks into Haskell code. Moreover, they are
-          -- short running code.
-        , foreignImportSafety   = SHs.Unsafe
-        }
-    ] ++ runnerDecls
+addressStubDecs opts haddockConfig moduleName info ty _spec =
+    (foreignImport : runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
 
@@ -1555,8 +1537,28 @@ addressStubDecs opts haddockConfig moduleName info ty _spec = (,runnerName) $
           PC.FunDefn stubNameMangled stubType C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
-    -- *** Stub (pure) ***
+    userlandCapiWrapper :: UserlandCapiWrapper
+    userlandCapiWrapper = UserlandCapiWrapper {
+          capiWrapperDefinition = prettyStub
+        , capiWrapperImport = C.declHeader info
+        }
 
+    foreignImport :: Hs.Decl
+    foreignImport = Hs.DeclForeignImport $ Hs.ForeignImportDecl
+        { foreignImportName     = stubImportName
+        , foreignImportParameters = []
+        , foreignImportResultType = stubImportType
+        , foreignImportOrigName = T.pack stubNameMangled
+        , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
+        , foreignImportOrigin   = Origin.Global ty
+        , foreignImportComment  = generateHaddocksWithInfo haddockConfig info
+          -- These imports can be unsafe. We're binding to simple address stubs,
+          -- so there are no callbacks into Haskell code. Moreover, they are
+          -- short running code.
+        , foreignImportSafety   = SHs.Unsafe
+        }
+
+    -- *** Stub (pure) ***
 
     runnerDecls :: [Hs.Decl]
     runnerDecls = [

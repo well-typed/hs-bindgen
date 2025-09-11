@@ -991,10 +991,6 @@
         "S",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "char hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7 (F arg1, char arg2) { return quux(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1031,7 +1027,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char hs_bindgen_test_macro_in_fundecl_206ab5e09886d1e7 (F arg1, char arg2) { return quux(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1069,10 +1070,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_quux_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_14c52c6a6a7242b5 (void)) (F arg1, char arg2) { return &quux; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1093,7 +1090,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_14c52c6a6a7242b5",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_quux_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_14c52c6a6a7242b5 (void)) (F arg1, char arg2) { return &quux; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1120,10 +1122,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "C *hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b (float arg1, C *arg2) { return wam(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1164,7 +1162,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "C *hs_bindgen_test_macro_in_fundecl_5e951ebfcf556c2b (float arg1, C *arg2) { return wam(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1205,10 +1208,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_wam_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_663b869ffc1f7213 (void)) (float arg1, C *arg2) { return &wam; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1234,7 +1233,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_663b869ffc1f7213",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_wam_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_663b869ffc1f7213 (void)) (float arg1, C *arg2) { return &wam; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1264,10 +1268,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "char *hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1308,7 +1308,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char *hs_bindgen_test_macro_in_fundecl_beb332fafcb4f833 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1351,10 +1356,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_foo1_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_4c474102032285f3 (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1378,7 +1379,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_4c474102032285f3",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_foo1_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_4c474102032285f3 (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1408,10 +1414,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "char *hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1452,7 +1454,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char *hs_bindgen_test_macro_in_fundecl_e1f27efd2405af7b (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1497,10 +1504,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_foo2_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_1d056e5b12d9c34a (void)) (F arg1, signed int (*arg2) (signed int arg1)) { return &foo2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1525,7 +1528,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_1d056e5b12d9c34a",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_foo2_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_1d056e5b12d9c34a (void)) (F arg1, signed int (*arg2) (signed int arg1)) { return &foo2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1557,10 +1565,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "C *hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1602,7 +1606,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "C *hs_bindgen_test_macro_in_fundecl_4c3cb01285513c07 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1646,10 +1655,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_foo3_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_7be3908af5c5e7b4 (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1676,7 +1681,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_7be3908af5c5e7b4",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_foo3_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_7be3908af5c5e7b4 (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo3; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1707,10 +1717,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0 (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1740,7 +1746,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_macro_in_fundecl_105b4afb95e972a0 (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1775,10 +1786,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_bar1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_a130943e7c1dc6d1 (void)) (signed long arg1)) (signed short arg1) { return &bar1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1800,7 +1807,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_a130943e7c1dc6d1",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_bar1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_a130943e7c1dc6d1 (void)) (signed long arg1)) (signed short arg1) { return &bar1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1827,10 +1839,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5 (L arg1)) (signed short arg1) { return bar2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1854,7 +1862,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_macro_in_fundecl_111e58aa3ace1ef5 (L arg1)) (signed short arg1) { return bar2(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1887,10 +1900,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_bar2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_06fc2db95e4cd938 (void)) (L arg1)) (signed short arg1) { return &bar2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1913,7 +1922,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_06fc2db95e4cd938",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_bar2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_06fc2db95e4cd938 (void)) (L arg1)) (signed short arg1) { return &bar2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1943,10 +1957,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e (signed long arg1)) (S arg1) { return bar3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1971,7 +1981,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_macro_in_fundecl_ab5779d2bff0d08e (signed long arg1)) (S arg1) { return bar3(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2006,10 +2021,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_bar3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_d2fff4d202997609 (void)) (signed long arg1)) (S arg1) { return &bar3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2032,7 +2043,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_d2fff4d202997609",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_bar3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_d2fff4d202997609 (void)) (signed long arg1)) (S arg1) { return &bar3; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2062,10 +2078,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "I (*hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2092,7 +2104,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "I (*hs_bindgen_test_macro_in_fundecl_819bcb2cfe998801 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2125,10 +2142,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_bar4_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_e53d6f29f5ea7fcd (void)) (signed long arg1)) (signed short arg1) { return &bar4; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2153,7 +2166,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_e53d6f29f5ea7fcd",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_bar4_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_e53d6f29f5ea7fcd (void)) (signed long arg1)) (signed short arg1) { return &bar4; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2181,10 +2199,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69 (signed int const arg1))[2][3] { return baz1(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2215,7 +2229,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_macro_in_fundecl_5ae188a985c17f69 (signed int const arg1))[2][3] { return baz1(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2251,10 +2270,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_fe6e07215634608f (void)) (signed int const arg1))[2][3] { return &baz1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2277,7 +2292,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_fe6e07215634608f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_fe6e07215634608f (void)) (signed int const arg1))[2][3] { return &baz1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2305,10 +2325,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int const arg1))[2][3] { return baz2(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2339,7 +2355,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int const arg1))[2][3] { return baz2(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2375,10 +2396,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (signed int const arg1))[2][3] { return &baz2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2401,7 +2418,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (signed int const arg1))[2][3] { return &baz2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2429,10 +2451,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int const arg1))[2][3] { return baz3(arg1); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2463,7 +2481,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int const arg1))[2][3] { return baz3(arg1); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2499,10 +2522,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_baz3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2525,7 +2544,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_baz3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -2553,10 +2577,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "I hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b (void) { return no_args_no_void(); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2571,7 +2591,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "I hs_bindgen_test_macro_in_fundecl_9d7e58d4e189732b (void) { return no_args_no_void(); }",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [],
@@ -2594,10 +2619,6 @@
             "macro_in_fundecl.h",
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclInlineCInclude
-    "macro_in_fundecl.h",
-  DeclInlineC
-    "/* get_no_args_no_void_ptr */ __attribute__ ((const)) I (*hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043 (void)) (void) { return &no_args_no_void; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2616,7 +2637,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_no_args_no_void_ptr */ __attribute__ ((const)) I (*hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043 (void)) (void) { return &no_args_no_void; } ",
+          capiWrapperImport =
+          "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           []

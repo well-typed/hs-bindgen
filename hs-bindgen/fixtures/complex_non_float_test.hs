@@ -1,8 +1,4 @@
 [
-  DeclInlineCInclude
-    "complex_non_float_test.h",
-  DeclInlineC
-    "/* get_global_complex_unsigned_short_ptr */ __attribute__ ((const)) unsigned short _Complex *hs_bindgen_test_complex_non_float_test_86728dd7dddedb74 (void) { return &global_complex_unsigned_short; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -17,7 +13,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_non_float_test_86728dd7dddedb74",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_unsigned_short_ptr */ __attribute__ ((const)) unsigned short _Complex *hs_bindgen_test_complex_non_float_test_86728dd7dddedb74 (void) { return &global_complex_unsigned_short; } ",
+          capiWrapperImport =
+          "complex_non_float_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimIntegral
@@ -36,10 +37,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_non_float_test.h",
-  DeclInlineC
-    "/* get_global_complex_short_ptr */ __attribute__ ((const)) signed short _Complex *hs_bindgen_test_complex_non_float_test_7c9be84d0b1e5916 (void) { return &global_complex_short; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -54,7 +51,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_non_float_test_7c9be84d0b1e5916",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_short_ptr */ __attribute__ ((const)) signed short _Complex *hs_bindgen_test_complex_non_float_test_7c9be84d0b1e5916 (void) { return &global_complex_short; } ",
+          capiWrapperImport =
+          "complex_non_float_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimIntegral
@@ -73,10 +75,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_non_float_test.h",
-  DeclInlineC
-    "/* get_global_complex_unsigned_int_ptr */ __attribute__ ((const)) unsigned int _Complex *hs_bindgen_test_complex_non_float_test_f2f0bb5bb1be7a50 (void) { return &global_complex_unsigned_int; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -91,7 +89,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_non_float_test_f2f0bb5bb1be7a50",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_unsigned_int_ptr */ __attribute__ ((const)) unsigned int _Complex *hs_bindgen_test_complex_non_float_test_f2f0bb5bb1be7a50 (void) { return &global_complex_unsigned_int; } ",
+          capiWrapperImport =
+          "complex_non_float_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimIntegral
@@ -110,10 +113,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_non_float_test.h",
-  DeclInlineC
-    "/* get_global_complex_int_ptr */ __attribute__ ((const)) signed int _Complex *hs_bindgen_test_complex_non_float_test_4c313edb894be30a (void) { return &global_complex_int; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -128,7 +127,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_non_float_test_4c313edb894be30a",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_int_ptr */ __attribute__ ((const)) signed int _Complex *hs_bindgen_test_complex_non_float_test_4c313edb894be30a (void) { return &global_complex_int; } ",
+          capiWrapperImport =
+          "complex_non_float_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimIntegral PrimInt Signed)),
@@ -145,10 +149,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude
-    "complex_non_float_test.h",
-  DeclInlineC
-    "/* get_global_complex_char_ptr */ __attribute__ ((const)) char _Complex *hs_bindgen_test_complex_non_float_test_983de9835e8954ae (void) { return &global_complex_char; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -163,7 +163,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_complex_non_float_test_983de9835e8954ae",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_complex_char_ptr */ __attribute__ ((const)) char _Complex *hs_bindgen_test_complex_non_float_test_983de9835e8954ae (void) { return &global_complex_char; } ",
+          capiWrapperImport =
+          "complex_non_float_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimChar

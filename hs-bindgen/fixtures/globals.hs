@@ -1,7 +1,4 @@
 [
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_simpleGlobal_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_9e13cdab849fd6a3 (void) { return &simpleGlobal; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -16,7 +13,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_9e13cdab849fd6a3",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_simpleGlobal_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_9e13cdab849fd6a3 (void) { return &simpleGlobal; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -586,9 +588,6 @@
         "Config",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_compoundGlobal1_ptr */ __attribute__ ((const)) struct config *hs_bindgen_test_globals_9093ee3b5b63dbb9 (void) { return &compoundGlobal1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -606,7 +605,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_9093ee3b5b63dbb9",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_compoundGlobal1_ptr */ __attribute__ ((const)) struct config *hs_bindgen_test_globals_9093ee3b5b63dbb9 (void) { return &compoundGlobal1; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
@@ -1190,9 +1194,6 @@
         "Inline_struct",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_compoundGlobal2_ptr */ __attribute__ ((const)) struct inline_struct *hs_bindgen_test_globals_35cfb530c6e3b540 (void) { return &compoundGlobal2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1210,7 +1211,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_35cfb530c6e3b540",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_compoundGlobal2_ptr */ __attribute__ ((const)) struct inline_struct *hs_bindgen_test_globals_35cfb530c6e3b540 (void) { return &compoundGlobal2; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
@@ -1231,9 +1237,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesInteger_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_d0e555bab6218b45 (void) { return &nesInteger; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1248,7 +1251,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_d0e555bab6218b45",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesInteger_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_d0e555bab6218b45 (void) { return &nesInteger; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -1290,9 +1298,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesFloating_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_620d3eeb41be6814 (void) { return &nesFloating; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1307,7 +1312,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_620d3eeb41be6814",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesFloating_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_620d3eeb41be6814 (void) { return &nesFloating; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
@@ -1324,9 +1334,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesString1_ptr */ __attribute__ ((const)) char **hs_bindgen_test_globals_58609a874bbd4939 (void) { return &nesString1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1342,7 +1349,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_58609a874bbd4939",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesString1_ptr */ __attribute__ ((const)) char **hs_bindgen_test_globals_58609a874bbd4939 (void) { return &nesString1; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePointer
           (TypePrim
@@ -1362,9 +1374,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesString2_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_globals_d24d15726a247083 (void))[3] { return &nesString2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1381,7 +1390,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_d24d15726a247083",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesString2_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_globals_d24d15726a247083 (void))[3] { return &nesString2; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           3
@@ -1402,9 +1416,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesCharacter_ptr */ __attribute__ ((const)) char *hs_bindgen_test_globals_472e8cff06767166 (void) { return &nesCharacter; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1419,7 +1430,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_472e8cff06767166",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesCharacter_ptr */ __attribute__ ((const)) char *hs_bindgen_test_globals_472e8cff06767166 (void) { return &nesCharacter; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimChar
@@ -1438,9 +1454,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesParen_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3535fbeb41ad5a41 (void) { return &nesParen; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1455,7 +1468,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_3535fbeb41ad5a41",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesParen_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3535fbeb41ad5a41 (void) { return &nesParen; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -1471,9 +1489,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesUnary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_c2e1dc65064ad658 (void) { return &nesUnary; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1488,7 +1503,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_c2e1dc65064ad658",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesUnary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_c2e1dc65064ad658 (void) { return &nesUnary; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -1504,9 +1524,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesBinary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3d0448526008a072 (void) { return &nesBinary; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1521,7 +1538,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_3d0448526008a072",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesBinary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_3d0448526008a072 (void) { return &nesBinary; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -1538,9 +1560,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesConditional_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_6733c2e7c59bc620 (void) { return &nesConditional; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1555,7 +1574,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_6733c2e7c59bc620",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesConditional_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_6733c2e7c59bc620 (void) { return &nesConditional; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
@@ -1572,9 +1596,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesCast_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_d6e6e72f287d9b41 (void) { return &nesCast; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1589,7 +1610,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_d6e6e72f287d9b41",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesCast_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_d6e6e72f287d9b41 (void) { return &nesCast; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
@@ -1605,9 +1631,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesCompound_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_032905c6b7a5e39f (void) { return &nesCompound; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1623,7 +1646,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_032905c6b7a5e39f",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesCompound_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_032905c6b7a5e39f (void) { return &nesCompound; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePointer
           (TypePrim
@@ -1641,9 +1669,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesInitList_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_4012de1fec3423a7 (void))[4] { return &nesInitList; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1770,7 +1795,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_4012de1fec3423a7",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesInitList_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_4012de1fec3423a7 (void))[4] { return &nesInitList; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           4
@@ -1903,9 +1933,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nesBool_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_globals_f9fb23513d064767 (void) { return &nesBool; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1920,7 +1947,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_f9fb23513d064767",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nesBool_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_globals_f9fb23513d064767 (void) { return &nesBool; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePrim PrimBool),
       foreignImportComment = Just
@@ -1935,9 +1967,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_92e68af3ae2ed3fb (void))[4096] { return &streamBinary; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2064,7 +2093,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_92e68af3ae2ed3fb",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_92e68af3ae2ed3fb (void))[4096] { return &streamBinary; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           4096
@@ -2218,9 +2252,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_8d6f9f3043208163 (void) { return &streamBinary_len; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2345,7 +2376,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_8d6f9f3043208163",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_8d6f9f3043208163 (void) { return &streamBinary_len; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeExtBinding
           ResolvedExtBinding {
@@ -9886,9 +9922,6 @@
         "Struct2_t",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_some_global_struct_ptr */ __attribute__ ((const)) struct2_t *hs_bindgen_test_globals_88ad1f87a451c285 (void) { return &some_global_struct; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9906,7 +9939,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_88ad1f87a451c285",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_some_global_struct_ptr */ __attribute__ ((const)) struct2_t *hs_bindgen_test_globals_88ad1f87a451c285 (void) { return &some_global_struct; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefSquashed
@@ -9931,9 +9969,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_globalConstant_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -9948,7 +9983,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_2875ba0f7feba4fd",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_globalConstant_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2875ba0f7feba4fd (void) { return &globalConstant; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePrim
@@ -10185,9 +10225,6 @@
         "ConstInt",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10205,7 +10242,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_6ebecf881bce1334",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) ConstInt *hs_bindgen_test_globals_6ebecf881bce1334 (void) { return &anotherGlobalConstant; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular
@@ -10228,9 +10270,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_staticConst_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10245,7 +10284,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_2eea936ed4beec74",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_staticConst_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_2eea936ed4beec74 (void) { return &staticConst; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePrim
@@ -10274,9 +10318,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_classless_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10291,7 +10332,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_5d631acbb16c0e7e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_classless_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_5d631acbb16c0e7e (void) { return &classless; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePrim
@@ -10314,9 +10360,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_constArray1_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10333,7 +10376,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_0d7a9340f4ef8b2e",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_constArray1_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_globals_0d7a9340f4ef8b2e (void))[4] { return &constArray1; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           4
@@ -10453,9 +10501,6 @@
         "ConstIntArray",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_constArray2_ptr */ __attribute__ ((const)) ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -10473,7 +10518,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_7e09340985caec8d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_constArray2_ptr */ __attribute__ ((const)) ConstIntArray *hs_bindgen_test_globals_7e09340985caec8d (void) { return &constArray2; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeTypedef
           (TypedefRegular
@@ -11053,9 +11103,6 @@
         "Tuple",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_constTuple_ptr */ __attribute__ ((const)) struct tuple const *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11073,7 +11120,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_6f2e1968e15f0b9b",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_constTuple_ptr */ __attribute__ ((const)) struct tuple const *hs_bindgen_test_globals_6f2e1968e15f0b9b (void) { return &constTuple; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypeStruct
@@ -11099,9 +11151,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_nonConstTuple_ptr */ __attribute__ ((const)) struct tuple *hs_bindgen_test_globals_e8e62512a4e5d162 (void) { return &nonConstTuple; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11119,7 +11168,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_e8e62512a4e5d162",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_nonConstTuple_ptr */ __attribute__ ((const)) struct tuple *hs_bindgen_test_globals_e8e62512a4e5d162 (void) { return &nonConstTuple; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeStruct
           NamePair {
@@ -11143,9 +11197,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11161,7 +11212,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_e41146f6df20fe0d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_globals_e41146f6df20fe0d (void) { return &ptrToConstInt; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypePointer
           (TypeConst
@@ -11185,9 +11241,6 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_constPtrToInt_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11203,7 +11256,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_83b0d0f5488b6a03",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_constPtrToInt_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_globals_83b0d0f5488b6a03 (void) { return &constPtrToInt; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePointer
@@ -11229,9 +11287,6 @@
   DeclSimple,
   DeclSimple,
   DeclSimple,
-  DeclInlineCInclude "globals.h",
-  DeclInlineC
-    "/* get_constPtrToConstInt_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -11247,7 +11302,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_globals_247c0c91ce28a18d",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_constPtrToConstInt_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_globals_247c0c91ce28a18d (void) { return &constPtrToConstInt; } ",
+          capiWrapperImport =
+          "globals.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypePointer

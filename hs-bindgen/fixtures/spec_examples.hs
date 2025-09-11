@@ -2719,10 +2719,6 @@
         "A",
       deriveInstanceComment =
       Nothing},
-  DeclInlineCInclude
-    "spec_examples.h",
-  DeclInlineC
-    "void hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2823,7 +2819,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_spec_examples_bab0544b0c2274da",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
+          capiWrapperImport =
+          "spec_examples.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -2919,10 +2920,6 @@
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
-  DeclInlineCInclude
-    "spec_examples.h",
-  DeclInlineC
-    "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -2968,7 +2965,12 @@
       foreignImportOrigName =
       "hs_bindgen_test_spec_examples_215c42c65ae193a6",
       foreignImportCallConv =
-      CallConvUserlandCAPI,
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
+          capiWrapperImport =
+          "spec_examples.h"},
       foreignImportOrigin = Global
         (TypeFun
           [

@@ -20,7 +20,6 @@ import Numeric (showHex)
 
 import Clang.HighLevel qualified as C
 
-import HsBindgen.Frontend.RootHeader (HashIncludeArg(..))
 import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -28,6 +27,7 @@ import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -292,7 +292,7 @@ instance Pretty SDecl where
           callconv, impent :: CtxDoc
           (callconv, impent) =
             case foreignImportCallConv of
-              CallConvUserlandCAPI -> ("ccall",
+              CallConvUserlandCAPI _ -> ("ccall",
                   string $ Text.unpack foreignImportOrigName
                 )
               CallConvGhcCAPI header -> ("capi", hcat [
@@ -332,7 +332,7 @@ instance Pretty SDecl where
                ]
 
     DCSource src ->
-      -- the single string literal is quite ugly, but it's simple
+      -- The single string literal is quite ugly but simple.
       "$(CAPI.addCSource" <+> fromString (show src) >< ")"
 
     DPragma p -> pragma p
