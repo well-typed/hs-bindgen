@@ -49,15 +49,8 @@ parseOpts = Opts <$> parseClangArgsConfig
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
-      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig'
+      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
       getStdlibBindingSpec
         (contramap (TraceBoot . BootBindingSpec) tracer)
         clangArgs
     BS.putStr $ encodeBindingSpecYaml spec
-  where
-    clangArgsConfig' :: ClangArgsConfig
-    clangArgsConfig' = clangArgsConfig {
-        clangBuiltinIncDir = case clangBuiltinIncDir clangArgsConfig of
-          BuiltinIncDirAuto -> BuiltinIncDirAutoWithOverflow ""
-          config            -> config
-      }

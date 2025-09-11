@@ -208,22 +208,19 @@ parseBuiltinIncDirConfig = option (eitherReader auxParse) $ mconcat [
     , showDefaultWith auxRender
     , value def
     , help
-        "Configure builtin include directory (supported: auto, clang, disable)"
+        "Configure builtin include directory (supported: clang, disable)"
     ]
   where
     auxParse :: String -> Either String BuiltinIncDirConfig
     auxParse = \case
-      "auto"    -> Right BuiltinIncDirAuto
       "clang"   -> Right BuiltinIncDirClang
       "disable" -> Right BuiltinIncDirDisable
       other     -> Left $ "invalid builtin include directory mode: " ++ other
 
     auxRender :: BuiltinIncDirConfig -> String
     auxRender = \case
-      BuiltinIncDirAuto               -> "auto"
-      BuiltinIncDirClang              -> "clang"
-      BuiltinIncDirDisable            -> "disable"
-      BuiltinIncDirAutoWithOverflow{} -> "auto"  -- never default value
+      BuiltinIncDirClang   -> "clang"
+      BuiltinIncDirDisable -> "disable"
 
 {-------------------------------------------------------------------------------
   Clang arguments

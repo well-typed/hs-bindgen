@@ -212,7 +212,6 @@ library internal
     , process            >= 1.6        && < 1.7
     , regex-pcre-builtin >= 0.95       && < 0.96
     , scientific         >= 0.3.7      && < 0.4
-    , silently           >= 1.2.5.3    && < 1.3
     , some               >= 1.0.6      && < 1.1
     , template-haskell   >= 2.18       && < 2.24
     , text               >= 1.2        && < 2.2

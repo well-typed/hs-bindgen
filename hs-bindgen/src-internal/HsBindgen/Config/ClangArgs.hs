@@ -225,18 +225,10 @@ targetTriple target mEnv = concat [
   Builtin include directory
 -------------------------------------------------------------------------------}
 
--- | Configure how to get the builtin include directory
+-- | Configure builtin include directory automatic configuration
 data BuiltinIncDirConfig =
     -- | Do not configure the builtin include directory
     BuiltinIncDirDisable
-
-    -- | Configure the builtin include directory using the resource directory
-    -- from @libclang@, using the default overflow string
-  | BuiltinIncDirAuto
-
-    -- | Configure the builtin include directory using the resource directory
-    -- from @libclang@, using a custom overflow string (not including newline)
-  | BuiltinIncDirAutoWithOverflow Text
 
     -- | Configure the builtin include directory using the resource directory
     -- from @clang@
@@ -244,7 +236,7 @@ data BuiltinIncDirConfig =
   deriving (Eq, Show)
 
 instance Default BuiltinIncDirConfig where
-  def = BuiltinIncDirAuto
+  def = BuiltinIncDirClang
 
 {-------------------------------------------------------------------------------
   Translation
