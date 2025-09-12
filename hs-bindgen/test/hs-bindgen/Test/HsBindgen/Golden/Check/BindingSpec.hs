@@ -28,7 +28,8 @@ check testResources test =
           output = UTF8.toString $
               BindingSpec.genBindingSpecYaml [HashIncludeArg $ testInputInclude test]
                 (Hs.HsModuleName "Example")
-                decls
+                -- TODO_PR: Test all FICategories.
+                (concat decls)
 
       return $ ActualValue output
   where

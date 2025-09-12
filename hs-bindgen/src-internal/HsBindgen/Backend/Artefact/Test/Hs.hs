@@ -10,6 +10,7 @@ module HsBindgen.Backend.Artefact.Test.Hs (
 import HsBindgen.Errors
 --import HsBindgen.Backend.Artefact.Test.Internal
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.SHs.AST (ByCategory)
 import HsBindgen.Language.Haskell
 --import HsBindgen.Backend.Hs.AST.Name
 --import Text.SimplePrettyPrint
@@ -25,7 +26,7 @@ genTestsHs ::
   -> FilePath     -- ^ Main module path
   -> HsModuleName -- ^ Generated Haskell module name
   -> FilePath     -- ^ C test header file path
-  -> [Hs.Decl]    -- ^ Declarations
+  -> ByCategory [Hs.Decl]    -- ^ Declarations
   -> IO ()
 genTestsHs = throwPure_TODO 22 "generate test suite"
 

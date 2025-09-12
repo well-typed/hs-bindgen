@@ -50,9 +50,6 @@ requiredExtensions = \case
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
       ]
-    DCSource{} -> mconcat [
-        ext TH.TemplateHaskell
-      ]
     DPragma{} -> mconcat [
       ]
   where

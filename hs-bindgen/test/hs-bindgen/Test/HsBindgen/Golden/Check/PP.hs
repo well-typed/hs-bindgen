@@ -1,6 +1,7 @@
 -- | Golden test: pretty-printed Haskell code
 module Test.HsBindgen.Golden.Check.PP (check) where
 
+import Data.Foldable qualified as Foldable
 import System.FilePath ((</>))
 import Test.Tasty
 
@@ -20,7 +21,8 @@ check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
       let artefacts = getBindings :* Nil
       (I output :* Nil) <- runTestHsBindgen testResources test artefacts
-      return $ ActualValue output
+      -- TODO_PR: Test binding categories separately.
+      return $ ActualValue $ Foldable.fold $ output
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".pp.hs")

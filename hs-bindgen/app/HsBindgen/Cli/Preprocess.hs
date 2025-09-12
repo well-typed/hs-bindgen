@@ -14,6 +14,7 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Control.Monad (void)
+import GHC.Generics (Generic)
 
 import Options.Applicative hiding (info)
 
@@ -40,6 +41,7 @@ data Opts = Opts {
     , inputs            :: [UncheckedHashIncludeArg]
     , haddockConfig     :: HaddockConfig
     }
+  deriving (Generic)
 
 parseOpts :: Parser Opts
 parseOpts =
