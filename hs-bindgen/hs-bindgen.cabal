@@ -78,7 +78,6 @@ library internal
       Data.DynGraph.Labelled
       HsBindgen
       HsBindgen.Backend
-      HsBindgen.Backend.Extensions
       HsBindgen.Backend.Artefact.HsModule.Names
       HsBindgen.Backend.Artefact.HsModule.Render
       HsBindgen.Backend.Artefact.HsModule.Translation
@@ -87,16 +86,17 @@ library internal
       HsBindgen.Backend.Artefact.Test.Hs
       HsBindgen.Backend.Artefact.Test.Internal
       HsBindgen.Backend.Artefact.Test.Readme
+      HsBindgen.Backend.Extensions
       HsBindgen.Backend.Hs.AST
       HsBindgen.Backend.Hs.AST.SigmaType
       HsBindgen.Backend.Hs.AST.Strategy
       HsBindgen.Backend.Hs.AST.Type
+      HsBindgen.Backend.Hs.CallConv
       HsBindgen.Backend.Hs.Haddock.Config
       HsBindgen.Backend.Hs.Haddock.Documentation
       HsBindgen.Backend.Hs.Haddock.Translation
       HsBindgen.Backend.Hs.Origin
       HsBindgen.Backend.Hs.Translation
-      HsBindgen.Backend.Hs.CallConv
       HsBindgen.Backend.SHs.AST
       HsBindgen.Backend.SHs.Simplify
       HsBindgen.Backend.SHs.Translation
