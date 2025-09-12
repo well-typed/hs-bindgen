@@ -23,8 +23,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Macro.Reparse.Decl qualified as C
-import HsBindgen.Frontend.Macro.Tc qualified as CMacro
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -53,8 +52,6 @@ instance ToExpr Paths.SourcePath where
 instance ToExpr RootHeader.HashIncludeArg where
   toExpr = toExpr . RootHeader.getHashIncludeArg
 
-instance ToExpr (C.MTerm C.Ps)
-instance ToExpr (C.XVar C.Ps)
 instance ToExpr C.AnonId
 instance ToExpr C.CheckedMacro
 instance ToExpr C.CheckedMacroExpr
@@ -134,76 +131,12 @@ instance ToExpr Hs.CommentBlockContent
 instance ToExpr Hs.CommentInlineContent
 instance ToExpr Hs.CommentMeta
 
-instance ToExpr (C.MExpr C.Ps) where
-  toExpr = \case
-    C.MTerm tm ->
-      Expr.App "MTerm" [toExpr tm]
-    C.MApp _xapp fun args ->
-      Expr.App "MApp" [toExpr fun, toExpr (toList args)]
-
-instance ToExpr ( C.MFun arity ) where
-  toExpr f = Expr.App (show f) []
-
-instance Show e => ToExpr ( CMacro.Quant e ) where
-  toExpr quantTy = toExpr $ show quantTy
-
-instance ToExpr (CMacro.ClassTyCon arity) where
-  toExpr = \case
-    CMacro.NotTyCon        -> Expr.App "NotTyCon"        []
-    CMacro.LogicalTyCon    -> Expr.App "LogicalTyCon"    []
-    CMacro.RelEqTyCon      -> Expr.App "RelEqTyCon"      []
-    CMacro.RelOrdTyCon     -> Expr.App "RelOrdTyCon"     []
-    CMacro.PlusTyCon       -> Expr.App "PlusTyCon"       []
-    CMacro.MinusTyCon      -> Expr.App "MinusTyCon"      []
-    CMacro.AddTyCon        -> Expr.App "AddTyCon"        []
-    CMacro.SubTyCon        -> Expr.App "SubTyCon"        []
-    CMacro.MultTyCon       -> Expr.App "MultTyCon"       []
-    CMacro.DivTyCon        -> Expr.App "DivTyCon"        []
-    CMacro.RemTyCon        -> Expr.App "RemTyCon"        []
-    CMacro.ComplementTyCon -> Expr.App "ComplementTyCon" []
-    CMacro.BitwiseTyCon    -> Expr.App "BitwiseTyCon"    []
-    CMacro.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
-
-instance ToExpr (CMacro.TyCon args resKi) where
-  toExpr = \case
-    CMacro.GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
-    CMacro.FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
-
-instance ToExpr (CMacro.GenerativeTyCon args resKi) where
-  toExpr = \case
-    CMacro.DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
-    CMacro.ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
-
-instance ToExpr (CMacro.DataTyCon n) where
-  toExpr = \case
-    CMacro.TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
-    CMacro.VoidTyCon               -> Expr.App "VoidTyCon"      []
-    CMacro.PtrTyCon                -> Expr.App "PtrTyCon"       []
-    CMacro.CharLitTyCon            -> Expr.App "CharLitTyCon"   []
-    CMacro.IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
-    CMacro.FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
-    CMacro.PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
-    CMacro.PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
 
 instance ToExpr CExpr.IntegralType where
 instance ToExpr CExpr.CharLikeType where
 instance ToExpr CExpr.IntLikeType where
 instance ToExpr CExpr.Sign where
 instance ToExpr CExpr.FloatingType where
-instance ToExpr CMacro.IntegralType -- Note: different from CExpr.IntegralType
-
-instance ToExpr (CMacro.FamilyTyCon n) where
-  toExpr = \case
-    CMacro.PlusResTyCon       -> Expr.App "PlusResTyCon"       []
-    CMacro.MinusResTyCon      -> Expr.App "MinusResTyCon"      []
-    CMacro.AddResTyCon        -> Expr.App "AddResTyCon"        []
-    CMacro.SubResTyCon        -> Expr.App "SubResTyCon"        []
-    CMacro.MultResTyCon       -> Expr.App "MultResTyCon"       []
-    CMacro.DivResTyCon        -> Expr.App "DivResTyCon"        []
-    CMacro.RemResTyCon        -> Expr.App "RemResTyCon"        []
-    CMacro.ComplementResTyCon -> Expr.App "ComplementResTyCon" []
-    CMacro.BitsResTyCon       -> Expr.App "BitsResTyCon"       []
-    CMacro.ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
 
 instance ToExpr HsType.HsType
 instance ToExpr HsType.HsPrimType
@@ -333,47 +266,83 @@ instance ToExpr Hs.AClass where
     Expr.App "AClass" [toExpr tc]
 
 {-------------------------------------------------------------------------------
-  Declarations/declarators
--------------------------------------------------------------------------------}
-
-instance ToExpr C.TypeName
-instance ToExpr C.TypeSpecifierQualifier
-instance ToExpr C.TypeSpecifier
-instance ToExpr C.TypeQualifier
-instance ToExpr C.AlignmentSpecifier
-instance ToExpr C.StructOrUnionSpecifier
-instance ToExpr C.StructOrUnion
-instance ToExpr C.EnumSpecifier
-instance ToExpr C.AttributeSpecifier
-instance ToExpr C.Attribute
-instance ToExpr C.AttributeToken
-instance ToExpr C.BalancedToken
-instance ToExpr C.DeclarationSpecifier
-instance ToExpr C.StorageClassSpecifier
-instance ToExpr C.FunctionSpecifier
-instance ToExpr (C.Declarator C.Abstract)
-instance ToExpr (C.DirectDeclarator C.Abstract)
-instance ToExpr (C.ArrayDeclarator C.Abstract)
-instance ToExpr (C.FunctionDeclarator C.Abstract)
-instance ToExpr (C.Declarator C.Concrete)
-instance ToExpr (C.DirectDeclarator C.Concrete)
-instance ToExpr (C.ArrayDeclarator C.Concrete)
-instance ToExpr (C.FunctionDeclarator C.Concrete)
-instance ToExpr C.Pointers
-instance ToExpr (C.DeclName C.Abstract)
-instance ToExpr (C.DeclName C.Concrete)
-instance ToExpr C.ArraySize
-instance ToExpr C.Parameter
-instance ToExpr C.ParameterDeclarator
-
-instance ToExpr C.SizeExpression where
-  toExpr (C.SizeExpression e _env) = toExpr e
-
-{-------------------------------------------------------------------------------
   hs-bindgen-runtime
 -------------------------------------------------------------------------------}
 
 instance ToExpr (SimpleEnum hs)
+
+{-------------------------------------------------------------------------------
+  Macro expressions
+-------------------------------------------------------------------------------}
+
+instance ToExpr (Macro.MTerm Macro.Ps)
+instance ToExpr (Macro.XVar Macro.Ps)
+
+instance ToExpr (Macro.MExpr Macro.Ps) where
+  toExpr = \case
+    Macro.MTerm tm ->
+      Expr.App "MTerm" [toExpr tm]
+    Macro.MApp _xapp fun args ->
+      Expr.App "MApp" [toExpr fun, toExpr (toList args)]
+
+instance ToExpr ( Macro.MFun arity ) where
+  toExpr f = Expr.App (show f) []
+
+instance Show e => ToExpr ( Macro.Quant e ) where
+  toExpr quantTy = toExpr $ show quantTy
+
+instance ToExpr (Macro.ClassTyCon arity) where
+  toExpr = \case
+    Macro.NotTyCon        -> Expr.App "NotTyCon"        []
+    Macro.LogicalTyCon    -> Expr.App "LogicalTyCon"    []
+    Macro.RelEqTyCon      -> Expr.App "RelEqTyCon"      []
+    Macro.RelOrdTyCon     -> Expr.App "RelOrdTyCon"     []
+    Macro.PlusTyCon       -> Expr.App "PlusTyCon"       []
+    Macro.MinusTyCon      -> Expr.App "MinusTyCon"      []
+    Macro.AddTyCon        -> Expr.App "AddTyCon"        []
+    Macro.SubTyCon        -> Expr.App "SubTyCon"        []
+    Macro.MultTyCon       -> Expr.App "MultTyCon"       []
+    Macro.DivTyCon        -> Expr.App "DivTyCon"        []
+    Macro.RemTyCon        -> Expr.App "RemTyCon"        []
+    Macro.ComplementTyCon -> Expr.App "ComplementTyCon" []
+    Macro.BitwiseTyCon    -> Expr.App "BitwiseTyCon"    []
+    Macro.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
+
+instance ToExpr (Macro.TyCon args resKi) where
+  toExpr = \case
+    Macro.GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
+    Macro.FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
+
+instance ToExpr (Macro.GenerativeTyCon args resKi) where
+  toExpr = \case
+    Macro.DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
+    Macro.ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
+
+instance ToExpr (Macro.DataTyCon n) where
+  toExpr = \case
+    Macro.TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
+    Macro.VoidTyCon               -> Expr.App "VoidTyCon"      []
+    Macro.PtrTyCon                -> Expr.App "PtrTyCon"       []
+    Macro.CharLitTyCon            -> Expr.App "CharLitTyCon"   []
+    Macro.IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
+    Macro.FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
+    Macro.PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
+    Macro.PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
+
+instance ToExpr Macro.IntegralType -- Note: different from CExpr.IntegralType
+
+instance ToExpr (Macro.FamilyTyCon n) where
+  toExpr = \case
+    Macro.PlusResTyCon       -> Expr.App "PlusResTyCon"       []
+    Macro.MinusResTyCon      -> Expr.App "MinusResTyCon"      []
+    Macro.AddResTyCon        -> Expr.App "AddResTyCon"        []
+    Macro.SubResTyCon        -> Expr.App "SubResTyCon"        []
+    Macro.MultResTyCon       -> Expr.App "MultResTyCon"       []
+    Macro.DivResTyCon        -> Expr.App "DivResTyCon"        []
+    Macro.RemResTyCon        -> Expr.App "RemResTyCon"        []
+    Macro.ComplementResTyCon -> Expr.App "ComplementResTyCon" []
+    Macro.BitsResTyCon       -> Expr.App "BitsResTyCon"       []
+    Macro.ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
 
 {-------------------------------------------------------------------------------
   DeBruijn
@@ -387,3 +356,4 @@ instance ToExpr (Idx j) where
 
 instance ToExpr (Size ctx) where
   toExpr size = Expr.App "Size" [toExpr (sizeToInt size)]
+

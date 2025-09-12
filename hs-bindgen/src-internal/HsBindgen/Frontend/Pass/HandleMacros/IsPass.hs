@@ -5,9 +5,8 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
 
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Macro.Reparse.Infra qualified as Macro
-import HsBindgen.Frontend.Macro.Tc
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
+import HsBindgen.Frontend.Macro (MacroParseError(..), MacroTcError(..))
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
@@ -50,12 +49,10 @@ data HandleMacrosMsg =
     --
     -- When this happens, we get /two/ parse errors: one for trying to parse the
     -- macro as a type, and one for trying to parse the macro as an expression.
-    --
-    -- TODO: Avoid the \"reparse\" terminology for macros.
-  | HandleMacrosErrorParse LanC.Error Macro.ReparseError
+  | HandleMacrosErrorParse LanC.Error MacroParseError
 
     -- | We could not type-check the macro
-  | HandleMacrosErrorTc TcMacroError
+  | HandleMacrosErrorTc MacroTcError
 
     -- | Macro that defines an unsupported type
     -- TODO: Do we still use this?

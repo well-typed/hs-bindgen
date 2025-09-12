@@ -62,16 +62,16 @@ module HsBindgen.Common (
   , TraceMsg.HandleMacrosMsg(..)
   , TraceMsg.HandleTypedefsMsg(..)
   , TraceMsg.HashIncludeArgMsg(..)
+  , TraceMsg.MacroParseError(..)
+  , TraceMsg.MacroTcError(..)
   , TraceMsg.MangleNamesMsg(..)
   , TraceMsg.NameAnonMsg(..)
   , TraceMsg.ParseMsg(..)
   , TraceMsg.ParseTypeException(..)
-  , TraceMsg.ReparseError(..)
   , TraceMsg.ResolveBindingSpecMsg(..)
   , TraceMsg.ResolveHeaderMsg(..)
   , TraceMsg.SelectMsg(..)
   , TraceMsg.SortMsg(..)
-  , TraceMsg.TcMacroError(..)
     -- ** Tracer definition and main API
   , Tracer.Tracer -- opaque
   , Tracer.traceWith

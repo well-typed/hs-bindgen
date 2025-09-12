@@ -28,9 +28,7 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Translation (generateHaddocksWithFieldInfo,
-                                                 generateHaddocksWithInfo,
-                                                 generateHaddocksWithInfoParams)
+import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -40,7 +38,7 @@ import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -1600,7 +1598,7 @@ macroVarDecs haddockConfig info macroExpr = [
     ]
   where
     macroExprArgs :: [C.Name]
-    macroExprBody :: C.MExpr C.Ps
+    macroExprBody :: Macro.MExpr Macro.Ps
     macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
     C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = macroExpr
 
@@ -1659,7 +1657,7 @@ newtype U n = U { unU :: Vec n (Idx n) }
 
 macroLamHsExpr ::
      [C.Name]
-  -> C.MExpr p
+  -> Macro.MExpr p
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
 macroLamHsExpr macroArgs expr =
     makeNames macroArgs Map.empty
@@ -1673,32 +1671,32 @@ cnameToHint (C.Name t) = fromString (T.unpack t)
 
 macroExprHsExpr ::
      Map C.Name (Idx ctx)
-  -> C.MExpr p
+  -> Macro.MExpr p
   -> Maybe (Hs.VarDeclRHS ctx)
 macroExprHsExpr = goExpr where
-    goExpr :: Map C.Name (Idx ctx) -> C.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
+    goExpr :: Map C.Name (Idx ctx) -> Macro.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
-      C.MTerm tm -> goTerm env tm
-      C.MApp _xapp fun args ->
+      Macro.MTerm tm -> goTerm env tm
+      Macro.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map C.Name (Idx ctx) -> C.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map C.Name (Idx ctx) -> Macro.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
-      C.MInt i -> goInt i
-      C.MFloat f -> goFloat f
-      C.MChar c -> goChar c
-      C.MString s -> goString s
-      C.MVar _xvar cname args ->
+      Macro.MInt i -> goInt i
+      Macro.MFloat f -> goFloat f
+      Macro.MChar c -> goChar c
+      Macro.MString s -> goString s
+      Macro.MVar _xvar cname args ->
         --  TODO: removed the macro argument used as a function check.
         case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
             let hsVar = macroName cname -- mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
-      C.MStringize {} -> Nothing
-      C.MConcat {} -> Nothing
+      Macro.MStringize {} -> Nothing
+      Macro.MConcat {} -> Nothing
 
-    goApp :: Map C.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [C.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp :: Map C.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [Macro.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
     goApp env appHead args = do
       args' <- traverse (goExpr env) args
       return $ Hs.VarDeclApp appHead args'

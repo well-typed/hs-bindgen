@@ -1,16 +1,13 @@
 -- | The syntax for macros recognized by hs-bindgen
 --
 -- Intended for unqualified import.
-module HsBindgen.Frontend.Macro.AST.Syntax (
+module HsBindgen.Frontend.Macro.Syntax (
     -- * Definition
     Macro(..)
-  , Pass(..)
     -- ** Expressions
   , MExpr(..)
   , MFun(..)
   , MTerm(..)
-  , ValSType(..), Value(..), FunValue(..)
-  , XApp(..), XVar(..)
     -- * Classification
   , isIncludeGuard
   ) where
@@ -31,7 +28,7 @@ import System.FilePath (takeBaseName)
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import HsBindgen.Frontend.Macro.Tc.Type
+import HsBindgen.Frontend.Macro.Pass
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality (equals1)

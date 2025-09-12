@@ -11,11 +11,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Macro.AST.Syntax
-import HsBindgen.Frontend.Macro.Reparse.Infra qualified as Macro
-import HsBindgen.Frontend.Macro.Reparse.Macro qualified as Macro
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
-import HsBindgen.Frontend.Macro.Tc.Type qualified as Macro
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -389,8 +385,8 @@ parseMacro name tokens = state $ \st ->
         , st{stateReparseEnv = updateReparseEnv (stateReparseEnv st)}
         )
       Left errType ->
-        case Macro.reparseWith (Macro.reparseMacro (stateMacroEnv st)) tokens of
-          Right Macro{macroName, macroArgs, macroBody} ->
+        case Macro.runParser (Macro.parseExpr (stateMacroEnv st)) tokens of
+          Right Macro.Macro{macroName, macroArgs, macroBody} ->
             Vec.reifyList macroArgs $ \args -> do
               case Macro.tcMacro (stateMacroEnv st) macroName args macroBody of
                 Right inf -> (

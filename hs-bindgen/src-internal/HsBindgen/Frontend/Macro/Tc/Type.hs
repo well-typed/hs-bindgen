@@ -3,13 +3,13 @@
 -- | Macro types: the types that we infer for macros.
 module HsBindgen.Frontend.Macro.Tc.Type (
     -- * Names
-    Name
+    VarName
   , FunName
     -- * Annotations
   , XVar(..)
   , XApp(..)
     -- * Pass
-  , Pass(Ps, Tc)
+  , Tc
     -- * Type inference
   , TypeEnv
   , VarEnv
@@ -116,7 +116,8 @@ import C.Type qualified
 
 -- hs-bindgen
 
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Macro.Pass
+import HsBindgen.Frontend.Naming (Name(..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality (equals2)
@@ -125,7 +126,7 @@ import HsBindgen.Util.TestEquality (equals2)
   Type system for macros
 -------------------------------------------------------------------------------}
 
-type Name = Text
+type VarName = Text
 newtype Unique = Unique { uniqueInt :: Int }
   deriving newtype ( Enum, Eq, Show )
   deriving stock Generic
@@ -243,7 +244,7 @@ mkQuantTyBody :: Quant body -> QuantTyBody body
 mkQuantTyBody ( Quant @nbBinders body ) =
   body $ fmap ( uncurry mkSkol ) $ tyVarNames @nbBinders
   where
-    mkSkol :: Int -> Name -> Type Ty
+    mkSkol :: Int -> VarName -> Type Ty
     mkSkol i tv = TyVarTy $ SkolemTv $ SkolemTyVar tv ( Unique i )
 
 data TyVar
@@ -251,7 +252,7 @@ data TyVar
   | MetaTv   {-# UNPACK #-} !MetaTyVar
   deriving stock Generic
 
-tyVarName :: TyVar -> Name
+tyVarName :: TyVar -> VarName
 tyVarName = \case
   SkolemTv sk  -> skolemTyVarName sk
   MetaTv   tau -> metaTyVarName tau
@@ -273,7 +274,7 @@ instance Show TyVar where
 
 data SkolemTyVar
   = SkolemTyVar
-    { skolemTyVarName   :: !Name
+    { skolemTyVarName   :: !VarName
     , skolemTyVarUnique :: !Unique
     }
   deriving stock Generic
@@ -284,7 +285,7 @@ instance Show MetaTyVar where
 
 data MetaTyVar
   = MetaTyVar
-    { metaTyVarName   :: !Name
+    { metaTyVarName   :: !VarName
     , metaTyVarUnique :: !Unique
     , metaOrigin      :: !MetaOrigin
     }
@@ -448,22 +449,19 @@ instance Show ( ClassTyCon n ) where
   Type environment
 -------------------------------------------------------------------------------}
 
-type TypeEnv = Map C.Name ( Quant ( FunValue, Type Ty ) )
-type VarEnv  = Map C.Name ( Type Ty )
+type TypeEnv = Map Name ( Quant ( FunValue, Type Ty ) )
+type VarEnv  = Map Name ( Type Ty )
 
-data Pass = Ps | Tc
+{-------------------------------------------------------------------------------
+  Pass definition
+-------------------------------------------------------------------------------}
 
-type XApp :: Pass -> Hs.Type
-data family XApp p
-data instance XApp Ps = NoXApp
-  deriving stock ( Eq, Ord, Show, Generic )
+type Tc :: Pass
+data Tc a
+
 newtype instance XApp Tc = XAppTc FunValue
   deriving stock ( Eq, Show, Generic )
 
-type XVar :: Pass -> Hs.Type
-data family XVar p
-data instance XVar Ps = NoXVar
-  deriving stock ( Eq, Ord, Show, Generic )
 data instance XVar Tc = XVarTc FunValue
   deriving stock ( Eq, Show, Generic )
 
@@ -545,9 +543,9 @@ pprCtOrigin = \case
 -- | Why did we create a new metavariable?
 data MetaOrigin
   = ExpectedFunTyResTy !FunName
-  | ExpectedVarTy !C.Name
+  | ExpectedVarTy !Name
   | Inst { instOrigin :: !InstOrigin, instPos :: !Int }
-  | FunArg !C.Name !( C.Name, Int )
+  | FunArg !Name !( Name, Int )
   | IntLitMeta !C.IntegerLiteral
   | FloatLitMeta !C.FloatingLiteral
   deriving stock ( Generic, Show )
@@ -561,11 +559,11 @@ pprMetaOrigin :: MetaOrigin -> Text
 pprMetaOrigin = \case
   ExpectedFunTyResTy funNm ->
     "the result type of '" <> Text.pack ( show funNm ) <> "'"
-  ExpectedVarTy ( C.Name varNm ) ->
+  ExpectedVarTy ( Name varNm ) ->
     "the type of the identifier '" <> varNm <> "'"
   Inst funNm i ->
     "the " <> speakNth i <> " type argument in the instantiation of '" <> Text.pack ( show funNm ) <> "'"
-  FunArg ( C.Name funNm ) ( _argNm, i ) ->
+  FunArg ( Name funNm ) ( _argNm, i ) ->
     "the type of the " <> speakNth i <> " argument of '" <> funNm <> "'"
   IntLitMeta i ->
     "the type of the integer literal '" <> Text.pack ( show i ) <> "'"

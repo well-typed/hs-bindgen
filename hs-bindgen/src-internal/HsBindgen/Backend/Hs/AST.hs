@@ -68,7 +68,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -257,7 +257,7 @@ data VarDeclRHS ctx
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (C.MFun arity)
+  = forall arity. InfixAppHead (Macro.MFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (HsName NsVar)
 

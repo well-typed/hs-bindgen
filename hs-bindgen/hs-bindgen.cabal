@@ -133,15 +133,13 @@ library internal
       HsBindgen.Frontend.LanguageC.PartialAST
       HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
       HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-      HsBindgen.Frontend.Macro.AST.C
-      HsBindgen.Frontend.Macro.AST.Syntax
-      HsBindgen.Frontend.Macro.Reparse
-      HsBindgen.Frontend.Macro.Reparse.Common
-      HsBindgen.Frontend.Macro.Reparse.Decl
-      HsBindgen.Frontend.Macro.Reparse.Infra
-      HsBindgen.Frontend.Macro.Reparse.Literal
-      HsBindgen.Frontend.Macro.Reparse.Macro
-      HsBindgen.Frontend.Macro.Reparse.Type
+      HsBindgen.Frontend.Macro
+      HsBindgen.Frontend.Macro.Parse.Expr
+      HsBindgen.Frontend.Macro.Parse.Infra
+      HsBindgen.Frontend.Macro.Parse.Literal
+      HsBindgen.Frontend.Macro.Parse.Name
+      HsBindgen.Frontend.Macro.Pass
+      HsBindgen.Frontend.Macro.Syntax
       HsBindgen.Frontend.Macro.Tc
       HsBindgen.Frontend.Macro.Tc.Type
       HsBindgen.Frontend.Naming

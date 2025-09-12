@@ -30,11 +30,6 @@ module HsBindgen.Frontend.AST.External (
   , CheckedMacro(..)
   , CheckedMacroType(..)
   , Int.CheckedMacroExpr(..)
-  , Macro.MExpr(..)
-  , Macro.MFun(..)
-  , Macro.MTerm(..)
-  , Macro.Pass(Ps)
-  , Macro.XVar(..)
     -- ** Functions
   , Function(..)
   , Int.FunctionAttributes(..)
@@ -70,7 +65,6 @@ import Clang.HighLevel.Types
 import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
-import HsBindgen.Frontend.Macro.AST.Syntax qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
