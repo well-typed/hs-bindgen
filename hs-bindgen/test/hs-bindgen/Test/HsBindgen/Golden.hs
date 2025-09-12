@@ -258,6 +258,11 @@ testCases = [
           Just $ Expected ()
         _otherwise ->
           Nothing
+    , failingTestSimple "implicit_fields_union" $ \case
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedImplicitFields {}))) ->
+          Just $ Expected ()
+        _otherwise ->
+          Nothing
     , failingTestSimple "declaration_unselected_b" $ \case
         TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration {})) ->
           Just $ Expected ()

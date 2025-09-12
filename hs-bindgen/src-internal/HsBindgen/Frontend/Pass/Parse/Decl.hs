@@ -244,21 +244,39 @@ unionDecl info = simpleFold $ \curr -> do
                 , declAnn  = NoAnn
                 }
 
-        -- TODO (#682): Support anonymous structures in unions.
-        -- See 'partitionChildren' in 'structDecl'.
+        -- Separate out nested declarations from regular struct fields
+        --
+        -- Local declarations inside unions that are not used by any fields
+        -- result in implicit fields. Unfortunately, @libclang@ does not make
+        -- these visible <https://github.com/llvm/llvm-project/issues/122257>.
+        -- We could in principle support it but currently we don't. See #682.
+        -- For now we only try to detect the situation and report an error when
+        -- it happens. Hopefully this is anyway very rare.
         let partitionChildren ::
                  [Either [C.Decl Parse] (C.UnionField Parse)]
-              -> ParseDecl ([C.Decl Parse], [C.UnionField Parse])
-            partitionChildren xs =
-                return (otherDecls, fields)
+              -> ParseDecl (Maybe ([C.Decl Parse], [C.UnionField Parse]))
+            partitionChildren xs
+              | null unused = return $ Just (used, fields)
+              | otherwise   = do
+                  recordTrace info (NameKindTagged TagKindUnion)
+                    $ ParseUnsupportedImplicitFields info
+                  return Nothing
               where
                 otherDecls :: [C.Decl Parse]
                 fields     :: [C.UnionField Parse]
                 (otherDecls, fields) = first concat $ partitionEithers xs
 
+                used, unused :: [C.Decl Parse]
+                (used, unused) = detectUnionImplicitFields otherDecls fields
+
         foldRecurseWith (declOrFieldDecl $ unionFieldDecl info) $ \xs -> do
-          (decls, fields) <- partitionChildren xs
-          return $ decls ++ [mkUnion fields]
+           mPartitioned <- partitionChildren xs
+           case mPartitioned of
+             Just (decls, fields) ->
+               return $ decls ++ [mkUnion fields]
+             Nothing ->
+               -- If the struct has implicit fields, don't generate anything.
+               return []
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -688,17 +706,49 @@ detectStructImplicitFields ::
 detectStructImplicitFields nestedDecls outerFields =
     List.partition declIsUsed nestedDecls
   where
-    allFields :: [C.StructField Parse]
-    allFields = outerFields ++ concatMap nestedFields nestedDecls
+    allFields :: [Either (C.StructField Parse) (C.UnionField Parse)]
+    allFields = map Left outerFields ++ concatMap nestedFields nestedDecls
 
-    nestedFields :: C.Decl Parse -> [C.StructField Parse]
+    nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
     nestedFields C.Decl{declKind} =
         case declKind of
-          C.DeclStruct struct -> C.structFields struct
+          C.DeclStruct struct -> map Left  (C.structFields struct)
+          C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
     fieldDeps :: [C.NsPrelimDeclId]
-    fieldDeps = map snd $ concatMap (depsOfType . C.structFieldType) allFields
+    fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
+
+    declIsUsed :: C.Decl Parse -> Bool
+    declIsUsed decl = C.declNsPrelimDeclId decl `elem` fieldDeps
+
+-- | Detect implicit fields inside a union
+--
+-- Similar to 'detectStructImplicitFields', but for union fields.
+-- This function partitions local declarations into those that are referenced by
+-- some field ("regular declarations"), and those that are not (that is, the
+-- implicit fields).
+detectUnionImplicitFields ::
+     [C.Decl Parse]
+     -- ^ Nested declarations inside a union
+  -> [C.UnionField Parse]
+     -- ^ Fields of the (outer) union
+  -> ([C.Decl Parse], [C.Decl Parse])
+detectUnionImplicitFields nestedDecls outerFields =
+    List.partition declIsUsed nestedDecls
+  where
+    allFields :: [Either (C.StructField Parse) (C.UnionField Parse)]
+    allFields = map Right outerFields ++ concatMap nestedFields nestedDecls
+
+    nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
+    nestedFields C.Decl{declKind} =
+        case declKind of
+          C.DeclStruct struct -> map Left  (C.structFields struct)
+          C.DeclUnion union   -> map Right (C.unionFields union)
+          _otherwise          -> []
+
+    fieldDeps :: [C.NsPrelimDeclId]
+    fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = C.declNsPrelimDeclId decl `elem` fieldDeps
