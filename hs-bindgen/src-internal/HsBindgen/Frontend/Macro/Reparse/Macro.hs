@@ -17,8 +17,7 @@ import HsBindgen.Frontend.Macro.Reparse.Literal
 import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Language.C qualified as C
 
-import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl (reparseAttributeSpecifier,
-                                                             reparseTypeName)
+import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl (reparseTypeName)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -50,8 +49,6 @@ reparseMacro macroTys = do
     body =
       choice [ TypeMacro <$> try (reparseTypeName macroTys)
              , ExpressionMacro <$> mExprTuple macroTys
-             , AttributeMacro <$> many1 reparseAttributeSpecifier
-             , return EmptyMacro
              ]
     functionLike, objectLike :: Reparse ([C.Name], MacroBody Ps)
     functionLike = (,) <$> formalArgs <*> body

@@ -315,8 +315,6 @@ tyConGlobal = \case
           -- with type inference of macro functions.
           Macro.PrimTyTyCon ->
             panicPure "tyConGlobal PrimTyTyCon"
-          Macro.EmptyTyCon ->
-            panicPure "tyConGlobal EmptyTyCon"
       Macro.ClassTyCon cls -> TGlobal $
         case cls of
           Macro.NotTyCon        -> Not_class

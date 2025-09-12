@@ -185,7 +185,6 @@ instance ToExpr (CMacro.DataTyCon n) where
     CMacro.PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
     CMacro.PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
     CMacro.PrimTyTyCon             -> Expr.App "PrimTyTyCon"    []
-    CMacro.EmptyTyCon              -> Expr.App "EmptyTyCon"     []
 
 instance ToExpr CExpr.IntegralType where
 instance ToExpr CExpr.CharLikeType where

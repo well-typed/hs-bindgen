@@ -48,12 +48,6 @@ data HandleMacrosMsg =
     -- | We could not type-check the macro
   | HandleMacrosErrorTc TcMacroError
 
-    -- | Unsupported macro: empty body
-  | HandleMacrosErrorEmpty
-
-    -- | Unsupported macro: defines C compiler attribute
-  | HandleMacrosErrorAttribute
-
     -- | Macro that defines an unsupported type
   | HandleMacrosErrorUnsupportedType String
   deriving stock (Show)
@@ -64,10 +58,6 @@ instance PrettyForTrace HandleMacrosMsg where
         prettyForTrace x
       HandleMacrosErrorTc x ->
         textToCtxDoc $ Macro.pprTcMacroError x
-      HandleMacrosErrorEmpty ->
-        "Unsupported empty macro"
-      HandleMacrosErrorAttribute ->
-        "Unsupported attribute macro"
       HandleMacrosErrorUnsupportedType err ->
         "Unsupported type: " >< string err
 

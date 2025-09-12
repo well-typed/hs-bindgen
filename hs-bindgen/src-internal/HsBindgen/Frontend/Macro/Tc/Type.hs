@@ -61,7 +61,6 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   , pattern FloatLike
   , pattern String
   , pattern PrimTy
-  , pattern Empty
   , pattern Ptr
   , pattern Tuple
   , pattern PlusRes
@@ -332,8 +331,6 @@ data DataTyCon nbArgs where
 
   -- | Type constructor for the type of a 'PrimType' value.
   PrimTyTyCon    :: DataTyCon Z
-  -- | Type constructor for the type of an empty macro.
-  EmptyTyCon     :: DataTyCon Z
 
 data IntegralType
   = CIntegralType !C.Type.IntegralType
@@ -424,7 +421,6 @@ instance Show ( DataTyCon n ) where
     PrimIntInfoTyCon   inty   -> showsPrec p inty
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
     PrimTyTyCon               -> showString "PrimTy"
-    EmptyTyCon                -> showString "Empty"
     TupleTyCon i              -> showString $ "Tuple" ++ show i
 instance Show ( FamilyTyCon n ) where
   show = \case
@@ -688,8 +684,6 @@ pattern String :: Type Ty
 pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
 pattern PrimTy :: Type Ty
 pattern PrimTy = Data PrimTyTyCon VNil
-pattern Empty :: Type Ty
-pattern Empty = Data EmptyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 

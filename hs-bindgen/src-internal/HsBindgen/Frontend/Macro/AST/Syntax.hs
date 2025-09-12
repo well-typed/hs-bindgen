@@ -61,17 +61,13 @@ deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Macro p )
 -- | Body of a C macro
 type MacroBody :: Pass -> Hs.Type
 data MacroBody p
-  -- | Empty macro body
-  = EmptyMacro
   -- | A term-level (expression) macro
   --
   -- NB: this may be an integer expression, which
   -- we can use at the type level as well (e.g. in the size of an array)
-  | ExpressionMacro ( MExpr p )
+  = ExpressionMacro ( MExpr p )
   -- | A macro that defines a type
   | TypeMacro TypeName
-  -- | A macro that defines attributes
-  | AttributeMacro [AttributeSpecifier]
 deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MacroBody p )
 deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( MacroBody p )
 
@@ -279,8 +275,6 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
         macroName `elem` includeGuards
       , null macroArgs
       , case macroBody of
-          EmptyMacro
-            -> True
           ExpressionMacro
             (MTerm (MInt C.IntegerLiteral { integerLiteralValue = 1 }))
             -> True

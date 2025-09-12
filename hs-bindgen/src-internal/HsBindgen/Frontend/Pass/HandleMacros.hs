@@ -433,10 +433,6 @@ reparseMacro typeEnv tokens = do
               return (inf, C.MacroType $ C.CheckedMacroType typ NoAnn)
             Left err ->
               Left (HandleMacrosErrorUnsupportedType err)
-        EmptyMacro ->
-          Left HandleMacrosErrorEmpty
-        AttributeMacro _ ->
-          Left HandleMacrosErrorAttribute
  where
    dropEval ::
         Macro.Quant (Macro.FunValue, Macro.Type 'Macro.Ty)

@@ -737,7 +737,6 @@ fromMacroType = \case
           PrimIntInfoTyCon {} -> panicPure "fromMacroType: 'PrimIntInfoTyCon'"
           PrimFloatInfoTyCon {} -> panicPure "fromMacroType: 'PrimFloatInfoTyCon'"
           PrimTyTyCon -> panicPure "fromMacroType: 'PrimTyTyCon'"
-          EmptyTyCon  -> panicPure "fromMacroType: 'EmptyTyCon'"
 
 applySubstNormalise :: C.Type.Platform -> Subst tv -> Type ki -> Type ki
 applySubstNormalise plat subst = normaliseType plat . applySubst subst
@@ -784,8 +783,6 @@ inferTop funNm args body = do
 
 inferBody :: MacroBody Ps -> TcGenM ( Type Ty, MacroBody Tc )
 inferBody = \case
-  EmptyMacro -> return ( Empty, EmptyMacro )
-  AttributeMacro attrs -> return ( Empty, AttributeMacro attrs )
   ExpressionMacro expr -> second ExpressionMacro <$> inferExpr expr
   TypeMacro ty -> return ( PrimTy, TypeMacro ty )
 
@@ -1844,9 +1841,7 @@ which is what GHC does.
 
 evaluateMacroBody :: Map C.Name Value -> TypeEnv -> MacroBody Tc -> Value
 evaluateMacroBody argVals tyEnv = \case
-  EmptyMacro -> NoValue
   TypeMacro {} -> NoValue
-  AttributeMacro {} -> NoValue
   ExpressionMacro e -> evaluateExpr argVals tyEnv e
 
 evaluateExpr :: Map C.Name Value -> TypeEnv -> MExpr Tc -> Value
