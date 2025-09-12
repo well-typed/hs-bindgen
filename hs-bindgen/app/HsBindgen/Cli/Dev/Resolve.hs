@@ -15,15 +15,13 @@ module HsBindgen.Cli.Dev.Resolve (
 
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Options.Applicative hiding (info)
 import System.Exit (ExitCode (ExitFailure))
 
-import Options.Applicative hiding (info)
-
+import HsBindgen.App
 import HsBindgen.Boot (getClangArgs)
 import HsBindgen.Imports
 import HsBindgen.Lib
-
-import HsBindgen.App
 
 {-------------------------------------------------------------------------------
   CLI help

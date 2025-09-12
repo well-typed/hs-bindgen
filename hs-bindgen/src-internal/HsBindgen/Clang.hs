@@ -11,6 +11,8 @@ module HsBindgen.Clang (
   ) where
 
 import Data.Text qualified as Text
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Args
 import Clang.Enum.Bitfield
@@ -23,8 +25,6 @@ import Clang.Paths
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((><))
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Top-level call into clang

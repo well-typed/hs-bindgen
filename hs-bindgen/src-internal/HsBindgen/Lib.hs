@@ -135,15 +135,16 @@ module HsBindgen.Lib (
 import Data.Map.Strict (Map)
 import Data.Set (Set)
 
-import HsBindgen.Common qualified as Common
-
 import Clang.Args qualified as Args
 import Clang.Paths qualified as Paths
-import HsBindgen qualified
+
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Common qualified as Common
 import HsBindgen.Config qualified as Config
 import HsBindgen.Resolve qualified as Resolve
 import HsBindgen.Util.Tracer qualified as Tracer
+
+import HsBindgen qualified
 
 -- | Resolve headers, used for debugging
 resolveHeaders ::

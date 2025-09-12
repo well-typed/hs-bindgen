@@ -38,30 +38,22 @@ import Control.Monad (void)
 import Data.Either (partitionEithers)
 import Data.Functor (($>))
 import Data.Kind qualified as Hs
-
 import Data.List (intercalate)
 import Data.List.NonEmpty qualified as NE
-import Data.Maybe (isJust, mapMaybe)
-import GHC.Generics (Generic)
-import Numeric.Natural (Natural)
-
--- c-expr
-import C.Type qualified
-
--- containers
 import Data.Map.Strict qualified as Map
+import Data.Maybe (isJust, mapMaybe)
 import Data.Set qualified as Set
-
--- parsec
-import Text.Parsec
-
--- text
 import Data.Text (Text)
 import Data.Text qualified as Text (pack, unpack)
+import GHC.Generics (Generic)
+import Numeric.Natural (Natural)
+import Text.Parsec
 
--- hs-bindgen
+import C.Type qualified
+
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core (CXTokenKind (..))
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.AST.C qualified as C
 import HsBindgen.Frontend.Macro.AST.Syntax

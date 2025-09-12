@@ -14,12 +14,10 @@ module HsBindgen.Cli.GenTests (
   ) where
 
 import Control.Monad (void)
-
 import Options.Applicative hiding (info)
 
-import HsBindgen.Lib
-
 import HsBindgen.App
+import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   CLI help

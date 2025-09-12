@@ -118,5 +118,4 @@ module HsBindgen.TH (
   ) where
 
 import HsBindgen.Common qualified as Common
-
 import HsBindgen.TH.Internal qualified as TH

@@ -10,13 +10,13 @@ module HsBindgen.Eff (
   assertEff,
 ) where
 
-import Control.Monad.Reader (Reader, ReaderT (..), MonadReader)
-import Control.Monad.State (State, MonadState (state))
-import Data.IORef (IORef, newIORef, readIORef, atomicModifyIORef)
+import Control.Monad.Reader (MonadReader, Reader, ReaderT (..))
+import Control.Monad.State (MonadState (state), State)
+import Data.IORef (IORef, atomicModifyIORef, newIORef, readIORef)
 import Data.Tuple (swap)
 
-import HsBindgen.Imports
 import HsBindgen.Errors
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   'Eff' monad

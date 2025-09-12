@@ -9,16 +9,17 @@ import Text.Parsec
 import Text.Parsec.Expr
 
 import Clang.LowLevel.Core
-import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Macro.AST.Syntax
-import HsBindgen.Frontend.Macro.Reparse.Common (reparseLocName, reparseName)
-import HsBindgen.Frontend.Macro.Reparse.Infra
-import HsBindgen.Frontend.Macro.Reparse.Literal
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
-import HsBindgen.Language.C qualified as C
 
+import                HsBindgen.Frontend.AST.External qualified as C
+import                HsBindgen.Frontend.Macro.AST.Syntax
+import                HsBindgen.Frontend.Macro.Reparse.Common (reparseLocName,
+                                                               reparseName)
 import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl (reparseAttributeSpecifier,
                                                              reparseTypeName)
+import                HsBindgen.Frontend.Macro.Reparse.Infra
+import                HsBindgen.Frontend.Macro.Reparse.Literal
+import                HsBindgen.Frontend.Macro.Tc qualified as Macro
+import                HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level

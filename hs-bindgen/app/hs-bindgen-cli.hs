@@ -2,26 +2,26 @@
 
 module Main (main) where
 
-import Control.Exception (Exception(..), SomeException(..), handle)
+import Control.Exception (Exception (..), SomeException (..), handle)
 import Data.List qualified as List
 import Data.Text qualified as Text
 import Data.Version (showVersion)
-import System.Exit (ExitCode, exitFailure)
-import Text.Read (readMaybe)
-
 import Options.Applicative
 import Options.Applicative.Help qualified as Help
 import Prettyprinter.Util qualified as PP
+import System.Exit (ExitCode, exitFailure)
+import Text.Read (readMaybe)
 
 import Clang.Version (clang_getClangVersion)
-import HsBindgen.Errors
-import HsBindgen.Imports
-import HsBindgen.Lib
 
 import HsBindgen.App
 import HsBindgen.Cli qualified as Cli
 import HsBindgen.Cli.Internal.Literate qualified as Literate
 import HsBindgen.Cli.Preprocess qualified as Preprocess
+import HsBindgen.Errors
+import HsBindgen.Imports
+import HsBindgen.Lib
+
 import Paths_hs_bindgen qualified as Package
 
 {-------------------------------------------------------------------------------

@@ -4,10 +4,10 @@ module HsBindgen.Frontend.Pass.MangleNames (
 
 import Control.Monad.Reader
 import Control.Monad.State
+import Data.Bitraversable (bimapM)
 import Data.Map qualified as Map
 import Data.Proxy
 
-import Data.Bitraversable (bimapM)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate

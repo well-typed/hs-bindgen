@@ -10,11 +10,11 @@ module HsBindgen.Clang.ExtraClangArgs (
 
 import GHC.ResponseFile (unescapeArgs)
 import System.Environment (lookupEnv)
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Trace messages

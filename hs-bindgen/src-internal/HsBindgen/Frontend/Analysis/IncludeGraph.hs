@@ -18,12 +18,13 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , dumpMermaid
   ) where
 
+import Data.DynGraph (DynGraph)
+import Data.DynGraph qualified as DynGraph
 import Data.List qualified as List
 import Data.Set (Set)
 
 import Clang.Paths
-import Data.DynGraph (DynGraph)
-import Data.DynGraph qualified as DynGraph
+
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 
 {-------------------------------------------------------------------------------

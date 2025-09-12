@@ -10,9 +10,9 @@ import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Text qualified as T
 import System.FilePath qualified as FilePath
+import Text.SimplePrettyPrint
 
 import HsBindgen.Language.Haskell
-import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   C function prefix

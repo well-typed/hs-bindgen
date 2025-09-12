@@ -9,26 +9,25 @@ module Test.Test.Exceptions (tests) where
 
 import Control.Exception
 import Data.Maybe (fromMaybe)
+import Data.Text (Text)
 import Data.Text qualified as Text
 import Test.QuickCheck.Monadic
 import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
+import Test.Util.AST (AST (..))
+import Test.Util.AST qualified as AST
+import Test.Util.Clang qualified as Clang
+import Test.Util.FoldException (FoldException (..))
+import Test.Util.FoldException qualified as FoldException
+import Test.Util.Input (TestInput)
+import Test.Util.Input.Examples
+import Test.Util.Input.StructForest (StructForest (..))
+import Test.Util.Input.StructForest qualified as StructForest
 
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-
-import Test.Util.AST (AST(..))
-import Test.Util.AST qualified as AST
-import Test.Util.Clang qualified as Clang
-import Test.Util.FoldException (FoldException(..))
-import Test.Util.FoldException qualified as FoldException
-import Test.Util.Input (TestInput)
-import Test.Util.Input.Examples
-import Test.Util.Input.StructForest (StructForest(..))
-import Test.Util.Input.StructForest qualified as StructForest
-import Data.Text (Text)
 
 {-------------------------------------------------------------------------------
   List of tests

@@ -10,11 +10,11 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import Foreign
 import Foreign.C
+import GHC.Ptr (Ptr (..))
 
 import Clang.Internal.ByValue
 import Clang.LowLevel.Core.Instances ()
 import Clang.LowLevel.Core.Structs
-import GHC.Ptr (Ptr(..))
 
 {-------------------------------------------------------------------------------
   Translation to bytestrings

@@ -14,12 +14,13 @@ module Test.HsBindgen.Resources.Rust (
 import Control.Exception
 import System.Directory (findExecutable, removeDirectoryRecursive)
 import System.Exit (ExitCode (..))
-import System.FilePath ((</>), takeDirectory)
-import System.IO.Temp (getCanonicalTemporaryDirectory, createTempDirectory)
+import System.FilePath (takeDirectory, (</>))
+import System.IO.Temp (createTempDirectory, getCanonicalTemporaryDirectory)
 import System.Process (readProcessWithExitCode)
 import System.Process qualified as P
 
 import Clang.Args
+
 import HsBindgen.Config.ClangArgs
 
 {-------------------------------------------------------------------------------

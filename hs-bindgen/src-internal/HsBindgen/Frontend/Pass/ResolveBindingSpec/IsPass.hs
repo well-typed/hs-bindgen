@@ -4,6 +4,8 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
   , ResolveBindingSpecMsg(..)
   ) where
 
+import Text.SimplePrettyPrint ((<+>))
+
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
@@ -12,7 +14,6 @@ import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (ExtHsRef)
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((<+>))
 
 {-------------------------------------------------------------------------------
   Definition

@@ -1,0 +1,34 @@
+name: Stylish Haskell
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  merge_group:
+
+jobs:
+  stylish-haskell:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: '9.12.2'
+        cabal-version: '3.12.1.0'
+
+    - name: Install stylish-haskell
+      run: |
+        cabal update
+        cabal install stylish-haskell
+
+    - name: Check import formatting
+      run: |
+        chmod +x scripts/ci/run-stylish-haskell.sh
+        scripts/ci/run-stylish-haskell.sh -c

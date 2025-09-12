@@ -2,10 +2,10 @@ module Test.Common.HsBindgen.Trace (
   reportTrace
   ) where
 
-import HsBindgen.Util.Tracer
-
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
+
+import HsBindgen.Util.Tracer
 
 -- Seeing both, the pretty trace and the 'Show' instance greatly simplifies test
 -- design and debugging.

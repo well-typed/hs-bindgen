@@ -16,7 +16,9 @@ import Data.Word
 import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
-import Numeric (showHex)
+import Text.SimplePrettyPrint
+
+import C.Char (CharValue (..))
 
 import Clang.HighLevel qualified as C
 
@@ -32,10 +34,9 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-import Text.SimplePrettyPrint
 
-import C.Char (CharValue (..))
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
+import Numeric (showHex)
 
 {-------------------------------------------------------------------------------
   Rendering

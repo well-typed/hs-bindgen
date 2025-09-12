@@ -1,9 +1,8 @@
 module Main (main) where
 
-import Test.Tasty (defaultMain, testGroup)
-
 import Test.HsBindgen.Runtime.Bitfield qualified
 import Test.HsBindgen.Runtime.CEnum qualified
+import Test.Tasty (defaultMain, testGroup)
 
 {-------------------------------------------------------------------------------
   Main

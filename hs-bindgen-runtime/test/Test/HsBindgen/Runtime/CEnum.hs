@@ -3,25 +3,23 @@
 module Test.HsBindgen.Runtime.CEnum (tests) where
 
 import Control.Monad (forM_)
-import Data.List.NonEmpty (NonEmpty((:|)))
+import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
 import Foreign.C qualified as FC
 import GHC.Show (appPrec1)
+import Test.HsBindgen.Runtime.CEnumArbitrary ()
+import Test.Internal.Tasty
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.ExpectedFailure (expectFail)
-import Test.Tasty.HUnit ((@=?), testCase)
-import Test.Tasty.QuickCheck (testProperty, Property, (===), Arbitrary (arbitrary),
-                              counterexample, chooseInt)
-import Text.Read (Read(readPrec), readMaybe, minPrec)
+import Test.Tasty.HUnit (testCase, (@=?))
+import Test.Tasty.QuickCheck (Arbitrary (arbitrary), Property, chooseInt,
+                              counterexample, testProperty, (===))
+import Text.Read (Read (readPrec), minPrec, readMaybe)
 
-import HsBindgen.Runtime.CEnum
-  ( AsCEnum(..), AsSequentialCEnum(..), CEnum (CEnumZ), CEnumException(..)
-  , SequentialCEnum
-  )
+import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..),
+                                CEnum (CEnumZ), CEnumException (..),
+                                SequentialCEnum)
 import HsBindgen.Runtime.CEnum qualified as CEnum
-
-import Test.Internal.Tasty
-import Test.HsBindgen.Runtime.CEnumArbitrary ()
 
 read_show_prop :: forall a. (CEnum a, Show a, Read a, Eq a) => a -> Property
 read_show_prop x = read (show x) === x

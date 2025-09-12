@@ -1,10 +1,9 @@
 module Main (main) where
 
-import Test.Tasty
-
 import Test.Meta.IsConcrete qualified as IsConcrete
+import Test.Tasty
 import Test.Test.Exceptions qualified as Exceptions
-import Test.Version         qualified as Version
+import Test.Version qualified as Version
 
 {-------------------------------------------------------------------------------
   Top-level

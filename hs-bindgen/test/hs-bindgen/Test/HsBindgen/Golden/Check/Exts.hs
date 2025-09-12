@@ -2,18 +2,18 @@
 module Test.HsBindgen.Golden.Check.Exts (check) where
 
 import Data.List qualified as List
-import System.FilePath ((</>))
-import Test.Tasty
-
-import HsBindgen.Imports
-
-import HsBindgen
-import HsBindgen.TH.Internal
 import Language.Haskell.TH qualified as TH
+import System.FilePath ((</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import Test.Tasty
+
+import HsBindgen.Imports
+import HsBindgen.TH.Internal
+
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

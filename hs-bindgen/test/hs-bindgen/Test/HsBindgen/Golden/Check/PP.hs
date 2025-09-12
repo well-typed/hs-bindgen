@@ -2,14 +2,13 @@
 module Test.HsBindgen.Golden.Check.PP (check) where
 
 import System.FilePath ((</>))
-import Test.Tasty
-
-import HsBindgen
-
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import Test.Tasty
+
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

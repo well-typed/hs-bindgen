@@ -68,6 +68,7 @@ import Prelude hiding (Enum)
 import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.Paths
+
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Macro.AST.Syntax qualified as Macro

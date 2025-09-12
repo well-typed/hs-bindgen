@@ -17,9 +17,8 @@ import Test.QuickCheck.Monadic qualified as QCM
 import Test.Tasty.HUnit (Assertion, assertFailure)
 import Test.Tasty.QuickCheck (Property)
 
-import HsBindgen.TestRuntime.SameSemantics (
-    (@==~?), SameSemantics(sameSemantics)
-  )
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics (sameSemantics),
+                                            (@==~?))
 
 {-------------------------------------------------------------------------------
   Constants

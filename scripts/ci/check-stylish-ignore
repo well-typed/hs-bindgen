@@ -1,0 +1,10 @@
+# Files to be ignored by stylish-haskell formatting
+# Add file paths (relative to project root) that should not be formatted
+# Examples:
+*/Setup.hs
+dist-newstyle/**/*.hs
+alternatives/**/*.hs
+hs-bindgen/fixtures/*.hs
+hs-bindgen/src-internal/HsBindgen/Frontend/Marco/**/*
+manual/**/*.hs
+c-expr-runtime/**/*.hs

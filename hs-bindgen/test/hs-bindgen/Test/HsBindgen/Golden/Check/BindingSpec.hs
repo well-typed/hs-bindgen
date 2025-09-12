@@ -3,17 +3,17 @@ module Test.HsBindgen.Golden.Check.BindingSpec (check) where
 
 import Data.ByteString.UTF8 qualified as UTF8
 import System.FilePath ((</>))
-import Test.Tasty (TestTree)
-
-import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Language.Haskell qualified as Hs
-
-import HsBindgen
-import HsBindgen.Frontend.RootHeader
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import Test.Tasty (TestTree)
+
+import HsBindgen.BindingSpec.Gen qualified as BindingSpec
+import HsBindgen.Frontend.RootHeader
+import HsBindgen.Language.Haskell qualified as Hs
+
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

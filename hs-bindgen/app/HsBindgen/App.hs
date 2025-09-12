@@ -30,13 +30,13 @@ import Data.Char qualified as Char
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Maybe (catMaybes)
-import Optics (set)
-
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Lib
+
+import Optics (set)
 
 {-------------------------------------------------------------------------------
   Global options
