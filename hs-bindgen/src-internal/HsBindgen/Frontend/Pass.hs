@@ -56,8 +56,10 @@ class IsPass (p :: Pass) where
 
   -- | Macro body
   --
-  -- After parsing this is simply a list of tokens; after 'HandleMacros', this
-  -- is the parsed and type-checked macro body.
+  -- Parsing macros is non-trivial, and requires knowledge of other macros in
+  -- scope. Therefore we don't parse macros during parsing of the clang AST, but
+  -- instead simply record them a list of tokens. 'HandleMacros' then does the
+  -- actual parsing, instantiating this to 'CheckedMacro'
   type MacroBody p :: Star
 
   -- | Representation of external bindings

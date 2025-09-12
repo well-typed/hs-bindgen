@@ -11,8 +11,7 @@ module HsBindgen.Frontend.Macro.Tc
   , TcMacroError(..)
   , pprTcMacroError
 
-  , TypeEnv(..)
-  , MacroTypes
+  , TypeEnv
 
     -- ** Macro type-system
   , Type(..), Kind(..)
@@ -21,7 +20,6 @@ module HsBindgen.Frontend.Macro.Tc
   , IntegralType(..)
   , Quant(..), QuantTyBody(..)
   , tyVarName, tyVarNames, mkQuantTyBody
-  , isPrimTy
 
     -- ** Macro typechecking errors
   , TcError(..), CtOrigin(..), MetaOrigin(..), CouldNotUnifyReason(..)
@@ -397,7 +395,7 @@ getPlatform =
 
 lookupTyEnv :: C.Name -> TcPureM ( Maybe ( Quant ( FunValue, Type Ty ) ) )
 lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) ->
-  return $ Map.lookup varNm $ typeEnvMacros tcTypeEnv
+  return $ Map.lookup varNm tcTypeEnv
 
 lookupVar :: C.Name -> TcPureM ( Maybe ( Type Ty ) )
 lookupVar varNm = TcPureM \ ( TcEnv _ lcl ) ->
@@ -736,7 +734,6 @@ fromMacroType = \case
 
           PrimIntInfoTyCon {} -> panicPure "fromMacroType: 'PrimIntInfoTyCon'"
           PrimFloatInfoTyCon {} -> panicPure "fromMacroType: 'PrimFloatInfoTyCon'"
-          PrimTyTyCon -> panicPure "fromMacroType: 'PrimTyTyCon'"
 
 applySubstNormalise :: C.Type.Platform -> Subst tv -> Type ki -> Type ki
 applySubstNormalise plat subst = normaliseType plat . applySubst subst
@@ -764,8 +761,8 @@ instantiate ctOrig instOrig body = do
 -------------------------------------------------------------------------------}
 
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: C.Name -> Vec nbArgs C.Name -> MacroBody Ps
-         -> TcUniqueM ( ( ( MacroBody Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
+inferTop :: C.Name -> Vec nbArgs C.Name -> MExpr Ps
+         -> TcUniqueM ( ( ( MExpr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
 inferTop funNm args body = do
   plat <- lift getPlatform
   ( ( ( tcBody, ( argTys, bodyTy ) ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
@@ -780,11 +777,6 @@ inferTop funNm args body = do
     , "final subst: " ++ show subst
     ]
   return ( ( ( tcBody, ( argTys', bodyTy' ) ), cts' ), mbErrs )
-
-inferBody :: MacroBody Ps -> TcGenM ( Type Ty, MacroBody Tc )
-inferBody = \case
-  ExpressionMacro expr -> second ExpressionMacro <$> inferExpr expr
-  TypeMacro ty -> return ( PrimTy, TypeMacro ty )
 
 inferExpr :: MExpr Ps -> TcGenM ( Type Ty, MExpr Tc )
 inferExpr = \case
@@ -876,10 +868,10 @@ inferFun f@( Fun fun ) =
 inferLam :: forall nbArgs
          .  C.Name            -- ^ name of the function (for error messages)
          -> Vec nbArgs C.Name -- ^ argument names
-         -> MacroBody Ps      -- ^ function body
-         -> TcGenM ( MacroBody Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
+         -> MExpr Ps          -- ^ function body
+         -> TcGenM ( MExpr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
 inferLam _ VNil body = do
-  ( bodyTy, body' ) <- inferBody body
+  ( bodyTy, body' ) <- inferExpr body
   return ( body', ( VNil, bodyTy) )
 inferLam funNm argNms@( _ ::: _ ) body = do
   let is = Vec.imap ( \ i _ -> fromIntegral ( Fin.toNatural i ) + 1 ) argNms
@@ -887,7 +879,7 @@ inferLam funNm argNms@( _ ::: _ ) body = do
     for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( C.Name argStr ) ) ->
       newMetaTyVarTy ( FunArg funNm ( argNm, i ) ) ( "ty_" <> argStr )
   liftBaseTcM ( declareLocalVars ( Map.fromList $ toList $ Vec.zipWith (,) argNms argTys ) ) $ do
-    ( bodyTy, body' ) <- inferBody body
+    ( bodyTy, body' ) <- inferExpr body
     return ( body', ( argTys, bodyTy ) )
 
 -- | Infer the type of an 'MFun', together with a 'FunValue' used to
@@ -1801,12 +1793,12 @@ Evaluation proceeds as follows:
   (3) Macro functions: evaluating macro arguments, and calling other macros.
 
     After typechecking each macro, we also compute a function which allows
-    evaluating this macro; see the call to 'evaluateMacroBody' in 'tcMacro'.
+    evaluating this macro; see the call to 'evaluateExpr' in 'tcMacro'.
     This is a function that takes a vector of argument values, and returns the
     result of evaluating the macro on these arguments (see 'FunValue').
 
     To do this, we create a new value environment (using 'Map C.Name Value'),
-    and then call 'evaluateMacroBody'.
+    and then call 'evaluateExpr'.
     When we get to a macro argument (in the 'MVar' case of 'evaluateTerm'),
     we simply look up in the map to obtain the value.
 
@@ -1838,11 +1830,6 @@ So the simplest thing to do to implement the evaluator is to:
 This is easier than erasing the types and dealing with typeclass specialisation,
 which is what GHC does.
 -}
-
-evaluateMacroBody :: Map C.Name Value -> TypeEnv -> MacroBody Tc -> Value
-evaluateMacroBody argVals tyEnv = \case
-  TypeMacro {} -> NoValue
-  ExpressionMacro e -> evaluateExpr argVals tyEnv e
 
 evaluateExpr :: Map C.Name Value -> TypeEnv -> MExpr Tc -> Value
 evaluateExpr argVals tyEnv = \case
@@ -1928,7 +1915,7 @@ naturalMaybe ( ValSType ty ) i =
 tcMacro :: TypeEnv
         -> C.Name            -- ^ name of the macro
         -> Vec nbArgs C.Name -- ^ macro arguments
-        -> MacroBody Ps      -- ^ macro body
+        -> MExpr Ps          -- ^ macro body
         -> Either TcMacroError ( Quant ( FunValue, Type Ty ) )
 tcMacro tyEnv macroNm args body =
   let plat = C.Type.hostPlatform in
@@ -2009,7 +1996,7 @@ tcMacro tyEnv macroNm args body =
               evalFun =
                 Vec.withDict args $
                   FunValue ( C.getName macroNm )$ \ argVals ->
-                  evaluateMacroBody
+                  evaluateExpr
                     ( Map.fromList $ Vec.toList $ Vec.zipWith (,) args argVals )
                     tyEnv
                     body'
@@ -2063,7 +2050,7 @@ guarded cond m = do
 
 evaluateMExpr :: TypeEnv -> MExpr Ps -> Value
 evaluateMExpr tyEnv e =
-  case tcMacro tyEnv ( C.Name nm ) VNil ( ExpressionMacro e ) of
+  case tcMacro tyEnv ( C.Name nm ) VNil e of
     Left {} -> NoValue
     Right ( Quant @nbBinders body ) ->
       let

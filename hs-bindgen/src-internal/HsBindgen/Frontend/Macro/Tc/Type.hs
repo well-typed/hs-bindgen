@@ -11,8 +11,7 @@ module HsBindgen.Frontend.Macro.Tc.Type (
     -- * Pass
   , Pass(Ps, Tc)
     -- * Type inference
-  , TypeEnv(..)
-  , MacroTypes
+  , TypeEnv
   , VarEnv
     -- ** Type system
   , Type(..)
@@ -60,7 +59,6 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   , pattern IntLike
   , pattern FloatLike
   , pattern String
-  , pattern PrimTy
   , pattern Ptr
   , pattern Tuple
   , pattern PlusRes
@@ -78,7 +76,6 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   , pattern CharTy
   , pattern CharLitTy
     -- ** Query
-  , isPrimTy
   , tyVarName
   , tyVarNames
   , tyVarUnique
@@ -103,8 +100,7 @@ import Foreign.Ptr qualified as Foreign
 import GHC.Show (showSpace)
 
 -- fin
-import Data.Type.Nat qualified as Nat (SNat (..), SNatI, eqNat, reflectToNum,
-                                       snat)
+import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum,)
 
 -- some
 import Data.GADT.Compare (GEq (..), defaultEq)
@@ -329,9 +325,6 @@ data DataTyCon nbArgs where
   -- | Family of nullary type constructors for arguments to 'FloatLikeTyCon'.
   PrimFloatInfoTyCon :: !C.Type.FloatingType -> DataTyCon Z
 
-  -- | Type constructor for the type of a 'PrimType' value.
-  PrimTyTyCon    :: DataTyCon Z
-
 data IntegralType
   = CIntegralType !C.Type.IntegralType
   | HsIntType
@@ -420,7 +413,6 @@ instance Show ( DataTyCon n ) where
     FloatLikeTyCon            -> showString "FloatLike"
     PrimIntInfoTyCon   inty   -> showsPrec p inty
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
-    PrimTyTyCon               -> showString "PrimTy"
     TupleTyCon i              -> showString $ "Tuple" ++ show i
 instance Show ( FamilyTyCon n ) where
   show = \case
@@ -452,28 +444,12 @@ instance Show ( ClassTyCon n ) where
     BitwiseTyCon    -> "Bitwise"
     ShiftTyCon      -> "Shift"
 
-isPrimTy :: forall n. Nat.SNatI n => ( Vec n ( Type Ty ) -> QuantTyBody ( Type Ty ) ) -> Bool
-isPrimTy bf = case Nat.snat @n of
-    Nat.SZ -> isPrimTy' (bf VNil)
-    Nat.SS -> False
-
-isPrimTy' :: QuantTyBody ( Type Ty ) -> Bool
-isPrimTy' (QuantTyBody [] PrimTy) = True
-isPrimTy' _                       = False
-
 {-------------------------------------------------------------------------------
   Type environment
 -------------------------------------------------------------------------------}
 
-data TypeEnv =
-   TypeEnv
-     { typeEnvMacros   :: MacroTypes
-     , typeEnvTypedefs :: Set C.Name
-     }
-  deriving stock Show
-
-type MacroTypes = Map C.Name ( Quant ( FunValue, Type Ty ) )
-type VarEnv     = Map C.Name ( Type Ty )
+type TypeEnv = Map C.Name ( Quant ( FunValue, Type Ty ) )
+type VarEnv  = Map C.Name ( Type Ty )
 
 data Pass = Ps | Tc
 
@@ -682,8 +658,6 @@ pattern FloatLike :: Type Ty -> Type Ty
 pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
 pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
-pattern PrimTy :: Type Ty
-pattern PrimTy = Data PrimTyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 

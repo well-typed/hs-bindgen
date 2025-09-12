@@ -4,7 +4,6 @@
 module HsBindgen.Frontend.Macro.AST.Syntax (
     -- * Definition
     Macro(..)
-  , MacroBody(..)
   , Pass(..)
     -- ** Expressions
   , MExpr(..)
@@ -37,8 +36,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality (equals1)
 
-import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl
-
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
@@ -48,7 +45,7 @@ data Macro p = Macro {
       macroLoc  :: MultiLoc
     , macroName :: C.Name
     , macroArgs :: [C.Name]
-    , macroBody :: MacroBody p
+    , macroBody :: MExpr p
     }
   deriving stock Generic
 deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Macro p )
@@ -57,62 +54,6 @@ deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Macro p )
 {-------------------------------------------------------------------------------
   Expressions
 -------------------------------------------------------------------------------}
-
--- | Body of a C macro
-type MacroBody :: Pass -> Hs.Type
-data MacroBody p
-  -- | A term-level (expression) macro
-  --
-  -- NB: this may be an integer expression, which
-  -- we can use at the type level as well (e.g. in the size of an array)
-  = ExpressionMacro ( MExpr p )
-  -- | A macro that defines a type
-  | TypeMacro TypeName
-deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MacroBody p )
-deriving stock instance ( Show ( XVar p ), Show ( XApp p ) ) => Show ( MacroBody p )
-
-{- Note [Macros defining types]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-We want to support macros that define types (see e.g. #401), such as:
-
-  #define Ty1 int
-  #define Ty2 int*
-  #define Ty3 int[8]
-
-But... what precisely **are** 'int', 'int*' and 'int[8]'? According to the C23
-specification, these are "type names", which consist of:
-
-  1. a type specifier (here 'int' in all three cases)
-  2. some attributes (none in these examples)
-  3. an abstract declarator
-
-These can appear in several places in the C grammar, such as:
-
-  - in casts, e.g. (ty)(expr)
-  - as the argument to sizeof, e.g. sizeof(ty)
-
-We thus reparse these three examples as "type names", which has a low
-implementation cost as we already have a (re)parser for such things for the
-purpose of reparsing function parameters and struct field declarations.
-
-As a consequence, we also reparse the following:
-
-  #define Ty4 int(float)     // a function that takes a float and returns an int
-  #define Ty5 int (*)(float) // a function pointer to a function taking a float and returning an int
-
-One downside is that we can't straightforwardly re-use these type names in
-other places, such as in function parameter types:
-
-  void foo(int x1, int* x2, int x3[8], int (*x5)(float))
-
-Function parameters are non-abstract declarators, and for more complicated
-types the declarator name appears "in the middle" of the type, e.g.
-
-  int x3[8]         // 'x3' appears in the middle of 'int[8]'
-  int (*x5)(float)  // 'x5' appears in the middle of 'int (*)(float)'
-
-For the time being, we accept macros defining such type names.
--}
 
 -- | Macro expression
 type MExpr :: Pass -> Hs.Type
@@ -275,8 +216,7 @@ isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
         macroName `elem` includeGuards
       , null macroArgs
       , case macroBody of
-          ExpressionMacro
-            (MTerm (MInt C.IntegerLiteral { integerLiteralValue = 1 }))
+          MTerm (MInt C.IntegerLiteral { integerLiteralValue = 1 })
             -> True
           _otherwise
             -> False

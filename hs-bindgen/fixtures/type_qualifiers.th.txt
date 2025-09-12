@@ -65,7 +65,7 @@ d = unsafePerformIO (peek d_ptr)
     __exported by:__ @type_qualifiers.h@
 -}
 foreign import ccall safe "hs_bindgen_test_type_qualifiers_9d6d039971edcd60" list_example :: Ptr (Ptr CChar) ->
-                                                                                             HsBindgen.Runtime.Prelude.CSize ->
+                                                                                             CSize ->
                                                                                              IO CBool
 {-| __C declaration:__ @list_example@
 
@@ -74,9 +74,8 @@ foreign import ccall safe "hs_bindgen_test_type_qualifiers_9d6d039971edcd60" lis
     __exported by:__ @type_qualifiers.h@
 -}
 foreign import ccall safe "hs_bindgen_test_type_qualifiers_c40a51053a97fb29" hs_bindgen_test_type_qualifiers_c40a51053a97fb29 :: IO (FunPtr (Ptr (Ptr CChar) ->
-                                                                                                                                             HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                             CSize ->
                                                                                                                                              IO CBool))
 {-# NOINLINE list_example_ptr #-}
-list_example_ptr :: FunPtr (Ptr (Ptr CChar) ->
-                            HsBindgen.Runtime.Prelude.CSize -> IO CBool)
+list_example_ptr :: FunPtr (Ptr (Ptr CChar) -> CSize -> IO CBool)
 list_example_ptr = unsafePerformIO hs_bindgen_test_type_qualifiers_c40a51053a97fb29

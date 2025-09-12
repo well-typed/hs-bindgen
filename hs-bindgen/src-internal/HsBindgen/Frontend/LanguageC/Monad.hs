@@ -27,6 +27,8 @@ import GHC.Stack
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -61,6 +63,20 @@ data Error =
     -- conscious decision about features we currently don't want to support.
   | UpdateUnsupported String
   deriving stock (Show)
+
+instance PrettyForTrace Error where
+  prettyForTrace (UpdateUnexpected cs str) = PP.vsep [
+        PP.hsep [
+            "Encountered unexpected node in the language-c AST: "
+          , PP.string str
+          ]
+      , PP.string (prettyCallStack cs)
+      ]
+  prettyForTrace (UpdateUnsupported err) =
+        PP.hsep [
+            "Unsupported: "
+          , PP.string err
+          ]
 
 -- | Types in scope when reparsing a particular declaration
 type ReparseEnv p = Map Name (Type p)

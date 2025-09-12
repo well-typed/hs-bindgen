@@ -9,8 +9,8 @@
 -- /* get_version_string_ptr */ __attribute__ ((const)) char const **hs_bindgen_test_doxygen_docs_a8499810bd5203c6 (void) { return &version_string; } 
 -- signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }
 -- /* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_36ecba874daa1325 (void)) (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } 
--- _Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char *arg1) { return process_file(arg1); }
--- /* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char *arg1) { return &process_file; } 
+-- _Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char const *arg1) { return process_file(arg1); }
+-- /* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char const *arg1) { return &process_file; } 
 -- signed int hs_bindgen_test_doxygen_docs_788bfbb9e824261c (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }
 -- /* get_calculate_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4 (void)) (signed int arg1, signed int arg2) { return &calculate_value; } 
 -- _Bool hs_bindgen_test_doxygen_docs_3763cc54606bc611 (signed int arg1) { return html_example(arg1); }
@@ -440,7 +440,7 @@ __defined at:__ @doxygen_docs.h:174:6@
 __exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_9d6d039971edcd60" list_example :: Ptr (Ptr CChar) ->
-                                                                                          HsBindgen.Runtime.Prelude.CSize ->
+                                                                                          CSize ->
                                                                                           IO CBool
 {-|
 
@@ -489,11 +489,10 @@ __defined at:__ @doxygen_docs.h:174:6@
 __exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_c40a51053a97fb29" hs_bindgen_test_doxygen_docs_c40a51053a97fb29 :: IO (FunPtr (Ptr (Ptr CChar) ->
-                                                                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                                       CSize ->
                                                                                                                                        IO CBool))
 {-# NOINLINE list_example_ptr #-}
-list_example_ptr :: FunPtr (Ptr (Ptr CChar) ->
-                            HsBindgen.Runtime.Prelude.CSize -> IO CBool)
+list_example_ptr :: FunPtr (Ptr (Ptr CChar) -> CSize -> IO CBool)
 list_example_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_c40a51053a97fb29
 {-|
 

@@ -779,6 +779,8 @@ reparseTypeQualifier = choice
 
 -- | See the C23 specification, 6.7.3.1 @type-specifier@.
 reparseTypeSpecifier :: Macro.TypeEnv -> Reparse TypeSpecifier
+reparseTypeSpecifier = undefined
+{-
 reparseTypeSpecifier macroTypeEnv =
   choice
   -- Primitive type (such as void, int, float)
@@ -812,7 +814,7 @@ reparseTypeSpecifier macroTypeEnv =
     typeSpecifier :: Either () C.PrimType -> TypeSpecifier
     typeSpecifier (Left  ()) = TypeVoid
     typeSpecifier (Right ty) = TypeSpecifier ty
-
+-}
 
 reparseStructOrUnion :: Reparse StructOrUnion
 reparseStructOrUnion = choice [ keyword "struct" $> IsStruct, keyword "union" $> IsUnion ]

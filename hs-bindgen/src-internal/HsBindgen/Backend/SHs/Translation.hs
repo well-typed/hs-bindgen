@@ -310,11 +310,6 @@ tyConGlobal = \case
           Macro.FloatLikeTyCon ->
             panicPure "tyConGlobal FloatLikeTyCon"
 
-          -- These two TyCons are only used for macros that do not define
-          -- functions; they dont't occur in the code path that deals
-          -- with type inference of macro functions.
-          Macro.PrimTyTyCon ->
-            panicPure "tyConGlobal PrimTyTyCon"
       Macro.ClassTyCon cls -> TGlobal $
         case cls of
           Macro.NotTyCon        -> Not_class

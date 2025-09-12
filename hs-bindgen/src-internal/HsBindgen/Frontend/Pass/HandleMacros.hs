@@ -4,18 +4,17 @@ module HsBindgen.Frontend.Pass.HandleMacros (
 
 import Control.Monad.State
 import Data.Map qualified as Map
-import Data.Set qualified as Set
 import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Macro.AST.Syntax
-import HsBindgen.Frontend.Macro.Reparse qualified as Reparse
-import HsBindgen.Frontend.Macro.Reparse.Decl qualified as Reparse
+import HsBindgen.Frontend.Macro.Reparse.Infra qualified as Macro
+import HsBindgen.Frontend.Macro.Reparse.Macro qualified as Macro
 import HsBindgen.Frontend.Macro.Tc qualified as Macro
-import HsBindgen.Frontend.Macro.Tc.Type (MacroTypes)
 import HsBindgen.Frontend.Macro.Tc.Type qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -83,7 +82,7 @@ processStructField C.StructField{..} =
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
-        reparseWith reparseField tokens withoutReparse withReparse
+        reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
     C.FieldInfo{..} = structFieldInfo
 
@@ -134,7 +133,7 @@ processUnionField C.UnionField{..} =
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
-        reparseWith reparseField tokens withoutReparse withReparse
+        reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
     C.FieldInfo{..} = unionFieldInfo
     withoutReparse :: M (C.UnionField HandleMacros)
@@ -214,7 +213,7 @@ processTypedef ::
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
     modify $ \st -> st{
-        stateTypedefs = Set.insert name (stateTypedefs st)
+        stateReparseEnv = updateEnv (stateReparseEnv st)
       }
     case typedefAnn of
       ReparseNotNeeded ->
@@ -232,12 +231,15 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
       ReparseNeeded tokens -> case typedefType of
         C.TypeEnum _   -> withoutReparse
         C.TypeStruct _ -> withoutReparse
-        _otherwise     -> reparseWith reparseTypedef tokens withoutReparse withReparse
+        _otherwise     -> reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
   where
     name :: C.Name
     name = case C.declId info of
       C.PrelimDeclIdNamed n -> n
       _otherwise            -> panicPure "unexpected anonymous typedef"
+
+    updateEnv :: LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
+    updateEnv = Map.insert name (C.TypeTypedef name)
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -262,29 +264,21 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
 processMacro ::
      C.DeclInfo HandleMacros
   -> UnparsedMacro -> M (Maybe (C.Decl HandleMacros))
-processMacro info (UnparsedMacro tokens) =
+processMacro info (UnparsedMacro tokens) = do
     -- Simply omit macros from the AST that we cannot parse
-    reparseWith reparseMacro tokens (return Nothing) (fmap Just . withReparse)
+    fmap aux <$> parseMacro name tokens
   where
     name :: C.Name
     name = case C.declId info of
       C.PrelimDeclIdNamed n -> n
       _otherwise            -> panicPure "unexpected anonymous macro"
 
-    withReparse ::
-         ( Macro.Quant (FunValue, Macro.Type Macro.Ty)
-         , C.CheckedMacro HandleMacros
-         )
-      -> M (C.Decl HandleMacros)
-    withReparse (ty, checkedMacro) = do
-        modify $ \st -> st{
-            stateMacroTypes = Map.insert name ty (stateMacroTypes st)
-          }
-        return C.Decl{
-            declInfo = info
-          , declKind = C.DeclMacro checkedMacro
-          , declAnn  = NoAnn
-          }
+    aux :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
+    aux checked = C.Decl{
+          declInfo = info
+        , declKind = C.DeclMacro checked
+        , declAnn  = NoAnn
+        }
 
 processFunction ::
      C.DeclInfo HandleMacros
@@ -295,7 +289,7 @@ processFunction info C.Function {..} =
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
-        reparseWith reparseFunctionDecl tokens withoutReparse withReparse
+        reparseWith LanC.reparseFunDecl tokens withoutReparse withReparse
   where
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -356,103 +350,94 @@ newtype M a = WrapM {
     )
 
 data MacroState = MacroState {
-      stateErrors     :: [Msg HandleMacros]  -- ^ Stored in reverse order
-    , stateMacroTypes :: MacroTypes
-    , stateTypedefs   :: Set C.Name
+      stateErrors :: [HandleMacrosMsg]  -- ^ Stored in reverse order
+
+      -- | Types of macro expressions
+    , stateMacroEnv :: Macro.TypeEnv
+
+      -- | Newtypes and macro-defined types in scope
+    , stateReparseEnv :: LanC.ReparseEnv HandleMacros
     }
 
 initMacroState :: MacroState
 initMacroState = MacroState{
       stateErrors     = []
-    , stateMacroTypes = Map.empty
-    , stateTypedefs   = Set.empty
-    }
-
-macroTypeEnv :: MacroState -> Macro.TypeEnv
-macroTypeEnv MacroState{stateMacroTypes, stateTypedefs} = Macro.TypeEnv{
-      typeEnvMacros   = stateMacroTypes
-    , typeEnvTypedefs = stateTypedefs
+    , stateMacroEnv   = Map.empty
+    , stateReparseEnv = LanC.initReparseEnv
     }
 
 runM :: M a -> (a, [Msg HandleMacros])
 runM = fmap stateErrors . flip runState initMacroState . unwrapM
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary: convenience functions wrapping the macro infrastructure
+  Auxiliary: parsing (macro /def/ sites) and reparsing (macro /use/ sites)
 -------------------------------------------------------------------------------}
 
-type Reparse a =
-     Macro.TypeEnv
+-- | Parse macro
+--
+-- We also return the new macro type environment
+parseMacro ::
+     C.Name
   -> [Token TokenSpelling]
-  -> Either (Msg HandleMacros) a
+  -> M (Maybe (C.CheckedMacro HandleMacros))
+parseMacro name tokens = state $ \st ->
+    -- In the case that the same macro could be interpreted both as a type or
+    -- as an expression, we choose to interpret it as a type.
+    case LanC.parseMacroType (stateReparseEnv st) tokens of
+      Right typ -> (
+          Just $ C.MacroType $ C.CheckedMacroType typ NoAnn
+        , st{stateReparseEnv = updateReparseEnv (stateReparseEnv st)}
+        )
+      Left errType ->
+        case Macro.reparseWith (Macro.reparseMacro (stateMacroEnv st)) tokens of
+          Right Macro{macroName, macroArgs, macroBody} ->
+            Vec.reifyList macroArgs $ \args -> do
+              case Macro.tcMacro (stateMacroEnv st) macroName args macroBody of
+                Right inf -> (
+                    Just $ C.MacroExpr $ C.CheckedMacroExpr{
+                        macroExprArgs = macroArgs
+                      , macroExprBody = macroBody
+                      , macroExprType = dropEval inf
+                      }
+                  , st{stateMacroEnv = Map.insert name inf (stateMacroEnv st)}
+                  )
+                Left errTc -> (
+                    Nothing
+                  , st{stateErrors = HandleMacrosErrorTc errTc : stateErrors st}
+                  )
+          Left errExpr -> (
+              Nothing
+            , st{stateErrors =
+                    HandleMacrosErrorParse errType errExpr
+                  : stateErrors st
+                }
+            )
 
--- | Run parser
+  where
+    updateReparseEnv ::
+         LanC.ReparseEnv HandleMacros
+      -> LanC.ReparseEnv HandleMacros
+    updateReparseEnv =
+        Map.insert name (C.TypeMacroTypedef $ C.PrelimDeclIdNamed name)
+
+    dropEval ::
+         Macro.Quant (Macro.FunValue, Macro.Type 'Macro.Ty)
+      -> Macro.Quant (Macro.Type 'Macro.Ty)
+    dropEval = fmap snd
+
+-- | Run reparser
 --
 -- Failing to parse macros results in warnings, but never irrecoverable errors;
 -- we therefore always want a fallback.
 reparseWith ::
-     Reparse a              -- ^ Parser
-  -> [Token TokenSpelling]  -- ^ Raw tokens
-  -> M r                    -- ^ If parsing fails
-  -> (a -> M r)             -- ^ If parsing succeeds
+     LanC.Parser HandleMacros a  -- ^ Parser
+  -> [Token TokenSpelling]       -- ^ Raw tokens
+  -> M r                         -- ^ If parsing fails
+  -> (a -> M r)                  -- ^ If parsing succeeds
   -> M r
 reparseWith p tokens onFailure onSuccess = state $ \st ->
-    case p (macroTypeEnv st) tokens of
-      Left e ->
-        runState (unwrapM $ onFailure  ) $ st{stateErrors = e : stateErrors st}
-      Right a ->
-        runState (unwrapM $ onSuccess a) $ st
-
--- | Reparse macro
---
--- We also return the extension of the macro type environment.
-reparseMacro :: Reparse (
-    Macro.Quant (FunValue, Macro.Type Macro.Ty)
-  , C.CheckedMacro HandleMacros
-  )
-reparseMacro typeEnv tokens = do
-    Macro{macroName, macroArgs, macroBody} <- first HandleMacrosErrorReparse $
-      Reparse.reparseWith (Reparse.reparseMacro typeEnv) tokens
-    -- TODO: It's a bit strange that the macro type inference works for
-    -- /all/ classes of macros, rather than just expressions.
-    Vec.reifyList macroArgs $ \args -> do
-      inf <- first HandleMacrosErrorTc $ Macro.tcMacro typeEnv macroName args macroBody
-      case macroBody of
-        ExpressionMacro body ->
-          return (
-               inf
-             , C.MacroExpr C.CheckedMacroExpr{
-                   macroExprArgs = macroArgs
-                 , macroExprBody = body
-                 , macroExprType = dropEval inf
-                 }
-             )
-        TypeMacro typeName ->
-          case Reparse.typeNameType typeName of
-            Right typ ->
-              return (inf, C.MacroType $ C.CheckedMacroType typ NoAnn)
-            Left err ->
-              Left (HandleMacrosErrorUnsupportedType err)
- where
-   dropEval ::
-        Macro.Quant (Macro.FunValue, Macro.Type 'Macro.Ty)
-     -> Macro.Quant (Macro.Type 'Macro.Ty)
-   dropEval = fmap snd
-
-reparseTypedef :: Reparse (C.Type HandleMacros)
-reparseTypedef typeEnv tokens =
-    first HandleMacrosErrorReparse $
-      Reparse.reparseWith (Reparse.reparseTypedef typeEnv) tokens
-
-reparseField :: Reparse (C.Type HandleMacros, C.Name)
-reparseField typeEnv tokens =
-    first HandleMacrosErrorReparse $
-      Reparse.reparseWith (Reparse.reparseFieldDecl typeEnv) tokens
-
-reparseFunctionDecl :: Reparse (
-    ([(ArgumentName HandleMacros, C.Type HandleMacros)], C.Type HandleMacros)
-  , C.Name
-  )
-reparseFunctionDecl typeEnv tokens =
-    first HandleMacrosErrorReparse $
-      Reparse.reparseWith (Reparse.reparseFunDecl typeEnv) tokens
+    case p (stateReparseEnv st) tokens of
+      Right a -> runState (unwrapM $ onSuccess a) st
+      Left  e -> runState (unwrapM $ onFailure  ) st{
+            stateErrors = HandleMacrosErrorReparse e : stateErrors st
+          }

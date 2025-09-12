@@ -466,7 +466,10 @@ TranslationUnit {
         Function {
           functionArgs = [
             _×_
-              Nothing
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "L",
@@ -507,7 +510,10 @@ TranslationUnit {
         Function {
           functionArgs = [
             _×_
-              Nothing
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -550,7 +556,10 @@ TranslationUnit {
         Function {
           functionArgs = [
             _×_
-              Nothing
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -640,10 +649,11 @@ TranslationUnit {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
               (TypeConst
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -696,10 +706,11 @@ TranslationUnit {
               2
               (TypeConstArray
                 3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed))))},
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource)))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

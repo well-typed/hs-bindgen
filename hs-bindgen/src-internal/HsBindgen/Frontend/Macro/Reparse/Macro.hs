@@ -17,8 +17,6 @@ import HsBindgen.Frontend.Macro.Reparse.Literal
 import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Language.C qualified as C
 
-import {-# SOURCE #-} HsBindgen.Frontend.Macro.Reparse.Decl (reparseTypeName)
-
 {-------------------------------------------------------------------------------
   Top-level
 
@@ -45,12 +43,10 @@ reparseMacro macroTys = do
     eof
     return $ Macro macroLoc macroName args res
   where
-    body :: Reparse (MacroBody Ps)
-    body =
-      choice [ TypeMacro <$> try (reparseTypeName macroTys)
-             , ExpressionMacro <$> mExprTuple macroTys
-             ]
-    functionLike, objectLike :: Reparse ([C.Name], MacroBody Ps)
+    body :: Reparse (MExpr Ps)
+    body = mExprTuple macroTys
+
+    functionLike, objectLike :: Reparse ([C.Name], MExpr Ps)
     functionLike = (,) <$> formalArgs <*> body
     objectLike   = ([], ) <$> body
 

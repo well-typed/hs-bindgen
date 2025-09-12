@@ -1846,11 +1846,17 @@
         "bar2",
       foreignImportParameters = [
         FunctionParameter {
-          functionParameterName = Nothing,
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
           functionParameterType = HsTypRef
             (HsName "@NsTypeConstr" "L"),
-          functionParameterComment =
-          Nothing}],
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1872,7 +1878,10 @@
         Function {
           functionArgs = [
             _×_
-              Nothing
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "L",
@@ -1964,11 +1973,17 @@
         "bar3",
       foreignImportParameters = [
         FunctionParameter {
-          functionParameterName = Nothing,
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCLong,
-          functionParameterComment =
-          Nothing}],
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -1991,7 +2006,10 @@
         Function {
           functionArgs = [
             _×_
-              Nothing
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -2085,11 +2103,17 @@
         "bar4",
       foreignImportParameters = [
         FunctionParameter {
-          functionParameterName = Nothing,
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCLong,
-          functionParameterComment =
-          Nothing}],
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeader = Nothing,
+              commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
         (HsIO
@@ -2114,7 +2138,10 @@
         Function {
           functionArgs = [
             _×_
-              Nothing
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -2334,8 +2361,8 @@
         FunctionParameter {
           functionParameterName = Just
             (HsName "@NsVar" "i"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "I"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2358,7 +2385,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (signed int const arg1))[2][3] { return baz2(arg1); }",
+          "signed int (*hs_bindgen_test_macro_in_fundecl_5b4ef76ef034352c (I const arg1))[2][3] { return baz2(arg1); }",
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2370,10 +2397,11 @@
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
               (TypeConst
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))],
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2407,7 +2435,8 @@
         (HsIO
           (HsFunPtr
             (HsFun
-              (HsPrimType HsPrimCInt)
+              (HsTypRef
+                (HsName "@NsTypeConstr" "I"))
               (HsIO
                 (HsPtr
                   (HsConstArray
@@ -2421,15 +2450,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (signed int const arg1))[2][3] { return &baz2; } ",
+          "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_38938fbf1c30da29 (void)) (I const arg1))[2][3] { return &baz2; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
             TypeConst
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "I",
+                  nameHsIdent = HsIdentifier "I"}
+                NameOriginInSource)]
           (TypePointer
             (TypeConstArray
               2
@@ -2477,14 +2509,17 @@
               2
               (HsConstArray
                 3
-                (HsPrimType HsPrimCInt))))),
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "I")))))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int const arg1))[2][3] { return baz3(arg1); }",
+          "I (*hs_bindgen_test_macro_in_fundecl_f47e020b23c5aa4d (signed int const arg1))[2][3] { return baz3(arg1); }",
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2508,10 +2543,11 @@
               2
               (TypeConstArray
                 3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed))))},
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -2540,14 +2576,17 @@
                     2
                     (HsConstArray
                       3
-                      (HsPrimType HsPrimCInt)))))))),
+                      (HsTypRef
+                        (HsName
+                          "@NsTypeConstr"
+                          "I"))))))))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_baz3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
+          "/* get_baz3_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_dc9d10f056d20148 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -2561,10 +2600,11 @@
               2
               (TypeConstArray
                 3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))))),
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource))))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

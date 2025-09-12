@@ -14,13 +14,12 @@ module HsBindgen.Frontend.LanguageC (
   , parseMacroType
     -- * Scoping
   , ReparseEnv
-  , mkReparseEnv
+  , initReparseEnv
   ) where
 
 import Control.Monad.State (State)
 import Control.Monad.State qualified as State
 import Data.Map qualified as Map
-import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Tuple (swap)
 
@@ -38,10 +37,8 @@ import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
 import HsBindgen.Frontend.Naming
 import HsBindgen.Language.C.Prim
-import HsBindgen.Frontend.Pass
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -199,31 +196,13 @@ prependToken token rest = concat [
 
 {-------------------------------------------------------------------------------
   Construct type environment
-
-  TODO: Perhaps we can redefine 'Macro.TypeEnv' so that this translation becomes
-  an identity operation.
 -------------------------------------------------------------------------------}
 
-mkReparseEnv :: forall p.
-     ( CanApply p
-     , TypedefRef p ~ Name
-     )
-  => Macro.TypeEnv -> ReparseEnv p
-mkReparseEnv macroTypeEnv = Map.fromList $ concat [
-      map entryTypedef $
-        Set.toList $ Macro.typeEnvTypedefs macroTypeEnv
-    , map entryMacro $
-        Map.toList $ Macro.typeEnvMacros macroTypeEnv
-    , bespokeTypes
-    ]
-  where
-    entryTypedef :: Name -> (Name, Type p)
-    entryTypedef name = (name,) $
-        TypeTypedef name
-
-    entryMacro :: (Name, typ) -> (Name, Type p)
-    entryMacro (name, _macroType) = (name,) $
-        TypeMacroTypedef $ PrelimDeclIdNamed name
+-- | Initial 'ReparseTypeEnv'
+--
+-- This is not quite empty: it contains some "built in" types.
+initReparseEnv :: ReparseEnv p
+initReparseEnv = Map.fromList bespokeTypes
 
 -- | \"Primitive\" we expect the reparser to recognize
 --
