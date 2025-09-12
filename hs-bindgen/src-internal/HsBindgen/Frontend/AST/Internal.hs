@@ -387,13 +387,6 @@ data Type p =
   Instances
 -------------------------------------------------------------------------------}
 
-class    ( Show (Ann ix p)
-         , Eq   (Ann ix p)
-         ) => ValidAnn (ix :: Symbol) (p :: Pass)
-instance ( Show (Ann ix p)
-         , Eq   (Ann ix p)
-         ) => ValidAnn (ix :: Symbol) (p :: Pass)
-
 -- | Valid pass
 --
 -- A pass is valid if the various type family instances satisfy constraints that
@@ -427,16 +420,27 @@ class ( IsPass p
 
         -- Annotations
 
-      , ValidAnn "CheckedMacroType" p
-      , ValidAnn "Decl"             p
-      , ValidAnn "Enum"             p
-      , ValidAnn "Function"         p
-      , ValidAnn "Struct"           p
-      , ValidAnn "StructField"      p
-      , ValidAnn "TranslationUnit"  p
-      , ValidAnn "Typedef"          p
-      , ValidAnn "Union"            p
-      , ValidAnn "UnionField"       p
+      , Show (Ann "CheckedMacroType" p)
+      , Show (Ann "Decl"             p)
+      , Show (Ann "Enum"             p)
+      , Show (Ann "Function"         p)
+      , Show (Ann "Struct"           p)
+      , Show (Ann "StructField"      p)
+      , Show (Ann "TranslationUnit"  p)
+      , Show (Ann "Typedef"          p)
+      , Show (Ann "Union"            p)
+      , Show (Ann "UnionField"       p)
+
+      , Eq (Ann "CheckedMacroType" p)
+      , Eq (Ann "Decl"             p)
+      , Eq (Ann "Enum"             p)
+      , Eq (Ann "Function"         p)
+      , Eq (Ann "Struct"           p)
+      , Eq (Ann "StructField"      p)
+      , Eq (Ann "TranslationUnit"  p)
+      , Eq (Ann "Typedef"          p)
+      , Eq (Ann "Union"            p)
+      , Eq (Ann "UnionField"       p)
       ) => ValidPass p where
 
 deriving stock instance ValidPass p => Show (CheckedMacro     p)
