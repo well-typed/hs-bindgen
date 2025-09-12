@@ -1,0 +1,23 @@
+name: Haskell-Simple-PR
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: "GHC ${{ matrix.ghc }} / LLVM ${{ matrix.llvm }} / ${{ matrix.runner }}"
+    strategy:
+      matrix:
+        runner: ['ubuntu-latest']
+        ghc:    ['9.4.8']
+        llvm:   ['14']
+    uses: ./.github/workflows/haskell-simple-base.yml
+    with:
+      runner: ${{ matrix.runner }}
+      ghc:    ${{ matrix.ghc }}
+      llvm:   ${{ matrix.llvm }}
