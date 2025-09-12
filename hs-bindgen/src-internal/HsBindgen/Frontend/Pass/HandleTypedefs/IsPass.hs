@@ -79,7 +79,7 @@ data RenamedTypedefRef p =
 data HandleTypedefsMsg =
     HandleTypedefsSquashed (C.DeclInfo HandleTypedefs)
   | HandleTypedefsRenamedTagged (C.DeclInfo HandleTypedefs) C.Name
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace HandleTypedefsMsg where
   prettyForTrace = \case

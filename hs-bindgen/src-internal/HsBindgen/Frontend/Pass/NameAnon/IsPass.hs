@@ -45,7 +45,7 @@ data NameAnonMsg =
     -- anything"); we issue a separate message here in case we skip over
     -- something that we shouldn't.
     NameAnonSkipped (C.DeclInfo Parse)
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace NameAnonMsg where
   prettyForTrace = \case

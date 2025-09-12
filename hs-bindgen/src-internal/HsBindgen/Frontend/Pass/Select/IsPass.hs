@@ -63,7 +63,7 @@ data SelectDeclMeta = SelectDeclMeta {
     , selectDeclDeclUse   :: DeclUseGraph
     , selectDeclNonParsed :: NonParsedDecls
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -98,7 +98,7 @@ data SelectMsg =
   | SelectedButFailed ParseMsg
   -- TODO https://github.com/well-typed/hs-bindgen/issues/1037: Introduce
   -- `SelectedButSkipped`.
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
