@@ -23,7 +23,7 @@ import Text.SimplePrettyPrint qualified as PP
 data ExtraClangArgsMsg =
     ExtraClangArgsNone
   | ExtraClangArgsParsed { envName :: String, envArgs :: [String] }
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace ExtraClangArgsMsg where
   prettyForTrace = \case

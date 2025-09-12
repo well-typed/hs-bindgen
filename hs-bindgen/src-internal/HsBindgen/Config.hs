@@ -92,5 +92,5 @@ checkBackendConfig tracer backendConfig =
     uniqueId = translationUniqueId $ backendTranslationOpts backendConfig
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

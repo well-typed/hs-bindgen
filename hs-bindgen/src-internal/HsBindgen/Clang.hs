@@ -133,7 +133,7 @@ data ClangMsg =
     ClangErrorCode (SimpleEnum CXErrorCode)
   | ClangDiagnostic Diagnostic
   | ClangSetupMsg ClangSetup
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace ClangMsg where
   prettyForTrace = \case

@@ -57,7 +57,6 @@ data DeclMeta p = DeclMeta {
     }
 
 deriving instance ValidPass p => Show (DeclMeta p)
-deriving instance ValidPass p => Eq (DeclMeta p)
 
 coerceDeclMeta :: forall p p'. (Id p ~ Id p', Ord (ParseMsgKey p'))
   => DeclMeta p -> DeclMeta p'
@@ -71,5 +70,5 @@ coerceDeclMeta declMeta = declMeta {
 
 data SortMsg =
     SortErrorDeclIndex DeclIndexError
-  deriving stock    (Show, Eq, Generic)
+  deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

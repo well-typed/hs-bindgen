@@ -67,7 +67,7 @@ data ResolveBindingSpecMsg =
   | ResolveBindingSpecExtHsRefNoIdentifier C.QualName
   | ResolveBindingSpecOmittedTypeUse       C.QualName
   | ResolveBindingSpecTypeNotUsed          C.QualName
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecMsg where
   prettyForTrace = \case

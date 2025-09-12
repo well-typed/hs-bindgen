@@ -66,7 +66,7 @@ data TraceMsg =
   | TraceFrontend      FrontendMsg
   | TraceBuiltinIncDir BuiltinIncDirMsg
   | TraceResolveHeader ResolveHeaderMsg
-  deriving stock    (Show, Eq, Generic)
+  deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
 
 {-------------------------------------------------------------------------------

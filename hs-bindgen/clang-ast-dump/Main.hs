@@ -66,7 +66,7 @@ instance Exception AstDumpException where
 data DumpTrace =
     DumpTraceResolveHeader ResolveHeaderMsg
   | DumpTraceClang         ClangMsg
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
 
 clangAstDump :: Options -> IO ()

@@ -72,7 +72,7 @@ data BuiltinIncDirMsg =
   | BuiltinIncDirClangVersionIOError IOError
   | BuiltinIncDirClangPrintResourceDirUnexpected String
   | BuiltinIncDirClangPrintResourceDirIOError IOError
-  deriving stock (Eq, Show)
+  deriving stock (Show)
 
 instance PrettyForTrace BuiltinIncDirMsg where
   prettyForTrace = \case

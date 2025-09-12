@@ -236,7 +236,7 @@ data BindingSpecReadMsg =
     BindingSpecReadConflict FilePath C.QualName HashIncludeArg
   | -- | @#include@ argument message
     BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
-  deriving stock (Eq, Show)
+  deriving stock (Show)
 
 instance IsTrace Level BindingSpecReadMsg where
   getDefaultLogLevel = \case
@@ -271,7 +271,7 @@ data BindingSpecResolveMsg =
     BindingSpecResolveExternalHeader ResolveHeaderMsg
   | BindingSpecResolvePrescriptiveHeader ResolveHeaderMsg
   | BindingSpecResolveTypeDropped C.QualName
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance IsTrace Level BindingSpecResolveMsg where
   getDefaultLogLevel = \case
@@ -336,7 +336,7 @@ data BindingSpecMsg =
     BindingSpecReadMsg    BindingSpecReadMsg
   | BindingSpecResolveMsg BindingSpecResolveMsg
   | BindingSpecMergeMsg   BindingSpecMergeMsg
-  deriving stock    (Eq, Show, Generic)
+  deriving stock    (Show, Generic)
   deriving anyclass (IsTrace Level, PrettyForTrace)
 
 {-------------------------------------------------------------------------------

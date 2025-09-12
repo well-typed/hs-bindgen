@@ -143,7 +143,7 @@ hashIncludeArgWithTrace tracer fp = do
 data HashIncludeArgMsg =
     HashIncludeArgBackslash   FilePath
   | HashIncludeArgNotRelative FilePath
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show)
 
 instance PrettyForTrace HashIncludeArgMsg where
   prettyForTrace = \case

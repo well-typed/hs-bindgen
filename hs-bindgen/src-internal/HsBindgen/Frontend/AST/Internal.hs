@@ -387,13 +387,6 @@ data Type p =
   Instances
 -------------------------------------------------------------------------------}
 
-class    ( Show (Ann ix p)
-         , Eq   (Ann ix p)
-         ) => ValidAnn (ix :: Symbol) (p :: Pass)
-instance ( Show (Ann ix p)
-         , Eq   (Ann ix p)
-         ) => ValidAnn (ix :: Symbol) (p :: Pass)
-
 -- | Valid pass
 --
 -- A pass is valid if the various type family instances satisfy constraints that
@@ -403,40 +396,51 @@ instance ( Show (Ann ix p)
 -- the moment we declare a pass to be 'ValidPass', rather than at use sites.
 class ( IsPass p
 
-        -- Identifiers
-        --
-        -- We often store identifiers in maps etc., so we insist on 'Ord'
+        -- 'Show' constraints for debugging
 
-      , Show (Id p)
-      , Show (FieldName p)
+      , Show (ArgumentName p)
+      , Show (ExtBinding   p)
+      , Show (FieldName    p)
+      , Show (Id           p)
+      , Show (MacroBody    p)
+      , Show (TypedefRef   p)
 
-      , Ord (Id p)
+      , Show (Ann "CheckedMacroType" p)
+      , Show (Ann "Decl"             p)
+      , Show (Ann "Enum"             p)
+      , Show (Ann "Function"         p)
+      , Show (Ann "Struct"           p)
+      , Show (Ann "StructField"      p)
+      , Show (Ann "TranslationUnit"  p)
+      , Show (Ann "Typedef"          p)
+      , Show (Ann "Union"            p)
+      , Show (Ann "UnionField"       p)
+
+        -- 'Ord' constraints for identifiers (which we often store in maps)
+
+      , Ord (Id        p)
       , Ord (FieldName p)
 
-        -- Other constructs
+        -- 'Eq'
+        --
+        -- We use equality on 'DeclKind' during construction of the 'DeclIndex'
+        -- (it's OK to repeat a declaration in a header, as long as they are
+        -- identical). All other 'Eq' constraints we provide are in order to
+        -- support this equality.
 
-      , Show (ExtBinding p)
-      , Show (MacroBody  p)
-      , Show (TypedefRef p)
-      , Show (ArgumentName p)
-
-      , Eq (ExtBinding p)
-      , Eq (MacroBody  p)
-      , Eq (TypedefRef p)
       , Eq (ArgumentName p)
+      , Eq (ExtBinding   p)
+      , Eq (MacroBody    p)
+      , Eq (TypedefRef   p)
 
-        -- Annotations
-
-      , ValidAnn "CheckedMacroType" p
-      , ValidAnn "Decl"             p
-      , ValidAnn "Enum"             p
-      , ValidAnn "Function"         p
-      , ValidAnn "Struct"           p
-      , ValidAnn "StructField"      p
-      , ValidAnn "TranslationUnit"  p
-      , ValidAnn "Typedef"          p
-      , ValidAnn "Union"            p
-      , ValidAnn "UnionField"       p
+      , Eq (Ann "CheckedMacroType" p)
+      , Eq (Ann "Enum"             p)
+      , Eq (Ann "Function"         p)
+      , Eq (Ann "Struct"           p)
+      , Eq (Ann "StructField"      p)
+      , Eq (Ann "Typedef"          p)
+      , Eq (Ann "Union"            p)
+      , Eq (Ann "UnionField"       p)
       ) => ValidPass p where
 
 deriving stock instance ValidPass p => Show (CheckedMacro     p)
@@ -460,22 +464,19 @@ deriving stock instance ValidPass p => Show (Reference        p)
 
 deriving stock instance ValidPass p => Eq (CheckedMacro     p)
 deriving stock instance ValidPass p => Eq (CheckedMacroType p)
-deriving stock instance ValidPass p => Eq (Decl             p)
-deriving stock instance ValidPass p => Eq (DeclInfo         p)
-deriving stock instance ValidPass p => Eq (FieldInfo        p)
+deriving stock instance ValidPass p => Eq (Comment          p)
 deriving stock instance ValidPass p => Eq (DeclKind         p)
 deriving stock instance ValidPass p => Eq (Enum             p)
 deriving stock instance ValidPass p => Eq (EnumConstant     p)
+deriving stock instance ValidPass p => Eq (FieldInfo        p)
 deriving stock instance ValidPass p => Eq (Function         p)
+deriving stock instance ValidPass p => Eq (Reference        p)
 deriving stock instance ValidPass p => Eq (Struct           p)
 deriving stock instance ValidPass p => Eq (StructField      p)
-deriving stock instance ValidPass p => Eq (TranslationUnit  p)
 deriving stock instance ValidPass p => Eq (Type             p)
 deriving stock instance ValidPass p => Eq (Typedef          p)
 deriving stock instance ValidPass p => Eq (Union            p)
 deriving stock instance ValidPass p => Eq (UnionField       p)
-deriving stock instance ValidPass p => Eq (Comment          p)
-deriving stock instance ValidPass p => Eq (Reference        p)
 
 {-------------------------------------------------------------------------------
   Pretty-printing
