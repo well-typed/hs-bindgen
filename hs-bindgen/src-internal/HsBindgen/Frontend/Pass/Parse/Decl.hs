@@ -249,7 +249,7 @@ unionDecl info = simpleFold $ \curr -> do
         -- Local declarations inside unions that are not used by any fields
         -- result in implicit fields. Unfortunately, @libclang@ does not make
         -- these visible <https://github.com/llvm/llvm-project/issues/122257>.
-        -- This matters, because we need the offsets of these implicit fields.
+        -- We could in principle support it but currently we don't. See #682.
         -- For now we only try to detect the situation and report an error when
         -- it happens. Hopefully this is anyway very rare.
         let partitionChildren ::
