@@ -19,8 +19,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
-import HsBindgen.Frontend.Macro.AST.Syntax qualified as C
-import HsBindgen.Frontend.Macro.Tc qualified as Macro hiding (IntegralType)
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -310,13 +309,6 @@ tyConGlobal = \case
           Macro.FloatLikeTyCon ->
             panicPure "tyConGlobal FloatLikeTyCon"
 
-          -- These two TyCons are only used for macros that do not define
-          -- functions; they dont't occur in the code path that deals
-          -- with type inference of macro functions.
-          Macro.PrimTyTyCon ->
-            panicPure "tyConGlobal PrimTyTyCon"
-          Macro.EmptyTyCon ->
-            panicPure "tyConGlobal EmptyTyCon"
       Macro.ClassTyCon cls -> TGlobal $
         case cls of
           Macro.NotTyCon        -> Not_class
@@ -346,31 +338,31 @@ tyConGlobal = \case
       Macro.BitsResTyCon       -> Bitwise_resTyCon
       Macro.ShiftResTyCon      -> Shift_resTyCon
 
-mfunGlobal :: C.MFun arity -> Global
+mfunGlobal :: Macro.MFun arity -> Global
 mfunGlobal = \case
-  C.MUnaryPlus  -> Plus_plus
-  C.MUnaryMinus -> Minus_negate
-  C.MLogicalNot -> Not_not
-  C.MBitwiseNot -> Complement_complement
-  C.MMult       -> Mult_mult
-  C.MDiv        -> Div_div
-  C.MRem        -> Rem_rem
-  C.MAdd        -> Add_add
-  C.MSub        -> Sub_minus
-  C.MShiftLeft  -> Shift_shiftL
-  C.MShiftRight -> Shift_shiftR
-  C.MRelLT      -> RelOrd_lt
-  C.MRelLE      -> RelOrd_le
-  C.MRelGT      -> RelOrd_gt
-  C.MRelGE      -> RelOrd_ge
-  C.MRelEQ      -> RelEq_eq
-  C.MRelNE      -> RelEq_uneq
-  C.MBitwiseAnd -> Bitwise_and
-  C.MBitwiseXor -> Bitwise_xor
-  C.MBitwiseOr  -> Bitwise_or
-  C.MLogicalAnd -> Logical_and
-  C.MLogicalOr  -> Logical_or
-  C.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
+  Macro.MUnaryPlus  -> Plus_plus
+  Macro.MUnaryMinus -> Minus_negate
+  Macro.MLogicalNot -> Not_not
+  Macro.MBitwiseNot -> Complement_complement
+  Macro.MMult       -> Mult_mult
+  Macro.MDiv        -> Div_div
+  Macro.MRem        -> Rem_rem
+  Macro.MAdd        -> Add_add
+  Macro.MSub        -> Sub_minus
+  Macro.MShiftLeft  -> Shift_shiftL
+  Macro.MShiftRight -> Shift_shiftR
+  Macro.MRelLT      -> RelOrd_lt
+  Macro.MRelLE      -> RelOrd_le
+  Macro.MRelGT      -> RelOrd_gt
+  Macro.MRelGE      -> RelOrd_ge
+  Macro.MRelEQ      -> RelEq_eq
+  Macro.MRelNE      -> RelEq_uneq
+  Macro.MBitwiseAnd -> Bitwise_and
+  Macro.MBitwiseXor -> Bitwise_xor
+  Macro.MBitwiseOr  -> Bitwise_or
+  Macro.MLogicalAnd -> Logical_and
+  Macro.MLogicalOr  -> Logical_or
+  Macro.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
 
 {-------------------------------------------------------------------------------
  VarDeclRHS

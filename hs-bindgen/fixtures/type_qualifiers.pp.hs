@@ -9,7 +9,6 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
-import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
 $(CAPI.addCSource "#include <type_qualifiers.h>\n/* get_a_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_type_qualifiers_be05c6870fad4f33 (void) { return &a; } \n/* get_b_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_type_qualifiers_401ecb7e80957164 (void) { return &b; } \n/* get_c_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_type_qualifiers_0b370289c6c19db4 (void) { return &c; } \n/* get_d_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_type_qualifiers_cc41ed0d2b848565 (void) { return &d; } \n_Bool hs_bindgen_test_type_qualifiers_9d6d039971edcd60 (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }\n/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_type_qualifiers_c40a51053a97fb29 (void)) (char const **arg1, size_t arg2) { return &list_example; } \n")
@@ -99,7 +98,7 @@ foreign import ccall safe "hs_bindgen_test_type_qualifiers_9d6d039971edcd60" lis
   :: Ptr.Ptr (Ptr.Ptr FC.CChar)
      {- ^ __C declaration:__ @items@
      -}
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> FC.CSize
      {- ^ __C declaration:__ @count@
      -}
   -> IO FC.CBool
@@ -111,10 +110,10 @@ foreign import ccall safe "hs_bindgen_test_type_qualifiers_9d6d039971edcd60" lis
     __exported by:__ @type_qualifiers.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_c40a51053a97fb29" hs_bindgen_test_type_qualifiers_c40a51053a97fb29
-  :: IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
+  :: IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example_ptr #-}
 
-list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
+list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool)
 list_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_c40a51053a97fb29

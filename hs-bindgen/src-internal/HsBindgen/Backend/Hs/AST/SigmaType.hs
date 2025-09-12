@@ -12,7 +12,7 @@ module HsBindgen.Backend.Hs.AST.SigmaType (
 
 import DeBruijn (Ctx, Idx (..))
 
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Util.TestEquality

@@ -1,9 +1,9 @@
-module HsBindgen.Frontend.Macro.Reparse.Literal (
+module HsBindgen.Frontend.Macro.Parse.Literal (
     IntSuffix(..)
-  , reparseLiteralInteger
-  , reparseLiteralFloating
-  , reparseLiteralChar
-  , reparseLiteralString
+  , parseLiteralInteger
+  , parseLiteralFloating
+  , parseLiteralChar
+  , parseLiteralString
   ) where
 
 import Control.Monad (replicateM)
@@ -16,10 +16,9 @@ import Text.Parsec.Pos (updatePosChar)
 import C.Char qualified
 import C.Type qualified
 
-import HsBindgen.Frontend.Macro.Reparse.Infra
+import HsBindgen.Frontend.Macro.Parse.Infra
 import HsBindgen.Imports
 import HsBindgen.Util.Parsec
-
 
 {-------------------------------------------------------------------------------
   Parser for integer literals
@@ -42,8 +41,8 @@ intSuffix = choice [
     , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
-reparseLiteralInteger :: TokenParser (Integer, C.Type.IntLikeType)
-reparseLiteralInteger = do
+parseLiteralInteger :: TokenParser (Integer, C.Type.IntLikeType)
+parseLiteralInteger = do
     (b, ds, suffixes) <- aux
 
     let val = readInBase b ds
@@ -86,8 +85,8 @@ readInBase b ds =
   Reference: <https://en.cppreference.com/w/cpp/language/floating_literal>
 -------------------------------------------------------------------------------}
 
-reparseLiteralFloating :: TokenParser (Float, Double, C.Type.FloatingType)
-reparseLiteralFloating = do
+parseLiteralFloating :: TokenParser (Float, Double, C.Type.FloatingType)
+parseLiteralFloating = do
 
   b     <- option BaseDec (BaseHex <$ caseInsensitive' "0x")
   as    <- many (digitInBase True b)
@@ -229,8 +228,8 @@ digitChar Separator = Nothing
 -- | Re-parse a character literal.
 --
 -- Note that, in C, character literals have type @int@, **not** @char@!
-reparseLiteralChar :: TokenParser C.Char.CharValue
-reparseLiteralChar = do
+parseLiteralChar :: TokenParser C.Char.CharValue
+parseLiteralChar = do
   let forbidden = [ '\'' ]
   prefix <- parseCharPrefix
   void $ char '\''
@@ -390,8 +389,8 @@ universalEscapedChar = do
 -------------------------------------------------------------------------------}
 
 -- | Re-parse a string literal.
-reparseLiteralString :: TokenParser [C.Char.CharValue]
-reparseLiteralString = do
+parseLiteralString :: TokenParser [C.Char.CharValue]
+parseLiteralString = do
   let forbidden = [ '\"' ]
   prefix <- parseCharPrefix
   void $ char '\"'

@@ -128,15 +128,18 @@ library internal
       HsBindgen.Frontend.AST.Finalize
       HsBindgen.Frontend.AST.Internal
       HsBindgen.Frontend.AST.PrettyPrinter
-      HsBindgen.Frontend.Macro.AST.C
-      HsBindgen.Frontend.Macro.AST.Syntax
-      HsBindgen.Frontend.Macro.Reparse
-      HsBindgen.Frontend.Macro.Reparse.Common
-      HsBindgen.Frontend.Macro.Reparse.Decl
-      HsBindgen.Frontend.Macro.Reparse.Infra
-      HsBindgen.Frontend.Macro.Reparse.Literal
-      HsBindgen.Frontend.Macro.Reparse.Macro
-      HsBindgen.Frontend.Macro.Reparse.Type
+      HsBindgen.Frontend.LanguageC
+      HsBindgen.Frontend.LanguageC.Monad
+      HsBindgen.Frontend.LanguageC.PartialAST
+      HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
+      HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
+      HsBindgen.Frontend.Macro
+      HsBindgen.Frontend.Macro.Parse.Expr
+      HsBindgen.Frontend.Macro.Parse.Infra
+      HsBindgen.Frontend.Macro.Parse.Literal
+      HsBindgen.Frontend.Macro.Parse.Name
+      HsBindgen.Frontend.Macro.Pass
+      HsBindgen.Frontend.Macro.Syntax
       HsBindgen.Frontend.Macro.Tc
       HsBindgen.Frontend.Macro.Tc.Type
       HsBindgen.Frontend.Naming
@@ -206,7 +209,9 @@ library internal
     , filepath           >= 1.4        && < 1.6
     , fin                >= 0.3.2      && < 0.4
     , generics-sop       >= 0.5.1.4    && < 0.6
+    , language-c         >= 0.10       && < 0.11
     , mtl                >= 2.2        && < 2.4
+    , optics-core        >= 0.4        && < 0.5
     , parsec             >= 3.1        && < 3.2
     , pretty             >= 1.1.3.6    && < 1.2
     , process            >= 1.6        && < 1.7
@@ -366,7 +371,6 @@ test-suite test-hs-bindgen
       Test.HsBindgen.Resources.Rust
       Test.HsBindgen.Unit.ClangArgs
       Test.HsBindgen.Unit.Tracer
-
   build-depends:
       -- Internal dependencies
     , containers

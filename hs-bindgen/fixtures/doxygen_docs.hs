@@ -2821,7 +2821,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char *arg1) { return process_file(arg1); }",
+          "_Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char const *arg1) { return process_file(arg1); }",
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -2834,9 +2834,10 @@
                   nameHsIdent = HsIdentifier
                     "filename"})
               (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))],
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2911,16 +2912,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char *arg1) { return &process_file; } ",
+          "/* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char const *arg1) { return &process_file; } ",
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
             TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing)))]
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))]
           (TypePrim PrimBool)),
       foreignImportComment = Just
         Comment {
@@ -3397,117 +3399,7 @@
           functionParameterName = Just
             (HsName "@NsVar" "count"),
           functionParameterType =
-          HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
-            TypeSpec {
-              typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
-              typeSpecInstances = Map.fromList
-                [
-                  _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bounded
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Read
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    FiniteBits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Integral
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Num
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Real
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Storable
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = [
-                          ]})]},
+          HsPrimType HsPrimCSize,
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3551,130 +3443,14 @@
                   (TypeConst
                     (TypePrim
                       (PrimChar
-                        (PrimSignImplicit
-                          (Just Signed))))))),
+                        (PrimSignImplicit Nothing)))))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "count",
                   nameHsIdent = HsIdentifier
                     "count"})
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "size_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}})],
+              (TypePrim PrimSize)],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3814,117 +3590,7 @@
                 (HsPtr
                   (HsPrimType HsPrimCChar)))
               (HsFun
-                (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"}
-                  TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]})
+                (HsPrimType HsPrimCSize)
                 (HsIO
                   (HsPrimType HsPrimCBool)))))),
       foreignImportOrigName =
@@ -3944,124 +3610,8 @@
                 (TypeConst
                   (TypePrim
                     (PrimChar
-                      (PrimSignImplicit
-                        (Just Signed)))))),
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}]
+                      (PrimSignImplicit Nothing))))),
+            TypePrim PrimSize]
           (TypePrim PrimBool)),
       foreignImportComment = Just
         Comment {

@@ -88,16 +88,16 @@ module HsBindgen.Lib (
   , Common.HandleMacrosMsg(..)
   , Common.HandleTypedefsMsg(..)
   , Common.HashIncludeArgMsg(..)
+  , Common.MacroParseError(..)
+  , Common.MacroTcError(..)
   , Common.MangleNamesMsg(..)
   , Common.NameAnonMsg(..)
   , Common.ParseMsg(..)
   , Common.ParseTypeException(..)
-  , Common.ReparseError(..)
   , Common.ResolveBindingSpecMsg(..)
   , Common.ResolveHeaderMsg(..)
   , Common.SelectMsg(..)
   , Common.SortMsg(..)
-  , Common.TcMacroError(..)
     -- ** Tracer definition and main API
   , Common.Tracer -- opaque
   , Common.traceWith

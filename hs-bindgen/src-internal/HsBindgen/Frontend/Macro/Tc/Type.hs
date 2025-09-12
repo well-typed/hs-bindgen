@@ -3,16 +3,15 @@
 -- | Macro types: the types that we infer for macros.
 module HsBindgen.Frontend.Macro.Tc.Type (
     -- * Names
-    Name
+    VarName
   , FunName
     -- * Annotations
   , XVar(..)
   , XApp(..)
     -- * Pass
-  , Pass(Ps, Tc)
+  , Tc
     -- * Type inference
-  , TypeEnv(..)
-  , MacroTypes
+  , TypeEnv
   , VarEnv
     -- ** Type system
   , Type(..)
@@ -60,8 +59,6 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   , pattern IntLike
   , pattern FloatLike
   , pattern String
-  , pattern PrimTy
-  , pattern Empty
   , pattern Ptr
   , pattern Tuple
   , pattern PlusRes
@@ -79,7 +76,6 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   , pattern CharTy
   , pattern CharLitTy
     -- ** Query
-  , isPrimTy
   , tyVarName
   , tyVarNames
   , tyVarUnique
@@ -104,8 +100,7 @@ import Foreign.Ptr qualified as Foreign
 import GHC.Show (showSpace)
 
 -- fin
-import Data.Type.Nat qualified as Nat (SNat (..), SNatI, eqNat, reflectToNum,
-                                       snat)
+import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum,)
 
 -- some
 import Data.GADT.Compare (GEq (..), defaultEq)
@@ -121,7 +116,8 @@ import C.Type qualified
 
 -- hs-bindgen
 
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Macro.Pass
+import HsBindgen.Frontend.Naming (Name(..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality (equals2)
@@ -130,7 +126,7 @@ import HsBindgen.Util.TestEquality (equals2)
   Type system for macros
 -------------------------------------------------------------------------------}
 
-type Name = Text
+type VarName = Text
 newtype Unique = Unique { uniqueInt :: Int }
   deriving newtype ( Enum, Eq, Show )
   deriving stock Generic
@@ -248,7 +244,7 @@ mkQuantTyBody :: Quant body -> QuantTyBody body
 mkQuantTyBody ( Quant @nbBinders body ) =
   body $ fmap ( uncurry mkSkol ) $ tyVarNames @nbBinders
   where
-    mkSkol :: Int -> Name -> Type Ty
+    mkSkol :: Int -> VarName -> Type Ty
     mkSkol i tv = TyVarTy $ SkolemTv $ SkolemTyVar tv ( Unique i )
 
 data TyVar
@@ -256,7 +252,7 @@ data TyVar
   | MetaTv   {-# UNPACK #-} !MetaTyVar
   deriving stock Generic
 
-tyVarName :: TyVar -> Name
+tyVarName :: TyVar -> VarName
 tyVarName = \case
   SkolemTv sk  -> skolemTyVarName sk
   MetaTv   tau -> metaTyVarName tau
@@ -278,7 +274,7 @@ instance Show TyVar where
 
 data SkolemTyVar
   = SkolemTyVar
-    { skolemTyVarName   :: !Name
+    { skolemTyVarName   :: !VarName
     , skolemTyVarUnique :: !Unique
     }
   deriving stock Generic
@@ -289,7 +285,7 @@ instance Show MetaTyVar where
 
 data MetaTyVar
   = MetaTyVar
-    { metaTyVarName   :: !Name
+    { metaTyVarName   :: !VarName
     , metaTyVarUnique :: !Unique
     , metaOrigin      :: !MetaOrigin
     }
@@ -329,11 +325,6 @@ data DataTyCon nbArgs where
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
   -- | Family of nullary type constructors for arguments to 'FloatLikeTyCon'.
   PrimFloatInfoTyCon :: !C.Type.FloatingType -> DataTyCon Z
-
-  -- | Type constructor for the type of a 'PrimType' value.
-  PrimTyTyCon    :: DataTyCon Z
-  -- | Type constructor for the type of an empty macro.
-  EmptyTyCon     :: DataTyCon Z
 
 data IntegralType
   = CIntegralType !C.Type.IntegralType
@@ -423,8 +414,6 @@ instance Show ( DataTyCon n ) where
     FloatLikeTyCon            -> showString "FloatLike"
     PrimIntInfoTyCon   inty   -> showsPrec p inty
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
-    PrimTyTyCon               -> showString "PrimTy"
-    EmptyTyCon                -> showString "Empty"
     TupleTyCon i              -> showString $ "Tuple" ++ show i
 instance Show ( FamilyTyCon n ) where
   show = \case
@@ -456,42 +445,23 @@ instance Show ( ClassTyCon n ) where
     BitwiseTyCon    -> "Bitwise"
     ShiftTyCon      -> "Shift"
 
-isPrimTy :: forall n. Nat.SNatI n => ( Vec n ( Type Ty ) -> QuantTyBody ( Type Ty ) ) -> Bool
-isPrimTy bf = case Nat.snat @n of
-    Nat.SZ -> isPrimTy' (bf VNil)
-    Nat.SS -> False
-
-isPrimTy' :: QuantTyBody ( Type Ty ) -> Bool
-isPrimTy' (QuantTyBody [] PrimTy) = True
-isPrimTy' _                       = False
-
 {-------------------------------------------------------------------------------
   Type environment
 -------------------------------------------------------------------------------}
 
-data TypeEnv =
-   TypeEnv
-     { typeEnvMacros   :: MacroTypes
-     , typeEnvTypedefs :: Set C.Name
-     }
-  deriving stock Show
+type TypeEnv = Map Name ( Quant ( FunValue, Type Ty ) )
+type VarEnv  = Map Name ( Type Ty )
 
-type MacroTypes = Map C.Name ( Quant ( FunValue, Type Ty ) )
-type VarEnv     = Map C.Name ( Type Ty )
+{-------------------------------------------------------------------------------
+  Pass definition
+-------------------------------------------------------------------------------}
 
-data Pass = Ps | Tc
+type Tc :: Pass
+data Tc a
 
-type XApp :: Pass -> Hs.Type
-data family XApp p
-data instance XApp Ps = NoXApp
-  deriving stock ( Eq, Ord, Show, Generic )
 newtype instance XApp Tc = XAppTc FunValue
   deriving stock ( Eq, Show, Generic )
 
-type XVar :: Pass -> Hs.Type
-data family XVar p
-data instance XVar Ps = NoXVar
-  deriving stock ( Eq, Ord, Show, Generic )
 data instance XVar Tc = XVarTc FunValue
   deriving stock ( Eq, Show, Generic )
 
@@ -573,9 +543,9 @@ pprCtOrigin = \case
 -- | Why did we create a new metavariable?
 data MetaOrigin
   = ExpectedFunTyResTy !FunName
-  | ExpectedVarTy !C.Name
+  | ExpectedVarTy !Name
   | Inst { instOrigin :: !InstOrigin, instPos :: !Int }
-  | FunArg !C.Name !( C.Name, Int )
+  | FunArg !Name !( Name, Int )
   | IntLitMeta !C.IntegerLiteral
   | FloatLitMeta !C.FloatingLiteral
   deriving stock ( Generic, Show )
@@ -589,11 +559,11 @@ pprMetaOrigin :: MetaOrigin -> Text
 pprMetaOrigin = \case
   ExpectedFunTyResTy funNm ->
     "the result type of '" <> Text.pack ( show funNm ) <> "'"
-  ExpectedVarTy ( C.Name varNm ) ->
+  ExpectedVarTy ( Name varNm ) ->
     "the type of the identifier '" <> varNm <> "'"
   Inst funNm i ->
     "the " <> speakNth i <> " type argument in the instantiation of '" <> Text.pack ( show funNm ) <> "'"
-  FunArg ( C.Name funNm ) ( _argNm, i ) ->
+  FunArg ( Name funNm ) ( _argNm, i ) ->
     "the type of the " <> speakNth i <> " argument of '" <> funNm <> "'"
   IntLitMeta i ->
     "the type of the integer literal '" <> Text.pack ( show i ) <> "'"
@@ -686,10 +656,6 @@ pattern FloatLike :: Type Ty -> Type Ty
 pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
 pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
-pattern PrimTy :: Type Ty
-pattern PrimTy = Data PrimTyTyCon VNil
-pattern Empty :: Type Ty
-pattern Empty = Data EmptyTyCon VNil
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 

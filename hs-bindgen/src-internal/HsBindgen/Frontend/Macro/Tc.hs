@@ -8,11 +8,10 @@ module HsBindgen.Frontend.Macro.Tc
   (
     -- * Typechecking macros
     tcMacro
-  , TcMacroError(..)
+  , MacroTcError(..)
   , pprTcMacroError
 
-  , TypeEnv(..)
-  , MacroTypes
+  , TypeEnv
 
     -- ** Macro type-system
   , Type(..), Kind(..)
@@ -21,7 +20,6 @@ module HsBindgen.Frontend.Macro.Tc
   , IntegralType(..)
   , Quant(..), QuantTyBody(..)
   , tyVarName, tyVarNames, mkQuantTyBody
-  , isPrimTy
 
     -- ** Macro typechecking errors
   , TcError(..), CtOrigin(..), MetaOrigin(..), CouldNotUnifyReason(..)
@@ -101,9 +99,10 @@ import C.Expr.HostPlatform qualified as C.Expr
 
 -- hs-bindgen
 import HsBindgen.Errors
-import HsBindgen.Frontend.Macro.AST.Syntax
+import HsBindgen.Frontend.Macro.Pass
+import HsBindgen.Frontend.Macro.Syntax
 import HsBindgen.Frontend.Macro.Tc.Type
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming (Name(..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality ( equals2 )
@@ -275,16 +274,16 @@ isAtomicType = \case
   Constraints & errors
 -------------------------------------------------------------------------------}
 
-data Fun = forall arity. Fun ( Either C.Name ( MFun arity ) )
+data Fun = forall arity. Fun ( Either Name ( MFun arity ) )
 funName :: Fun -> FunName
 funName ( Fun f ) =
   case f of
-    Left n -> C.getName n
+    Left n -> getName n
     Right mf -> Text.pack ( show mf )
 
 data TcError
   = UnificationError !UnificationError
-  | UnboundVariable  !C.Name
+  | UnboundVariable  !Name
   deriving stock Show
 
 data UnificationError
@@ -295,7 +294,7 @@ pprTcError :: TcError -> Text
 pprTcError = \case
   UnificationError err ->
     pprUnificationError err
-  UnboundVariable ( C.Name nm ) ->
+  UnboundVariable ( Name nm ) ->
     "Unbound variable: '" <> nm <> "'"
 
 pprUnificationError :: UnificationError -> Text
@@ -395,15 +394,15 @@ getPlatform =
   TcPureM \ ( TcEnv ( TcGblEnv { tcPlatform = plat } ) _ ) ->
     pure plat
 
-lookupTyEnv :: C.Name -> TcPureM ( Maybe ( Quant ( FunValue, Type Ty ) ) )
+lookupTyEnv :: Name -> TcPureM ( Maybe ( Quant ( FunValue, Type Ty ) ) )
 lookupTyEnv varNm = TcPureM \ ( TcEnv ( TcGblEnv { tcTypeEnv } ) _ ) ->
-  return $ Map.lookup varNm $ typeEnvMacros tcTypeEnv
+  return $ Map.lookup varNm tcTypeEnv
 
-lookupVar :: C.Name -> TcPureM ( Maybe ( Type Ty ) )
+lookupVar :: Name -> TcPureM ( Maybe ( Type Ty ) )
 lookupVar varNm = TcPureM \ ( TcEnv _ lcl ) ->
   return $ Map.lookup varNm ( tcVarEnv lcl )
 
-declareLocalVars :: Map C.Name ( Type Ty ) -> TcPureM a -> TcPureM a
+declareLocalVars :: Map Name ( Type Ty ) -> TcPureM a -> TcPureM a
 declareLocalVars vs ( TcPureM f ) = TcPureM \ ( TcEnv gbl lcl ) ->
   f ( TcEnv gbl ( lcl { tcVarEnv = tcVarEnv lcl <> vs } ) )
 
@@ -434,7 +433,7 @@ newUnique = lift $ do
   return u'
 {-# INLINEABLE newUnique #-}
 
-newMetaTyVarTy :: MetaOrigin -> Name -> TcGenM ( Type Ty )
+newMetaTyVarTy :: MetaOrigin -> VarName -> TcGenM ( Type Ty )
 newMetaTyVarTy metaOrigin metaTyVarName = do
   metaTyVarUnique <- newUnique
   return $
@@ -736,8 +735,6 @@ fromMacroType = \case
 
           PrimIntInfoTyCon {} -> panicPure "fromMacroType: 'PrimIntInfoTyCon'"
           PrimFloatInfoTyCon {} -> panicPure "fromMacroType: 'PrimFloatInfoTyCon'"
-          PrimTyTyCon -> panicPure "fromMacroType: 'PrimTyTyCon'"
-          EmptyTyCon  -> panicPure "fromMacroType: 'EmptyTyCon'"
 
 applySubstNormalise :: C.Type.Platform -> Subst tv -> Type ki -> Type ki
 applySubstNormalise plat subst = normaliseType plat . applySubst subst
@@ -765,8 +762,8 @@ instantiate ctOrig instOrig body = do
 -------------------------------------------------------------------------------}
 
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: C.Name -> Vec nbArgs C.Name -> MacroBody Ps
-         -> TcUniqueM ( ( ( MacroBody Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
+inferTop :: Name -> Vec nbArgs Name -> MExpr Ps
+         -> TcUniqueM ( ( ( MExpr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
 inferTop funNm args body = do
   plat <- lift getPlatform
   ( ( ( tcBody, ( argTys, bodyTy ) ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
@@ -781,13 +778,6 @@ inferTop funNm args body = do
     , "final subst: " ++ show subst
     ]
   return ( ( ( tcBody, ( argTys', bodyTy' ) ), cts' ), mbErrs )
-
-inferBody :: MacroBody Ps -> TcGenM ( Type Ty, MacroBody Tc )
-inferBody = \case
-  EmptyMacro -> return ( Empty, EmptyMacro )
-  AttributeMacro attrs -> return ( Empty, AttributeMacro attrs )
-  ExpressionMacro expr -> second ExpressionMacro <$> inferExpr expr
-  TypeMacro ty -> return ( PrimTy, TypeMacro ty )
 
 inferExpr :: MExpr Ps -> TcGenM ( Type Ty, MExpr Tc )
 inferExpr = \case
@@ -848,7 +838,7 @@ inferApp fun args = do
 inferFun :: Fun -> TcGenM ( FunValue, Type Ty )
 inferFun f@( Fun fun ) =
   case fun of
-    Left varNm@( C.Name varStr ) -> do
+    Left varNm@( Name varStr ) -> do
       -- Variable: should either be a local variable (a macro argument)
       -- or a top-level macro (calling another macro).
       mbTy <- liftTcPureM $ lookupVar varNm
@@ -877,20 +867,20 @@ inferFun f@( Fun fun ) =
 
 -- | Infer the type of a lambda expression.
 inferLam :: forall nbArgs
-         .  C.Name            -- ^ name of the function (for error messages)
-         -> Vec nbArgs C.Name -- ^ argument names
-         -> MacroBody Ps      -- ^ function body
-         -> TcGenM ( MacroBody Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
+         .  Name            -- ^ name of the function (for error messages)
+         -> Vec nbArgs Name -- ^ argument names
+         -> MExpr Ps          -- ^ function body
+         -> TcGenM ( MExpr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
 inferLam _ VNil body = do
-  ( bodyTy, body' ) <- inferBody body
+  ( bodyTy, body' ) <- inferExpr body
   return ( body', ( VNil, bodyTy) )
 inferLam funNm argNms@( _ ::: _ ) body = do
   let is = Vec.imap ( \ i _ -> fromIntegral ( Fin.toNatural i ) + 1 ) argNms
   argTys <-
-    for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( C.Name argStr ) ) ->
+    for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( Name argStr ) ) ->
       newMetaTyVarTy ( FunArg funNm ( argNm, i ) ) ( "ty_" <> argStr )
   liftBaseTcM ( declareLocalVars ( Map.fromList $ toList $ Vec.zipWith (,) argNms argTys ) ) $ do
-    ( bodyTy, body' ) <- inferBody body
+    ( bodyTy, body' ) <- inferExpr body
     return ( body', ( argTys, bodyTy ) )
 
 -- | Infer the type of an 'MFun', together with a 'FunValue' used to
@@ -1714,7 +1704,7 @@ tryDefault ctOrig matchSubst dfltEqs =
 -------------------------------------------------------------------------------}
 
 -- | Top-level type-checking monad.
-type TcTopM = ExceptT TcMacroError TcUniqueM
+type TcTopM = ExceptT MacroTcError TcUniqueM
 
 simplifyAndDefault :: IntSet -> Cts -> TcTopM ( Subst TyVar, Cts )
 simplifyAndDefault quantTvs cts =
@@ -1804,12 +1794,12 @@ Evaluation proceeds as follows:
   (3) Macro functions: evaluating macro arguments, and calling other macros.
 
     After typechecking each macro, we also compute a function which allows
-    evaluating this macro; see the call to 'evaluateMacroBody' in 'tcMacro'.
+    evaluating this macro; see the call to 'evaluateExpr' in 'tcMacro'.
     This is a function that takes a vector of argument values, and returns the
     result of evaluating the macro on these arguments (see 'FunValue').
 
-    To do this, we create a new value environment (using 'Map C.Name Value'),
-    and then call 'evaluateMacroBody'.
+    To do this, we create a new value environment (using 'Map Name Value'),
+    and then call 'evaluateExpr'.
     When we get to a macro argument (in the 'MVar' case of 'evaluateTerm'),
     we simply look up in the map to obtain the value.
 
@@ -1842,14 +1832,7 @@ This is easier than erasing the types and dealing with typeclass specialisation,
 which is what GHC does.
 -}
 
-evaluateMacroBody :: Map C.Name Value -> TypeEnv -> MacroBody Tc -> Value
-evaluateMacroBody argVals tyEnv = \case
-  EmptyMacro -> NoValue
-  TypeMacro {} -> NoValue
-  AttributeMacro {} -> NoValue
-  ExpressionMacro e -> evaluateExpr argVals tyEnv e
-
-evaluateExpr :: Map C.Name Value -> TypeEnv -> MExpr Tc -> Value
+evaluateExpr :: Map Name Value -> TypeEnv -> MExpr Tc -> Value
 evaluateExpr argVals tyEnv = \case
   MTerm tm -> evaluateTerm argVals tyEnv tm
   MApp @_ @m ( XAppTc ( FunValue @n _ fn ) ) _funName args ->
@@ -1866,7 +1849,7 @@ evaluateExpr argVals tyEnv = \case
         Nothing ->
           NoValue
 
-evaluateTerm :: Map C.Name Value -> TypeEnv -> MTerm Tc -> Value
+evaluateTerm :: Map Name Value -> TypeEnv -> MTerm Tc -> Value
 evaluateTerm argVals tyEnv = \case
   MInt lit ->
     let i = C.integerLiteralValue lit
@@ -1931,10 +1914,10 @@ naturalMaybe ( ValSType ty ) i =
 
 -- | Typecheck a macro.
 tcMacro :: TypeEnv
-        -> C.Name            -- ^ name of the macro
-        -> Vec nbArgs C.Name -- ^ macro arguments
-        -> MacroBody Ps      -- ^ macro body
-        -> Either TcMacroError ( Quant ( FunValue, Type Ty ) )
+        -> Name            -- ^ name of the macro
+        -> Vec nbArgs Name -- ^ macro arguments
+        -> MExpr Ps          -- ^ macro body
+        -> Either MacroTcError ( Quant ( FunValue, Type Ty ) )
 tcMacro tyEnv macroNm args body =
   let plat = C.Type.hostPlatform in
   throwErrors $ runTcM plat tyEnv $ ( `State.evalStateT` Unique 0 ) $ Except.runExceptT do
@@ -2013,8 +1996,8 @@ tcMacro tyEnv macroNm args body =
               norm = applySubstNormalise plat finalSubst
               evalFun =
                 Vec.withDict args $
-                  FunValue ( C.getName macroNm )$ \ argVals ->
-                  evaluateMacroBody
+                  FunValue ( getName macroNm )$ \ argVals ->
+                  evaluateExpr
                     ( Map.fromList $ Vec.toList $ Vec.zipWith (,) args argVals )
                     tyEnv
                     body'
@@ -2026,7 +2009,7 @@ tcMacro tyEnv macroNm args body =
     throwErrors ( _, ( err : errs ) ) = Left $ TcErrors ( err NE.:| errs )
     throwErrors ( res, [] ) = res
 
-data TcMacroError
+data MacroTcError
   -- | Errors in the constraint-generation phase,
   -- e.g. we failed to unify some types.
   = TcErrors !( NE.NonEmpty ( TcError, SrcSpan ) )
@@ -2034,10 +2017,10 @@ data TcMacroError
   | TcInconsistentConstraints !( NE.NonEmpty Cts )
   deriving stock ( Show, Generic )
 
-instance Eq TcMacroError where
+instance Eq MacroTcError where
   _ == _ = True
 
-pprTcMacroError :: TcMacroError -> Text
+pprTcMacroError :: MacroTcError -> Text
 pprTcMacroError tcMacroErr =
   Text.intercalate "\n" . ( "Failed to typecheck macro:" : ) $
     case tcMacroErr of
@@ -2068,7 +2051,7 @@ guarded cond m = do
 
 evaluateMExpr :: TypeEnv -> MExpr Ps -> Value
 evaluateMExpr tyEnv e =
-  case tcMacro tyEnv ( C.Name nm ) VNil ( ExpressionMacro e ) of
+  case tcMacro tyEnv ( Name nm ) VNil e of
     Left {} -> NoValue
     Right ( Quant @nbBinders body ) ->
       let
@@ -2110,31 +2093,3 @@ debugTraceM
 
 debug :: Bool
 debug = False
-
-{-
-var :: C.Name -> MExpr Ps
-var v = MTerm ( MVar NoXVar v [] )
-
-instance Num (MExpr Ps) where
-  fromInteger i = MTerm $ MInt $ IntegerLiteral (Text.pack $ show i) (C.Type.Int C.Type.Signed) i
-  negate a = MApp NoXApp MUnaryMinus ( a ::: VNil )
-  a + b = MApp NoXApp MAdd ( a ::: b ::: VNil )
-  a * b = MApp NoXApp MMult ( a ::: b ::: VNil )
-  abs = panicPure "no"
-  signum = panicPure "no"
-
-testMacro :: forall n. Nat.SNatI n => ( Vec n ( MExpr Ps ) -> MExpr Ps ) -> Either TcMacroError ( Quant ( Type Ty ) )
-testMacro f = fmap snd <$> tcMacro C.Type.hostPlatform ( TypeEnv mempty mempty ) "TEST" vars ( ExpressionMacro $ f $ fmap var vars )
-  where
-    vars :: Vec n C.Name
-    vars = fromJust $ Vec.fromList @n [ fromString ("x" ++ show i) | i <- [1..n] ]
-    n :: Int
-    n = Nat.reflectToNum @n Proxy
-
-test1, test2, test3, test4, test5 :: Either TcMacroError ( Quant ( Type Ty ) )
-test1 = testMacro @(S (S Z)) \ ( a ::: b ::: VNil ) -> a + b
-test2 = testMacro @(S Z) \ ( a ::: VNil ) -> a + 1
-test3 = testMacro @Z \ VNil -> 1
-test4 = testMacro @(S (S Z)) \ ( x ::: y ::: VNil ) -> x + ( 12 * y )
-test5 = testMacro @(S (S Z)) \ ( x ::: y ::: VNil ) -> MApp NoXApp MShiftLeft ( x ::: y ::: VNil )
--}

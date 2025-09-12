@@ -4,15 +4,15 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
   ) where
 
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
-import HsBindgen.Frontend.Macro.Reparse.Infra
-import HsBindgen.Frontend.Macro.Tc
-import HsBindgen.Frontend.Macro.Tc qualified as Macro
+import HsBindgen.Frontend.LanguageC qualified as LanC
+import HsBindgen.Frontend.Macro (MacroParseError(..), MacroTcError(..))
+import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition
@@ -42,34 +42,41 @@ instance IsPass HandleMacros where
 
 -- TODO: We might want source location information here
 data HandleMacrosMsg =
-    -- | We could not parse the macro
-    HandleMacrosErrorReparse ReparseError
+    -- | We could not reparse a fragment of C (to recover macro use sites)
+    HandleMacrosErrorReparse LanC.Error
+
+    -- | We could not parse the macro (macro def sites)
+    --
+    -- When this happens, we get /two/ parse errors: one for trying to parse the
+    -- macro as a type, and one for trying to parse the macro as an expression.
+  | HandleMacrosErrorParse LanC.Error MacroParseError
 
     -- | We could not type-check the macro
-  | HandleMacrosErrorTc TcMacroError
-
-    -- | Unsupported macro: empty body
-  | HandleMacrosErrorEmpty
-
-    -- | Unsupported macro: defines C compiler attribute
-  | HandleMacrosErrorAttribute
+  | HandleMacrosErrorTc MacroTcError
 
     -- | Macro that defines an unsupported type
+    -- TODO: Do we still use this?
   | HandleMacrosErrorUnsupportedType String
   deriving stock (Show)
 
 instance PrettyForTrace HandleMacrosMsg where
   prettyForTrace = \case
-      HandleMacrosErrorReparse x ->
-        prettyForTrace x
+      HandleMacrosErrorReparse x -> PP.hsep [
+          "Failed to reparse: "
+        , prettyForTrace x
+        ]
+      HandleMacrosErrorParse errType errExpr -> PP.hsep [
+          "Could not parse macro as type:"
+        , PP.nest 2 $ prettyForTrace errType
+        , "nor as expression:"
+        , PP.nest 2 $ prettyForTrace errExpr
+        ]
       HandleMacrosErrorTc x ->
-        textToCtxDoc $ Macro.pprTcMacroError x
-      HandleMacrosErrorEmpty ->
-        "Unsupported empty macro"
-      HandleMacrosErrorAttribute ->
-        "Unsupported attribute macro"
-      HandleMacrosErrorUnsupportedType err ->
-        "Unsupported type: " >< string err
+          PP.textToCtxDoc $ Macro.pprTcMacroError x
+      HandleMacrosErrorUnsupportedType err -> PP.hsep [
+          "Unsupported type: "
+        , PP.string err
+        ]
 
 -- | Default log level
 instance IsTrace Level HandleMacrosMsg where

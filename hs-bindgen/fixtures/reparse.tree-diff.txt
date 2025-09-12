@@ -1,0 +1,6171 @@
+TranslationUnit {
+  unitDecls =
+  [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:3:9",
+        declId = NamePair {
+          nameC = Name "A",
+          nameHsIdent = HsIdentifier "A"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "A",
+              newtypeField = HsName
+                "@NsVar"
+                "un_A"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:7:8",
+        declId = NamePair {
+          nameC = Name "some_struct",
+          nameHsIdent = HsIdentifier
+            "Some_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Some_struct"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:8:7",
+        declId = NamePair {
+          nameC = Name "some_union",
+          nameHsIdent = HsIdentifier
+            "Some_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Some_union",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Some_union"},
+          unionSizeof = 0,
+          unionAlignment = 1,
+          unionFields = []},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:9:6",
+        declId = NamePair {
+          nameC = Name "some_enum",
+          nameHsIdent = HsIdentifier
+            "Some_enum"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Some_enum",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Some_enum"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc = "reparse.h:9:18",
+                fieldName = NamePair {
+                  nameC = Name "ENUM_A",
+                  nameHsIdent = HsIdentifier
+                    "ENUM_A"},
+                fieldComment = Nothing},
+              enumConstantValue = 0}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:17:6",
+        declId = NamePair {
+          nameC = Name "args_char1",
+          nameHsIdent = HsIdentifier
+            "args_char1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Function declarations"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:18:6",
+        declId = NamePair {
+          nameC = Name "args_char2",
+          nameHsIdent = HsIdentifier
+            "args_char2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignExplicit Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:19:6",
+        declId = NamePair {
+          nameC = Name "args_char3",
+          nameHsIdent = HsIdentifier
+            "args_char3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignExplicit Unsigned)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:21:6",
+        declId = NamePair {
+          nameC = Name "args_short1",
+          nameHsIdent = HsIdentifier
+            "args_short1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:22:6",
+        declId = NamePair {
+          nameC = Name "args_short2",
+          nameHsIdent = HsIdentifier
+            "args_short2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:23:6",
+        declId = NamePair {
+          nameC = Name "args_short3",
+          nameHsIdent = HsIdentifier
+            "args_short3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Unsigned))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:25:6",
+        declId = NamePair {
+          nameC = Name "args_int1",
+          nameHsIdent = HsIdentifier
+            "args_int1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:26:6",
+        declId = NamePair {
+          nameC = Name "args_int2",
+          nameHsIdent = HsIdentifier
+            "args_int2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:27:6",
+        declId = NamePair {
+          nameC = Name "args_int3",
+          nameHsIdent = HsIdentifier
+            "args_int3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Unsigned))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:29:6",
+        declId = NamePair {
+          nameC = Name "args_long1",
+          nameHsIdent = HsIdentifier
+            "args_long1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:30:6",
+        declId = NamePair {
+          nameC = Name "args_long2",
+          nameHsIdent = HsIdentifier
+            "args_long2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:31:6",
+        declId = NamePair {
+          nameC = Name "args_long3",
+          nameHsIdent = HsIdentifier
+            "args_long3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Unsigned))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:33:6",
+        declId = NamePair {
+          nameC = Name "args_float",
+          nameHsIdent = HsIdentifier
+            "args_float"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:34:6",
+        declId = NamePair {
+          nameC = Name "args_double",
+          nameHsIdent = HsIdentifier
+            "args_double"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:35:6",
+        declId = NamePair {
+          nameC = Name "args_bool1",
+          nameHsIdent = HsIdentifier
+            "args_bool1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim PrimBool)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:37:6",
+        declId = NamePair {
+          nameC = Name "args_struct",
+          nameHsIdent = HsIdentifier
+            "args_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "some_struct",
+                  nameHsIdent = HsIdentifier
+                    "Some_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:38:6",
+        declId = NamePair {
+          nameC = Name "args_union",
+          nameHsIdent = HsIdentifier
+            "args_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "some_union",
+                  nameHsIdent = HsIdentifier
+                    "Some_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:39:6",
+        declId = NamePair {
+          nameC = Name "args_enum",
+          nameHsIdent = HsIdentifier
+            "args_enum"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeEnum
+                NamePair {
+                  nameC = Name "some_enum",
+                  nameHsIdent = HsIdentifier
+                    "Some_enum"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:41:6",
+        declId = NamePair {
+          nameC = Name "args_pointer1",
+          nameHsIdent = HsIdentifier
+            "args_pointer1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:42:6",
+        declId = NamePair {
+          nameC = Name "args_pointer2",
+          nameHsIdent = HsIdentifier
+            "args_pointer2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypePointer
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:43:6",
+        declId = NamePair {
+          nameC = Name "args_pointer3",
+          nameHsIdent = HsIdentifier
+            "args_pointer3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg3",
+                  nameHsIdent = HsIdentifier
+                    "arg3"})
+              (TypePointer TypeVoid)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:47:3",
+        declId = NamePair {
+          nameC = Name "ret_A",
+          nameHsIdent = HsIdentifier
+            "ret_A"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:49:20",
+        declId = NamePair {
+          nameC = Name "ret_char1",
+          nameHsIdent = HsIdentifier
+            "ret_char1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:50:20",
+        declId = NamePair {
+          nameC = Name "ret_char2",
+          nameHsIdent = HsIdentifier
+            "ret_char2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignExplicit Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:51:20",
+        declId = NamePair {
+          nameC = Name "ret_char3",
+          nameHsIdent = HsIdentifier
+            "ret_char3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignExplicit Unsigned))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:53:20",
+        declId = NamePair {
+          nameC = Name "ret_short1",
+          nameHsIdent = HsIdentifier
+            "ret_short1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral
+              PrimShort
+              Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:54:20",
+        declId = NamePair {
+          nameC = Name "ret_short2",
+          nameHsIdent = HsIdentifier
+            "ret_short2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral
+              PrimShort
+              Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:55:20",
+        declId = NamePair {
+          nameC = Name "ret_short3",
+          nameHsIdent = HsIdentifier
+            "ret_short3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral
+              PrimShort
+              Unsigned)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:57:20",
+        declId = NamePair {
+          nameC = Name "ret_int1",
+          nameHsIdent = HsIdentifier
+            "ret_int1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:58:20",
+        declId = NamePair {
+          nameC = Name "ret_int2",
+          nameHsIdent = HsIdentifier
+            "ret_int2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:59:20",
+        declId = NamePair {
+          nameC = Name "ret_int3",
+          nameHsIdent = HsIdentifier
+            "ret_int3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral
+              PrimInt
+              Unsigned)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:61:20",
+        declId = NamePair {
+          nameC = Name "ret_long1",
+          nameHsIdent = HsIdentifier
+            "ret_long1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimLong Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:62:20",
+        declId = NamePair {
+          nameC = Name "ret_long2",
+          nameHsIdent = HsIdentifier
+            "ret_long2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimLong Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:63:20",
+        declId = NamePair {
+          nameC = Name "ret_long3",
+          nameHsIdent = HsIdentifier
+            "ret_long3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral
+              PrimLong
+              Unsigned)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:65:20",
+        declId = NamePair {
+          nameC = Name "ret_float",
+          nameHsIdent = HsIdentifier
+            "ret_float"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimFloat)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:66:20",
+        declId = NamePair {
+          nameC = Name "ret_double",
+          nameHsIdent = HsIdentifier
+            "ret_double"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimDouble)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:67:20",
+        declId = NamePair {
+          nameC = Name "ret_bool1",
+          nameHsIdent = HsIdentifier
+            "ret_bool1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:69:20",
+        declId = NamePair {
+          nameC = Name "ret_struct",
+          nameHsIdent = HsIdentifier
+            "ret_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "some_struct",
+              nameHsIdent = HsIdentifier
+                "Some_struct"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:70:20",
+        declId = NamePair {
+          nameC = Name "ret_union",
+          nameHsIdent = HsIdentifier
+            "ret_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeUnion
+            NamePair {
+              nameC = Name "some_union",
+              nameHsIdent = HsIdentifier
+                "Some_union"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:71:20",
+        declId = NamePair {
+          nameC = Name "ret_enum",
+          nameHsIdent = HsIdentifier
+            "ret_enum"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeEnum
+            NamePair {
+              nameC = Name "some_enum",
+              nameHsIdent = HsIdentifier
+                "Some_enum"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:73:20",
+        declId = NamePair {
+          nameC = Name "ret_pointer1",
+          nameHsIdent = HsIdentifier
+            "ret_pointer1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:74:20",
+        declId = NamePair {
+          nameC = Name "ret_pointer2",
+          nameHsIdent = HsIdentifier
+            "ret_pointer2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypePointer
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:75:20",
+        declId = NamePair {
+          nameC = Name "ret_pointer3",
+          nameHsIdent = HsIdentifier
+            "ret_pointer3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:79:5",
+        declId = NamePair {
+          nameC = Name "body1",
+          nameHsIdent = HsIdentifier
+            "body1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:80:3",
+        declId = NamePair {
+          nameC = Name "body2",
+          nameHsIdent = HsIdentifier
+            "body2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:84:6",
+        declId = NamePair {
+          nameC = Name
+            "args_complex_float",
+          nameHsIdent = HsIdentifier
+            "args_complex_float"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeComplex
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:85:6",
+        declId = NamePair {
+          nameC = Name
+            "args_complex_double",
+          nameHsIdent = HsIdentifier
+            "args_complex_double"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeComplex
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:86:17",
+        declId = NamePair {
+          nameC = Name
+            "ret_complex_float",
+          nameHsIdent = HsIdentifier
+            "ret_complex_float"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimFloat)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:87:17",
+        declId = NamePair {
+          nameC = Name
+            "ret_complex_double",
+          nameHsIdent = HsIdentifier
+            "ret_complex_double"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimDouble)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:94:6",
+        declId = NamePair {
+          nameC = Name "bespoke_args1",
+          nameHsIdent = HsIdentifier
+            "bespoke_args1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim PrimBool)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:95:6",
+        declId = NamePair {
+          nameC = Name "bespoke_args2",
+          nameHsIdent = HsIdentifier
+            "bespoke_args2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim PrimSize)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:97:8",
+        declId = NamePair {
+          nameC = Name "bespoke_ret1",
+          nameHsIdent = HsIdentifier
+            "bespoke_ret1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:98:8",
+        declId = NamePair {
+          nameC = Name "bespoke_ret2",
+          nameHsIdent = HsIdentifier
+            "bespoke_ret2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimSize},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:104:6",
+        declId = NamePair {
+          nameC = Name "arr_args1",
+          nameHsIdent = HsIdentifier
+            "arr_args1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [TextContent "Arrays"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:105:6",
+        declId = NamePair {
+          nameC = Name "arr_args2",
+          nameHsIdent = HsIdentifier
+            "arr_args2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:106:6",
+        declId = NamePair {
+          nameC = Name "arr_args3",
+          nameHsIdent = HsIdentifier
+            "arr_args3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeConstArray
+                5
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:107:6",
+        declId = NamePair {
+          nameC = Name "arr_args4",
+          nameHsIdent = HsIdentifier
+            "arr_args4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeConstArray
+                5
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:109:13",
+        declId = NamePair {
+          nameC = Name "arr_typedef1",
+          nameHsIdent = HsIdentifier
+            "Arr_typedef1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Arr_typedef1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Arr_typedef1"},
+          typedefType =
+          TypeIncompleteArray
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = HsIdentifier "A"}
+              NameOriginInSource)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:110:13",
+        declId = NamePair {
+          nameC = Name "arr_typedef2",
+          nameHsIdent = HsIdentifier
+            "Arr_typedef2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Arr_typedef2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Arr_typedef2"},
+          typedefType =
+          TypeIncompleteArray
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:111:13",
+        declId = NamePair {
+          nameC = Name "arr_typedef3",
+          nameHsIdent = HsIdentifier
+            "Arr_typedef3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Arr_typedef3",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Arr_typedef3"},
+          typedefType = TypeConstArray
+            5
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = HsIdentifier "A"}
+              NameOriginInSource)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:112:13",
+        declId = NamePair {
+          nameC = Name "arr_typedef4",
+          nameHsIdent = HsIdentifier
+            "Arr_typedef4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Arr_typedef4",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Arr_typedef4"},
+          typedefType = TypeConstArray
+            5
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:118:14",
+        declId = NamePair {
+          nameC = Name "typedef1",
+          nameHsIdent = HsIdentifier
+            "Typedef1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [TextContent "Typedefs"]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Typedef1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Typedef1"},
+          typedefType = TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:119:14",
+        declId = NamePair {
+          nameC = Name "typedef2",
+          nameHsIdent = HsIdentifier
+            "Typedef2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Typedef2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Typedef2"},
+          typedefType = TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = HsIdentifier "A"}
+              NameOriginInSource)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:120:14",
+        declId = NamePair {
+          nameC = Name "typedef3",
+          nameHsIdent = HsIdentifier
+            "Typedef3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Typedef3",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Typedef3"},
+          typedefType = TypePointer
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:126:6",
+        declId = NamePair {
+          nameC = Name "funptr_args1",
+          nameHsIdent = HsIdentifier
+            "funptr_args1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Function pointers"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun [] TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:127:6",
+        declId = NamePair {
+          nameC = Name "funptr_args2",
+          nameHsIdent = HsIdentifier
+            "funptr_args2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:128:6",
+        declId = NamePair {
+          nameC = Name "funptr_args3",
+          nameHsIdent = HsIdentifier
+            "funptr_args3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:129:6",
+        declId = NamePair {
+          nameC = Name "funptr_args4",
+          nameHsIdent = HsIdentifier
+            "funptr_args4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePrim
+                      (PrimFloating PrimDouble)]
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:130:6",
+        declId = NamePair {
+          nameC = Name "funptr_args5",
+          nameHsIdent = HsIdentifier
+            "funptr_args5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePrim
+                      (PrimFloating PrimDouble)]
+                  (TypePointer
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:132:16",
+        declId = NamePair {
+          nameC = Name "funptr_typedef1",
+          nameHsIdent = HsIdentifier
+            "Funptr_typedef1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Funptr_typedef1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Funptr_typedef1"},
+          typedefType = TypePointer
+            (TypeFun
+              []
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:133:16",
+        declId = NamePair {
+          nameC = Name "funptr_typedef2",
+          nameHsIdent = HsIdentifier
+            "Funptr_typedef2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Funptr_typedef2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Funptr_typedef2"},
+          typedefType = TypePointer
+            (TypeFun
+              []
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:134:16",
+        declId = NamePair {
+          nameC = Name "funptr_typedef3",
+          nameHsIdent = HsIdentifier
+            "Funptr_typedef3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Funptr_typedef3",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Funptr_typedef3"},
+          typedefType = TypePointer
+            (TypeFun
+              []
+              (TypePointer
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:135:16",
+        declId = NamePair {
+          nameC = Name "funptr_typedef4",
+          nameHsIdent = HsIdentifier
+            "Funptr_typedef4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Funptr_typedef4",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Funptr_typedef4"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:136:16",
+        declId = NamePair {
+          nameC = Name "funptr_typedef5",
+          nameHsIdent = HsIdentifier
+            "Funptr_typedef5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Funptr_typedef5",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Funptr_typedef5"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:144:25",
+        declId = NamePair {
+          nameC = Name "comments1",
+          nameHsIdent = HsIdentifier
+            "comments1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Comments in awkward places"],
+              Paragraph
+                [
+                  TextContent
+                    "(Prior to language-c we failed to parse there.)"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:145:30",
+        declId = NamePair {
+          nameC = Name "comments2",
+          nameHsIdent = HsIdentifier
+            "Comments2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Comments2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Comments2"},
+          typedefType = TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:151:8",
+        declId = NamePair {
+          nameC = Name "example_struct",
+          nameHsIdent = HsIdentifier
+            "Example_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent "Struct fields"]])},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Example_struct"),
+          structSizeof = 24,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:152:8",
+                fieldName = NamePair {
+                  nameC = Name "field1",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_field1"},
+                fieldComment = Nothing},
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:153:8",
+                fieldName = NamePair {
+                  nameC = Name "field2",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_field2"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:154:8",
+                fieldName = NamePair {
+                  nameC = Name "field3",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_field3"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "reparse.h:179:6",
+        declId = NamePair {
+          nameC = Name
+            "const_prim_before1",
+          nameHsIdent = HsIdentifier
+            "const_prim_before1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "`const` qualifier"],
+              Paragraph
+                [
+                  TextContent
+                    "NOTE: These were not parsed correctly prior to the switch to language-c."]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:180:6",
+        declId = NamePair {
+          nameC = Name
+            "const_prim_before2",
+          nameHsIdent = HsIdentifier
+            "const_prim_before2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:181:6",
+        declId = NamePair {
+          nameC = Name
+            "const_prim_before3",
+          nameHsIdent = HsIdentifier
+            "const_prim_before3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Unsigned))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:182:6",
+        declId = NamePair {
+          nameC = Name
+            "const_prim_after1",
+          nameHsIdent = HsIdentifier
+            "const_prim_after1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:183:6",
+        declId = NamePair {
+          nameC = Name
+            "const_prim_after2",
+          nameHsIdent = HsIdentifier
+            "const_prim_after2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:184:6",
+        declId = NamePair {
+          nameC = Name
+            "const_prim_after3",
+          nameHsIdent = HsIdentifier
+            "const_prim_after3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Unsigned))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:188:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before1",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimFloat)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:189:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before2",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimDouble)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:190:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before3",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:191:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before4",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "some_struct",
+                    nameHsIdent = HsIdentifier
+                      "Some_struct"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:192:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before5",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeUnion
+                  NamePair {
+                    nameC = Name "some_union",
+                    nameHsIdent = HsIdentifier
+                      "Some_union"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:193:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before6",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "some_enum",
+                    nameHsIdent = HsIdentifier
+                      "Some_enum"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:194:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before7",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:195:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_before8",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_before8"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimSize))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:197:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after1",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimFloat)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:198:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after2",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimDouble)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:199:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after3",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:200:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after4",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "some_struct",
+                    nameHsIdent = HsIdentifier
+                      "Some_struct"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:201:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after5",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeUnion
+                  NamePair {
+                    nameC = Name "some_union",
+                    nameHsIdent = HsIdentifier
+                      "Some_union"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:202:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after6",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "some_enum",
+                    nameHsIdent = HsIdentifier
+                      "Some_enum"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:203:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after7",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:204:6",
+        declId = NamePair {
+          nameC = Name
+            "const_withoutSign_after8",
+          nameHsIdent = HsIdentifier
+            "const_withoutSign_after8"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimSize))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:208:6",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_args1",
+          nameHsIdent = HsIdentifier
+            "const_pointers_args1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:209:6",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_args2",
+          nameHsIdent = HsIdentifier
+            "const_pointers_args2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:210:6",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_args3",
+          nameHsIdent = HsIdentifier
+            "const_pointers_args3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePointer
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:211:6",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_args4",
+          nameHsIdent = HsIdentifier
+            "const_pointers_args4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:212:6",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_args5",
+          nameHsIdent = HsIdentifier
+            "const_pointers_args5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:214:19",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_ret1",
+          nameHsIdent = HsIdentifier
+            "const_pointers_ret1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:215:19",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_ret2",
+          nameHsIdent = HsIdentifier
+            "const_pointers_ret2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:216:19",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_ret3",
+          nameHsIdent = HsIdentifier
+            "const_pointers_ret3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
+            (TypePointer
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:217:19",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_ret4",
+          nameHsIdent = HsIdentifier
+            "const_pointers_ret4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
+            (TypePointer
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:218:19",
+        declId = NamePair {
+          nameC = Name
+            "const_pointers_ret5",
+          nameHsIdent = HsIdentifier
+            "const_pointers_ret5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
+            (TypePointer
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:220:25",
+        declId = NamePair {
+          nameC = Name "const_typedef1",
+          nameHsIdent = HsIdentifier
+            "Const_typedef1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef1"},
+          typedefType = TypeConst
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = HsIdentifier "A"}
+              NameOriginInSource)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:221:25",
+        declId = NamePair {
+          nameC = Name "const_typedef2",
+          nameHsIdent = HsIdentifier
+            "Const_typedef2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef2"},
+          typedefType = TypeConst
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = HsIdentifier "A"}
+              NameOriginInSource)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:222:25",
+        declId = NamePair {
+          nameC = Name "const_typedef3",
+          nameHsIdent = HsIdentifier
+            "Const_typedef3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef3",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef3"},
+          typedefType = TypePointer
+            (TypeConst
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:223:25",
+        declId = NamePair {
+          nameC = Name "const_typedef4",
+          nameHsIdent = HsIdentifier
+            "Const_typedef4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef4",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef4"},
+          typedefType = TypePointer
+            (TypeConst
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:224:25",
+        declId = NamePair {
+          nameC = Name "const_typedef5",
+          nameHsIdent = HsIdentifier
+            "Const_typedef5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef5",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef5"},
+          typedefType = TypeConst
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:225:25",
+        declId = NamePair {
+          nameC = Name "const_typedef6",
+          nameHsIdent = HsIdentifier
+            "Const_typedef6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef6",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef6"},
+          typedefType = TypeConst
+            (TypePointer
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:226:25",
+        declId = NamePair {
+          nameC = Name "const_typedef7",
+          nameHsIdent = HsIdentifier
+            "Const_typedef7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_typedef7",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_typedef7"},
+          typedefType = TypeConst
+            (TypePointer
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:228:8",
+        declId = NamePair {
+          nameC = Name
+            "example_struct_with_const",
+          nameHsIdent = HsIdentifier
+            "Example_struct_with_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Example_struct_with_const"),
+          structSizeof = 48,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:229:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field1",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field1"},
+                fieldComment = Nothing},
+              structFieldType = TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:230:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field2",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field2"},
+                fieldComment = Nothing},
+              structFieldType = TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:231:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field3",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field3"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:232:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field4",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field4"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:233:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field5",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field5"},
+                fieldComment = Nothing},
+              structFieldType = TypeConst
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)),
+              structFieldOffset = 192,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:234:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field6",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field6"},
+                fieldComment = Nothing},
+              structFieldType = TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))),
+              structFieldOffset = 256,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "reparse.h:235:19",
+                fieldName = NamePair {
+                  nameC = Name "const_field7",
+                  nameHsIdent = HsIdentifier
+                    "example_struct_with_const_const_field7"},
+                fieldComment = Nothing},
+              structFieldType = TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))),
+              structFieldOffset = 320,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:238:27",
+        declId = NamePair {
+          nameC = Name "const_funptr1",
+          nameHsIdent = HsIdentifier
+            "Const_funptr1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr1"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:239:27",
+        declId = NamePair {
+          nameC = Name "const_funptr2",
+          nameHsIdent = HsIdentifier
+            "Const_funptr2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr2"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:240:27",
+        declId = NamePair {
+          nameC = Name "const_funptr3",
+          nameHsIdent = HsIdentifier
+            "Const_funptr3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr3",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr3"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:241:27",
+        declId = NamePair {
+          nameC = Name "const_funptr4",
+          nameHsIdent = HsIdentifier
+            "Const_funptr4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr4",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr4"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:242:27",
+        declId = NamePair {
+          nameC = Name "const_funptr5",
+          nameHsIdent = HsIdentifier
+            "Const_funptr5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr5",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr5"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:243:27",
+        declId = NamePair {
+          nameC = Name "const_funptr6",
+          nameHsIdent = HsIdentifier
+            "Const_funptr6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr6",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr6"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource)))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:244:27",
+        declId = NamePair {
+          nameC = Name "const_funptr7",
+          nameHsIdent = HsIdentifier
+            "Const_funptr7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Const_funptr7",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Const_funptr7"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource)))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:246:6",
+        declId = NamePair {
+          nameC = Name
+            "const_array_elem1",
+          nameHsIdent = HsIdentifier
+            "const_array_elem1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:247:6",
+        declId = NamePair {
+          nameC = Name
+            "const_array_elem2",
+          nameHsIdent = HsIdentifier
+            "const_array_elem2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:248:6",
+        declId = NamePair {
+          nameC = Name
+            "const_array_elem3",
+          nameHsIdent = HsIdentifier
+            "const_array_elem3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypeConst
+                  (TypePointer
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "reparse.h:256:3",
+        declId = NamePair {
+          nameC = Name "noParams1",
+          nameHsIdent = HsIdentifier
+            "noParams1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Other examples we reparsed /incorrectly/ before language-c"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:257:3",
+        declId = NamePair {
+          nameC = Name "noParams2",
+          nameHsIdent = HsIdentifier
+            "noParams2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = HsIdentifier "A"}
+            NameOriginInSource},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:258:6",
+        declId = NamePair {
+          nameC = Name "noParams3",
+          nameHsIdent = HsIdentifier
+            "noParams3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:262:8",
+        declId = NamePair {
+          nameC = Name "funptr_ret1",
+          nameHsIdent = HsIdentifier
+            "funptr_ret1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun [] TypeVoid)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:263:8",
+        declId = NamePair {
+          nameC = Name "funptr_ret2",
+          nameHsIdent = HsIdentifier
+            "funptr_ret2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              []
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:264:8",
+        declId = NamePair {
+          nameC = Name "funptr_ret3",
+          nameHsIdent = HsIdentifier
+            "funptr_ret3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              TypeVoid)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:265:8",
+        declId = NamePair {
+          nameC = Name "funptr_ret4",
+          nameHsIdent = HsIdentifier
+            "funptr_ret4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:269:20",
+        declId = NamePair {
+          nameC = Name "funptr_ret5",
+          nameHsIdent = HsIdentifier
+            "funptr_ret5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:270:20",
+        declId = NamePair {
+          nameC = Name "funptr_ret6",
+          nameHsIdent = HsIdentifier
+            "funptr_ret6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:271:20",
+        declId = NamePair {
+          nameC = Name "funptr_ret7",
+          nameHsIdent = HsIdentifier
+            "funptr_ret7"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:272:20",
+        declId = NamePair {
+          nameC = Name "funptr_ret8",
+          nameHsIdent = HsIdentifier
+            "funptr_ret8"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:273:20",
+        declId = NamePair {
+          nameC = Name "funptr_ret9",
+          nameHsIdent = HsIdentifier
+            "funptr_ret9"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:274:20",
+        declId = NamePair {
+          nameC = Name "funptr_ret10",
+          nameHsIdent = HsIdentifier
+            "funptr_ret10"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:280:9",
+        declId = NamePair {
+          nameC = Name "BOOL",
+          nameHsIdent = HsIdentifier
+            "BOOL"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "BOOL",
+              newtypeField = HsName
+                "@NsVar"
+                "un_BOOL"},
+            macroType = TypePrim PrimBool}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:281:9",
+        declId = NamePair {
+          nameC = Name "INT",
+          nameHsIdent = HsIdentifier
+            "INT"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "INT",
+              newtypeField = HsName
+                "@NsVar"
+                "un_INT"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:282:9",
+        declId = NamePair {
+          nameC = Name "INTP",
+          nameHsIdent = HsIdentifier
+            "INTP"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "INTP",
+              newtypeField = HsName
+                "@NsVar"
+                "un_INTP"},
+            macroType = TypePointer
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "reparse.h:283:9",
+        declId = NamePair {
+          nameC = Name "INTCP",
+          nameHsIdent = HsIdentifier
+            "INTCP"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "reparse.h",
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "INTCP",
+              newtypeField = HsName
+                "@NsVar"
+                "un_INTCP"},
+            macroType = TypeConst
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))}),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "alltypes",
+    "stddef",
+    "reparse"]}

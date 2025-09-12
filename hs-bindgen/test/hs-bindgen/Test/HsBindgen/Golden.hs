@@ -80,8 +80,8 @@ testCases = [
     , defaultTest "bool"
     , defaultTest "complex_test"
     , defaultTest "distilled_lib_1"
-    , defaultTest "enums"
     , defaultTest "enum_cpp_syntax"
+    , defaultTest "enums"
     , defaultTest "fixedwidth"
     , defaultTest "flam"
     , defaultTest "forward_declaration"
@@ -448,6 +448,13 @@ testCases = [
               Just Tolerated
             _otherwise ->
               Nothing
+        }
+    , (defaultTest "reparse") {
+          testClangVersion   = Just (>= (15, 0, 0)) -- parse 'bool'
+        , testTracePredicate = customTracePredicate [] $ \case
+            -- We don't care about the trace messages in this test
+            _anything ->
+              Just Tolerated
         }
       -- Rust bindgen does not support non-float complex types.
     , (defaultTest "complex_non_float_test") {
