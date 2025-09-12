@@ -5,7 +5,10 @@ module HsBindgen.Boot
   , BootMsg (..)
   ) where
 
+import Text.SimplePrettyPrint qualified as PP
+
 import Clang.Args
+
 import HsBindgen.BindingSpec
 import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Clang.ExtraClangArgs
@@ -15,8 +18,6 @@ import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-
-import Text.SimplePrettyPrint qualified as PP
 
 -- | Boot phase.
 --

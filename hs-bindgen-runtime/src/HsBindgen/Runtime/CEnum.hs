@@ -28,21 +28,21 @@ module HsBindgen.Runtime.CEnum (
   , CEnumException(..)
   ) where
 
-import Control.Exception (Exception(displayException), throw)
-import Data.Bifunctor (Bifunctor(first))
+import Control.Exception (Exception (displayException), throw)
+import Data.Bifunctor (Bifunctor (first))
 import Data.Coerce (Coercible, coerce)
 import Data.List qualified as List
-import Data.List.NonEmpty (NonEmpty((:|)))
+import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy(Proxy))
-import GHC.Show (appPrec1, showSpace, appPrec)
-import Text.Read (ReadPrec, (+++), minPrec)
-import Text.Read.Lex (Lexeme (..), expect)
-import Text.Read qualified as Read
+import Data.Proxy (Proxy (Proxy))
+import GHC.Show (appPrec, appPrec1, showSpace)
 import Text.ParserCombinators.ReadP qualified as ReadP
 import Text.ParserCombinators.ReadPrec qualified as ReadPrec
+import Text.Read (ReadPrec, minPrec, (+++))
+import Text.Read qualified as Read
+import Text.Read.Lex (Lexeme (..), expect)
 
 {-------------------------------------------------------------------------------
   Type classes

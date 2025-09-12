@@ -17,7 +17,6 @@ import Data.Functor ((<&>))
 import Data.IORef
 import Data.Proxy
 import System.IO.Error (isDoesNotExistError)
-
 import Test.Tasty.Options
 import Test.Tasty.Providers
 

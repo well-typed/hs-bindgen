@@ -2,13 +2,12 @@
 module Test.HsBindgen.Golden.Check.Rust (check) where
 
 import System.FilePath ((</>))
-import Test.Tasty
-import Test.Tasty.HUnit
-
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import Test.Tasty
+import Test.Tasty.HUnit
 
 {-------------------------------------------------------------------------------
   Tests

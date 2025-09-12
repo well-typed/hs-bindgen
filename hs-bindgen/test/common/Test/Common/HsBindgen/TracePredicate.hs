@@ -25,15 +25,14 @@ import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
 import Data.Typeable (Typeable)
+import Test.Common.HsBindgen.Trace
+import Text.SimplePrettyPrint (CtxDoc)
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports (Default (def))
 import HsBindgen.Util.Tracer
-
-import Test.Common.HsBindgen.Trace
-import Text.SimplePrettyPrint (CtxDoc)
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Trace predicates

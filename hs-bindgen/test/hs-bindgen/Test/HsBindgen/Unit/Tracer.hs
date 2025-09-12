@@ -5,18 +5,16 @@ module Test.HsBindgen.Unit.Tracer (tests) where
 import Data.Default (Default (..))
 import Data.Either (isLeft)
 import Data.Proxy (Proxy (Proxy))
+import Test.Common.HsBindgen.TracePredicate
+import Test.Common.Util.Tasty
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?), (@?=))
 import Test.Tasty.QuickCheck (Arbitrary (..), CoArbitrary, Fun, Function, Gen,
                               Property, elements, pattern Fn, testProperty,
                               (===))
-
-import HsBindgen.Util.Tracer
-
 import Text.SimplePrettyPrint qualified as PP
 
-import Test.Common.HsBindgen.TracePredicate
-import Test.Common.Util.Tasty
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Tests

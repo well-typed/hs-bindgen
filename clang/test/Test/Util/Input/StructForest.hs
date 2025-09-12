@@ -21,17 +21,16 @@ import Prelude hiding (lookup)
 import Data.Foldable (asum)
 import Data.List qualified as List
 import Data.String
-import Data.Tree (Tree(Node))
+import Data.Tree (Tree (Node))
 import Test.QuickCheck
-
-import Clang.LowLevel.Core (CXCursorKind(..))
-
-import Test.Util.AST (AST(..))
+import Test.Util.AST (AST (..))
 import Test.Util.AST qualified as AST
-import Test.Util.Input (TestInput(..))
+import Test.Util.Input (TestInput (..))
 import Test.Util.Input qualified as Input
 import Test.Util.Shape (Shape)
 import Test.Util.Shape qualified as Shape
+
+import Clang.LowLevel.Core (CXCursorKind (..))
 
 {-------------------------------------------------------------------------------
   Definition

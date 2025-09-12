@@ -3,6 +3,8 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
   , HandleMacrosMsg(..)
   ) where
 
+import Text.SimplePrettyPrint
+
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Macro.Reparse.Infra
 import HsBindgen.Frontend.Macro.Tc
@@ -12,7 +14,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Definition

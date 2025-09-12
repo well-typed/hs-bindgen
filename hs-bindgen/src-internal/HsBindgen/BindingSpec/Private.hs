@@ -42,6 +42,8 @@ module HsBindgen.BindingSpec.Private (
   , resolve
   ) where
 
+import Prelude hiding (readFile, writeFile)
+
 import Control.Applicative (asum)
 import Control.Monad ((<=<))
 import Data.Aeson ((.!=), (.:), (.:?), (.=))
@@ -60,10 +62,11 @@ import Data.Typeable (Typeable, typeRep)
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
 import Data.Yaml.Pretty qualified
-import Prelude hiding (readFile, writeFile)
+import Text.SimplePrettyPrint (hang, hangs', string, textToCtxDoc, (><))
 
 import Clang.Args
 import Clang.Paths
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
@@ -73,8 +76,6 @@ import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
-
-import Text.SimplePrettyPrint (hang, hangs', string, textToCtxDoc, (><))
 
 {-------------------------------------------------------------------------------
   Types

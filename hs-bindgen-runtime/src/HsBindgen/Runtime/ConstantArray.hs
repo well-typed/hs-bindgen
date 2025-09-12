@@ -20,14 +20,14 @@ import Prelude hiding (repeat)
 import Data.Coerce (Coercible, coerce)
 import Data.Proxy (Proxy (..))
 import Data.Vector.Storable qualified as VS
-import Foreign.ForeignPtr (withForeignPtr, mallocForeignPtrArray)
+import Foreign.ForeignPtr (mallocForeignPtrArray, withForeignPtr)
 import Foreign.Marshal.Utils (copyBytes)
 import Foreign.Ptr (Ptr, castPtr)
 import Foreign.Storable (Storable (..))
+import GHC.Stack
 import GHC.TypeNats (KnownNat, Nat, natVal)
 
 import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
-import GHC.Stack
 
 {-------------------------------------------------------------------------------
   Definition

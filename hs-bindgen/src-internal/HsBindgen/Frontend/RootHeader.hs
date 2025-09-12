@@ -26,15 +26,17 @@ module HsBindgen.Frontend.RootHeader (
   ) where
 
 import Prelude hiding (lookup)
+
 import System.FilePath qualified as FilePath
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 import Clang.Paths
+
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.List ((!?))
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   RootHeader

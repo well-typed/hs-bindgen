@@ -14,7 +14,7 @@ module Test.Util.Shape (
 
 import Control.Monad
 import Data.List qualified as List
-import Data.Tree (Forest, Tree(Node))
+import Data.Tree (Forest, Tree (Node))
 import Data.Tree qualified as Tree
 import Test.QuickCheck
 

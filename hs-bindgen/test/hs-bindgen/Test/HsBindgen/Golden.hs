@@ -4,12 +4,24 @@ module Test.HsBindgen.Golden (tests) where
 import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Text qualified as Text
+import Test.Common.HsBindgen.TracePredicate
+import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
+import Test.HsBindgen.Golden.Check.C qualified as C
+import Test.HsBindgen.Golden.Check.Exts qualified as Exts
+import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
+import Test.HsBindgen.Golden.Check.Hs qualified as Hs
+import Test.HsBindgen.Golden.Check.PP qualified as PP
+import Test.HsBindgen.Golden.Check.Rust qualified as Rust
+import Test.HsBindgen.Golden.Check.TH qualified as TH
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 import Test.Tasty
 
 import Clang.Args
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.Version
+
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
@@ -19,19 +31,6 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate (DeclPredicate (..),
                                      HeaderPathPredicate (..), Predicate (..))
 import HsBindgen.TraceMsg
-
-import Test.Common.HsBindgen.TracePredicate
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
-
-import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
-import Test.HsBindgen.Golden.Check.C qualified as C
-import Test.HsBindgen.Golden.Check.Exts qualified as Exts
-import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
-import Test.HsBindgen.Golden.Check.Hs qualified as Hs
-import Test.HsBindgen.Golden.Check.PP qualified as PP
-import Test.HsBindgen.Golden.Check.Rust qualified as Rust
-import Test.HsBindgen.Golden.Check.TH qualified as TH
 
 {-------------------------------------------------------------------------------
   Tests

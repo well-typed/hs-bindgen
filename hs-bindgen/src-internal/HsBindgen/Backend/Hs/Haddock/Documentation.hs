@@ -1,7 +1,7 @@
 module HsBindgen.Backend.Hs.Haddock.Documentation where
 
+import Data.Semigroup (First (..))
 import Data.Text (Text)
-import Data.Semigroup (First(..))
 import GHC.Generics (Generic)
 import GHC.Natural (Natural)
 

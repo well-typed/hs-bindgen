@@ -24,13 +24,12 @@ module Test.Util.AST (
 import Data.Text qualified as Text
 import Data.Tree (Forest, Tree)
 import Data.Tree qualified as Tree
+import Test.Util.Clang qualified as Clang
+import Test.Util.Input (TestInput)
 
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-
-import Test.Util.Clang qualified as Clang
-import Test.Util.Input (TestInput)
 
 {-------------------------------------------------------------------------------
   Definition

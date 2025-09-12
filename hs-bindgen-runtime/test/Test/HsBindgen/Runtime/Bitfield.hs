@@ -8,11 +8,13 @@ import Foreign (Ptr)
 import Foreign.C.Types (CInt)
 import Foreign.Marshal.Alloc (allocaBytes)
 import Foreign.Marshal.Utils (fillBytes)
-import Test.QuickCheck (Property, Positive (..), NonNegative (..), Small (..), (===), (==>), label, counterexample, ioProperty)
+import Test.QuickCheck (NonNegative (..), Positive (..), Property, Small (..),
+                        counterexample, ioProperty, label, (===), (==>))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (testProperty)
 
-import HsBindgen.Runtime.Bitfield (Bitfield (..), hiMask, loMask, peekBitOffWidth, pokeBitOffWidth)
+import HsBindgen.Runtime.Bitfield (Bitfield (..), hiMask, loMask,
+                                   peekBitOffWidth, pokeBitOffWidth)
 
 {-------------------------------------------------------------------------------
   Tests

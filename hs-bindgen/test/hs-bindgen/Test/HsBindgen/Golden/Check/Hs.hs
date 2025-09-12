@@ -2,15 +2,14 @@
 module Test.HsBindgen.Golden.Check.Hs (check) where
 
 import System.FilePath ((</>))
-import Test.Tasty (TestTree)
-
-import HsBindgen
-
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Orphans.TreeDiff ()
 import Test.HsBindgen.Resources
+import Test.Tasty (TestTree)
+
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

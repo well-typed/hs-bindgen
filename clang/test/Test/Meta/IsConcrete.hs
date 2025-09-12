@@ -6,7 +6,6 @@ import Test.QuickCheck.Monadic
 import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
-
 import Test.Util.AST qualified as AST
 import Test.Util.Input (TestInput)
 import Test.Util.Input.Examples

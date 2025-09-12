@@ -1,7 +1,7 @@
 module HsBindgen.TestRuntime.GenSeq.Test (tests) where
 
+import Data.Proxy (Proxy (Proxy))
 import Data.Typeable (Typeable, typeRep)
-import Data.Proxy (Proxy(Proxy))
 import Foreign.C qualified as FC
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)

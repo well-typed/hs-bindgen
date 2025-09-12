@@ -3,6 +3,8 @@ module HsBindgen.Frontend.Pass.NameAnon.IsPass (
   , NameAnonMsg(..)
   ) where
 
+import Text.SimplePrettyPrint
+
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
@@ -11,7 +13,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Definition

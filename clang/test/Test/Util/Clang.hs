@@ -11,13 +11,12 @@ module Test.Util.Clang (
 
 import Control.Exception
 import Data.Default
+import Test.Util.Input (TestInput (..))
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-
-import Test.Util.Input (TestInput(..))
 
 {-------------------------------------------------------------------------------
   Top-level call into clang

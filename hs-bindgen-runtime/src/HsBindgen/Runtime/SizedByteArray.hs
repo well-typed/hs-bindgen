@@ -2,11 +2,11 @@ module HsBindgen.Runtime.SizedByteArray (
     SizedByteArray (..),
 ) where
 
-import GHC.TypeNats qualified as GHC
 import Data.Array.Byte (ByteArray)
-import Foreign (Storable (..))
-import Data.Proxy (Proxy (..))
 import Data.Coerce (coerce)
+import Data.Proxy (Proxy (..))
+import Foreign (Storable (..))
+import GHC.TypeNats qualified as GHC
 
 import HsBindgen.Runtime.ByteArray
 

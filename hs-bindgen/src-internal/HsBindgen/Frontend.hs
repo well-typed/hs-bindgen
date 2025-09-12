@@ -7,6 +7,7 @@ module HsBindgen.Frontend
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
+
 import HsBindgen.Boot
 import HsBindgen.Clang
 import HsBindgen.Config

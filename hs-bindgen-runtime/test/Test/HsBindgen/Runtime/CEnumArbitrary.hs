@@ -2,11 +2,11 @@
 
 module Test.HsBindgen.Runtime.CEnumArbitrary () where
 
-import Test.QuickCheck (Arbitrary (arbitrary), Small (Small), Gen)
+import Test.QuickCheck (Arbitrary (arbitrary), Gen, Small (Small))
 
-import HsBindgen.Runtime.CEnum (CEnum (CEnumZ, toCEnum),
-                                AsCEnum (WrapCEnum),
-                                AsSequentialCEnum (WrapSequentialCEnum))
+import HsBindgen.Runtime.CEnum (AsCEnum (WrapCEnum),
+                                AsSequentialCEnum (WrapSequentialCEnum),
+                                CEnum (CEnumZ, toCEnum))
 
 instance CEnum a => Arbitrary (AsCEnum a) where
   arbitrary = do

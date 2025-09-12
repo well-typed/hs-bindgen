@@ -5,7 +5,7 @@ module Test.Internal.Tasty (
 
 import Control.Exception (Exception, evaluate, try)
 import GHC.Stack (HasCallStack)
-import Test.Tasty.HUnit ((@=?), Assertion)
+import Test.Tasty.HUnit (Assertion, (@=?))
 
 {-------------------------------------------------------------------------------
   Assertions

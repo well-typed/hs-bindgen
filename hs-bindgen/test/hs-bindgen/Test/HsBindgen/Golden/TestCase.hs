@@ -26,10 +26,13 @@ module Test.HsBindgen.Golden.TestCase (
 
 import Control.Exception (Exception (..), SomeException (..), handle)
 import System.FilePath ((</>))
+import Test.Common.HsBindgen.Trace (reportTrace)
+import Test.Common.HsBindgen.TracePredicate
+import Test.HsBindgen.Resources
 import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
-import HsBindgen
+
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
@@ -40,9 +43,7 @@ import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
-import Test.Common.HsBindgen.Trace (reportTrace)
-import Test.Common.HsBindgen.TracePredicate
-import Test.HsBindgen.Resources
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Definition

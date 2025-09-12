@@ -3,12 +3,12 @@
 -- Intended for unqualified import.
 module Test.Util.Input.Examples (ExampleInput(..)) where
 
-import Clang.LowLevel.Core (CXCursorKind(..))
-
-import Test.Util.AST (AST(..))
+import Test.Util.AST (AST (..))
 import Test.Util.AST qualified as AST
 import Test.Util.Input (TestInput)
 import Test.Util.Input qualified as TestInput
+
+import Clang.LowLevel.Core (CXCursorKind (..))
 
 {-------------------------------------------------------------------------------
   Top-level

@@ -20,15 +20,16 @@ import Control.Monad.Error.Class
 import Control.Monad.IO.Class
 import Data.Data (Typeable)
 import Foreign.C
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((><))
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition

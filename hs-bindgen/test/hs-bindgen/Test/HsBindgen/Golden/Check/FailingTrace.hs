@@ -5,15 +5,15 @@ module Test.HsBindgen.Golden.Check.FailingTrace (check) where
 
 import Control.Exception (Exception (..), SomeException (..), handle, throwIO)
 import Control.Monad (void)
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 import Test.Tasty.HUnit
 
-import HsBindgen
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

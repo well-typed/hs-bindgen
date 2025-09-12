@@ -1,7 +1,8 @@
 module HsBindgen.NameHint where
 
-import HsBindgen.Imports
 import Data.Char (toLower)
+
+import HsBindgen.Imports
 
 newtype NameHint = NameHint String
 deriving newtype instance Show NameHint

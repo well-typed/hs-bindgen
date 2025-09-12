@@ -5,8 +5,6 @@ module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
 
-import C.Char (CharValue (..), charValueFromAddr)
-import C.Expr.HostPlatform qualified as C
 import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Complex qualified
@@ -15,7 +13,6 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
 import Data.Void qualified
-import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 import Foreign qualified
 import Foreign.C.String qualified
 import Foreign.C.Types qualified
@@ -32,6 +29,9 @@ import Language.Haskell.TH.Syntax qualified as TH
 import System.IO.Unsafe qualified
 import Text.Read qualified
 
+import C.Char (CharValue (..), charValueFromAddr)
+import C.Expr.HostPlatform qualified as C
+
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -43,7 +43,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
-
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
@@ -54,6 +53,8 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+
+import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 
 {-------------------------------------------------------------------------------
   Backend definition
