@@ -171,7 +171,11 @@ instance CanApply p
       LanC.CBoolType   _a -> notFun $ TypePrim $ PrimBool
 
       -- Complex types
-      LanC.CComplexType _a -> \_ -> unsupported "CComplexType" -- TODO
+      LanC.CComplexType _a -> \case
+        PartialKnown (KnownType (TypePrim prim)) ->
+          return $ PartialKnown . KnownType $ TypeComplex prim
+        other ->
+          unexpected $ show other
 
       -- Sign specifiers
       LanC.CSignedType _a -> setSign Signed

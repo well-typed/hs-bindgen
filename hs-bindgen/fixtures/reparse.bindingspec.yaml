@@ -1,0 +1,386 @@
+types:
+- headers: reparse.h
+  cname: A
+  module: Example
+  identifier: A
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: BOOL
+  module: Example
+  identifier: BOOL
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: INT
+  module: Example
+  identifier: INT
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: INTCP
+  module: Example
+  identifier: INTCP
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: INTP
+  module: Example
+  identifier: INTP
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: arr_typedef1
+  module: Example
+  identifier: Arr_typedef1
+  instances:
+  - Eq
+  - Show
+- headers: reparse.h
+  cname: arr_typedef2
+  module: Example
+  identifier: Arr_typedef2
+  instances:
+  - Eq
+  - Show
+- headers: reparse.h
+  cname: arr_typedef3
+  module: Example
+  identifier: Arr_typedef3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: arr_typedef4
+  module: Example
+  identifier: Arr_typedef4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: comments2
+  module: Example
+  identifier: Comments2
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: const_funptr1
+  module: Example
+  identifier: Const_funptr1
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_funptr2
+  module: Example
+  identifier: Const_funptr2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_funptr3
+  module: Example
+  identifier: Const_funptr3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_funptr4
+  module: Example
+  identifier: Const_funptr4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_funptr5
+  module: Example
+  identifier: Const_funptr5
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_funptr6
+  module: Example
+  identifier: Const_funptr6
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_funptr7
+  module: Example
+  identifier: Const_funptr7
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_typedef1
+  module: Example
+  identifier: Const_typedef1
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: const_typedef2
+  module: Example
+  identifier: Const_typedef2
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: const_typedef3
+  module: Example
+  identifier: Const_typedef3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_typedef4
+  module: Example
+  identifier: Const_typedef4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_typedef5
+  module: Example
+  identifier: Const_typedef5
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_typedef6
+  module: Example
+  identifier: Const_typedef6
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: const_typedef7
+  module: Example
+  identifier: Const_typedef7
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: struct example_struct
+  module: Example
+  identifier: Example_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: struct example_struct_with_const
+  module: Example
+  identifier: Example_struct_with_const
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: funptr_typedef1
+  module: Example
+  identifier: Funptr_typedef1
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: funptr_typedef2
+  module: Example
+  identifier: Funptr_typedef2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: funptr_typedef3
+  module: Example
+  identifier: Funptr_typedef3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: funptr_typedef4
+  module: Example
+  identifier: Funptr_typedef4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: funptr_typedef5
+  module: Example
+  identifier: Funptr_typedef5
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: enum some_enum
+  module: Example
+  identifier: Some_enum
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: struct some_struct
+  module: Example
+  identifier: Some_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: union some_union
+  module: Example
+  identifier: Some_union
+  instances:
+  - Storable
+- headers: reparse.h
+  cname: typedef1
+  module: Example
+  identifier: Typedef1
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
+- headers: reparse.h
+  cname: typedef2
+  module: Example
+  identifier: Typedef2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: reparse.h
+  cname: typedef3
+  module: Example
+  identifier: Typedef3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
