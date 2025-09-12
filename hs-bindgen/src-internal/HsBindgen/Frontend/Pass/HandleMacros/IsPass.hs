@@ -56,7 +56,7 @@ data HandleMacrosMsg =
 
     -- | Macro that defines an unsupported type
   | HandleMacrosErrorUnsupportedType String
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace HandleMacrosMsg where
   prettyForTrace = \case

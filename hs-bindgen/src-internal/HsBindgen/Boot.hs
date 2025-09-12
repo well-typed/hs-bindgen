@@ -91,7 +91,7 @@ data BootArtefact = BootArtefact {
 data BootStatusMsg =
     BootStart BindgenConfig
   | BootEnd BootArtefact
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Generic)
 
 instance PrettyForTrace BootStatusMsg where
   prettyForTrace = \case
@@ -113,5 +113,5 @@ data BootMsg =
   | BootExtraClangArgs ExtraClangArgsMsg
   | BootHashIncludeArg HashIncludeArgMsg
   | BootStatus         BootStatusMsg
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

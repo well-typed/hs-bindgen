@@ -52,7 +52,7 @@ data MangleNamesMsg =
     MangleNamesCouldNotMangle Text
   | MangleNamesMissingDeclaration C.QualName
   | MangleNamesMissingIdentifier Text
-  deriving stock (Show, Eq)
+  deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case

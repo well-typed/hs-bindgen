@@ -41,7 +41,7 @@ data ResolveHeaderMsg =
     -- NOTE: We have not been able to construct an example that causes this to
     -- happen, but we can at least detect if it happens.
   | ResolveHeaderNotAttempted HashIncludeArg
-  deriving stock (Eq, Show)
+  deriving stock (Show)
 
 instance PrettyForTrace ResolveHeaderMsg where
   prettyForTrace = \case
