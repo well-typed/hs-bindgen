@@ -18,9 +18,10 @@ module HsBindgen
   , NP (..)
   ) where
 
+import Clang.Paths
+
 import Generics.SOP (I (..), NP (..))
 
-import Clang.Paths
 import HsBindgen.Backend
 import HsBindgen.Backend.Artefact.HsModule.Render
 import HsBindgen.Backend.Artefact.HsModule.Translation

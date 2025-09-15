@@ -13,12 +13,11 @@ import Data.Proxy (Proxy)
 import Foreign qualified as F
 import Foreign.C qualified as FC
 import Test.QuickCheck.Monadic qualified as QCM
-import Test.Tasty.HUnit ((@=?), Assertion)
+import Test.Tasty.HUnit (Assertion, (@=?))
 import Test.Tasty.QuickCheck (Property)
 
-import HsBindgen.TestRuntime.SameSemantics (
-    (@==~?), SameSemantics(sameSemantics)
-  )
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics (sameSemantics),
+                                            (@==~?))
 
 {-------------------------------------------------------------------------------
   Properties

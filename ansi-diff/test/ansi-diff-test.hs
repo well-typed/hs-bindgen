@@ -1,8 +1,8 @@
 module Main (main) where
 
+import Test.QuickCheck (counterexample)
 import Test.Tasty (defaultMain, testGroup)
 import Test.Tasty.QuickCheck (testProperty)
-import Test.QuickCheck (counterexample)
 import Text.EditDistance qualified as ED
 
 import AnsiDiff ()

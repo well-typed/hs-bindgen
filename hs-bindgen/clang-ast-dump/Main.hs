@@ -13,6 +13,7 @@ import Data.Set qualified as Set
 import Data.Text (Text)
 import Data.Text qualified as T
 import Foreign.C.Types (CUInt)
+import GHC.Generics (Generic)
 import Options.Applicative qualified as OA
 
 import Clang.Enum.Bitfield
@@ -22,7 +23,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
-import GHC.Generics (Generic)
+
 import HsBindgen.Clang
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.RootHeader

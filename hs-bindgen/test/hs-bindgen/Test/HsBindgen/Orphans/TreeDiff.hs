@@ -11,10 +11,14 @@ import Data.Vec.Lazy qualified as Vec
 import Foreign.C
 import System.FilePath qualified as FilePath
 
+import C.Char qualified as CExpr
+import C.Type qualified as CExpr
+
 import Clang.Enum.Simple
 import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
+
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as HsType
 import HsBindgen.Backend.Hs.CallConv qualified as Hs
@@ -28,9 +32,6 @@ import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
-
-import C.Char qualified as CExpr
-import C.Type qualified as CExpr
 
 import DeBruijn (Add, Idx, S, Size, addToInt, idxToInt, sizeToInt)
 

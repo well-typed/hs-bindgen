@@ -14,11 +14,9 @@ module HsBindgen.Backend.Artefact.Test.C (
 --import HsBindgen.Errors
 --import HsBindgen.C.AST qualified as C
 --import HsBindgen.C.AST.Name
+import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
---import HsBindgen.Backend.Artefact.Test.Internal
---    ( CFunPrefix, getCFunPrefix, prettyHsName )
-import HsBindgen.Backend.Hs.AST qualified as Hs
 --import HsBindgen.Backend.Hs.AST.Name
 --import HsBindgen.Backend.Hs.AST.Type qualified as HsT
 --import Text.SimplePrettyPrint

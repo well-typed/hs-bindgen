@@ -1,13 +1,11 @@
 module Main (main) where
 
-import Test.Tasty
-
-import Test.HsBindgen.Resources
-
-import Test.HsBindgen.Golden         qualified as Golden
+import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
+import Test.HsBindgen.Resources
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
-import Test.HsBindgen.Unit.Tracer    qualified as Unit.Tracer
+import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
+import Test.Tasty
 
 {-------------------------------------------------------------------------------
   Main

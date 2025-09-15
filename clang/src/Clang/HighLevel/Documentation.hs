@@ -20,12 +20,11 @@ import Data.Char (isPunctuation)
 import Data.Either
 import Data.Text (Text)
 import Data.Text qualified as Text
+import GHC.Generics (Generic)
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
-
-import GHC.Generics (Generic)
 
 {-------------------------------------------------------------------------------
   Definition

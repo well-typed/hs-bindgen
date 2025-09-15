@@ -4,11 +4,10 @@ module HsBindgen.Guasi (
 
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
+import Text.SimplePrettyPrint (pretty)
 
 import HsBindgen.Backend.Artefact.HsModule.Render (CommentKind (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
-
-import Text.SimplePrettyPrint (pretty)
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
 -- which doesn't provide reification functionality of 'TH.Quasi',

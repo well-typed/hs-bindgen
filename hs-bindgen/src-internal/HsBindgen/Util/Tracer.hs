@@ -59,12 +59,11 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
 import System.IO (Handle, hPutStr, stdout)
+import Text.SimplePrettyPrint (Context, CtxDoc)
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors
 import HsBindgen.Imports
-
-import Text.SimplePrettyPrint (Context, CtxDoc)
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition and main API

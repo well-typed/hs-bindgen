@@ -33,79 +33,49 @@ module HsBindgen.Frontend.Macro.Tc
   where
 
 -- base
-import Control.Monad.ST
-  ( ST, runST )
-import Data.Either
-  ( partitionEithers )
-import Data.Kind qualified as Hs
-import Data.List
-  ( intercalate )
-import Data.List.NonEmpty qualified as NE
-import Data.Foldable
-  ( for_ )
-import Data.Functor
-  ( (<&>) )
-import Data.Monoid
-  ( Endo(..) )
-import Data.Proxy (Proxy(..))
-import Data.STRef
-  ( newSTRef, readSTRef )
-import Data.Traversable
-  ( for )
-import Data.Typeable
-  ( Typeable, eqT )
-import Data.Type.Equality
-  ( type (:~:)(..) )
-import Foreign.C.Types
-import GHC.Exts
-  ( Int(I#), dataToTag# )
-
--- containers
+import Control.Monad.Except (ExceptT)
+import Control.Monad.Except qualified as Except
+import Control.Monad.ST (ST, runST)
+import Control.Monad.State.Strict (State, StateT (..))
+import Control.Monad.State.Strict qualified as State
+import Control.Monad.Trans (lift)
+import Control.Monad.Writer (WriterT)
+import Control.Monad.Writer qualified as Writer
+import Data.Either (partitionEithers)
+import Data.Fin (Fin)
+import Data.Fin qualified as Fin (toNatural)
+import Data.Foldable (for_)
+import Data.Functor ((<&>))
 import Data.IntMap.Strict qualified as IntMap
 import Data.IntSet qualified as IntSet
+import Data.Kind qualified as Hs
+import Data.List (intercalate)
+import Data.List.NonEmpty qualified as NE
 import Data.Map.Strict qualified as Map
-
--- fin
-import Data.Fin
-  ( Fin )
-import Data.Fin qualified as Fin
-  ( toNatural )
-import Data.Type.Nat qualified as Nat
-  ( SNatI, eqNat, reflectToNum )
-
--- mtl
-import Control.Monad.Except
-  ( ExceptT )
-import Control.Monad.Except qualified as Except
-import Control.Monad.State.Strict
-  ( StateT(..), State )
-import Control.Monad.State.Strict qualified as State
-import Control.Monad.Writer
-  ( WriterT )
-import Control.Monad.Writer qualified as Writer
-import Control.Monad.Trans
-  ( lift )
-
--- text
+import Data.Monoid (Endo (..))
+import Data.Proxy (Proxy (..))
+import Data.STRef (newSTRef, readSTRef)
 import Data.Text qualified as Text
-
--- vec
+import Data.Traversable (for)
+import Data.Type.Equality (type (:~:) (..))
+import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum)
+import Data.Typeable (Typeable, eqT)
 import Data.Vec.Lazy qualified as Vec
+import Foreign.C.Types
+import GHC.Exts (Int (I#), dataToTag#)
 
--- c-expr
-import C.Type qualified
-import C.Operators qualified as C.Op
 import C.Expr.HostPlatform qualified as C.Expr
+import C.Operators qualified as C.Op
+import C.Type qualified
 
--- hs-bindgen
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro.Pass
 import HsBindgen.Frontend.Macro.Syntax
 import HsBindgen.Frontend.Macro.Tc.Type
-import HsBindgen.Frontend.Naming (Name(..))
+import HsBindgen.Frontend.Naming (Name (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.TestEquality ( equals2 )
+import HsBindgen.Util.TestEquality (equals2)
 
 {-------------------------------------------------------------------------------
   Free type variables and substitution

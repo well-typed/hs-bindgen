@@ -7,6 +7,7 @@ import Data.Map qualified as Map
 import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C

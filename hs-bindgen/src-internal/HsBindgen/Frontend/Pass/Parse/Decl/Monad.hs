@@ -35,6 +35,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+
 import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External (NameKind)

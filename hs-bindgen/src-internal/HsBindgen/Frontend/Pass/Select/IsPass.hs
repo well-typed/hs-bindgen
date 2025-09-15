@@ -9,6 +9,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   ) where
 
 import Data.Default (Default (def))
+import Text.SimplePrettyPrint ((><))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex
@@ -24,7 +25,6 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpec,
                                                           ResolvedExtBinding)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint ((><))
 
 {-------------------------------------------------------------------------------
   Definition

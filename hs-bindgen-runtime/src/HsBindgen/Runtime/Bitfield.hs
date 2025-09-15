@@ -15,7 +15,7 @@ module HsBindgen.Runtime.Bitfield (
 -- >>> import Foreign.C.Types
 
 import Data.Bits
-import Data.Word (Word64, Word32, Word16, Word8)
+import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Ptr, peekByteOff, pokeByteOff)
 import Foreign.C.Types
 

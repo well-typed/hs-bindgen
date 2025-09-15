@@ -9,7 +9,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.Macro.Parse.Infra
-import HsBindgen.Frontend.Naming (Name(..))
+import HsBindgen.Frontend.Naming (Name (..))
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

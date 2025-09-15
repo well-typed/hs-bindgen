@@ -19,15 +19,16 @@ import Prelude hiding (lookup)
 import Control.Monad.State
 import Data.Function
 import Data.Map.Strict qualified as Map
+import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 import Clang.HighLevel.Types
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 {-------------------------------------------------------------------------------
   Definition

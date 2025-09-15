@@ -9,7 +9,7 @@ module Clang.Args (
   ) where
 
 import Control.Exception (Exception)
-import Data.Default (Default(def))
+import Data.Default (Default (def))
 import Data.String (IsString)
 import Data.Text (Text)
 

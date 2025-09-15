@@ -12,33 +12,30 @@ module HsBindgen.Backend.Artefact.HsModule.Names (
   , BackendName(..)
   ) where
 
+import Data.Bits qualified
 import Data.Char qualified as Char
 import Data.Complex qualified as Complex
+import Data.Ix qualified
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-
-import Language.Haskell.TH.Syntax qualified as TH
-
-import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Backend.SHs.AST
-import HsBindgen.Imports
-
-import C.Char (CharValue (..), charValueFromAddr)
-
-import C.Expr.HostPlatform qualified
-import Data.Bits qualified
-import Data.Ix qualified
 import Data.Void qualified
 import Foreign qualified
 import Foreign.C qualified
 import Foreign.C.String qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
+import Language.Haskell.TH.Syntax qualified as TH
 import System.IO.Unsafe qualified
 import Text.Read qualified
 
+import C.Char (CharValue (..), charValueFromAddr)
+import C.Expr.HostPlatform qualified
+
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.SHs.AST
+import HsBindgen.Imports
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified

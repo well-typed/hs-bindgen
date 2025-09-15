@@ -11,6 +11,7 @@ import Data.Either (partitionEithers)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
+import Text.SimplePrettyPrint (hang, hsep, string)
 
 import Clang.Args
 import Clang.Enum.Simple
@@ -18,13 +19,13 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
+
 import HsBindgen.Clang
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.List ((!?))
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (hang, hsep, string)
 
 {-------------------------------------------------------------------------------
   Trace messages

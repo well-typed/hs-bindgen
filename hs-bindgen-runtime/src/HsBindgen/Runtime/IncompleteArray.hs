@@ -18,12 +18,12 @@ module HsBindgen.Runtime.IncompleteArray (
 
 import Prelude hiding (repeat)
 
+import Data.Coerce (Coercible, coerce)
 import Data.Vector.Storable qualified as VS
-import Foreign.ForeignPtr (withForeignPtr, mallocForeignPtrArray)
+import Foreign.ForeignPtr (mallocForeignPtrArray, withForeignPtr)
 import Foreign.Marshal.Utils (copyBytes)
 import Foreign.Ptr (Ptr, castPtr)
 import Foreign.Storable (Storable (..))
-import Data.Coerce (Coercible, coerce)
 
 {-------------------------------------------------------------------------------
   Definition

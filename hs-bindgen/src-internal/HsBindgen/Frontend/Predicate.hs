@@ -31,6 +31,7 @@ import Text.Regex.PCRE.Text ()
 
 import Clang.HighLevel.Types
 import Clang.Paths
+
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports

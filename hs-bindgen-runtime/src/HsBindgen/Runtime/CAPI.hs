@@ -3,9 +3,9 @@ module HsBindgen.Runtime.CAPI (
     allocaAndPeek,
 ) where
 
+import Foreign (Ptr, Storable, alloca, peek)
 import Language.Haskell.TH (DecsQ)
-import Language.Haskell.TH.Syntax (addForeignSource, ForeignSrcLang(LangC))
-import Foreign (Storable, Ptr, peek, alloca)
+import Language.Haskell.TH.Syntax (ForeignSrcLang (LangC), addForeignSource)
 
 addCSource :: String -> DecsQ
 addCSource src = do

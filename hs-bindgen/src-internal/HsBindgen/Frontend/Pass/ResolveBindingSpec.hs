@@ -10,6 +10,7 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 import Clang.Paths
+
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)

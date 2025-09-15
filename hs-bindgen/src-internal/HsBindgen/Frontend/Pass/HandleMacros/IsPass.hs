@@ -3,16 +3,17 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
   , HandleMacrosMsg(..)
   ) where
 
+import Text.SimplePrettyPrint qualified as PP
+
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Macro (MacroParseError(..), MacroTcError(..))
+import HsBindgen.Frontend.Macro (MacroParseError (..), MacroTcError (..))
 import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition

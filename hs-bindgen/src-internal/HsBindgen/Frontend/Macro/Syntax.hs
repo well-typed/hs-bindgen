@@ -28,6 +28,7 @@ import System.FilePath (takeBaseName)
 
 import Clang.HighLevel.Types
 import Clang.Paths
+
 import HsBindgen.Frontend.Macro.Pass
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C

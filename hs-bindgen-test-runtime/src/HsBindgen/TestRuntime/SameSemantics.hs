@@ -16,7 +16,7 @@ module HsBindgen.TestRuntime.SameSemantics (
   , assertXSameSemanticsX
   ) where
 
-import Control.Monad (when, unless)
+import Control.Monad (unless, when)
 import Foreign.C qualified as FC
 import GHC.Stack (HasCallStack)
 import Test.Tasty.HUnit (Assertion, assertFailure)

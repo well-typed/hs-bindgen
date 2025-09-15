@@ -15,14 +15,12 @@ module HsBindgen.Cli.Dev.BindingSpec.StdLib (
 
 import Control.Monad ((<=<))
 import Data.ByteString qualified as BS
-
 import Options.Applicative hiding (info)
 
+import HsBindgen.App
 import HsBindgen.Boot (getClangArgs)
 import HsBindgen.Imports
 import HsBindgen.Lib
-
-import HsBindgen.App
 
 {-------------------------------------------------------------------------------
   CLI help

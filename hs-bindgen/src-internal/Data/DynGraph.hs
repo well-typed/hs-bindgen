@@ -16,10 +16,9 @@ module Data.DynGraph (
   , dumpMermaid
   ) where
 
+import Data.DynGraph.Labelled qualified as Labelled
 import Data.Set (Set)
 import Data.Tree (Tree)
-
-import Data.DynGraph.Labelled qualified as Labelled
 
 {-------------------------------------------------------------------------------
   Type

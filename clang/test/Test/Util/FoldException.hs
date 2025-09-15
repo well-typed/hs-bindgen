@@ -26,14 +26,13 @@ import Control.Monad
 import Control.Monad.Except
 import Data.String
 import Test.QuickCheck
-
-import Clang.HighLevel.Types
-import Clang.LowLevel.Core
-
-import Test.Util.AST (AST(..))
+import Test.Util.AST (AST (..))
 import Test.Util.AST qualified as AST
 import Test.Util.Clang qualified as Clang
 import Test.Util.Input (TestInput)
+
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
   Definition

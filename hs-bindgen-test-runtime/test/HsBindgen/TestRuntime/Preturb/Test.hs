@@ -1,7 +1,7 @@
 module HsBindgen.TestRuntime.Preturb.Test (tests) where
 
+import Data.Proxy (Proxy (Proxy))
 import Data.Typeable (Typeable, typeRep)
-import Data.Proxy (Proxy(Proxy))
 import Foreign.C qualified as FC
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase)
@@ -9,10 +9,10 @@ import Test.Tasty.QuickCheck (Arbitrary, testProperty)
 
 import HsBindgen.TestRuntime.Arbitrary ()
 import HsBindgen.TestRuntime.CLib qualified as CLib
-import HsBindgen.TestRuntime.RealFloat qualified as RF
-import HsBindgen.TestRuntime.SameSemantics (SameSemantics)
 import HsBindgen.TestRuntime.Preturb (Preturb)
 import HsBindgen.TestRuntime.Preturb qualified as Preturb
+import HsBindgen.TestRuntime.RealFloat qualified as RF
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics)
 
 {-------------------------------------------------------------------------------
   Tests

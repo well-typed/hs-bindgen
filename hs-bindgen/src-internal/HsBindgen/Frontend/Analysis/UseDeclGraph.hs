@@ -22,13 +22,14 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
   , dumpMermaid
   ) where
 
+import Data.DynGraph.Labelled (DynGraph)
+import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
 import Data.Map qualified as Map
 
 import Clang.HighLevel.Types
 import Clang.Paths
-import Data.DynGraph.Labelled (DynGraph)
-import Data.DynGraph.Labelled qualified as DynGraph
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex

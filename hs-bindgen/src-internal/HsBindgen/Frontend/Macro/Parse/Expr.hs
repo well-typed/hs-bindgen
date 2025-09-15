@@ -7,6 +7,7 @@ import Text.Parsec
 import Text.Parsec.Expr
 
 import Clang.LowLevel.Core
+
 import HsBindgen.Frontend.Macro.Parse.Infra
 import HsBindgen.Frontend.Macro.Parse.Literal
 import HsBindgen.Frontend.Macro.Parse.Name

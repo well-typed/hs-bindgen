@@ -24,7 +24,7 @@ module HsBindgen.Backend.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import DeBruijn (Add, Ctx, EmptyCtx, Idx)
+import C.Char qualified
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -36,7 +36,7 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 
-import C.Char qualified
+import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
 {-------------------------------------------------------------------------------
   Backend representation

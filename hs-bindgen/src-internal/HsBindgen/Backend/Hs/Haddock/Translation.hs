@@ -7,26 +7,25 @@ module HsBindgen.Backend.Hs.Haddock.Translation
 
 import Data.Char (isDigit)
 import Data.Maybe (isJust)
-import Data.Text qualified as Text
 import Data.Text (Text)
-
-import Text.Read (readMaybe)
-
+import Data.Text qualified as Text
 import GHC.Natural (Natural)
+import System.FilePath (takeFileName)
+import Text.Read (readMaybe)
 
 import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as C
 
-import HsBindgen.Frontend.AST.External (Reference (..), NamePair (..), Name (..), DeclInfo (..), FieldInfo (..))
-import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
-
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Language.Haskell (HsName(..), HsIdentifier (..))
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
-import System.FilePath (takeFileName)
+import HsBindgen.Frontend.AST.External (DeclInfo (..), FieldInfo (..),
+                                        Name (..), NamePair (..),
+                                        Reference (..))
+import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
+import HsBindgen.Language.Haskell (HsIdentifier (..), HsName (..))
 
 -- | Convert a Clang comment to a Haddock comment
 --

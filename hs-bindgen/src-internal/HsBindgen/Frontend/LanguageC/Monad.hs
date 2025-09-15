@@ -17,18 +17,18 @@ module HsBindgen.Frontend.LanguageC.Monad (
   , optionally
   ) where
 
-import Control.Monad.Except (ExceptT, MonadError(..))
+import Control.Monad.Except (ExceptT, MonadError (..))
 import Control.Monad.Except qualified as Except
 import Control.Monad.Reader (Reader)
 import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
 import GHC.Stack
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition

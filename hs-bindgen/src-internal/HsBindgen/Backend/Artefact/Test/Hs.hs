@@ -7,9 +7,8 @@ module HsBindgen.Backend.Artefact.Test.Hs (
 --import Data.Vec.Lazy qualified as Vec
 --import System.FilePath qualified as FilePath
 
-import HsBindgen.Errors
---import HsBindgen.Backend.Artefact.Test.Internal
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Errors
 import HsBindgen.Language.Haskell
 --import HsBindgen.Backend.Hs.AST.Name
 --import Text.SimplePrettyPrint

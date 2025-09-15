@@ -59,7 +59,8 @@ module HsBindgen.Backend.Hs.AST (
 
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
-import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
+
+import C.Char qualified
 
 import HsBindgen.Backend.Hs.AST.SigmaType
 import HsBindgen.Backend.Hs.AST.Strategy
@@ -74,7 +75,7 @@ import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
 
-import C.Char qualified
+import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 {-------------------------------------------------------------------------------
   Information about generated code

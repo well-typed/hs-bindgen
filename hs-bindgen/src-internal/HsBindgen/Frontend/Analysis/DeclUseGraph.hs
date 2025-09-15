@@ -19,10 +19,10 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
   ) where
 
 import Control.Monad.State
-import Data.Set qualified as Set
-
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
+import Data.Set qualified as Set
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex

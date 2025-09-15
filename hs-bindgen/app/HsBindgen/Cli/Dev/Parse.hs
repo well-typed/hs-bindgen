@@ -15,9 +15,8 @@ module HsBindgen.Cli.Dev.Parse (
 
 import Options.Applicative hiding (info)
 
-import HsBindgen.Lib
-
 import HsBindgen.App
+import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   CLI help

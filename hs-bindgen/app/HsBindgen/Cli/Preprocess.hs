@@ -14,13 +14,11 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Control.Monad (void)
-
 import Options.Applicative hiding (info)
-
-import HsBindgen.Lib
 
 import HsBindgen.App
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
+import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   CLI help

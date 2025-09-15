@@ -18,11 +18,14 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   ) where
 
 import Data.Map qualified as Map
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+
 import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming (NameKind)
@@ -33,8 +36,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Definition

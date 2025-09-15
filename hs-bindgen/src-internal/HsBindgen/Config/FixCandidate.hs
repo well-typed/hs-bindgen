@@ -26,11 +26,12 @@ import Data.Char qualified as Char
 import Data.Proxy
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Numeric (showHex)
 
 import HsBindgen.Config.FixCandidate.ReservedNames (allReservedNames)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
+
+import Numeric (showHex)
 
 {-------------------------------------------------------------------------------
   Definition

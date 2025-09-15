@@ -1,7 +1,7 @@
 module HsBindgen.TestRuntime.Storable.Test (tests) where
 
+import Data.Proxy (Proxy (Proxy))
 import Data.Typeable (Typeable, typeRep)
-import Data.Proxy (Proxy(Proxy))
 import Foreign qualified as F
 import Foreign.C qualified as FC
 import Test.Tasty (TestTree, testGroup)

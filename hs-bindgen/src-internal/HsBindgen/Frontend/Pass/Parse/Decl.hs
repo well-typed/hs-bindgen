@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
 
 import Data.Either (partitionEithers)
 import Data.List qualified as List
+import Data.Text qualified as Text
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -10,7 +11,6 @@ import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
-import Data.Text qualified as Text
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C

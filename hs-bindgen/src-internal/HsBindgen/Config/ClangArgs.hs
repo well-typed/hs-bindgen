@@ -20,6 +20,7 @@ import Data.List qualified as List
 
 import Clang.Args
 import Clang.Paths
+
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
