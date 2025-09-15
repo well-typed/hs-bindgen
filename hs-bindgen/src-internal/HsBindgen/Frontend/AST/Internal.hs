@@ -46,6 +46,7 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types
+
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C

@@ -1,9 +1,10 @@
 module Main (main) where
 
-import AnsiDiff (ansidiff)
 import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
 import System.Environment (getArgs)
+
+import AnsiDiff (ansidiff)
 
 main :: IO ()
 main = do

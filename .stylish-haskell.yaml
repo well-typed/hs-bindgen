@@ -1,0 +1,378 @@
+# stylish-haskell configuration file
+# ==================================
+
+# The stylish-haskell tool is mainly configured by specifying steps. These steps
+# are a list, so they have an order, and one specific step may appear more than
+# once (if needed). Each file is processed by these steps in the given order.
+steps:
+  # Import cleanup
+  - imports:
+      # There are different ways we can align names and lists.
+      #
+      # - global: Align the import names and import list throughout the entire
+      #   file.
+      #
+      # - file: Like global, but don't add padding when there are no qualified
+      #   imports in the file.
+      #
+      # - group: Only align the imports per group (a group is formed by adjacent
+      #   import lines).
+      #
+      # - none: Do not perform any alignment.
+      #
+      # Default: global.
+      align: group
+
+      # The following options affect only import list alignment.
+      #
+      # List align has following options:
+      #
+      # - after_alias: Import list is aligned with end of import including
+      #   'as' and 'hiding' keywords.
+      #
+      #   > import qualified Data.List      as List (concat, foldl, foldr, head,
+      #   >                                          init, last, length)
+      #
+      # - with_alias: Import list is aligned with start of alias or hiding.
+      #
+      #   > import qualified Data.List      as List (concat, foldl, foldr, head,
+      #   >                                 init, last, length)
+      #
+      # - with_module_name: Import list is aligned `list_padding` spaces after
+      #   the module name.
+      #
+      #   > import qualified Data.List      as List (concat, foldl, foldr, head,
+      #                          init, last, length)
+      #
+      #   This is mainly intended for use with `pad_module_names: false`.
+      #
+      #   > import qualified Data.List as List (concat, foldl, foldr, head,
+      #                          init, last, length, scanl, scanr, take, drop,
+      #                          sort, nub)
+      #
+      # - new_line: Import list starts always on new line.
+      #
+      #   > import qualified Data.List      as List
+      #   >     (concat, foldl, foldr, head, init, last, length)
+      #
+      # - repeat: Repeat the module name to align the import list.
+      #
+      #   > import qualified Data.List      as List (concat, foldl, foldr, head)
+      #   > import qualified Data.List      as List (init, last, length)
+      #
+      # Default: after_alias
+      list_align: after_alias
+
+      # Right-pad the module names to align imports in a group:
+      #
+      # - true: a little more readable
+      #
+      #   > import qualified Data.List       as List (concat, foldl, foldr,
+      #   >                                           init, last, length)
+      #   > import qualified Data.List.Extra as List (concat, foldl, foldr,
+      #   >                                           init, last, length)
+      #
+      # - false: diff-safe
+      #
+      #   > import qualified Data.List as List (concat, foldl, foldr, init,
+      #   >                                     last, length)
+      #   > import qualified Data.List.Extra as List (concat, foldl, foldr,
+      #   >                                           init, last, length)
+      #
+      # Default: true
+      pad_module_names: false
+
+      # Long list align style takes effect when import is too long. This is
+      # determined by 'columns' setting.
+      #
+      # - inline: This option will put as much specs on same line as possible.
+      #
+      # - new_line: Import list will start on new line.
+      #
+      # - new_line_multiline: Import list will start on new line when it's
+      #   short enough to fit to single line. Otherwise it'll be multiline.
+      #
+      # - multiline: One line per import list entry.
+      #   Type with constructor list acts like single import.
+      #
+      #   > import qualified Data.Map as M
+      #   >     ( empty
+      #   >     , singleton
+      #   >     , ...
+      #   >     , delete
+      #   >     )
+      #
+      # Default: inline
+      long_list_align: inline
+
+      # Align empty list (importing instances)
+      #
+      # Empty list align has following options
+      #
+      # - inherit: inherit list_align setting
+      #
+      # - right_after: () is right after the module name:
+      #
+      #   > import Vector.Instances ()
+      #
+      # Default: inherit
+      empty_list_align: inherit
+
+      # List padding determines indentation of import list on lines after import.
+      # This option affects 'long_list_align'.
+      #
+      # - <integer>: constant value
+      #
+      # - module_name: align under start of module name.
+      #   Useful for 'file' and 'group' align settings.
+      #
+      # Default: 4
+      list_padding: 2
+
+      # Separate lists option affects formatting of import list for type
+      # or class. The only difference is single space between type and list
+      # of constructors, selectors and class functions.
+      #
+      # - true: There is single space between Foldable type and list of it's
+      #   functions.
+      #
+      #   > import Data.Foldable (Foldable (fold, foldl, foldMap))
+      #
+      # - false: There is no space between Foldable type and list of it's
+      #   functions.
+      #
+      #   > import Data.Foldable (Foldable(fold, foldl, foldMap))
+      #
+      # Default: true
+      separate_lists: true
+
+      # Space surround option affects formatting of import lists on a single
+      # line. The only difference is single space after the initial
+      # parenthesis and a single space before the terminal parenthesis.
+      #
+      # - true: There is single space associated with the enclosing
+      #   parenthesis.
+      #
+      #   > import Data.Foo ( foo )
+      #
+      # - false: There is no space associated with the enclosing parenthesis
+      #
+      #   > import Data.Foo (foo)
+      #
+      # Default: false
+      space_surround: false
+
+      # Post qualify option moves any qualifies found in import declarations
+      # to the end of the declaration. This also adjust padding for any
+      # unqualified import declarations.
+      #
+      # - true: Qualified as <module name> is moved to the end of the
+      #   declaration.
+      #
+      #   > import Data.Bar
+      #   > import Data.Foo qualified as F
+      #
+      # - false: Qualified remains in the default location and unqualified
+      #   imports are padded to align with qualified imports.
+      #
+      #   > import           Data.Bar
+      #   > import qualified Data.Foo as F
+      #
+      # Default: false
+      post_qualify: true
+
+      # Automatically group imports based on their module names, with
+      # a blank line separating each group. Groups are ordered in
+      # alphabetical order.
+      #
+      # By default, this groups by the first part of each module's
+      # name (Control.* will be grouped together, Data.*... etc), but
+      # this can be configured with the group_patterns setting.
+      #
+      # When enabled, this rewrites existing blank lines and groups.
+      #
+      # - true: Group imports by the first part of the module name.
+      #
+      #   > import Control.Applicative
+      #   > import Control.Monad
+      #   > import Control.Monad.MonadError
+      #   >
+      #   > import Data.Functor
+      #
+      # - false: Keep import groups as-is (still sorting and
+      #   formatting the imports within each group)
+      #
+      #   > import Control.Monad
+      #   > import Data.Functor
+      #   >
+      #   > import Control.Applicative
+      #   > import Control.Monad.MonadError
+      #
+      # Default: false
+      #
+      # Import groups in order from most general to most specific:
+      # 1. Base and external packages
+      # 2. clang modules
+      # 3. hs-bindgen-runtime modules
+      # 4. hs-bindgen modules
+      group_imports: true
+
+      # A list of rules specifying how to group modules and how to
+      # order the groups.
+      #
+      # Each rule has a match field; the rule only applies to module
+      # names matched by this pattern. Patterns are POSIX extended
+      # regular expressions; see the documentation of Text.Regex.TDFA
+      # for details:
+      # https://hackage.haskell.org/package/regex-tdfa-1.3.1.2/docs/Text-Regex-TDFA.html
+      #
+      # Rules are processed in order, so only the *first* rule that
+      # matches a specific module will apply. Any module names that do
+      # not match a single rule will be put into a single group at the
+      # end of the import block.
+      #
+      # Example: group MyApp modules first, with everything else in
+      # one group at the end.
+      #
+      #  group_rules:
+      #    - match: "^MyApp\\>"
+      #
+      #  > import MyApp
+      #  > import MyApp.Foo
+      #  >
+      #  > import Control.Monad
+      #  > import MyApps
+      #  > import Test.MyApp
+      #
+      # A rule can also optionally have a sub_group pattern. Imports
+      # that match the rule will be broken up into further groups by
+      # the part of the module name matched by the sub_group pattern.
+      #
+      # Example: group MyApp modules first, then everything else
+      # sub-grouped by the first part of the module name.
+      #
+      #  group_rules:
+      #    - match: "^MyApp\\>"
+      #    - match: "."
+      #      sub_group: "^[^.]+"
+      #
+      #  > import MyApp
+      #  > import MyApp.Foo
+      #  >
+      #  > import Control.Applicative
+      #  > import Control.Monad
+      #  >
+      #  > import Data.Map
+      #
+      # A pattern only needs to match part of the module name, which
+      # could be in the middle. You can use ^pattern to anchor to the
+      # beginning of the module name, pattern$ to anchor to the end
+      # and ^pattern$ to force a full match. Example:
+      #
+      #  - "Test\\." would match "Test.Foo" and "Foo.Test.Lib"
+      #  - "^Test\\." would match "Test.Foo" but not "Foo.Test.Lib"
+      #  - "\\.Test$" would match "Foo.Test" but not "Foo.Test.Lib"
+      #  - "^Test$" would *only* match "Test"
+      #
+      # You can use \\< and \\> to anchor against the beginning and
+      # end of words, respectively. For example:
+      #
+      #  - "^Test\\." would match "Test.Foo" but not "Test" or "Tests"
+      #  - "^Test\\>" would match "Test.Foo" and "Test", but not
+      #    "Tests"
+      #
+      # The default is a single rule that matches everything and
+      # sub-groups based on the first component of the module name.
+      #
+      # Default: [{ "match" : ".*", "sub_group": "^[^.]+" }]
+      #
+      # Group rules in order from most general to most specific:
+      # 1. Prelude (always first, standalone)
+      # 2. Base library modules sub-grouped by top-level module (Control, Data, System, etc.)
+      # 3. External library modules sub-grouped by top-level package name
+      # 4. c-expr modules sub-grouped by module hierarchy
+      # 5. Clang modules sub-grouped by module hierarchy
+      # 6. hs-bindgen-runtime modules sub-grouped by module hierarchy
+      # 7. hs-bindgen modules sub-grouped by module hierarchy
+      group_rules:
+        - match: "^Prelude$"
+        - match: "^(Control\\.|Data\\.|System\\.|Text\\.|GHC\\.|Foreign|Foreign\\.|Unsafe\\.|Debug\\.|Network\\.|Test\\.|Numeric\\.|Options\\.|Language\\.|Optics\\.|DeBruijn\\.|Prettyprinter\\.)"
+        - match: "^[A-Z][a-zA-Z0-9_]*\\."
+          sub_group: "^[^.]+"
+        - match: "^C\\."
+          sub_group: "^C\\.[^.]+"
+        - match: "^Clang\\."
+          sub_group: "^Clang\\.[^.]+"
+        - match: "^HsBindgen\\.Runtime\\."
+          sub_group: "^HsBindgen\\.Runtime\\.[^.]+"
+        - match: "^HsBindgen\\."
+          sub_group: "^HsBindgen\\.[^.]+"
+
+# A common setting is the number of columns (parts of) code will be wrapped
+# to. Different steps take this into account.
+#
+# Set this to null to disable all line wrapping.
+#
+# Default: 80.
+columns: 80
+
+# By default, line endings are converted according to the OS. You can override
+# preferred format here.
+#
+# - native: Native newline format. CRLF on Windows, LF on other OSes.
+#
+# - lf: Convert to LF ("\n").
+#
+# - crlf: Convert to CRLF ("\r\n").
+#
+# Default: native.
+newline: native
+
+# Sometimes, language extensions are specified in a cabal file or from the
+# command line instead of using language pragmas in the file. stylish-haskell
+# needs to be aware of these, so it can parse the file correctly.
+#
+# No language extensions are enabled by default.
+#
+# These syntax-affecting language extensions are enabled so that
+# stylish-haskell wouldn't fail with parsing errors when processing files
+# in projects that have those extensions enabled in the .cabal file
+# rather than locally.
+language_extensions:
+  - BangPatterns
+  - CApiFFI
+  - ConstraintKinds
+  - CPP
+  - DataKinds
+  - DefaultSignatures
+  - DeriveDataTypeable
+  - DeriveGeneric
+  - DeriveLift
+  - ExistentialQuantification
+  - ExplicitNamespaces
+  - FlexibleContexts
+  - FlexibleInstances
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - LambdaCase
+  - MagicHash
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NegativeLiterals
+  - NoImplicitPrelude
+  - OverloadedStrings
+  - PatternSynonyms
+  - PolyKinds
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TemplateHaskell
+  - TupleSections
+  - TypeApplications
+  - TypeFamilies
+  - UnboxedTuples
+  - UnliftedFFITypes
+  - UnliftedNewtypes
+  - Unsafe
+  - ViewPatterns

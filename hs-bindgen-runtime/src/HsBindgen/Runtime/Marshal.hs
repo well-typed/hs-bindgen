@@ -17,9 +17,9 @@ module HsBindgen.Runtime.Marshal (
   , newZero
   ) where
 
-import Data.Int (Int8, Int16, Int32, Int64)
-import Data.Proxy (Proxy(Proxy))
-import Data.Word (Word8, Word16, Word32, Word64)
+import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Proxy (Proxy (Proxy))
+import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign.C qualified as C
 import Foreign.ForeignPtr (ForeignPtr, withForeignPtr)
 import Foreign.Marshal.Alloc qualified as Alloc

@@ -4,6 +4,8 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   , MangleNamesMsg(..)
   ) where
 
+import Text.SimplePrettyPrint
+
 import HsBindgen.Frontend.AST.External (DeclSpec, NamePair, NewtypeNames,
                                         RecordNames)
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
@@ -14,7 +16,6 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-import Text.SimplePrettyPrint
 
 {-------------------------------------------------------------------------------
   Definition

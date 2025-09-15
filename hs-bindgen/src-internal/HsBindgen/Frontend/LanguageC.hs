@@ -22,14 +22,13 @@ import Control.Monad.State qualified as State
 import Data.Map qualified as Map
 import Data.Text qualified as Text
 import Data.Tuple (swap)
-
-import Clang.Enum.Simple     qualified as Clang
-import Clang.HighLevel.Types qualified as Clang
-import Clang.LowLevel.Core   qualified as Clang
-import Clang.Paths           qualified as Clang
-
-import Language.C               qualified as LanC
+import Language.C qualified as LanC
 import Language.C.Data.Position qualified as LanC
+
+import Clang.Enum.Simple qualified as Clang
+import Clang.HighLevel.Types qualified as Clang
+import Clang.LowLevel.Core qualified as Clang
+import Clang.Paths qualified as Clang
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal

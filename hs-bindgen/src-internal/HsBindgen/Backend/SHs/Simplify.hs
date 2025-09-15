@@ -1,14 +1,14 @@
 -- | Simplification pass on the "HsBindgen.Backend.SHs.AST" representation
 module HsBindgen.Backend.SHs.Simplify (simplifySHs) where
 
+import Data.Either (partitionEithers)
 import Data.Map.Strict qualified as Map
-import Data.Set        qualified as Set
+import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST.Strategy
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
-import HsBindgen.Backend.SHs.AST
-import Data.Either (partitionEithers)
 
 {-------------------------------------------------------------------------------
   Top-level

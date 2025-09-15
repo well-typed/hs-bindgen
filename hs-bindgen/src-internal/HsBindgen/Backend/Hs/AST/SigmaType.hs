@@ -10,12 +10,12 @@ module HsBindgen.Backend.Hs.AST.SigmaType (
     AClass(..),
 ) where
 
-import DeBruijn (Ctx, Idx (..))
-
 import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.NameHint
 import HsBindgen.Util.TestEquality
+
+import DeBruijn (Ctx, Idx (..))
 
 -- | A σ-type, of the form @forall tvs. ctxt => body@.
 type SigmaType :: Star

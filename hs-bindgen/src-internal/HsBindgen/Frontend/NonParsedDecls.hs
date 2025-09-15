@@ -7,10 +7,12 @@ module HsBindgen.Frontend.NonParsedDecls (
   , lookup
   ) where
 
-import Data.Map.Strict qualified as Map
 import Prelude hiding (lookup)
 
+import Data.Map.Strict qualified as Map
+
 import Clang.Paths (SourcePath)
+
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 

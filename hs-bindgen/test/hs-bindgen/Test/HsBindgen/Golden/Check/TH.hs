@@ -5,35 +5,31 @@
 -- | Golden test: TH output
 module Test.HsBindgen.Golden.Check.TH (check) where
 
-import Data.Generics qualified as SYB
-import Data.Map.Strict qualified as Map
-
 import Control.Monad (join)
 import Control.Monad.State.Strict (State, get, put, runState)
-
-import Clang.Version
-
+import Data.Generics qualified as SYB
+import Data.Map.Strict qualified as Map
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Ppr qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-
 import System.FilePath (makeRelative, (</>))
+import Test.Common.Util.Tasty
+import Test.Common.Util.Tasty.Golden (ActualValue (..))
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
+import Test.Tasty hiding (after)
+import Text.SimplePrettyPrint
 
-import HsBindgen
+import Clang.Version
+
 import HsBindgen.Backend.Artefact.HsModule.Render
 import HsBindgen.Backend.Hs.Haddock.Documentation
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TH.Internal
 
-import Test.Common.Util.Tasty
-import Test.Common.Util.Tasty.Golden (ActualValue (..))
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
-import Test.Tasty hiding (after)
-
-import Text.SimplePrettyPrint
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

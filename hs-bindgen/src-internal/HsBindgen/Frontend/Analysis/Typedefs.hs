@@ -14,7 +14,7 @@ import Data.Map.Strict qualified as Map
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage(..), ValOrRef(..))
+import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)

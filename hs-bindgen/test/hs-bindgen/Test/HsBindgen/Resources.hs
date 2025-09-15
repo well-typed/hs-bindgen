@@ -16,19 +16,19 @@ module Test.HsBindgen.Resources (
 import Data.Default (Default (..))
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
+import Test.Common.Util.Cabal
+import Test.HsBindgen.Resources.Rust
 import Test.Tasty
 
 import Clang.Args
 import Clang.Paths
+
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
-
-import Test.Common.Util.Cabal
-import Test.HsBindgen.Resources.Rust
 
 {-------------------------------------------------------------------------------
   Definition

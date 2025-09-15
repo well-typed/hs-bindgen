@@ -4,13 +4,12 @@ module AnsiDiff (
 
 import Control.Monad (forM_)
 import Control.Monad.ST (ST)
-import Data.Primitive.Types (Prim)
+import Control.Monad.Trans.State.Strict qualified as S
+import Data.Algorithm.Diff qualified as Diff
 import Data.Primitive.Array qualified as P
 import Data.Primitive.PrimArray qualified as P
-import Control.Monad.Trans.State.Strict qualified as S
+import Data.Primitive.Types (Prim)
 import System.Console.ANSI qualified as ANSI
-
-import Data.Algorithm.Diff qualified as Diff
 import Text.EditDistance qualified as ED
 
 ansidiff :: String -> String -> String

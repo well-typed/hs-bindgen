@@ -8,8 +8,8 @@ import Data.Text (Text)
 import Data.Text.Encoding qualified as TE
 import Data.Text.Metrics qualified as Metrics
 import System.Directory (doesFileExist, setCurrentDirectory)
-import System.FilePath ((</>), (-<.>))
-import Test.Tasty.Bench (Benchmark, defaultMain, env, nf, whnf, bench, bgroup)
+import System.FilePath ((-<.>), (</>))
+import Test.Tasty.Bench (Benchmark, bench, bgroup, defaultMain, env, nf, whnf)
 import Text.EditDistance qualified as ED
 
 import AnsiDiff qualified

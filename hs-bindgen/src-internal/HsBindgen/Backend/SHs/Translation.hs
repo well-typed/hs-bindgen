@@ -12,6 +12,7 @@ import Data.Proxy (Proxy (..))
 import Data.Text qualified as T
 import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec
+import DeBruijn.Internal.Size (Size (UnsafeSize))
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -26,7 +27,6 @@ import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 
 import DeBruijn (rzeroAdd)
-import DeBruijn.Internal.Size (Size (UnsafeSize))
 import Witherable (ordNub)
 
 {-------------------------------------------------------------------------------

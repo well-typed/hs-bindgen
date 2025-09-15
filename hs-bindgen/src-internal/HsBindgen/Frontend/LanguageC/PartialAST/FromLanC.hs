@@ -12,19 +12,18 @@ import Data.Map qualified as Map
 import Data.Maybe (fromMaybe)
 import Data.Text qualified as Text
 import GHC.Stack
+import Language.C qualified as LanC
+import Language.C.Data.Ident qualified as LanC
 import Optics.Core (Lens')
 import Optics.Core qualified as Optics
-
-import Language.C            qualified as LanC
-import Language.C.Data.Ident qualified as LanC
 
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Naming
-import HsBindgen.Language.C.Prim
 import HsBindgen.Frontend.Pass
+import HsBindgen.Language.C.Prim
 
 {-------------------------------------------------------------------------------
   Top-level: construct the partial AST

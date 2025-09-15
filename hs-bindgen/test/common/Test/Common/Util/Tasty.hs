@@ -9,7 +9,6 @@ module Test.Common.Util.Tasty (
   , goldenAnsiDiff
   ) where
 
-import AnsiDiff (ansidiff)
 import Control.Exception
 import Control.Monad
 import Data.ByteString qualified as BS
@@ -20,16 +19,16 @@ import Data.Text qualified as Text
 import Data.Text.Encoding qualified as Text
 import Data.Text.Lazy qualified as Text.Lazy
 import Data.TreeDiff
-import Prettyprinter qualified as PP
 import Prettyprinter.Render.Terminal qualified as PP
 import System.Console.ANSI (SGR (Reset), setSGRCode)
+import Test.Common.Util.Tasty.Golden
+import Test.Tasty
+import Test.Tasty.HUnit
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Text ()
 
-import Test.Tasty
-import Test.Tasty.HUnit
-
-import Test.Common.Util.Tasty.Golden
+import AnsiDiff (ansidiff)
+import Prettyprinter qualified as PP
 
 {-------------------------------------------------------------------------------
   Assertions

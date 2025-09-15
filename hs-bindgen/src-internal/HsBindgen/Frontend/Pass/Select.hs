@@ -7,6 +7,7 @@ import Data.Map qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
+
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))

@@ -24,7 +24,7 @@ import Control.Monad.Primitive (RealWorld)
 import Data.Coerce (Coercible, coerce)
 import Data.Primitive.ByteArray (ByteArray, MutableByteArray)
 import Data.Primitive.ByteArray qualified as BA
-import Foreign (Storable (poke, peek), Ptr, castPtr, copyBytes, sizeOf)
+import Foreign (Ptr, Storable (peek, poke), castPtr, copyBytes, sizeOf)
 import System.IO.Unsafe (unsafePerformIO)
 
 {-------------------------------------------------------------------------------

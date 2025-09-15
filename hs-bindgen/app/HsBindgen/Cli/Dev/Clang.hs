@@ -13,16 +13,14 @@ module HsBindgen.Cli.Dev.Clang (
   , exec
   ) where
 
+import Options.Applicative hiding (info)
 import Prettyprinter.Util qualified as PP
 
-import Options.Applicative hiding (info)
-
+import HsBindgen.App
 import HsBindgen.Boot (getClangArgs)
 import HsBindgen.Clang
 import HsBindgen.Imports
 import HsBindgen.Lib
-
-import HsBindgen.App
 
 {-------------------------------------------------------------------------------
   CLI help

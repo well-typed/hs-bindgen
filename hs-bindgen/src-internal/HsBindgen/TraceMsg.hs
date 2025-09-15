@@ -29,6 +29,7 @@ module HsBindgen.TraceMsg (
   ) where
 
 import Clang.HighLevel.Types (Diagnostic (..))
+
 import HsBindgen.BindingSpec (BindingSpecMsg (..))
 import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))

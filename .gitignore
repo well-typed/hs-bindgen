@@ -1,5 +1,4 @@
 /.direnv/
-/.stylish-haskell.yaml
 
 .dir-locals.el
 .envrc

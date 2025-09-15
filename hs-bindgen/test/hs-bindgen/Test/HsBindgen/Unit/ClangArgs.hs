@@ -1,19 +1,19 @@
 module Test.HsBindgen.Unit.ClangArgs (tests) where
 
 import System.Environment (setEnv, unsetEnv)
+import Test.Common.HsBindgen.TracePredicate
+import Test.HsBindgen.Resources
 import Test.Tasty
 import Test.Tasty.HUnit
 
 import Clang.LowLevel.Core
+
 import HsBindgen.Clang
 import HsBindgen.Clang.ExtraClangArgs (getExtraClangArgs, splitArguments)
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-
-import Test.Common.HsBindgen.TracePredicate
-import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   List of tests

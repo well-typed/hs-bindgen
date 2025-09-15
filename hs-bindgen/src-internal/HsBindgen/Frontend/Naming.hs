@@ -57,16 +57,17 @@ module HsBindgen.Frontend.Naming (
   ) where
 
 import Data.Text qualified as Text
+import Text.SimplePrettyPrint ((<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel (ShowFile (..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
-import Text.SimplePrettyPrint ((<+>), (><))
-import Text.SimplePrettyPrint qualified as PP
 
 {-------------------------------------------------------------------------------
   Name

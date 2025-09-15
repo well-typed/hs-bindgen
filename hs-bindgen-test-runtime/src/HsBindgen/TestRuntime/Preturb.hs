@@ -25,9 +25,8 @@ import Test.Tasty.HUnit (Assertion)
 import Test.Tasty.QuickCheck (Property, discard)
 
 import HsBindgen.TestRuntime.RealFloat qualified as RF
-import HsBindgen.TestRuntime.SameSemantics (
-    (==~), (/=~), (@==~?), (@/=~?), SameSemantics(sameSemantics)
-  )
+import HsBindgen.TestRuntime.SameSemantics (SameSemantics (sameSemantics),
+                                            (/=~), (==~), (@/=~?), (@==~?))
 
 {-------------------------------------------------------------------------------
   Preturb

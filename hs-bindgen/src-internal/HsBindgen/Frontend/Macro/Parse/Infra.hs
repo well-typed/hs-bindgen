@@ -17,9 +17,10 @@ module HsBindgen.Frontend.Macro.Parse.Infra (
   ) where
 
 import Data.Text qualified as Text
-import Text.Parsec hiding (token, tokens, runParser)
+import Text.Parsec hiding (runParser, token, tokens)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos
+import Text.SimplePrettyPrint (hsep, textToCtxDoc, vcat, (><))
 
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
@@ -29,7 +30,6 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (..))
-import Text.SimplePrettyPrint (hsep, textToCtxDoc, vcat, (><))
 
 {-------------------------------------------------------------------------------
   Parser type
