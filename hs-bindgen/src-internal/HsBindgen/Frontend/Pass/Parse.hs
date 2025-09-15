@@ -27,7 +27,7 @@ parseDecls ::
   -> IncludeGraph
   -> Predicate.IsMainHeader
   -> Predicate.IsInMainHeaderDir
-  -> GetMainHeader
+  -> GetMainHeadersAndInclude
   -> CXTranslationUnit
   -> IO (C.TranslationUnit Parse)
 parseDecls
@@ -37,17 +37,17 @@ parseDecls
   includeGraph
   isMainHeader
   isInMainHeaderDir
-  getMainHeader
+  getMainHeadersAndInclude
   unit = do
     let parseEnv :: ParseDecl.Env
         parseEnv  = ParseDecl.Env{
-            envUnit              = unit
-          , envRootHeader        = rootHeader
-          , envIsMainHeader      = isMainHeader
-          , envIsInMainHeaderDir = isInMainHeaderDir
-          , envGetMainHeader     = getMainHeader
-          , envPredicate         = predicate
-          , envTracer            = tracer
+            envUnit                     = unit
+          , envRootHeader               = rootHeader
+          , envIsMainHeader             = isMainHeader
+          , envIsInMainHeaderDir        = isInMainHeaderDir
+          , envGetMainHeadersAndInclude = getMainHeadersAndInclude
+          , envPredicate                = predicate
+          , envTracer                   = tracer
           }
     root  <- clang_getTranslationUnitCursor unit
     (omittedDecls, decls) <- fmap (fmap concat) . ParseDecl.run parseEnv $

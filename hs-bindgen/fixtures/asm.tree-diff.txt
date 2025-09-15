@@ -10,7 +10,11 @@ TranslationUnit {
             "asm_labeled_variable"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "asm.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["asm.h"],
+            headerInclude = "asm.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -31,7 +35,11 @@ TranslationUnit {
             "asm_labeled_function"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "asm.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["asm.h"],
+            headerInclude = "asm.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

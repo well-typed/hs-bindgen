@@ -72,6 +72,7 @@ instance ToExpr C.EnumConstant
 instance ToExpr C.Function
 instance ToExpr C.FunctionAttributes
 instance ToExpr C.FunctionPurity
+instance ToExpr C.HeaderInfo
 instance ToExpr C.Name
 instance ToExpr C.NameKind
 instance ToExpr C.NameOrigin

@@ -10,8 +10,12 @@ TranslationUnit {
             "f0"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -36,8 +40,12 @@ TranslationUnit {
             "f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -62,8 +70,12 @@ TranslationUnit {
             "f2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -88,8 +100,12 @@ TranslationUnit {
             "f3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -114,8 +130,12 @@ TranslationUnit {
             "f4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -140,8 +160,12 @@ TranslationUnit {
             "f5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -166,8 +190,12 @@ TranslationUnit {
             "f6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -192,8 +220,12 @@ TranslationUnit {
             "f7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -218,8 +250,12 @@ TranslationUnit {
             "f8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -244,8 +280,12 @@ TranslationUnit {
             "f9"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -270,8 +310,12 @@ TranslationUnit {
             "f10"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -296,8 +340,12 @@ TranslationUnit {
             "f11"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -322,8 +370,12 @@ TranslationUnit {
             "f12"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -348,8 +400,12 @@ TranslationUnit {
             "f13"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -374,8 +430,12 @@ TranslationUnit {
             "f14"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -400,8 +460,12 @@ TranslationUnit {
             "f15"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -426,8 +490,12 @@ TranslationUnit {
             "f16"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -452,8 +520,12 @@ TranslationUnit {
             "f17"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -478,8 +550,12 @@ TranslationUnit {
             "f18"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -504,8 +580,12 @@ TranslationUnit {
             "f19"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -530,8 +610,12 @@ TranslationUnit {
             "f20"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -556,8 +640,12 @@ TranslationUnit {
             "f21"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -582,8 +670,12 @@ TranslationUnit {
             "f22"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -608,8 +700,12 @@ TranslationUnit {
             "f23"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -634,8 +730,12 @@ TranslationUnit {
             "f24"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -660,8 +760,12 @@ TranslationUnit {
             "f25"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -686,8 +790,12 @@ TranslationUnit {
             "f26"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -712,8 +820,12 @@ TranslationUnit {
             "f27"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -738,8 +850,12 @@ TranslationUnit {
             "f28"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -764,8 +880,12 @@ TranslationUnit {
             "f29"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -790,8 +910,12 @@ TranslationUnit {
             "i0"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -812,8 +936,12 @@ TranslationUnit {
             "i1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -834,8 +962,12 @@ TranslationUnit {
             "i2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -856,8 +988,12 @@ TranslationUnit {
             "i3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -878,8 +1014,12 @@ TranslationUnit {
             "i4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -900,8 +1040,12 @@ TranslationUnit {
             "i5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -922,8 +1066,12 @@ TranslationUnit {
             "i6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -944,8 +1092,12 @@ TranslationUnit {
             "i7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -966,8 +1118,12 @@ TranslationUnit {
             "i8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -988,8 +1144,12 @@ TranslationUnit {
             "i9"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1010,8 +1170,12 @@ TranslationUnit {
             "i10"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1032,8 +1196,12 @@ TranslationUnit {
             "i11"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1054,8 +1222,12 @@ TranslationUnit {
             "i12"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1076,8 +1248,12 @@ TranslationUnit {
             "i13"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1098,8 +1274,12 @@ TranslationUnit {
             "i14"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1120,8 +1300,12 @@ TranslationUnit {
             "i15"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1142,8 +1326,12 @@ TranslationUnit {
             "i16"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1164,8 +1352,12 @@ TranslationUnit {
             "i17"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1186,8 +1378,12 @@ TranslationUnit {
             "i18"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -1208,8 +1404,12 @@ TranslationUnit {
             "i19"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "visibility_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["visibility_attributes.h"],
+            headerInclude =
+            "visibility_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim

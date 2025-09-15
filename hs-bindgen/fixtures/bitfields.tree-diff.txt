@@ -9,7 +9,11 @@ TranslationUnit {
             "Flags"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -110,7 +114,11 @@ TranslationUnit {
             "Overflow32"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -173,7 +181,11 @@ TranslationUnit {
             "Overflow32b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -236,7 +248,11 @@ TranslationUnit {
             "Overflow32c"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -299,7 +315,11 @@ TranslationUnit {
             "Overflow64"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -350,7 +370,11 @@ TranslationUnit {
             "AlignA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -400,7 +424,11 @@ TranslationUnit {
             "AlignB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bitfields.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bitfields.h"],
+            headerInclude = "bitfields.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

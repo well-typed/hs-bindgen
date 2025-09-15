@@ -28,7 +28,11 @@
             "asm_labeled_variable",
           commentLocation = Just
             "asm.h:2:12",
-          commentHeader = Just "asm.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["asm.h"],
+              headerInclude = "asm.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -49,7 +53,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -61,7 +65,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -103,7 +107,11 @@
             "asm_labeled_function",
           commentLocation = Just
             "asm.h:4:5",
-          commentHeader = Just "asm.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["asm.h"],
+              headerInclude = "asm.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -146,7 +154,11 @@
             "asm_labeled_function",
           commentLocation = Just
             "asm.h:4:5",
-          commentHeader = Just "asm.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["asm.h"],
+              headerInclude = "asm.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

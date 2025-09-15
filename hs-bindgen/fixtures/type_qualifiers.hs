@@ -29,8 +29,12 @@
           commentOrigin = Just "a",
           commentLocation = Just
             "type_qualifiers.h:5:18",
-          commentHeader = Just
-            "type_qualifiers.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_qualifiers.h"],
+              headerInclude =
+              "type_qualifiers.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -71,8 +75,12 @@
           commentOrigin = Just "b",
           commentLocation = Just
             "type_qualifiers.h:7:19",
-          commentHeader = Just
-            "type_qualifiers.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_qualifiers.h"],
+              headerInclude =
+              "type_qualifiers.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -111,8 +119,12 @@
           commentOrigin = Just "c",
           commentLocation = Just
             "type_qualifiers.h:9:19",
-          commentHeader = Just
-            "type_qualifiers.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_qualifiers.h"],
+              headerInclude =
+              "type_qualifiers.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -154,8 +166,12 @@
           commentOrigin = Just "d",
           commentLocation = Just
             "type_qualifiers.h:11:25",
-          commentHeader = Just
-            "type_qualifiers.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_qualifiers.h"],
+              headerInclude =
+              "type_qualifiers.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -179,7 +195,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "items",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -191,7 +207,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "count",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -239,8 +255,12 @@
             "list_example",
           commentLocation = Just
             "type_qualifiers.h:14:6",
-          commentHeader = Just
-            "type_qualifiers.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_qualifiers.h"],
+              headerInclude =
+              "type_qualifiers.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -288,8 +308,12 @@
             "list_example",
           commentLocation = Just
             "type_qualifiers.h:14:6",
-          commentHeader = Just
-            "type_qualifiers.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_qualifiers.h"],
+              headerInclude =
+              "type_qualifiers.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

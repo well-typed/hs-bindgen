@@ -34,7 +34,11 @@
           commentOrigin = Just "arr0",
           commentLocation = Just
             "array.h:11:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -74,7 +78,11 @@
           commentOrigin = Just "arr1",
           commentLocation = Just
             "array.h:14:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -114,7 +122,11 @@
           commentOrigin = Just "arr2",
           commentLocation = Just
             "array.h:17:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -154,7 +166,11 @@
           commentOrigin = Just "arr3",
           commentLocation = Just
             "array.h:20:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -194,7 +210,11 @@
           commentOrigin = Just "arr6",
           commentLocation = Just
             "array.h:29:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -232,7 +252,11 @@
           commentOrigin = Just "arr7",
           commentLocation = Just
             "array.h:32:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -263,7 +287,11 @@
               "Triplet"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "array.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -292,7 +320,11 @@
           commentOrigin = Just "triplet",
           commentLocation = Just
             "array.h:41:13",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -349,7 +381,11 @@
               "List"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "array.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -378,7 +414,11 @@
           commentOrigin = Just "list",
           commentLocation = Just
             "array.h:43:13",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -428,7 +468,11 @@
               "Matrix"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "array.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -461,7 +505,11 @@
           commentOrigin = Just "matrix",
           commentLocation = Just
             "array.h:45:13",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -520,7 +568,11 @@
               "Tripletlist"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "array.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -554,7 +606,11 @@
             "tripletlist",
           commentLocation = Just
             "array.h:47:13",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -613,7 +669,11 @@
               commentOrigin = Just "triple",
               commentLocation = Just
                 "array.h:50:9",
-              commentHeader = Just "array.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["array.h"],
+                  headerInclude = "array.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -647,7 +707,11 @@
               commentOrigin = Just "sudoku",
               commentLocation = Just
                 "array.h:51:9",
-              commentHeader = Just "array.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["array.h"],
+                  headerInclude = "array.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -659,7 +723,11 @@
                 "Example"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "array.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["array.h"],
+                headerInclude = "array.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -713,7 +781,11 @@
           commentOrigin = Just "Example",
           commentLocation = Just
             "array.h:49:8",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -755,7 +827,11 @@
                   commentOrigin = Just "triple",
                   commentLocation = Just
                     "array.h:50:9",
-                  commentHeader = Just "array.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["array.h"],
+                      headerInclude = "array.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -789,7 +865,11 @@
                   commentOrigin = Just "sudoku",
                   commentLocation = Just
                     "array.h:51:9",
-                  commentHeader = Just "array.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["array.h"],
+                      headerInclude = "array.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -801,7 +881,11 @@
                     "Example"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "array.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["array.h"],
+                    headerInclude = "array.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -855,7 +939,11 @@
               commentOrigin = Just "Example",
               commentLocation = Just
                 "array.h:49:8",
-              commentHeader = Just "array.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["array.h"],
+                  headerInclude = "array.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 48,
@@ -900,7 +988,11 @@
                           commentOrigin = Just "triple",
                           commentLocation = Just
                             "array.h:50:9",
-                          commentHeader = Just "array.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["array.h"],
+                              headerInclude = "array.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -934,7 +1026,11 @@
                           commentOrigin = Just "sudoku",
                           commentLocation = Just
                             "array.h:51:9",
-                          commentHeader = Just "array.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["array.h"],
+                              headerInclude = "array.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -946,7 +1042,11 @@
                             "Example"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "array.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["array.h"],
+                            headerInclude = "array.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1000,7 +1100,11 @@
                       commentOrigin = Just "Example",
                       commentLocation = Just
                         "array.h:49:8",
-                      commentHeader = Just "array.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["array.h"],
+                          headerInclude = "array.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1047,7 +1151,11 @@
                           commentOrigin = Just "triple",
                           commentLocation = Just
                             "array.h:50:9",
-                          commentHeader = Just "array.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["array.h"],
+                              headerInclude = "array.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1081,7 +1189,11 @@
                           commentOrigin = Just "sudoku",
                           commentLocation = Just
                             "array.h:51:9",
-                          commentHeader = Just "array.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["array.h"],
+                              headerInclude = "array.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1093,7 +1205,11 @@
                             "Example"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "array.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["array.h"],
+                            headerInclude = "array.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1147,7 +1263,11 @@
                       commentOrigin = Just "Example",
                       commentLocation = Just
                         "array.h:49:8",
-                      commentHeader = Just "array.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["array.h"],
+                          headerInclude = "array.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1214,7 +1334,11 @@
           commentOrigin = Just "arr_1",
           commentLocation = Just
             "array.h:59:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1257,7 +1381,11 @@
           commentOrigin = Just "arr_2",
           commentLocation = Just
             "array.h:62:16",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1295,7 +1423,11 @@
           commentOrigin = Just "arr_3",
           commentLocation = Just
             "array.h:65:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1338,7 +1470,11 @@
           commentOrigin = Just "arr_4",
           commentLocation = Just
             "array.h:68:13",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1384,7 +1520,11 @@
           commentOrigin = Just "arr_5",
           commentLocation = Just
             "array.h:71:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1427,7 +1567,11 @@
           commentOrigin = Just "arr_6",
           commentLocation = Just
             "array.h:74:15",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1471,7 +1615,11 @@
           commentOrigin = Just "arr_7",
           commentLocation = Just
             "array.h:77:12",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1514,7 +1662,11 @@
           commentOrigin = Just "arr_8",
           commentLocation = Just
             "array.h:80:20",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1535,7 +1687,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -1547,7 +1699,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xs",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1596,7 +1748,11 @@
           commentOrigin = Just "fun_1",
           commentLocation = Just
             "array.h:87:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -1646,7 +1802,11 @@
           commentOrigin = Just "fun_1",
           commentLocation = Just
             "array.h:87:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1667,7 +1827,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xs",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1709,7 +1869,11 @@
           commentOrigin = Just "fun_2",
           commentLocation = Just
             "array.h:90:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -1758,7 +1922,11 @@
           commentOrigin = Just "fun_2",
           commentLocation = Just
             "array.h:90:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1779,7 +1947,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xs",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1820,7 +1988,11 @@
           commentOrigin = Just "fun_3",
           commentLocation = Just
             "array.h:93:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -1864,7 +2036,11 @@
           commentOrigin = Just "fun_3",
           commentLocation = Just
             "array.h:93:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1885,7 +2061,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xs",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1927,7 +2103,11 @@
           commentOrigin = Just "fun_4",
           commentLocation = Just
             "array.h:96:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -1974,7 +2154,11 @@
           commentOrigin = Just "fun_4",
           commentLocation = Just
             "array.h:96:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1997,7 +2181,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xss",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2041,7 +2225,11 @@
           commentOrigin = Just "fun_5",
           commentLocation = Just
             "array.h:99:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -2091,7 +2279,11 @@
           commentOrigin = Just "fun_5",
           commentLocation = Just
             "array.h:99:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2114,7 +2306,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xss",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2156,7 +2348,11 @@
           commentOrigin = Just "fun_6",
           commentLocation = Just
             "array.h:102:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -2205,7 +2401,11 @@
           commentOrigin = Just "fun_6",
           commentLocation = Just
             "array.h:102:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2228,7 +2428,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xss",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2271,7 +2471,11 @@
           commentOrigin = Just "fun_7",
           commentLocation = Just
             "array.h:105:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -2319,7 +2523,11 @@
           commentOrigin = Just "fun_7",
           commentLocation = Just
             "array.h:105:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2342,7 +2550,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "xss",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2384,7 +2592,11 @@
           commentOrigin = Just "fun_8",
           commentLocation = Just
             "array.h:108:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -2433,7 +2645,11 @@
           commentOrigin = Just "fun_8",
           commentLocation = Just
             "array.h:108:5",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2481,7 +2697,11 @@
           commentOrigin = Just "fun_9",
           commentLocation = Just
             "array.h:120:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2526,7 +2746,11 @@
           commentOrigin = Just "fun_9",
           commentLocation = Just
             "array.h:120:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2575,7 +2799,11 @@
           commentOrigin = Just "fun_10",
           commentLocation = Just
             "array.h:123:10",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2621,7 +2849,11 @@
           commentOrigin = Just "fun_10",
           commentLocation = Just
             "array.h:123:10",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2667,7 +2899,11 @@
           commentOrigin = Just "fun_11",
           commentLocation = Just
             "array.h:126:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2710,7 +2946,11 @@
           commentOrigin = Just "fun_11",
           commentLocation = Just
             "array.h:126:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2759,7 +2999,11 @@
           commentOrigin = Just "fun_12",
           commentLocation = Just
             "array.h:129:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2805,7 +3049,11 @@
           commentOrigin = Just "fun_12",
           commentLocation = Just
             "array.h:129:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2857,7 +3105,11 @@
           commentOrigin = Just "fun_13",
           commentLocation = Just
             "array.h:132:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2906,7 +3158,11 @@
           commentOrigin = Just "fun_13",
           commentLocation = Just
             "array.h:132:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2955,7 +3211,11 @@
           commentOrigin = Just "fun_14",
           commentLocation = Just
             "array.h:135:9",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3001,7 +3261,11 @@
           commentOrigin = Just "fun_14",
           commentLocation = Just
             "array.h:135:9",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3051,7 +3315,11 @@
           commentOrigin = Just "fun_15",
           commentLocation = Just
             "array.h:138:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3098,7 +3366,11 @@
           commentOrigin = Just "fun_15",
           commentLocation = Just
             "array.h:138:7",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3147,7 +3419,11 @@
           commentOrigin = Just "fun_16",
           commentLocation = Just
             "array.h:141:14",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3193,7 +3469,11 @@
           commentOrigin = Just "fun_16",
           commentLocation = Just
             "array.h:141:14",
-          commentHeader = Just "array.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

@@ -15,7 +15,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -56,8 +56,12 @@
             "square_cp",
           commentLocation = Just
             "fun_attributes_conflict.h:9:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren =
           [
             Paragraph
@@ -107,8 +111,12 @@
             "square_cp",
           commentLocation = Just
             "fun_attributes_conflict.h:9:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren =
           [
             Paragraph
@@ -134,7 +142,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -170,8 +178,12 @@
             "square_pc",
           commentLocation = Just
             "fun_attributes_conflict.h:11:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -211,8 +223,12 @@
             "square_pc",
           commentLocation = Just
             "fun_attributes_conflict.h:11:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -233,7 +249,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -269,8 +285,12 @@
             "square_cc",
           commentLocation = Just
             "fun_attributes_conflict.h:13:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -310,8 +330,12 @@
             "square_cc",
           commentLocation = Just
             "fun_attributes_conflict.h:13:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -332,7 +356,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -368,8 +392,12 @@
             "square_pp",
           commentLocation = Just
             "fun_attributes_conflict.h:15:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren = [
             Paragraph
               [
@@ -418,8 +446,12 @@
             "square_pp",
           commentLocation = Just
             "fun_attributes_conflict.h:15:5",
-          commentHeader = Just
-            "fun_attributes_conflict.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fun_attributes_conflict.h"],
+              headerInclude =
+              "fun_attributes_conflict.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

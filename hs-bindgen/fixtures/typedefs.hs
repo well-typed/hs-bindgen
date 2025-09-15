@@ -24,7 +24,11 @@
               "Myint"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typedefs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedefs.h"],
+              headerInclude = "typedefs.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -64,8 +68,11 @@
           commentOrigin = Just "myint",
           commentLocation = Just
             "typedefs.h:1:13",
-          commentHeader = Just
-            "typedefs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedefs.h"],
+              headerInclude = "typedefs.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -223,7 +230,11 @@
               "Intptr"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typedefs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedefs.h"],
+              headerInclude = "typedefs.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -251,8 +262,11 @@
           commentOrigin = Just "intptr",
           commentLocation = Just
             "typedefs.h:2:15",
-          commentHeader = Just
-            "typedefs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedefs.h"],
+              headerInclude = "typedefs.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {

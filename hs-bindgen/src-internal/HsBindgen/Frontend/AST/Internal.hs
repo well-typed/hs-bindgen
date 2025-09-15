@@ -9,6 +9,7 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Declarations
   , Decl(..)
   , DeclInfo(..)
+  , HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
   , Struct(..)
@@ -107,23 +108,27 @@ data DeclInfo p = DeclInfo{
     , declId      :: Id p
     , declAliases :: [C.Name]
 
-      -- | User-specified header that provides this declaration
+      -- | Source header information
       --
-      -- Note that the declaration may not be in this header directly, but in
-      -- one of its (transitive) includes.
-      --
-      -- If the user specifies /multiple/ headers, all of which directly or
-      -- indirectly contain the same declaration, then either
-      --
-      -- 1. the C headers will need to explicitly check
-      --    (if this is already defined, do nothing), or
-      -- 2. This is an error in the C code.
-      --
-      -- This means that there is always a /single/ header to choose here.
-    , declHeader :: HashIncludeArg
+      -- This is 'Nothing' when the declaration is a builtin, as builtin
+      -- declarations have no source location.
+    , declHeaderInfo :: Maybe HeaderInfo
 
     , declComment :: Maybe (Comment p)
     }
+
+data HeaderInfo = HeaderInfo{
+      -- | User-specified headers that provide the declaration
+      --
+      -- Note that the declaration may not be in this header directly, but in
+      -- one of its (transitive) includes.
+      headerMainHeaders :: NonEmpty HashIncludeArg
+
+      -- | @#include@ argument used to include the file where the declaration is
+      -- actually declared
+    , headerInclude :: HashIncludeArg
+    }
+  deriving stock (Show, Eq, Generic)
 
 data FieldInfo p = FieldInfo {
       fieldLoc     :: SingleLoc

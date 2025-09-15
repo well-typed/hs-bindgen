@@ -25,7 +25,12 @@
               "Int16_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           declComment = Just
             (Comment
               [
@@ -76,8 +81,12 @@
           commentOrigin = Just "int16_T",
           commentLocation = Just
             "spec_examples.h:10:15",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -236,7 +245,12 @@
               "Int32_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -276,8 +290,12 @@
           commentOrigin = Just "int32_T",
           commentLocation = Just
             "spec_examples.h:11:13",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -436,7 +454,12 @@
               "Int64_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -478,8 +501,12 @@
           commentOrigin = Just "int64_T",
           commentLocation = Just
             "spec_examples.h:12:19",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -653,8 +680,12 @@
               commentOrigin = Just "re",
               commentLocation = Just
                 "spec_examples.h:15:11",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -688,8 +719,12 @@
               commentOrigin = Just "im",
               commentLocation = Just
                 "spec_examples.h:16:11",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -703,7 +738,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "spec_examples.h:14:9"),
             declAliases = [Name "cint16_T"],
-            declHeader = "spec_examples.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["spec_examples.h"],
+                headerInclude =
+                "spec_examples.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -761,8 +801,12 @@
           commentOrigin = Just "cint16_T",
           commentLocation = Just
             "spec_examples.h:14:9",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -808,8 +852,12 @@
                   commentOrigin = Just "re",
                   commentLocation = Just
                     "spec_examples.h:15:11",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -843,8 +891,12 @@
                   commentOrigin = Just "im",
                   commentLocation = Just
                     "spec_examples.h:16:11",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -858,7 +910,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "spec_examples.h:14:9"),
                 declAliases = [Name "cint16_T"],
-                declHeader = "spec_examples.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["spec_examples.h"],
+                    headerInclude =
+                    "spec_examples.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -916,8 +973,12 @@
               commentOrigin = Just "cint16_T",
               commentLocation = Just
                 "spec_examples.h:14:9",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -966,8 +1027,12 @@
                           commentOrigin = Just "re",
                           commentLocation = Just
                             "spec_examples.h:15:11",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1001,8 +1066,12 @@
                           commentOrigin = Just "im",
                           commentLocation = Just
                             "spec_examples.h:16:11",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1016,7 +1085,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "spec_examples.h:14:9"),
                         declAliases = [Name "cint16_T"],
-                        declHeader = "spec_examples.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["spec_examples.h"],
+                            headerInclude =
+                            "spec_examples.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1074,8 +1148,12 @@
                       commentOrigin = Just "cint16_T",
                       commentLocation = Just
                         "spec_examples.h:14:9",
-                      commentHeader = Just
-                        "spec_examples.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["spec_examples.h"],
+                          headerInclude =
+                          "spec_examples.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1126,8 +1204,12 @@
                           commentOrigin = Just "re",
                           commentLocation = Just
                             "spec_examples.h:15:11",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1161,8 +1243,12 @@
                           commentOrigin = Just "im",
                           commentLocation = Just
                             "spec_examples.h:16:11",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1176,7 +1262,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "spec_examples.h:14:9"),
                         declAliases = [Name "cint16_T"],
-                        declHeader = "spec_examples.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["spec_examples.h"],
+                            headerInclude =
+                            "spec_examples.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1234,8 +1325,12 @@
                       commentOrigin = Just "cint16_T",
                       commentLocation = Just
                         "spec_examples.h:14:9",
-                      commentHeader = Just
-                        "spec_examples.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["spec_examples.h"],
+                          headerInclude =
+                          "spec_examples.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1286,7 +1381,12 @@
               nameHsIdent = HsIdentifier "B"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "spec_examples.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["spec_examples.h"],
+                headerInclude =
+                "spec_examples.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1310,8 +1410,12 @@
           commentOrigin = Just "B",
           commentLocation = Just
             "spec_examples.h:19:8",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1335,7 +1439,12 @@
                   nameHsIdent = HsIdentifier "B"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "spec_examples.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["spec_examples.h"],
+                    headerInclude =
+                    "spec_examples.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1359,8 +1468,12 @@
               commentOrigin = Just "B",
               commentLocation = Just
                 "spec_examples.h:19:8",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1387,7 +1500,12 @@
                           nameHsIdent = HsIdentifier "B"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "spec_examples.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["spec_examples.h"],
+                            headerInclude =
+                            "spec_examples.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1411,8 +1529,12 @@
                       commentOrigin = Just "B",
                       commentLocation = Just
                         "spec_examples.h:19:8",
-                      commentHeader = Just
-                        "spec_examples.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["spec_examples.h"],
+                          headerInclude =
+                          "spec_examples.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1439,7 +1561,12 @@
                           nameHsIdent = HsIdentifier "B"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "spec_examples.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["spec_examples.h"],
+                            headerInclude =
+                            "spec_examples.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1463,8 +1590,12 @@
                       commentOrigin = Just "B",
                       commentLocation = Just
                         "spec_examples.h:19:8",
-                      commentHeader = Just
-                        "spec_examples.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["spec_examples.h"],
+                          headerInclude =
+                          "spec_examples.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1504,7 +1635,12 @@
             nameHsIdent = HsIdentifier "C"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "spec_examples.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
@@ -1519,8 +1655,12 @@
           commentOrigin = Just "C",
           commentLocation = Just
             "spec_examples.h:28:10",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -1557,8 +1697,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "spec_examples.h:24:10",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1589,8 +1733,12 @@
               commentOrigin = Just "label",
               commentLocation = Just
                 "spec_examples.h:25:9",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1623,8 +1771,12 @@
               commentOrigin = Just "samples",
               commentLocation = Just
                 "spec_examples.h:26:8",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1655,8 +1807,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "spec_examples.h:27:12",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1689,8 +1845,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "spec_examples.h:28:13",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1702,7 +1862,12 @@
               nameHsIdent = HsIdentifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "spec_examples.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["spec_examples.h"],
+                headerInclude =
+                "spec_examples.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1805,8 +1970,12 @@
           commentOrigin = Just "A",
           commentLocation = Just
             "spec_examples.h:23:8",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1846,8 +2015,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "spec_examples.h:24:10",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1878,8 +2051,12 @@
                   commentOrigin = Just "label",
                   commentLocation = Just
                     "spec_examples.h:25:9",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1912,8 +2089,12 @@
                   commentOrigin = Just "samples",
                   commentLocation = Just
                     "spec_examples.h:26:8",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1944,8 +2125,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "spec_examples.h:27:12",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1978,8 +2163,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "spec_examples.h:28:13",
-                  commentHeader = Just
-                    "spec_examples.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["spec_examples.h"],
+                      headerInclude =
+                      "spec_examples.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1991,7 +2180,12 @@
                   nameHsIdent = HsIdentifier "A"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "spec_examples.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["spec_examples.h"],
+                    headerInclude =
+                    "spec_examples.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2094,8 +2288,12 @@
               commentOrigin = Just "A",
               commentLocation = Just
                 "spec_examples.h:23:8",
-              commentHeader = Just
-                "spec_examples.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["spec_examples.h"],
+                  headerInclude =
+                  "spec_examples.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 152,
@@ -2138,8 +2336,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "spec_examples.h:24:10",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2170,8 +2372,12 @@
                           commentOrigin = Just "label",
                           commentLocation = Just
                             "spec_examples.h:25:9",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2204,8 +2410,12 @@
                           commentOrigin = Just "samples",
                           commentLocation = Just
                             "spec_examples.h:26:8",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2236,8 +2446,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "spec_examples.h:27:12",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2270,8 +2484,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "spec_examples.h:28:13",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2283,7 +2501,12 @@
                           nameHsIdent = HsIdentifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "spec_examples.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["spec_examples.h"],
+                            headerInclude =
+                            "spec_examples.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2386,8 +2609,12 @@
                       commentOrigin = Just "A",
                       commentLocation = Just
                         "spec_examples.h:23:8",
-                      commentHeader = Just
-                        "spec_examples.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["spec_examples.h"],
+                          headerInclude =
+                          "spec_examples.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2435,8 +2662,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "spec_examples.h:24:10",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2467,8 +2698,12 @@
                           commentOrigin = Just "label",
                           commentLocation = Just
                             "spec_examples.h:25:9",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2501,8 +2736,12 @@
                           commentOrigin = Just "samples",
                           commentLocation = Just
                             "spec_examples.h:26:8",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2533,8 +2772,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "spec_examples.h:27:12",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2567,8 +2810,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "spec_examples.h:28:13",
-                          commentHeader = Just
-                            "spec_examples.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["spec_examples.h"],
+                              headerInclude =
+                              "spec_examples.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2580,7 +2827,12 @@
                           nameHsIdent = HsIdentifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "spec_examples.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["spec_examples.h"],
+                            headerInclude =
+                            "spec_examples.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2683,8 +2935,12 @@
                       commentOrigin = Just "A",
                       commentLocation = Just
                         "spec_examples.h:23:8",
-                      commentHeader = Just
-                        "spec_examples.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["spec_examples.h"],
+                          headerInclude =
+                          "spec_examples.h"},
                       commentChildren = []}}
                 (Add 5)
                 (Seq
@@ -2741,7 +2997,7 @@
               commentOrigin = Just
                 "res_m_num_valid_samples",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2759,7 +3015,7 @@
               commentOrigin = Just
                 "res_m_iq_int",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2776,7 +3032,7 @@
               commentOrigin = Just
                 "res_m_old_rate",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2793,7 +3049,7 @@
               commentOrigin = Just
                 "res_m_new_rate",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2811,7 +3067,7 @@
               commentOrigin = Just
                 "res_m_iq_resampled_int",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2915,8 +3171,12 @@
           commentOrigin = Just "resample",
           commentLocation = Just
             "spec_examples.h:31:6",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -3026,8 +3286,12 @@
           commentOrigin = Just "resample",
           commentLocation = Just
             "spec_examples.h:31:6",
-          commentHeader = Just
-            "spec_examples.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

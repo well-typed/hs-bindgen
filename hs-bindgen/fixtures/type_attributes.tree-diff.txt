@@ -9,8 +9,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "S"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -53,8 +57,12 @@ TranslationUnit {
             "More_aligned_int"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -83,8 +91,12 @@ TranslationUnit {
             "S2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -128,8 +140,12 @@ TranslationUnit {
             "My_unpacked_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -185,8 +201,12 @@ TranslationUnit {
             "My_packed_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -260,8 +280,12 @@ TranslationUnit {
             "Wait"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
@@ -284,8 +308,12 @@ TranslationUnit {
             "type_attributes.h:26:9"),
         declAliases = [
           Name "wait_status_ptr_t"],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -343,8 +371,12 @@ TranslationUnit {
             "T1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -373,8 +405,12 @@ TranslationUnit {
             "Short_a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {

@@ -28,8 +28,12 @@
           commentOrigin = Just "x",
           commentLocation = Just
             "redeclaration.h:11:5",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -60,7 +64,12 @@
               "Int_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "redeclaration.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -100,8 +109,12 @@
           commentOrigin = Just "int_t",
           commentLocation = Just
             "redeclaration.h:20:13",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -269,8 +282,12 @@
               commentOrigin = Just "n",
               commentLocation = Just
                 "redeclaration.h:26:16",
-              commentHeader = Just
-                "redeclaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["redeclaration.h"],
+                  headerInclude =
+                  "redeclaration.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -282,7 +299,12 @@
               nameHsIdent = HsIdentifier "X"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "redeclaration.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["redeclaration.h"],
+                headerInclude =
+                "redeclaration.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -319,8 +341,12 @@
           commentOrigin = Just "X",
           commentLocation = Just
             "redeclaration.h:26:8",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -360,8 +386,12 @@
                   commentOrigin = Just "n",
                   commentLocation = Just
                     "redeclaration.h:26:16",
-                  commentHeader = Just
-                    "redeclaration.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["redeclaration.h"],
+                      headerInclude =
+                      "redeclaration.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -373,7 +403,12 @@
                   nameHsIdent = HsIdentifier "X"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "redeclaration.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["redeclaration.h"],
+                    headerInclude =
+                    "redeclaration.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -410,8 +445,12 @@
               commentOrigin = Just "X",
               commentLocation = Just
                 "redeclaration.h:26:8",
-              commentHeader = Just
-                "redeclaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["redeclaration.h"],
+                  headerInclude =
+                  "redeclaration.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -454,8 +493,12 @@
                           commentOrigin = Just "n",
                           commentLocation = Just
                             "redeclaration.h:26:16",
-                          commentHeader = Just
-                            "redeclaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["redeclaration.h"],
+                              headerInclude =
+                              "redeclaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -467,7 +510,12 @@
                           nameHsIdent = HsIdentifier "X"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "redeclaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["redeclaration.h"],
+                            headerInclude =
+                            "redeclaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -504,8 +552,12 @@
                       commentOrigin = Just "X",
                       commentLocation = Just
                         "redeclaration.h:26:8",
-                      commentHeader = Just
-                        "redeclaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["redeclaration.h"],
+                          headerInclude =
+                          "redeclaration.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -548,8 +600,12 @@
                           commentOrigin = Just "n",
                           commentLocation = Just
                             "redeclaration.h:26:16",
-                          commentHeader = Just
-                            "redeclaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["redeclaration.h"],
+                              headerInclude =
+                              "redeclaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -561,7 +617,12 @@
                           nameHsIdent = HsIdentifier "X"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "redeclaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["redeclaration.h"],
+                            headerInclude =
+                            "redeclaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -598,8 +659,12 @@
                       commentOrigin = Just "X",
                       commentLocation = Just
                         "redeclaration.h:26:8",
-                      commentHeader = Just
-                        "redeclaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["redeclaration.h"],
+                          headerInclude =
+                          "redeclaration.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -644,7 +709,12 @@
             nameHsIdent = HsIdentifier "Y"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "redeclaration.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           declComment = Nothing},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
@@ -659,8 +729,12 @@
           commentOrigin = Just "y",
           commentLocation = Just
             "redeclaration.h:29:7",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -686,7 +760,12 @@
             nameHsIdent = HsIdentifier "Y"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "redeclaration.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -738,8 +817,12 @@
           commentOrigin = Just "Y",
           commentLocation = Just
             "redeclaration.h:30:7",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -768,8 +851,12 @@
           commentOrigin = Just "m",
           commentLocation = Just
             "redeclaration.h:30:15",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = [
             Paragraph
               [
@@ -790,7 +877,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -812,8 +899,12 @@
           commentOrigin = Just "o",
           commentLocation = Just
             "redeclaration.h:30:22",
-          commentHeader = Just
-            "redeclaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
           commentChildren = [
             Paragraph
               [
@@ -834,7 +925,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [

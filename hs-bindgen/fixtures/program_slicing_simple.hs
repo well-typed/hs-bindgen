@@ -27,8 +27,12 @@
             Name "uint_fast16_t",
             Name "uint_fast32_t",
             Name "uint_least32_t"],
-          declHeader =
-          "program_slicing_simple.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_simple.h"],
+              headerInclude =
+              "bits/alltypes.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -70,8 +74,12 @@
           commentOrigin = Just "uint32_t",
           commentLocation = Just
             "alltypes.h:131:25",
-          commentHeader = Just
-            "program_slicing_simple.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_simple.h"],
+              headerInclude =
+              "bits/alltypes.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -425,8 +433,12 @@
                 "sixty_four",
               commentLocation = Just
                 "program_slicing_simple.h:4:12",
-              commentHeader = Just
-                "program_slicing_simple.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["program_slicing_simple.h"],
+                  headerInclude =
+                  "program_slicing_simple.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -461,8 +473,12 @@
                 "thirty_two",
               commentLocation = Just
                 "program_slicing_simple.h:5:12",
-              commentHeader = Just
-                "program_slicing_simple.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["program_slicing_simple.h"],
+                  headerInclude =
+                  "program_slicing_simple.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -475,8 +491,12 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "program_slicing_simple.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["program_slicing_simple.h"],
+                headerInclude =
+                "program_slicing_simple.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -625,8 +645,12 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "program_slicing_simple.h:3:8",
-          commentHeader = Just
-            "program_slicing_simple.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_simple.h"],
+              headerInclude =
+              "program_slicing_simple.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -852,8 +876,12 @@
                     "sixty_four",
                   commentLocation = Just
                     "program_slicing_simple.h:4:12",
-                  commentHeader = Just
-                    "program_slicing_simple.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["program_slicing_simple.h"],
+                      headerInclude =
+                      "program_slicing_simple.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -888,8 +916,12 @@
                     "thirty_two",
                   commentLocation = Just
                     "program_slicing_simple.h:5:12",
-                  commentHeader = Just
-                    "program_slicing_simple.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["program_slicing_simple.h"],
+                      headerInclude =
+                      "program_slicing_simple.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -902,8 +934,12 @@
                     "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "program_slicing_simple.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["program_slicing_simple.h"],
+                    headerInclude =
+                    "program_slicing_simple.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1052,8 +1088,12 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "program_slicing_simple.h:3:8",
-              commentHeader = Just
-                "program_slicing_simple.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["program_slicing_simple.h"],
+                  headerInclude =
+                  "program_slicing_simple.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -1282,8 +1322,12 @@
                             "sixty_four",
                           commentLocation = Just
                             "program_slicing_simple.h:4:12",
-                          commentHeader = Just
-                            "program_slicing_simple.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_simple.h"],
+                              headerInclude =
+                              "program_slicing_simple.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1318,8 +1362,12 @@
                             "thirty_two",
                           commentLocation = Just
                             "program_slicing_simple.h:5:12",
-                          commentHeader = Just
-                            "program_slicing_simple.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_simple.h"],
+                              headerInclude =
+                              "program_slicing_simple.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1332,8 +1380,12 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "program_slicing_simple.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["program_slicing_simple.h"],
+                            headerInclude =
+                            "program_slicing_simple.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1482,8 +1534,12 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "program_slicing_simple.h:3:8",
-                      commentHeader = Just
-                        "program_slicing_simple.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["program_slicing_simple.h"],
+                          headerInclude =
+                          "program_slicing_simple.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1714,8 +1770,12 @@
                             "sixty_four",
                           commentLocation = Just
                             "program_slicing_simple.h:4:12",
-                          commentHeader = Just
-                            "program_slicing_simple.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_simple.h"],
+                              headerInclude =
+                              "program_slicing_simple.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1750,8 +1810,12 @@
                             "thirty_two",
                           commentLocation = Just
                             "program_slicing_simple.h:5:12",
-                          commentHeader = Just
-                            "program_slicing_simple.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_simple.h"],
+                              headerInclude =
+                              "program_slicing_simple.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1764,8 +1828,12 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "program_slicing_simple.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["program_slicing_simple.h"],
+                            headerInclude =
+                            "program_slicing_simple.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1914,8 +1982,12 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "program_slicing_simple.h:3:8",
-                      commentHeader = Just
-                        "program_slicing_simple.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["program_slicing_simple.h"],
+                          headerInclude =
+                          "program_slicing_simple.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

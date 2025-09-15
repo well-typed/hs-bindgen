@@ -31,8 +31,11 @@
             "simpleGlobal",
           commentLocation = Just
             "globals.h:9:12",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -71,8 +74,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "globals.h:13:7",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -99,8 +105,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "globals.h:14:7",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -112,7 +121,11 @@
                 "Config"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "globals.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["globals.h"],
+                headerInclude = "globals.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -160,8 +173,11 @@
           commentOrigin = Just "config",
           commentLocation = Just
             "globals.h:12:8",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -200,8 +216,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "globals.h:13:7",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -228,8 +247,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "globals.h:14:7",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -241,7 +263,11 @@
                     "Config"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "globals.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["globals.h"],
+                    headerInclude = "globals.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -289,8 +315,11 @@
               commentOrigin = Just "config",
               commentLocation = Just
                 "globals.h:12:8",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -332,8 +361,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:13:7",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -360,8 +392,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:14:7",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -373,7 +408,11 @@
                             "Config"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -421,8 +460,11 @@
                       commentOrigin = Just "config",
                       commentLocation = Just
                         "globals.h:12:8",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -466,8 +508,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:13:7",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -494,8 +539,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:14:7",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -507,7 +555,11 @@
                             "Config"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -555,8 +607,11 @@
                       commentOrigin = Just "config",
                       commentLocation = Just
                         "globals.h:12:8",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -625,8 +680,11 @@
             "compoundGlobal1",
           commentLocation = Just
             "globals.h:16:22",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -665,8 +723,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "globals.h:19:35",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -693,8 +754,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "globals.h:19:42",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -706,7 +770,11 @@
                 "Inline_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "globals.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["globals.h"],
+                headerInclude = "globals.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -757,8 +825,11 @@
             "inline_struct",
           commentLocation = Just
             "globals.h:19:15",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -797,8 +868,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "globals.h:19:35",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -825,8 +899,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "globals.h:19:42",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -838,7 +915,11 @@
                     "Inline_struct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "globals.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["globals.h"],
+                    headerInclude = "globals.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -889,8 +970,11 @@
                 "inline_struct",
               commentLocation = Just
                 "globals.h:19:15",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -932,8 +1016,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:19:35",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -960,8 +1047,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:19:42",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -973,7 +1063,11 @@
                             "Inline_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1024,8 +1118,11 @@
                         "inline_struct",
                       commentLocation = Just
                         "globals.h:19:15",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1069,8 +1166,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:19:35",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1097,8 +1197,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:19:42",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1110,7 +1213,11 @@
                             "Inline_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1161,8 +1268,11 @@
                         "inline_struct",
                       commentLocation = Just
                         "globals.h:19:15",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1231,8 +1341,11 @@
             "compoundGlobal2",
           commentLocation = Just
             "globals.h:19:47",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1271,8 +1384,11 @@
             "nesInteger",
           commentLocation = Just
             "globals.h:35:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren =
           [
             Paragraph
@@ -1328,8 +1444,11 @@
             "nesFloating",
           commentLocation = Just
             "globals.h:36:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1368,8 +1487,11 @@
             "nesString1",
           commentLocation = Just
             "globals.h:38:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1410,8 +1532,11 @@
             "nesString2",
           commentLocation = Just
             "globals.h:39:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1448,8 +1573,11 @@
             "nesCharacter",
           commentLocation = Just
             "globals.h:40:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1483,8 +1611,11 @@
           commentOrigin = Just "nesParen",
           commentLocation = Just
             "globals.h:41:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1518,8 +1649,11 @@
           commentOrigin = Just "nesUnary",
           commentLocation = Just
             "globals.h:42:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1554,8 +1688,11 @@
             "nesBinary",
           commentLocation = Just
             "globals.h:43:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1590,8 +1727,11 @@
             "nesConditional",
           commentLocation = Just
             "globals.h:44:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1625,8 +1765,11 @@
           commentOrigin = Just "nesCast",
           commentLocation = Just
             "globals.h:45:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1663,8 +1806,11 @@
             "nesCompound",
           commentLocation = Just
             "globals.h:46:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1927,8 +2073,11 @@
             "nesInitList",
           commentLocation = Just
             "globals.h:47:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1961,8 +2110,11 @@
           commentOrigin = Just "nesBool",
           commentLocation = Just
             "globals.h:48:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2230,8 +2382,11 @@
             "streamBinary",
           commentLocation = Just
             "globals.h:60:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren =
           [
             Paragraph
@@ -2506,8 +2661,11 @@
             "streamBinary_len",
           commentLocation = Just
             "globals.h:404:10",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2769,8 +2927,11 @@
               commentOrigin = Just "major",
               commentLocation = Just
                 "globals.h:408:12",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3020,8 +3181,11 @@
               commentOrigin = Just "minor",
               commentLocation = Just
                 "globals.h:409:12",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3271,8 +3435,11 @@
               commentOrigin = Just "patch",
               commentLocation = Just
                 "globals.h:410:12",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3286,7 +3453,11 @@
               (AnonId "globals.h:406:9"),
             declAliases = [
               Name "version_t"],
-            declHeader = "globals.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["globals.h"],
+                headerInclude = "globals.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3691,8 +3862,11 @@
             "version_t",
           commentLocation = Just
             "globals.h:406:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3954,8 +4128,11 @@
                   commentOrigin = Just "major",
                   commentLocation = Just
                     "globals.h:408:12",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4205,8 +4382,11 @@
                   commentOrigin = Just "minor",
                   commentLocation = Just
                     "globals.h:409:12",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4456,8 +4636,11 @@
                   commentOrigin = Just "patch",
                   commentLocation = Just
                     "globals.h:410:12",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -4471,7 +4654,11 @@
                   (AnonId "globals.h:406:9"),
                 declAliases = [
                   Name "version_t"],
-                declHeader = "globals.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["globals.h"],
+                    headerInclude = "globals.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -4876,8 +5063,11 @@
                 "version_t",
               commentLocation = Just
                 "globals.h:406:9",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 6,
@@ -5142,8 +5332,11 @@
                           commentOrigin = Just "major",
                           commentLocation = Just
                             "globals.h:408:12",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -5393,8 +5586,11 @@
                           commentOrigin = Just "minor",
                           commentLocation = Just
                             "globals.h:409:12",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -5644,8 +5840,11 @@
                           commentOrigin = Just "patch",
                           commentLocation = Just
                             "globals.h:410:12",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -5659,7 +5858,11 @@
                           (AnonId "globals.h:406:9"),
                         declAliases = [
                           Name "version_t"],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -6064,8 +6267,11 @@
                         "version_t",
                       commentLocation = Just
                         "globals.h:406:9",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -6333,8 +6539,11 @@
                           commentOrigin = Just "major",
                           commentLocation = Just
                             "globals.h:408:12",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6584,8 +6793,11 @@
                           commentOrigin = Just "minor",
                           commentLocation = Just
                             "globals.h:409:12",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6835,8 +7047,11 @@
                           commentOrigin = Just "patch",
                           commentLocation = Just
                             "globals.h:410:12",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -6850,7 +7065,11 @@
                           (AnonId "globals.h:406:9"),
                         declAliases = [
                           Name "version_t"],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -7255,8 +7474,11 @@
                         "version_t",
                       commentLocation = Just
                         "globals.h:406:9",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -7546,8 +7768,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "globals.h:415:13",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -7574,8 +7799,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "globals.h:416:13",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -7612,8 +7840,11 @@
               commentOrigin = Just "version",
               commentLocation = Just
                 "globals.h:417:13",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -7627,7 +7858,11 @@
               (AnonId "globals.h:413:9"),
             declAliases = [
               Name "struct1_t"],
-            declHeader = "globals.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["globals.h"],
+                headerInclude = "globals.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -7812,8 +8047,11 @@
             "struct1_t",
           commentLocation = Just
             "globals.h:413:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -8075,8 +8313,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "globals.h:415:13",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -8103,8 +8344,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "globals.h:416:13",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -8141,8 +8385,11 @@
                   commentOrigin = Just "version",
                   commentLocation = Just
                     "globals.h:417:13",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -8156,7 +8403,11 @@
                   (AnonId "globals.h:413:9"),
                 declAliases = [
                   Name "struct1_t"],
-                declHeader = "globals.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["globals.h"],
+                    headerInclude = "globals.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -8341,8 +8592,11 @@
                 "struct1_t",
               commentLocation = Just
                 "globals.h:413:9",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 10,
@@ -8607,8 +8861,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:415:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8635,8 +8892,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:416:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8673,8 +8933,11 @@
                           commentOrigin = Just "version",
                           commentLocation = Just
                             "globals.h:417:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -8688,7 +8951,11 @@
                           (AnonId "globals.h:413:9"),
                         declAliases = [
                           Name "struct1_t"],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -8873,8 +9140,11 @@
                         "struct1_t",
                       commentLocation = Just
                         "globals.h:413:9",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -9142,8 +9412,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:415:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -9170,8 +9443,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:416:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -9208,8 +9484,11 @@
                           commentOrigin = Just "version",
                           commentLocation = Just
                             "globals.h:417:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -9223,7 +9502,11 @@
                           (AnonId "globals.h:413:9"),
                         declAliases = [
                           Name "struct1_t"],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -9408,8 +9691,11 @@
                         "struct1_t",
                       commentLocation = Just
                         "globals.h:413:9",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -9486,8 +9772,11 @@
               commentOrigin = Just "field1",
               commentLocation = Just
                 "globals.h:422:13",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -9501,7 +9790,11 @@
               (AnonId "globals.h:420:9"),
             declAliases = [
               Name "struct2_t"],
-            declHeader = "globals.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["globals.h"],
+                headerInclude = "globals.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -9548,8 +9841,11 @@
             "struct2_t",
           commentLocation = Just
             "globals.h:420:9",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -9598,8 +9894,11 @@
                   commentOrigin = Just "field1",
                   commentLocation = Just
                     "globals.h:422:13",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -9613,7 +9912,11 @@
                   (AnonId "globals.h:420:9"),
                 declAliases = [
                   Name "struct2_t"],
-                declHeader = "globals.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["globals.h"],
+                    headerInclude = "globals.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -9660,8 +9963,11 @@
                 "struct2_t",
               commentLocation = Just
                 "globals.h:420:9",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 10,
@@ -9713,8 +10019,11 @@
                           commentOrigin = Just "field1",
                           commentLocation = Just
                             "globals.h:422:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -9728,7 +10037,11 @@
                           (AnonId "globals.h:420:9"),
                         declAliases = [
                           Name "struct2_t"],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -9775,8 +10088,11 @@
                         "struct2_t",
                       commentLocation = Just
                         "globals.h:420:9",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -9828,8 +10144,11 @@
                           commentOrigin = Just "field1",
                           commentLocation = Just
                             "globals.h:422:13",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -9843,7 +10162,11 @@
                           (AnonId "globals.h:420:9"),
                         declAliases = [
                           Name "struct2_t"],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -9890,8 +10213,11 @@
                         "struct2_t",
                       commentLocation = Just
                         "globals.h:420:9",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -9963,8 +10289,11 @@
             "some_global_struct",
           commentLocation = Just
             "globals.h:425:11",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -10002,8 +10331,11 @@
             "globalConstant",
           commentLocation = Just
             "globals.h:445:18",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren =
           [
             Paragraph
@@ -10041,7 +10373,11 @@
               "ConstInt"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "globals.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           declComment = Just
             (Comment
               [
@@ -10091,8 +10427,11 @@
           commentOrigin = Just "ConstInt",
           commentLocation = Just
             "globals.h:448:19",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -10262,8 +10601,11 @@
             "anotherGlobalConstant",
           commentLocation = Just
             "globals.h:449:17",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -10305,8 +10647,11 @@
             "staticConst",
           commentLocation = Just
             "globals.h:454:18",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren =
           [
             Paragraph
@@ -10352,8 +10697,11 @@
             "classless",
           commentLocation = Just
             "globals.h:457:11",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -10400,8 +10748,11 @@
             "constArray1",
           commentLocation = Just
             "globals.h:460:18",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -10435,7 +10786,11 @@
               "ConstIntArray"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "globals.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           declComment =
           Just
             (Comment
@@ -10478,8 +10833,11 @@
             "ConstIntArray",
           commentLocation = Just
             "globals.h:463:19",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -10538,8 +10896,11 @@
             "constArray2",
           commentLocation = Just
             "globals.h:464:22",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -10578,8 +10939,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "globals.h:466:20",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -10607,8 +10971,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "globals.h:466:33",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -10620,7 +10987,11 @@
                 "Tuple"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "globals.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["globals.h"],
+                headerInclude = "globals.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -10669,8 +11040,11 @@
           commentOrigin = Just "tuple",
           commentLocation = Just
             "globals.h:466:8",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -10709,8 +11083,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "globals.h:466:20",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -10738,8 +11115,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "globals.h:466:33",
-                  commentHeader = Just
-                    "globals.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["globals.h"],
+                      headerInclude = "globals.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -10751,7 +11131,11 @@
                     "Tuple"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "globals.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["globals.h"],
+                    headerInclude = "globals.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -10800,8 +11184,11 @@
               commentOrigin = Just "tuple",
               commentLocation = Just
                 "globals.h:466:8",
-              commentHeader = Just
-                "globals.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["globals.h"],
+                  headerInclude = "globals.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -10843,8 +11230,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:466:20",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -10872,8 +11262,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:466:33",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -10885,7 +11278,11 @@
                             "Tuple"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -10934,8 +11331,11 @@
                       commentOrigin = Just "tuple",
                       commentLocation = Just
                         "globals.h:466:8",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -10979,8 +11379,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "globals.h:466:20",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -11008,8 +11411,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "globals.h:466:33",
-                          commentHeader = Just
-                            "globals.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["globals.h"],
+                              headerInclude = "globals.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -11021,7 +11427,11 @@
                             "Tuple"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "globals.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["globals.h"],
+                            headerInclude = "globals.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -11070,8 +11480,11 @@
                       commentOrigin = Just "tuple",
                       commentLocation = Just
                         "globals.h:466:8",
-                      commentHeader = Just
-                        "globals.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["globals.h"],
+                          headerInclude = "globals.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -11143,8 +11556,11 @@
             "constTuple",
           commentLocation = Just
             "globals.h:468:27",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11191,8 +11607,11 @@
             "nonConstTuple",
           commentLocation = Just
             "globals.h:470:21",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11235,8 +11654,11 @@
             "ptrToConstInt",
           commentLocation = Just
             "globals.h:473:20",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11279,8 +11701,11 @@
             "constPtrToInt",
           commentLocation = Just
             "globals.h:475:20",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11326,8 +11751,11 @@
             "constPtrToConstInt",
           commentLocation = Just
             "globals.h:477:26",
-          commentHeader = Just
-            "globals.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["globals.h"],
+              headerInclude = "globals.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

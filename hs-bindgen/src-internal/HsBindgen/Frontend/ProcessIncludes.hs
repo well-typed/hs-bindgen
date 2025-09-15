@@ -1,11 +1,13 @@
 module HsBindgen.Frontend.ProcessIncludes (
-    GetMainHeader
+    GetMainHeadersAndInclude
   , processIncludes
     -- * Auxiliary
   , getIncludeTo
   ) where
 
+import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
 
@@ -16,7 +18,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph (Include, IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
@@ -96,8 +98,10 @@ import HsBindgen.Util.List (unsnoc)
   in principle resolve to the /same/ 'SourcePath.')
 -------------------------------------------------------------------------------}
 
--- | Function to get the main header that (transitively) includes a source path
-type GetMainHeader = SourcePath -> HashIncludeArg
+-- | Function to get the main headers that (transitively) include a source path,
+-- as well as the @#include@ argument used to include the source path
+type GetMainHeadersAndInclude =
+   SourcePath -> (NonEmpty HashIncludeArg, HashIncludeArg)
 
 -- | Process includes
 --
@@ -105,7 +109,7 @@ type GetMainHeader = SourcePath -> HashIncludeArg
 -- cheap, as we can reuse the same 'CXTranslationUnit'.
 processIncludes ::
      CXTranslationUnit
-  -> IO (IncludeGraph, IsMainHeader, IsInMainHeaderDir, GetMainHeader)
+  -> IO (IncludeGraph, IsMainHeader, IsInMainHeaderDir, GetMainHeadersAndInclude)
 processIncludes unit = do
     root     <- clang_getTranslationUnitCursor unit
     includes <- HighLevel.clang_visitChildren root $ simpleFold $ \curr -> do
@@ -131,6 +135,11 @@ processIncludes unit = do
         mainPathMap :: Map SourcePath HashIncludeArg
         mainPathMap = Map.fromList mainPathPairs
 
+        lookupMainPath :: SourcePath -> Either String HashIncludeArg
+        lookupMainPath path = case Map.lookup path mainPathMap of
+          Just header -> Right header
+          Nothing     -> Left $ "main path not found: " ++ show path
+
         mainPaths :: Set SourcePath
         mainPaths = Map.keysSet mainPathMap
 
@@ -140,16 +149,29 @@ processIncludes unit = do
         isInMainHeaderDir :: IsInMainHeaderDir
         isInMainHeaderDir = mkIsInMainHeaderDir mainPaths
 
-        getMainHeader :: GetMainHeader
-        getMainHeader = case mainPathPairs of
-          -- If we only have one main header, always return it without checking.
-          [(_path, header)] -> const header
-          _otherwise -> \path ->
-            fromMaybe (panicPure ("getMainHeader failed for " ++ show path)) $
-              (`Map.lookup` mainPathMap)
-                =<< IncludeGraph.getMainPath mainPaths includeGraph path
+        getMainHeadersAndInclude :: GetMainHeadersAndInclude
+        getMainHeadersAndInclude path =
+          let mkErr msg = "getMainHeadersAndInclude failed for " ++ show path
+                ++ ": " ++ msg
+          in  either (panicPure . mkErr) id $
+                case IncludeGraph.getIncludes mainPaths includeGraph path of
+                  DynGraph.FindAllPathsFound ps -> do
+                    headers <- mapM (lookupMainPath . fst . NonEmpty.head) ps
+                    let header = IncludeGraph.includeArg . snd . NonEmpty.last $
+                          NonEmpty.head ps
+                    return (NonEmpty.nub headers, header)
+                  DynGraph.FindAllPathsTarget   -> do
+                    header <- lookupMainPath path
+                    return (NonEmpty.singleton header, header)
+                  DynGraph.FindAllPathsNotFound -> Left "not found"
+                  DynGraph.FindAllPathsInvalid  -> Left "invalid"
 
-    return (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeader)
+    return (
+        includeGraph
+      , isMainHeader
+      , isInMainHeaderDir
+      , getMainHeadersAndInclude
+      )
 
 {-------------------------------------------------------------------------------
   Process inclusion directives
@@ -173,7 +195,7 @@ processIncludes unit = do
 -- @C_INCLUDE_PATH@, etc.
 data IncDir = IncDir {
       incDirFrom    :: SourcePath
-    , incDirInclude :: IncludeGraph.Include
+    , incDirInclude :: Include
     , incDirTo      :: SourcePath
     , incDirInRoot  :: Bool
     }
@@ -200,14 +222,14 @@ getIncludeTo curr = do
     file <- clang_getIncludedFile curr
     SourcePath <$> clang_getFileName file
 
-getInclude :: CXTranslationUnit -> CXCursor -> IO IncludeGraph.Include
+getInclude :: CXTranslationUnit -> CXCursor -> IO Include
 getInclude unit curr = do
     tokens <- HighLevel.clang_tokenize unit . fmap multiLocExpansion
       =<< HighLevel.clang_getCursorExtent curr
     let err = "unable to parse #include: " ++ show tokens
     maybe (panicIO err) return $ parseInclude tokens
 
-parseInclude :: [Token TokenSpelling] -> Maybe IncludeGraph.Include
+parseInclude :: [Token TokenSpelling] -> Maybe Include
 parseInclude = \case
     t0 : t1 : ts2 -> do
       guard $ isPunctuation t0 && t0 `hasSpelling` "#"

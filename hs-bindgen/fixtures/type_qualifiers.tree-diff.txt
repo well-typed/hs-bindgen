@@ -9,8 +9,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_qualifiers.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_qualifiers.h"],
+            headerInclude =
+            "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -31,8 +35,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_qualifiers.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_qualifiers.h"],
+            headerInclude =
+            "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePointer
@@ -56,8 +64,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "c"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_qualifiers.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_qualifiers.h"],
+            headerInclude =
+            "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -81,8 +93,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "d"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_qualifiers.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_qualifiers.h"],
+            headerInclude =
+            "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -108,8 +124,12 @@ TranslationUnit {
             "list_example"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "type_qualifiers.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_qualifiers.h"],
+            headerInclude =
+            "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

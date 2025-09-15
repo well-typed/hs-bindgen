@@ -24,7 +24,11 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typenames.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typenames.h"],
+              headerInclude = "typenames.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -72,8 +76,11 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "typenames.h:14:6",
-          commentHeader = Just
-            "typenames.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typenames.h"],
+              headerInclude = "typenames.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -322,8 +329,11 @@
           commentOrigin = Just "FOO1",
           commentLocation = Just
             "typenames.h:15:2",
-          commentHeader = Just
-            "typenames.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typenames.h"],
+              headerInclude = "typenames.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -353,8 +363,11 @@
           commentOrigin = Just "FOO2",
           commentLocation = Just
             "typenames.h:16:2",
-          commentHeader = Just
-            "typenames.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typenames.h"],
+              headerInclude = "typenames.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -381,7 +394,11 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "typenames.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typenames.h"],
+              headerInclude = "typenames.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -420,8 +437,11 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "typenames.h:19:16",
-          commentHeader = Just
-            "typenames.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typenames.h"],
+              headerInclude = "typenames.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {

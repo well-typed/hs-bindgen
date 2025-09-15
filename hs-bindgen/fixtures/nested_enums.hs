@@ -24,7 +24,12 @@
               "EnumA"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "nested_enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -74,8 +79,12 @@
           commentOrigin = Just "enumA",
           commentLocation = Just
             "nested_enums.h:2:14",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -325,8 +334,12 @@
           commentOrigin = Just "VALA_1",
           commentLocation = Just
             "nested_enums.h:3:17",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -357,8 +370,12 @@
           commentOrigin = Just "VALA_2",
           commentLocation = Just
             "nested_enums.h:4:17",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -401,8 +418,12 @@
               commentOrigin = Just "fieldA1",
               commentLocation = Just
                 "nested_enums.h:5:11",
-              commentHeader = Just
-                "nested_enums.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_enums.h"],
+                  headerInclude =
+                  "nested_enums.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -414,7 +435,12 @@
                 "ExA"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_enums.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_enums.h"],
+                headerInclude =
+                "nested_enums.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -455,8 +481,12 @@
           commentOrigin = Just "exA",
           commentLocation = Just
             "nested_enums.h:1:8",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -502,8 +532,12 @@
                   commentOrigin = Just "fieldA1",
                   commentLocation = Just
                     "nested_enums.h:5:11",
-                  commentHeader = Just
-                    "nested_enums.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_enums.h"],
+                      headerInclude =
+                      "nested_enums.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -515,7 +549,12 @@
                     "ExA"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_enums.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_enums.h"],
+                    headerInclude =
+                    "nested_enums.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -556,8 +595,12 @@
               commentOrigin = Just "exA",
               commentLocation = Just
                 "nested_enums.h:1:8",
-              commentHeader = Just
-                "nested_enums.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_enums.h"],
+                  headerInclude =
+                  "nested_enums.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -606,8 +649,12 @@
                           commentOrigin = Just "fieldA1",
                           commentLocation = Just
                             "nested_enums.h:5:11",
-                          commentHeader = Just
-                            "nested_enums.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_enums.h"],
+                              headerInclude =
+                              "nested_enums.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -619,7 +666,12 @@
                             "ExA"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_enums.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_enums.h"],
+                            headerInclude =
+                            "nested_enums.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -660,8 +712,12 @@
                       commentOrigin = Just "exA",
                       commentLocation = Just
                         "nested_enums.h:1:8",
-                      commentHeader = Just
-                        "nested_enums.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_enums.h"],
+                          headerInclude =
+                          "nested_enums.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -710,8 +766,12 @@
                           commentOrigin = Just "fieldA1",
                           commentLocation = Just
                             "nested_enums.h:5:11",
-                          commentHeader = Just
-                            "nested_enums.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_enums.h"],
+                              headerInclude =
+                              "nested_enums.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -723,7 +783,12 @@
                             "ExA"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_enums.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_enums.h"],
+                            headerInclude =
+                            "nested_enums.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -764,8 +829,12 @@
                       commentOrigin = Just "exA",
                       commentLocation = Just
                         "nested_enums.h:1:8",
-                      commentHeader = Just
-                        "nested_enums.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_enums.h"],
+                          headerInclude =
+                          "nested_enums.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -822,7 +891,12 @@
           declOrigin = NameOriginGenerated
             (AnonId "nested_enums.h:9:9"),
           declAliases = [],
-          declHeader = "nested_enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -873,8 +947,12 @@
             "exB_fieldB1",
           commentLocation = Just
             "nested_enums.h:9:9",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1124,8 +1202,12 @@
           commentOrigin = Just "VALB_1",
           commentLocation = Just
             "nested_enums.h:10:17",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1156,8 +1238,12 @@
           commentOrigin = Just "VALB_2",
           commentLocation = Just
             "nested_enums.h:11:17",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -1201,8 +1287,12 @@
               commentOrigin = Just "fieldB1",
               commentLocation = Just
                 "nested_enums.h:12:11",
-              commentHeader = Just
-                "nested_enums.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_enums.h"],
+                  headerInclude =
+                  "nested_enums.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1214,7 +1304,12 @@
                 "ExB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_enums.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_enums.h"],
+                headerInclude =
+                "nested_enums.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1256,8 +1351,12 @@
           commentOrigin = Just "exB",
           commentLocation = Just
             "nested_enums.h:8:8",
-          commentHeader = Just
-            "nested_enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_enums.h"],
+              headerInclude =
+              "nested_enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1304,8 +1403,12 @@
                   commentOrigin = Just "fieldB1",
                   commentLocation = Just
                     "nested_enums.h:12:11",
-                  commentHeader = Just
-                    "nested_enums.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_enums.h"],
+                      headerInclude =
+                      "nested_enums.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1317,7 +1420,12 @@
                     "ExB"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_enums.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_enums.h"],
+                    headerInclude =
+                    "nested_enums.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1359,8 +1467,12 @@
               commentOrigin = Just "exB",
               commentLocation = Just
                 "nested_enums.h:8:8",
-              commentHeader = Just
-                "nested_enums.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_enums.h"],
+                  headerInclude =
+                  "nested_enums.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -1410,8 +1522,12 @@
                           commentOrigin = Just "fieldB1",
                           commentLocation = Just
                             "nested_enums.h:12:11",
-                          commentHeader = Just
-                            "nested_enums.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_enums.h"],
+                              headerInclude =
+                              "nested_enums.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1423,7 +1539,12 @@
                             "ExB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_enums.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_enums.h"],
+                            headerInclude =
+                            "nested_enums.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1465,8 +1586,12 @@
                       commentOrigin = Just "exB",
                       commentLocation = Just
                         "nested_enums.h:8:8",
-                      commentHeader = Just
-                        "nested_enums.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_enums.h"],
+                          headerInclude =
+                          "nested_enums.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -1516,8 +1641,12 @@
                           commentOrigin = Just "fieldB1",
                           commentLocation = Just
                             "nested_enums.h:12:11",
-                          commentHeader = Just
-                            "nested_enums.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_enums.h"],
+                              headerInclude =
+                              "nested_enums.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1529,7 +1658,12 @@
                             "ExB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_enums.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_enums.h"],
+                            headerInclude =
+                            "nested_enums.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1571,8 +1705,12 @@
                       commentOrigin = Just "exB",
                       commentLocation = Just
                         "nested_enums.h:8:8",
-                      commentHeader = Just
-                        "nested_enums.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_enums.h"],
+                          headerInclude =
+                          "nested_enums.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq

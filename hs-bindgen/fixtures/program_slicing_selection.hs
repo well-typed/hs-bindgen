@@ -26,8 +26,12 @@
               "FileOperationStatus"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "program_slicing_selection.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -120,8 +124,12 @@
             "FileOperationStatus",
           commentLocation = Just
             "program_slicing_selection.h:7:6",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -360,8 +368,12 @@
           commentOrigin = Just "SUCCESS",
           commentLocation = Just
             "program_slicing_selection.h:8:3",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -393,8 +405,12 @@
             "NOT_FOUND",
           commentLocation = Just
             "program_slicing_selection.h:9:3",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -427,8 +443,12 @@
             "PERMISSION_DENIED",
           commentLocation = Just
             "program_slicing_selection.h:10:3",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -460,8 +480,12 @@
             "INVALID_ARGUMENT",
           commentLocation = Just
             "program_slicing_selection.h:11:3",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -493,8 +517,12 @@
             "OUT_OF_MEMORY",
           commentLocation = Just
             "program_slicing_selection.h:12:3",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -527,8 +555,12 @@
             "CUSTOM_ERROR_OTHER",
           commentLocation = Just
             "program_slicing_selection.h:13:3",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -572,8 +604,12 @@
               commentOrigin = Just "status",
               commentLocation = Just
                 "program_slicing_selection.h:17:28",
-              commentHeader = Just
-                "program_slicing_selection.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["program_slicing_selection.h"],
+                  headerInclude =
+                  "program_slicing_selection.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -825,8 +861,12 @@
                 "bytes_processed",
               commentLocation = Just
                 "program_slicing_selection.h:18:10",
-              commentHeader = Just
-                "program_slicing_selection.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["program_slicing_selection.h"],
+                  headerInclude =
+                  "program_slicing_selection.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -840,8 +880,12 @@
                 "FileOperationRecord"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "program_slicing_selection.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["program_slicing_selection.h"],
+                headerInclude =
+                "program_slicing_selection.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1013,8 +1057,12 @@
             "FileOperationRecord",
           commentLocation = Just
             "program_slicing_selection.h:16:8",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1061,8 +1109,12 @@
                   commentOrigin = Just "status",
                   commentLocation = Just
                     "program_slicing_selection.h:17:28",
-                  commentHeader = Just
-                    "program_slicing_selection.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["program_slicing_selection.h"],
+                      headerInclude =
+                      "program_slicing_selection.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1314,8 +1366,12 @@
                     "bytes_processed",
                   commentLocation = Just
                     "program_slicing_selection.h:18:10",
-                  commentHeader = Just
-                    "program_slicing_selection.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["program_slicing_selection.h"],
+                      headerInclude =
+                      "program_slicing_selection.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1329,8 +1385,12 @@
                     "FileOperationRecord"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "program_slicing_selection.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["program_slicing_selection.h"],
+                    headerInclude =
+                    "program_slicing_selection.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1502,8 +1562,12 @@
                 "FileOperationRecord",
               commentLocation = Just
                 "program_slicing_selection.h:16:8",
-              commentHeader = Just
-                "program_slicing_selection.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["program_slicing_selection.h"],
+                  headerInclude =
+                  "program_slicing_selection.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -1553,8 +1617,12 @@
                           commentOrigin = Just "status",
                           commentLocation = Just
                             "program_slicing_selection.h:17:28",
-                          commentHeader = Just
-                            "program_slicing_selection.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_selection.h"],
+                              headerInclude =
+                              "program_slicing_selection.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1806,8 +1874,12 @@
                             "bytes_processed",
                           commentLocation = Just
                             "program_slicing_selection.h:18:10",
-                          commentHeader = Just
-                            "program_slicing_selection.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_selection.h"],
+                              headerInclude =
+                              "program_slicing_selection.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1821,8 +1893,12 @@
                             "FileOperationRecord"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "program_slicing_selection.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["program_slicing_selection.h"],
+                            headerInclude =
+                            "program_slicing_selection.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1994,8 +2070,12 @@
                         "FileOperationRecord",
                       commentLocation = Just
                         "program_slicing_selection.h:16:8",
-                      commentHeader = Just
-                        "program_slicing_selection.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["program_slicing_selection.h"],
+                          headerInclude =
+                          "program_slicing_selection.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2047,8 +2127,12 @@
                           commentOrigin = Just "status",
                           commentLocation = Just
                             "program_slicing_selection.h:17:28",
-                          commentHeader = Just
-                            "program_slicing_selection.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_selection.h"],
+                              headerInclude =
+                              "program_slicing_selection.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2300,8 +2384,12 @@
                             "bytes_processed",
                           commentLocation = Just
                             "program_slicing_selection.h:18:10",
-                          commentHeader = Just
-                            "program_slicing_selection.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["program_slicing_selection.h"],
+                              headerInclude =
+                              "program_slicing_selection.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2315,8 +2403,12 @@
                             "FileOperationRecord"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "program_slicing_selection.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["program_slicing_selection.h"],
+                            headerInclude =
+                            "program_slicing_selection.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2488,8 +2580,12 @@
                         "FileOperationRecord",
                       commentLocation = Just
                         "program_slicing_selection.h:16:8",
-                      commentHeader = Just
-                        "program_slicing_selection.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["program_slicing_selection.h"],
+                          headerInclude =
+                          "program_slicing_selection.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2550,7 +2646,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "file_ptr",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2562,7 +2658,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "buffer",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2687,7 +2783,7 @@
               commentOrigin = Just
                 "bytes_to_read",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2880,8 +2976,12 @@
             "read_file_chunk",
           commentLocation = Just
             "program_slicing_selection.h:21:26",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3192,8 +3292,12 @@
             "read_file_chunk",
           commentLocation = Just
             "program_slicing_selection.h:21:26",
-          commentHeader = Just
-            "program_slicing_selection.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

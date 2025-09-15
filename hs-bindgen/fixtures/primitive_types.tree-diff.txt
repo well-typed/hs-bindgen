@@ -10,8 +10,12 @@ TranslationUnit {
             "Primitive"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "primitive_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["primitive_types.h"],
+            headerInclude =
+            "primitive_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

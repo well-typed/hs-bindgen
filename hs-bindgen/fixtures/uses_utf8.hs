@@ -24,7 +24,11 @@
               "MyEnum"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "uses_utf8.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["uses_utf8.h"],
+              headerInclude = "uses_utf8.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -72,8 +76,11 @@
           commentOrigin = Just "MyEnum",
           commentLocation = Just
             "uses_utf8.h:4:6",
-          commentHeader = Just
-            "uses_utf8.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["uses_utf8.h"],
+              headerInclude = "uses_utf8.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -333,8 +340,11 @@
             "Say\20320\22909",
           commentLocation = Just
             "uses_utf8.h:5:9",
-          commentHeader = Just
-            "uses_utf8.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["uses_utf8.h"],
+              headerInclude = "uses_utf8.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -365,6 +375,9 @@
             "Say\25308\25308",
           commentLocation = Just
             "uses_utf8.h:6:9",
-          commentHeader = Just
-            "uses_utf8.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["uses_utf8.h"],
+              headerInclude = "uses_utf8.h"},
           commentChildren = []}}]

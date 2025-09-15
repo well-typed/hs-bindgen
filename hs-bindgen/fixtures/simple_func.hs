@@ -15,7 +15,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "arg",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -52,8 +52,12 @@
           commentOrigin = Just "erf",
           commentLocation = Just
             "simple_func.h:1:8",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -92,8 +96,12 @@
           commentOrigin = Just "erf",
           commentLocation = Just
             "simple_func.h:1:8",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -114,7 +122,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -126,7 +134,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -138,7 +146,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "z",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -188,8 +196,12 @@
           commentOrigin = Just "bad_fma",
           commentLocation = Just
             "simple_func.h:3:22",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -237,8 +249,12 @@
           commentOrigin = Just "bad_fma",
           commentLocation = Just
             "simple_func.h:3:22",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -274,8 +290,12 @@
           commentOrigin = Just "no_args",
           commentLocation = Just
             "simple_func.h:7:6",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -307,8 +327,12 @@
           commentOrigin = Just "no_args",
           commentLocation = Just
             "simple_func.h:7:6",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -345,8 +369,12 @@
             "no_args_no_void",
           commentLocation = Just
             "simple_func.h:9:6",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -379,8 +407,12 @@
             "no_args_no_void",
           commentLocation = Just
             "simple_func.h:9:6",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -401,7 +433,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -413,7 +445,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -457,8 +489,12 @@
           commentOrigin = Just "fun",
           commentLocation = Just
             "simple_func.h:11:5",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -503,8 +539,12 @@
           commentOrigin = Just "fun",
           commentLocation = Just
             "simple_func.h:11:5",
-          commentHeader = Just
-            "simple_func.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_func.h"],
+              headerInclude =
+              "simple_func.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

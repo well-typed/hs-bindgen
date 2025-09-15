@@ -33,8 +33,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "struct_arg.h:3:9",
-              commentHeader = Just
-                "struct_arg.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["struct_arg.h"],
+                  headerInclude = "struct_arg.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -46,7 +49,11 @@
                 "Thing"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "struct_arg.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["struct_arg.h"],
+                headerInclude = "struct_arg.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -82,8 +89,11 @@
           commentOrigin = Just "thing",
           commentLocation = Just
             "struct_arg.h:2:8",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -122,8 +132,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "struct_arg.h:3:9",
-                  commentHeader = Just
-                    "struct_arg.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["struct_arg.h"],
+                      headerInclude = "struct_arg.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -135,7 +148,11 @@
                     "Thing"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "struct_arg.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["struct_arg.h"],
+                    headerInclude = "struct_arg.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -171,8 +188,11 @@
               commentOrigin = Just "thing",
               commentLocation = Just
                 "struct_arg.h:2:8",
-              commentHeader = Just
-                "struct_arg.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["struct_arg.h"],
+                  headerInclude = "struct_arg.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -214,8 +234,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "struct_arg.h:3:9",
-                          commentHeader = Just
-                            "struct_arg.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["struct_arg.h"],
+                              headerInclude = "struct_arg.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -227,7 +250,11 @@
                             "Thing"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "struct_arg.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["struct_arg.h"],
+                            headerInclude = "struct_arg.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -263,8 +290,11 @@
                       commentOrigin = Just "thing",
                       commentLocation = Just
                         "struct_arg.h:2:8",
-                      commentHeader = Just
-                        "struct_arg.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["struct_arg.h"],
+                          headerInclude = "struct_arg.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -306,8 +336,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "struct_arg.h:3:9",
-                          commentHeader = Just
-                            "struct_arg.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["struct_arg.h"],
+                              headerInclude = "struct_arg.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -319,7 +352,11 @@
                             "Thing"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "struct_arg.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["struct_arg.h"],
+                            headerInclude = "struct_arg.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -355,8 +392,11 @@
                       commentOrigin = Just "thing",
                       commentLocation = Just
                         "struct_arg.h:2:8",
-                      commentHeader = Just
-                        "struct_arg.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["struct_arg.h"],
+                          headerInclude = "struct_arg.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -406,7 +446,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -446,8 +486,11 @@
             "thing_fun_1",
           commentLocation = Just
             "struct_arg.h:6:5",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -495,8 +538,11 @@
             "thing_fun_1",
           commentLocation = Just
             "struct_arg.h:6:5",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -517,7 +563,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
@@ -561,8 +607,11 @@
             "thing_fun_2",
           commentLocation = Just
             "struct_arg.h:7:14",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -610,8 +659,11 @@
             "thing_fun_2",
           commentLocation = Just
             "struct_arg.h:7:14",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -632,7 +684,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -647,7 +699,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -659,7 +711,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "z",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
@@ -721,8 +773,11 @@
             "thing_fun_3a",
           commentLocation = Just
             "struct_arg.h:9:14",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -785,8 +840,11 @@
             "thing_fun_3a",
           commentLocation = Just
             "struct_arg.h:9:14",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -807,7 +865,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -822,7 +880,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -834,7 +892,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "z",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -890,8 +948,11 @@
             "thing_fun_3b",
           commentLocation = Just
             "struct_arg.h:10:6",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -949,8 +1010,11 @@
             "thing_fun_3b",
           commentLocation = Just
             "struct_arg.h:10:6",
-          commentHeader = Just
-            "struct_arg.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

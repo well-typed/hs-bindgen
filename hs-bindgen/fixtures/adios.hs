@@ -24,7 +24,11 @@
               "Adio'0301s"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "adios.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -65,7 +69,11 @@
             "adio\769s",
           commentLocation = Just
             "adios.h:7:13",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -223,7 +231,11 @@
               "C\25968\23383"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "adios.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -264,7 +276,11 @@
             "\25968\23383",
           commentLocation = Just
             "adios.h:12:13",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -427,7 +443,11 @@
           commentOrigin = Just "\978",
           commentLocation = Just
             "adios.h:18:6",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -458,7 +478,11 @@
           commentOrigin = Just "\978",
           commentLocation = Just
             "adios.h:18:6",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -491,7 +515,11 @@
           commentOrigin = Just "\978\978",
           commentLocation = Just
             "adios.h:21:12",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -526,7 +554,11 @@
             "\978\978\978",
           commentLocation = Just
             "adios.h:24:18",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -564,7 +596,11 @@
             "\25308\25308",
           commentLocation = Just
             "adios.h:27:6",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -596,7 +632,11 @@
             "\25308\25308",
           commentLocation = Just
             "adios.h:27:6",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -632,7 +672,11 @@
             "Say\25308\25308",
           commentLocation = Just
             "adios.h:31:6",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -664,7 +708,11 @@
             "Say\25308\25308",
           commentLocation = Just
             "adios.h:31:6",
-          commentHeader = Just "adios.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

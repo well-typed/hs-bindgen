@@ -10,8 +10,12 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "opaque_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["opaque_declaration.h"],
+            headerInclude =
+            "opaque_declaration.h"},
         declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
@@ -30,8 +34,12 @@ TranslationUnit {
             "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "opaque_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["opaque_declaration.h"],
+            headerInclude =
+            "opaque_declaration.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -93,8 +101,12 @@ TranslationUnit {
             "Baz"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "opaque_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["opaque_declaration.h"],
+            headerInclude =
+            "opaque_declaration.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -120,8 +132,12 @@ TranslationUnit {
             "Quu"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "opaque_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["opaque_declaration.h"],
+            headerInclude =
+            "opaque_declaration.h"},
         declComment = Nothing},
       declKind = DeclEnumOpaque,
       declSpec = DeclSpec
@@ -140,8 +156,12 @@ TranslationUnit {
             "Opaque_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "opaque_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["opaque_declaration.h"],
+            headerInclude =
+            "opaque_declaration.h"},
         declComment = Nothing},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec

@@ -9,7 +9,12 @@ TranslationUnit {
             "PtrInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -41,7 +46,12 @@ TranslationUnit {
             "PtrPtrChar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -73,7 +83,12 @@ TranslationUnit {
             "MTy"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -102,7 +117,12 @@ TranslationUnit {
             "Tty"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -134,7 +154,12 @@ TranslationUnit {
             "UINT8_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -164,7 +189,12 @@ TranslationUnit {
             "BOOLEAN_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -197,7 +227,12 @@ TranslationUnit {
             "Boolean_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_types.h"],
+            headerInclude =
+            "macro_types.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {

@@ -9,7 +9,11 @@ TranslationUnit {
             "Thing"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["struct_arg.h"],
+            headerInclude = "struct_arg.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -46,7 +50,11 @@ TranslationUnit {
             "thing_fun_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["struct_arg.h"],
+            headerInclude = "struct_arg.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -82,7 +90,11 @@ TranslationUnit {
             "thing_fun_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["struct_arg.h"],
+            headerInclude = "struct_arg.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -118,7 +130,11 @@ TranslationUnit {
             "thing_fun_3a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["struct_arg.h"],
+            headerInclude = "struct_arg.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -172,7 +188,11 @@ TranslationUnit {
             "thing_fun_3b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "struct_arg.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["struct_arg.h"],
+            headerInclude = "struct_arg.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

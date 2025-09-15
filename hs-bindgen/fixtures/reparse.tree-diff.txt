@@ -9,7 +9,11 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "A"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -38,7 +42,11 @@ TranslationUnit {
             "Some_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -65,7 +73,11 @@ TranslationUnit {
             "Some_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -94,7 +106,11 @@ TranslationUnit {
             "Some_enum"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -134,7 +150,11 @@ TranslationUnit {
             "args_char1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Just
           (Comment
             [
@@ -184,7 +204,11 @@ TranslationUnit {
             "args_char2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -228,7 +252,11 @@ TranslationUnit {
             "args_char3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -272,7 +300,11 @@ TranslationUnit {
             "args_short1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -317,7 +349,11 @@ TranslationUnit {
             "args_short2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -362,7 +398,11 @@ TranslationUnit {
             "args_short3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -407,7 +447,11 @@ TranslationUnit {
             "args_int1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -450,7 +494,11 @@ TranslationUnit {
             "args_int2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -493,7 +541,11 @@ TranslationUnit {
             "args_int3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -538,7 +590,11 @@ TranslationUnit {
             "args_long1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -583,7 +639,11 @@ TranslationUnit {
             "args_long2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -628,7 +688,11 @@ TranslationUnit {
             "args_long3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -673,7 +737,11 @@ TranslationUnit {
             "args_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -716,7 +784,11 @@ TranslationUnit {
             "args_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -759,7 +831,11 @@ TranslationUnit {
             "args_bool1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -801,7 +877,11 @@ TranslationUnit {
             "args_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -848,7 +928,11 @@ TranslationUnit {
             "args_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -895,7 +979,11 @@ TranslationUnit {
             "args_enum"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -942,7 +1030,11 @@ TranslationUnit {
             "args_pointer1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -988,7 +1080,11 @@ TranslationUnit {
             "args_pointer2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1035,7 +1131,11 @@ TranslationUnit {
             "args_pointer3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1077,7 +1177,11 @@ TranslationUnit {
             "ret_A"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1105,7 +1209,11 @@ TranslationUnit {
             "ret_char1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1142,7 +1250,11 @@ TranslationUnit {
             "ret_char2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1179,7 +1291,11 @@ TranslationUnit {
             "ret_char3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1216,7 +1332,11 @@ TranslationUnit {
             "ret_short1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1254,7 +1374,11 @@ TranslationUnit {
             "ret_short2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1292,7 +1416,11 @@ TranslationUnit {
             "ret_short3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1330,7 +1458,11 @@ TranslationUnit {
             "ret_int1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1366,7 +1498,11 @@ TranslationUnit {
             "ret_int2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1402,7 +1538,11 @@ TranslationUnit {
             "ret_int3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1440,7 +1580,11 @@ TranslationUnit {
             "ret_long1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1476,7 +1620,11 @@ TranslationUnit {
             "ret_long2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1512,7 +1660,11 @@ TranslationUnit {
             "ret_long3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1550,7 +1702,11 @@ TranslationUnit {
             "ret_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1586,7 +1742,11 @@ TranslationUnit {
             "ret_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1622,7 +1782,11 @@ TranslationUnit {
             "ret_bool1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1658,7 +1822,11 @@ TranslationUnit {
             "ret_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1698,7 +1866,11 @@ TranslationUnit {
             "ret_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1738,7 +1910,11 @@ TranslationUnit {
             "ret_enum"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1778,7 +1954,11 @@ TranslationUnit {
             "ret_pointer1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1815,7 +1995,11 @@ TranslationUnit {
             "ret_pointer2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1855,7 +2039,11 @@ TranslationUnit {
             "ret_pointer3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1891,7 +2079,11 @@ TranslationUnit {
             "body1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1927,7 +2119,11 @@ TranslationUnit {
             "body2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1956,7 +2152,11 @@ TranslationUnit {
             "args_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2000,7 +2200,11 @@ TranslationUnit {
             "args_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2044,7 +2248,11 @@ TranslationUnit {
             "ret_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2081,7 +2289,11 @@ TranslationUnit {
             "ret_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2117,7 +2329,11 @@ TranslationUnit {
             "bespoke_args1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2159,7 +2375,11 @@ TranslationUnit {
             "bespoke_args2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2201,7 +2421,11 @@ TranslationUnit {
             "bespoke_ret1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2237,7 +2461,11 @@ TranslationUnit {
             "bespoke_ret2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2273,7 +2501,11 @@ TranslationUnit {
             "arr_args1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Just
           (Comment
             [
@@ -2313,7 +2545,11 @@ TranslationUnit {
             "arr_args2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2350,7 +2586,11 @@ TranslationUnit {
             "arr_args3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2387,7 +2627,11 @@ TranslationUnit {
             "arr_args4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2425,7 +2669,11 @@ TranslationUnit {
             "Arr_typedef1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2458,7 +2706,11 @@ TranslationUnit {
             "Arr_typedef2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2492,7 +2744,11 @@ TranslationUnit {
             "Arr_typedef3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2525,7 +2781,11 @@ TranslationUnit {
             "Arr_typedef4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2559,7 +2819,11 @@ TranslationUnit {
             "Typedef1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Just
           (Comment
             [
@@ -2594,7 +2858,11 @@ TranslationUnit {
             "Typedef2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2626,7 +2894,11 @@ TranslationUnit {
             "Typedef3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2659,7 +2931,11 @@ TranslationUnit {
             "funptr_args1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Just
           (Comment
             [
@@ -2708,7 +2984,11 @@ TranslationUnit {
             "funptr_args2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2756,7 +3036,11 @@ TranslationUnit {
             "funptr_args3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2803,7 +3087,11 @@ TranslationUnit {
             "funptr_args4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2854,7 +3142,11 @@ TranslationUnit {
             "funptr_args5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -2907,7 +3199,11 @@ TranslationUnit {
             "Funptr_typedef1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2941,7 +3237,11 @@ TranslationUnit {
             "Funptr_typedef2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -2976,7 +3276,11 @@ TranslationUnit {
             "Funptr_typedef3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -3012,7 +3316,11 @@ TranslationUnit {
             "Funptr_typedef4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -3050,7 +3358,11 @@ TranslationUnit {
             "Funptr_typedef5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -3089,7 +3401,11 @@ TranslationUnit {
             "comments1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Just
           (Comment
             [
@@ -3134,7 +3450,11 @@ TranslationUnit {
             "Comments2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -3165,7 +3485,11 @@ TranslationUnit {
             "Example_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Just
           (Comment
             [
@@ -3248,7 +3572,11 @@ TranslationUnit {
             "const_prim_before1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment =
         Just
           (Comment
@@ -3305,7 +3633,11 @@ TranslationUnit {
             "const_prim_before2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3351,7 +3683,11 @@ TranslationUnit {
             "const_prim_before3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3397,7 +3733,11 @@ TranslationUnit {
             "const_prim_after1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3443,7 +3783,11 @@ TranslationUnit {
             "const_prim_after2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3489,7 +3833,11 @@ TranslationUnit {
             "const_prim_after3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3535,7 +3883,11 @@ TranslationUnit {
             "const_withoutSign_before1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3580,7 +3932,11 @@ TranslationUnit {
             "const_withoutSign_before2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3625,7 +3981,11 @@ TranslationUnit {
             "const_withoutSign_before3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3669,7 +4029,11 @@ TranslationUnit {
             "const_withoutSign_before4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3718,7 +4082,11 @@ TranslationUnit {
             "const_withoutSign_before5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3767,7 +4135,11 @@ TranslationUnit {
             "const_withoutSign_before6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3816,7 +4188,11 @@ TranslationUnit {
             "const_withoutSign_before7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3860,7 +4236,11 @@ TranslationUnit {
             "const_withoutSign_before8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3904,7 +4284,11 @@ TranslationUnit {
             "const_withoutSign_after1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3949,7 +4333,11 @@ TranslationUnit {
             "const_withoutSign_after2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -3994,7 +4382,11 @@ TranslationUnit {
             "const_withoutSign_after3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4038,7 +4430,11 @@ TranslationUnit {
             "const_withoutSign_after4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4087,7 +4483,11 @@ TranslationUnit {
             "const_withoutSign_after5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4136,7 +4536,11 @@ TranslationUnit {
             "const_withoutSign_after6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4185,7 +4589,11 @@ TranslationUnit {
             "const_withoutSign_after7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4229,7 +4637,11 @@ TranslationUnit {
             "const_withoutSign_after8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4273,7 +4685,11 @@ TranslationUnit {
             "const_pointers_args1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4321,7 +4737,11 @@ TranslationUnit {
             "const_pointers_args2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4369,7 +4789,11 @@ TranslationUnit {
             "const_pointers_args3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4417,7 +4841,11 @@ TranslationUnit {
             "const_pointers_args4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4466,7 +4894,11 @@ TranslationUnit {
             "const_pointers_args5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4515,7 +4947,11 @@ TranslationUnit {
             "const_pointers_ret1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4556,7 +4992,11 @@ TranslationUnit {
             "const_pointers_ret2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4597,7 +5037,11 @@ TranslationUnit {
             "const_pointers_ret3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4638,7 +5082,11 @@ TranslationUnit {
             "const_pointers_ret4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4680,7 +5128,11 @@ TranslationUnit {
             "const_pointers_ret5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4721,7 +5173,11 @@ TranslationUnit {
             "Const_typedef1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4753,7 +5209,11 @@ TranslationUnit {
             "Const_typedef2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4785,7 +5245,11 @@ TranslationUnit {
             "Const_typedef3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4818,7 +5282,11 @@ TranslationUnit {
             "Const_typedef4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4851,7 +5319,11 @@ TranslationUnit {
             "Const_typedef5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4884,7 +5356,11 @@ TranslationUnit {
             "Const_typedef6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4918,7 +5394,11 @@ TranslationUnit {
             "Const_typedef7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -4953,7 +5433,11 @@ TranslationUnit {
             "Example_struct_with_const"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -5099,7 +5583,11 @@ TranslationUnit {
             "Const_funptr1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5138,7 +5626,11 @@ TranslationUnit {
             "Const_funptr2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5177,7 +5669,11 @@ TranslationUnit {
             "Const_funptr3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5217,7 +5713,11 @@ TranslationUnit {
             "Const_funptr4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5257,7 +5757,11 @@ TranslationUnit {
             "Const_funptr5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5297,7 +5801,11 @@ TranslationUnit {
             "Const_funptr6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5338,7 +5846,11 @@ TranslationUnit {
             "Const_funptr7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -5380,7 +5892,11 @@ TranslationUnit {
             "const_array_elem1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5418,7 +5934,11 @@ TranslationUnit {
             "const_array_elem2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5457,7 +5977,11 @@ TranslationUnit {
             "const_array_elem3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5496,7 +6020,11 @@ TranslationUnit {
             "noParams1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment =
         Just
           (Comment
@@ -5531,7 +6059,11 @@ TranslationUnit {
             "noParams2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5559,7 +6091,11 @@ TranslationUnit {
             "noParams3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5607,7 +6143,11 @@ TranslationUnit {
             "funptr_ret1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5643,7 +6183,11 @@ TranslationUnit {
             "funptr_ret2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5684,7 +6228,11 @@ TranslationUnit {
             "funptr_ret3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5724,7 +6272,11 @@ TranslationUnit {
             "funptr_ret4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5768,7 +6320,11 @@ TranslationUnit {
             "funptr_ret5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5814,7 +6370,11 @@ TranslationUnit {
             "funptr_ret6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5861,7 +6421,11 @@ TranslationUnit {
             "funptr_ret7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5908,7 +6472,11 @@ TranslationUnit {
             "funptr_ret8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -5955,7 +6523,11 @@ TranslationUnit {
             "funptr_ret9"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -6003,7 +6575,11 @@ TranslationUnit {
             "funptr_ret10"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -6051,7 +6627,11 @@ TranslationUnit {
             "BOOL"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -6079,7 +6659,11 @@ TranslationUnit {
             "INT"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -6108,7 +6692,11 @@ TranslationUnit {
             "INTP"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -6140,7 +6728,11 @@ TranslationUnit {
             "INTCP"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "reparse.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["reparse.h"],
+            headerInclude = "reparse.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType

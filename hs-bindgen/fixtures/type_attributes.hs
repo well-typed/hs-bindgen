@@ -39,8 +39,12 @@
               commentOrigin = Just "f",
               commentLocation = Just
                 "type_attributes.h:8:18",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -52,8 +56,12 @@
               nameHsIdent = HsIdentifier "S"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "type_attributes.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["type_attributes.h"],
+                headerInclude =
+                "type_attributes.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -94,8 +102,12 @@
           commentOrigin = Just "S",
           commentLocation = Just
             "type_attributes.h:8:8",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -140,8 +152,12 @@
                   commentOrigin = Just "f",
                   commentLocation = Just
                     "type_attributes.h:8:18",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -153,8 +169,12 @@
                   nameHsIdent = HsIdentifier "S"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "type_attributes.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["type_attributes.h"],
+                    headerInclude =
+                    "type_attributes.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -195,8 +215,12 @@
               commentOrigin = Just "S",
               commentLocation = Just
                 "type_attributes.h:8:8",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -244,8 +268,12 @@
                           commentOrigin = Just "f",
                           commentLocation = Just
                             "type_attributes.h:8:18",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -257,8 +285,12 @@
                           nameHsIdent = HsIdentifier "S"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -299,8 +331,12 @@
                       commentOrigin = Just "S",
                       commentLocation = Just
                         "type_attributes.h:8:8",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -348,8 +384,12 @@
                           commentOrigin = Just "f",
                           commentLocation = Just
                             "type_attributes.h:8:18",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -361,8 +401,12 @@
                           nameHsIdent = HsIdentifier "S"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -403,8 +447,12 @@
                       commentOrigin = Just "S",
                       commentLocation = Just
                         "type_attributes.h:8:8",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -461,8 +509,12 @@
               "More_aligned_int"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "type_attributes.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -503,8 +555,12 @@
             "more_aligned_int",
           commentLocation = Just
             "type_attributes.h:9:13",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -677,8 +733,12 @@
               commentOrigin = Just "f",
               commentLocation = Just
                 "type_attributes.h:11:19",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -691,8 +751,12 @@
                 "S2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "type_attributes.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["type_attributes.h"],
+                headerInclude =
+                "type_attributes.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -733,8 +797,12 @@
           commentOrigin = Just "S2",
           commentLocation = Just
             "type_attributes.h:11:8",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -779,8 +847,12 @@
                   commentOrigin = Just "f",
                   commentLocation = Just
                     "type_attributes.h:11:19",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -793,8 +865,12 @@
                     "S2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "type_attributes.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["type_attributes.h"],
+                    headerInclude =
+                    "type_attributes.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -835,8 +911,12 @@
               commentOrigin = Just "S2",
               commentLocation = Just
                 "type_attributes.h:11:8",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -884,8 +964,12 @@
                           commentOrigin = Just "f",
                           commentLocation = Just
                             "type_attributes.h:11:19",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -898,8 +982,12 @@
                             "S2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -940,8 +1028,12 @@
                       commentOrigin = Just "S2",
                       commentLocation = Just
                         "type_attributes.h:11:8",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -989,8 +1081,12 @@
                           commentOrigin = Just "f",
                           commentLocation = Just
                             "type_attributes.h:11:19",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1003,8 +1099,12 @@
                             "S2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1045,8 +1145,12 @@
                       commentOrigin = Just "S2",
                       commentLocation = Just
                         "type_attributes.h:11:8",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -1114,8 +1218,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "type_attributes.h:15:8",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1143,8 +1251,12 @@
               commentOrigin = Just "i",
               commentLocation = Just
                 "type_attributes.h:16:7",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1158,8 +1270,12 @@
                 "My_unpacked_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "type_attributes.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["type_attributes.h"],
+                headerInclude =
+                "type_attributes.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1214,8 +1330,12 @@
             "my_unpacked_struct",
           commentLocation = Just
             "type_attributes.h:13:8",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1257,8 +1377,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "type_attributes.h:15:8",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1286,8 +1410,12 @@
                   commentOrigin = Just "i",
                   commentLocation = Just
                     "type_attributes.h:16:7",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1301,8 +1429,12 @@
                     "My_unpacked_struct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "type_attributes.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["type_attributes.h"],
+                    headerInclude =
+                    "type_attributes.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1357,8 +1489,12 @@
                 "my_unpacked_struct",
               commentLocation = Just
                 "type_attributes.h:13:8",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -1403,8 +1539,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "type_attributes.h:15:8",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1432,8 +1572,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "type_attributes.h:16:7",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1447,8 +1591,12 @@
                             "My_unpacked_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1503,8 +1651,12 @@
                         "my_unpacked_struct",
                       commentLocation = Just
                         "type_attributes.h:13:8",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1551,8 +1703,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "type_attributes.h:15:8",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1580,8 +1736,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "type_attributes.h:16:7",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1595,8 +1755,12 @@
                             "My_unpacked_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1651,8 +1815,12 @@
                         "my_unpacked_struct",
                       commentLocation = Just
                         "type_attributes.h:13:8",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1721,8 +1889,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "type_attributes.h:21:9",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1750,8 +1922,12 @@
               commentOrigin = Just "i",
               commentLocation = Just
                 "type_attributes.h:22:9",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1786,8 +1962,12 @@
               commentOrigin = Just "s",
               commentLocation = Just
                 "type_attributes.h:23:30",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1800,8 +1980,12 @@
                 "My_packed_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "type_attributes.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["type_attributes.h"],
+                headerInclude =
+                "type_attributes.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1874,8 +2058,12 @@
             "my_packed_struct",
           commentLocation = Just
             "type_attributes.h:19:37",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1917,8 +2105,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "type_attributes.h:21:9",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1946,8 +2138,12 @@
                   commentOrigin = Just "i",
                   commentLocation = Just
                     "type_attributes.h:22:9",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1982,8 +2178,12 @@
                   commentOrigin = Just "s",
                   commentLocation = Just
                     "type_attributes.h:23:30",
-                  commentHeader = Just
-                    "type_attributes.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["type_attributes.h"],
+                      headerInclude =
+                      "type_attributes.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1996,8 +2196,12 @@
                     "My_packed_struct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "type_attributes.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["type_attributes.h"],
+                    headerInclude =
+                    "type_attributes.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2070,8 +2274,12 @@
                 "my_packed_struct",
               commentLocation = Just
                 "type_attributes.h:19:37",
-              commentHeader = Just
-                "type_attributes.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["type_attributes.h"],
+                  headerInclude =
+                  "type_attributes.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 13,
@@ -2116,8 +2324,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "type_attributes.h:21:9",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2145,8 +2357,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "type_attributes.h:22:9",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2181,8 +2397,12 @@
                           commentOrigin = Just "s",
                           commentLocation = Just
                             "type_attributes.h:23:30",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2195,8 +2415,12 @@
                             "My_packed_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2269,8 +2493,12 @@
                         "my_packed_struct",
                       commentLocation = Just
                         "type_attributes.h:19:37",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2318,8 +2546,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "type_attributes.h:21:9",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2347,8 +2579,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "type_attributes.h:22:9",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2383,8 +2619,12 @@
                           commentOrigin = Just "s",
                           commentLocation = Just
                             "type_attributes.h:23:30",
-                          commentHeader = Just
-                            "type_attributes.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["type_attributes.h"],
+                              headerInclude =
+                              "type_attributes.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2397,8 +2637,12 @@
                             "My_packed_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "type_attributes.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["type_attributes.h"],
+                            headerInclude =
+                            "type_attributes.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2471,8 +2715,12 @@
                         "my_packed_struct",
                       commentLocation = Just
                         "type_attributes.h:19:37",
-                      commentHeader = Just
-                        "type_attributes.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["type_attributes.h"],
+                          headerInclude =
+                          "type_attributes.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -2520,8 +2768,12 @@
               "Wait"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "type_attributes.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           declComment = Nothing},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
@@ -2536,8 +2788,12 @@
           commentOrigin = Just "wait",
           commentLocation = Just
             "type_attributes.h:29:9",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -2568,8 +2824,12 @@
               "type_attributes.h:26:9"),
           declAliases = [
             Name "wait_status_ptr_t"],
-          declHeader =
-          "type_attributes.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -2626,8 +2886,12 @@
             "wait_status_ptr_t",
           commentLocation = Just
             "type_attributes.h:26:9",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2656,8 +2920,12 @@
           commentOrigin = Just "__ip",
           commentLocation = Just
             "type_attributes.h:28:8",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = [
             Paragraph
               [
@@ -2679,7 +2947,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -2705,8 +2973,12 @@
           commentOrigin = Just "__up",
           commentLocation = Just
             "type_attributes.h:29:15",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = [
             Paragraph
               [
@@ -2731,7 +3003,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -2764,8 +3036,12 @@
               "T1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "type_attributes.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -2805,8 +3081,12 @@
           commentOrigin = Just "T1",
           commentLocation = Just
             "type_attributes.h:32:13",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2965,8 +3245,12 @@
               "Short_a"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "type_attributes.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -3008,8 +3292,12 @@
           commentOrigin = Just "short_a",
           commentLocation = Just
             "type_attributes.h:34:46",
-          commentHeader = Just
-            "type_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {

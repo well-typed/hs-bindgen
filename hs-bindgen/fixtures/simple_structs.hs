@@ -34,8 +34,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:3:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -65,8 +69,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:4:10",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -79,7 +87,12 @@
                 "S1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -131,8 +144,12 @@
           commentOrigin = Just "S1",
           commentLocation = Just
             "simple_structs.h:2:8",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -172,8 +189,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:3:9",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -203,8 +224,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:4:10",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -217,7 +242,12 @@
                     "S1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -269,8 +299,12 @@
               commentOrigin = Just "S1",
               commentLocation = Just
                 "simple_structs.h:2:8",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -313,8 +347,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:3:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -344,8 +382,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:4:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -358,7 +400,12 @@
                             "S1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -410,8 +457,12 @@
                       commentOrigin = Just "S1",
                       commentLocation = Just
                         "simple_structs.h:2:8",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -456,8 +507,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:3:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -487,8 +542,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:4:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -501,7 +560,12 @@
                             "S1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -553,8 +617,12 @@
                       commentOrigin = Just "S1",
                       commentLocation = Just
                         "simple_structs.h:2:8",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -623,8 +691,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:9:10",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -652,8 +724,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:10:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -681,8 +757,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "simple_structs.h:11:11",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -697,7 +777,12 @@
             NameOriginRenamedFrom
               (Name "S2"),
             declAliases = [Name "S2_t"],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -762,8 +847,12 @@
           commentOrigin = Just "S2_t",
           commentLocation = Just
             "simple_structs.h:8:16",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -805,8 +894,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:9:10",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -834,8 +927,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:10:9",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -863,8 +960,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "simple_structs.h:11:11",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -879,7 +980,12 @@
                 NameOriginRenamedFrom
                   (Name "S2"),
                 declAliases = [Name "S2_t"],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -944,8 +1050,12 @@
               commentOrigin = Just "S2_t",
               commentLocation = Just
                 "simple_structs.h:8:16",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -990,8 +1100,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:9:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1019,8 +1133,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:10:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1048,8 +1166,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "simple_structs.h:11:11",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1064,7 +1186,12 @@
                         NameOriginRenamedFrom
                           (Name "S2"),
                         declAliases = [Name "S2_t"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1129,8 +1256,12 @@
                       commentOrigin = Just "S2_t",
                       commentLocation = Just
                         "simple_structs.h:8:16",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1178,8 +1309,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:9:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1207,8 +1342,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:10:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1236,8 +1375,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "simple_structs.h:11:11",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1252,7 +1395,12 @@
                         NameOriginRenamedFrom
                           (Name "S2"),
                         declAliases = [Name "S2_t"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1317,8 +1465,12 @@
                       commentOrigin = Just "S2_t",
                       commentLocation = Just
                         "simple_structs.h:8:16",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -1388,8 +1540,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:16:10",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1404,7 +1560,12 @@
               (AnonId
                 "simple_structs.h:15:9"),
             declAliases = [Name "S3_t"],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1443,8 +1604,12 @@
           commentOrigin = Just "S3_t",
           commentLocation = Just
             "simple_structs.h:15:9",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1486,8 +1651,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:16:10",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1502,7 +1671,12 @@
                   (AnonId
                     "simple_structs.h:15:9"),
                 declAliases = [Name "S3_t"],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1541,8 +1715,12 @@
               commentOrigin = Just "S3_t",
               commentLocation = Just
                 "simple_structs.h:15:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 1,
@@ -1587,8 +1765,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:16:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1603,7 +1785,12 @@
                           (AnonId
                             "simple_structs.h:15:9"),
                         declAliases = [Name "S3_t"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1642,8 +1829,12 @@
                       commentOrigin = Just "S3_t",
                       commentLocation = Just
                         "simple_structs.h:15:9",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -1688,8 +1879,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:16:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1704,7 +1899,12 @@
                           (AnonId
                             "simple_structs.h:15:9"),
                         declAliases = [Name "S3_t"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1743,8 +1943,12 @@
                       commentOrigin = Just "S3_t",
                       commentLocation = Just
                         "simple_structs.h:15:9",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -1812,8 +2016,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:20:10",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1841,8 +2049,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:21:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1871,8 +2083,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "simple_structs.h:22:10",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1885,7 +2101,12 @@
                 "S4"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1951,8 +2172,12 @@
           commentOrigin = Just "S4",
           commentLocation = Just
             "simple_structs.h:19:8",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1994,8 +2219,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:20:10",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2023,8 +2252,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:21:9",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2053,8 +2286,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "simple_structs.h:22:10",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2067,7 +2304,12 @@
                     "S4"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2133,8 +2375,12 @@
               commentOrigin = Just "S4",
               commentLocation = Just
                 "simple_structs.h:19:8",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -2179,8 +2425,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:20:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2208,8 +2458,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:21:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2238,8 +2492,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "simple_structs.h:22:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2252,7 +2510,12 @@
                             "S4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2318,8 +2581,12 @@
                       commentOrigin = Just "S4",
                       commentLocation = Just
                         "simple_structs.h:19:8",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2367,8 +2634,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:20:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2396,8 +2667,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:21:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2426,8 +2701,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "simple_structs.h:22:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2440,7 +2719,12 @@
                             "S4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2506,8 +2790,12 @@
                       commentOrigin = Just "S4",
                       commentLocation = Just
                         "simple_structs.h:19:8",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -2577,8 +2865,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:27:10",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2606,8 +2898,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:28:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2620,7 +2916,12 @@
                 "S5"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "S5"],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2672,8 +2973,12 @@
           commentOrigin = Just "S5",
           commentLocation = Just
             "simple_structs.h:26:16",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2715,8 +3020,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:27:10",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2744,8 +3053,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:28:9",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2758,7 +3071,12 @@
                     "S5"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "S5"],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2810,8 +3128,12 @@
               commentOrigin = Just "S5",
               commentLocation = Just
                 "simple_structs.h:26:16",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -2856,8 +3178,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:27:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2885,8 +3211,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:28:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2899,7 +3229,12 @@
                             "S5"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S5"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2951,8 +3286,12 @@
                       commentOrigin = Just "S5",
                       commentLocation = Just
                         "simple_structs.h:26:16",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2999,8 +3338,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:27:10",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3028,8 +3371,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:28:9",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3042,7 +3389,12 @@
                             "S5"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S5"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3094,8 +3446,12 @@
                       commentOrigin = Just "S5",
                       commentLocation = Just
                         "simple_structs.h:26:16",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3164,8 +3520,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:31:18",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3193,8 +3553,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:31:25",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3207,7 +3571,12 @@
                 "S6"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "S6"],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3259,8 +3628,12 @@
           commentOrigin = Just "S6",
           commentLocation = Just
             "simple_structs.h:31:8",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3302,8 +3675,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:31:18",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3331,8 +3708,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:31:25",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3345,7 +3726,12 @@
                     "S6"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "S6"],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3397,8 +3783,12 @@
               commentOrigin = Just "S6",
               commentLocation = Just
                 "simple_structs.h:31:8",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -3443,8 +3833,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:31:18",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3472,8 +3866,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:31:25",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3486,7 +3884,12 @@
                             "S6"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S6"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3538,8 +3941,12 @@
                       commentOrigin = Just "S6",
                       commentLocation = Just
                         "simple_structs.h:31:8",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3586,8 +3993,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:31:18",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3615,8 +4026,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:31:25",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3629,7 +4044,12 @@
                             "S6"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S6"],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3681,8 +4101,12 @@
                       commentOrigin = Just "S6",
                       commentLocation = Just
                         "simple_structs.h:31:8",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3751,8 +4175,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:34:23",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3780,8 +4208,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:34:30",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3796,7 +4228,12 @@
               (AnonId
                 "simple_structs.h:34:9"),
             declAliases = [],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3851,8 +4288,12 @@
             "S7a_Deref",
           commentLocation = Just
             "simple_structs.h:34:9",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3894,8 +4335,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:34:23",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3923,8 +4368,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:34:30",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3939,7 +4388,12 @@
                   (AnonId
                     "simple_structs.h:34:9"),
                 declAliases = [],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3994,8 +4448,12 @@
                 "S7a_Deref",
               commentLocation = Just
                 "simple_structs.h:34:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -4040,8 +4498,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:34:23",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4069,8 +4531,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:34:30",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4085,7 +4551,12 @@
                           (AnonId
                             "simple_structs.h:34:9"),
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4140,8 +4611,12 @@
                         "S7a_Deref",
                       commentLocation = Just
                         "simple_structs.h:34:9",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -4188,8 +4663,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:34:23",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4217,8 +4696,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:34:30",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4233,7 +4716,12 @@
                           (AnonId
                             "simple_structs.h:34:9"),
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4288,8 +4776,12 @@
                         "S7a_Deref",
                       commentLocation = Just
                         "simple_structs.h:34:9",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -4350,7 +4842,12 @@
               "S7a"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "simple_structs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -4384,8 +4881,12 @@
           commentOrigin = Just "S7a",
           commentLocation = Just
             "simple_structs.h:34:36",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -4464,8 +4965,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "simple_structs.h:35:23",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4493,8 +4998,12 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "simple_structs.h:35:30",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -4509,7 +5018,12 @@
               (AnonId
                 "simple_structs.h:35:9"),
             declAliases = [],
-            declHeader = "simple_structs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["simple_structs.h"],
+                headerInclude =
+                "simple_structs.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -4564,8 +5078,12 @@
             "S7b_Deref",
           commentLocation = Just
             "simple_structs.h:35:9",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -4607,8 +5125,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "simple_structs.h:35:23",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4636,8 +5158,12 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "simple_structs.h:35:30",
-                  commentHeader = Just
-                    "simple_structs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["simple_structs.h"],
+                      headerInclude =
+                      "simple_structs.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -4652,7 +5178,12 @@
                   (AnonId
                     "simple_structs.h:35:9"),
                 declAliases = [],
-                declHeader = "simple_structs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["simple_structs.h"],
+                    headerInclude =
+                    "simple_structs.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -4707,8 +5238,12 @@
                 "S7b_Deref",
               commentLocation = Just
                 "simple_structs.h:35:9",
-              commentHeader = Just
-                "simple_structs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["simple_structs.h"],
+                  headerInclude =
+                  "simple_structs.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -4753,8 +5288,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:35:23",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4782,8 +5321,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:35:30",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4798,7 +5341,12 @@
                           (AnonId
                             "simple_structs.h:35:9"),
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4853,8 +5401,12 @@
                         "S7b_Deref",
                       commentLocation = Just
                         "simple_structs.h:35:9",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -4901,8 +5453,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "simple_structs.h:35:23",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4930,8 +5486,12 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "simple_structs.h:35:30",
-                          commentHeader = Just
-                            "simple_structs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["simple_structs.h"],
+                              headerInclude =
+                              "simple_structs.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4946,7 +5506,12 @@
                           (AnonId
                             "simple_structs.h:35:9"),
                         declAliases = [],
-                        declHeader = "simple_structs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["simple_structs.h"],
+                            headerInclude =
+                            "simple_structs.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -5001,8 +5566,12 @@
                         "S7b_Deref",
                       commentLocation = Just
                         "simple_structs.h:35:9",
-                      commentHeader = Just
-                        "simple_structs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["simple_structs.h"],
+                          headerInclude =
+                          "simple_structs.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -5065,7 +5634,12 @@
               "S7b"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "simple_structs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -5101,8 +5675,12 @@
           commentOrigin = Just "S7b",
           commentLocation = Just
             "simple_structs.h:35:38",
-          commentHeader = Just
-            "simple_structs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["simple_structs.h"],
+              headerInclude =
+              "simple_structs.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {

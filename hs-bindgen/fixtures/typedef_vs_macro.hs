@@ -25,8 +25,12 @@
               "T1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -66,8 +70,12 @@
           commentOrigin = Just "T1",
           commentLocation = Just
             "typedef_vs_macro.h:1:13",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -226,8 +234,12 @@
               "T2"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -269,8 +281,12 @@
           commentOrigin = Just "T2",
           commentLocation = Just
             "typedef_vs_macro.h:2:14",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -429,8 +445,12 @@
               "M1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -470,8 +490,12 @@
           commentOrigin = Just "M1",
           commentLocation = Just
             "typedef_vs_macro.h:4:9",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -630,8 +654,12 @@
               "M2"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -672,8 +700,12 @@
           commentOrigin = Just "M2",
           commentLocation = Just
             "typedef_vs_macro.h:5:9",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -832,8 +864,12 @@
               "M3"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -861,8 +897,12 @@
           commentOrigin = Just "M3",
           commentLocation = Just
             "typedef_vs_macro.h:6:9",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -943,8 +983,12 @@
               commentOrigin = Just "t1",
               commentLocation = Just
                 "typedef_vs_macro.h:9:6",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -976,8 +1020,12 @@
               commentOrigin = Just "t2",
               commentLocation = Just
                 "typedef_vs_macro.h:10:6",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1009,8 +1057,12 @@
               commentOrigin = Just "m1",
               commentLocation = Just
                 "typedef_vs_macro.h:11:6",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1042,8 +1094,12 @@
               commentOrigin = Just "m2",
               commentLocation = Just
                 "typedef_vs_macro.h:12:6",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1056,8 +1112,12 @@
                 "ExampleStruct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "typedef_vs_macro.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_vs_macro.h"],
+                headerInclude =
+                "typedef_vs_macro.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1152,8 +1212,12 @@
             "ExampleStruct",
           commentLocation = Just
             "typedef_vs_macro.h:8:8",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1197,8 +1261,12 @@
                   commentOrigin = Just "t1",
                   commentLocation = Just
                     "typedef_vs_macro.h:9:6",
-                  commentHeader = Just
-                    "typedef_vs_macro.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_vs_macro.h"],
+                      headerInclude =
+                      "typedef_vs_macro.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1230,8 +1298,12 @@
                   commentOrigin = Just "t2",
                   commentLocation = Just
                     "typedef_vs_macro.h:10:6",
-                  commentHeader = Just
-                    "typedef_vs_macro.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_vs_macro.h"],
+                      headerInclude =
+                      "typedef_vs_macro.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1263,8 +1335,12 @@
                   commentOrigin = Just "m1",
                   commentLocation = Just
                     "typedef_vs_macro.h:11:6",
-                  commentHeader = Just
-                    "typedef_vs_macro.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_vs_macro.h"],
+                      headerInclude =
+                      "typedef_vs_macro.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1296,8 +1372,12 @@
                   commentOrigin = Just "m2",
                   commentLocation = Just
                     "typedef_vs_macro.h:12:6",
-                  commentHeader = Just
-                    "typedef_vs_macro.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_vs_macro.h"],
+                      headerInclude =
+                      "typedef_vs_macro.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1310,8 +1390,12 @@
                     "ExampleStruct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "typedef_vs_macro.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_vs_macro.h"],
+                    headerInclude =
+                    "typedef_vs_macro.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1406,8 +1490,12 @@
                 "ExampleStruct",
               commentLocation = Just
                 "typedef_vs_macro.h:8:8",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -1454,8 +1542,12 @@
                           commentOrigin = Just "t1",
                           commentLocation = Just
                             "typedef_vs_macro.h:9:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1487,8 +1579,12 @@
                           commentOrigin = Just "t2",
                           commentLocation = Just
                             "typedef_vs_macro.h:10:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1520,8 +1616,12 @@
                           commentOrigin = Just "m1",
                           commentLocation = Just
                             "typedef_vs_macro.h:11:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1553,8 +1653,12 @@
                           commentOrigin = Just "m2",
                           commentLocation = Just
                             "typedef_vs_macro.h:12:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1567,8 +1671,12 @@
                             "ExampleStruct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_vs_macro.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_vs_macro.h"],
+                            headerInclude =
+                            "typedef_vs_macro.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1663,8 +1771,12 @@
                         "ExampleStruct",
                       commentLocation = Just
                         "typedef_vs_macro.h:8:8",
-                      commentHeader = Just
-                        "typedef_vs_macro.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_vs_macro.h"],
+                          headerInclude =
+                          "typedef_vs_macro.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1715,8 +1827,12 @@
                           commentOrigin = Just "t1",
                           commentLocation = Just
                             "typedef_vs_macro.h:9:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1748,8 +1864,12 @@
                           commentOrigin = Just "t2",
                           commentLocation = Just
                             "typedef_vs_macro.h:10:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1781,8 +1901,12 @@
                           commentOrigin = Just "m1",
                           commentLocation = Just
                             "typedef_vs_macro.h:11:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1814,8 +1938,12 @@
                           commentOrigin = Just "m2",
                           commentLocation = Just
                             "typedef_vs_macro.h:12:6",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1828,8 +1956,12 @@
                             "ExampleStruct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_vs_macro.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_vs_macro.h"],
+                            headerInclude =
+                            "typedef_vs_macro.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1924,8 +2056,12 @@
                         "ExampleStruct",
                       commentLocation = Just
                         "typedef_vs_macro.h:8:8",
-                      commentHeader = Just
-                        "typedef_vs_macro.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_vs_macro.h"],
+                          headerInclude =
+                          "typedef_vs_macro.h"},
                       commentChildren = []}}
                 (Add 4)
                 (Seq
@@ -1985,8 +2121,12 @@
               "Uint64_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_vs_macro.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -2026,8 +2166,12 @@
           commentOrigin = Just "uint64_t",
           commentLocation = Just
             "typedef_vs_macro.h:15:9",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2203,8 +2347,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "typedef_vs_macro.h:18:13",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2217,8 +2365,12 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "typedef_vs_macro.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_vs_macro.h"],
+                headerInclude =
+                "typedef_vs_macro.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2260,8 +2412,12 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "typedef_vs_macro.h:17:8",
-          commentHeader = Just
-            "typedef_vs_macro.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_vs_macro.h"],
+              headerInclude =
+              "typedef_vs_macro.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2309,8 +2465,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "typedef_vs_macro.h:18:13",
-                  commentHeader = Just
-                    "typedef_vs_macro.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_vs_macro.h"],
+                      headerInclude =
+                      "typedef_vs_macro.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2323,8 +2483,12 @@
                     "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "typedef_vs_macro.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_vs_macro.h"],
+                    headerInclude =
+                    "typedef_vs_macro.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2366,8 +2530,12 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "typedef_vs_macro.h:17:8",
-              commentHeader = Just
-                "typedef_vs_macro.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_vs_macro.h"],
+                  headerInclude =
+                  "typedef_vs_macro.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -2418,8 +2586,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "typedef_vs_macro.h:18:13",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2432,8 +2604,12 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_vs_macro.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_vs_macro.h"],
+                            headerInclude =
+                            "typedef_vs_macro.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2475,8 +2651,12 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "typedef_vs_macro.h:17:8",
-                      commentHeader = Just
-                        "typedef_vs_macro.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_vs_macro.h"],
+                          headerInclude =
+                          "typedef_vs_macro.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -2527,8 +2707,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "typedef_vs_macro.h:18:13",
-                          commentHeader = Just
-                            "typedef_vs_macro.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_vs_macro.h"],
+                              headerInclude =
+                              "typedef_vs_macro.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2541,8 +2725,12 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_vs_macro.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_vs_macro.h"],
+                            headerInclude =
+                            "typedef_vs_macro.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2584,8 +2772,12 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "typedef_vs_macro.h:17:8",
-                      commentHeader = Just
-                        "typedef_vs_macro.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_vs_macro.h"],
+                          headerInclude =
+                          "typedef_vs_macro.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq

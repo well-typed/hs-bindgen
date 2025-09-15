@@ -25,8 +25,13 @@
               "MC"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_in_fundecl_vs_typedef.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -67,8 +72,13 @@
           commentOrigin = Just "MC",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:4:9",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -227,8 +237,13 @@
               "TC"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_in_fundecl_vs_typedef.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -270,8 +285,13 @@
           commentOrigin = Just "TC",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:5:14",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -420,7 +440,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -432,7 +452,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -482,8 +502,13 @@
           commentOrigin = Just "quux1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:8:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -536,8 +561,13 @@
           commentOrigin = Just "quux1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:8:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -558,7 +588,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -570,7 +600,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -622,8 +652,13 @@
           commentOrigin = Just "quux2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:9:4",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -678,8 +713,13 @@
           commentOrigin = Just "quux2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:9:4",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -700,7 +740,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -713,7 +753,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -769,8 +809,13 @@
           commentOrigin = Just "wam1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:10:5",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -828,8 +873,13 @@
           commentOrigin = Just "wam1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:10:5",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -850,7 +900,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -863,7 +913,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -919,8 +969,13 @@
           commentOrigin = Just "wam2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:11:5",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -978,8 +1033,13 @@
           commentOrigin = Just "wam2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:11:5",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1019,8 +1079,13 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:18:30",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1033,8 +1098,13 @@
                 "Struct1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "macro_in_fundecl_vs_typedef.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  [
+                    "macro_in_fundecl_vs_typedef.h"],
+                headerInclude =
+                "macro_in_fundecl_vs_typedef.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1071,8 +1141,13 @@
           commentOrigin = Just "struct1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:18:16",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1112,8 +1187,13 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "macro_in_fundecl_vs_typedef.h:18:30",
-                  commentHeader = Just
-                    "macro_in_fundecl_vs_typedef.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        [
+                          "macro_in_fundecl_vs_typedef.h"],
+                      headerInclude =
+                      "macro_in_fundecl_vs_typedef.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1126,8 +1206,13 @@
                     "Struct1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "macro_in_fundecl_vs_typedef.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      [
+                        "macro_in_fundecl_vs_typedef.h"],
+                    headerInclude =
+                    "macro_in_fundecl_vs_typedef.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1164,8 +1249,13 @@
               commentOrigin = Just "struct1",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:18:16",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -1208,8 +1298,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:18:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1222,8 +1317,13 @@
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1260,8 +1360,13 @@
                       commentOrigin = Just "struct1",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:18:16",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -1304,8 +1409,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:18:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1318,8 +1428,13 @@
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1356,8 +1471,13 @@
                       commentOrigin = Just "struct1",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:18:16",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -1423,8 +1543,13 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:19:30",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1439,8 +1564,13 @@
               (AnonId
                 "macro_in_fundecl_vs_typedef.h:19:9"),
             declAliases = [Name "struct2"],
-            declHeader =
-            "macro_in_fundecl_vs_typedef.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  [
+                    "macro_in_fundecl_vs_typedef.h"],
+                headerInclude =
+                "macro_in_fundecl_vs_typedef.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1477,8 +1607,13 @@
           commentOrigin = Just "struct2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:19:9",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1518,8 +1653,13 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "macro_in_fundecl_vs_typedef.h:19:30",
-                  commentHeader = Just
-                    "macro_in_fundecl_vs_typedef.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        [
+                          "macro_in_fundecl_vs_typedef.h"],
+                      headerInclude =
+                      "macro_in_fundecl_vs_typedef.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1534,8 +1674,13 @@
                   (AnonId
                     "macro_in_fundecl_vs_typedef.h:19:9"),
                 declAliases = [Name "struct2"],
-                declHeader =
-                "macro_in_fundecl_vs_typedef.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      [
+                        "macro_in_fundecl_vs_typedef.h"],
+                    headerInclude =
+                    "macro_in_fundecl_vs_typedef.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1572,8 +1717,13 @@
               commentOrigin = Just "struct2",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:19:9",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -1616,8 +1766,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:19:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1632,8 +1787,13 @@
                           (AnonId
                             "macro_in_fundecl_vs_typedef.h:19:9"),
                         declAliases = [Name "struct2"],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1670,8 +1830,13 @@
                       commentOrigin = Just "struct2",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:19:9",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -1714,8 +1879,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:19:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1730,8 +1900,13 @@
                           (AnonId
                             "macro_in_fundecl_vs_typedef.h:19:9"),
                         declAliases = [Name "struct2"],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1768,8 +1943,13 @@
                       commentOrigin = Just "struct2",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:19:9",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -1835,8 +2015,13 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:20:30",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1850,8 +2035,13 @@
             declOrigin = NameOriginInSource,
             declAliases = [
               Name "struct3_t"],
-            declHeader =
-            "macro_in_fundecl_vs_typedef.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  [
+                    "macro_in_fundecl_vs_typedef.h"],
+                headerInclude =
+                "macro_in_fundecl_vs_typedef.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1888,8 +2078,13 @@
           commentOrigin = Just "struct3",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:20:16",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1929,8 +2124,13 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "macro_in_fundecl_vs_typedef.h:20:30",
-                  commentHeader = Just
-                    "macro_in_fundecl_vs_typedef.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        [
+                          "macro_in_fundecl_vs_typedef.h"],
+                      headerInclude =
+                      "macro_in_fundecl_vs_typedef.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1944,8 +2144,13 @@
                 declOrigin = NameOriginInSource,
                 declAliases = [
                   Name "struct3_t"],
-                declHeader =
-                "macro_in_fundecl_vs_typedef.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      [
+                        "macro_in_fundecl_vs_typedef.h"],
+                    headerInclude =
+                    "macro_in_fundecl_vs_typedef.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1982,8 +2187,13 @@
               commentOrigin = Just "struct3",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:20:16",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -2026,8 +2236,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:20:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2041,8 +2256,13 @@
                         declOrigin = NameOriginInSource,
                         declAliases = [
                           Name "struct3_t"],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2079,8 +2299,13 @@
                       commentOrigin = Just "struct3",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:20:16",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -2123,8 +2348,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:20:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2138,8 +2368,13 @@
                         declOrigin = NameOriginInSource,
                         declAliases = [
                           Name "struct3_t"],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2176,8 +2411,13 @@
                       commentOrigin = Just "struct3",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:20:16",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -2236,8 +2476,13 @@
               "Struct3_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_in_fundecl_vs_typedef.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -2269,8 +2514,13 @@
             "struct3_t",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:20:35",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2337,8 +2587,13 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:21:30",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2351,8 +2606,13 @@
                 "Struct4"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "struct4"],
-            declHeader =
-            "macro_in_fundecl_vs_typedef.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  [
+                    "macro_in_fundecl_vs_typedef.h"],
+                headerInclude =
+                "macro_in_fundecl_vs_typedef.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2389,8 +2649,13 @@
           commentOrigin = Just "struct4",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:21:16",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2430,8 +2695,13 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "macro_in_fundecl_vs_typedef.h:21:30",
-                  commentHeader = Just
-                    "macro_in_fundecl_vs_typedef.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        [
+                          "macro_in_fundecl_vs_typedef.h"],
+                      headerInclude =
+                      "macro_in_fundecl_vs_typedef.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2444,8 +2714,13 @@
                     "Struct4"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "struct4"],
-                declHeader =
-                "macro_in_fundecl_vs_typedef.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      [
+                        "macro_in_fundecl_vs_typedef.h"],
+                    headerInclude =
+                    "macro_in_fundecl_vs_typedef.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2482,8 +2757,13 @@
               commentOrigin = Just "struct4",
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:21:16",
-              commentHeader = Just
-                "macro_in_fundecl_vs_typedef.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    [
+                      "macro_in_fundecl_vs_typedef.h"],
+                  headerInclude =
+                  "macro_in_fundecl_vs_typedef.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -2526,8 +2806,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:21:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2540,8 +2825,13 @@
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "struct4"],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2578,8 +2868,13 @@
                       commentOrigin = Just "struct4",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:21:16",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -2622,8 +2917,13 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "macro_in_fundecl_vs_typedef.h:21:30",
-                          commentHeader = Just
-                            "macro_in_fundecl_vs_typedef.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                [
+                                  "macro_in_fundecl_vs_typedef.h"],
+                              headerInclude =
+                              "macro_in_fundecl_vs_typedef.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2636,8 +2936,13 @@
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "struct4"],
-                        declHeader =
-                        "macro_in_fundecl_vs_typedef.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              [
+                                "macro_in_fundecl_vs_typedef.h"],
+                            headerInclude =
+                            "macro_in_fundecl_vs_typedef.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2674,8 +2979,13 @@
                       commentOrigin = Just "struct4",
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:21:16",
-                      commentHeader = Just
-                        "macro_in_fundecl_vs_typedef.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            [
+                              "macro_in_fundecl_vs_typedef.h"],
+                          headerInclude =
+                          "macro_in_fundecl_vs_typedef.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -2725,7 +3035,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2737,7 +3047,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2792,8 +3102,13 @@
             "struct_typedef1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:23:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2854,8 +3169,13 @@
             "struct_typedef1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:23:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2879,7 +3199,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -2891,7 +3211,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -2941,8 +3261,13 @@
             "struct_typedef2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:24:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2998,8 +3323,13 @@
             "struct_typedef2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:24:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3023,7 +3353,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -3035,7 +3365,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -3088,8 +3418,13 @@
             "struct_typedef3",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:25:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3148,8 +3483,13 @@
             "struct_typedef3",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:25:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3173,7 +3513,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -3185,7 +3525,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -3235,8 +3575,13 @@
             "struct_name1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:27:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3292,8 +3637,13 @@
             "struct_name1",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:27:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3317,7 +3667,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -3329,7 +3679,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -3379,8 +3729,13 @@
             "struct_name2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:28:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3436,8 +3791,13 @@
             "struct_name2",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:28:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3461,7 +3821,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -3473,7 +3833,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -3523,8 +3883,13 @@
             "struct_name3",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:29:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -3580,8 +3945,13 @@
             "struct_name3",
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:29:6",
-          commentHeader = Just
-            "macro_in_fundecl_vs_typedef.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

@@ -41,6 +41,7 @@ import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Macro qualified as Macro
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -600,15 +601,15 @@ unionDecs haddockConfig info union spec = do
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
               commentRefName name = Just
                 Hs.Comment {
-                  commentTitle    = Nothing
-                , commentOrigin   = Nothing
-                , commentLocation = Nothing
-                , commentHeader   = Nothing
-                , commentChildren = [ Hs.Paragraph
-                                      [ Hs.Bold [Hs.TextContent "See:"]
-                                      , Hs.Identifier name
+                  commentTitle      = Nothing
+                , commentOrigin     = Nothing
+                , commentLocation   = Nothing
+                , commentHeaderInfo = Nothing
+                , commentChildren   = [ Hs.Paragraph
+                                        [ Hs.Bold [Hs.TextContent "See:"]
+                                        , Hs.Identifier name
+                                        ]
                                       ]
-                                    ]
                 }
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
@@ -1247,7 +1248,7 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
           capiWrapperDefinition =
             PC.prettyDecl (wrapperDecl innerName wrapperName res wrappedArgTypes) ""
         , capiWrapperImport =
-            C.declHeader info
+            getMainHashIncludeArg info
         }
 
     -- Fancy types are heap types or constant arrays. We create high-level
@@ -1328,11 +1329,11 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
     pureComment :: Hs.Comment
     pureComment =
       Hs.Comment {
-        Hs.commentTitle    = Nothing
-      , Hs.commentOrigin   = Nothing
-      , Hs.commentLocation = Nothing
-      , Hs.commentHeader   = Nothing
-      , Hs.commentChildren =
+        Hs.commentTitle      = Nothing
+      , Hs.commentOrigin     = Nothing
+      , Hs.commentLocation   = Nothing
+      , Hs.commentHeaderInfo = Nothing
+      , Hs.commentChildren   =
           [ Hs.Paragraph
             [ Hs.TextContent "Marked"
             , Hs.Monospace
@@ -1350,6 +1351,11 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
     wrapperName :: String
     wrapperName = unUniqueSymbolId $
       getUniqueSymbolId (translationUniqueId opts) moduleName innerName
+
+getMainHashIncludeArg :: C.DeclInfo -> HashIncludeArg
+getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
+    Nothing -> panicPure "no main header for builtin"
+    Just C.HeaderInfo{headerMainHeaders} -> NonEmpty.head headerMainHeaders
 
 {-------------------------------------------------------------------------------
   Globals
@@ -1540,7 +1546,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     userlandCapiWrapper :: UserlandCapiWrapper
     userlandCapiWrapper = UserlandCapiWrapper {
           capiWrapperDefinition = prettyStub
-        , capiWrapperImport = C.declHeader info
+        , capiWrapperImport = getMainHashIncludeArg info
         }
 
     foreignImport :: Hs.Decl

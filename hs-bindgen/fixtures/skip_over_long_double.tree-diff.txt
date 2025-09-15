@@ -10,8 +10,12 @@ TranslationUnit {
             "fun2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "skip_over_long_double.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["skip_over_long_double.h"],
+            headerInclude =
+            "skip_over_long_double.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -40,8 +44,12 @@ TranslationUnit {
             "Struct2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "skip_over_long_double.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["skip_over_long_double.h"],
+            headerInclude =
+            "skip_over_long_double.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

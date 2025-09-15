@@ -10,7 +10,12 @@ TranslationUnit {
             "Int16_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Just
           (Comment
             [
@@ -47,7 +52,12 @@ TranslationUnit {
             "Int32_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -76,7 +86,12 @@ TranslationUnit {
             "Int64_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -108,7 +123,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "spec_examples.h:14:9"),
         declAliases = [Name "cint16_T"],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -167,7 +187,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "B"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -192,7 +217,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "C"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
@@ -210,7 +240,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "A"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -315,7 +350,12 @@ TranslationUnit {
             "resample"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "spec_examples.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

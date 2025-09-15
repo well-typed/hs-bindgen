@@ -24,7 +24,11 @@
               "Toggle"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -53,8 +57,11 @@
           commentOrigin = Just "Toggle",
           commentLocation = Just
             "iterator.h:3:16",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
@@ -72,7 +79,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "start",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -116,8 +123,11 @@
             "makeToggle",
           commentLocation = Just
             "iterator.h:4:8",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -162,8 +172,11 @@
             "makeToggle",
           commentLocation = Just
             "iterator.h:4:8",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -186,7 +199,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "block",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -227,8 +240,11 @@
             "toggleNext",
           commentLocation = Just
             "iterator.h:5:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -274,8 +290,11 @@
             "toggleNext",
           commentLocation = Just
             "iterator.h:5:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -298,7 +317,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "block",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -338,8 +357,11 @@
             "releaseToggle",
           commentLocation = Just
             "iterator.h:6:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -385,8 +407,11 @@
             "releaseToggle",
           commentLocation = Just
             "iterator.h:6:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -416,7 +441,11 @@
               "Counter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -448,8 +477,11 @@
           commentOrigin = Just "Counter",
           commentLocation = Just
             "iterator.h:10:14",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
@@ -467,7 +499,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "start",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -480,7 +512,7 @@
               commentOrigin = Just
                 "increment",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -533,8 +565,11 @@
             "makeCounter",
           commentLocation = Just
             "iterator.h:11:9",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -585,8 +620,11 @@
             "makeCounter",
           commentLocation = Just
             "iterator.h:11:9",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -609,7 +647,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "block",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -650,8 +688,11 @@
             "counterNext",
           commentLocation = Just
             "iterator.h:12:5",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -698,8 +739,11 @@
             "counterNext",
           commentLocation = Just
             "iterator.h:12:5",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -722,7 +766,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "block",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -762,8 +806,11 @@
             "releaseCounter",
           commentLocation = Just
             "iterator.h:13:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -809,8 +856,11 @@
             "releaseCounter",
           commentLocation = Just
             "iterator.h:13:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -842,7 +892,11 @@
               "VarCounter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "iterator.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -877,8 +931,11 @@
             "VarCounter",
           commentLocation = Just
             "iterator.h:17:14",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
@@ -896,7 +953,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "start",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -941,8 +998,11 @@
             "makeVarCounter",
           commentLocation = Just
             "iterator.h:18:12",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -989,8 +1049,11 @@
             "makeVarCounter",
           commentLocation = Just
             "iterator.h:18:12",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1013,7 +1076,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "block",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -1026,7 +1089,7 @@
               commentOrigin = Just
                 "increment",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1075,8 +1138,11 @@
             "varCounterNext",
           commentLocation = Just
             "iterator.h:19:5",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1127,8 +1193,11 @@
             "varCounterNext",
           commentLocation = Just
             "iterator.h:19:5",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1151,7 +1220,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "block",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1191,8 +1260,11 @@
             "releaseVarCounter",
           commentLocation = Just
             "iterator.h:20:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1238,8 +1310,11 @@
             "releaseVarCounter",
           commentLocation = Just
             "iterator.h:20:6",
-          commentHeader = Just
-            "iterator.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["iterator.h"],
+              headerInclude = "iterator.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

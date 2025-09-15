@@ -30,6 +30,10 @@
           commentOrigin = Just "A",
           commentLocation = Just
             "redeclaration_identical.h:3:9",
-          commentHeader = Just
-            "redeclaration_identical.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration_identical.h"],
+              headerInclude =
+              "redeclaration_identical.h"},
           commentChildren = []}}]

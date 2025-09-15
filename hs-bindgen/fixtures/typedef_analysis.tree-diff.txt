@@ -15,8 +15,12 @@ TranslationUnit {
           (Name "struct1"),
         declAliases = [
           Name "struct1_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment =
         Just
           (Comment
@@ -54,8 +58,12 @@ TranslationUnit {
           (Name "struct2"),
         declAliases = [
           Name "struct2_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -86,8 +94,12 @@ TranslationUnit {
           (Name "struct3"),
         declAliases = [
           Name "struct3_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
@@ -109,8 +121,12 @@ TranslationUnit {
           (Name "struct4"),
         declAliases = [
           Name "struct4_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
@@ -129,8 +145,12 @@ TranslationUnit {
             "Struct5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -156,8 +176,12 @@ TranslationUnit {
             "Struct5_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -193,8 +217,12 @@ TranslationUnit {
         NameOriginRenamedFrom
           (Name "struct6"),
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -222,8 +250,12 @@ TranslationUnit {
             "Struct6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -260,8 +292,12 @@ TranslationUnit {
         declAliases = [
           Name "struct7a",
           Name "struct7b"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -287,8 +323,12 @@ TranslationUnit {
             "Struct7a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -321,8 +361,12 @@ TranslationUnit {
             "Struct7b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -357,8 +401,12 @@ TranslationUnit {
         declAliases = [
           Name "struct8",
           Name "struct8b"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -384,8 +432,12 @@ TranslationUnit {
             "Struct8b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -418,8 +470,12 @@ TranslationUnit {
             "Struct9"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "struct9"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -445,8 +501,12 @@ TranslationUnit {
             "Struct9_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -485,8 +545,12 @@ TranslationUnit {
           (Name "struct10"),
         declAliases = [
           Name "struct10_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -514,8 +578,12 @@ TranslationUnit {
             "Struct10_t_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -555,8 +623,12 @@ TranslationUnit {
           (Name "struct11"),
         declAliases = [
           Name "struct11_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -619,8 +691,12 @@ TranslationUnit {
           (Name "struct12"),
         declAliases = [
           Name "struct12_t"],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -683,8 +759,12 @@ TranslationUnit {
             "Use_sites"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_analysis.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_analysis.h"],
+            headerInclude =
+            "typedef_analysis.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

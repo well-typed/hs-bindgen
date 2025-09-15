@@ -9,6 +9,7 @@ module HsBindgen.Frontend.AST.External (
     -- * Declarations
   , Decl(..)
   , DeclInfo(..)
+  , Int.HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
   , DeclSpec(..)
@@ -68,7 +69,6 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
@@ -99,12 +99,12 @@ data Decl = Decl {
   deriving stock (Show, Eq, Generic)
 
 data DeclInfo = DeclInfo {
-      declLoc     :: SingleLoc
-    , declId      :: NamePair
-    , declOrigin  :: C.NameOrigin
-    , declAliases :: [C.Name]
-    , declHeader  :: RootHeader.HashIncludeArg
-    , declComment :: Maybe (Comment Reference)
+      declLoc        :: SingleLoc
+    , declId         :: NamePair
+    , declOrigin     :: C.NameOrigin
+    , declAliases    :: [C.Name]
+    , declHeaderInfo :: Maybe Int.HeaderInfo
+    , declComment    :: Maybe (Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 

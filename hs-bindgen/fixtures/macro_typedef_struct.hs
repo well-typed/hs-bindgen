@@ -25,8 +25,12 @@
               "MY_TYPE"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_typedef_struct.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_struct.h"],
+              headerInclude =
+              "macro_typedef_struct.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -66,8 +70,12 @@
           commentOrigin = Just "MY_TYPE",
           commentLocation = Just
             "macro_typedef_struct.h:1:9",
-          commentHeader = Just
-            "macro_typedef_struct.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_struct.h"],
+              headerInclude =
+              "macro_typedef_struct.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -235,8 +243,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "macro_typedef_struct.h:4:7",
-              commentHeader = Just
-                "macro_typedef_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["macro_typedef_struct.h"],
+                  headerInclude =
+                  "macro_typedef_struct.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -271,8 +283,12 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "macro_typedef_struct.h:5:11",
-              commentHeader = Just
-                "macro_typedef_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["macro_typedef_struct.h"],
+                  headerInclude =
+                  "macro_typedef_struct.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -287,8 +303,12 @@
               (AnonId
                 "macro_typedef_struct.h:3:9"),
             declAliases = [Name "bar"],
-            declHeader =
-            "macro_typedef_struct.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["macro_typedef_struct.h"],
+                headerInclude =
+                "macro_typedef_struct.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -343,8 +363,12 @@
           commentOrigin = Just "bar",
           commentLocation = Just
             "macro_typedef_struct.h:3:9",
-          commentHeader = Just
-            "macro_typedef_struct.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_struct.h"],
+              headerInclude =
+              "macro_typedef_struct.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -384,8 +408,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "macro_typedef_struct.h:4:7",
-                  commentHeader = Just
-                    "macro_typedef_struct.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["macro_typedef_struct.h"],
+                      headerInclude =
+                      "macro_typedef_struct.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -420,8 +448,12 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "macro_typedef_struct.h:5:11",
-                  commentHeader = Just
-                    "macro_typedef_struct.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["macro_typedef_struct.h"],
+                      headerInclude =
+                      "macro_typedef_struct.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -436,8 +468,12 @@
                   (AnonId
                     "macro_typedef_struct.h:3:9"),
                 declAliases = [Name "bar"],
-                declHeader =
-                "macro_typedef_struct.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["macro_typedef_struct.h"],
+                    headerInclude =
+                    "macro_typedef_struct.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -492,8 +528,12 @@
               commentOrigin = Just "bar",
               commentLocation = Just
                 "macro_typedef_struct.h:3:9",
-              commentHeader = Just
-                "macro_typedef_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["macro_typedef_struct.h"],
+                  headerInclude =
+                  "macro_typedef_struct.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -536,8 +576,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "macro_typedef_struct.h:4:7",
-                          commentHeader = Just
-                            "macro_typedef_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["macro_typedef_struct.h"],
+                              headerInclude =
+                              "macro_typedef_struct.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -572,8 +616,12 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "macro_typedef_struct.h:5:11",
-                          commentHeader = Just
-                            "macro_typedef_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["macro_typedef_struct.h"],
+                              headerInclude =
+                              "macro_typedef_struct.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -588,8 +636,12 @@
                           (AnonId
                             "macro_typedef_struct.h:3:9"),
                         declAliases = [Name "bar"],
-                        declHeader =
-                        "macro_typedef_struct.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["macro_typedef_struct.h"],
+                            headerInclude =
+                            "macro_typedef_struct.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -644,8 +696,12 @@
                       commentOrigin = Just "bar",
                       commentLocation = Just
                         "macro_typedef_struct.h:3:9",
-                      commentHeader = Just
-                        "macro_typedef_struct.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["macro_typedef_struct.h"],
+                          headerInclude =
+                          "macro_typedef_struct.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -690,8 +746,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "macro_typedef_struct.h:4:7",
-                          commentHeader = Just
-                            "macro_typedef_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["macro_typedef_struct.h"],
+                              headerInclude =
+                              "macro_typedef_struct.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -726,8 +786,12 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "macro_typedef_struct.h:5:11",
-                          commentHeader = Just
-                            "macro_typedef_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["macro_typedef_struct.h"],
+                              headerInclude =
+                              "macro_typedef_struct.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -742,8 +806,12 @@
                           (AnonId
                             "macro_typedef_struct.h:3:9"),
                         declAliases = [Name "bar"],
-                        declHeader =
-                        "macro_typedef_struct.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["macro_typedef_struct.h"],
+                            headerInclude =
+                            "macro_typedef_struct.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -798,8 +866,12 @@
                       commentOrigin = Just "bar",
                       commentLocation = Just
                         "macro_typedef_struct.h:3:9",
-                      commentHeader = Just
-                        "macro_typedef_struct.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["macro_typedef_struct.h"],
+                          headerInclude =
+                          "macro_typedef_struct.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

@@ -10,7 +10,12 @@ TranslationUnit {
             "global_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -31,7 +36,12 @@ TranslationUnit {
             "global_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -52,7 +62,12 @@ TranslationUnit {
             "global_complex_float_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -73,7 +88,12 @@ TranslationUnit {
             "global_complex_double_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -94,7 +114,12 @@ TranslationUnit {
             "global_Complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -116,7 +141,12 @@ TranslationUnit {
             "global_Complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -138,7 +168,12 @@ TranslationUnit {
             "global_Complex_float_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -160,7 +195,12 @@ TranslationUnit {
             "global_Complex_double_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -182,7 +222,12 @@ TranslationUnit {
             "const_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -205,7 +250,12 @@ TranslationUnit {
             "const_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -228,7 +278,12 @@ TranslationUnit {
             "volatile_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -250,7 +305,12 @@ TranslationUnit {
             "volatile_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -272,7 +332,12 @@ TranslationUnit {
             "multiply_complex_f"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -312,7 +377,12 @@ TranslationUnit {
             "add_complex"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -353,7 +423,12 @@ TranslationUnit {
           (AnonId "complex_test.h:24:9"),
         declAliases = [
           Name "complex_object_t"],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -421,7 +496,12 @@ TranslationUnit {
             "complex_float_array"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
@@ -445,7 +525,12 @@ TranslationUnit {
             "complex_double_array"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "complex_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_test.h"],
+            headerInclude =
+            "complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray

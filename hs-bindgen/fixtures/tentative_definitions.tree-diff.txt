@@ -10,8 +10,12 @@ TranslationUnit {
             "i1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "tentative_definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["tentative_definitions.h"],
+            headerInclude =
+            "tentative_definitions.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -32,8 +36,12 @@ TranslationUnit {
             "i2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "tentative_definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["tentative_definitions.h"],
+            headerInclude =
+            "tentative_definitions.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -54,8 +62,12 @@ TranslationUnit {
             "i3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "tentative_definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["tentative_definitions.h"],
+            headerInclude =
+            "tentative_definitions.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim

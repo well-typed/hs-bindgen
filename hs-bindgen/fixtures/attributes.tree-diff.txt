@@ -9,7 +9,11 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes.h"],
+            headerInclude = "attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -60,7 +64,11 @@ TranslationUnit {
             "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes.h"],
+            headerInclude = "attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -112,7 +120,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "attributes.h:22:9"),
         declAliases = [Name "baz"],
-        declHeader = "attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes.h"],
+            headerInclude = "attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -164,7 +176,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "attributes.h:28:9"),
         declAliases = [Name "qux"],
-        declHeader = "attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes.h"],
+            headerInclude = "attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -217,7 +233,11 @@ TranslationUnit {
         NameOriginRenamedFrom
           (Name "__sFILE"),
         declAliases = [Name "FILE"],
-        declHeader = "attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes.h"],
+            headerInclude = "attributes.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

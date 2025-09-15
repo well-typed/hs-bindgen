@@ -10,6 +10,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
+import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
@@ -99,18 +100,24 @@ handleTypeException _curr err = do
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId     <- C.getPrelimDeclId curr
-    declLoc    <- HighLevel.clang_getCursorLocation' curr
-    declHeader <- evalGetMainHeader $ singleLocPath declLoc
-    declComment <- fmap parseCommentReferences <$> clang_getComment curr
+    declId         <- C.getPrelimDeclId curr
+    declLoc        <- HighLevel.clang_getCursorLocation' curr
+    declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
+    declComment    <- fmap parseCommentReferences <$> clang_getComment curr
     -- TODO: We might want a NameOriginBuiltin
     return C.DeclInfo{
         declId
       , declLoc
       , declAliases = []
-      , declHeader
+      , declHeaderInfo
       , declComment
       }
+
+getHeaderInfo :: SourcePath -> ParseDecl (Maybe C.HeaderInfo)
+getHeaderInfo path
+    | path == "" = return Nothing
+    | otherwise  =
+        Just . uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
 
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do

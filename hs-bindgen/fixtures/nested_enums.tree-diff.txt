@@ -9,7 +9,12 @@ TranslationUnit {
             "EnumA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_enums.h"],
+            headerInclude =
+            "nested_enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -60,7 +65,12 @@ TranslationUnit {
             "ExA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_enums.h"],
+            headerInclude =
+            "nested_enums.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -103,7 +113,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "nested_enums.h:9:9"),
         declAliases = [],
-        declHeader = "nested_enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_enums.h"],
+            headerInclude =
+            "nested_enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -154,7 +169,12 @@ TranslationUnit {
             "ExB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_enums.h"],
+            headerInclude =
+            "nested_enums.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

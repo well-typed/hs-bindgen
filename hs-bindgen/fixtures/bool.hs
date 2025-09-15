@@ -33,7 +33,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bool.h:2:11",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -60,7 +64,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bool.h:3:11",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -72,7 +80,11 @@
                 "Bools1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bool.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bool.h"],
+                headerInclude = "bool.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -120,7 +132,11 @@
           commentOrigin = Just "bools1",
           commentLocation = Just
             "bool.h:1:8",
-          commentHeader = Just "bool.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bool.h"],
+              headerInclude = "bool.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -159,7 +175,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bool.h:2:11",
-                  commentHeader = Just "bool.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bool.h"],
+                      headerInclude = "bool.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -186,7 +206,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bool.h:3:11",
-                  commentHeader = Just "bool.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bool.h"],
+                      headerInclude = "bool.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -198,7 +222,11 @@
                     "Bools1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bool.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bool.h"],
+                    headerInclude = "bool.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -246,7 +274,11 @@
               commentOrigin = Just "bools1",
               commentLocation = Just
                 "bool.h:1:8",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 2,
@@ -288,7 +320,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bool.h:2:11",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -315,7 +351,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bool.h:3:11",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -327,7 +367,11 @@
                             "Bools1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bool.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bool.h"],
+                            headerInclude = "bool.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -375,7 +419,11 @@
                       commentOrigin = Just "bools1",
                       commentLocation = Just
                         "bool.h:1:8",
-                      commentHeader = Just "bool.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bool.h"],
+                          headerInclude = "bool.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -419,7 +467,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bool.h:2:11",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -446,7 +498,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bool.h:3:11",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -458,7 +514,11 @@
                             "Bools1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bool.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bool.h"],
+                            headerInclude = "bool.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -506,7 +566,11 @@
                       commentOrigin = Just "bools1",
                       commentLocation = Just
                         "bool.h:1:8",
-                      commentHeader = Just "bool.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bool.h"],
+                          headerInclude = "bool.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -572,7 +636,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bool.h:9:10",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -599,7 +667,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bool.h:10:10",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -611,7 +683,11 @@
                 "Bools2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bool.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bool.h"],
+                headerInclude = "bool.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -659,7 +735,11 @@
           commentOrigin = Just "bools2",
           commentLocation = Just
             "bool.h:8:8",
-          commentHeader = Just "bool.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bool.h"],
+              headerInclude = "bool.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -698,7 +778,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bool.h:9:10",
-                  commentHeader = Just "bool.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bool.h"],
+                      headerInclude = "bool.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -725,7 +809,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bool.h:10:10",
-                  commentHeader = Just "bool.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bool.h"],
+                      headerInclude = "bool.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -737,7 +825,11 @@
                     "Bools2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bool.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bool.h"],
+                    headerInclude = "bool.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -785,7 +877,11 @@
               commentOrigin = Just "bools2",
               commentLocation = Just
                 "bool.h:8:8",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 2,
@@ -827,7 +923,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bool.h:9:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -854,7 +954,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bool.h:10:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -866,7 +970,11 @@
                             "Bools2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bool.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bool.h"],
+                            headerInclude = "bool.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -914,7 +1022,11 @@
                       commentOrigin = Just "bools2",
                       commentLocation = Just
                         "bool.h:8:8",
-                      commentHeader = Just "bool.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bool.h"],
+                          headerInclude = "bool.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -958,7 +1070,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bool.h:9:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -985,7 +1101,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bool.h:10:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -997,7 +1117,11 @@
                             "Bools2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bool.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bool.h"],
+                            headerInclude = "bool.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1045,7 +1169,11 @@
                       commentOrigin = Just "bools2",
                       commentLocation = Just
                         "bool.h:8:8",
-                      commentHeader = Just "bool.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bool.h"],
+                          headerInclude = "bool.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1102,7 +1230,11 @@
               "BOOL"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "bool.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bool.h"],
+              headerInclude = "bool.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -1141,7 +1273,11 @@
           commentOrigin = Just "BOOL",
           commentLocation = Just
             "bool.h:13:9",
-          commentHeader = Just "bool.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bool.h"],
+              headerInclude = "bool.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1313,7 +1449,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bool.h:16:10",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1345,7 +1485,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bool.h:17:10",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1357,7 +1501,11 @@
                 "Bools3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bool.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bool.h"],
+                headerInclude = "bool.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1415,7 +1563,11 @@
           commentOrigin = Just "bools3",
           commentLocation = Just
             "bool.h:15:8",
-          commentHeader = Just "bool.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bool.h"],
+              headerInclude = "bool.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1459,7 +1611,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bool.h:16:10",
-                  commentHeader = Just "bool.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bool.h"],
+                      headerInclude = "bool.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1491,7 +1647,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bool.h:17:10",
-                  commentHeader = Just "bool.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bool.h"],
+                      headerInclude = "bool.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1503,7 +1663,11 @@
                     "Bools3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bool.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bool.h"],
+                    headerInclude = "bool.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1561,7 +1725,11 @@
               commentOrigin = Just "bools3",
               commentLocation = Just
                 "bool.h:15:8",
-              commentHeader = Just "bool.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bool.h"],
+                  headerInclude = "bool.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 2,
@@ -1608,7 +1776,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bool.h:16:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1640,7 +1812,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bool.h:17:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1652,7 +1828,11 @@
                             "Bools3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bool.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bool.h"],
+                            headerInclude = "bool.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1710,7 +1890,11 @@
                       commentOrigin = Just "bools3",
                       commentLocation = Just
                         "bool.h:15:8",
-                      commentHeader = Just "bool.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bool.h"],
+                          headerInclude = "bool.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1759,7 +1943,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bool.h:16:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1791,7 +1979,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bool.h:17:10",
-                          commentHeader = Just "bool.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bool.h"],
+                              headerInclude = "bool.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1803,7 +1995,11 @@
                             "Bools3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bool.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bool.h"],
+                            headerInclude = "bool.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1861,7 +2057,11 @@
                       commentOrigin = Just "bools3",
                       commentLocation = Just
                         "bool.h:15:8",
-                      commentHeader = Just "bool.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bool.h"],
+                          headerInclude = "bool.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

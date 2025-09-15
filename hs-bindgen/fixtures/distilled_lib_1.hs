@@ -34,8 +34,12 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "distilled_lib_1.h:9:22",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -65,8 +69,12 @@
               commentOrigin = Just "bar",
               commentLocation = Just
                 "distilled_lib_1.h:9:32",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -84,8 +92,12 @@
             declAliases = [
               Name
                 "another_typedef_struct_t"],
-            declHeader =
-            "distilled_lib_1.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["distilled_lib_1.h"],
+                headerInclude =
+                "distilled_lib_1.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -140,8 +152,12 @@
             "another_typedef_struct_t",
           commentLocation = Just
             "distilled_lib_1.h:9:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -181,8 +197,12 @@
                   commentOrigin = Just "foo",
                   commentLocation = Just
                     "distilled_lib_1.h:9:22",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -212,8 +232,12 @@
                   commentOrigin = Just "bar",
                   commentLocation = Just
                     "distilled_lib_1.h:9:32",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -231,8 +255,12 @@
                 declAliases = [
                   Name
                     "another_typedef_struct_t"],
-                declHeader =
-                "distilled_lib_1.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["distilled_lib_1.h"],
+                    headerInclude =
+                    "distilled_lib_1.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -287,8 +315,12 @@
                 "another_typedef_struct_t",
               commentLocation = Just
                 "distilled_lib_1.h:9:9",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -331,8 +363,12 @@
                           commentOrigin = Just "foo",
                           commentLocation = Just
                             "distilled_lib_1.h:9:22",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -362,8 +398,12 @@
                           commentOrigin = Just "bar",
                           commentLocation = Just
                             "distilled_lib_1.h:9:32",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -381,8 +421,12 @@
                         declAliases = [
                           Name
                             "another_typedef_struct_t"],
-                        declHeader =
-                        "distilled_lib_1.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["distilled_lib_1.h"],
+                            headerInclude =
+                            "distilled_lib_1.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -437,8 +481,12 @@
                         "another_typedef_struct_t",
                       commentLocation = Just
                         "distilled_lib_1.h:9:9",
-                      commentHeader = Just
-                        "distilled_lib_1.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["distilled_lib_1.h"],
+                          headerInclude =
+                          "distilled_lib_1.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -483,8 +531,12 @@
                           commentOrigin = Just "foo",
                           commentLocation = Just
                             "distilled_lib_1.h:9:22",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -514,8 +566,12 @@
                           commentOrigin = Just "bar",
                           commentLocation = Just
                             "distilled_lib_1.h:9:32",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -533,8 +589,12 @@
                         declAliases = [
                           Name
                             "another_typedef_struct_t"],
-                        declHeader =
-                        "distilled_lib_1.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["distilled_lib_1.h"],
+                            headerInclude =
+                            "distilled_lib_1.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -589,8 +649,12 @@
                         "another_typedef_struct_t",
                       commentLocation = Just
                         "distilled_lib_1.h:9:9",
-                      commentHeader = Just
-                        "distilled_lib_1.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["distilled_lib_1.h"],
+                          headerInclude =
+                          "distilled_lib_1.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -652,8 +716,12 @@
               "distilled_lib_1.h:10:9"),
           declAliases = [
             Name "another_typedef_enum_e"],
-          declHeader =
-          "distilled_lib_1.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -704,8 +772,12 @@
             "another_typedef_enum_e",
           commentLocation = Just
             "distilled_lib_1.h:10:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -955,8 +1027,12 @@
           commentOrigin = Just "FOO",
           commentLocation = Just
             "distilled_lib_1.h:10:16",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -987,8 +1063,12 @@
           commentOrigin = Just "BAR",
           commentLocation = Just
             "distilled_lib_1.h:10:21",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1021,8 +1101,12 @@
           commentOrigin = Just "A",
           commentLocation = Just
             "distilled_lib_1.h:11:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1055,8 +1139,12 @@
           commentOrigin = Just "B",
           commentLocation = Just
             "distilled_lib_1.h:12:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1090,8 +1178,12 @@
             "SOME_DEFINED_CONSTANT",
           commentLocation = Just
             "distilled_lib_1.h:13:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -1119,8 +1211,12 @@
               "A_type_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "distilled_lib_1.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -1160,8 +1256,12 @@
           commentOrigin = Just "a_type_t",
           commentLocation = Just
             "distilled_lib_1.h:14:13",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1320,8 +1420,12 @@
               "Var_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "distilled_lib_1.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -1361,8 +1465,12 @@
           commentOrigin = Just "var_t",
           commentLocation = Just
             "distilled_lib_1.h:15:13",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1530,8 +1638,12 @@
               commentOrigin = Just "field_0",
               commentLocation = Just
                 "distilled_lib_1.h:37:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1782,8 +1894,12 @@
               commentOrigin = Just "field_1",
               commentLocation = Just
                 "distilled_lib_1.h:38:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2034,8 +2150,12 @@
               commentOrigin = Just "field_2",
               commentLocation = Just
                 "distilled_lib_1.h:39:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2286,8 +2406,12 @@
               commentOrigin = Just "field_3",
               commentLocation = Just
                 "distilled_lib_1.h:40:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2328,8 +2452,12 @@
               commentOrigin = Just "field_4",
               commentLocation = Just
                 "distilled_lib_1.h:41:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2372,8 +2500,12 @@
               commentOrigin = Just "field_5",
               commentLocation = Just
                 "distilled_lib_1.h:42:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2401,8 +2533,12 @@
               commentOrigin = Just "field_6",
               commentLocation = Just
                 "distilled_lib_1.h:43:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2657,8 +2793,12 @@
               commentOrigin = Just "field_7",
               commentLocation = Just
                 "distilled_lib_1.h:44:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2698,8 +2838,12 @@
               commentOrigin = Just "field_8",
               commentLocation = Just
                 "distilled_lib_1.h:45:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2743,8 +2887,12 @@
               commentOrigin = Just "field_9",
               commentLocation = Just
                 "distilled_lib_1.h:46:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2792,8 +2940,12 @@
               commentOrigin = Just "field_10",
               commentLocation = Just
                 "distilled_lib_1.h:47:31",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2810,8 +2962,12 @@
               (Name "a_typedef_struct"),
             declAliases = [
               Name "a_typedef_struct_t"],
-            declHeader =
-            "distilled_lib_1.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["distilled_lib_1.h"],
+                headerInclude =
+                "distilled_lib_1.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3498,8 +3654,12 @@
             "a_typedef_struct_t",
           commentLocation = Just
             "distilled_lib_1.h:35:16",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3539,8 +3699,12 @@
                   commentOrigin = Just "field_0",
                   commentLocation = Just
                     "distilled_lib_1.h:37:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3791,8 +3955,12 @@
                   commentOrigin = Just "field_1",
                   commentLocation = Just
                     "distilled_lib_1.h:38:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4043,8 +4211,12 @@
                   commentOrigin = Just "field_2",
                   commentLocation = Just
                     "distilled_lib_1.h:39:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4295,8 +4467,12 @@
                   commentOrigin = Just "field_3",
                   commentLocation = Just
                     "distilled_lib_1.h:40:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4337,8 +4513,12 @@
                   commentOrigin = Just "field_4",
                   commentLocation = Just
                     "distilled_lib_1.h:41:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4381,8 +4561,12 @@
                   commentOrigin = Just "field_5",
                   commentLocation = Just
                     "distilled_lib_1.h:42:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4410,8 +4594,12 @@
                   commentOrigin = Just "field_6",
                   commentLocation = Just
                     "distilled_lib_1.h:43:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4666,8 +4854,12 @@
                   commentOrigin = Just "field_7",
                   commentLocation = Just
                     "distilled_lib_1.h:44:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4707,8 +4899,12 @@
                   commentOrigin = Just "field_8",
                   commentLocation = Just
                     "distilled_lib_1.h:45:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4752,8 +4948,12 @@
                   commentOrigin = Just "field_9",
                   commentLocation = Just
                     "distilled_lib_1.h:46:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4801,8 +5001,12 @@
                   commentOrigin = Just "field_10",
                   commentLocation = Just
                     "distilled_lib_1.h:47:31",
-                  commentHeader = Just
-                    "distilled_lib_1.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["distilled_lib_1.h"],
+                      headerInclude =
+                      "distilled_lib_1.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -4819,8 +5023,12 @@
                   (Name "a_typedef_struct"),
                 declAliases = [
                   Name "a_typedef_struct_t"],
-                declHeader =
-                "distilled_lib_1.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["distilled_lib_1.h"],
+                    headerInclude =
+                    "distilled_lib_1.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -5507,8 +5715,12 @@
                 "a_typedef_struct_t",
               commentLocation = Just
                 "distilled_lib_1.h:35:16",
-              commentHeader = Just
-                "distilled_lib_1.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["distilled_lib_1.h"],
+                  headerInclude =
+                  "distilled_lib_1.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 140,
@@ -5551,8 +5763,12 @@
                           commentOrigin = Just "field_0",
                           commentLocation = Just
                             "distilled_lib_1.h:37:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -5803,8 +6019,12 @@
                           commentOrigin = Just "field_1",
                           commentLocation = Just
                             "distilled_lib_1.h:38:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6055,8 +6275,12 @@
                           commentOrigin = Just "field_2",
                           commentLocation = Just
                             "distilled_lib_1.h:39:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6307,8 +6531,12 @@
                           commentOrigin = Just "field_3",
                           commentLocation = Just
                             "distilled_lib_1.h:40:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6349,8 +6577,12 @@
                           commentOrigin = Just "field_4",
                           commentLocation = Just
                             "distilled_lib_1.h:41:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6393,8 +6625,12 @@
                           commentOrigin = Just "field_5",
                           commentLocation = Just
                             "distilled_lib_1.h:42:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6422,8 +6658,12 @@
                           commentOrigin = Just "field_6",
                           commentLocation = Just
                             "distilled_lib_1.h:43:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6678,8 +6918,12 @@
                           commentOrigin = Just "field_7",
                           commentLocation = Just
                             "distilled_lib_1.h:44:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6719,8 +6963,12 @@
                           commentOrigin = Just "field_8",
                           commentLocation = Just
                             "distilled_lib_1.h:45:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6764,8 +7012,12 @@
                           commentOrigin = Just "field_9",
                           commentLocation = Just
                             "distilled_lib_1.h:46:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6813,8 +7065,12 @@
                           commentOrigin = Just "field_10",
                           commentLocation = Just
                             "distilled_lib_1.h:47:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -6831,8 +7087,12 @@
                           (Name "a_typedef_struct"),
                         declAliases = [
                           Name "a_typedef_struct_t"],
-                        declHeader =
-                        "distilled_lib_1.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["distilled_lib_1.h"],
+                            headerInclude =
+                            "distilled_lib_1.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -7519,8 +7779,12 @@
                         "a_typedef_struct_t",
                       commentLocation = Just
                         "distilled_lib_1.h:35:16",
-                      commentHeader = Just
-                        "distilled_lib_1.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["distilled_lib_1.h"],
+                          headerInclude =
+                          "distilled_lib_1.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -7574,8 +7838,12 @@
                           commentOrigin = Just "field_0",
                           commentLocation = Just
                             "distilled_lib_1.h:37:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7826,8 +8094,12 @@
                           commentOrigin = Just "field_1",
                           commentLocation = Just
                             "distilled_lib_1.h:38:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8078,8 +8350,12 @@
                           commentOrigin = Just "field_2",
                           commentLocation = Just
                             "distilled_lib_1.h:39:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8330,8 +8606,12 @@
                           commentOrigin = Just "field_3",
                           commentLocation = Just
                             "distilled_lib_1.h:40:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8372,8 +8652,12 @@
                           commentOrigin = Just "field_4",
                           commentLocation = Just
                             "distilled_lib_1.h:41:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8416,8 +8700,12 @@
                           commentOrigin = Just "field_5",
                           commentLocation = Just
                             "distilled_lib_1.h:42:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8445,8 +8733,12 @@
                           commentOrigin = Just "field_6",
                           commentLocation = Just
                             "distilled_lib_1.h:43:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8701,8 +8993,12 @@
                           commentOrigin = Just "field_7",
                           commentLocation = Just
                             "distilled_lib_1.h:44:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8742,8 +9038,12 @@
                           commentOrigin = Just "field_8",
                           commentLocation = Just
                             "distilled_lib_1.h:45:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8787,8 +9087,12 @@
                           commentOrigin = Just "field_9",
                           commentLocation = Just
                             "distilled_lib_1.h:46:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8836,8 +9140,12 @@
                           commentOrigin = Just "field_10",
                           commentLocation = Just
                             "distilled_lib_1.h:47:31",
-                          commentHeader = Just
-                            "distilled_lib_1.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["distilled_lib_1.h"],
+                              headerInclude =
+                              "distilled_lib_1.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -8854,8 +9162,12 @@
                           (Name "a_typedef_struct"),
                         declAliases = [
                           Name "a_typedef_struct_t"],
-                        declHeader =
-                        "distilled_lib_1.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["distilled_lib_1.h"],
+                            headerInclude =
+                            "distilled_lib_1.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -9542,8 +9854,12 @@
                         "a_typedef_struct_t",
                       commentLocation = Just
                         "distilled_lib_1.h:35:16",
-                      commentHeader = Just
-                        "distilled_lib_1.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["distilled_lib_1.h"],
+                          headerInclude =
+                          "distilled_lib_1.h"},
                       commentChildren = []}}
                 (Add 11)
                 (Seq
@@ -9616,8 +9932,12 @@
             "A_DEFINE_0",
           commentLocation = Just
             "distilled_lib_1.h:53:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -9651,8 +9971,12 @@
             "A_DEFINE_1",
           commentLocation = Just
             "distilled_lib_1.h:54:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -9686,8 +10010,12 @@
             "A_DEFINE_2",
           commentLocation = Just
             "distilled_lib_1.h:55:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -9744,8 +10072,12 @@
           commentOrigin = Just "TWO_ARGS",
           commentLocation = Just
             "distilled_lib_1.h:56:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -9776,8 +10108,12 @@
               "distilled_lib_1.h:61:9"),
           declAliases = [
             Name "a_typedef_enum_e"],
-          declHeader =
-          "distilled_lib_1.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -9849,8 +10185,12 @@
             "a_typedef_enum_e",
           commentLocation = Just
             "distilled_lib_1.h:61:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -10115,8 +10455,12 @@
             "ENUM_CASE_0",
           commentLocation = Just
             "distilled_lib_1.h:63:3",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -10148,8 +10492,12 @@
             "ENUM_CASE_1",
           commentLocation = Just
             "distilled_lib_1.h:64:3",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -10181,8 +10529,12 @@
             "ENUM_CASE_2",
           commentLocation = Just
             "distilled_lib_1.h:65:3",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -10214,8 +10566,12 @@
             "ENUM_CASE_3",
           commentLocation = Just
             "distilled_lib_1.h:66:3",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
@@ -10236,7 +10592,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "i",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -10358,7 +10714,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "j",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -10480,7 +10836,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "k",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -10988,8 +11344,12 @@
           commentOrigin = Just "some_fun",
           commentLocation = Just
             "distilled_lib_1.h:72:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -11720,8 +12080,12 @@
           commentOrigin = Just "some_fun",
           commentLocation = Just
             "distilled_lib_1.h:72:9",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11977,8 +12341,12 @@
               "Callback_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "distilled_lib_1.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -12240,8 +12608,12 @@
             "callback_t",
           commentLocation = Just
             "distilled_lib_1.h:77:19",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -12319,8 +12691,12 @@
           commentOrigin = Just "v",
           commentLocation = Just
             "distilled_lib_1.h:91:14",
-          commentHeader = Just
-            "distilled_lib_1.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["distilled_lib_1.h"],
+              headerInclude =
+              "distilled_lib_1.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

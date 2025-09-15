@@ -9,7 +9,11 @@ TranslationUnit {
             "by'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -33,7 +37,11 @@ TranslationUnit {
             "forall'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -57,7 +65,11 @@ TranslationUnit {
             "mdo'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -81,7 +93,11 @@ TranslationUnit {
             "pattern'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -105,7 +121,11 @@ TranslationUnit {
             "proc'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -129,7 +149,11 @@ TranslationUnit {
             "rec'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -153,7 +177,11 @@ TranslationUnit {
             "using'"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -177,7 +205,11 @@ TranslationUnit {
             "anyclass"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -201,7 +233,11 @@ TranslationUnit {
             "capi"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -225,7 +261,11 @@ TranslationUnit {
             "cases"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -249,7 +289,11 @@ TranslationUnit {
             "ccall"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -273,7 +317,11 @@ TranslationUnit {
             "dynamic"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -297,7 +345,11 @@ TranslationUnit {
             "export"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -321,7 +373,11 @@ TranslationUnit {
             "family"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -345,7 +401,11 @@ TranslationUnit {
             "group"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -369,7 +429,11 @@ TranslationUnit {
             "interruptible"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -393,7 +457,11 @@ TranslationUnit {
             "javascript"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -417,7 +485,11 @@ TranslationUnit {
             "label"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -441,7 +513,11 @@ TranslationUnit {
             "prim"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -465,7 +541,11 @@ TranslationUnit {
             "role"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -489,7 +569,11 @@ TranslationUnit {
             "safe"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -513,7 +597,11 @@ TranslationUnit {
             "stdcall"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -537,7 +625,11 @@ TranslationUnit {
             "stock"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -561,7 +653,11 @@ TranslationUnit {
             "unsafe"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -585,7 +681,11 @@ TranslationUnit {
             "via"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "names.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["names.h"],
+            headerInclude = "names.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

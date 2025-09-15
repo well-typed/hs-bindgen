@@ -257,8 +257,11 @@
                 "sixty_four",
               commentLocation = Just
                 "fixedwidth.h:4:11",
-              commentHeader = Just
-                "fixedwidth.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["fixedwidth.h"],
+                  headerInclude = "fixedwidth.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -509,8 +512,11 @@
                 "thirty_two",
               commentLocation = Just
                 "fixedwidth.h:5:11",
-              commentHeader = Just
-                "fixedwidth.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["fixedwidth.h"],
+                  headerInclude = "fixedwidth.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -522,7 +528,11 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "fixedwidth.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["fixedwidth.h"],
+                headerInclude = "fixedwidth.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -798,8 +808,11 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "fixedwidth.h:3:8",
-          commentHeader = Just
-            "fixedwidth.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["fixedwidth.h"],
+              headerInclude = "fixedwidth.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1062,8 +1075,11 @@
                     "sixty_four",
                   commentLocation = Just
                     "fixedwidth.h:4:11",
-                  commentHeader = Just
-                    "fixedwidth.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["fixedwidth.h"],
+                      headerInclude = "fixedwidth.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1314,8 +1330,11 @@
                     "thirty_two",
                   commentLocation = Just
                     "fixedwidth.h:5:11",
-                  commentHeader = Just
-                    "fixedwidth.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["fixedwidth.h"],
+                      headerInclude = "fixedwidth.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1327,7 +1346,11 @@
                     "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "fixedwidth.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["fixedwidth.h"],
+                    headerInclude = "fixedwidth.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1603,8 +1626,11 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "fixedwidth.h:3:8",
-              commentHeader = Just
-                "fixedwidth.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["fixedwidth.h"],
+                  headerInclude = "fixedwidth.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -1870,8 +1896,11 @@
                             "sixty_four",
                           commentLocation = Just
                             "fixedwidth.h:4:11",
-                          commentHeader = Just
-                            "fixedwidth.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["fixedwidth.h"],
+                              headerInclude = "fixedwidth.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2122,8 +2151,11 @@
                             "thirty_two",
                           commentLocation = Just
                             "fixedwidth.h:5:11",
-                          commentHeader = Just
-                            "fixedwidth.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["fixedwidth.h"],
+                              headerInclude = "fixedwidth.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2135,7 +2167,11 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "fixedwidth.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["fixedwidth.h"],
+                            headerInclude = "fixedwidth.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2411,8 +2447,11 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "fixedwidth.h:3:8",
-                      commentHeader = Just
-                        "fixedwidth.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["fixedwidth.h"],
+                          headerInclude = "fixedwidth.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2680,8 +2719,11 @@
                             "sixty_four",
                           commentLocation = Just
                             "fixedwidth.h:4:11",
-                          commentHeader = Just
-                            "fixedwidth.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["fixedwidth.h"],
+                              headerInclude = "fixedwidth.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2932,8 +2974,11 @@
                             "thirty_two",
                           commentLocation = Just
                             "fixedwidth.h:5:11",
-                          commentHeader = Just
-                            "fixedwidth.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["fixedwidth.h"],
+                              headerInclude = "fixedwidth.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2945,7 +2990,11 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "fixedwidth.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["fixedwidth.h"],
+                            headerInclude = "fixedwidth.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3221,8 +3270,11 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "fixedwidth.h:3:8",
-                      commentHeader = Just
-                        "fixedwidth.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["fixedwidth.h"],
+                          headerInclude = "fixedwidth.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

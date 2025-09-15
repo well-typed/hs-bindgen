@@ -12,8 +12,12 @@ TranslationUnit {
           (AnonId
             "enum_cpp_syntax.h:4:9"),
         declAliases = [Name "foo_enum"],
-        declHeader =
-        "enum_cpp_syntax.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enum_cpp_syntax.h"],
+            headerInclude =
+            "enum_cpp_syntax.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
