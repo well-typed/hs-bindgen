@@ -15,8 +15,8 @@ module Data.DynGraph.Labelled (
   , dff
   , dfFindMember
   , findTrailFrom
-  , findAllPaths
-  , FindAllPathsResult(..)
+  , findTargets
+  , FindTargetsResult(..)
     -- * Deletion
   , deleteEdges
     -- * Debugging
@@ -28,7 +28,7 @@ module Data.DynGraph.Labelled (
 
 import Prelude hiding (reverse)
 
-import Control.Monad ((<=<))
+import Control.Monad (unless, (<=<))
 import Control.Monad.ST (ST)
 import Control.Monad.ST qualified as ST
 import Data.Array.ST.Safe qualified as Array
@@ -38,7 +38,7 @@ import Data.IntMap.Strict qualified as IntMap
 import Data.IntSet (IntSet)
 import Data.IntSet qualified as IntSet
 import Data.List qualified as List
-import Data.List.NonEmpty (NonEmpty ((:|)))
+import Data.List.NonEmpty (NonEmpty)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
@@ -191,68 +191,100 @@ findTrailFrom DynGraph{..} f = go
             next   <- Set.toList <$> IntMap.lookup currIx edges
             return $ map (first (idxMap IntMap.!)) next
 
--- | Find all paths to target vertices from the specified starting vertex
+-- | Find all target vertices reachable from the specified starting vertex
 --
--- This function may only be used with acyclic graphs.  (A version that works
--- with cyclic graphs requires more space.)
-findAllPaths :: forall l a.
+-- When target vertices are found, a label from an edge from the starting
+-- vertex is also returned.
+findTargets :: forall l a.
      Ord a
   => Set a
   -> DynGraph l a
   -> a
-  -> FindAllPathsResult l a
-findAllPaths targets DynGraph{..} v
-    | v `Set.member` targets                    = FindAllPathsTarget
-    | Set.size targets /= IntSet.size targetIxs = FindAllPathsInvalid
-    | Just ix <- Map.lookup v vtxMap            = aux [] (step ix [])
-    | otherwise                                 = FindAllPathsInvalid
+  -> FindTargetsResult l a
+findTargets targets DynGraph{..} v
+    | v `Set.member` targets = FindTargetsTarget
+    | Set.size targets /= IntSet.size targetIxs = FindTargetsInvalid
+    | Just ix <- Map.lookup v vtxMap =
+        run (0, Map.size vtxMap - 1) $ \(check :: Int -> ST s Bool) ->
+
+          let findInit ::
+                   [(Int, l)]  -- Remaining edges from starting vertex
+                -> ST s (FindTargetsResult l a)
+              findInit ((ix', l) : rest) = findFirst l [ix'] rest
+              findInit []                = return FindTargetsNotFound
+
+              findFirst ::
+                   l           -- Label of edge from starting vertex
+                -> [Int]       -- Remaining vertices to explore
+                -> [(Int, l)]  -- Remaining edges from starting vertex
+                -> ST s (FindTargetsResult l a)
+              findFirst l (ix' : ixs') rest = check ix' >>= \case
+                True -> findFirst l ixs' rest
+                False
+                  | ix' `IntSet.member` targetIxs ->
+                      case IntMap.lookup ix' idxMap of
+                        Just v' -> findRest l (NonEmpty.singleton v') $
+                          (ixs' ++ map fst rest)
+                        Nothing -> return FindTargetsInvalid
+                  | otherwise ->
+                      case Set.toList <$> IntMap.lookup ix' edges of
+                        Just ps -> findFirst l (map fst ps ++ ixs') rest
+                        Nothing -> findFirst l ixs' rest
+              findFirst _ [] rest = findInit rest
+
+              findRest ::
+                   l           -- Label of edge from starting vertex
+                -> NonEmpty a  -- Found target vertices (reversed)
+                -> [Int]       -- Remaining vertices to explore
+                -> ST s (FindTargetsResult l a)
+              findRest l acc (ix' : ixs') = check ix' >>= \case
+                True -> findRest l acc ixs'
+                False
+                  | ix' `IntSet.member` targetIxs ->
+                      case IntMap.lookup ix' idxMap of
+                        Just v' -> findRest l (NonEmpty.cons v' acc) ixs'
+                        Nothing -> return FindTargetsInvalid
+                  | otherwise ->
+                      case Set.toList <$> IntMap.lookup ix' edges of
+                        Just ps -> findRest l acc (map fst ps ++ ixs')
+                        Nothing -> findRest l acc ixs'
+              findRest l acc [] =
+                return $ FindTargetsFound (NonEmpty.reverse acc) l
+
+          in  case Set.toList <$> IntMap.lookup ix edges of
+                Just ps -> findInit ps
+                Nothing -> return FindTargetsNotFound
+
+    | otherwise = FindTargetsInvalid
   where
     targetIxs :: IntSet
     targetIxs = IntSet.fromList $
       mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
 
-    aux ::
-         [NonEmpty (a, l)]
-      -- ^ Accumulator (reversed)
-      -> [(Int, NonEmpty (a, l))]
-      -- ^ Next vertex index, path to that vertex (reversed)
-      -> FindAllPathsResult l a
-    aux acc [] = maybe FindAllPathsNotFound FindAllPathsFound $
-      NonEmpty.nonEmpty (List.reverse acc)
-    aux acc ((ix, rpath) : rest)
-      | ix `IntSet.member` targetIxs = aux (rpath : acc) rest
-      | otherwise = aux acc $ step ix (NonEmpty.toList rpath) ++ rest
+    run :: forall x.
+         (Int, Int)
+      -> (forall s. (Int -> ST s Bool) -> ST s x)
+      -> x
+    run bnds f = ST.runST $ do
+      m <- Array.newArray bnds False :: ST s (Array.STUArray s Int Bool)
+      f $ \idx -> do
+            visited <- Array.readArray m idx
+            unless visited $ Array.writeArray m idx True
+            return visited
 
-    step ::
-         Int
-      -- ^ Current vertex index
-      -> [(a, l)]
-      -- ^ Path to that vertex (reversed)
-      -> [(Int, NonEmpty (a, l))]
-      -- ^ Next vertex index, path to that vertex (reversed)
-    step ix rpath = case Set.toList <$> IntMap.lookup ix edges of
-      Nothing -> []
-      Just ps -> flip mapMaybe ps $ \(ix', l) ->
-        case IntMap.lookup ix' idxMap of
-          Just v' -> Just (ix', (v', l) :| rpath)
-          Nothing -> Nothing
-
--- | 'findAllPaths' result
-data FindAllPathsResult l a  =
-    -- | Starting vertex or target vertex not in the graph
-    FindAllPathsInvalid
+-- | 'findTargets' result
+data FindTargetsResult l a  =
+    -- | Invalid graph: one or more vertex not found
+    FindTargetsInvalid
 
     -- | Starting vertex is a target vertex
-  | FindAllPathsTarget
+  | FindTargetsTarget
 
-    -- | No paths from starting vertex to any target vertex
-  | FindAllPathsNotFound
+    -- | No target vertices are reachable
+  | FindTargetsNotFound
 
-    -- | All paths from starting vertex to target vertices
-    --
-    -- Paths are in /reverse/ order (from a target vertex).  The starting vertex
-    -- is /not/ included.
-  | FindAllPathsFound (NonEmpty (NonEmpty (a, l)))
+    -- | Reachable target vertices and label
+  | FindTargetsFound (NonEmpty a) l
 
 {-------------------------------------------------------------------------------
   Deletion

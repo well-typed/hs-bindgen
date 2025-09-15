@@ -155,16 +155,14 @@ processIncludes unit = do
                 "getMainHeadersAndInclude failed for " ++ show path ++ ": "
                   ++ msg
           in  case IncludeGraph.getIncludes mainPaths includeGraph path of
-                DynGraph.FindAllPathsFound ps -> do
-                  headers <- mapM (lookupMainPath . fst . NonEmpty.head) ps
-                  let header = IncludeGraph.includeArg . snd . NonEmpty.last $
-                        NonEmpty.head ps
-                  return (NonEmpty.nub headers, header)
-                DynGraph.FindAllPathsTarget   -> do
+                DynGraph.FindTargetsFound headers include -> do
+                  headers' <- mapM lookupMainPath headers
+                  return (headers', IncludeGraph.includeArg include)
+                DynGraph.FindTargetsTarget -> do
                   header <- lookupMainPath path
                   return (NonEmpty.singleton header, header)
-                DynGraph.FindAllPathsNotFound -> error' "not found"
-                DynGraph.FindAllPathsInvalid  -> error' "invalid"
+                DynGraph.FindTargetsNotFound -> error' "not found"
+                DynGraph.FindTargetsInvalid  -> error' "invalid"
 
     return (
         includeGraph

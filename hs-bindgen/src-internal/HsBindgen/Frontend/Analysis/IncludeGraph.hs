@@ -94,9 +94,9 @@ getIncludes ::
      Set SourcePath
   -> IncludeGraph
   -> SourcePath
-  -> DynGraph.FindAllPathsResult Include SourcePath
+  -> DynGraph.FindTargetsResult Include SourcePath
 getIncludes mainPaths (IncludeGraph graph) =
-    DynGraph.findAllPaths mainPaths graph
+    DynGraph.findTargets mainPaths graph
 
 {-------------------------------------------------------------------------------
   Debugging
