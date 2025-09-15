@@ -156,7 +156,7 @@ jobs:
           echo '### libclang -v'
           cabal run hs-bindgen-cli -- dev clang --clang-option=-v
           echo '### Resolve (clang)'
-          cabal run hs-bindgen-cli -- dev resolve -v4 --builtin-include-dir=clang stdint.h
+          cabal run hs-bindgen-cli -- info resolve-header -v4 --builtin-include-dir=clang stdint.h
 
       - name: Build the C libraries
         working-directory: ./manual/c

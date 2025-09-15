@@ -268,7 +268,8 @@ executable hs-bindgen-cli
       HsBindgen.Cli.Dev.BindingSpec.StdLib
       HsBindgen.Cli.Dev.Clang
       HsBindgen.Cli.Dev.Parse
-      HsBindgen.Cli.Dev.Resolve
+      HsBindgen.Cli.Info
+      HsBindgen.Cli.Info.ResolveHeader
       HsBindgen.Cli.Internal
       HsBindgen.Cli.Internal.Literate
       HsBindgen.Cli.GenTests

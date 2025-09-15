@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli dev resolve@ command
+-- | @hs-bindgen-cli info resolve-header@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.Resolve qualified as Resolve
-module HsBindgen.Cli.Dev.Resolve (
+-- > import HsBindgen.Cli.Info.ResolveHeader qualified as ResolveHeader
+module HsBindgen.Cli.Info.ResolveHeader (
     -- * CLI help
     info
     -- * Options
