@@ -105,7 +105,7 @@ evalGetMainHeadersAndInclude ::
      SourcePath
   -> ParseDecl (NonEmpty HashIncludeArg, HashIncludeArg)
 evalGetMainHeadersAndInclude path = wrapEff $ \ParseSupport{parseEnv} ->
-    return $ (envGetMainHeadersAndInclude parseEnv) path
+    either panicIO return $ (envGetMainHeadersAndInclude parseEnv) path
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
 evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> do

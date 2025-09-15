@@ -22,6 +22,7 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -115,8 +116,9 @@ getDeclInfo = \curr -> do
 
 getHeaderInfo :: SourcePath -> ParseDecl (Maybe C.HeaderInfo)
 getHeaderInfo path
-    | path == "" = return Nothing
-    | otherwise  =
+    | path == ""              = return Nothing
+    | path == RootHeader.name = return Nothing
+    | otherwise               =
         Just . uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
 
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)

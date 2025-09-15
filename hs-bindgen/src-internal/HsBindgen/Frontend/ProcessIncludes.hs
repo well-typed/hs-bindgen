@@ -101,7 +101,7 @@ import HsBindgen.Util.List (unsnoc)
 -- | Function to get the main headers that (transitively) include a source path,
 -- as well as the @#include@ argument used to include the source path
 type GetMainHeadersAndInclude =
-   SourcePath -> (NonEmpty HashIncludeArg, HashIncludeArg)
+   SourcePath -> Either String (NonEmpty HashIncludeArg, HashIncludeArg)
 
 -- | Process includes
 --
@@ -151,20 +151,20 @@ processIncludes unit = do
 
         getMainHeadersAndInclude :: GetMainHeadersAndInclude
         getMainHeadersAndInclude path =
-          let mkErr msg = "getMainHeadersAndInclude failed for " ++ show path
-                ++ ": " ++ msg
-          in  either (panicPure . mkErr) id $
-                case IncludeGraph.getIncludes mainPaths includeGraph path of
-                  DynGraph.FindAllPathsFound ps -> do
-                    headers <- mapM (lookupMainPath . fst . NonEmpty.head) ps
-                    let header = IncludeGraph.includeArg . snd . NonEmpty.last $
-                          NonEmpty.head ps
-                    return (NonEmpty.nub headers, header)
-                  DynGraph.FindAllPathsTarget   -> do
-                    header <- lookupMainPath path
-                    return (NonEmpty.singleton header, header)
-                  DynGraph.FindAllPathsNotFound -> Left "not found"
-                  DynGraph.FindAllPathsInvalid  -> Left "invalid"
+          let error' msg = Left $
+                "getMainHeadersAndInclude failed for " ++ show path ++ ": "
+                  ++ msg
+          in  case IncludeGraph.getIncludes mainPaths includeGraph path of
+                DynGraph.FindAllPathsFound ps -> do
+                  headers <- mapM (lookupMainPath . fst . NonEmpty.head) ps
+                  let header = IncludeGraph.includeArg . snd . NonEmpty.last $
+                        NonEmpty.head ps
+                  return (NonEmpty.nub headers, header)
+                DynGraph.FindAllPathsTarget   -> do
+                  header <- lookupMainPath path
+                  return (NonEmpty.singleton header, header)
+                DynGraph.FindAllPathsNotFound -> error' "not found"
+                DynGraph.FindAllPathsInvalid  -> error' "invalid"
 
     return (
         includeGraph
