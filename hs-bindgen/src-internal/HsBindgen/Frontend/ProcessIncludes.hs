@@ -7,6 +7,7 @@ module HsBindgen.Frontend.ProcessIncludes (
 
 import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
+import Data.List.Compat (unsnoc)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
@@ -24,7 +25,6 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
-import HsBindgen.Util.List (unsnoc)
 
 {-------------------------------------------------------------------------------
   Process includes.
