@@ -25,7 +25,8 @@ check testResources test = testCase (testName test) $ do
     let artefacts = FinalDecls :* Nil
     -- Use 'runTestHsBindgen'' to avoid that expected error traces clutter the
     -- terminal.
-    handle exceptionHandler $ void $ runTestHsBindgen' testResources test artefacts
+    handle exceptionHandler $ void $
+      runTestHsBindgen' noReport testResources test artefacts
   where
     exceptionHandler :: SomeException -> IO ()
     exceptionHandler e@(SomeException e')
@@ -34,3 +35,6 @@ check testResources test = testCase (testName test) $ do
       | otherwise = do
           putStrLn $ "Other exception: " ++ displayException e'
           throwIO e'
+
+    noReport :: a -> IO ()
+    noReport = const $ pure ()

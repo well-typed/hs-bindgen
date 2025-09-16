@@ -527,11 +527,10 @@ testCases = [
               "selected foo"
             , "selected uint32_t"
             ] $ \case
-            TraceFrontend (FrontendSelect (SelectSelected info)) ->
-              expectSelected info $ Set.fromList [
-                  "foo"
-                , "uint32_t"
-                ]
+            TraceFrontend (FrontendSelect (SelectSelected SelectionRoot info)) ->
+              expectSelected info $ Set.singleton "foo"
+            TraceFrontend (FrontendSelect (SelectSelected TransitiveDependency info)) ->
+              expectSelected info $ Set.singleton "uint32_t"
             _otherwise ->
               Nothing
         }
@@ -552,20 +551,13 @@ testCases = [
             , "NsPrelimDeclIdNamed \"stdout\" TypeNamespaceOrdinary"
             , "NsPrelimDeclIdNamed \"stderr\" TypeNamespaceOrdinary"
             ] $ \case
-            TraceFrontend (FrontendParse msg) -> case msg of
-              -- TODO: Ideally, we do not see this warnings because they affect
-              -- skipped declarations. See
-              -- https://github.com/well-typed/hs-bindgen/issues/905.
-              ParseUnsupportedType _ UnsupportedLongDouble       -> Just Tolerated
-              ParseUnsupportedType _ UnsupportedVariadicFunction -> Just Tolerated
-              ParseUnsupportedType _ (UnsupportedBuiltin _)      -> Just Tolerated
-              _other                                             -> Nothing
-            TraceFrontend (FrontendSelect (SelectSelected info)) ->
+            TraceFrontend (FrontendSelect (SelectSelected SelectionRoot info)) ->
               expectSelected info $ Set.fromList [
                   "FileOperationRecord"
-                , "FileOperationStatus"
                 , "read_file_chunk"
                 ]
+            TraceFrontend (FrontendSelect (SelectSelected TransitiveDependency info)) ->
+              expectSelected info $ Set.singleton "FileOperationStatus"
             TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
               Just $ Expected (show x)
             _otherwise ->

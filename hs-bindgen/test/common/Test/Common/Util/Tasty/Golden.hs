@@ -13,6 +13,7 @@ module Test.Common.Util.Tasty.Golden (
 
 import Control.DeepSeq (rnf)
 import Control.Exception
+import Control.Monad (when)
 import Data.Functor ((<&>))
 import Data.IORef
 import Data.Proxy
@@ -89,10 +90,22 @@ instance IsOption AcceptTests where
     optionHelp = return "Accept current results of golden tests"
     optionCLParser = flagCLParser (Just 'a') (AcceptTests True)
 
+-- | Print trace messages.
+-- «accept tests» mode
+newtype Debug = Debug Bool
+  deriving (Eq, Ord)
+instance IsOption Debug where
+    defaultValue = Debug False
+    parseValue = fmap Debug . safeReadBool
+    optionName = return "debug"
+    optionHelp = return "Print all trace messages"
+    optionCLParser = flagCLParser (Just 'v') (Debug True)
+
 instance IsTest GoldenSteps where
     run opts golden progress = runGoldenSteps golden progress opts
     testOptions = return
         [ Option (Proxy :: Proxy AcceptTests)
+        , Option (Proxy :: Proxy Debug)
         ]
 
 runGoldenSteps :: GoldenSteps -> (Progress -> IO ()) -> OptionSet -> IO Result
@@ -100,8 +113,9 @@ runGoldenSteps GoldenSteps{..} progress opts = do
     msgsRef <- newIORef []
     let stepFn :: String -> IO ()
         stepFn msg = do
-           progress (Progress msg 0)
-           atomicModifyIORef msgsRef (\msgs -> (msg:msgs, ()))
+           when debug $ do
+             progress (Progress msg 0)
+             atomicModifyIORef msgsRef (\msgs -> (msg:msgs, ()))
 
     -- get actual value
     mbNew <- try $ getActual stepFn
@@ -166,3 +180,4 @@ runGoldenSteps GoldenSteps{..} progress opts = do
                   testFailedWith reason
   where
     AcceptTests accept = lookupOption opts
+    Debug debug        = lookupOption opts

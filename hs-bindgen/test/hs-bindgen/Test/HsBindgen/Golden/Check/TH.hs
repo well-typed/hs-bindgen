@@ -38,14 +38,14 @@ import HsBindgen
 
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
-    goldenAnsiDiff "th" fixture $ \_report ->
+    goldenAnsiDiff "th" fixture $ \report ->
       if ghcAtLeast904 then do
         pkgroot <- getTestPackageRoot testResources
         let artefacts = Dependencies :* FinalDecls :* Nil
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
         (I deps :* I decls :* Nil) <-
-          runTestHsBindgen testResources test artefacts
+          runTestHsBindgen report testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
             thDecls = uncurry (getThDecls deps) $ Foldable.fold decls

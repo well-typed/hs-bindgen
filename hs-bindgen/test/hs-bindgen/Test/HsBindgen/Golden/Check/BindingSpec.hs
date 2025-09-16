@@ -21,8 +21,8 @@ import HsBindgen
 
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
-    goldenAnsiDiff "bindingspec" fixture $ \_report -> do
-      (I decls :* Nil) <- runTestHsBindgen testResources test (HsDecls :* Nil)
+    goldenAnsiDiff "bindingspec" fixture $ \report -> do
+      (I decls :* Nil) <- runTestHsBindgen report testResources test (HsDecls :* Nil)
 
       let output :: String
           output = UTF8.toString $

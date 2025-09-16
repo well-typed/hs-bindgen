@@ -22,9 +22,9 @@ import HsBindgen
 
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
-    goldenAnsiDiff "exts" fixture $ \_report -> do
+    goldenAnsiDiff "exts" fixture $ \report -> do
       let artefacts = FinalDecls :* Nil
-      (I decls :* Nil) <- runTestHsBindgen testResources test artefacts
+      (I decls :* Nil) <- runTestHsBindgen report testResources test artefacts
       let requiredExts :: Set TH.Extension
           requiredExts = Foldable.fold $ fmap (uncurry getExtensions) decls
 

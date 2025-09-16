@@ -2,6 +2,7 @@
 
 module Test.HsBindgen.Unit.Tracer (tests) where
 
+import Data.Data (Typeable)
 import Data.Default (Default (..))
 import Data.Either (isLeft)
 import Data.Proxy (Proxy (Proxy))
@@ -59,40 +60,40 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         ]
     , testGroup "withTracePredicate" [
           testCase "ok-debug" $
-              withTracePredicate defaultTracePredicate $ \tracer ->
+              withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer db
         , testCase "ok-info" $
-              withTracePredicate defaultTracePredicate $ \tracer ->
+              withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer info
         , testCase "!ok-notice" $
             assertException "Expected TraceExpectationException" proxy $
-              withTracePredicate defaultTracePredicate $ \tracer ->
+              withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer notice
         , testCase "!ok-warning" $
             assertException "Expected TraceExpectationException" proxy $
-              withTracePredicate defaultTracePredicate $ \tracer ->
+              withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer wn
         , testCase "!ok-error" $
             assertException "Expected TraceExpectationException" proxy $
-              withTracePredicate defaultTracePredicate $ \tracer ->
+              withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer er
         , testCase "ok-custom-warning" $
-            withTracePredicate expectWar $
+            withPred expectWar $
               \tracer -> do
                 traceWith tracer wn
         , testCase "ok-custom-error" $
-            withTracePredicate expectErr $
+            withPred expectErr $
               \tracer -> do
                 traceWith tracer er
         , testCase "!ok-custom-too-many" $
             assertException "Expected TraceExpectationException" proxy $
-              withTracePredicate expectWar $
+              withPred expectWar $
                 \tracer -> do
                   traceWith tracer wn
                   traceWith tracer wn
         , testCase "!ok-custom-too-few" $
             assertException "Expected TraceExpectationException" proxy $
-              withTracePredicate expectWar $
+              withPred expectWar $
                 \tracer -> do
                   traceWith tracer db
         ]
@@ -110,6 +111,14 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
     expectErr = singleTracePredicate $ \case
       TestError _   -> Just $ Expected ()
       _otherTrace   -> Nothing
+
+    withPred :: (IsTrace Level a, Typeable a, Show a) =>
+      TracePredicate a -> (Tracer IO a -> IO b) -> IO b
+    withPred = withTracePredicate noReport
+
+    noReport :: a -> IO ()
+    noReport = const $ pure ()
+
 
 {-------------------------------------------------------------------------------
   Internal: infrastructure for generating test traces
