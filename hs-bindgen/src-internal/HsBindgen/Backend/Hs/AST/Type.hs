@@ -68,7 +68,7 @@ data HsType =
   | HsSizedByteArray Natural Natural
   | HsBlock HsType
   | HsComplexType HsPrimType
-  deriving stock (Generic, Show, Eq)
+  deriving stock (Generic, Show, Eq, Ord)
 
 -- | When translating a 'C.Type' there are C types which we
 -- cannot pass directly using C FFI. We need to distinguish these.
