@@ -56,6 +56,7 @@ import Structs
 
 import Callbacks
 import Callbacks.Safe
+import HsBindgen.Runtime.FunPtr.Common (ToFunPtr(..))
 
 {-------------------------------------------------------------------------------
   Simple struct
@@ -491,30 +492,27 @@ main = do
     section "Callbacks (Passing Haskell functions to C callbacks"
     --
     do
-      let withCallback :: (a -> IO (FunPtr b)) -> (FunPtr b -> c) -> a -> (c -> IO d) -> IO d
-          withCallback mkFunPtr extract callback action =
+      let withCallback :: ToFunPtr t => (a -> t) -> a -> (FunPtr t -> IO c) -> IO c
+          withCallback mkT callback action =
             bracket
-              (mkFunPtr callback)
+              (toFunPtr (mkT callback))
               freeHaskellFunPtr
-              (action . extract)
+              action
 
       withCallback
-        (return . un_FileOpenedNotification <=< mkFileOpenedNotification)
-        id
+        FileOpenedNotification_Deref
         (putStrLn "File opened (with cleanup)!")
         (onFileOpened . FileOpenedNotification)
 
       putStrLn ""
       withCallback
-          (return . un_ProgressUpdate <=< mkProgressUpdate)
-          id
+          (ProgressUpdate_Deref)
           (\progress -> putStrLn $ "Progress: " ++ show progress ++ "%")
           (onProgressChanged . ProgressUpdate)
 
       putStrLn ""
       withCallback
-        (return . un_DataValidator <=< mkDataValidator)
-        id
+        (DataValidator_Deref)
         (\value -> do
           putStrLn $ "Validating: " ++ show value
           return $ if value > 0 then 1 else 0)
@@ -526,8 +524,7 @@ main = do
 
       putStrLn ""
       withCallback
-        (return . un_MeasurementReceived <=< mkMeasurementReceived)
-        id
+        (MeasurementReceived_Deref)
         (peek >=> print)
         (onNewMeasurement . MeasurementReceived)
 
