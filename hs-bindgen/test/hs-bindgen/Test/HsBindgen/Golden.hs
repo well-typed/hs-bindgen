@@ -77,6 +77,7 @@ testCases = [
     , defaultTest "anonymous"
     , defaultTest "bitfields"
     , defaultTest "bool"
+    , defaultTest "callbacks"
     , defaultTest "complex_test"
     , defaultTest "distilled_lib_1"
     , defaultTest "enum_cpp_syntax"
