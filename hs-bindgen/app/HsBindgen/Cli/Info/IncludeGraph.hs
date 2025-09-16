@@ -43,6 +43,7 @@ info = progDesc "Compute the include graph"
 
 data Opts = Opts {
       clangArgsConfig :: ClangArgsConfig
+    , output          :: Maybe FilePath
     , inputs          :: [UncheckedHashIncludeArg]
     }
 
@@ -50,7 +51,16 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseClangArgsConfig
+      <*> optional parseOutput'
       <*> parseInputs
+  where
+    parseOutput' :: Parser FilePath
+    parseOutput' = strOption $ mconcat [
+        short 'o'
+      , long "output"
+      , metavar "PATH"
+      , help "Output path for the graph"
+      ]
 
 {-------------------------------------------------------------------------------
   Execution
@@ -79,7 +89,9 @@ execWithTracer Opts{..} tracer = do
       exitOnClangError <=< withClang clangTracer clangSetup $ \unit -> do
         (includeGraph, _, _, _) <- processIncludes unit
         return $ Just includeGraph
-    putStrLn $ IncludeGraph.dumpMermaid includeGraph
+    case output of
+      Just path -> writeFile path $ IncludeGraph.dumpMermaid includeGraph
+      Nothing   -> putStr         $ IncludeGraph.dumpMermaid includeGraph
   where
     hiaTracer :: Tracer IO HashIncludeArgMsg
     hiaTracer = contramap (TraceBoot . BootHashIncludeArg) tracer
