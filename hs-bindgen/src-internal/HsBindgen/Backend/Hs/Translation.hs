@@ -869,7 +869,7 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
               , foreignImportOrigName   = T.pack "wrapper"
               , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
               , foreignImportOrigin     = Origin.ToFunPtr ctype
-              , foreignImportComment    = Just wrapperComment
+              , foreignImportComment    = Just (generateTypedefWrapperComment (HsTypRef newtypeName))
               , foreignImportSafety     = SHs.Safe
               }
              ]
@@ -887,20 +887,25 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
           , functionParameterType    = hsType
           , functionParameterComment = Nothing
           }
-        wrapperComment = Hs.Comment
-          { commentTitle    = Nothing
-          , commentOrigin   = Nothing
-          , commentLocation = Nothing
-          , commentHeaderInfo = Nothing
-          , commentChildren =
-              [ Hs.Paragraph
-                  [Hs.TextContent
-                    (  "Automatically generated wrapper to convert "
-                    <> "Haskell function to C function pointer"
-                    )
-                  ]
+
+    -- | Generate a descriptive comment for a typedef function pointer wrapper
+    --
+    generateTypedefWrapperComment :: Hs.HsType -> Hs.Comment
+    generateTypedefWrapperComment hsType = Hs.Comment
+      { commentTitle      = Nothing
+      , commentOrigin     = Nothing
+      , commentLocation   = Nothing
+      , commentHeaderInfo = Nothing
+      , commentChildren   =
+          [ Hs.Paragraph
+              [ Hs.TextContent "Convert Haskell function"
+              , Hs.TypeSignature hsType
+              , Hs.TextContent "to"
+              , Hs.Identifier (getHsName . C.nameHs . C.declId $ info)
+              , Hs.TextContent "(C function pointer typedef)."
               ]
-          }
+          ]
+      }
 
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set HsTypeClass, [Hs.Decl])
