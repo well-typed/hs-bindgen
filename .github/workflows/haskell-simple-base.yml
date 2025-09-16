@@ -144,11 +144,12 @@ jobs:
         if: runner.os == 'Windows'
         uses: ./.github/actions/build-manual-windows
 
-      # Always save the cache, even when a previous job failed. Also, save the
-      # cache after building the project AND the manual.
+      # Even save the cache, even when a previous job failed. Also, save the
+      # cache after building the project AND the manual. Do not save the cache
+      # when the job gets canceled.
       - name: Save cache
         uses: actions/cache/save@v4
-        if: always()
+        if: ${{ !cancelled() }}
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
           key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
