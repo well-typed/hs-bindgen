@@ -20,6 +20,7 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
@@ -499,6 +500,22 @@ __exported by:__ @distilled_lib_1.h@
 newtype Callback_t_Deref = Callback_t_Deref
   { un_Callback_t_Deref :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
   }
+
+foreign import ccall safe "wrapper" toCallback_t_Deref
+  :: Callback_t_Deref
+  -> IO (Ptr.FunPtr Callback_t_Deref)
+
+foreign import ccall safe "dynamic" fromCallback_t_Deref
+  :: Ptr.FunPtr Callback_t_Deref
+  -> Callback_t_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Deref where
+
+  toFunPtr = toCallback_t_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Deref where
+
+  fromFunPtr = fromCallback_t_Deref
 
 {-| __C declaration:__ @callback_t@
 

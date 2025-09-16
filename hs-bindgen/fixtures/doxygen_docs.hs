@@ -1196,6 +1196,106 @@
               headerInclude =
               "doxygen_docs.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toEvent_callback_t_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Event_callback_t_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer TypeVoid]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromEvent_callback_t_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Event_callback_t_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Event_callback_t_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer TypeVoid]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toEvent_callback_t_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromEvent_callback_t_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -12902,6 +13002,106 @@
               headerInclude =
               "doxygen_docs.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toProcessor_fn_t_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Processor_fn_t_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer TypeVoid]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromProcessor_fn_t_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Processor_fn_t_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Processor_fn_t_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePointer TypeVoid]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toProcessor_fn_t_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromProcessor_fn_t_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
