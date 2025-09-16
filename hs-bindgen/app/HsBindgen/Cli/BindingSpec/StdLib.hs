@@ -33,12 +33,24 @@ info = progDesc "Write stdlib external binding specification"
   Options
 -------------------------------------------------------------------------------}
 
-newtype Opts = Opts {
+data Opts = Opts {
       clangArgsConfig :: ClangArgsConfig
+    , output          :: Maybe FilePath
     }
 
 parseOpts :: Parser Opts
-parseOpts = Opts <$> parseClangArgsConfig
+parseOpts =
+    Opts
+      <$> parseClangArgsConfig
+      <*> optional parseOutput'
+  where
+    parseOutput' :: Parser FilePath
+    parseOutput' = strOption $ mconcat [
+        short 'o'
+      , long "output"
+      , metavar "PATH"
+      , help "Output path for the binding specification"
+      ]
 
 {-------------------------------------------------------------------------------
   Execution
@@ -51,4 +63,6 @@ exec GlobalOpts{..} Opts{..} = do
       getStdlibBindingSpec
         (contramap (TraceBoot . BootBindingSpec) tracer)
         clangArgs
-    BS.putStr $ encodeBindingSpecYaml spec
+    case output of
+      Just path -> BS.writeFile path $ encodeBindingSpecYaml spec
+      Nothing   -> BS.putStr         $ encodeBindingSpecYaml spec
