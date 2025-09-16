@@ -37,6 +37,9 @@ runs:
       run: |
         echo "Writing cabal.project.local to configure C paths..."
         cat <<EOF > cabal.project.local
+        -- The index state should match `cabal.project.ci` on top level.
+        index-state: 2025-09-16T04:55:58Z
+
         package manual
           extra-include-dirs:
               ${{ github.workspace }}\\manual\\c
