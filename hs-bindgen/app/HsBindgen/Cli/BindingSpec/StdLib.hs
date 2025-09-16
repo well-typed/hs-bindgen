@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli dev binding-spec stdlib@ command
+-- | @hs-bindgen-cli binding-spec stdlib@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.BindingSpec.StdLib qualified as StdLib
-module HsBindgen.Cli.Dev.BindingSpec.StdLib (
+-- > import HsBindgen.Cli.BindingSpec.StdLib qualified as StdLib
+module HsBindgen.Cli.BindingSpec.StdLib (
     -- * CLI help
     info
     -- * Options

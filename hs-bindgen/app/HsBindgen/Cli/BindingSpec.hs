@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli dev binding-spec@ commands
+-- | @hs-bindgen-cli binding-spec@ commands
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.BindingSpec qualified as BindingSpec
-module HsBindgen.Cli.Dev.BindingSpec (
+-- > import HsBindgen.Cli.BindingSpec qualified as BindingSpec
+module HsBindgen.Cli.BindingSpec (
     -- * CLI help
     info
     -- * Commands
@@ -16,7 +16,7 @@ module HsBindgen.Cli.Dev.BindingSpec (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Dev.BindingSpec.StdLib qualified as StdLib
+import HsBindgen.Cli.BindingSpec.StdLib qualified as StdLib
 
 {-------------------------------------------------------------------------------
   CLI help

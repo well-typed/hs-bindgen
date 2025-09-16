@@ -16,7 +16,6 @@ module HsBindgen.Cli.Dev (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Dev.BindingSpec qualified as BindingSpec
 import HsBindgen.Cli.Dev.Clang qualified as Clang
 import HsBindgen.Cli.Dev.Parse qualified as Parse
 
@@ -33,15 +32,13 @@ info = progDesc "Development commands, used for debugging"
 
 -- Ordered lexicographically
 data Cmd =
-    CmdBindingSpec BindingSpec.Cmd
-  | CmdClang       Clang.Opts
-  | CmdParse       Parse.Opts
+    CmdClang Clang.Opts
+  | CmdParse Parse.Opts
 
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
-      cmd "binding-spec" CmdBindingSpec BindingSpec.parseCmd BindingSpec.info
-    , cmd "clang"        CmdClang       Clang.parseOpts      Clang.info
-    , cmd "parse"        CmdParse       Parse.parseOpts      Parse.info
+      cmd "clang" CmdClang Clang.parseOpts Clang.info
+    , cmd "parse" CmdParse Parse.parseOpts Parse.info
     ]
 
 {-------------------------------------------------------------------------------
@@ -50,6 +47,5 @@ parseCmd = subparser $ mconcat [
 
 exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
-    CmdBindingSpec cmd' -> BindingSpec.exec gopts cmd'
-    CmdClang       opts -> Clang.exec       gopts opts
-    CmdParse       opts -> Parse.exec       gopts opts
+    CmdClang opts -> Clang.exec gopts opts
+    CmdParse opts -> Parse.exec gopts opts

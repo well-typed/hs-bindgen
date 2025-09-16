@@ -263,9 +263,9 @@ executable hs-bindgen-cli
   other-modules:
       HsBindgen.App
       HsBindgen.Cli
+      HsBindgen.Cli.BindingSpec
+      HsBindgen.Cli.BindingSpec.StdLib
       HsBindgen.Cli.Dev
-      HsBindgen.Cli.Dev.BindingSpec
-      HsBindgen.Cli.Dev.BindingSpec.StdLib
       HsBindgen.Cli.Dev.Clang
       HsBindgen.Cli.Dev.Parse
       HsBindgen.Cli.Info
