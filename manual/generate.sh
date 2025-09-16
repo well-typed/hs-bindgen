@@ -67,6 +67,13 @@ cabal run hs-bindgen-cli -- \
     --module Complex \
     hsb_complex_test.h
 
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --hs-output-dir hs/manual/generated \
+    --module Callbacks \
+    callbacks.h
+
 echo "# "
 echo "# External bindings: vector example"
 echo "# "

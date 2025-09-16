@@ -25,7 +25,7 @@ executable run-manual
   main-is:         Manual.hs
   ghc-options:     -main-is Manual
   hs-source-dirs:  app, generated
-  extra-libraries: example, structs, globals, arrays, functionpointers, hsb_complex_test
+  extra-libraries: example, structs, globals, arrays, functionpointers, hsb_complex_test, callbacks
 
   build-depends:
     -- Internal.
@@ -60,6 +60,10 @@ executable run-manual
       Globals.Global
       Structs
       Structs.Safe
+      Callbacks
+      Callbacks.FunPtr
+      Callbacks.Safe
+      Callbacks.Unsafe
 
   ghc-options:
       -- Avoid gcc warnings about non-NFC characters
