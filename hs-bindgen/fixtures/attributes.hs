@@ -3027,4 +3027,49 @@
         "@NsTypeConstr"
         "FILE",
       deriveInstanceComment =
-      Nothing}]
+      Nothing},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wrapFunPtr_Ptr_Void_to_CInt",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsIO (HsPrimType HsPrimCInt)),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPtr (HsPrimType HsPrimVoid))
+                    (HsIO (HsPrimType HsPrimCInt))),
+                TextContent
+                  "to C function pointer."]]},
+      foreignImportSafety = Safe}]

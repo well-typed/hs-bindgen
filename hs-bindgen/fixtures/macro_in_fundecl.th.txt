@@ -432,3 +432,11 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043" hs
 {-# NOINLINE no_args_no_void_ptr #-}
 no_args_no_void_ptr :: FunPtr (IO I)
 no_args_no_void_ptr = unsafePerformIO hs_bindgen_test_macro_in_fundecl_1f43e6c47e963043
+{-|
+
+  Convert Haskell function @FC.CInt -> IO FC.CInt@ to C function pointer.
+
+-}
+foreign import ccall safe "wrapper" wrapFunPtr_CInt_to_CInt :: (CInt ->
+                                                                IO CInt) ->
+                                                               IO (FunPtr (CInt -> IO CInt))

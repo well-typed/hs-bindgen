@@ -2703,4 +2703,49 @@
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
-  DeclSimple]
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wrapFunPtr_CInt_to_CInt",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimCInt)),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO (HsPrimType HsPrimCInt))),
+                TextContent
+                  "to C function pointer."]]},
+      foreignImportSafety = Safe}]

@@ -1,3 +1,4 @@
+{-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
@@ -237,3 +238,12 @@ instance F.Storable FILE where
                F.pokeByteOff ptr0 (0 :: Int) fILE__r2
             >> F.pokeByteOff ptr0 (4 :: Int) fILE__w3
             >> F.pokeByteOff ptr0 (8 :: Int) fILE__close4
+
+{-|
+
+  Convert Haskell function @(Ptr.Ptr Void) -> IO FC.CInt@ to C function pointer.
+
+-}
+foreign import capi safe "wrapper" wrapFunPtr_Ptr_Void_to_CInt
+  :: ((Ptr.Ptr Void) -> IO FC.CInt)
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt))

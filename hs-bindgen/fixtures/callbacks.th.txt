@@ -1,0 +1,327 @@
+-- addDependentFile examples/golden/callbacks.h
+-- #include <callbacks.h>
+-- signed int hs_bindgen_test_callbacks_b5fe3bd1fd70072c (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }
+-- /* get_readFileWithProcessor_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_9bff2165e3decc84 (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &readFileWithProcessor; } 
+-- void hs_bindgen_test_callbacks_e444e06c0c5d9e82 (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }
+-- /* get_watchTemperature_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_c2f8e0ccab10771e (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &watchTemperature; } 
+-- void hs_bindgen_test_callbacks_bebfa5cb7ff1a841 (FileOpenedNotification arg1) { onFileOpened(arg1); }
+-- /* get_onFileOpened_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_b0c6e0e75106190c (void)) (FileOpenedNotification arg1) { return &onFileOpened; } 
+-- void hs_bindgen_test_callbacks_f8434b7a5c10a8de (ProgressUpdate arg1) { onProgressChanged(arg1); }
+-- /* get_onProgressChanged_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_d5b434b3faaf4465 (void)) (ProgressUpdate arg1) { return &onProgressChanged; } 
+-- signed int hs_bindgen_test_callbacks_41dbe3a1204d2401 (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }
+-- /* get_validateInput_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_b753c64bc11604dd (void)) (DataValidator arg1, signed int arg2) { return &validateInput; } 
+-- void hs_bindgen_test_callbacks_80ae1355e2538a88 (MeasurementReceived arg1) { onNewMeasurement(arg1); }
+-- /* get_onNewMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_5ede51ad7cee58ce (void)) (MeasurementReceived arg1) { return &onNewMeasurement; } 
+-- void hs_bindgen_test_callbacks_c537c4b0f5f57239 (SampleBufferFull arg1) { onBufferReady(arg1); }
+-- /* get_onBufferReady_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_514203bcc8a16ea6 (void)) (SampleBufferFull arg1) { return &onBufferReady; } 
+{-| __C declaration:__ @readFileWithProcessor@
+
+    __defined at:__ @callbacks.h:2:5@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_b5fe3bd1fd70072c" readFileWithProcessor :: FunPtr (CInt ->
+                                                                                                        IO Unit) ->
+                                                                                                CInt ->
+                                                                                                IO CInt
+{-| __C declaration:__ @readFileWithProcessor@
+
+    __defined at:__ @callbacks.h:2:5@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_9bff2165e3decc84" hs_bindgen_test_callbacks_9bff2165e3decc84 :: IO (FunPtr (FunPtr (CInt ->
+                                                                                                                                         IO Unit) ->
+                                                                                                                                 CInt ->
+                                                                                                                                 IO CInt))
+{-# NOINLINE readFileWithProcessor_ptr #-}
+readFileWithProcessor_ptr :: FunPtr (FunPtr (CInt -> IO Unit) ->
+                                     CInt -> IO CInt)
+readFileWithProcessor_ptr = unsafePerformIO hs_bindgen_test_callbacks_9bff2165e3decc84
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @callbacks.h:3:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_e444e06c0c5d9e82" watchTemperature :: FunPtr (CInt ->
+                                                                                                   IO Unit) ->
+                                                                                           CInt ->
+                                                                                           IO Unit
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @callbacks.h:3:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_c2f8e0ccab10771e" hs_bindgen_test_callbacks_c2f8e0ccab10771e :: IO (FunPtr (FunPtr (CInt ->
+                                                                                                                                         IO Unit) ->
+                                                                                                                                 CInt ->
+                                                                                                                                 IO Unit))
+{-# NOINLINE watchTemperature_ptr #-}
+watchTemperature_ptr :: FunPtr (FunPtr (CInt -> IO Unit) ->
+                                CInt -> IO Unit)
+watchTemperature_ptr = unsafePerformIO hs_bindgen_test_callbacks_c2f8e0ccab10771e
+{-| __C declaration:__ @FileOpenedNotification@
+
+    __defined at:__ @callbacks.h:6:16@
+
+    __exported by:__ @callbacks.h@
+-}
+newtype FileOpenedNotification
+    = FileOpenedNotification {un_FileOpenedNotification :: (FunPtr (IO Unit))}
+      {- ^ __C declaration:__ @FileOpenedNotification@
+
+           __defined at:__ @callbacks.h:6:16@
+
+           __exported by:__ @callbacks.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-|
+
+  Convert Haskell function @IO ()@ to 'FileOpenedNotification' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkFileOpenedNotification :: IO Unit ->
+                                                                IO FileOpenedNotification
+{-| __C declaration:__ @ProgressUpdate@
+
+    __defined at:__ @callbacks.h:7:16@
+
+    __exported by:__ @callbacks.h@
+-}
+newtype ProgressUpdate
+    = ProgressUpdate {un_ProgressUpdate :: (FunPtr (CInt -> IO Unit))}
+      {- ^ __C declaration:__ @ProgressUpdate@
+
+           __defined at:__ @callbacks.h:7:16@
+
+           __exported by:__ @callbacks.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-|
+
+  Convert Haskell function @FC.CInt -> IO ()@ to 'ProgressUpdate' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkProgressUpdate :: (CInt ->
+                                                         IO Unit) ->
+                                                        IO ProgressUpdate
+{-| __C declaration:__ @DataValidator@
+
+    __defined at:__ @callbacks.h:8:15@
+
+    __exported by:__ @callbacks.h@
+-}
+newtype DataValidator
+    = DataValidator {un_DataValidator :: (FunPtr (CInt -> IO CInt))}
+      {- ^ __C declaration:__ @DataValidator@
+
+           __defined at:__ @callbacks.h:8:15@
+
+           __exported by:__ @callbacks.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-|
+
+  Convert Haskell function @FC.CInt -> IO FC.CInt@ to 'DataValidator' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkDataValidator :: (CInt ->
+                                                        IO CInt) ->
+                                                       IO DataValidator
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @callbacks.h:10:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_bebfa5cb7ff1a841" onFileOpened :: FileOpenedNotification ->
+                                                                                       IO Unit
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @callbacks.h:10:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_b0c6e0e75106190c" hs_bindgen_test_callbacks_b0c6e0e75106190c :: IO (FunPtr (FileOpenedNotification ->
+                                                                                                                                 IO Unit))
+{-# NOINLINE onFileOpened_ptr #-}
+onFileOpened_ptr :: FunPtr (FileOpenedNotification -> IO Unit)
+onFileOpened_ptr = unsafePerformIO hs_bindgen_test_callbacks_b0c6e0e75106190c
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @callbacks.h:11:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_f8434b7a5c10a8de" onProgressChanged :: ProgressUpdate ->
+                                                                                            IO Unit
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @callbacks.h:11:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_d5b434b3faaf4465" hs_bindgen_test_callbacks_d5b434b3faaf4465 :: IO (FunPtr (ProgressUpdate ->
+                                                                                                                                 IO Unit))
+{-# NOINLINE onProgressChanged_ptr #-}
+onProgressChanged_ptr :: FunPtr (ProgressUpdate -> IO Unit)
+onProgressChanged_ptr = unsafePerformIO hs_bindgen_test_callbacks_d5b434b3faaf4465
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @callbacks.h:12:5@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_41dbe3a1204d2401" validateInput :: DataValidator ->
+                                                                                        CInt ->
+                                                                                        IO CInt
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @callbacks.h:12:5@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_b753c64bc11604dd" hs_bindgen_test_callbacks_b753c64bc11604dd :: IO (FunPtr (DataValidator ->
+                                                                                                                                 CInt ->
+                                                                                                                                 IO CInt))
+{-# NOINLINE validateInput_ptr #-}
+validateInput_ptr :: FunPtr (DataValidator -> CInt -> IO CInt)
+validateInput_ptr = unsafePerformIO hs_bindgen_test_callbacks_b753c64bc11604dd
+{-| __C declaration:__ @Measurement@
+
+    __defined at:__ @callbacks.h:15:8@
+
+    __exported by:__ @callbacks.h@
+-}
+data Measurement
+    = Measurement {measurement_value :: CDouble
+                   {- ^ __C declaration:__ @value@
+
+                        __defined at:__ @callbacks.h:16:10@
+
+                        __exported by:__ @callbacks.h@
+                   -},
+                   measurement_timestamp :: CDouble
+                   {- ^ __C declaration:__ @timestamp@
+
+                        __defined at:__ @callbacks.h:16:17@
+
+                        __exported by:__ @callbacks.h@
+                   -}}
+      {- ^ __C declaration:__ @Measurement@
+
+           __defined at:__ @callbacks.h:15:8@
+
+           __exported by:__ @callbacks.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Measurement
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Measurement <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Measurement measurement_value_3
+                                               measurement_timestamp_4 -> pokeByteOff ptr_1 (0 :: Int) measurement_value_3 >> pokeByteOff ptr_1 (8 :: Int) measurement_timestamp_4
+{-| __C declaration:__ @MeasurementReceived@
+
+    __defined at:__ @callbacks.h:19:16@
+
+    __exported by:__ @callbacks.h@
+-}
+newtype MeasurementReceived
+    = MeasurementReceived {un_MeasurementReceived :: (FunPtr (Measurement ->
+                                                              IO Unit))}
+      {- ^ __C declaration:__ @MeasurementReceived@
+
+           __defined at:__ @callbacks.h:19:16@
+
+           __exported by:__ @callbacks.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-|
+
+  Convert Haskell function @Measurement -> IO ()@ to 'MeasurementReceived' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkMeasurementReceived :: (Measurement ->
+                                                              IO Unit) ->
+                                                             IO MeasurementReceived
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @callbacks.h:20:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_80ae1355e2538a88" onNewMeasurement :: MeasurementReceived ->
+                                                                                           IO Unit
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @callbacks.h:20:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_5ede51ad7cee58ce" hs_bindgen_test_callbacks_5ede51ad7cee58ce :: IO (FunPtr (MeasurementReceived ->
+                                                                                                                                 IO Unit))
+{-# NOINLINE onNewMeasurement_ptr #-}
+onNewMeasurement_ptr :: FunPtr (MeasurementReceived -> IO Unit)
+onNewMeasurement_ptr = unsafePerformIO hs_bindgen_test_callbacks_5ede51ad7cee58ce
+{-| __C declaration:__ @SampleBufferFull@
+
+    __defined at:__ @callbacks.h:23:16@
+
+    __exported by:__ @callbacks.h@
+-}
+newtype SampleBufferFull
+    = SampleBufferFull {un_SampleBufferFull :: (FunPtr (ConstantArray 10
+                                                                      CInt ->
+                                                        IO Unit))}
+      {- ^ __C declaration:__ @SampleBufferFull@
+
+           __defined at:__ @callbacks.h:23:16@
+
+           __exported by:__ @callbacks.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-|
+
+  Convert Haskell function @((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()@ to 'SampleBufferFull' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkSampleBufferFull :: (ConstantArray 10
+                                                                         CInt ->
+                                                           IO Unit) ->
+                                                          IO SampleBufferFull
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @callbacks.h:24:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_c537c4b0f5f57239" onBufferReady :: SampleBufferFull ->
+                                                                                        IO Unit
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @callbacks.h:24:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_514203bcc8a16ea6" hs_bindgen_test_callbacks_514203bcc8a16ea6 :: IO (FunPtr (SampleBufferFull ->
+                                                                                                                                 IO Unit))
+{-# NOINLINE onBufferReady_ptr #-}
+onBufferReady_ptr :: FunPtr (SampleBufferFull -> IO Unit)
+onBufferReady_ptr = unsafePerformIO hs_bindgen_test_callbacks_514203bcc8a16ea6
+{-|
+
+  Convert Haskell function @FC.CInt -> IO ()@ to C function pointer.
+
+-}
+foreign import ccall safe "wrapper" wrapFunPtr_CInt_to_Unit :: (CInt ->
+                                                                IO Unit) ->
+                                                               IO (FunPtr (CInt -> IO Unit))

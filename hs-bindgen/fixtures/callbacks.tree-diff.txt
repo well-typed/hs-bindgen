@@ -1,0 +1,503 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:2:5",
+        declId = NamePair {
+          nameC = Name
+            "readFileWithProcessor",
+          nameHsIdent = HsIdentifier
+            "readFileWithProcessor"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "processLine",
+                  nameHsIdent = HsIdentifier
+                    "processLine"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "fileId",
+                  nameHsIdent = HsIdentifier
+                    "fileId"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:3:6",
+        declId = NamePair {
+          nameC = Name "watchTemperature",
+          nameHsIdent = HsIdentifier
+            "watchTemperature"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "onTempChange",
+                  nameHsIdent = HsIdentifier
+                    "onTempChange"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "sensorId",
+                  nameHsIdent = HsIdentifier
+                    "sensorId"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:6:16",
+        declId = NamePair {
+          nameC = Name
+            "FileOpenedNotification",
+          nameHsIdent = HsIdentifier
+            "FileOpenedNotification"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "FileOpenedNotification",
+            newtypeField = HsName
+              "@NsVar"
+              "un_FileOpenedNotification"},
+          typedefType = TypePointer
+            (TypeFun [] TypeVoid)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:7:16",
+        declId = NamePair {
+          nameC = Name "ProgressUpdate",
+          nameHsIdent = HsIdentifier
+            "ProgressUpdate"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "ProgressUpdate",
+            newtypeField = HsName
+              "@NsVar"
+              "un_ProgressUpdate"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              TypeVoid)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:8:15",
+        declId = NamePair {
+          nameC = Name "DataValidator",
+          nameHsIdent = HsIdentifier
+            "DataValidator"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "DataValidator",
+            newtypeField = HsName
+              "@NsVar"
+              "un_DataValidator"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:10:6",
+        declId = NamePair {
+          nameC = Name "onFileOpened",
+          nameHsIdent = HsIdentifier
+            "onFileOpened"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "notify",
+                  nameHsIdent = HsIdentifier
+                    "notify"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "FileOpenedNotification",
+                    nameHsIdent = HsIdentifier
+                      "FileOpenedNotification"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:11:6",
+        declId = NamePair {
+          nameC = Name
+            "onProgressChanged",
+          nameHsIdent = HsIdentifier
+            "onProgressChanged"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "update",
+                  nameHsIdent = HsIdentifier
+                    "update"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "ProgressUpdate",
+                    nameHsIdent = HsIdentifier
+                      "ProgressUpdate"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:12:5",
+        declId = NamePair {
+          nameC = Name "validateInput",
+          nameHsIdent = HsIdentifier
+            "validateInput"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "validator",
+                  nameHsIdent = HsIdentifier
+                    "validator"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "DataValidator",
+                    nameHsIdent = HsIdentifier
+                      "DataValidator"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "rawValue",
+                  nameHsIdent = HsIdentifier
+                    "rawValue"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:15:8",
+        declId = NamePair {
+          nameC = Name "Measurement",
+          nameHsIdent = HsIdentifier
+            "Measurement"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (HsName
+              "@NsConstr"
+              "Measurement"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:16:10",
+                fieldName = NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = HsIdentifier
+                    "measurement_value"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:16:17",
+                fieldName = NamePair {
+                  nameC = Name "timestamp",
+                  nameHsIdent = HsIdentifier
+                    "measurement_timestamp"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:19:16",
+        declId = NamePair {
+          nameC = Name
+            "MeasurementReceived",
+          nameHsIdent = HsIdentifier
+            "MeasurementReceived"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "MeasurementReceived",
+            newtypeField = HsName
+              "@NsVar"
+              "un_MeasurementReceived"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = HsIdentifier
+                      "Measurement"}
+                  NameOriginInSource]
+              TypeVoid)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:20:6",
+        declId = NamePair {
+          nameC = Name "onNewMeasurement",
+          nameHsIdent = HsIdentifier
+            "onNewMeasurement"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = HsIdentifier
+                    "handler"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "MeasurementReceived",
+                    nameHsIdent = HsIdentifier
+                      "MeasurementReceived"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:23:16",
+        declId = NamePair {
+          nameC = Name "SampleBufferFull",
+          nameHsIdent = HsIdentifier
+            "SampleBufferFull"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "SampleBufferFull",
+            newtypeField = HsName
+              "@NsVar"
+              "un_SampleBufferFull"},
+          typedefType = TypePointer
+            (TypeFun
+              [
+                TypeConstArray
+                  10
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed))]
+              TypeVoid)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:24:6",
+        declId = NamePair {
+          nameC = Name "onBufferReady",
+          nameHsIdent = HsIdentifier
+            "onBufferReady"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeader = "callbacks.h",
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = HsIdentifier
+                    "handler"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "SampleBufferFull",
+                    nameHsIdent = HsIdentifier
+                      "SampleBufferFull"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["callbacks"]}

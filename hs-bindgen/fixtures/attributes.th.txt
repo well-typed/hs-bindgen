@@ -182,3 +182,11 @@ instance Storable FILE
                                    FILE fILE__r_3
                                         fILE__w_4
                                         fILE__close_5 -> pokeByteOff ptr_1 (0 :: Int) fILE__r_3 >> (pokeByteOff ptr_1 (4 :: Int) fILE__w_4 >> pokeByteOff ptr_1 (8 :: Int) fILE__close_5)
+{-|
+
+  Convert Haskell function @(Ptr.Ptr Void) -> IO FC.CInt@ to C function pointer.
+
+-}
+foreign import ccall safe "wrapper" wrapFunPtr_Ptr_Void_to_CInt :: (Ptr Void ->
+                                                                    IO CInt) ->
+                                                                   IO (FunPtr (Ptr Void -> IO CInt))

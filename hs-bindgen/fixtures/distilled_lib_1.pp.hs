@@ -549,6 +549,15 @@ newtype Callback_t = Callback_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @(Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32@ to 'Callback_t' (C function pointer typedef).
+
+-}
+foreign import capi safe "wrapper" mkCallback_t
+  :: ((Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
+  -> IO Callback_t
+
 {-| __C declaration:__ @v@
 
     __defined at:__ @distilled_lib_1.h:91:14@

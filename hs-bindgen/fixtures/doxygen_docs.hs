@@ -4537,6 +4537,57 @@
                 Bold [TextContent "returns:"],
                 TextContent
                   "Handling result"]]}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkEvent_callback_t",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO (HsPrimType HsPrimCInt))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Event_callback_t"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPtr (HsPrimType HsPrimVoid))
+                      (HsIO
+                        (HsPrimType HsPrimCInt)))),
+                TextContent "to",
+                Identifier "Event_callback_t",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -15827,6 +15878,57 @@
                 Bold [TextContent "returns:"],
                 TextContent
                   "Processed value"]]}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkProcessor_fn_t",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO (HsPrimType HsPrimCInt))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Processor_fn_t"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeader = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPtr (HsPrimType HsPrimVoid))
+                      (HsIO
+                        (HsPrimType HsPrimCInt)))),
+                TextContent "to",
+                Identifier "Processor_fn_t",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
