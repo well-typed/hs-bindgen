@@ -1,4 +1,31 @@
--- | C naming and declaration identities
+-- | C naming and declaration identifiers
+--
+-- This module defines many types that are used to identify C declarations in
+-- various contexts.  A goal is to make invalid state unrepresentable.  For
+-- example, if the 'NameKind' is determined by some context, then the identifier
+-- type must not contain a 'NameKind' because it would be possible to have a
+-- value that does not match the context.  Having many types can be confusing,
+-- but it is required for this design goal.
+--
+-- An identifier must include a 'NameKind' to uniquely identify a declaration
+-- without context.  Terminology /qualified/ indicates that a type includes a
+-- 'NameKind'.  Such types have a @Qual@ prefix.
+--
+-- At a high level, there are three types of identifiers:
+--
+-- * /Names/ are general identifiers that can be parsed from user input
+--   (strings).  For example, @struct foo@ can be parsed to a 'QualName', which
+--   uniquely identifies a declaration without context.
+-- * /Preliminary declaration IDs/ are assigned to declarations when they are
+--   parsed.  Anonymous declarations are identified using 'AnonId', which
+--   includes the source location, so such IDs /cannot/ be parsed from user
+--   input.  Type 'QualPrelimDeclId' uniquely identifies a declaration without
+--   context.
+-- * /Declaration IDs/ are assigned to declarations when anonymous declarations
+--   are named.  Types 'NameOrigin' provides information needed to determine the
+--   original preliminary declaration ID.  Declaration IDs therefore include
+--   source locations, so they /cannot/ be parsed from user input.  Type
+--   'QualDeclId' uniquely identifies a declaration without context.
 --
 -- Intended for qualified import within frontend.
 --
@@ -75,7 +102,7 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 -- | C name
 --
--- This type represents C names, including type names, filed names, variable
+-- This type represents C names, including type names, field names, variable
 -- names, function names, and macro names.
 --
 -- In type @struct foo@, the name is just @foo@.  The tag kind prefix is /not/
@@ -222,11 +249,11 @@ parseQualName t = case Text.words t of
   AnonId
 -------------------------------------------------------------------------------}
 
--- | Identity of an anonymous declaration
+-- | Anonymous declaration identifier
 newtype AnonId = AnonId SingleLoc
   deriving stock (Show, Eq, Ord, Generic)
 
--- | We mimick the syntax used by clang itself for anonymous declarations
+-- | We mimic the syntax used by Clang itself for anonymous declarations
 instance PrettyForTrace AnonId where
   prettyForTrace (AnonId loc) = PP.string $
     "unnamed at " ++ HighLevel.prettySingleLoc ShowFile loc
@@ -235,7 +262,7 @@ instance PrettyForTrace AnonId where
   PrelimDeclId
 -------------------------------------------------------------------------------}
 
--- | Preliminary declaration identity
+-- | Preliminary declaration identifier
 --
 -- Not all declarations in a C header have names; to be able to nonetheless
 -- refer to these declarations we use the source location.  We replace these by
@@ -251,8 +278,8 @@ data PrelimDeclId =
 
     -- | Built-in declaration
     --
-    -- Note: since built-in declarations don't have a definition, we cannot
-    -- in general generate bindings for them. If there are /specific/ built-in
+    -- Note: since builtin declarations don't have a definition, we cannot
+    -- in general generate bindings for them.  If there are /specific/ builtin
     -- declarations we should support, we need to special-case them.
   | PrelimDeclIdBuiltin Name
   deriving stock (Show, Eq, Ord)
@@ -303,7 +330,7 @@ getPrelimDeclId curr = do
   NsPrelimDeclId
 -------------------------------------------------------------------------------}
 
--- | Preliminary declaration identity, with named identities qualified by
+-- | Preliminary declaration identifier, with named identifiers qualified by
 -- 'TypeNamespace'
 --
 -- This type is used when names in different namespaces must be distinguished
@@ -332,8 +359,8 @@ nsPrelimDeclId prelimDeclId ns = case prelimDeclId of
   QualPrelimDeclId
 -------------------------------------------------------------------------------}
 
--- | Preliminary declaration identity, with named identities qualified by
--- 'NameKind'
+-- | Preliminary declaration identifier, with named identifiers qualified by
+-- 'NameKind' and anonymous identifiers qualified by 'TagKind'
 --
 -- This type is used when names with different tag kinds must be distinguished.
 data QualPrelimDeclId =
@@ -383,7 +410,7 @@ data NameOrigin =
     -- name may be used to construct a valid C type.
   | NameOriginRenamedFrom Name
 
-    -- | Name is a Clang built-in
+    -- | Name is a Clang builtin
   | NameOriginBuiltin
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -396,13 +423,13 @@ instance PrettyForTrace NameOrigin where
     NameOriginRenamedFrom name ->
       PP.string "renamed from" <+> prettyForTrace name
     NameOriginBuiltin ->
-      PP.string "built-in"
+      PP.string "builtin"
 
 {-------------------------------------------------------------------------------
   DeclId
 -------------------------------------------------------------------------------}
 
--- | Declaration identity
+-- | Declaration identifier
 --
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
@@ -431,7 +458,7 @@ instance PrettyForTrace (Located DeclId) where
   QualDeclId
 -------------------------------------------------------------------------------}
 
--- | Declaration identity, qualified by 'NameKind'
+-- | Declaration identifier, qualified by 'NameKind'
 data QualDeclId = QualDeclId {
       qualDeclIdName   :: Name
     , qualDeclIdOrigin :: NameOrigin
@@ -479,6 +506,6 @@ data TaggedTypeId = TaggedTypeId {
 
 -- | Indirection for 'PrettyForTrace' instance for @DeclInfo@
 --
--- By introducting this auxiliary type, used in the 'PrettyForTrace' instance
+-- By introducing this auxiliary type, used in the 'PrettyForTrace' instance
 -- for @DeclInfo@, we delegate to @Id p@ instances.
 data Located a = Located SingleLoc a
