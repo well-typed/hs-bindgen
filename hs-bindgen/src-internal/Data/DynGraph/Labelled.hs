@@ -407,7 +407,6 @@ dumpMermaid renderEdge renderVertex DynGraph{..} =
 
     nodes, links :: [String]
     nodes = [
-        -- TODO escape quotes?
         "  v" ++ show idx ++ "[\"" ++ escapeString (renderVertex v) ++ "\"]"
       | (v, idx) <- Map.toAscList vtxMap
       ]
@@ -426,7 +425,9 @@ dumpMermaid renderEdge renderVertex DynGraph{..} =
 
     escapeString :: String -> [Char]
     escapeString = concatMap $ \case
-        '"' -> "#quot;"
+        '"' -> "&quot;"
+        '<' -> "&lt;"
+        '>' -> "&gt;"
         c   -> [c]
 
 {-------------------------------------------------------------------------------

@@ -342,6 +342,15 @@ configuration, it may be useful to show debug trace messages.
 $ hs-bindgen-cli info resolve-header -v4 stddef.h
 ```
 
+The `hs-bindgen-cli info include-graph` command may be used to display the full
+include graph for one or more headers, in [Mermaid][] syntax.
+
+[Mermaid]: <https://mermaid.js.org/>
+
+```
+$ hs-bindgen-cli info include-graph stdint.h
+```
+
 The `hs-bindgen-cli dev clang` command may be used to query Clang options such
 as `-v` using `libclang`, to confirm `libclang` C include search paths.
 
