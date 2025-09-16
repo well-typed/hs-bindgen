@@ -35,8 +35,9 @@ data Opts = Opts {
       bindgenConfig     :: BindgenConfig
     , output            :: Maybe FilePath
     , outputBindingSpec :: Maybe FilePath
-    , inputs            :: [UncheckedHashIncludeArg]
     , haddockConfig     :: HaddockConfig
+    , inputs            :: [UncheckedHashIncludeArg]
+    -- NOTE inputs (arguments) must be last, options must go before it
     }
 
 parseOpts :: Parser Opts
@@ -45,8 +46,8 @@ parseOpts =
       <$> parseBindgenConfig
       <*> optional parseOutput
       <*> optional parseGenBindingSpec
-      <*> parseInputs
       <*> parseHaddockConfig
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Execution
