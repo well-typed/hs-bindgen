@@ -147,11 +147,17 @@ getSelectMsgs transitiveDeps selectedDecls unmatchedDecls =
       transitiveDeps `Set.difference`
         (Set.fromList $ map C.declOrigNsPrelimDeclId selectedDecls)
 
+    unselectedDecls :: [C.Decl Select]
+    unselectedDecls =
+      filter
+        ((`Set.notMember` transitiveDeps) . C.declOrigNsPrelimDeclId)
+        unmatchedDecls
+
     errorMsgs, excludeMsgs, selectMsgs :: [Msg Select]
     errorMsgs = map SelectTransitiveDependencyUnavailable $
       Set.toList unavailableTransitiveDeps
-    excludeMsgs = map (SelectExcluded . C.declInfo) unmatchedDecls
-    selectMsgs  = map (SelectSelected . C.declInfo) selectedDecls
+    excludeMsgs = map (SelectNotSelected . C.declInfo) unselectedDecls
+    selectMsgs  = map (SelectSelected    . C.declInfo) selectedDecls
 
 type Key = ParseMsgKey Select
 
