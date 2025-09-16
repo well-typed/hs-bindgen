@@ -34,6 +34,7 @@ import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -233,19 +234,20 @@ instance Pretty HsDoc.CommentBlockContent where
 
 instance Pretty HsDoc.CommentInlineContent where
   pretty = \case
-    HsDoc.TextContent{..} -> textToCtxDoc textContent
-    HsDoc.Monospace{..}   -> "@" >< hsep (map pretty monospaceContent) >< "@"
-    HsDoc.Emph{..}        -> "/" >< hsep (map pretty emphContent) >< "/"
-    HsDoc.Bold{..}        -> "__" >< hsep (map pretty boldContent) >< "__"
-    HsDoc.Module{..}      -> "\"" >< textToCtxDoc moduleContent >< "\""
-    HsDoc.Identifier{..}  -> "'" >< textToCtxDoc identifierContent >< "'"
-    HsDoc.Type{..}        -> "t'" >< textToCtxDoc typeContent
-    HsDoc.Link{..}        -> "[" >< hsep (map pretty linkLabel) >< "]"
-                          >< "(" >< textToCtxDoc linkURL >< ")"
-    HsDoc.URL{..}         -> "<" >< textToCtxDoc urlContent >< ">"
-    HsDoc.Anchor{..}      -> "#" >< textToCtxDoc anchorContent >< "#"
-    HsDoc.Math{..}        -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
-    HsDoc.Metadata{..}    -> pretty metadataContent
+    HsDoc.TextContent{..}   -> textToCtxDoc textContent
+    HsDoc.Monospace{..}     -> "@" >< hsep (map pretty monospaceContent) >< "@"
+    HsDoc.Emph{..}          -> "/" >< hsep (map pretty emphContent) >< "/"
+    HsDoc.Bold{..}          -> "__" >< hsep (map pretty boldContent) >< "__"
+    HsDoc.Module{..}        -> "\"" >< textToCtxDoc moduleContent >< "\""
+    HsDoc.Identifier{..}    -> "'" >< textToCtxDoc identifierContent >< "'"
+    HsDoc.Type{..}          -> "t'" >< textToCtxDoc typeContent
+    HsDoc.Link{..}          -> "[" >< hsep (map pretty linkLabel) >< "]"
+                            >< "(" >< textToCtxDoc linkURL >< ")"
+    HsDoc.URL{..}           -> "<" >< textToCtxDoc urlContent >< ">"
+    HsDoc.Anchor{..}        -> "#" >< textToCtxDoc anchorContent >< "#"
+    HsDoc.Math{..}          -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
+    HsDoc.Metadata{..}      -> pretty metadataContent
+    HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateType typeSignature) >< "@"
 
 instance Pretty HsDoc.CommentMeta where
   pretty HsDoc.Since{..} = "@since:" <+> textToCtxDoc sinceContent

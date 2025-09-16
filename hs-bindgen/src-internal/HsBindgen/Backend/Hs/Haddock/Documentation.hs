@@ -13,6 +13,7 @@ import GHC.Natural (Natural)
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Backend.Hs.AST.Type (HsType)
 
 -- | Haddock documentation representation
 --
@@ -125,6 +126,9 @@ data CommentInlineContent
       }
   | Metadata
       { metadataContent   :: CommentMeta
+      }
+  | TypeSignature
+      { typeSignature     :: HsType
       }
   deriving (Show, Eq, Generic)
 

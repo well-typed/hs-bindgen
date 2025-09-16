@@ -877,7 +877,7 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
                  , foreignImportOrigName   = "wrapper"
                  , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
                  , foreignImportOrigin     = Origin.ToFunPtr t
-                 , foreignImportComment    = Just wrapperComment
+                 , foreignImportComment    = Nothing
                  , foreignImportSafety     = SHs.Safe
                  }
                , Hs.DeclForeignImport Hs.ForeignImportDecl
@@ -887,7 +887,7 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
                  , foreignImportOrigName   = "dynamic"
                  , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
                  , foreignImportOrigin     = Origin.FromFunPtr t
-                 , foreignImportComment    = Just wrapperComment
+                 , foreignImportComment    = Nothing
                  , foreignImportSafety     = SHs.Safe
                  }
                , Hs.DeclDefineInstance $ Hs.DefineInstance
@@ -920,20 +920,6 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
           { functionParameterName    = Nothing
           , functionParameterType    = hsType
           , functionParameterComment = Nothing
-          }
-        wrapperComment = HsDoc.Comment
-          { commentTitle    = Nothing
-          , commentOrigin   = Nothing
-          , commentLocation = Nothing
-          , commentHeaderInfo = Nothing
-          , commentChildren =
-              [ HsDoc.Paragraph
-                  [HsDoc.TextContent
-                    (  "Automatically generated wrapper to convert "
-                    <> "Haskell function to C function pointer"
-                    )
-                  ]
-              ]
           }
 
     -- everything in aux is state-dependent
