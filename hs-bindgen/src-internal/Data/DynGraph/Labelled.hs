@@ -395,11 +395,12 @@ dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
 --
 -- See https://mermaid.js.org/>
 dumpMermaid ::
-     (l -> Maybe String) -- ^ Function to optionally render an edge
+     Bool                -- ^ 'True' to transpose (reverse edges)
+  -> (l -> Maybe String) -- ^ Function to optionally render an edge
   -> (a -> String)       -- ^ Function to render a vertex
   -> DynGraph l a
   -> String
-dumpMermaid renderEdge renderVertex DynGraph{..} =
+dumpMermaid isTranspose renderEdge renderVertex DynGraph{..} =
     unlines $ header : nodes ++ links
   where
     header :: String
@@ -413,11 +414,11 @@ dumpMermaid renderEdge renderVertex DynGraph{..} =
     links = [
          concat [
              "  v"
-           , show fr
+           , show (if isTranspose then to else fr)
            , "-->"
            , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") (renderEdge l)
            , "v"
-           , show to
+           , show (if isTranspose then fr else to)
            ]
        | (fr, rSet) <- IntMap.toAscList edges
        , (to, l) <- Set.toAscList rSet

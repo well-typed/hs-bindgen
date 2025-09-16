@@ -104,7 +104,7 @@ getIncludes mainPaths (IncludeGraph graph) =
 
 dumpMermaid :: IncludeGraph -> String
 dumpMermaid (IncludeGraph graph) =
-    DynGraph.dumpMermaid (Just . renderInclude) getSourcePath graph
+    DynGraph.dumpMermaid True (Just . renderInclude) getSourcePath graph
   where
     renderInclude :: Include -> String
     renderInclude = \case
