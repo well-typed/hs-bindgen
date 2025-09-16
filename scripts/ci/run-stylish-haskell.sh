@@ -250,10 +250,12 @@ check_formatting_changes() {
     if [[ "${use_git_diff}" == true ]]; then
         log_info "Checking for formatting changes..."
 
-        if ! git diff --exit-code --quiet; then
+        # We only check differences in Haskell source code, because other files
+        # may change in CI (e.g., `cabal.project` files).
+        if ! git diff --exit-code --quiet *.hs; then
             log_info ""
             log_info "Git diff after stylish-haskell:"
-            git diff
+            git diff *.hs
             log_error "stylish-haskell made changes. Please commit them or run this script to fix formatting."
             return "${EXIT_FORMATTING_CHANGES}"
         fi
