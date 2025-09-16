@@ -7,6 +7,7 @@ import GHC.Natural (Natural)
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Backend.Hs.AST.Type (HsType)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 
 -- | Haddock documentation representation
@@ -121,6 +122,9 @@ data CommentInlineContent
       }
   | Metadata
       { metadataContent   :: CommentMeta
+      }
+  | TypeSignature
+      { typeSignature     :: HsType
       }
   deriving (Show, Eq, Generic)
 

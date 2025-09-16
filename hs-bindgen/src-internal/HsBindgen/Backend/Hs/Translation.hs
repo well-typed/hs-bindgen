@@ -842,7 +842,7 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
              , foreignImportOrigName   = T.pack "wrapper"
              , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
              , foreignImportOrigin     = Origin.GeneratedWrapper
-             , foreignImportComment    = Just wrapperComment
+             , foreignImportComment    = Just (generateTypedefWrapperComment t)
              , foreignImportSafety     = SHs.Safe
              } :
              [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName wrappedRes wrappedArgs
@@ -855,20 +855,24 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
           , functionParameterType    = hsType
           , functionParameterComment = Nothing
           }
-        wrapperComment = Hs.Comment
-          { commentTitle    = Nothing
-          , commentOrigin   = Nothing
-          , commentLocation = Nothing
-          , commentHeader   = Nothing
-          , commentChildren =
-              [ Hs.Paragraph
-                  [Hs.TextContent
-                    (  "Automatically generated wrapper to convert "
-                    <> "Haskell function to C function pointer"
-                    )
-                  ]
+
+    -- | Generate a descriptive comment for a typedef function pointer wrapper
+    generateTypedefWrapperComment :: Hs.HsType -> Hs.Comment
+    generateTypedefWrapperComment hsType = Hs.Comment
+      { commentTitle    = Nothing
+      , commentOrigin   = Nothing
+      , commentLocation = Nothing
+      , commentHeader   = Nothing
+      , commentChildren =
+          [ Hs.Paragraph
+              [ Hs.TextContent "Convert Haskell function"
+              , Hs.TypeSignature hsType
+              , Hs.TextContent "to"
+              , Hs.Identifier (getHsName . C.nameHs . C.declId $ info)
+              , Hs.TextContent "(C function pointer typedef)."
               ]
-          }
+          ]
+      }
 
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set HsTypeClass, [Hs.Decl])
@@ -1496,18 +1500,23 @@ generateFunctionPointerWrapper hsType =
       }
 
     functionPointerWrapperComment :: Hs.Comment
-    functionPointerWrapperComment = Hs.Comment
-      { commentTitle    = Nothing
-      , commentOrigin   = Nothing
-      , commentLocation = Nothing
-      , commentHeader   = Nothing
-      , commentChildren =
-          [ Hs.Paragraph
-              [ Hs.TextContent "Automatically generated wrapper to convert "
-              , Hs.TextContent "Haskell function to C function pointer"
-              ]
+    functionPointerWrapperComment = generateWrapperComment hsType
+
+-- | Generate a descriptive comment for a function pointer wrapper
+generateWrapperComment :: Hs.HsType -> Hs.Comment
+generateWrapperComment hsType = Hs.Comment
+  { commentTitle    = Nothing
+  , commentOrigin   = Nothing
+  , commentLocation = Nothing
+  , commentHeader   = Nothing
+  , commentChildren =
+      [ Hs.Paragraph
+          [ Hs.TextContent "Convert Haskell function"
+          , Hs.TypeSignature hsType
+          , Hs.TextContent "to C function pointer."
           ]
-      }
+      ]
+  }
 
 -- | Convert a Haskell type to a string for naming purposes
 typeToString :: Hs.HsType -> String
