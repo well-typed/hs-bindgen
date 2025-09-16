@@ -8,7 +8,6 @@
 module Example where
 
 import qualified Data.List.NonEmpty
-import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
@@ -16,10 +15,11 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.Prelude
-import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
+import Data.Void (Void)
+import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 
-$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } \n")
+$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } \n")
 
 {-| __C declaration:__ @FileOperationStatus@
 
@@ -192,7 +192,7 @@ instance F.Storable FileOperationRecord where
 
     __exported by:__ @program_slicing_selection.h@
 -}
-foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135cbef3" read_file_chunk
+foreign import ccall safe "hs_bindgen_test_program_slicing_selection_13b0ed81415a625a" read_file_chunk
   :: Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
      {- ^ __C declaration:__ @file_ptr@
      -}
@@ -210,11 +210,11 @@ foreign import ccall safe "hs_bindgen_test_program_slicing_selection_2e587488135
 
     __exported by:__ @program_slicing_selection.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86" hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86
+foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4" hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4
   :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
 
 {-# NOINLINE read_file_chunk_ptr #-}
 
 read_file_chunk_ptr :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
 read_file_chunk_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4

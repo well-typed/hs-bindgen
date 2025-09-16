@@ -3,10 +3,10 @@
 
 module Example where
 
-import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import Data.Void (Void)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @foo@

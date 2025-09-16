@@ -1,26 +1,8 @@
 -- addDependentFile examples/golden/skip_over_long_double.h
 -- #include <skip_over_long_double.h>
--- void hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }
--- /* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_94047676e402a0bf (void)) (signed int arg1) { return &fun2; } 
-{-| __C declaration:__ @fun2@
-
-    __defined at:__ @skip_over_long_double.h:7:6@
-
-    __exported by:__ @skip_over_long_double.h@
--}
-foreign import ccall safe "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed" fun2 :: CInt ->
-                                                                                           IO Unit
-{-| __C declaration:__ @fun2@
-
-    __defined at:__ @skip_over_long_double.h:7:6@
-
-    __exported by:__ @skip_over_long_double.h@
--}
-foreign import ccall safe "hs_bindgen_test_skip_over_long_double_94047676e402a0bf" hs_bindgen_test_skip_over_long_double_94047676e402a0bf :: IO (FunPtr (CInt ->
-                                                                                                                                                         IO Unit))
-{-# NOINLINE fun2_ptr #-}
-fun2_ptr :: FunPtr (CInt -> IO Unit)
-fun2_ptr = unsafePerformIO hs_bindgen_test_skip_over_long_double_94047676e402a0bf
+-- void hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (signed int arg1) { fun2(arg1); }
+-- void hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc (signed int arg1) { fun2(arg1); }
+-- /* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } 
 {-| __C declaration:__ @struct2@
 
     __defined at:__ @skip_over_long_double.h:13:8@
@@ -48,3 +30,30 @@ instance Storable Struct2
           peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct2 struct2_x_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_x_3
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @skip_over_long_double.h:7:6@
+
+    __exported by:__ @skip_over_long_double.h@
+-}
+foreign import ccall safe "hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8" fun2 :: CInt ->
+                                                                                           IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @skip_over_long_double.h:7:6@
+
+    __exported by:__ @skip_over_long_double.h@
+-}
+foreign import ccall safe "hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc" fun2 :: CInt ->
+                                                                                           IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @skip_over_long_double.h:7:6@
+
+    __exported by:__ @skip_over_long_double.h@
+-}
+foreign import ccall safe "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa" hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa :: IO (FunPtr (CInt ->
+                                                                                                                                                         IO Unit))
+{-# NOINLINE fun2_ptr #-}
+fun2_ptr :: FunPtr (CInt -> IO Unit)
+fun2_ptr = unsafePerformIO hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa

@@ -11,7 +11,6 @@
 module Example where
 
 import qualified Data.Array.Byte
-import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
@@ -21,24 +20,10 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
+import Data.Bits (FiniteBits)
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } \n")
-
-{-| __C declaration:__ @x@
-
-    __defined at:__ @redeclaration.h:11:5@
-
-    __exported by:__ @redeclaration.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" hs_bindgen_test_redeclaration_59f22ffbb8d28119
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE x_ptr #-}
-
-x_ptr :: Ptr.Ptr FC.CInt
-x_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_redeclaration_59f22ffbb8d28119
+$(CAPI.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } \n")
 
 {-| __C declaration:__ @int_t@
 
@@ -147,3 +132,18 @@ get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
 -}
 set_y_o :: FC.CInt -> Y
 set_y_o = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @redeclaration.h:11:5@
+
+    __exported by:__ @redeclaration.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE x_ptr #-}
+
+x_ptr :: Ptr.Ptr FC.CInt
+x_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_redeclaration_10b125673bf2041b

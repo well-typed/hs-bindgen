@@ -500,107 +500,6 @@
         "Size_type",
       deriveInstanceComment =
       Nothing},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsPrimType HsPrimCInt))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_global_counter_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_doxygen_docs_7c3b3bc7cc470742 (void) { return &global_counter; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_counter",
-          commentLocation = Just
-            "doxygen_docs.h:61:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Verbatim
-              "extern int global_counter",
-            Paragraph
-              [
-                TextContent
-                  "Global counter variable"],
-            Paragraph
-              [
-                TextContent
-                  "This variable tracks the number of operations performed."]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_a8499810bd5203c6",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsPtr
-              (HsPrimType HsPrimCChar)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_a8499810bd5203c6",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_version_string_ptr */ __attribute__ ((const)) char const **hs_bindgen_test_doxygen_docs_a8499810bd5203c6 (void) { return &version_string; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypePointer
-          (TypeConst
-            (TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "version_string",
-          commentLocation = Just
-            "doxygen_docs.h:67:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Verbatim
-              "extern const char* version_string",
-            Paragraph
-              [
-                TextContent
-                  "Version string constant"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclEmpty
     EmptyData {
       emptyDataName = HsName
@@ -1207,3328 +1106,6 @@
               headerInclude =
               "doxygen_docs.h"},
           commentChildren = []}},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "process_data",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "input_data"),
-          functionParameterType = HsPtr
-            (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
-                  "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
-              TypeSpec {
-                typeSpecModule = Just
-                  (HsModuleName
-                    "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
-                typeSpecInstances = Map.fromList
-                  [
-                    _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bounded
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Read
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      FiniteBits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Integral
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Num
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Real
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      StaticSize
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      ReadRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      WriteRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Storable
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = [
-                            ]})]}),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "input_data",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace
-                        [TextContent "input_data"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Input data buffer"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "output_data"),
-          functionParameterType = HsPtr
-            (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
-                  "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
-              TypeSpec {
-                typeSpecModule = Just
-                  (HsModuleName
-                    "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
-                typeSpecInstances = Map.fromList
-                  [
-                    _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bounded
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Read
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      FiniteBits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Integral
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Num
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Real
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      StaticSize
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      ReadRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      WriteRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Storable
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = [
-                            ]})]}),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "output_data",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace
-                        [TextContent "output_data"],
-                      Emph [TextContent "(output)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Output data buffer"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "size"),
-          functionParameterType = HsPtr
-            (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
-                  "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "CSize"}
-              TypeSpec {
-                typeSpecModule = Just
-                  (HsModuleName
-                    "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
-                  (HsIdentifier "CSize"),
-                typeSpecInstances = Map.fromList
-                  [
-                    _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bounded
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Read
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      FiniteBits
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Integral
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Num
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Real
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      StaticSize
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      ReadRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      WriteRaw
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Storable
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = [
-                            ]})]}),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "size",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "size"],
-                      Emph
-                        [TextContent "(input,output)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Size of data, updated on return"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_d3011436e073569c",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_d3011436e073569c (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "input_data",
-                  nameHsIdent = HsIdentifier
-                    "input_data"})
-              (TypePointer
-                (TypeConst
-                  (TypeExtBinding
-                    ResolvedExtBinding {
-                      extCName = QualName {
-                        qualNameName = Name "uint8_t",
-                        qualNameKind =
-                        NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
-                          "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
-                          (HsModuleName
-                            "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
-                        typeSpecInstances = Map.fromList
-                          [
-                            _×_
-                              Eq
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ord
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Enum
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ix
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Bounded
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Read
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Show
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Bits
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              FiniteBits
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Integral
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Num
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Real
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              StaticSize
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              ReadRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              WriteRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Storable
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = [
-                                    ]})]}}))),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "output_data",
-                  nameHsIdent = HsIdentifier
-                    "output_data"})
-              (TypePointer
-                (TypeExtBinding
-                  ResolvedExtBinding {
-                    extCName = QualName {
-                      qualNameName = Name "uint8_t",
-                      qualNameKind =
-                      NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
-                        "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
-                        (HsModuleName
-                          "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
-                      typeSpecInstances = Map.fromList
-                        [
-                          _×_
-                            Eq
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ord
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Enum
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ix
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bounded
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Read
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Show
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            FiniteBits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Integral
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Num
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Real
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            StaticSize
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            ReadRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            WriteRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Storable
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = [
-                                  ]})]}})),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "size",
-                  nameHsIdent = HsIdentifier
-                    "size"})
-              (TypePointer
-                (TypeExtBinding
-                  ResolvedExtBinding {
-                    extCName = QualName {
-                      qualNameName = Name "size_t",
-                      qualNameKind =
-                      NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
-                        "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CSize"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
-                        (HsModuleName
-                          "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
-                        (HsIdentifier "CSize"),
-                      typeSpecInstances = Map.fromList
-                        [
-                          _×_
-                            Eq
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ord
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Enum
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ix
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bounded
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Read
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Show
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            FiniteBits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Integral
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Num
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Real
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            StaticSize
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            ReadRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            WriteRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Storable
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = [
-                                  ]})]}}))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_data",
-          commentLocation = Just
-            "doxygen_docs.h:105:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Function with detailed parameter documentation"],
-            Paragraph
-              [
-                TextContent
-                  "This function shows different parameter directions and types."],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "input_data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Input data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "output_data"],
-                  Emph [TextContent "(output)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Output data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph
-                    [TextContent "(input,output)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Size of data, updated on return"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Status code (0 = success, -1 = error)"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_36ecba874daa1325",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"}
-                  TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}))
-              (HsFun
-                (HsPtr
-                  (HsExtBinding
-                    ExtHsRef {
-                      extHsRefModule = HsModuleName
-                        "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"}
-                    TypeSpec {
-                      typeSpecModule = Just
-                        (HsModuleName
-                          "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
-                      typeSpecInstances = Map.fromList
-                        [
-                          _×_
-                            Eq
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ord
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Enum
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ix
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bounded
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Read
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Show
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            FiniteBits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Integral
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Num
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Real
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            StaticSize
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            ReadRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            WriteRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Storable
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = [
-                                  ]})]}))
-                (HsFun
-                  (HsPtr
-                    (HsExtBinding
-                      ExtHsRef {
-                        extHsRefModule = HsModuleName
-                          "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "CSize"}
-                      TypeSpec {
-                        typeSpecModule = Just
-                          (HsModuleName
-                            "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
-                          (HsIdentifier "CSize"),
-                        typeSpecInstances = Map.fromList
-                          [
-                            _×_
-                              Eq
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ord
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Enum
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ix
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Bounded
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Read
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Show
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Bits
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              FiniteBits
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Integral
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Num
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Real
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              StaticSize
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              ReadRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              WriteRaw
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Storable
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = [
-                                    ]})]}))
-                  (HsIO
-                    (HsPrimType HsPrimCInt))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_36ecba874daa1325",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_36ecba874daa1325 (void)) (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeConst
-                (TypeExtBinding
-                  ResolvedExtBinding {
-                    extCName = QualName {
-                      qualNameName = Name "uint8_t",
-                      qualNameKind =
-                      NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
-                        "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
-                        (HsModuleName
-                          "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
-                      typeSpecInstances = Map.fromList
-                        [
-                          _×_
-                            Eq
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ord
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Enum
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ix
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bounded
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Read
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Show
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            FiniteBits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Integral
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Num
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Real
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            StaticSize
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            ReadRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            WriteRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Storable
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = [
-                                  ]})]}})),
-            TypePointer
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "uint8_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}}),
-            TypePointer
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "size_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_data",
-          commentLocation = Just
-            "doxygen_docs.h:105:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Function with detailed parameter documentation"],
-            Paragraph
-              [
-                TextContent
-                  "This function shows different parameter directions and types."],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "input_data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Input data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "output_data"],
-                  Emph [TextContent "(output)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Output data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph
-                    [TextContent "(input,output)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Size of data, updated on return"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Status code (0 = success, -1 = error)"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "process_file",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "filename"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimCChar),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "filename",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace
-                        [TextContent "filename"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent "The",
-                        Monospace [TextContent "char*"],
-                        TextContent
-                          "filename to process"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCBool)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_4e9b999ed81440c0",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_4e9b999ed81440c0 (char const *arg1) { return process_file(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "filename",
-                  nameHsIdent = HsIdentifier
-                    "filename"})
-              (TypePointer
-                (TypeConst
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit Nothing)))))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            PrimBool},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_file",
-          commentLocation = Just
-            "doxygen_docs.h:116:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with inline commands and formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function uses",
-                Monospace
-                  [TextContent "inline"],
-                Monospace [TextContent "code"],
-                TextContent "formatting and",
-                Bold [TextContent "bold"],
-                TextContent "text.",
-                TextContent
-                  "It also demonstrates",
-                Emph [TextContent "emphasized"],
-                TextContent "text."],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "filename"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent "The",
-                    Monospace [TextContent "char*"],
-                    TextContent
-                      "filename to process"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                Monospace [TextContent "true"],
-                TextContent "if successful,",
-                Monospace [TextContent "false"],
-                TextContent "otherwise"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_25908c11fd21c934",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr (HsPrimType HsPrimCChar))
-              (HsIO
-                (HsPrimType HsPrimCBool))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_25908c11fd21c934",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_25908c11fd21c934 (void)) (char const *arg1) { return &process_file; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeConst
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))]
-          (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_file",
-          commentLocation = Just
-            "doxygen_docs.h:116:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with inline commands and formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function uses",
-                Monospace
-                  [TextContent "inline"],
-                Monospace [TextContent "code"],
-                TextContent "formatting and",
-                Bold [TextContent "bold"],
-                TextContent "text.",
-                TextContent
-                  "It also demonstrates",
-                Emph [TextContent "emphasized"],
-                TextContent "text."],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "filename"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent "The",
-                    Monospace [TextContent "char*"],
-                    TextContent
-                      "filename to process"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                Monospace [TextContent "true"],
-                TextContent "if successful,",
-                Monospace [TextContent "false"],
-                TextContent "otherwise"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "calculate_value",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "base"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "base",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "base"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [TextContent "Base value"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "multiplier"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "multiplier",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace
-                        [TextContent "multiplier"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Multiplier value"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_788bfbb9e824261c",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_788bfbb9e824261c (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "base",
-                  nameHsIdent = HsIdentifier
-                    "base"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed)),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "multiplier",
-                  nameHsIdent = HsIdentifier
-                    "multiplier"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "calculate_value",
-          commentLocation = Just
-            "doxygen_docs.h:131:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with verbatim code blocks"],
-            Paragraph
-              [TextContent "Example usage:"],
-            CodeBlock
-              [
-                "int result = calculate_value(10, 20);",
-                "printf(\"Result: %d@n\", result);"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "base"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Base value"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "multiplier"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Multiplier value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Calculated result"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsFun
-                (HsPrimType HsPrimCInt)
-                (HsIO
-                  (HsPrimType HsPrimCInt)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_calculate_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_bfa9c55857b9f9a4 (void)) (signed int arg1, signed int arg2) { return &calculate_value; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "calculate_value",
-          commentLocation = Just
-            "doxygen_docs.h:131:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with verbatim code blocks"],
-            Paragraph
-              [TextContent "Example usage:"],
-            CodeBlock
-              [
-                "int result = calculate_value(10, 20);",
-                "printf(\"Result: %d@n\", result);"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "base"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Base value"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "multiplier"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Multiplier value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Calculated result"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "html_example",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "value"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "value",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "value"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Input value"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCBool)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_3763cc54606bc611",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_3763cc54606bc611 (signed int arg1) { return html_example(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "value",
-                  nameHsIdent = HsIdentifier
-                    "value"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            PrimBool},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "html_example",
-          commentLocation = Just
-            "doxygen_docs.h:148:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with HTML formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates",
-                TextContent "HTML bold",
-                TextContent "and",
-                TextContent "italic",
-                TextContent "text.",
-                TextContent "It also shows",
-                TextContent "HTML code",
-                TextContent "formatting."],
-            Paragraph
-              [
-                TextContent "Input",
-                TextContent "Output",
-                TextContent "0",
-                TextContent "false",
-                TextContent "1",
-                TextContent "true"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "value"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Boolean result"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_be37db4c71dfaad8",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCBool))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_be37db4c71dfaad8",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_html_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_be37db4c71dfaad8 (void)) (signed int arg1) { return &html_example; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "html_example",
-          commentLocation = Just
-            "doxygen_docs.h:148:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with HTML formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates",
-                TextContent "HTML bold",
-                TextContent "and",
-                TextContent "italic",
-                TextContent "text.",
-                TextContent "It also shows",
-                TextContent "HTML code",
-                TextContent "formatting."],
-            Paragraph
-              [
-                TextContent "Input",
-                TextContent "Output",
-                TextContent "0",
-                TextContent "false",
-                TextContent "1",
-                TextContent "true"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "value"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Boolean result"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "list_example",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "items"),
-          functionParameterType = HsPtr
-            (HsPtr
-              (HsPrimType HsPrimCChar)),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "items",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "items"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Array of items"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "count"),
-          functionParameterType =
-          HsPrimType HsPrimCSize,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "count",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "count"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Number of items"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCBool)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_9d6d039971edcd60",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_9d6d039971edcd60 (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "items",
-                  nameHsIdent = HsIdentifier
-                    "items"})
-              (TypePointer
-                (TypePointer
-                  (TypeConst
-                    (TypePrim
-                      (PrimChar
-                        (PrimSignImplicit Nothing)))))),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "count",
-                  nameHsIdent = HsIdentifier
-                    "count"})
-              (TypePrim PrimSize)],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            PrimBool},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "list_example",
-          commentLocation = Just
-            "doxygen_docs.h:174:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with lists and special formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates:"],
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Bullet point lists"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested list item 1"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested list item 2"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "Multiple items"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested formatting"]]},
-            Paragraph
-              [TextContent "Numbered list:"],
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "First",
-                    Monospace
-                      [TextContent "item"]]]},
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph
-                  [TextContent "item"]]},
-            ListItem {
-              listItemType = NumberedList 2,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "Second",
-                    Bold [TextContent "item"]]]},
-            ListItem {
-              listItemType = NumberedList 3,
-              listItemContent = [
-                Paragraph
-                  [TextContent "Third item"]]},
-            Paragraph
-              [
-                TextContent
-                  "Other numbered list:"],
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph [TextContent "A"]]},
-            ListItem {
-              listItemType = NumberedList 2,
-              listItemContent = [
-                Paragraph [TextContent "B"]]},
-            ListItem {
-              listItemType = NumberedList 3,
-              listItemContent = [
-                Paragraph [TextContent "C"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "items"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent "Array of items"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "count"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Number of items"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Success status"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_c40a51053a97fb29",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsPtr
-                  (HsPrimType HsPrimCChar)))
-              (HsFun
-                (HsPrimType HsPrimCSize)
-                (HsIO
-                  (HsPrimType HsPrimCBool)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_c40a51053a97fb29",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_c40a51053a97fb29 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypePointer
-                (TypeConst
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit Nothing))))),
-            TypePrim PrimSize]
-          (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "list_example",
-          commentLocation = Just
-            "doxygen_docs.h:174:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with lists and special formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates:"],
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Bullet point lists"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested list item 1"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested list item 2"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "Multiple items"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested formatting"]]},
-            Paragraph
-              [TextContent "Numbered list:"],
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "First",
-                    Monospace
-                      [TextContent "item"]]]},
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph
-                  [TextContent "item"]]},
-            ListItem {
-              listItemType = NumberedList 2,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "Second",
-                    Bold [TextContent "item"]]]},
-            ListItem {
-              listItemType = NumberedList 3,
-              listItemContent = [
-                Paragraph
-                  [TextContent "Third item"]]},
-            Paragraph
-              [
-                TextContent
-                  "Other numbered list:"],
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph [TextContent "A"]]},
-            ListItem {
-              listItemType = NumberedList 2,
-              listItemContent = [
-                Paragraph [TextContent "B"]]},
-            ListItem {
-              listItemType = NumberedList 3,
-              listItemContent = [
-                Paragraph [TextContent "C"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "items"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent "Array of items"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "count"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Number of items"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Success status"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "dangerous_function",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "ptr"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimVoid),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "ptr",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "ptr"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Pointer to data"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsPrimType HsPrimVoid))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_doxygen_docs_b9c683fb9a695cc9 (void *arg1) { return dangerous_function(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "ptr",
-                  nameHsIdent = HsIdentifier
-                    "ptr"})
-              (TypePointer TypeVoid)],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "dangerous_function",
-          commentLocation = Just
-            "doxygen_docs.h:186:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with warnings and notes"],
-            Paragraph
-              [
-                Bold
-                  [Emph [TextContent "WARNING:"]],
-                TextContent
-                  "This function may cause side effects"],
-            Paragraph
-              [
-                Bold [TextContent "Note:"],
-                TextContent
-                  "Use with caution in multithreaded environments"],
-            Paragraph
-              [
-                Bold [TextContent "see:"],
-                TextContent
-                  "related_function() for similar functionality"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "ptr"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Pointer to data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Modified pointer"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_291c4151bd4c3637",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr (HsPrimType HsPrimVoid))
-              (HsIO
-                (HsPtr
-                  (HsPrimType HsPrimVoid)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_291c4151bd4c3637",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_dangerous_function_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_291c4151bd4c3637 (void)) (void *arg1) { return &dangerous_function; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [TypePointer TypeVoid]
-          (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "dangerous_function",
-          commentLocation = Just
-            "doxygen_docs.h:186:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with warnings and notes"],
-            Paragraph
-              [
-                Bold
-                  [Emph [TextContent "WARNING:"]],
-                TextContent
-                  "This function may cause side effects"],
-            Paragraph
-              [
-                Bold [TextContent "Note:"],
-                TextContent
-                  "Use with caution in multithreaded environments"],
-            Paragraph
-              [
-                Bold [TextContent "see:"],
-                TextContent
-                  "related_function() for similar functionality"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "ptr"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Pointer to data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Modified pointer"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "detailed_return_codes",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "input"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimCChar),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "input",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "input"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Input string"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_fb3e3158714e01f5",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_fb3e3158714e01f5 (char const *arg1) { return detailed_return_codes(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "input",
-                  nameHsIdent = HsIdentifier
-                    "input"})
-              (TypePointer
-                (TypeConst
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit
-                        (Just Signed))))))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "detailed_return_codes",
-          commentLocation = Just
-            "doxygen_docs.h:197:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with return value details"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "input"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input string"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "0",
-                TextContent "Success"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-1",
-                TextContent "Invalid input"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-2",
-                TextContent
-                  "Memory allocation failed"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-3",
-                TextContent
-                  "Processing error"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr (HsPrimType HsPrimCChar))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_detailed_return_codes_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_a92bbc7b93300d3b (void)) (char const *arg1) { return &detailed_return_codes; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeConst
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "detailed_return_codes",
-          commentLocation = Just
-            "doxygen_docs.h:197:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with return value details"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "input"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input string"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "0",
-                TextContent "Success"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-1",
-                TextContent "Invalid input"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-2",
-                TextContent
-                  "Memory allocation failed"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-3",
-                TextContent
-                  "Processing error"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "old_function",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "old_param"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "old_param",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace
-                        [TextContent "old_param"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Legacy parameter"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_84140a44d1bd8380",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_84140a44d1bd8380 (signed int arg1) { return old_function(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "old_param",
-                  nameHsIdent = HsIdentifier
-                    "old_param"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "old_function",
-          commentLocation = Just
-            "doxygen_docs.h:206:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with deprecated annotation"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "deprecated:"],
-                TextContent
-                  "Use new_function() instead"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "old_param"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Legacy parameter"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Legacy result"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_985c4be1f80d7557",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_985c4be1f80d7557",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_old_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_985c4be1f80d7557 (void)) (signed int arg1) { return &old_function; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "old_function",
-          commentLocation = Just
-            "doxygen_docs.h:206:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with deprecated annotation"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "deprecated:"],
-                TextContent
-                  "Use new_function() instead"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "old_param"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Legacy parameter"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Legacy result"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "versioned_function",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "data'"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "data'",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_7549924ba8d1e7b8 (signed int arg1) { return versioned_function(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "data",
-                  nameHsIdent = HsIdentifier
-                    "data'"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "versioned_function",
-          commentLocation = Just
-            "doxygen_docs.h:216:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with version information"],
-            Paragraph
-              [Metadata (Since " 1.0")],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Processed data"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_6b616614abe7d3f0",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_6b616614abe7d3f0",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_versioned_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_6b616614abe7d3f0 (void)) (signed int arg1) { return &versioned_function; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "versioned_function",
-          commentLocation = Just
-            "doxygen_docs.h:216:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with version information"],
-            Paragraph
-              [Metadata (Since " 1.0")],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Processed data"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -16472,1534 +13049,6 @@
         "Filename_t",
       deriveInstanceComment =
       Nothing},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "process_buffer_wrapper",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "buffer"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimCChar),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "buffer",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace
-                        [TextContent "buffer"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Buffer with minimum size"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "size"),
-          functionParameterType =
-          HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
-            TypeSpec {
-              typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
-              typeSpecInstances = Map.fromList
-                [
-                  _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bounded
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Read
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    FiniteBits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Integral
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Num
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Real
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Storable
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = [
-                          ]})]},
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "size",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "size"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Actual buffer size"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_1ce818d0ed47ea3e (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "buffer",
-                  nameHsIdent = HsIdentifier
-                    "buffer"})
-              (TypeConstArray
-                64
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed))))),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "size",
-                  nameHsIdent = HsIdentifier
-                    "size"})
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "size_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_buffer",
-          commentLocation = Just
-            "doxygen_docs.h:332:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Static array parameter"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "buffer"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Buffer with minimum size"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Actual buffer size"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Number of bytes written"]]},
-      foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsConstArray
-                64
-                (HsPrimType HsPrimCChar))
-              (HsFun
-                (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"}
-                  TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]})
-                (HsIO
-                  (HsPrimType HsPrimCInt)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_process_buffer_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_fdf2d8f3abafc975 (void)) (char arg1[64], size_t arg2) { return &process_buffer; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConstArray
-              64
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_buffer",
-          commentLocation = Just
-            "doxygen_docs.h:332:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Static array parameter"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "buffer"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Buffer with minimum size"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Actual buffer size"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Number of bytes written"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "my_memcpy",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "dest"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimVoid),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "dest",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "dest"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Destination buffer (restrict)"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "src"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimVoid),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "src",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "src"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Source buffer (restrict)"]]}]}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "n"),
-          functionParameterType =
-          HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
-                "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
-            TypeSpec {
-              typeSpecModule = Just
-                (HsModuleName
-                  "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
-              typeSpecInstances = Map.fromList
-                [
-                  _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bounded
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Read
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    FiniteBits
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Integral
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Num
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Real
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    StaticSize
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    ReadRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    WriteRaw
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Storable
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = [
-                          ]})]},
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "n",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "n"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Number of bytes"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsPrimType HsPrimVoid))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_bcbe640b60445a4f",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_doxygen_docs_bcbe640b60445a4f (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "dest",
-                  nameHsIdent = HsIdentifier
-                    "dest"})
-              (TypePointer TypeVoid),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "src",
-                  nameHsIdent = HsIdentifier
-                    "src"})
-              (TypePointer
-                (TypeConst TypeVoid)),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "n",
-                  nameHsIdent = HsIdentifier "n"})
-              (TypeExtBinding
-                ResolvedExtBinding {
-                  extCName = QualName {
-                    qualNameName = Name "size_t",
-                    qualNameKind =
-                    NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
-                      "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
-                      (HsModuleName
-                        "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
-                    typeSpecInstances = Map.fromList
-                      [
-                        _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bounded
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Read
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          FiniteBits
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Integral
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Num
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Real
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          StaticSize
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          ReadRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          WriteRaw
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Storable
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = [
-                                ]})]}})],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memcpy",
-          commentLocation = Just
-            "doxygen_docs.h:342:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with restrict pointers"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "dest"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Destination buffer (restrict)"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "src"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Source buffer (restrict)"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "n"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Number of bytes"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Destination pointer"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_de9d3228e8bac25c",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr (HsPrimType HsPrimVoid))
-              (HsFun
-                (HsPtr (HsPrimType HsPrimVoid))
-                (HsFun
-                  (HsExtBinding
-                    ExtHsRef {
-                      extHsRefModule = HsModuleName
-                        "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CSize"}
-                    TypeSpec {
-                      typeSpecModule = Just
-                        (HsModuleName
-                          "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
-                        (HsIdentifier "CSize"),
-                      typeSpecInstances = Map.fromList
-                        [
-                          _×_
-                            Eq
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ord
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Enum
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ix
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bounded
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Read
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Show
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            FiniteBits
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Integral
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Num
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Real
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            StaticSize
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            ReadRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            WriteRaw
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Storable
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = [
-                                  ]})]})
-                  (HsIO
-                    (HsPtr
-                      (HsPrimType HsPrimVoid)))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_de9d3228e8bac25c",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_de9d3228e8bac25c (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer TypeVoid,
-            TypePointer
-              (TypeConst TypeVoid),
-            TypeExtBinding
-              ResolvedExtBinding {
-                extCName = QualName {
-                  qualNameName = Name "size_t",
-                  qualNameKind =
-                  NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
-                    "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
-                    (HsModuleName
-                      "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
-                  typeSpecInstances = Map.fromList
-                    [
-                      _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bounded
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Read
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        FiniteBits
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Integral
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Num
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Real
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        StaticSize
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        ReadRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        WriteRaw
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Storable
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = [
-                              ]})]}}]
-          (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memcpy",
-          commentLocation = Just
-            "doxygen_docs.h:342:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with restrict pointers"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "dest"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Destination buffer (restrict)"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "src"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Source buffer (restrict)"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "n"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Number of bytes"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Destination pointer"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "double_value",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = [
-                DefinitionList {
-                  definitionListTerm = Bold
-                    [
-                      Monospace [TextContent "x"],
-                      Emph [TextContent "(input)"]],
-                  definitionListContent = [
-                    Paragraph
-                      [
-                        TextContent
-                          "Input value"]]}]}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_1c952f01cc07bb64",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_1c952f01cc07bb64 (signed int arg1) { return double_value(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "double_value",
-          commentLocation = Just
-            "doxygen_docs.h:350:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [TextContent "Inline function"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "x"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Doubled value"]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_faec60e7f49d446c",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_faec60e7f49d446c",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_double_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_faec60e7f49d446c (void)) (signed int arg1) { return &double_value; } ",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "double_value",
-          commentLocation = Just
-            "doxygen_docs.h:350:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [TextContent "Inline function"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "x"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Doubled value"]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -20725,6 +15774,2667 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
+        "process_data",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "input_data"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "input_data",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "input_data"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input data buffer"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "output_data"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "output_data",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "output_data"],
+                      Emph [TextContent "(output)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Output data buffer"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "size"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "CSize"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "CSize"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "size"],
+                      Emph
+                        [TextContent "(input,output)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Size of data, updated on return"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_508324ba72521a99",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_508324ba72521a99 (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input_data",
+                  nameHsIdent = HsIdentifier
+                    "input_data"})
+              (TypePointer
+                (TypeConst
+                  (TypeExtBinding
+                    ResolvedExtBinding {
+                      extCName = QualName {
+                        qualNameName = Name "uint8_t",
+                        qualNameKind =
+                        NameKindOrdinary},
+                      extHsRef = ExtHsRef {
+                        extHsRefModule = HsModuleName
+                          "HsBindgen.Runtime.Prelude",
+                        extHsRefIdentifier =
+                        HsIdentifier "Word8"},
+                      extHsSpec = TypeSpec {
+                        typeSpecModule = Just
+                          (HsModuleName
+                            "HsBindgen.Runtime.Prelude"),
+                        typeSpecIdentifier = Just
+                          (HsIdentifier "Word8"),
+                        typeSpecInstances = Map.fromList
+                          [
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]}}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "output_data",
+                  nameHsIdent = HsIdentifier
+                    "output_data"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "size_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "CSize"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "CSize"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_data",
+          commentLocation = Just
+            "doxygen_docs.h:105:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Function with detailed parameter documentation"],
+            Paragraph
+              [
+                TextContent
+                  "This function shows different parameter directions and types."],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "input_data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Input data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "output_data"],
+                  Emph [TextContent "(output)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Output data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph
+                    [TextContent "(input,output)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Size of data, updated on return"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Status code (0 = success, -1 = error)"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "process_file",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "filename"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "filename",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "filename"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent "The",
+                        Monospace [TextContent "char*"],
+                        TextContent
+                          "filename to process"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCBool)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_02a55804dd9edb28",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_doxygen_docs_02a55804dd9edb28 (char const *arg1) { return process_file(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "filename",
+                  nameHsIdent = HsIdentifier
+                    "filename"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_file",
+          commentLocation = Just
+            "doxygen_docs.h:116:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with inline commands and formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function uses",
+                Monospace
+                  [TextContent "inline"],
+                Monospace [TextContent "code"],
+                TextContent "formatting and",
+                Bold [TextContent "bold"],
+                TextContent "text.",
+                TextContent
+                  "It also demonstrates",
+                Emph [TextContent "emphasized"],
+                TextContent "text."],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "filename"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent "The",
+                    Monospace [TextContent "char*"],
+                    TextContent
+                      "filename to process"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                Monospace [TextContent "true"],
+                TextContent "if successful,",
+                Monospace [TextContent "false"],
+                TextContent "otherwise"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "calculate_value",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "base"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "base",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "base"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [TextContent "Base value"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "multiplier"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "multiplier",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "multiplier"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Multiplier value"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_7ce4f4a3b2997c64",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_7ce4f4a3b2997c64 (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "base",
+                  nameHsIdent = HsIdentifier
+                    "base"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "multiplier",
+                  nameHsIdent = HsIdentifier
+                    "multiplier"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "calculate_value",
+          commentLocation = Just
+            "doxygen_docs.h:131:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with verbatim code blocks"],
+            Paragraph
+              [TextContent "Example usage:"],
+            CodeBlock
+              [
+                "int result = calculate_value(10, 20);",
+                "printf(\"Result: %d@n\", result);"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "base"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Base value"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "multiplier"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Multiplier value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Calculated result"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "html_example",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "value"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "value",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "value"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input value"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCBool)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_b971c7e6099b9f35",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_doxygen_docs_b971c7e6099b9f35 (signed int arg1) { return html_example(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = HsIdentifier
+                    "value"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "html_example",
+          commentLocation = Just
+            "doxygen_docs.h:148:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with HTML formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates",
+                TextContent "HTML bold",
+                TextContent "and",
+                TextContent "italic",
+                TextContent "text.",
+                TextContent "It also shows",
+                TextContent "HTML code",
+                TextContent "formatting."],
+            Paragraph
+              [
+                TextContent "Input",
+                TextContent "Output",
+                TextContent "0",
+                TextContent "false",
+                TextContent "1",
+                TextContent "true"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "value"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Boolean result"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "list_example",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "items"),
+          functionParameterType = HsPtr
+            (HsPtr
+              (HsPrimType HsPrimCChar)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "items",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "items"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Array of items"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "count"),
+          functionParameterType =
+          HsPrimType HsPrimCSize,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "count",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "count"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Number of items"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCBool)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_b42fb41209c21d6e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_doxygen_docs_b42fb41209c21d6e (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "items",
+                  nameHsIdent = HsIdentifier
+                    "items"})
+              (TypePointer
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit Nothing)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = HsIdentifier
+                    "count"})
+              (TypePrim PrimSize)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "doxygen_docs.h:174:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with lists and special formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates:"],
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Bullet point lists"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested list item 1"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested list item 2"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "Multiple items"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested formatting"]]},
+            Paragraph
+              [TextContent "Numbered list:"],
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "First",
+                    Monospace
+                      [TextContent "item"]]]},
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph
+                  [TextContent "item"]]},
+            ListItem {
+              listItemType = NumberedList 2,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "Second",
+                    Bold [TextContent "item"]]]},
+            ListItem {
+              listItemType = NumberedList 3,
+              listItemContent = [
+                Paragraph
+                  [TextContent "Third item"]]},
+            Paragraph
+              [
+                TextContent
+                  "Other numbered list:"],
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph [TextContent "A"]]},
+            ListItem {
+              listItemType = NumberedList 2,
+              listItemContent = [
+                Paragraph [TextContent "B"]]},
+            ListItem {
+              listItemType = NumberedList 3,
+              listItemContent = [
+                Paragraph [TextContent "C"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "items"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent "Array of items"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "count"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Number of items"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Success status"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "dangerous_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "ptr"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "ptr",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "ptr"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Pointer to data"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_344ca27a161ed698",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void *hs_bindgen_test_doxygen_docs_344ca27a161ed698 (void *arg1) { return dangerous_function(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr",
+                  nameHsIdent = HsIdentifier
+                    "ptr"})
+              (TypePointer TypeVoid)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "dangerous_function",
+          commentLocation = Just
+            "doxygen_docs.h:186:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with warnings and notes"],
+            Paragraph
+              [
+                Bold
+                  [Emph [TextContent "WARNING:"]],
+                TextContent
+                  "This function may cause side effects"],
+            Paragraph
+              [
+                Bold [TextContent "Note:"],
+                TextContent
+                  "Use with caution in multithreaded environments"],
+            Paragraph
+              [
+                Bold [TextContent "see:"],
+                TextContent
+                  "related_function() for similar functionality"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "ptr"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Pointer to data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Modified pointer"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "detailed_return_codes",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "input"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "input",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "input"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input string"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_4e897ea8e36e2189",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_4e897ea8e36e2189 (char const *arg1) { return detailed_return_codes(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input",
+                  nameHsIdent = HsIdentifier
+                    "input"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "detailed_return_codes",
+          commentLocation = Just
+            "doxygen_docs.h:197:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with return value details"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "input"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input string"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "0",
+                TextContent "Success"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-1",
+                TextContent "Invalid input"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-2",
+                TextContent
+                  "Memory allocation failed"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-3",
+                TextContent
+                  "Processing error"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "old_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "old_param"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "old_param",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "old_param"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Legacy parameter"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_aee6bb852150141b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_aee6bb852150141b (signed int arg1) { return old_function(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "old_param",
+                  nameHsIdent = HsIdentifier
+                    "old_param"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "old_function",
+          commentLocation = Just
+            "doxygen_docs.h:206:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with deprecated annotation"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "deprecated:"],
+                TextContent
+                  "Use new_function() instead"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "old_param"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Legacy parameter"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Legacy result"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "versioned_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "data'"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_e655a7662e006c99",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_e655a7662e006c99 (signed int arg1) { return versioned_function(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "data'"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "versioned_function",
+          commentLocation = Just
+            "doxygen_docs.h:216:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with version information"],
+            Paragraph
+              [Metadata (Since " 1.0")],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Processed data"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "process_buffer_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "buffer"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "buffer",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "buffer"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Buffer with minimum size"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "size"),
+          functionParameterType =
+          HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "CSize"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "CSize"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "size"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Actual buffer size"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2 (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "buffer",
+                  nameHsIdent = HsIdentifier
+                    "buffer"})
+              (TypeConstArray
+                64
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_buffer",
+          commentLocation = Just
+            "doxygen_docs.h:332:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Static array parameter"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "buffer"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Buffer with minimum size"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Actual buffer size"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Number of bytes written"]]},
+      foreignImportSafety = Safe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_memcpy",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "dest"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "dest",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "dest"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Destination buffer (restrict)"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "src"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "src",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "src"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Source buffer (restrict)"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "n"),
+          functionParameterType =
+          HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "CSize"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "CSize"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "n",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "n"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Number of bytes"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_4b3bfd2d72a2db5d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void *hs_bindgen_test_doxygen_docs_4b3bfd2d72a2db5d (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "dest",
+                  nameHsIdent = HsIdentifier
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = HsIdentifier
+                    "src"})
+              (TypePointer
+                (TypeConst TypeVoid)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "n",
+                  nameHsIdent = HsIdentifier "n"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memcpy",
+          commentLocation = Just
+            "doxygen_docs.h:342:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with restrict pointers"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "dest"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Destination buffer (restrict)"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "src"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Source buffer (restrict)"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "n"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Number of bytes"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Destination pointer"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "double_value",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "x"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input value"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_4a61cf13840fa8c5",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_4a61cf13840fa8c5 (signed int arg1) { return double_value(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "double_value",
+          commentLocation = Just
+            "doxygen_docs.h:350:19",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [TextContent "Inline function"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "x"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Doubled value"]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
         "complex_function",
       foreignImportParameters = [
         FunctionParameter {
@@ -21017,12 +18727,12 @@
               "@NsTypeConstr"
               "Status_code_t"))),
       foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe",
+      "hs_bindgen_test_doxygen_docs_848ab7c74f34f667",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "status_code_t hs_bindgen_test_doxygen_docs_a9d86cb54c7498fe (config_t *arg1, uint8_t const *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }",
+          "status_code_t hs_bindgen_test_doxygen_docs_848ab7c74f34f667 (config_t *arg1, uint8_t const *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }",
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21493,7 +19203,5885 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_doxygen_docs_b7ae5186dd939781",
+        "hash",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_e30754e2591f701a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_e30754e2591f701a (char *arg1) { return hash(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "hash",
+          commentLocation = Just
+            "doxygen_docs.h:427:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent "Marked",
+                Monospace
+                  [
+                    Bold
+                      [
+                        TextContent
+                          "attribute((pure))"]]]]},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "square",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_55e5eb89e54abf83",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "square",
+          commentLocation = Just
+            "doxygen_docs.h:429:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "process_data",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "input_data"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "input_data",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "input_data"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input data buffer"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "output_data"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "output_data",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "output_data"],
+                      Emph [TextContent "(output)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Output data buffer"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "size"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "CSize"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "CSize"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "size"],
+                      Emph
+                        [TextContent "(input,output)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Size of data, updated on return"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_2d2b30c70759c0c4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_2d2b30c70759c0c4 (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input_data",
+                  nameHsIdent = HsIdentifier
+                    "input_data"})
+              (TypePointer
+                (TypeConst
+                  (TypeExtBinding
+                    ResolvedExtBinding {
+                      extCName = QualName {
+                        qualNameName = Name "uint8_t",
+                        qualNameKind =
+                        NameKindOrdinary},
+                      extHsRef = ExtHsRef {
+                        extHsRefModule = HsModuleName
+                          "HsBindgen.Runtime.Prelude",
+                        extHsRefIdentifier =
+                        HsIdentifier "Word8"},
+                      extHsSpec = TypeSpec {
+                        typeSpecModule = Just
+                          (HsModuleName
+                            "HsBindgen.Runtime.Prelude"),
+                        typeSpecIdentifier = Just
+                          (HsIdentifier "Word8"),
+                        typeSpecInstances = Map.fromList
+                          [
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]}}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "output_data",
+                  nameHsIdent = HsIdentifier
+                    "output_data"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "size_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "CSize"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "CSize"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_data",
+          commentLocation = Just
+            "doxygen_docs.h:105:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Function with detailed parameter documentation"],
+            Paragraph
+              [
+                TextContent
+                  "This function shows different parameter directions and types."],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "input_data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Input data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "output_data"],
+                  Emph [TextContent "(output)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Output data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph
+                    [TextContent "(input,output)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Size of data, updated on return"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Status code (0 = success, -1 = error)"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "process_file",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "filename"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "filename",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "filename"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent "The",
+                        Monospace [TextContent "char*"],
+                        TextContent
+                          "filename to process"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCBool)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_d6a9988889495ac1",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_doxygen_docs_d6a9988889495ac1 (char const *arg1) { return process_file(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "filename",
+                  nameHsIdent = HsIdentifier
+                    "filename"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_file",
+          commentLocation = Just
+            "doxygen_docs.h:116:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with inline commands and formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function uses",
+                Monospace
+                  [TextContent "inline"],
+                Monospace [TextContent "code"],
+                TextContent "formatting and",
+                Bold [TextContent "bold"],
+                TextContent "text.",
+                TextContent
+                  "It also demonstrates",
+                Emph [TextContent "emphasized"],
+                TextContent "text."],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "filename"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent "The",
+                    Monospace [TextContent "char*"],
+                    TextContent
+                      "filename to process"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                Monospace [TextContent "true"],
+                TextContent "if successful,",
+                Monospace [TextContent "false"],
+                TextContent "otherwise"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "calculate_value",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "base"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "base",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "base"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [TextContent "Base value"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "multiplier"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "multiplier",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "multiplier"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Multiplier value"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_082e1bba4d72bc95",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_082e1bba4d72bc95 (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "base",
+                  nameHsIdent = HsIdentifier
+                    "base"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "multiplier",
+                  nameHsIdent = HsIdentifier
+                    "multiplier"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "calculate_value",
+          commentLocation = Just
+            "doxygen_docs.h:131:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with verbatim code blocks"],
+            Paragraph
+              [TextContent "Example usage:"],
+            CodeBlock
+              [
+                "int result = calculate_value(10, 20);",
+                "printf(\"Result: %d@n\", result);"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "base"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Base value"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "multiplier"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Multiplier value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Calculated result"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "html_example",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "value"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "value",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "value"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input value"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCBool)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_fddff4284f0988ec",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_doxygen_docs_fddff4284f0988ec (signed int arg1) { return html_example(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = HsIdentifier
+                    "value"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "html_example",
+          commentLocation = Just
+            "doxygen_docs.h:148:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with HTML formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates",
+                TextContent "HTML bold",
+                TextContent "and",
+                TextContent "italic",
+                TextContent "text.",
+                TextContent "It also shows",
+                TextContent "HTML code",
+                TextContent "formatting."],
+            Paragraph
+              [
+                TextContent "Input",
+                TextContent "Output",
+                TextContent "0",
+                TextContent "false",
+                TextContent "1",
+                TextContent "true"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "value"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Boolean result"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "list_example",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "items"),
+          functionParameterType = HsPtr
+            (HsPtr
+              (HsPrimType HsPrimCChar)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "items",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "items"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Array of items"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "count"),
+          functionParameterType =
+          HsPrimType HsPrimCSize,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "count",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "count"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Number of items"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCBool)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_41af05ef1797fa6d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "_Bool hs_bindgen_test_doxygen_docs_41af05ef1797fa6d (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "items",
+                  nameHsIdent = HsIdentifier
+                    "items"})
+              (TypePointer
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit Nothing)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = HsIdentifier
+                    "count"})
+              (TypePrim PrimSize)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "doxygen_docs.h:174:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with lists and special formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates:"],
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Bullet point lists"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested list item 1"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested list item 2"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "Multiple items"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested formatting"]]},
+            Paragraph
+              [TextContent "Numbered list:"],
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "First",
+                    Monospace
+                      [TextContent "item"]]]},
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph
+                  [TextContent "item"]]},
+            ListItem {
+              listItemType = NumberedList 2,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "Second",
+                    Bold [TextContent "item"]]]},
+            ListItem {
+              listItemType = NumberedList 3,
+              listItemContent = [
+                Paragraph
+                  [TextContent "Third item"]]},
+            Paragraph
+              [
+                TextContent
+                  "Other numbered list:"],
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph [TextContent "A"]]},
+            ListItem {
+              listItemType = NumberedList 2,
+              listItemContent = [
+                Paragraph [TextContent "B"]]},
+            ListItem {
+              listItemType = NumberedList 3,
+              listItemContent = [
+                Paragraph [TextContent "C"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "items"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent "Array of items"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "count"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Number of items"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Success status"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "dangerous_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "ptr"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "ptr",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "ptr"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Pointer to data"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_3f6186f38de47df9",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void *hs_bindgen_test_doxygen_docs_3f6186f38de47df9 (void *arg1) { return dangerous_function(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr",
+                  nameHsIdent = HsIdentifier
+                    "ptr"})
+              (TypePointer TypeVoid)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "dangerous_function",
+          commentLocation = Just
+            "doxygen_docs.h:186:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with warnings and notes"],
+            Paragraph
+              [
+                Bold
+                  [Emph [TextContent "WARNING:"]],
+                TextContent
+                  "This function may cause side effects"],
+            Paragraph
+              [
+                Bold [TextContent "Note:"],
+                TextContent
+                  "Use with caution in multithreaded environments"],
+            Paragraph
+              [
+                Bold [TextContent "see:"],
+                TextContent
+                  "related_function() for similar functionality"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "ptr"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Pointer to data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Modified pointer"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "detailed_return_codes",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "input"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "input",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "input"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input string"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_b5913ddf382b031a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_b5913ddf382b031a (char const *arg1) { return detailed_return_codes(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input",
+                  nameHsIdent = HsIdentifier
+                    "input"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "detailed_return_codes",
+          commentLocation = Just
+            "doxygen_docs.h:197:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with return value details"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "input"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input string"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "0",
+                TextContent "Success"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-1",
+                TextContent "Invalid input"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-2",
+                TextContent
+                  "Memory allocation failed"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-3",
+                TextContent
+                  "Processing error"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "old_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "old_param"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "old_param",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "old_param"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Legacy parameter"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_2b7f6e5fbd1f46e1",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_2b7f6e5fbd1f46e1 (signed int arg1) { return old_function(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "old_param",
+                  nameHsIdent = HsIdentifier
+                    "old_param"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "old_function",
+          commentLocation = Just
+            "doxygen_docs.h:206:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with deprecated annotation"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "deprecated:"],
+                TextContent
+                  "Use new_function() instead"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "old_param"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Legacy parameter"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Legacy result"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "versioned_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "data'"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_7760ce72dbe3dbbb",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_7760ce72dbe3dbbb (signed int arg1) { return versioned_function(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "data'"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "versioned_function",
+          commentLocation = Just
+            "doxygen_docs.h:216:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with version information"],
+            Paragraph
+              [Metadata (Since " 1.0")],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Processed data"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "process_buffer_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "buffer"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "buffer",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "buffer"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Buffer with minimum size"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "size"),
+          functionParameterType =
+          HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "CSize"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "CSize"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "size"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Actual buffer size"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_75f51ea0caca0775",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_75f51ea0caca0775 (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "buffer",
+                  nameHsIdent = HsIdentifier
+                    "buffer"})
+              (TypeConstArray
+                64
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_buffer",
+          commentLocation = Just
+            "doxygen_docs.h:332:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Static array parameter"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "buffer"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Buffer with minimum size"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Actual buffer size"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Number of bytes written"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "my_memcpy",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "dest"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "dest",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "dest"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Destination buffer (restrict)"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "src"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "src",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "src"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Source buffer (restrict)"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "n"),
+          functionParameterType =
+          HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "CSize"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "CSize"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "n",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "n"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Number of bytes"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimVoid))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_e8c4a96cefd6117e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void *hs_bindgen_test_doxygen_docs_e8c4a96cefd6117e (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "dest",
+                  nameHsIdent = HsIdentifier
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = HsIdentifier
+                    "src"})
+              (TypePointer
+                (TypeConst TypeVoid)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "n",
+                  nameHsIdent = HsIdentifier "n"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memcpy",
+          commentLocation = Just
+            "doxygen_docs.h:342:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with restrict pointers"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "dest"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Destination buffer (restrict)"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "src"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Source buffer (restrict)"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "n"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Number of bytes"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Destination pointer"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "double_value",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "x"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Input value"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_e73c6e96d9e7581d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_e73c6e96d9e7581d (signed int arg1) { return double_value(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "double_value",
+          commentLocation = Just
+            "doxygen_docs.h:350:19",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [TextContent "Inline function"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "x"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Doubled value"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "complex_function",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "config"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Config_t")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "config",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace
+                        [TextContent "config"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Configuration structure (see",
+                        Identifier "Config_t",
+                        TextContent ")"]]}]}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "data'"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "Word8"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "Word8"),
+                typeSpecInstances = Map.fromList
+                  [
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "size"),
+          functionParameterType =
+          HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "CSize"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "CSize"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "size",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = [
+                DefinitionList {
+                  definitionListTerm = Bold
+                    [
+                      Monospace [TextContent "size"],
+                      Emph [TextContent "(input)"]],
+                  definitionListContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "Size of input data"]]}]}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Status_code_t"))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_bc28ed88ec7705d4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "status_code_t hs_bindgen_test_doxygen_docs_bc28ed88ec7705d4 (config_t *arg1, uint8_t const *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "config",
+                  nameHsIdent = HsIdentifier
+                    "config"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "config_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "config_t",
+                        nameHsIdent = HsIdentifier
+                          "Config_t"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "doxygen_docs.h:232:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = HsIdentifier
+                    "data'"})
+              (TypePointer
+                (TypeConst
+                  (TypeExtBinding
+                    ResolvedExtBinding {
+                      extCName = QualName {
+                        qualNameName = Name "uint8_t",
+                        qualNameKind =
+                        NameKindOrdinary},
+                      extHsRef = ExtHsRef {
+                        extHsRefModule = HsModuleName
+                          "HsBindgen.Runtime.Prelude",
+                        extHsRefIdentifier =
+                        HsIdentifier "Word8"},
+                      extHsSpec = TypeSpec {
+                        typeSpecModule = Just
+                          (HsModuleName
+                            "HsBindgen.Runtime.Prelude"),
+                        typeSpecIdentifier = Just
+                          (HsIdentifier "Word8"),
+                        typeSpecInstances = Map.fromList
+                          [
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]}}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = HsIdentifier
+                    "size"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
+            (TypedefSquashed
+              (Name "status_code_t")
+              (TypeEnum
+                NamePair {
+                  nameC = Name "status_code_t",
+                  nameHsIdent = HsIdentifier
+                    "Status_code_t"}
+                (NameOriginGenerated
+                  (AnonId
+                    "doxygen_docs.h:258:9"))))},
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "complex_function",
+          commentLocation = Just
+            "doxygen_docs.h:423:15",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Function with complex documentation"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates multiple documentation features:"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "Description:"]],
+            Paragraph
+              [
+                TextContent
+                  "Performs complex data processing with multiple steps."],
+            Paragraph
+              [
+                Bold
+                  [TextContent "Algorithm:"]],
+            ListItem {
+              listItemType = NumberedList 10,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Validate input parameters"]]},
+            ListItem {
+              listItemType = NumberedList 200,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Allocate temporary buffers"]]},
+            ListItem {
+              listItemType = NumberedList
+                3000,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Process data in chunks"]]},
+            ListItem {
+              listItemType = NumberedList
+                41235,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Clean up resources"]]},
+            Paragraph
+              [
+                Bold
+                  [TextContent "Algorithm2:"]],
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Validate input parameters"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Allocate temporary buffers"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Process data in chunks"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Clean up resources"]]},
+            Paragraph
+              [Bold [TextContent "Example:"]],
+            CodeBlock
+              [
+                "config_t cfg = {",
+                ".id = 1,",
+                ".name = \"test\",",
+                ".flags = 0,",
+                ".callback = my_callback,",
+                ".user_data = NULL",
+                "};",
+                "",
+                "status_code_t result = complex_function(&cfg, data, size);",
+                "if (result != STATUS_OK) {",
+                "handle_error(result);",
+                "}"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "config"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Configuration structure (see",
+                    Identifier "Config_t",
+                    TextContent ")"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Input data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Size of input data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Status code indicating success or failure"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "pre condition:"],
+                TextContent
+                  "config must not be NULL"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "pre condition:"],
+                TextContent
+                  "data must not be NULL if size > 0"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "post condition:"],
+                TextContent
+                  "Output data is written to config->user_data"],
+            Paragraph
+              [
+                Bold
+                  [Emph [TextContent "WARNING:"]],
+                TextContent
+                  "May return NULL if memory allocation fails"],
+            Paragraph
+              [
+                Bold
+                  [Emph [TextContent "WARNING:"]],
+                TextContent
+                  "Sets errno to EINVAL if parameters are invalid"]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hash",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCChar),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_88887d4b5f42f079",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_88887d4b5f42f079 (char *arg1) { return hash(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "hash",
+          commentLocation = Just
+            "doxygen_docs.h:427:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent "Marked",
+                Monospace
+                  [
+                    Bold
+                      [
+                        TextContent
+                          "attribute((pure))"]]]]},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "square",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsPrimType HsPrimCInt),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_cb3c687f16289bb3",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_doxygen_docs_cb3c687f16289bb3 (signed int arg1) { return square(arg1); }",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "square",
+          commentLocation = Just
+            "doxygen_docs.h:429:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_d0e1f65bee5472f6",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsExtBinding
+                  ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "Word8"}
+                  TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "Word8"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}))
+              (HsFun
+                (HsPtr
+                  (HsExtBinding
+                    ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"}
+                    TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}))
+                (HsFun
+                  (HsPtr
+                    (HsExtBinding
+                      ExtHsRef {
+                        extHsRefModule = HsModuleName
+                          "HsBindgen.Runtime.Prelude",
+                        extHsRefIdentifier =
+                        HsIdentifier "CSize"}
+                      TypeSpec {
+                        typeSpecModule = Just
+                          (HsModuleName
+                            "HsBindgen.Runtime.Prelude"),
+                        typeSpecIdentifier = Just
+                          (HsIdentifier "CSize"),
+                        typeSpecInstances = Map.fromList
+                          [
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]}))
+                  (HsIO
+                    (HsPrimType HsPrimCInt))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_d0e1f65bee5472f6",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_d0e1f65bee5472f6 (void)) (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeConst
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "Word8"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "Word8"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]}})),
+            TypePointer
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "uint8_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "Word8"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "Word8"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}}),
+            TypePointer
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_data",
+          commentLocation = Just
+            "doxygen_docs.h:105:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "Function with detailed parameter documentation"],
+            Paragraph
+              [
+                TextContent
+                  "This function shows different parameter directions and types."],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "input_data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Input data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "output_data"],
+                  Emph [TextContent "(output)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Output data buffer"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph
+                    [TextContent "(input,output)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Size of data, updated on return"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Status code (0 = success, -1 = error)"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_3621ac21e0f7a16b",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr (HsPrimType HsPrimCChar))
+              (HsIO
+                (HsPrimType HsPrimCBool))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_3621ac21e0f7a16b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_3621ac21e0f7a16b (void)) (char const *arg1) { return &process_file; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))]
+          (TypePrim PrimBool)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_file",
+          commentLocation = Just
+            "doxygen_docs.h:116:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with inline commands and formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function uses",
+                Monospace
+                  [TextContent "inline"],
+                Monospace [TextContent "code"],
+                TextContent "formatting and",
+                Bold [TextContent "bold"],
+                TextContent "text.",
+                TextContent
+                  "It also demonstrates",
+                Emph [TextContent "emphasized"],
+                TextContent "text."],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "filename"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent "The",
+                    Monospace [TextContent "char*"],
+                    TextContent
+                      "filename to process"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                Monospace [TextContent "true"],
+                TextContent "if successful,",
+                Monospace [TextContent "false"],
+                TextContent "otherwise"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_90c8694d918623e1",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_90c8694d918623e1",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_calculate_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_90c8694d918623e1 (void)) (signed int arg1, signed int arg2) { return &calculate_value; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "calculate_value",
+          commentLocation = Just
+            "doxygen_docs.h:131:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with verbatim code blocks"],
+            Paragraph
+              [TextContent "Example usage:"],
+            CodeBlock
+              [
+                "int result = calculate_value(10, 20);",
+                "printf(\"Result: %d@n\", result);"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "base"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Base value"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "multiplier"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Multiplier value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Calculated result"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_e113abb2b0034e66",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimCBool))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_e113abb2b0034e66",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_html_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_e113abb2b0034e66 (void)) (signed int arg1) { return &html_example; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim PrimBool)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "html_example",
+          commentLocation = Just
+            "doxygen_docs.h:148:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with HTML formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates",
+                TextContent "HTML bold",
+                TextContent "and",
+                TextContent "italic",
+                TextContent "text.",
+                TextContent "It also shows",
+                TextContent "HTML code",
+                TextContent "formatting."],
+            Paragraph
+              [
+                TextContent "Input",
+                TextContent "Output",
+                TextContent "0",
+                TextContent "false",
+                TextContent "1",
+                TextContent "true"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "value"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Boolean result"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_24b25f22222ce366",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsPtr
+                  (HsPrimType HsPrimCChar)))
+              (HsFun
+                (HsPrimType HsPrimCSize)
+                (HsIO
+                  (HsPrimType HsPrimCBool)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_24b25f22222ce366",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_24b25f22222ce366 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing))))),
+            TypePrim PrimSize]
+          (TypePrim PrimBool)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "list_example",
+          commentLocation = Just
+            "doxygen_docs.h:174:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with lists and special formatting"],
+            Paragraph
+              [
+                TextContent
+                  "This function demonstrates:"],
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Bullet point lists"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested list item 1"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested list item 2"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "Multiple items"]]},
+            ListItem {
+              listItemType = BulletList,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Nested formatting"]]},
+            Paragraph
+              [TextContent "Numbered list:"],
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "First",
+                    Monospace
+                      [TextContent "item"]]]},
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph
+                  [TextContent "item"]]},
+            ListItem {
+              listItemType = NumberedList 2,
+              listItemContent = [
+                Paragraph
+                  [
+                    TextContent "Second",
+                    Bold [TextContent "item"]]]},
+            ListItem {
+              listItemType = NumberedList 3,
+              listItemContent = [
+                Paragraph
+                  [TextContent "Third item"]]},
+            Paragraph
+              [
+                TextContent
+                  "Other numbered list:"],
+            ListItem {
+              listItemType = NumberedList 1,
+              listItemContent = [
+                Paragraph [TextContent "A"]]},
+            ListItem {
+              listItemType = NumberedList 2,
+              listItemContent = [
+                Paragraph [TextContent "B"]]},
+            ListItem {
+              listItemType = NumberedList 3,
+              listItemContent = [
+                Paragraph [TextContent "C"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "items"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent "Array of items"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "count"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Number of items"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Success status"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_6017a8a05430a56b",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO
+                (HsPtr
+                  (HsPrimType HsPrimVoid)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_6017a8a05430a56b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_dangerous_function_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_6017a8a05430a56b (void)) (void *arg1) { return &dangerous_function; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [TypePointer TypeVoid]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "dangerous_function",
+          commentLocation = Just
+            "doxygen_docs.h:186:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with warnings and notes"],
+            Paragraph
+              [
+                Bold
+                  [Emph [TextContent "WARNING:"]],
+                TextContent
+                  "This function may cause side effects"],
+            Paragraph
+              [
+                Bold [TextContent "Note:"],
+                TextContent
+                  "Use with caution in multithreaded environments"],
+            Paragraph
+              [
+                Bold [TextContent "see:"],
+                TextContent
+                  "related_function() for similar functionality"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "ptr"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Pointer to data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Modified pointer"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_78d3a59b40cdc8e7",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr (HsPrimType HsPrimCChar))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_78d3a59b40cdc8e7",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_detailed_return_codes_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_78d3a59b40cdc8e7 (void)) (char const *arg1) { return &detailed_return_codes; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "detailed_return_codes",
+          commentLocation = Just
+            "doxygen_docs.h:197:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with return value details"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "input"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input string"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "0",
+                TextContent "Success"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-1",
+                TextContent "Invalid input"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-2",
+                TextContent
+                  "Memory allocation failed"],
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "-3",
+                TextContent
+                  "Processing error"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_885c5a5805adf39b",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_885c5a5805adf39b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_old_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_885c5a5805adf39b (void)) (signed int arg1) { return &old_function; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "old_function",
+          commentLocation = Just
+            "doxygen_docs.h:206:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with deprecated annotation"],
+            Paragraph
+              [
+                Bold
+                  [TextContent "deprecated:"],
+                TextContent
+                  "Use new_function() instead"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "old_param"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Legacy parameter"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Legacy result"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_247ac59146595fd0",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_247ac59146595fd0",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_versioned_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_247ac59146595fd0 (void)) (signed int arg1) { return &versioned_function; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "versioned_function",
+          commentLocation = Just
+            "doxygen_docs.h:216:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with version information"],
+            Paragraph
+              [Metadata (Since " 1.0")],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Processed data"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_7c3d7625a05c8175",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsConstArray
+                64
+                (HsPrimType HsPrimCChar))
+              (HsFun
+                (HsExtBinding
+                  ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"}
+                  TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]})
+                (HsIO
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_7c3d7625a05c8175",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_process_buffer_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_7c3d7625a05c8175 (void)) (char arg1[64], size_t arg2) { return &process_buffer; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeConstArray
+              64
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
+            TypeExtBinding
+              ResolvedExtBinding {
+                extCName = QualName {
+                  qualNameName = Name "size_t",
+                  qualNameKind =
+                  NameKindOrdinary},
+                extHsRef = ExtHsRef {
+                  extHsRefModule = HsModuleName
+                    "HsBindgen.Runtime.Prelude",
+                  extHsRefIdentifier =
+                  HsIdentifier "CSize"},
+                extHsSpec = TypeSpec {
+                  typeSpecModule = Just
+                    (HsModuleName
+                      "HsBindgen.Runtime.Prelude"),
+                  typeSpecIdentifier = Just
+                    (HsIdentifier "CSize"),
+                  typeSpecInstances = Map.fromList
+                    [
+                      _×_
+                        Eq
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ord
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Enum
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bounded
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Read
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        FiniteBits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Integral
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Num
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        ReadRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = [
+                              ]})]}}]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "process_buffer",
+          commentLocation = Just
+            "doxygen_docs.h:332:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Static array parameter"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "buffer"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Buffer with minimum size"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "size"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Actual buffer size"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Number of bytes written"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_e2e8b5d5ac435de8",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsFun
+                (HsPtr (HsPrimType HsPrimVoid))
+                (HsFun
+                  (HsExtBinding
+                    ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "CSize"}
+                    TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "CSize"),
+                      typeSpecInstances = Map.fromList
+                        [
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]})
+                  (HsIO
+                    (HsPtr
+                      (HsPrimType HsPrimVoid)))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_e2e8b5d5ac435de8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_e2e8b5d5ac435de8 (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer TypeVoid,
+            TypePointer
+              (TypeConst TypeVoid),
+            TypeExtBinding
+              ResolvedExtBinding {
+                extCName = QualName {
+                  qualNameName = Name "size_t",
+                  qualNameKind =
+                  NameKindOrdinary},
+                extHsRef = ExtHsRef {
+                  extHsRefModule = HsModuleName
+                    "HsBindgen.Runtime.Prelude",
+                  extHsRefIdentifier =
+                  HsIdentifier "CSize"},
+                extHsSpec = TypeSpec {
+                  typeSpecModule = Just
+                    (HsModuleName
+                      "HsBindgen.Runtime.Prelude"),
+                  typeSpecIdentifier = Just
+                    (HsIdentifier "CSize"),
+                  typeSpecInstances = Map.fromList
+                    [
+                      _×_
+                        Eq
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ord
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Enum
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bounded
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Read
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        FiniteBits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Integral
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Num
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        ReadRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = [
+                              ]})]}}]
+          (TypePointer TypeVoid)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "my_memcpy",
+          commentLocation = Just
+            "doxygen_docs.h:342:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Function with restrict pointers"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "dest"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Destination buffer (restrict)"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "src"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Source buffer (restrict)"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "n"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Number of bytes"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Destination pointer"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_c819fda6b145aafa",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_c819fda6b145aafa",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_double_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_c819fda6b145aafa (void)) (signed int arg1) { return &double_value; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "double_value",
+          commentLocation = Just
+            "doxygen_docs.h:350:19",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [TextContent "Inline function"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "x"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent "Doubled value"]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_76146a96271b3f75",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -21736,12 +25324,12 @@
                         "@NsTypeConstr"
                         "Status_code_t")))))))),
       foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_b7ae5186dd939781",
+      "hs_bindgen_test_doxygen_docs_76146a96271b3f75",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_complex_function_ptr */ __attribute__ ((const)) status_code_t (*hs_bindgen_test_doxygen_docs_b7ae5186dd939781 (void)) (config_t *arg1, uint8_t const *arg2, size_t arg3) { return &complex_function; } ",
+          "/* get_complex_function_ptr */ __attribute__ ((const)) status_code_t (*hs_bindgen_test_doxygen_docs_76146a96271b3f75 (void)) (config_t *arg1, uint8_t const *arg2, size_t arg3) { return &complex_function; } ",
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -22193,78 +25781,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hash",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "s"),
-          functionParameterType = HsPtr
-            (HsPrimType HsPrimCChar),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "s",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_71214e4420f53a0e",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_71214e4420f53a0e (char *arg1) { return hash(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
-              (TypePointer
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))],
-          functionAttrs =
-          FunctionAttributes
-            CPureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "hash",
-          commentLocation = Just
-            "doxygen_docs.h:427:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent "Marked",
-                Monospace
-                  [
-                    Bold
-                      [
-                        TextContent
-                          "attribute((pure))"]]]]},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_241bedb74b8016f3",
+        "hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -22275,12 +25792,12 @@
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_241bedb74b8016f3",
+      "hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_241bedb74b8016f3 (void)) (char *arg1) { return &hash; } ",
+          "/* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01 (void)) (char *arg1) { return &hash; } ",
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -22313,66 +25830,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "square",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsPrimType HsPrimCInt),
-      foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_8effe939268709e4",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_8effe939268709e4 (signed int arg1) { return square(arg1); }",
-          capiWrapperImport =
-          "doxygen_docs.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            HaskellPureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "square",
-          commentLocation = Just
-            "doxygen_docs.h:429:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a",
+        "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -22383,12 +25841,12 @@
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a",
+      "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_631c7b52d4d4fe3a (void)) (signed int arg1) { return &square; } ",
+          "/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } ",
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -22411,6 +25869,107 @@
               headerInclude =
               "doxygen_docs.h"},
           commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_1a40d1e5fbd04660",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_1a40d1e5fbd04660",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_global_counter_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_doxygen_docs_1a40d1e5fbd04660 (void) { return &global_counter; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "global_counter",
+          commentLocation = Just
+            "doxygen_docs.h:61:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Verbatim
+              "extern int global_counter",
+            Paragraph
+              [
+                TextContent
+                  "Global counter variable"],
+            Paragraph
+              [
+                TextContent
+                  "This variable tracks the number of operations performed."]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_doxygen_docs_0f1cef8c70bbdf2c",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPtr
+              (HsPrimType HsPrimCChar)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_doxygen_docs_0f1cef8c70bbdf2c",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_version_string_ptr */ __attribute__ ((const)) char const **hs_bindgen_test_doxygen_docs_0f1cef8c70bbdf2c (void) { return &version_string; } ",
+          capiWrapperImport =
+          "doxygen_docs.h"},
+      foreignImportOrigin = Global
+        (TypePointer
+          (TypeConst
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "version_string",
+          commentLocation = Just
+            "doxygen_docs.h:67:20",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Verbatim
+              "extern const char* version_string",
+            Paragraph
+              [
+                TextContent
+                  "Version string constant"]]},
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

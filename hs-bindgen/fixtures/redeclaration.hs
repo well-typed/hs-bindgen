@@ -1,43 +1,4 @@
 [
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_redeclaration_59f22ffbb8d28119",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsPrimType HsPrimCInt))),
-      foreignImportOrigName =
-      "hs_bindgen_test_redeclaration_59f22ffbb8d28119",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } ",
-          capiWrapperImport =
-          "redeclaration.h"},
-      foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "x",
-          commentLocation = Just
-            "redeclaration.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["redeclaration.h"],
-              headerInclude =
-              "redeclaration.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -930,4 +891,43 @@
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_o"]]}}]
+                Identifier "get_y_o"]]}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_redeclaration_10b125673bf2041b",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_redeclaration_10b125673bf2041b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } ",
+          capiWrapperImport =
+          "redeclaration.h"},
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x",
+          commentLocation = Just
+            "redeclaration.h:11:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["redeclaration.h"],
+              headerInclude =
+              "redeclaration.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

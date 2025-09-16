@@ -10,11 +10,9 @@
 
 module Example where
 
-import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
-import Data.Void (Void)
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
@@ -24,10 +22,12 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 import qualified Text.Read
+import Data.Bits (FiniteBits)
+import Data.Void (Void)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-$(CAPI.addCSource "#include <distilled_lib_1.h>\nint32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_4a8e737205def139 (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } \n/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } \n")
+$(CAPI.addCSource "#include <distilled_lib_1.h>\nint32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } \n/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } \n")
 
 {-| __C declaration:__ @another_typedef_struct_t@
 
@@ -496,13 +496,25 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
+{-| __C declaration:__ @callback_t@
+
+    __defined at:__ @distilled_lib_1.h:77:19@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
+newtype Callback_t = Callback_t
+  { un_Callback_t :: Ptr.FunPtr ((Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
+
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @distilled_lib_1.h:72:9@
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun_wrapper
   :: Ptr.Ptr A_type_t
      {- ^ __C declaration:__ @i@
      -}
@@ -528,26 +540,14 @@ some_fun =
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_4a8e737205def139" hs_bindgen_test_distilled_lib_1_4a8e737205def139
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
   :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
 
 {-# NOINLINE some_fun_ptr #-}
 
 some_fun_ptr :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
 some_fun_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_4a8e737205def139
-
-{-| __C declaration:__ @callback_t@
-
-    __defined at:__ @distilled_lib_1.h:77:19@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-newtype Callback_t = Callback_t
-  { un_Callback_t :: Ptr.FunPtr ((Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
-  }
-  deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
 
 {-| __C declaration:__ @v@
 
@@ -555,11 +555,11 @@ newtype Callback_t = Callback_t
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" hs_bindgen_test_distilled_lib_1_0f967c83f73d0365
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6
   :: IO (Ptr.Ptr Var_t)
 
 {-# NOINLINE v_ptr #-}
 
 v_ptr :: Ptr.Ptr Var_t
 v_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_0f967c83f73d0365
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6

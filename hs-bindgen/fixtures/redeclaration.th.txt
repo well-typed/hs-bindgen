@@ -1,16 +1,6 @@
 -- addDependentFile examples/golden/redeclaration.h
 -- #include <redeclaration.h>
--- /* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_59f22ffbb8d28119 (void) { return &x; } 
-{-| __C declaration:__ @x@
-
-    __defined at:__ @redeclaration.h:11:5@
-
-    __exported by:__ @redeclaration.h@
--}
-foreign import ccall safe "hs_bindgen_test_redeclaration_59f22ffbb8d28119" hs_bindgen_test_redeclaration_59f22ffbb8d28119 :: IO (Ptr CInt)
-{-# NOINLINE x_ptr #-}
-x_ptr :: Ptr CInt
-x_ptr = unsafePerformIO hs_bindgen_test_redeclaration_59f22ffbb8d28119
+-- /* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } 
 {-| __C declaration:__ @int_t@
 
     __defined at:__ @redeclaration.h:20:13@
@@ -152,3 +142,13 @@ set_y_o :: CInt -> Y
 
 -}
 set_y_o = setUnionPayload
+{-| __C declaration:__ @x@
+
+    __defined at:__ @redeclaration.h:11:5@
+
+    __exported by:__ @redeclaration.h@
+-}
+foreign import ccall safe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b :: IO (Ptr CInt)
+{-# NOINLINE x_ptr #-}
+x_ptr :: Ptr CInt
+x_ptr = unsafePerformIO hs_bindgen_test_redeclaration_10b125673bf2041b

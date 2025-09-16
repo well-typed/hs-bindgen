@@ -1,266 +1,4 @@
 [
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_5c54826466f2e87b",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_5c54826466f2e87b",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_5c54826466f2e87b (void))[3] { return &arr0; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          3
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, complete, not initialised"],
-          commentOrigin = Just "arr0",
-          commentLocation = Just
-            "array.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_ec6a481a47ca4eb1",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_ec6a481a47ca4eb1",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ec6a481a47ca4eb1 (void))[3] { return &arr1; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          3
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, complete, initialised"],
-          commentOrigin = Just "arr1",
-          commentLocation = Just
-            "array.h:14:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_34db8d8b69220fcc",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_34db8d8b69220fcc",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_34db8d8b69220fcc (void))[3] { return &arr2; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          3
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, extern, complete, not initialised"],
-          commentOrigin = Just "arr2",
-          commentLocation = Just
-            "array.h:17:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_f4e746193b856003",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_f4e746193b856003",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_f4e746193b856003 (void))[3] { return &arr3; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          3
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, extern, complete, initialised"],
-          commentOrigin = Just "arr3",
-          commentLocation = Just
-            "array.h:20:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_bf91904b3049fdd2",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              1
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_bf91904b3049fdd2",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bf91904b3049fdd2 (void))[1] { return &arr6; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          1
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, incomplete"],
-          commentOrigin = Just "arr6",
-          commentLocation = Just
-            "array.h:29:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_9be06c66ecc3a933",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsIncompleteArray
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_9be06c66ecc3a933",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9be06c66ecc3a933 (void))[] { return &arr7; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeIncompleteArray
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, extern, incomplete"],
-          commentOrigin = Just "arr7",
-          commentLocation = Just
-            "array.h:32:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1303,378 +1041,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_16bca3ac468967d9",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              3
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_16bca3ac468967d9",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_16bca3ac468967d9 (void))[3] { return &arr_1; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          3
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size"],
-          commentOrigin = Just "arr_1",
-          commentLocation = Just
-            "array.h:59:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_07e58c5432be4a35",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Triplet")))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_07e58c5432be4a35",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_07e58c5432be4a35 (void) { return &arr_2; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "triplet",
-              nameHsIdent = HsIdentifier
-                "Triplet"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "arr_2",
-          commentLocation = Just
-            "array.h:62:16",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_63e072530b04d3b9",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsIncompleteArray
-              (HsPrimType HsPrimCInt)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_63e072530b04d3b9",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_63e072530b04d3b9 (void))[] { return &arr_3; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeIncompleteArray
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "arr_3",
-          commentLocation = Just
-            "array.h:65:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_3db8d1257bc10233",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "List")))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_3db8d1257bc10233",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_3db8d1257bc10233 (void) { return &arr_4; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "list",
-              nameHsIdent = HsIdentifier
-                "List"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "arr_4",
-          commentLocation = Just
-            "array.h:68:13",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_0f74917ee2000dc5",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsConstArray
-              4
-              (HsConstArray
-                3
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_0f74917ee2000dc5",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0f74917ee2000dc5 (void))[4][3] { return &arr_5; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeConstArray
-          4
-          (TypeConstArray
-            3
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "arr_5",
-          commentLocation = Just
-            "array.h:71:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_a48940bd219530d0",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Matrix")))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_a48940bd219530d0",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_a48940bd219530d0 (void) { return &arr_6; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "matrix",
-              nameHsIdent = HsIdentifier
-                "Matrix"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "arr_6",
-          commentLocation = Just
-            "array.h:74:15",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_1196efca365094f7",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsIncompleteArray
-              (HsConstArray
-                3
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_1196efca365094f7",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1196efca365094f7 (void))[][3] { return &arr_7; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeIncompleteArray
-          (TypeConstArray
-            3
-            (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "arr_7",
-          commentLocation = Just
-            "array.h:77:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_array_31b6cf83380518c3",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Tripletlist")))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_31b6cf83380518c3",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_31b6cf83380518c3 (void) { return &arr_8; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "tripletlist",
-              nameHsIdent = HsIdentifier
-                "Tripletlist"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "arr_8",
-          commentLocation = Just
-            "array.h:80:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -1705,12 +1071,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_c3dd28889d5b2858",
+      "hs_bindgen_test_array_5d1be223fd040c3b",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_c3dd28889d5b2858 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_5d1be223fd040c3b (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1760,61 +1126,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_93382555f3789d90",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsFun
-                (HsConstArray
-                  3
-                  (HsPrimType HsPrimCInt))
-                (HsIO
-                  (HsPrimType HsPrimCInt)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_93382555f3789d90",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_93382555f3789d90 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypeConstArray
-              3
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size"],
-          commentOrigin = Just "fun_1",
-          commentLocation = Just
-            "array.h:87:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -1833,12 +1144,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_3a8794adaf677495",
+      "hs_bindgen_test_array_cabe35537b18e986",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_3a8794adaf677495 (signed int *arg1) { return fun_2(arg1); }",
+          "signed int hs_bindgen_test_array_cabe35537b18e986 (signed int *arg1) { return fun_2(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1881,60 +1192,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_4afbbb57351eed54",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Triplet"))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_4afbbb57351eed54",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_4afbbb57351eed54 (void)) (triplet arg1) { return &fun_2; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "triplet",
-                  nameHsIdent = HsIdentifier
-                    "Triplet"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "fun_2",
-          commentLocation = Just
-            "array.h:90:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_3_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -1953,12 +1210,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_9d59f0f165a2f5cf",
+      "hs_bindgen_test_array_4cdbf10236e78984",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_9d59f0f165a2f5cf (signed int *arg1) { return fun_3(arg1); }",
+          "signed int hs_bindgen_test_array_4cdbf10236e78984 (signed int *arg1) { return fun_3(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2000,55 +1257,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_3f63bc5e6ab55421",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsIncompleteArray
-                (HsPrimType HsPrimCInt))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_3f63bc5e6ab55421",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3f63bc5e6ab55421 (void)) (signed int arg1[]) { return &fun_3; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "fun_3",
-          commentLocation = Just
-            "array.h:93:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -2067,12 +1275,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_c650da1d5d7cf63d",
+      "hs_bindgen_test_array_e356c5ddb2608063",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_c650da1d5d7cf63d (signed int *arg1) { return fun_4(arg1); }",
+          "signed int hs_bindgen_test_array_e356c5ddb2608063 (signed int *arg1) { return fun_4(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2115,58 +1323,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_41b8a0c3ba0ec9e1",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName "@NsTypeConstr" "List"))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_41b8a0c3ba0ec9e1",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_4_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_41b8a0c3ba0ec9e1 (void)) (list arg1) { return &fun_4; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "list",
-                  nameHsIdent = HsIdentifier
-                    "List"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "fun_4",
-          commentLocation = Just
-            "array.h:96:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -2187,12 +1343,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_cfa709c8c74d1eb7",
+      "hs_bindgen_test_array_f5ccf2c8d2e60be5",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_cfa709c8c74d1eb7 (signed int (*arg1)[3]) { return fun_5(arg1); }",
+          "signed int hs_bindgen_test_array_f5ccf2c8d2e60be5 (signed int (*arg1)[3]) { return fun_5(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2237,61 +1393,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_d1abe7db131e3b19",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsConstArray
-                4
-                (HsConstArray
-                  3
-                  (HsPrimType HsPrimCInt)))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_d1abe7db131e3b19",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_d1abe7db131e3b19 (void)) (signed int arg1[4][3]) { return &fun_5; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConstArray
-              4
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "fun_5",
-          commentLocation = Just
-            "array.h:99:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_6_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -2312,12 +1413,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_0432f7eb5cf9a91a",
+      "hs_bindgen_test_array_2b3a983697999524",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_0432f7eb5cf9a91a (signed int (*arg1)[3]) { return fun_6(arg1); }",
+          "signed int hs_bindgen_test_array_2b3a983697999524 (signed int (*arg1)[3]) { return fun_6(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2360,60 +1461,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_7c972f297f91d659",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Matrix"))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_7c972f297f91d659",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_7c972f297f91d659 (void)) (matrix arg1) { return &fun_6; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "matrix",
-                  nameHsIdent = HsIdentifier
-                    "Matrix"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "fun_6",
-          commentLocation = Just
-            "array.h:102:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_7_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -2434,12 +1481,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_8dff35caae296df4",
+      "hs_bindgen_test_array_72e9371a1b8b8907",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_8dff35caae296df4 (signed int (*arg1)[3]) { return fun_7(arg1); }",
+          "signed int hs_bindgen_test_array_72e9371a1b8b8907 (signed int (*arg1)[3]) { return fun_7(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2483,59 +1530,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_6b3f3d6a5093e5cc",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsIncompleteArray
-                (HsConstArray
-                  3
-                  (HsPrimType HsPrimCInt)))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_6b3f3d6a5093e5cc",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_6b3f3d6a5093e5cc (void)) (signed int arg1[][3]) { return &fun_7; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "fun_7",
-          commentLocation = Just
-            "array.h:105:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_8_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -2556,12 +1550,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
       foreignImportOrigName =
-      "hs_bindgen_test_array_b7ed421e8d20e910",
+      "hs_bindgen_test_array_62ad87463d9a75de",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_b7ed421e8d20e910 (signed int (*arg1)[3]) { return fun_8(arg1); }",
+          "signed int hs_bindgen_test_array_62ad87463d9a75de (signed int (*arg1)[3]) { return fun_8(arg1); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2604,60 +1598,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_c26b88304638d612",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Tripletlist"))
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_c26b88304638d612",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_c26b88304638d612 (void)) (tripletlist arg1) { return &fun_8; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "tripletlist",
-                  nameHsIdent = HsIdentifier
-                    "Tripletlist"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "fun_8",
-          commentLocation = Just
-            "array.h:108:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_9",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -2668,12 +1608,12 @@
               3
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_c189d8ac4373a49e",
+      "hs_bindgen_test_array_d4c729a69c884fd4",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_c189d8ac4373a49e (void))[3] { return fun_9(); }",
+          "signed int (*hs_bindgen_test_array_d4c729a69c884fd4 (void))[3] { return fun_9(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2708,57 +1648,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_a9f13cbd15057404",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsConstArray
-                  3
-                  (HsPrimType HsPrimCInt)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_a9f13cbd15057404",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_a9f13cbd15057404 (void)) (void))[3] { return &fun_9; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeConstArray
-              3
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size"],
-          commentOrigin = Just "fun_9",
-          commentLocation = Just
-            "array.h:120:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_10",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -2770,12 +1659,12 @@
                 "@NsTypeConstr"
                 "Triplet")))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_8c628ce09b6680aa",
+      "hs_bindgen_test_array_bb92dfded907271e",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "triplet *hs_bindgen_test_array_8c628ce09b6680aa (void) { return fun_10(); }",
+          "triplet *hs_bindgen_test_array_bb92dfded907271e (void) { return fun_10(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2810,58 +1699,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_e0071a6c4a5b4bfc",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Triplet")))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_e0071a6c4a5b4bfc",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_e0071a6c4a5b4bfc (void)) (void) { return &fun_10; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "triplet",
-                  nameHsIdent = HsIdentifier
-                    "Triplet"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "fun_10",
-          commentLocation = Just
-            "array.h:123:10",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_11",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -2871,12 +1708,12 @@
             (HsIncompleteArray
               (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_1b95257f679dfafa",
+      "hs_bindgen_test_array_489aaaa59e992ddf",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_1b95257f679dfafa (void))[] { return fun_11(); }",
+          "signed int (*hs_bindgen_test_array_489aaaa59e992ddf (void))[] { return fun_11(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2910,55 +1747,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_c242f0482c8c80e3",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsIncompleteArray
-                  (HsPrimType HsPrimCInt)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_c242f0482c8c80e3",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_c242f0482c8c80e3 (void)) (void))[] { return &fun_11; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeIncompleteArray
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "fun_11",
-          commentLocation = Just
-            "array.h:126:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_12",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -2970,12 +1758,12 @@
                 "@NsTypeConstr"
                 "List")))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_41c7417f447a711d",
+      "hs_bindgen_test_array_ee94c35f987d6c50",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "list *hs_bindgen_test_array_41c7417f447a711d (void) { return fun_12(); }",
+          "list *hs_bindgen_test_array_ee94c35f987d6c50 (void) { return fun_12(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3010,58 +1798,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_29c3e7c11a23c44f",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "List")))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_29c3e7c11a23c44f",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_12_ptr */ __attribute__ ((const)) list *(*hs_bindgen_test_array_29c3e7c11a23c44f (void)) (void) { return &fun_12; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "list",
-                  nameHsIdent = HsIdentifier
-                    "List"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "fun_12",
-          commentLocation = Just
-            "array.h:129:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_13",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -3074,12 +1810,12 @@
                 3
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_752ccb7f8f99f330",
+      "hs_bindgen_test_array_ca2c7b60ce85a964",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_752ccb7f8f99f330 (void))[4][3] { return fun_13(); }",
+          "signed int (*hs_bindgen_test_array_ca2c7b60ce85a964 (void))[4][3] { return fun_13(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3116,61 +1852,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_c30eaebfadb99814",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsConstArray
-                  4
-                  (HsConstArray
-                    3
-                    (HsPrimType HsPrimCInt))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_c30eaebfadb99814",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_13_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_c30eaebfadb99814 (void)) (void))[4][3] { return &fun_13; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeConstArray
-              4
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "fun_13",
-          commentLocation = Just
-            "array.h:132:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_14",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -3182,12 +1863,12 @@
                 "@NsTypeConstr"
                 "Matrix")))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_6f6335641a10b824",
+      "hs_bindgen_test_array_ab2c533efdae8e41",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "matrix *hs_bindgen_test_array_6f6335641a10b824 (void) { return fun_14(); }",
+          "matrix *hs_bindgen_test_array_ab2c533efdae8e41 (void) { return fun_14(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3222,58 +1903,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_51fe3407a9c308d6",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Matrix")))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_51fe3407a9c308d6",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_51fe3407a9c308d6 (void)) (void) { return &fun_14; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "matrix",
-                  nameHsIdent = HsIdentifier
-                    "Matrix"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "fun_14",
-          commentLocation = Just
-            "array.h:135:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_15",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -3285,12 +1914,12 @@
                 3
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_22a4737ff5651e15",
+      "hs_bindgen_test_array_019bdeb5db79cee1",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_22a4737ff5651e15 (void))[][3] { return fun_15(); }",
+          "signed int (*hs_bindgen_test_array_019bdeb5db79cee1 (void))[][3] { return fun_15(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3326,59 +1955,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_74204588fdafa1a9",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPtr
-                (HsIncompleteArray
-                  (HsConstArray
-                    3
-                    (HsPrimType HsPrimCInt))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_array_74204588fdafa1a9",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_74204588fdafa1a9 (void)) (void))[][3] { return &fun_15; } ",
-          capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
-            (TypeIncompleteArray
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "fun_15",
-          commentLocation = Just
-            "array.h:138:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "fun_16",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -3390,12 +1966,12 @@
                 "@NsTypeConstr"
                 "Tripletlist")))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_bce26548e8519620",
+      "hs_bindgen_test_array_ca0e7c51654fef12",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "tripletlist *hs_bindgen_test_array_bce26548e8519620 (void) { return fun_16(); }",
+          "tripletlist *hs_bindgen_test_array_ca0e7c51654fef12 (void) { return fun_16(); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3430,7 +2006,1762 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_array_58a2b1249489d65b",
+        "fun_1_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_38d1e706888c6509",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_38d1e706888c6509 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size"],
+          commentOrigin = Just "fun_1",
+          commentLocation = Just
+            "array.h:87:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_2_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_39ee469929b167e2",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_39ee469929b167e2 (signed int *arg1) { return fun_2(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = HsIdentifier
+                      "Triplet"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size, typedef"],
+          commentOrigin = Just "fun_2",
+          commentLocation = Just
+            "array.h:90:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_3_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_2aa49d73d177f65b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_2aa49d73d177f65b (signed int *arg1) { return fun_3(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeIncompleteArray
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size"],
+          commentOrigin = Just "fun_3",
+          commentLocation = Just
+            "array.h:93:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_4_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xs"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xs",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_c3b2941d43616704",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_c3b2941d43616704 (signed int *arg1) { return fun_4(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = HsIdentifier
+                      "List"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size, typedef"],
+          commentOrigin = Just "fun_4",
+          commentLocation = Just
+            "array.h:96:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_5_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_69ec2f59c3c40de4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_69ec2f59c3c40de4 (signed int (*arg1)[3]) { return fun_5(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeConstArray
+                4
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size"],
+          commentOrigin = Just "fun_5",
+          commentLocation = Just
+            "array.h:99:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_6_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_a4600c666e12a07a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_a4600c666e12a07a (signed int (*arg1)[3]) { return fun_6(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = HsIdentifier
+                      "Matrix"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size, typedef"],
+          commentOrigin = Just "fun_6",
+          commentLocation = Just
+            "array.h:102:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_7_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_b903c9d5ebf4f21f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_b903c9d5ebf4f21f (signed int (*arg1)[3]) { return fun_7(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size"],
+          commentOrigin = Just "fun_7",
+          commentLocation = Just
+            "array.h:105:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_8_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_88af789e5a205473",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_88af789e5a205473 (signed int (*arg1)[3]) { return fun_8(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = HsIdentifier
+                      "Tripletlist"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size, typedef"],
+          commentOrigin = Just "fun_8",
+          commentLocation = Just
+            "array.h:108:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_9",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_49d4508b43473bd2",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_49d4508b43473bd2 (void))[3] { return fun_9(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size"],
+          commentOrigin = Just "fun_9",
+          commentLocation = Just
+            "array.h:120:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_10",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Triplet")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_d1763638472ee039",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "triplet *hs_bindgen_test_array_d1763638472ee039 (void) { return fun_10(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = HsIdentifier
+                    "Triplet"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size, typedef"],
+          commentOrigin = Just "fun_10",
+          commentLocation = Just
+            "array.h:123:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_11",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_293d2be6d282321b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_293d2be6d282321b (void))[] { return fun_11(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size"],
+          commentOrigin = Just "fun_11",
+          commentLocation = Just
+            "array.h:126:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_12",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "List")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_fe193d0e0c330960",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "list *hs_bindgen_test_array_fe193d0e0c330960 (void) { return fun_12(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = HsIdentifier
+                    "List"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size, typedef"],
+          commentOrigin = Just "fun_12",
+          commentLocation = Just
+            "array.h:129:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_13",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              4
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_f3df0067620bd691",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_f3df0067620bd691 (void))[4][3] { return fun_13(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeConstArray
+              4
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size"],
+          commentOrigin = Just "fun_13",
+          commentLocation = Just
+            "array.h:132:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_14",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Matrix")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_9d75a740147af339",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "matrix *hs_bindgen_test_array_9d75a740147af339 (void) { return fun_14(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = HsIdentifier
+                    "Matrix"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size, typedef"],
+          commentOrigin = Just "fun_14",
+          commentLocation = Just
+            "array.h:135:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_15",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_d49e5e7f4ad3c830",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int (*hs_bindgen_test_array_d49e5e7f4ad3c830 (void))[][3] { return fun_15(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeIncompleteArray
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size"],
+          commentOrigin = Just "fun_15",
+          commentLocation = Just
+            "array.h:138:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun_16",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Tripletlist")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_900726612f7787e4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "tripletlist *hs_bindgen_test_array_900726612f7787e4 (void) { return fun_16(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = HsIdentifier
+                    "Tripletlist"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size, typedef"],
+          commentOrigin = Just "fun_16",
+          commentLocation = Just
+            "array.h:141:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_3ced2f3b2af806f8",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsFun
+                (HsConstArray
+                  3
+                  (HsPrimType HsPrimCInt))
+                (HsIO
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_3ced2f3b2af806f8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3ced2f3b2af806f8 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral PrimInt Signed))]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size"],
+          commentOrigin = Just "fun_1",
+          commentLocation = Just
+            "array.h:87:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_84966994a8d7df93",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Triplet"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_84966994a8d7df93",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_84966994a8d7df93 (void)) (triplet arg1) { return &fun_2; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = HsIdentifier
+                    "Triplet"})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size, typedef"],
+          commentOrigin = Just "fun_2",
+          commentLocation = Just
+            "array.h:90:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_3e6c940dbd7e5492",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsIncompleteArray
+                (HsPrimType HsPrimCInt))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_3e6c940dbd7e5492",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3e6c940dbd7e5492 (void)) (signed int arg1[]) { return &fun_3; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral PrimInt Signed))]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size"],
+          commentOrigin = Just "fun_3",
+          commentLocation = Just
+            "array.h:93:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_d9f87d3e541b15e5",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "List"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_d9f87d3e541b15e5",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_4_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_d9f87d3e541b15e5 (void)) (list arg1) { return &fun_4; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = HsIdentifier
+                    "List"})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size, typedef"],
+          commentOrigin = Just "fun_4",
+          commentLocation = Just
+            "array.h:96:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_cd41e41992d89300",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsConstArray
+                4
+                (HsConstArray
+                  3
+                  (HsPrimType HsPrimCInt)))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_cd41e41992d89300",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_cd41e41992d89300 (void)) (signed int arg1[4][3]) { return &fun_5; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeConstArray
+              4
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size"],
+          commentOrigin = Just "fun_5",
+          commentLocation = Just
+            "array.h:99:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_db0e2655437ab8bb",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Matrix"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_db0e2655437ab8bb",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_db0e2655437ab8bb (void)) (matrix arg1) { return &fun_6; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = HsIdentifier
+                    "Matrix"})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size, typedef"],
+          commentOrigin = Just "fun_6",
+          commentLocation = Just
+            "array.h:102:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_9ec02aa16b020aa0",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsIncompleteArray
+                (HsConstArray
+                  3
+                  (HsPrimType HsPrimCInt)))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_9ec02aa16b020aa0",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9ec02aa16b020aa0 (void)) (signed int arg1[][3]) { return &fun_7; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeIncompleteArray
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size"],
+          commentOrigin = Just "fun_7",
+          commentLocation = Just
+            "array.h:105:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_a41b8d1332b69b95",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Tripletlist"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_a41b8d1332b69b95",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a41b8d1332b69b95 (void)) (tripletlist arg1) { return &fun_8; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = HsIdentifier
+                    "Tripletlist"})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size, typedef"],
+          commentOrigin = Just "fun_8",
+          commentLocation = Just
+            "array.h:108:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_76f53f330102e743",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsConstArray
+                  3
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_76f53f330102e743",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_76f53f330102e743 (void)) (void))[3] { return &fun_9; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size"],
+          commentOrigin = Just "fun_9",
+          commentLocation = Just
+            "array.h:120:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_abcc94f01de77b25",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Triplet")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_abcc94f01de77b25",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_abcc94f01de77b25 (void)) (void) { return &fun_10; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = HsIdentifier
+                    "Triplet"})))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size, typedef"],
+          commentOrigin = Just "fun_10",
+          commentLocation = Just
+            "array.h:123:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_6661b46e4a751a85",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsIncompleteArray
+                  (HsPrimType HsPrimCInt)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_6661b46e4a751a85",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_6661b46e4a751a85 (void)) (void))[] { return &fun_11; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size"],
+          commentOrigin = Just "fun_11",
+          commentLocation = Just
+            "array.h:126:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_9c80a9e3300aad15",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "List")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_9c80a9e3300aad15",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_12_ptr */ __attribute__ ((const)) list *(*hs_bindgen_test_array_9c80a9e3300aad15 (void)) (void) { return &fun_12; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = HsIdentifier
+                    "List"})))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size, typedef"],
+          commentOrigin = Just "fun_12",
+          commentLocation = Just
+            "array.h:129:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_bb741b7e8c029e7e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsConstArray
+                  4
+                  (HsConstArray
+                    3
+                    (HsPrimType HsPrimCInt))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_bb741b7e8c029e7e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_13_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_bb741b7e8c029e7e (void)) (void))[4][3] { return &fun_13; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeConstArray
+              4
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size"],
+          commentOrigin = Just "fun_13",
+          commentLocation = Just
+            "array.h:132:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_75d83252a55a5c64",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Matrix")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_75d83252a55a5c64",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_75d83252a55a5c64 (void)) (void) { return &fun_14; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = HsIdentifier
+                    "Matrix"})))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size, typedef"],
+          commentOrigin = Just "fun_14",
+          commentLocation = Just
+            "array.h:135:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_069ac2d1873f3210",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsIncompleteArray
+                  (HsConstArray
+                    3
+                    (HsPrimType HsPrimCInt))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_069ac2d1873f3210",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_069ac2d1873f3210 (void)) (void))[][3] { return &fun_15; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeIncompleteArray
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size"],
+          commentOrigin = Just "fun_15",
+          commentLocation = Just
+            "array.h:138:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_314971335aaa6db3",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -3443,12 +3774,12 @@
                     "@NsTypeConstr"
                     "Tripletlist")))))),
       foreignImportOrigName =
-      "hs_bindgen_test_array_58a2b1249489d65b",
+      "hs_bindgen_test_array_314971335aaa6db3",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_58a2b1249489d65b (void)) (void) { return &fun_16; } ",
+          "/* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_314971335aaa6db3 (void)) (void) { return &fun_16; } ",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -3469,6 +3800,640 @@
           commentOrigin = Just "fun_16",
           commentLocation = Just
             "array.h:141:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_a6413f4d2092265d",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_a6413f4d2092265d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a6413f4d2092265d (void))[3] { return &arr0; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Global, complete, not initialised"],
+          commentOrigin = Just "arr0",
+          commentLocation = Just
+            "array.h:11:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_1693226264ba4aeb",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_1693226264ba4aeb",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1693226264ba4aeb (void))[3] { return &arr1; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Global, complete, initialised"],
+          commentOrigin = Just "arr1",
+          commentLocation = Just
+            "array.h:14:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_dafcf99a73b93389",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_dafcf99a73b93389",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_dafcf99a73b93389 (void))[3] { return &arr2; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Global, extern, complete, not initialised"],
+          commentOrigin = Just "arr2",
+          commentLocation = Just
+            "array.h:17:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_ca1016acc3449dee",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_ca1016acc3449dee",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ca1016acc3449dee (void))[3] { return &arr3; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Global, extern, complete, initialised"],
+          commentOrigin = Just "arr3",
+          commentLocation = Just
+            "array.h:20:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_1a8c921160bc99a6",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              1
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_1a8c921160bc99a6",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1a8c921160bc99a6 (void))[1] { return &arr6; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          1
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Global, incomplete"],
+          commentOrigin = Just "arr6",
+          commentLocation = Just
+            "array.h:29:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_17cf970243739b65",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_17cf970243739b65",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_17cf970243739b65 (void))[] { return &arr7; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeIncompleteArray
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Global, extern, incomplete"],
+          commentOrigin = Just "arr7",
+          commentLocation = Just
+            "array.h:32:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_85bc33b188037456",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_85bc33b188037456",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_85bc33b188037456 (void))[3] { return &arr_1; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          3
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size"],
+          commentOrigin = Just "arr_1",
+          commentLocation = Just
+            "array.h:59:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_87c784150cd3ff65",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Triplet")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_87c784150cd3ff65",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_87c784150cd3ff65 (void) { return &arr_2; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "triplet",
+              nameHsIdent = HsIdentifier
+                "Triplet"})),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of known size, typedef"],
+          commentOrigin = Just "arr_2",
+          commentLocation = Just
+            "array.h:62:16",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_e7b0de7633a7a62a",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsPrimType HsPrimCInt)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_e7b0de7633a7a62a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_e7b0de7633a7a62a (void))[] { return &arr_3; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeIncompleteArray
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size"],
+          commentOrigin = Just "arr_3",
+          commentLocation = Just
+            "array.h:65:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_8fb64bc6c2bd4c73",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "List")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_8fb64bc6c2bd4c73",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_8fb64bc6c2bd4c73 (void) { return &arr_4; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "list",
+              nameHsIdent = HsIdentifier
+                "List"})),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Array of unknown size, typedef"],
+          commentOrigin = Just "arr_4",
+          commentLocation = Just
+            "array.h:68:13",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_7348a94e6adce96e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsConstArray
+              4
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_7348a94e6adce96e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_7348a94e6adce96e (void))[4][3] { return &arr_5; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeConstArray
+          4
+          (TypeConstArray
+            3
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size"],
+          commentOrigin = Just "arr_5",
+          commentLocation = Just
+            "array.h:71:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_1308613140bb4b80",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Matrix")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_1308613140bb4b80",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_1308613140bb4b80 (void) { return &arr_6; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "matrix",
+              nameHsIdent = HsIdentifier
+                "Matrix"})),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of known size, typedef"],
+          commentOrigin = Just "arr_6",
+          commentLocation = Just
+            "array.h:74:15",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_a060984b378ed676",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsIncompleteArray
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_a060984b378ed676",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a060984b378ed676 (void))[][3] { return &arr_7; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeIncompleteArray
+          (TypeConstArray
+            3
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size"],
+          commentOrigin = Just "arr_7",
+          commentLocation = Just
+            "array.h:77:12",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_d82706abb6d8ea04",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Tripletlist")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_d82706abb6d8ea04",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_d82706abb6d8ea04 (void) { return &arr_8; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeTypedef
+          (TypedefRegular
+            NamePair {
+              nameC = Name "tripletlist",
+              nameHsIdent = HsIdentifier
+                "Tripletlist"})),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Multi-dimensional array of unknown size, typedef"],
+          commentOrigin = Just "arr_8",
+          commentLocation = Just
+            "array.h:80:20",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList

@@ -10,7 +10,7 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
-$(CAPI.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_401ecb7e80957164 (void) { return &b; } \n")
+$(CAPI.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_fcd0c984d664f6ee (void) { return &b; } \n")
 
 {-| __C declaration:__ @b@
 
@@ -18,11 +18,11 @@ $(CAPI.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)
 
     __exported by:__ @bool_c23.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_bool_c23_401ecb7e80957164" hs_bindgen_test_bool_c23_401ecb7e80957164
+foreign import ccall unsafe "hs_bindgen_test_bool_c23_fcd0c984d664f6ee" hs_bindgen_test_bool_c23_fcd0c984d664f6ee
   :: IO (Ptr.Ptr FC.CBool)
 
 {-# NOINLINE b_ptr #-}
 
 b_ptr :: Ptr.Ptr FC.CBool
 b_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_bool_c23_401ecb7e80957164
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_bool_c23_fcd0c984d664f6ee

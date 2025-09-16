@@ -8,7 +8,6 @@
 
 module Example where
 
-import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
@@ -17,9 +16,10 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.ConstantArray
+import Data.Bits (FiniteBits)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
-$(CAPI.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } \n")
+$(CAPI.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_7d4128962cfce15d (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } \n")
 
 newtype Int16_T = Int16_T
   { un_Int16_T :: FC.CShort
@@ -204,7 +204,7 @@ instance F.Storable A where
 
     __exported by:__ @spec_examples.h@
 -}
-foreign import ccall safe "hs_bindgen_test_spec_examples_bab0544b0c2274da" resample_wrapper
+foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resample_wrapper
   :: Ptr.Ptr Int32_T
      {- ^ __C declaration:__ @res_m_num_valid_samples@
      -}
@@ -239,11 +239,11 @@ resample =
 
     __exported by:__ @spec_examples.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_spec_examples_215c42c65ae193a6" hs_bindgen_test_spec_examples_215c42c65ae193a6
+foreign import ccall unsafe "hs_bindgen_test_spec_examples_46b04422dcd0bbd5" hs_bindgen_test_spec_examples_46b04422dcd0bbd5
   :: IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
 
 {-# NOINLINE resample_ptr #-}
 
 resample_ptr :: Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())
 resample_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_spec_examples_215c42c65ae193a6
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_spec_examples_46b04422dcd0bbd5

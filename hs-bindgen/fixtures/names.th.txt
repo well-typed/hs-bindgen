@@ -1,477 +1,677 @@
 -- addDependentFile examples/golden/names.h
 -- #include <names.h>
--- void hs_bindgen_test_names_a08e966b63669ba8 (void) { by(); }
--- /* get_by_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_bb58aea59417aa76 (void)) (void) { return &by; } 
--- void hs_bindgen_test_names_946148697abf4575 (void) { forall(); }
--- /* get_forall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_4a4cda3da32bed2b (void)) (void) { return &forall; } 
--- void hs_bindgen_test_names_a1ece6a6fa8e9763 (void) { mdo(); }
--- /* get_mdo_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_f3f3b62a0c9a709c (void)) (void) { return &mdo; } 
--- void hs_bindgen_test_names_1e48788938305e48 (void) { pattern(); }
--- /* get_pattern_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d6de06049441d0d8 (void)) (void) { return &pattern; } 
--- void hs_bindgen_test_names_9bb16600c50998ed (void) { proc(); }
--- /* get_proc_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_e5d464f87b7fe950 (void)) (void) { return &proc; } 
--- void hs_bindgen_test_names_8dfd7fa26e360d8e (void) { rec(); }
--- /* get_rec_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_ab3827c2d532dee0 (void)) (void) { return &rec; } 
--- void hs_bindgen_test_names_57c5446244bcece1 (void) { using(); }
--- /* get_using_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_c00c761386bb1622 (void)) (void) { return &using; } 
--- void hs_bindgen_test_names_a2a878b7e49c1a71 (void) { anyclass(); }
--- /* get_anyclass_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_4a396f85749a2639 (void)) (void) { return &anyclass; } 
--- void hs_bindgen_test_names_2f73a4347f70a468 (void) { capi(); }
--- /* get_capi_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_c343892e825ac083 (void)) (void) { return &capi; } 
--- void hs_bindgen_test_names_cb2993ce15743783 (void) { cases(); }
--- /* get_cases_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_142ad3bb39343793 (void)) (void) { return &cases; } 
--- void hs_bindgen_test_names_954c564a2bd129a5 (void) { ccall(); }
--- /* get_ccall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_c601c7e6cf3e8093 (void)) (void) { return &ccall; } 
--- void hs_bindgen_test_names_3a96dcbee4c024e0 (void) { dynamic(); }
--- /* get_dynamic_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_041d2882439ff8ed (void)) (void) { return &dynamic; } 
--- void hs_bindgen_test_names_2e78d006337ea551 (void) { export(); }
--- /* get_export_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_8ab0ab2a4f7b30af (void)) (void) { return &export; } 
--- void hs_bindgen_test_names_10c8e433951b50a8 (void) { family(); }
--- /* get_family_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9c717aeb3b2a21a7 (void)) (void) { return &family; } 
--- void hs_bindgen_test_names_6217d85466fed7df (void) { group(); }
--- /* get_group_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_21121f108b34a76f (void)) (void) { return &group; } 
--- void hs_bindgen_test_names_00164685ff44cb75 (void) { interruptible(); }
--- /* get_interruptible_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_99f8d337ba1ebac6 (void)) (void) { return &interruptible; } 
--- void hs_bindgen_test_names_c810b13a75ea93bc (void) { javascript(); }
--- /* get_javascript_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_4603bd39e6211039 (void)) (void) { return &javascript; } 
--- void hs_bindgen_test_names_41d6d93a2614dff5 (void) { label(); }
--- /* get_label_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_a0fbab6bd4868b8a (void)) (void) { return &label; } 
--- void hs_bindgen_test_names_bdfec7f41298a418 (void) { prim(); }
--- /* get_prim_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_a21123e386a2c566 (void)) (void) { return &prim; } 
--- void hs_bindgen_test_names_0d10aaa9ecbf0f2f (void) { role(); }
--- /* get_role_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_da0964ddbc3ebb7a (void)) (void) { return &role; } 
--- void hs_bindgen_test_names_0ebc368c3818b18b (void) { safe(); }
--- /* get_safe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_b7ed55355edeb6b7 (void)) (void) { return &safe; } 
--- void hs_bindgen_test_names_764bfbe5fbb4fac9 (void) { stdcall(); }
--- /* get_stdcall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_71d621f5185b4a35 (void)) (void) { return &stdcall; } 
--- void hs_bindgen_test_names_6597a6eedc28f577 (void) { stock(); }
--- /* get_stock_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_1956b7d5c507eed1 (void)) (void) { return &stock; } 
--- void hs_bindgen_test_names_1aef1bdf2d1ba544 (void) { unsafe(); }
--- /* get_unsafe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_b758151b55abc14a (void)) (void) { return &unsafe; } 
--- void hs_bindgen_test_names_d428a3f008917f79 (void) { via(); }
--- /* get_via_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_426a163ac069db6c (void)) (void) { return &via; } 
+-- void hs_bindgen_test_names_0e7f535b7085fc20 (void) { by(); }
+-- void hs_bindgen_test_names_fc72c248490e573d (void) { forall(); }
+-- void hs_bindgen_test_names_f21dd25a8b27374a (void) { mdo(); }
+-- void hs_bindgen_test_names_0ab5fb5a8105f789 (void) { pattern(); }
+-- void hs_bindgen_test_names_c14da8252137427c (void) { proc(); }
+-- void hs_bindgen_test_names_1706dcb069f095bc (void) { rec(); }
+-- void hs_bindgen_test_names_9cbe86d126f1d8ee (void) { using(); }
+-- void hs_bindgen_test_names_84e650893f3a92e0 (void) { anyclass(); }
+-- void hs_bindgen_test_names_a931e0b3ecf47315 (void) { capi(); }
+-- void hs_bindgen_test_names_8a21f58b60402b4c (void) { cases(); }
+-- void hs_bindgen_test_names_e72f0a6b1520490f (void) { ccall(); }
+-- void hs_bindgen_test_names_87e085120fafde48 (void) { dynamic(); }
+-- void hs_bindgen_test_names_0e6d6a351c0f2d6b (void) { export(); }
+-- void hs_bindgen_test_names_bd4d89d0e474ae7a (void) { family(); }
+-- void hs_bindgen_test_names_d33488d9cb279feb (void) { group(); }
+-- void hs_bindgen_test_names_9a3851f5a39a9e5d (void) { interruptible(); }
+-- void hs_bindgen_test_names_fa9100d6d4da2bd4 (void) { javascript(); }
+-- void hs_bindgen_test_names_264e9aa826f1d8fd (void) { label(); }
+-- void hs_bindgen_test_names_06aa327310da5120 (void) { prim(); }
+-- void hs_bindgen_test_names_0c2d88e0ce229900 (void) { role(); }
+-- void hs_bindgen_test_names_a703e7f54db3712e (void) { safe(); }
+-- void hs_bindgen_test_names_001ca64746b969f3 (void) { stdcall(); }
+-- void hs_bindgen_test_names_44ab69657e70c20b (void) { stock(); }
+-- void hs_bindgen_test_names_cf74a7d7f3568406 (void) { unsafe(); }
+-- void hs_bindgen_test_names_f24fb703d4751a60 (void) { via(); }
+-- void hs_bindgen_test_names_757d799fd708dfd3 (void) { by(); }
+-- void hs_bindgen_test_names_56a86e542f270644 (void) { forall(); }
+-- void hs_bindgen_test_names_66ccc318fc33f3db (void) { mdo(); }
+-- void hs_bindgen_test_names_59e8310c2fbfd7a5 (void) { pattern(); }
+-- void hs_bindgen_test_names_0e3a2ce0789fb7e6 (void) { proc(); }
+-- void hs_bindgen_test_names_a8bd1db6a6708dae (void) { rec(); }
+-- void hs_bindgen_test_names_4f84a89a7d96b0e6 (void) { using(); }
+-- void hs_bindgen_test_names_e4c0e5d7430611d1 (void) { anyclass(); }
+-- void hs_bindgen_test_names_0b2f0d5537de919f (void) { capi(); }
+-- void hs_bindgen_test_names_1ffa6d7a4b3beb7c (void) { cases(); }
+-- void hs_bindgen_test_names_ebc1b326e523e58f (void) { ccall(); }
+-- void hs_bindgen_test_names_ab433e9e3ef36d2f (void) { dynamic(); }
+-- void hs_bindgen_test_names_df679baa272472fa (void) { export(); }
+-- void hs_bindgen_test_names_9a60b7b7be9ca341 (void) { family(); }
+-- void hs_bindgen_test_names_3923700cc828a4dd (void) { group(); }
+-- void hs_bindgen_test_names_ba3f97d9b80e552c (void) { interruptible(); }
+-- void hs_bindgen_test_names_f348c51860201a12 (void) { javascript(); }
+-- void hs_bindgen_test_names_464d035f44366a5b (void) { label(); }
+-- void hs_bindgen_test_names_1a1c4d5a866be872 (void) { prim(); }
+-- void hs_bindgen_test_names_2b805a841a0f220d (void) { role(); }
+-- void hs_bindgen_test_names_efbfe85dc9b68bc4 (void) { safe(); }
+-- void hs_bindgen_test_names_27ef4256cbaf6815 (void) { stdcall(); }
+-- void hs_bindgen_test_names_6e4ae46773b9e016 (void) { stock(); }
+-- void hs_bindgen_test_names_03cf69812528c410 (void) { unsafe(); }
+-- void hs_bindgen_test_names_e611a3f38f7a3eb9 (void) { via(); }
+-- /* get_by_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_3e566432e1b7bdd8 (void)) (void) { return &by; } 
+-- /* get_forall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_a56841d4692515a9 (void)) (void) { return &forall; } 
+-- /* get_mdo_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_4b14baa1fbc8f378 (void)) (void) { return &mdo; } 
+-- /* get_pattern_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_b393d3c39de80903 (void)) (void) { return &pattern; } 
+-- /* get_proc_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_f73545ae9224ff2d (void)) (void) { return &proc; } 
+-- /* get_rec_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_0dd0f0805657312b (void)) (void) { return &rec; } 
+-- /* get_using_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_aa3ce68f2bc5f037 (void)) (void) { return &using; } 
+-- /* get_anyclass_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9f90f5dd46a351a4 (void)) (void) { return &anyclass; } 
+-- /* get_capi_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_3513093206483c6f (void)) (void) { return &capi; } 
+-- /* get_cases_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_af7d0bdd6562f7d9 (void)) (void) { return &cases; } 
+-- /* get_ccall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_79b6583362113331 (void)) (void) { return &ccall; } 
+-- /* get_dynamic_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_5c19071f2f4eaf45 (void)) (void) { return &dynamic; } 
+-- /* get_export_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_98505ac7a8664e29 (void)) (void) { return &export; } 
+-- /* get_family_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_849e77496a12f443 (void)) (void) { return &family; } 
+-- /* get_group_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_41e72434cbcfa0d5 (void)) (void) { return &group; } 
+-- /* get_interruptible_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d016728709223884 (void)) (void) { return &interruptible; } 
+-- /* get_javascript_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_fa5819996081f2b8 (void)) (void) { return &javascript; } 
+-- /* get_label_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_0004d966bf5f8027 (void)) (void) { return &label; } 
+-- /* get_prim_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d9ec78c543d7f0ea (void)) (void) { return &prim; } 
+-- /* get_role_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_89449e7f8f90fc97 (void)) (void) { return &role; } 
+-- /* get_safe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_983c057a9645fd29 (void)) (void) { return &safe; } 
+-- /* get_stdcall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_8ea4a9581868a08c (void)) (void) { return &stdcall; } 
+-- /* get_stock_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9d4197174428177d (void)) (void) { return &stock; } 
+-- /* get_unsafe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_6eb48adc74567d6d (void)) (void) { return &unsafe; } 
+-- /* get_via_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_64eddb721da8c268 (void)) (void) { return &via; } 
 {-| __C declaration:__ @by@
 
     __defined at:__ @names.h:3:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_a08e966b63669ba8" by' :: IO Unit
+foreign import ccall safe "hs_bindgen_test_names_0e7f535b7085fc20" by' :: IO Unit
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @names.h:4:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_fc72c248490e573d" forall' :: IO Unit
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @names.h:5:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_f21dd25a8b27374a" mdo' :: IO Unit
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @names.h:6:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_0ab5fb5a8105f789" pattern' :: IO Unit
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @names.h:7:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_c14da8252137427c" proc' :: IO Unit
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @names.h:8:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_1706dcb069f095bc" rec' :: IO Unit
+{-| __C declaration:__ @using@
+
+    __defined at:__ @names.h:9:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_9cbe86d126f1d8ee" using' :: IO Unit
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @names.h:12:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_84e650893f3a92e0" anyclass :: IO Unit
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @names.h:13:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_a931e0b3ecf47315" capi :: IO Unit
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @names.h:14:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_8a21f58b60402b4c" cases :: IO Unit
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @names.h:15:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_e72f0a6b1520490f" ccall :: IO Unit
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @names.h:16:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_87e085120fafde48" dynamic :: IO Unit
+{-| __C declaration:__ @export@
+
+    __defined at:__ @names.h:17:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_0e6d6a351c0f2d6b" export :: IO Unit
+{-| __C declaration:__ @family@
+
+    __defined at:__ @names.h:18:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_bd4d89d0e474ae7a" family :: IO Unit
+{-| __C declaration:__ @group@
+
+    __defined at:__ @names.h:19:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_d33488d9cb279feb" group :: IO Unit
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @names.h:20:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_9a3851f5a39a9e5d" interruptible :: IO Unit
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @names.h:21:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_fa9100d6d4da2bd4" javascript :: IO Unit
+{-| __C declaration:__ @label@
+
+    __defined at:__ @names.h:22:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_264e9aa826f1d8fd" label :: IO Unit
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @names.h:23:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_06aa327310da5120" prim :: IO Unit
+{-| __C declaration:__ @role@
+
+    __defined at:__ @names.h:24:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_0c2d88e0ce229900" role :: IO Unit
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @names.h:25:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_a703e7f54db3712e" safe :: IO Unit
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @names.h:26:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_001ca64746b969f3" stdcall :: IO Unit
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @names.h:27:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_44ab69657e70c20b" stock :: IO Unit
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @names.h:28:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_cf74a7d7f3568406" unsafe :: IO Unit
+{-| __C declaration:__ @via@
+
+    __defined at:__ @names.h:29:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_f24fb703d4751a60" via :: IO Unit
 {-| __C declaration:__ @by@
 
     __defined at:__ @names.h:3:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_bb58aea59417aa76" hs_bindgen_test_names_bb58aea59417aa76 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_757d799fd708dfd3" by' :: IO Unit
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @names.h:4:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_56a86e542f270644" forall' :: IO Unit
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @names.h:5:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_66ccc318fc33f3db" mdo' :: IO Unit
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @names.h:6:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_59e8310c2fbfd7a5" pattern' :: IO Unit
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @names.h:7:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_0e3a2ce0789fb7e6" proc' :: IO Unit
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @names.h:8:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_a8bd1db6a6708dae" rec' :: IO Unit
+{-| __C declaration:__ @using@
+
+    __defined at:__ @names.h:9:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_4f84a89a7d96b0e6" using' :: IO Unit
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @names.h:12:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_e4c0e5d7430611d1" anyclass :: IO Unit
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @names.h:13:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_0b2f0d5537de919f" capi :: IO Unit
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @names.h:14:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_1ffa6d7a4b3beb7c" cases :: IO Unit
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @names.h:15:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_ebc1b326e523e58f" ccall :: IO Unit
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @names.h:16:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_ab433e9e3ef36d2f" dynamic :: IO Unit
+{-| __C declaration:__ @export@
+
+    __defined at:__ @names.h:17:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_df679baa272472fa" export :: IO Unit
+{-| __C declaration:__ @family@
+
+    __defined at:__ @names.h:18:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_9a60b7b7be9ca341" family :: IO Unit
+{-| __C declaration:__ @group@
+
+    __defined at:__ @names.h:19:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_3923700cc828a4dd" group :: IO Unit
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @names.h:20:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_ba3f97d9b80e552c" interruptible :: IO Unit
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @names.h:21:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_f348c51860201a12" javascript :: IO Unit
+{-| __C declaration:__ @label@
+
+    __defined at:__ @names.h:22:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_464d035f44366a5b" label :: IO Unit
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @names.h:23:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_1a1c4d5a866be872" prim :: IO Unit
+{-| __C declaration:__ @role@
+
+    __defined at:__ @names.h:24:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_2b805a841a0f220d" role :: IO Unit
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @names.h:25:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_efbfe85dc9b68bc4" safe :: IO Unit
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @names.h:26:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_27ef4256cbaf6815" stdcall :: IO Unit
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @names.h:27:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_6e4ae46773b9e016" stock :: IO Unit
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @names.h:28:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_03cf69812528c410" unsafe :: IO Unit
+{-| __C declaration:__ @via@
+
+    __defined at:__ @names.h:29:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_e611a3f38f7a3eb9" via :: IO Unit
+{-| __C declaration:__ @by@
+
+    __defined at:__ @names.h:3:6@
+
+    __exported by:__ @names.h@
+-}
+foreign import ccall safe "hs_bindgen_test_names_3e566432e1b7bdd8" hs_bindgen_test_names_3e566432e1b7bdd8 :: IO (FunPtr (IO Unit))
 {-# NOINLINE by'_ptr #-}
 by'_ptr :: FunPtr (IO Unit)
-by'_ptr = unsafePerformIO hs_bindgen_test_names_bb58aea59417aa76
+by'_ptr = unsafePerformIO hs_bindgen_test_names_3e566432e1b7bdd8
 {-| __C declaration:__ @forall@
 
     __defined at:__ @names.h:4:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_946148697abf4575" forall' :: IO Unit
-{-| __C declaration:__ @forall@
-
-    __defined at:__ @names.h:4:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_4a4cda3da32bed2b" hs_bindgen_test_names_4a4cda3da32bed2b :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_a56841d4692515a9" hs_bindgen_test_names_a56841d4692515a9 :: IO (FunPtr (IO Unit))
 {-# NOINLINE forall'_ptr #-}
 forall'_ptr :: FunPtr (IO Unit)
-forall'_ptr = unsafePerformIO hs_bindgen_test_names_4a4cda3da32bed2b
+forall'_ptr = unsafePerformIO hs_bindgen_test_names_a56841d4692515a9
 {-| __C declaration:__ @mdo@
 
     __defined at:__ @names.h:5:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_a1ece6a6fa8e9763" mdo' :: IO Unit
-{-| __C declaration:__ @mdo@
-
-    __defined at:__ @names.h:5:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_f3f3b62a0c9a709c" hs_bindgen_test_names_f3f3b62a0c9a709c :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_4b14baa1fbc8f378" hs_bindgen_test_names_4b14baa1fbc8f378 :: IO (FunPtr (IO Unit))
 {-# NOINLINE mdo'_ptr #-}
 mdo'_ptr :: FunPtr (IO Unit)
-mdo'_ptr = unsafePerformIO hs_bindgen_test_names_f3f3b62a0c9a709c
+mdo'_ptr = unsafePerformIO hs_bindgen_test_names_4b14baa1fbc8f378
 {-| __C declaration:__ @pattern@
 
     __defined at:__ @names.h:6:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_1e48788938305e48" pattern' :: IO Unit
-{-| __C declaration:__ @pattern@
-
-    __defined at:__ @names.h:6:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_d6de06049441d0d8" hs_bindgen_test_names_d6de06049441d0d8 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_b393d3c39de80903" hs_bindgen_test_names_b393d3c39de80903 :: IO (FunPtr (IO Unit))
 {-# NOINLINE pattern'_ptr #-}
 pattern'_ptr :: FunPtr (IO Unit)
-pattern'_ptr = unsafePerformIO hs_bindgen_test_names_d6de06049441d0d8
+pattern'_ptr = unsafePerformIO hs_bindgen_test_names_b393d3c39de80903
 {-| __C declaration:__ @proc@
 
     __defined at:__ @names.h:7:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_9bb16600c50998ed" proc' :: IO Unit
-{-| __C declaration:__ @proc@
-
-    __defined at:__ @names.h:7:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_e5d464f87b7fe950" hs_bindgen_test_names_e5d464f87b7fe950 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_f73545ae9224ff2d" hs_bindgen_test_names_f73545ae9224ff2d :: IO (FunPtr (IO Unit))
 {-# NOINLINE proc'_ptr #-}
 proc'_ptr :: FunPtr (IO Unit)
-proc'_ptr = unsafePerformIO hs_bindgen_test_names_e5d464f87b7fe950
+proc'_ptr = unsafePerformIO hs_bindgen_test_names_f73545ae9224ff2d
 {-| __C declaration:__ @rec@
 
     __defined at:__ @names.h:8:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_8dfd7fa26e360d8e" rec' :: IO Unit
-{-| __C declaration:__ @rec@
-
-    __defined at:__ @names.h:8:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_ab3827c2d532dee0" hs_bindgen_test_names_ab3827c2d532dee0 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_0dd0f0805657312b" hs_bindgen_test_names_0dd0f0805657312b :: IO (FunPtr (IO Unit))
 {-# NOINLINE rec'_ptr #-}
 rec'_ptr :: FunPtr (IO Unit)
-rec'_ptr = unsafePerformIO hs_bindgen_test_names_ab3827c2d532dee0
+rec'_ptr = unsafePerformIO hs_bindgen_test_names_0dd0f0805657312b
 {-| __C declaration:__ @using@
 
     __defined at:__ @names.h:9:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_57c5446244bcece1" using' :: IO Unit
-{-| __C declaration:__ @using@
-
-    __defined at:__ @names.h:9:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_c00c761386bb1622" hs_bindgen_test_names_c00c761386bb1622 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_aa3ce68f2bc5f037" hs_bindgen_test_names_aa3ce68f2bc5f037 :: IO (FunPtr (IO Unit))
 {-# NOINLINE using'_ptr #-}
 using'_ptr :: FunPtr (IO Unit)
-using'_ptr = unsafePerformIO hs_bindgen_test_names_c00c761386bb1622
+using'_ptr = unsafePerformIO hs_bindgen_test_names_aa3ce68f2bc5f037
 {-| __C declaration:__ @anyclass@
 
     __defined at:__ @names.h:12:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_a2a878b7e49c1a71" anyclass :: IO Unit
-{-| __C declaration:__ @anyclass@
-
-    __defined at:__ @names.h:12:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_4a396f85749a2639" hs_bindgen_test_names_4a396f85749a2639 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_9f90f5dd46a351a4" hs_bindgen_test_names_9f90f5dd46a351a4 :: IO (FunPtr (IO Unit))
 {-# NOINLINE anyclass_ptr #-}
 anyclass_ptr :: FunPtr (IO Unit)
-anyclass_ptr = unsafePerformIO hs_bindgen_test_names_4a396f85749a2639
+anyclass_ptr = unsafePerformIO hs_bindgen_test_names_9f90f5dd46a351a4
 {-| __C declaration:__ @capi@
 
     __defined at:__ @names.h:13:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_2f73a4347f70a468" capi :: IO Unit
-{-| __C declaration:__ @capi@
-
-    __defined at:__ @names.h:13:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_c343892e825ac083" hs_bindgen_test_names_c343892e825ac083 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_3513093206483c6f" hs_bindgen_test_names_3513093206483c6f :: IO (FunPtr (IO Unit))
 {-# NOINLINE capi_ptr #-}
 capi_ptr :: FunPtr (IO Unit)
-capi_ptr = unsafePerformIO hs_bindgen_test_names_c343892e825ac083
+capi_ptr = unsafePerformIO hs_bindgen_test_names_3513093206483c6f
 {-| __C declaration:__ @cases@
 
     __defined at:__ @names.h:14:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_cb2993ce15743783" cases :: IO Unit
-{-| __C declaration:__ @cases@
-
-    __defined at:__ @names.h:14:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_142ad3bb39343793" hs_bindgen_test_names_142ad3bb39343793 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_af7d0bdd6562f7d9" hs_bindgen_test_names_af7d0bdd6562f7d9 :: IO (FunPtr (IO Unit))
 {-# NOINLINE cases_ptr #-}
 cases_ptr :: FunPtr (IO Unit)
-cases_ptr = unsafePerformIO hs_bindgen_test_names_142ad3bb39343793
+cases_ptr = unsafePerformIO hs_bindgen_test_names_af7d0bdd6562f7d9
 {-| __C declaration:__ @ccall@
 
     __defined at:__ @names.h:15:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_954c564a2bd129a5" ccall :: IO Unit
-{-| __C declaration:__ @ccall@
-
-    __defined at:__ @names.h:15:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_c601c7e6cf3e8093" hs_bindgen_test_names_c601c7e6cf3e8093 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_79b6583362113331" hs_bindgen_test_names_79b6583362113331 :: IO (FunPtr (IO Unit))
 {-# NOINLINE ccall_ptr #-}
 ccall_ptr :: FunPtr (IO Unit)
-ccall_ptr = unsafePerformIO hs_bindgen_test_names_c601c7e6cf3e8093
+ccall_ptr = unsafePerformIO hs_bindgen_test_names_79b6583362113331
 {-| __C declaration:__ @dynamic@
 
     __defined at:__ @names.h:16:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_3a96dcbee4c024e0" dynamic :: IO Unit
-{-| __C declaration:__ @dynamic@
-
-    __defined at:__ @names.h:16:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_041d2882439ff8ed" hs_bindgen_test_names_041d2882439ff8ed :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_5c19071f2f4eaf45" hs_bindgen_test_names_5c19071f2f4eaf45 :: IO (FunPtr (IO Unit))
 {-# NOINLINE dynamic_ptr #-}
 dynamic_ptr :: FunPtr (IO Unit)
-dynamic_ptr = unsafePerformIO hs_bindgen_test_names_041d2882439ff8ed
+dynamic_ptr = unsafePerformIO hs_bindgen_test_names_5c19071f2f4eaf45
 {-| __C declaration:__ @export@
 
     __defined at:__ @names.h:17:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_2e78d006337ea551" export :: IO Unit
-{-| __C declaration:__ @export@
-
-    __defined at:__ @names.h:17:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_8ab0ab2a4f7b30af" hs_bindgen_test_names_8ab0ab2a4f7b30af :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_98505ac7a8664e29" hs_bindgen_test_names_98505ac7a8664e29 :: IO (FunPtr (IO Unit))
 {-# NOINLINE export_ptr #-}
 export_ptr :: FunPtr (IO Unit)
-export_ptr = unsafePerformIO hs_bindgen_test_names_8ab0ab2a4f7b30af
+export_ptr = unsafePerformIO hs_bindgen_test_names_98505ac7a8664e29
 {-| __C declaration:__ @family@
 
     __defined at:__ @names.h:18:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_10c8e433951b50a8" family :: IO Unit
-{-| __C declaration:__ @family@
-
-    __defined at:__ @names.h:18:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_9c717aeb3b2a21a7" hs_bindgen_test_names_9c717aeb3b2a21a7 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_849e77496a12f443" hs_bindgen_test_names_849e77496a12f443 :: IO (FunPtr (IO Unit))
 {-# NOINLINE family_ptr #-}
 family_ptr :: FunPtr (IO Unit)
-family_ptr = unsafePerformIO hs_bindgen_test_names_9c717aeb3b2a21a7
+family_ptr = unsafePerformIO hs_bindgen_test_names_849e77496a12f443
 {-| __C declaration:__ @group@
 
     __defined at:__ @names.h:19:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_6217d85466fed7df" group :: IO Unit
-{-| __C declaration:__ @group@
-
-    __defined at:__ @names.h:19:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_21121f108b34a76f" hs_bindgen_test_names_21121f108b34a76f :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_41e72434cbcfa0d5" hs_bindgen_test_names_41e72434cbcfa0d5 :: IO (FunPtr (IO Unit))
 {-# NOINLINE group_ptr #-}
 group_ptr :: FunPtr (IO Unit)
-group_ptr = unsafePerformIO hs_bindgen_test_names_21121f108b34a76f
+group_ptr = unsafePerformIO hs_bindgen_test_names_41e72434cbcfa0d5
 {-| __C declaration:__ @interruptible@
 
     __defined at:__ @names.h:20:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_00164685ff44cb75" interruptible :: IO Unit
-{-| __C declaration:__ @interruptible@
-
-    __defined at:__ @names.h:20:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_99f8d337ba1ebac6" hs_bindgen_test_names_99f8d337ba1ebac6 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_d016728709223884" hs_bindgen_test_names_d016728709223884 :: IO (FunPtr (IO Unit))
 {-# NOINLINE interruptible_ptr #-}
 interruptible_ptr :: FunPtr (IO Unit)
-interruptible_ptr = unsafePerformIO hs_bindgen_test_names_99f8d337ba1ebac6
+interruptible_ptr = unsafePerformIO hs_bindgen_test_names_d016728709223884
 {-| __C declaration:__ @javascript@
 
     __defined at:__ @names.h:21:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_c810b13a75ea93bc" javascript :: IO Unit
-{-| __C declaration:__ @javascript@
-
-    __defined at:__ @names.h:21:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_4603bd39e6211039" hs_bindgen_test_names_4603bd39e6211039 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_fa5819996081f2b8" hs_bindgen_test_names_fa5819996081f2b8 :: IO (FunPtr (IO Unit))
 {-# NOINLINE javascript_ptr #-}
 javascript_ptr :: FunPtr (IO Unit)
-javascript_ptr = unsafePerformIO hs_bindgen_test_names_4603bd39e6211039
+javascript_ptr = unsafePerformIO hs_bindgen_test_names_fa5819996081f2b8
 {-| __C declaration:__ @label@
 
     __defined at:__ @names.h:22:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_41d6d93a2614dff5" label :: IO Unit
-{-| __C declaration:__ @label@
-
-    __defined at:__ @names.h:22:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_a0fbab6bd4868b8a" hs_bindgen_test_names_a0fbab6bd4868b8a :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_0004d966bf5f8027" hs_bindgen_test_names_0004d966bf5f8027 :: IO (FunPtr (IO Unit))
 {-# NOINLINE label_ptr #-}
 label_ptr :: FunPtr (IO Unit)
-label_ptr = unsafePerformIO hs_bindgen_test_names_a0fbab6bd4868b8a
+label_ptr = unsafePerformIO hs_bindgen_test_names_0004d966bf5f8027
 {-| __C declaration:__ @prim@
 
     __defined at:__ @names.h:23:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_bdfec7f41298a418" prim :: IO Unit
-{-| __C declaration:__ @prim@
-
-    __defined at:__ @names.h:23:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_a21123e386a2c566" hs_bindgen_test_names_a21123e386a2c566 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_d9ec78c543d7f0ea" hs_bindgen_test_names_d9ec78c543d7f0ea :: IO (FunPtr (IO Unit))
 {-# NOINLINE prim_ptr #-}
 prim_ptr :: FunPtr (IO Unit)
-prim_ptr = unsafePerformIO hs_bindgen_test_names_a21123e386a2c566
+prim_ptr = unsafePerformIO hs_bindgen_test_names_d9ec78c543d7f0ea
 {-| __C declaration:__ @role@
 
     __defined at:__ @names.h:24:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_0d10aaa9ecbf0f2f" role :: IO Unit
-{-| __C declaration:__ @role@
-
-    __defined at:__ @names.h:24:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_da0964ddbc3ebb7a" hs_bindgen_test_names_da0964ddbc3ebb7a :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_89449e7f8f90fc97" hs_bindgen_test_names_89449e7f8f90fc97 :: IO (FunPtr (IO Unit))
 {-# NOINLINE role_ptr #-}
 role_ptr :: FunPtr (IO Unit)
-role_ptr = unsafePerformIO hs_bindgen_test_names_da0964ddbc3ebb7a
+role_ptr = unsafePerformIO hs_bindgen_test_names_89449e7f8f90fc97
 {-| __C declaration:__ @safe@
 
     __defined at:__ @names.h:25:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_0ebc368c3818b18b" safe :: IO Unit
-{-| __C declaration:__ @safe@
-
-    __defined at:__ @names.h:25:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_b7ed55355edeb6b7" hs_bindgen_test_names_b7ed55355edeb6b7 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_983c057a9645fd29" hs_bindgen_test_names_983c057a9645fd29 :: IO (FunPtr (IO Unit))
 {-# NOINLINE safe_ptr #-}
 safe_ptr :: FunPtr (IO Unit)
-safe_ptr = unsafePerformIO hs_bindgen_test_names_b7ed55355edeb6b7
+safe_ptr = unsafePerformIO hs_bindgen_test_names_983c057a9645fd29
 {-| __C declaration:__ @stdcall@
 
     __defined at:__ @names.h:26:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_764bfbe5fbb4fac9" stdcall :: IO Unit
-{-| __C declaration:__ @stdcall@
-
-    __defined at:__ @names.h:26:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_71d621f5185b4a35" hs_bindgen_test_names_71d621f5185b4a35 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_8ea4a9581868a08c" hs_bindgen_test_names_8ea4a9581868a08c :: IO (FunPtr (IO Unit))
 {-# NOINLINE stdcall_ptr #-}
 stdcall_ptr :: FunPtr (IO Unit)
-stdcall_ptr = unsafePerformIO hs_bindgen_test_names_71d621f5185b4a35
+stdcall_ptr = unsafePerformIO hs_bindgen_test_names_8ea4a9581868a08c
 {-| __C declaration:__ @stock@
 
     __defined at:__ @names.h:27:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_6597a6eedc28f577" stock :: IO Unit
-{-| __C declaration:__ @stock@
-
-    __defined at:__ @names.h:27:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_1956b7d5c507eed1" hs_bindgen_test_names_1956b7d5c507eed1 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_9d4197174428177d" hs_bindgen_test_names_9d4197174428177d :: IO (FunPtr (IO Unit))
 {-# NOINLINE stock_ptr #-}
 stock_ptr :: FunPtr (IO Unit)
-stock_ptr = unsafePerformIO hs_bindgen_test_names_1956b7d5c507eed1
+stock_ptr = unsafePerformIO hs_bindgen_test_names_9d4197174428177d
 {-| __C declaration:__ @unsafe@
 
     __defined at:__ @names.h:28:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_1aef1bdf2d1ba544" unsafe :: IO Unit
-{-| __C declaration:__ @unsafe@
-
-    __defined at:__ @names.h:28:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_b758151b55abc14a" hs_bindgen_test_names_b758151b55abc14a :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_6eb48adc74567d6d" hs_bindgen_test_names_6eb48adc74567d6d :: IO (FunPtr (IO Unit))
 {-# NOINLINE unsafe_ptr #-}
 unsafe_ptr :: FunPtr (IO Unit)
-unsafe_ptr = unsafePerformIO hs_bindgen_test_names_b758151b55abc14a
+unsafe_ptr = unsafePerformIO hs_bindgen_test_names_6eb48adc74567d6d
 {-| __C declaration:__ @via@
 
     __defined at:__ @names.h:29:6@
 
     __exported by:__ @names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_names_d428a3f008917f79" via :: IO Unit
-{-| __C declaration:__ @via@
-
-    __defined at:__ @names.h:29:6@
-
-    __exported by:__ @names.h@
--}
-foreign import ccall safe "hs_bindgen_test_names_426a163ac069db6c" hs_bindgen_test_names_426a163ac069db6c :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_names_64eddb721da8c268" hs_bindgen_test_names_64eddb721da8c268 :: IO (FunPtr (IO Unit))
 {-# NOINLINE via_ptr #-}
 via_ptr :: FunPtr (IO Unit)
-via_ptr = unsafePerformIO hs_bindgen_test_names_426a163ac069db6c
+via_ptr = unsafePerformIO hs_bindgen_test_names_64eddb721da8c268

@@ -2793,12 +2793,12 @@
               "@NsTypeConstr"
               "FileOperationStatus"))),
       foreignImportOrigName =
-      "hs_bindgen_test_program_slicing_selection_2e587488135cbef3",
+      "hs_bindgen_test_program_slicing_selection_13b0ed81415a625a",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_2e587488135cbef3 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
+          "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
           capiWrapperImport =
           "program_slicing_selection.h"},
       foreignImportOrigin = Function
@@ -2988,7 +2988,374 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86",
+        "read_file_chunk",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "file_ptr"),
+          functionParameterType = HsPtr
+            (HsExtBinding
+              ExtHsRef {
+                extHsRefModule = HsModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extHsRefIdentifier =
+                HsIdentifier "CFile"}
+              TypeSpec {
+                typeSpecModule = Just
+                  (HsModuleName
+                    "HsBindgen.Runtime.Prelude"),
+                typeSpecIdentifier = Just
+                  (HsIdentifier "CFile"),
+                typeSpecInstances = Map.fromList
+                  []}),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "file_ptr",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "buffer"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimVoid),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "buffer",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "bytes_to_read"),
+          functionParameterType =
+          HsExtBinding
+            ExtHsRef {
+              extHsRefModule = HsModuleName
+                "HsBindgen.Runtime.Prelude",
+              extHsRefIdentifier =
+              HsIdentifier "CSize"}
+            TypeSpec {
+              typeSpecModule = Just
+                (HsModuleName
+                  "HsBindgen.Runtime.Prelude"),
+              typeSpecIdentifier = Just
+                (HsIdentifier "CSize"),
+              typeSpecInstances = Map.fromList
+                [
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "bytes_to_read",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "FileOperationStatus"))),
+      foreignImportOrigName =
+      "hs_bindgen_test_program_slicing_selection_3ade0bc94fb1ed45",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_3ade0bc94fb1ed45 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
+          capiWrapperImport =
+          "program_slicing_selection.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "file_ptr",
+                  nameHsIdent = HsIdentifier
+                    "file_ptr"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "FILE",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtHsRef {
+                      extHsRefModule = HsModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extHsRefIdentifier =
+                      HsIdentifier "CFile"},
+                    extHsSpec = TypeSpec {
+                      typeSpecModule = Just
+                        (HsModuleName
+                          "HsBindgen.Runtime.Prelude"),
+                      typeSpecIdentifier = Just
+                        (HsIdentifier "CFile"),
+                      typeSpecInstances = Map.fromList
+                        []}})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "buffer",
+                  nameHsIdent = HsIdentifier
+                    "buffer"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "bytes_to_read",
+                  nameHsIdent = HsIdentifier
+                    "bytes_to_read"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtHsRef {
+                    extHsRefModule = HsModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extHsRefIdentifier =
+                    HsIdentifier "CSize"},
+                  extHsSpec = TypeSpec {
+                    typeSpecModule = Just
+                      (HsModuleName
+                        "HsBindgen.Runtime.Prelude"),
+                    typeSpecIdentifier = Just
+                      (HsIdentifier "CSize"),
+                    typeSpecInstances = Map.fromList
+                      [
+                        _×_
+                          Eq
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ord
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Enum
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bounded
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Read
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Bits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          FiniteBits
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Integral
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Num
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          ReadRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = [
+                                ]})]}})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeEnum
+            NamePair {
+              nameC = Name
+                "FileOperationStatus",
+              nameHsIdent = HsIdentifier
+                "FileOperationStatus"}
+            NameOriginInSource},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "read_file_chunk",
+          commentLocation = Just
+            "program_slicing_selection.h:21:26",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["program_slicing_selection.h"],
+              headerInclude =
+              "program_slicing_selection.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -3130,12 +3497,12 @@
                         "@NsTypeConstr"
                         "FileOperationStatus")))))))),
       foreignImportOrigName =
-      "hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86",
+      "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_bdc1b4cce9430b86 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } ",
+          "/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } ",
           capiWrapperImport =
           "program_slicing_selection.h"},
       foreignImportOrigin = Global

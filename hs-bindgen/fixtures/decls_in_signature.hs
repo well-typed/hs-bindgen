@@ -680,213 +680,6 @@
         "Outside",
       deriveInstanceComment =
       Nothing},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "normal_wrapper",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName
-              "@NsVar"
-              "ptr_to_opaque"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Opaque")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "ptr_to_opaque",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName
-              "@NsVar"
-              "ptr_to_defined"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Outside")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "ptr_to_defined",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "by_value"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Outside")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "by_value",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
-          capiWrapperImport =
-          "decls_in_signature.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "ptr_to_opaque",
-                  nameHsIdent = HsIdentifier
-                    "ptr_to_opaque"})
-              (TypePointer
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "opaque",
-                    nameHsIdent = HsIdentifier
-                      "Opaque"}
-                  NameOriginInSource)),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "ptr_to_defined",
-                  nameHsIdent = HsIdentifier
-                    "ptr_to_defined"})
-              (TypePointer
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "outside",
-                    nameHsIdent = HsIdentifier
-                      "Outside"}
-                  NameOriginInSource)),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "by_value",
-                  nameHsIdent = HsIdentifier
-                    "by_value"})
-              (TypeStruct
-                NamePair {
-                  nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
-                    "Outside"}
-                NameOriginInSource)],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "normal",
-          commentLocation = Just
-            "decls_in_signature.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Opaque")))
-              (HsFun
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "Outside")))
-                (HsFun
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "Outside"))
-                  (HsIO
-                    (HsPrimType HsPrimUnit))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
-          capiWrapperImport =
-          "decls_in_signature.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
-                NamePair {
-                  nameC = Name "opaque",
-                  nameHsIdent = HsIdentifier
-                    "Opaque"}
-                NameOriginInSource),
-            TypePointer
-              (TypeStruct
-                NamePair {
-                  nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
-                    "Outside"}
-                NameOriginInSource),
-            TypeStruct
-              NamePair {
-                nameC = Name "outside",
-                nameHsIdent = HsIdentifier
-                  "Outside"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "normal",
-          commentLocation = Just
-            "decls_in_signature.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -1628,143 +1421,6 @@
         "Named_struct",
       deriveInstanceComment =
       Nothing},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "f1_wrapper",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "arg"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Named_struct")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "arg",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_8b60d38de80093fa",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }",
-          capiWrapperImport =
-          "decls_in_signature.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
-              (TypeStruct
-                NamePair {
-                  nameC = Name "named_struct",
-                  nameHsIdent = HsIdentifier
-                    "Named_struct"}
-                NameOriginInSource)],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Error cases"],
-          commentOrigin = Just "f1",
-          commentLocation = Just
-            "decls_in_signature.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                TextContent
-                  "and the edge cases below)."]]},
-      foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Named_struct"))
-              (HsIO
-                (HsPrimType HsPrimUnit))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } ",
-          capiWrapperImport =
-          "decls_in_signature.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeStruct
-              NamePair {
-                nameC = Name "named_struct",
-                nameHsIdent = HsIdentifier
-                  "Named_struct"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Error cases"],
-          commentOrigin = Just "f1",
-          commentLocation = Just
-            "decls_in_signature.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                TextContent
-                  "and the edge cases below)."]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclNewtype
     Newtype {
       newtypeName = HsName
@@ -1970,6 +1626,211 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
+        "normal_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "ptr_to_opaque"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Opaque")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_opaque",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "ptr_to_defined"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_defined",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "by_value"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "by_value",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_001a08d4459ec455",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_001a08d4459ec455 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_opaque",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = HsIdentifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = HsIdentifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = HsIdentifier
+                    "by_value"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "outside",
+                  nameHsIdent = HsIdentifier
+                    "Outside"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentLocation = Just
+            "decls_in_signature.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f1_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_struct")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_a2f84d2570ef3892",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (struct named_struct *arg1) { f1(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = HsIdentifier
+                    "Named_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just "f1",
+          commentLocation = Just
+            "decls_in_signature.h:17:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]},
+      foreignImportSafety = Safe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
         "f2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
@@ -1991,12 +1852,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_4a86b0420a250963",
+      "hs_bindgen_test_decls_in_signature_1d043de05a457e90",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }",
+          "void hs_bindgen_test_decls_in_signature_1d043de05a457e90 (union named_union *arg1) { f2(*arg1); }",
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -2037,7 +1898,418 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba",
+        "normal_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "ptr_to_opaque"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Opaque")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_opaque",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "ptr_to_defined"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_defined",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "by_value"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "by_value",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_35c28995abc46de4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_35c28995abc46de4 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_opaque",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = HsIdentifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = HsIdentifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = HsIdentifier
+                    "by_value"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "outside",
+                  nameHsIdent = HsIdentifier
+                    "Outside"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentLocation = Just
+            "decls_in_signature.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f1_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_struct")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_c1788128a5b1c813",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_c1788128a5b1c813 (struct named_struct *arg1) { f1(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = HsIdentifier
+                    "Named_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just "f1",
+          commentLocation = Just
+            "decls_in_signature.h:17:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "f2_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Named_union")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_14361e995fb5684a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_14361e995fb5684a (union named_union *arg1) { f2(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = HsIdentifier
+                    "Named_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentLocation = Just
+            "decls_in_signature.h:20:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_decls_in_signature_b040d51578b7b05e",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Opaque")))
+              (HsFun
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "Outside")))
+                (HsFun
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "Outside"))
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_b040d51578b7b05e",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "opaque",
+                  nameHsIdent = HsIdentifier
+                    "Opaque"}
+                NameOriginInSource),
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "outside",
+                  nameHsIdent = HsIdentifier
+                    "Outside"}
+                NameOriginInSource),
+            TypeStruct
+              NamePair {
+                nameC = Name "outside",
+                nameHsIdent = HsIdentifier
+                  "Outside"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentLocation = Just
+            "decls_in_signature.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_decls_in_signature_5469bdc0395f86c1",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Named_struct"))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_5469bdc0395f86c1",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) (struct named_struct arg1) { return &f1; } ",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeStruct
+              NamePair {
+                nameC = Name "named_struct",
+                nameHsIdent = HsIdentifier
+                  "Named_struct"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment =
+      Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just "f1",
+          commentLocation = Just
+            "decls_in_signature.h:17:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_decls_in_signature_490ca7e8c8282a69",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -2051,12 +2323,12 @@
               (HsIO
                 (HsPrimType HsPrimUnit))))),
       foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba",
+      "hs_bindgen_test_decls_in_signature_490ca7e8c8282a69",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } ",
+          "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) (union named_union arg1) { return &f2; } ",
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Global

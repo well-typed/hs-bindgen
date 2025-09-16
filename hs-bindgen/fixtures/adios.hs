@@ -423,12 +423,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_adios_8e1936b23d816eb2",
+      "hs_bindgen_test_adios_1f928c1e5a3ea8be",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_adios_8e1936b23d816eb2 (void) { \978(); }",
+          "void hs_bindgen_test_adios_1f928c1e5a3ea8be (void) { \978(); }",
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Function
         Function {
@@ -454,7 +454,196 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_adios_64cbec67bc73ad5c",
+        "\25308\25308",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_912e938ac6370f83",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_912e938ac6370f83 (void) { \25308\25308(); }",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "\25308\25308",
+          commentLocation = Just
+            "adios.h:27:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "say\25308\25308",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_cc7cd7984d0bfaee",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_cc7cd7984d0bfaee (void) { Say\25308\25308(); }",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "Say\25308\25308",
+          commentLocation = Just
+            "adios.h:31:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "c\978",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_82fab26db9547005",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_82fab26db9547005 (void) { \978(); }",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "\978",
+          commentLocation = Just
+            "adios.h:18:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "\25308\25308",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_ad1afd0d0a11937f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_ad1afd0d0a11937f (void) { \25308\25308(); }",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "\25308\25308",
+          commentLocation = Just
+            "adios.h:27:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "say\25308\25308",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_9a2b7b543a500f7d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_adios_9a2b7b543a500f7d (void) { Say\25308\25308(); }",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "Say\25308\25308",
+          commentLocation = Just
+            "adios.h:31:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_adios_857cc80028e9fd4d",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -463,12 +652,12 @@
             (HsIO
               (HsPrimType HsPrimUnit)))),
       foreignImportOrigName =
-      "hs_bindgen_test_adios_64cbec67bc73ad5c",
+      "hs_bindgen_test_adios_857cc80028e9fd4d",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_\978_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_64cbec67bc73ad5c (void)) (void) { return &\978; } ",
+          "/* get_\978_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_857cc80028e9fd4d (void)) (void) { return &\978; } ",
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -491,7 +680,83 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_adios_52f5e750c2f31c7b",
+        "hs_bindgen_test_adios_8b289d4c7ae2c2a7",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_8b289d4c7ae2c2a7",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8b289d4c7ae2c2a7 (void)) (void) { return &\25308\25308; } ",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "\25308\25308",
+          commentLocation = Just
+            "adios.h:27:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_adios_2879b42f75005d3b",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPrimType HsPrimUnit)))),
+      foreignImportOrigName =
+      "hs_bindgen_test_adios_2879b42f75005d3b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_Say\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_2879b42f75005d3b (void)) (void) { return &Say\25308\25308; } ",
+          capiWrapperImport = "adios.h"},
+      foreignImportOrigin = Global
+        (TypeFun [] TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "Say\25308\25308",
+          commentLocation = Just
+            "adios.h:31:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["adios.h"],
+              headerInclude = "adios.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_adios_e4b974661ff038a0",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -499,12 +764,12 @@
           (HsPtr
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "hs_bindgen_test_adios_52f5e750c2f31c7b",
+      "hs_bindgen_test_adios_e4b974661ff038a0",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_52f5e750c2f31c7b (void) { return &\978\978; } ",
+          "/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_e4b974661ff038a0 (void) { return &\978\978; } ",
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypePrim
@@ -528,7 +793,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_adios_13030842ed540098",
+        "hs_bindgen_test_adios_c538a25ba7055dd4",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -536,12 +801,12 @@
           (HsPtr
             (HsPrimType HsPrimCInt))),
       foreignImportOrigName =
-      "hs_bindgen_test_adios_13030842ed540098",
+      "hs_bindgen_test_adios_c538a25ba7055dd4",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_13030842ed540098 (void) { return &\978\978\978; } ",
+          "/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_c538a25ba7055dd4 (void) { return &\978\978\978; } ",
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeConst
@@ -563,157 +828,5 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "\25308\25308",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_adios_5c74896d56245684",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_adios_5c74896d56245684 (void) { \25308\25308(); }",
-          capiWrapperImport = "adios.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "\25308\25308",
-          commentLocation = Just
-            "adios.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_adios_8472427dddbc4eb1",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPrimType HsPrimUnit)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_adios_8472427dddbc4eb1",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8472427dddbc4eb1 (void)) (void) { return &\25308\25308; } ",
-          capiWrapperImport = "adios.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "\25308\25308",
-          commentLocation = Just
-            "adios.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "say\25308\25308",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_adios_e8498bfc0fabc9e9",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_adios_e8498bfc0fabc9e9 (void) { Say\25308\25308(); }",
-          capiWrapperImport = "adios.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "Say\25308\25308",
-          commentLocation = Just
-            "adios.h:31:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_adios_7b73f645a5d28e6b",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsIO
-              (HsPrimType HsPrimUnit)))),
-      foreignImportOrigName =
-      "hs_bindgen_test_adios_7b73f645a5d28e6b",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_Say\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_7b73f645a5d28e6b (void)) (void) { return &Say\25308\25308; } ",
-          capiWrapperImport = "adios.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "Say\25308\25308",
-          commentLocation = Just
-            "adios.h:31:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

@@ -12,7 +12,7 @@ import qualified HsBindgen.Runtime.Block
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude (IO)
 
-$(CAPI.addCSource "#include <iterator.h>\nToggle hs_bindgen_test_iterator_4f34fce61cc68c9f (_Bool arg1) { return makeToggle(arg1); }\n/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_03950e0c09bdb508 (void)) (_Bool arg1) { return &makeToggle; } \n_Bool hs_bindgen_test_iterator_bfb4e32e3a824c7e (Toggle arg1) { return toggleNext(arg1); }\n/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_9c2755ef750f5d45 (void)) (Toggle arg1) { return &toggleNext; } \nvoid hs_bindgen_test_iterator_8d23fba933ba9584 (Toggle arg1) { releaseToggle(arg1); }\n/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_2f7023ef559c7cdc (void)) (Toggle arg1) { return &releaseToggle; } \nCounter hs_bindgen_test_iterator_5b455070cb6127b9 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }\n/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_216174b924f641ef (void)) (signed int arg1, signed int arg2) { return &makeCounter; } \nsigned int hs_bindgen_test_iterator_1eb9473844c466c6 (Counter arg1) { return counterNext(arg1); }\n/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_9d967a23215cebaa (void)) (Counter arg1) { return &counterNext; } \nvoid hs_bindgen_test_iterator_4bd3562b992f2f1c (Counter arg1) { releaseCounter(arg1); }\n/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_315c7ff0ed90e2c8 (void)) (Counter arg1) { return &releaseCounter; } \nVarCounter hs_bindgen_test_iterator_0fc005ef62990438 (signed int arg1) { return makeVarCounter(arg1); }\n/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_a29c0a830311b22a (void)) (signed int arg1) { return &makeVarCounter; } \nsigned int hs_bindgen_test_iterator_a88cd5c9559b5d52 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }\n/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_cd9433fb0fa76d19 (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } \nvoid hs_bindgen_test_iterator_2d2d26e60eea04a8 (VarCounter arg1) { releaseVarCounter(arg1); }\n/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bad5305a8cb077b0 (void)) (VarCounter arg1) { return &releaseVarCounter; } \n")
+$(CAPI.addCSource "#include <iterator.h>\nToggle hs_bindgen_test_iterator_900530c0457bf5ee (_Bool arg1) { return makeToggle(arg1); }\n_Bool hs_bindgen_test_iterator_0584fdb88b39872d (Toggle arg1) { return toggleNext(arg1); }\nvoid hs_bindgen_test_iterator_6d013ab8b38fc1d9 (Toggle arg1) { releaseToggle(arg1); }\nCounter hs_bindgen_test_iterator_10d749b6b17037ba (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }\nsigned int hs_bindgen_test_iterator_9695aacc59a66573 (Counter arg1) { return counterNext(arg1); }\nvoid hs_bindgen_test_iterator_49a436aa15c7ea70 (Counter arg1) { releaseCounter(arg1); }\nVarCounter hs_bindgen_test_iterator_f12a50c4468834b5 (signed int arg1) { return makeVarCounter(arg1); }\nsigned int hs_bindgen_test_iterator_2c8a2667de9b1ffb (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }\nvoid hs_bindgen_test_iterator_023ae1f9abf46556 (VarCounter arg1) { releaseVarCounter(arg1); }\n/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_504a6a44ef649697 (void)) (_Bool arg1) { return &makeToggle; } \n/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_ee784d0363e34151 (void)) (Toggle arg1) { return &toggleNext; } \n/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_864850832eaf96b9 (void)) (Toggle arg1) { return &releaseToggle; } \n/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_48b98d306e2a8d53 (void)) (signed int arg1, signed int arg2) { return &makeCounter; } \n/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_aeb21db5034e4d66 (void)) (Counter arg1) { return &counterNext; } \n/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_8e1661e238f6f451 (void)) (Counter arg1) { return &releaseCounter; } \n/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_b14e88e9cf7a56b8 (void)) (signed int arg1) { return &makeVarCounter; } \n/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_4d10204c4166188d (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } \n/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bde04ef01335be42 (void)) (VarCounter arg1) { return &releaseVarCounter; } \n")
 
 {-| __C declaration:__ @Toggle@
 
@@ -24,87 +24,6 @@ newtype Toggle = Toggle
   { un_Toggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
   }
 
-{-| __C declaration:__ @makeToggle@
-
-    __defined at:__ @iterator.h:4:8@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall safe "hs_bindgen_test_iterator_4f34fce61cc68c9f" makeToggle
-  :: FC.CBool
-     {- ^ __C declaration:__ @start@
-     -}
-  -> IO Toggle
-
-{-| __C declaration:__ @makeToggle@
-
-    __defined at:__ @iterator.h:4:8@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_03950e0c09bdb508" hs_bindgen_test_iterator_03950e0c09bdb508
-  :: IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
-
-{-# NOINLINE makeToggle_ptr #-}
-
-makeToggle_ptr :: Ptr.FunPtr (FC.CBool -> IO Toggle)
-makeToggle_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_03950e0c09bdb508
-
-{-| __C declaration:__ @toggleNext@
-
-    __defined at:__ @iterator.h:5:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall safe "hs_bindgen_test_iterator_bfb4e32e3a824c7e" toggleNext
-  :: Toggle
-     {- ^ __C declaration:__ @block@
-     -}
-  -> IO FC.CBool
-
-{-| __C declaration:__ @toggleNext@
-
-    __defined at:__ @iterator.h:5:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_9c2755ef750f5d45" hs_bindgen_test_iterator_9c2755ef750f5d45
-  :: IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
-
-{-# NOINLINE toggleNext_ptr #-}
-
-toggleNext_ptr :: Ptr.FunPtr (Toggle -> IO FC.CBool)
-toggleNext_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_9c2755ef750f5d45
-
-{-| __C declaration:__ @releaseToggle@
-
-    __defined at:__ @iterator.h:6:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall safe "hs_bindgen_test_iterator_8d23fba933ba9584" releaseToggle
-  :: Toggle
-     {- ^ __C declaration:__ @block@
-     -}
-  -> IO ()
-
-{-| __C declaration:__ @releaseToggle@
-
-    __defined at:__ @iterator.h:6:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_2f7023ef559c7cdc" hs_bindgen_test_iterator_2f7023ef559c7cdc
-  :: IO (Ptr.FunPtr (Toggle -> IO ()))
-
-{-# NOINLINE releaseToggle_ptr #-}
-
-releaseToggle_ptr :: Ptr.FunPtr (Toggle -> IO ())
-releaseToggle_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_2f7023ef559c7cdc
-
 {-| __C declaration:__ @Counter@
 
     __defined at:__ @iterator.h:10:14@
@@ -114,90 +33,6 @@ releaseToggle_ptr =
 newtype Counter = Counter
   { un_Counter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
   }
-
-{-| __C declaration:__ @makeCounter@
-
-    __defined at:__ @iterator.h:11:9@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall safe "hs_bindgen_test_iterator_5b455070cb6127b9" makeCounter
-  :: FC.CInt
-     {- ^ __C declaration:__ @start@
-     -}
-  -> FC.CInt
-     {- ^ __C declaration:__ @increment@
-     -}
-  -> IO Counter
-
-{-| __C declaration:__ @makeCounter@
-
-    __defined at:__ @iterator.h:11:9@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_216174b924f641ef" hs_bindgen_test_iterator_216174b924f641ef
-  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
-
-{-# NOINLINE makeCounter_ptr #-}
-
-makeCounter_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
-makeCounter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_216174b924f641ef
-
-{-| __C declaration:__ @counterNext@
-
-    __defined at:__ @iterator.h:12:5@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall safe "hs_bindgen_test_iterator_1eb9473844c466c6" counterNext
-  :: Counter
-     {- ^ __C declaration:__ @block@
-     -}
-  -> IO FC.CInt
-
-{-| __C declaration:__ @counterNext@
-
-    __defined at:__ @iterator.h:12:5@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_9d967a23215cebaa" hs_bindgen_test_iterator_9d967a23215cebaa
-  :: IO (Ptr.FunPtr (Counter -> IO FC.CInt))
-
-{-# NOINLINE counterNext_ptr #-}
-
-counterNext_ptr :: Ptr.FunPtr (Counter -> IO FC.CInt)
-counterNext_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_9d967a23215cebaa
-
-{-| __C declaration:__ @releaseCounter@
-
-    __defined at:__ @iterator.h:13:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall safe "hs_bindgen_test_iterator_4bd3562b992f2f1c" releaseCounter
-  :: Counter
-     {- ^ __C declaration:__ @block@
-     -}
-  -> IO ()
-
-{-| __C declaration:__ @releaseCounter@
-
-    __defined at:__ @iterator.h:13:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_315c7ff0ed90e2c8" hs_bindgen_test_iterator_315c7ff0ed90e2c8
-  :: IO (Ptr.FunPtr (Counter -> IO ()))
-
-{-# NOINLINE releaseCounter_ptr #-}
-
-releaseCounter_ptr :: Ptr.FunPtr (Counter -> IO ())
-releaseCounter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_315c7ff0ed90e2c8
 
 {-| __C declaration:__ @VarCounter@
 
@@ -209,32 +44,92 @@ newtype VarCounter = VarCounter
   { un_VarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
   }
 
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @iterator.h:4:8@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_900530c0457bf5ee" makeToggle
+  :: FC.CBool
+     {- ^ __C declaration:__ @start@
+     -}
+  -> IO Toggle
+
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @iterator.h:5:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_0584fdb88b39872d" toggleNext
+  :: Toggle
+     {- ^ __C declaration:__ @block@
+     -}
+  -> IO FC.CBool
+
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @iterator.h:6:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_6d013ab8b38fc1d9" releaseToggle
+  :: Toggle
+     {- ^ __C declaration:__ @block@
+     -}
+  -> IO ()
+
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @iterator.h:11:9@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_10d749b6b17037ba" makeCounter
+  :: FC.CInt
+     {- ^ __C declaration:__ @start@
+     -}
+  -> FC.CInt
+     {- ^ __C declaration:__ @increment@
+     -}
+  -> IO Counter
+
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @iterator.h:12:5@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_9695aacc59a66573" counterNext
+  :: Counter
+     {- ^ __C declaration:__ @block@
+     -}
+  -> IO FC.CInt
+
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @iterator.h:13:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_49a436aa15c7ea70" releaseCounter
+  :: Counter
+     {- ^ __C declaration:__ @block@
+     -}
+  -> IO ()
+
 {-| __C declaration:__ @makeVarCounter@
 
     __defined at:__ @iterator.h:18:12@
 
     __exported by:__ @iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_iterator_0fc005ef62990438" makeVarCounter
+foreign import ccall safe "hs_bindgen_test_iterator_f12a50c4468834b5" makeVarCounter
   :: FC.CInt
      {- ^ __C declaration:__ @start@
      -}
   -> IO VarCounter
-
-{-| __C declaration:__ @makeVarCounter@
-
-    __defined at:__ @iterator.h:18:12@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_a29c0a830311b22a" hs_bindgen_test_iterator_a29c0a830311b22a
-  :: IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
-
-{-# NOINLINE makeVarCounter_ptr #-}
-
-makeVarCounter_ptr :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
-makeVarCounter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_a29c0a830311b22a
 
 {-| __C declaration:__ @varCounterNext@
 
@@ -242,7 +137,7 @@ makeVarCounter_ptr =
 
     __exported by:__ @iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounterNext
+foreign import ccall safe "hs_bindgen_test_iterator_2c8a2667de9b1ffb" varCounterNext
   :: VarCounter
      {- ^ __C declaration:__ @block@
      -}
@@ -251,20 +146,137 @@ foreign import ccall safe "hs_bindgen_test_iterator_a88cd5c9559b5d52" varCounter
      -}
   -> IO FC.CInt
 
+{-| __C declaration:__ @releaseVarCounter@
+
+    __defined at:__ @iterator.h:20:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall safe "hs_bindgen_test_iterator_023ae1f9abf46556" releaseVarCounter
+  :: VarCounter
+     {- ^ __C declaration:__ @block@
+     -}
+  -> IO ()
+
+{-| __C declaration:__ @makeToggle@
+
+    __defined at:__ @iterator.h:4:8@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_504a6a44ef649697" hs_bindgen_test_iterator_504a6a44ef649697
+  :: IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
+
+{-# NOINLINE makeToggle_ptr #-}
+
+makeToggle_ptr :: Ptr.FunPtr (FC.CBool -> IO Toggle)
+makeToggle_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_504a6a44ef649697
+
+{-| __C declaration:__ @toggleNext@
+
+    __defined at:__ @iterator.h:5:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_ee784d0363e34151" hs_bindgen_test_iterator_ee784d0363e34151
+  :: IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
+
+{-# NOINLINE toggleNext_ptr #-}
+
+toggleNext_ptr :: Ptr.FunPtr (Toggle -> IO FC.CBool)
+toggleNext_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_ee784d0363e34151
+
+{-| __C declaration:__ @releaseToggle@
+
+    __defined at:__ @iterator.h:6:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_864850832eaf96b9" hs_bindgen_test_iterator_864850832eaf96b9
+  :: IO (Ptr.FunPtr (Toggle -> IO ()))
+
+{-# NOINLINE releaseToggle_ptr #-}
+
+releaseToggle_ptr :: Ptr.FunPtr (Toggle -> IO ())
+releaseToggle_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_864850832eaf96b9
+
+{-| __C declaration:__ @makeCounter@
+
+    __defined at:__ @iterator.h:11:9@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_48b98d306e2a8d53" hs_bindgen_test_iterator_48b98d306e2a8d53
+  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
+
+{-# NOINLINE makeCounter_ptr #-}
+
+makeCounter_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
+makeCounter_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_48b98d306e2a8d53
+
+{-| __C declaration:__ @counterNext@
+
+    __defined at:__ @iterator.h:12:5@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_aeb21db5034e4d66" hs_bindgen_test_iterator_aeb21db5034e4d66
+  :: IO (Ptr.FunPtr (Counter -> IO FC.CInt))
+
+{-# NOINLINE counterNext_ptr #-}
+
+counterNext_ptr :: Ptr.FunPtr (Counter -> IO FC.CInt)
+counterNext_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_aeb21db5034e4d66
+
+{-| __C declaration:__ @releaseCounter@
+
+    __defined at:__ @iterator.h:13:6@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_8e1661e238f6f451" hs_bindgen_test_iterator_8e1661e238f6f451
+  :: IO (Ptr.FunPtr (Counter -> IO ()))
+
+{-# NOINLINE releaseCounter_ptr #-}
+
+releaseCounter_ptr :: Ptr.FunPtr (Counter -> IO ())
+releaseCounter_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_8e1661e238f6f451
+
+{-| __C declaration:__ @makeVarCounter@
+
+    __defined at:__ @iterator.h:18:12@
+
+    __exported by:__ @iterator.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_iterator_b14e88e9cf7a56b8" hs_bindgen_test_iterator_b14e88e9cf7a56b8
+  :: IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
+
+{-# NOINLINE makeVarCounter_ptr #-}
+
+makeVarCounter_ptr :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
+makeVarCounter_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_b14e88e9cf7a56b8
+
 {-| __C declaration:__ @varCounterNext@
 
     __defined at:__ @iterator.h:19:5@
 
     __exported by:__ @iterator.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_iterator_cd9433fb0fa76d19" hs_bindgen_test_iterator_cd9433fb0fa76d19
+foreign import ccall unsafe "hs_bindgen_test_iterator_4d10204c4166188d" hs_bindgen_test_iterator_4d10204c4166188d
   :: IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE varCounterNext_ptr #-}
 
 varCounterNext_ptr :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
 varCounterNext_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_cd9433fb0fa76d19
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_4d10204c4166188d
 
 {-| __C declaration:__ @releaseVarCounter@
 
@@ -272,23 +284,11 @@ varCounterNext_ptr =
 
     __exported by:__ @iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_iterator_2d2d26e60eea04a8" releaseVarCounter
-  :: VarCounter
-     {- ^ __C declaration:__ @block@
-     -}
-  -> IO ()
-
-{-| __C declaration:__ @releaseVarCounter@
-
-    __defined at:__ @iterator.h:20:6@
-
-    __exported by:__ @iterator.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_iterator_bad5305a8cb077b0" hs_bindgen_test_iterator_bad5305a8cb077b0
+foreign import ccall unsafe "hs_bindgen_test_iterator_bde04ef01335be42" hs_bindgen_test_iterator_bde04ef01335be42
   :: IO (Ptr.FunPtr (VarCounter -> IO ()))
 
 {-# NOINLINE releaseVarCounter_ptr #-}
 
 releaseVarCounter_ptr :: Ptr.FunPtr (VarCounter -> IO ())
 releaseVarCounter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_bad5305a8cb077b0
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_iterator_bde04ef01335be42

@@ -4,9 +4,10 @@
 -- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/distilled_lib_1.h
 -- #include <distilled_lib_1.h>
--- int32_t hs_bindgen_test_distilled_lib_1_a1099223f16f8637 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
--- /* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_4a8e737205def139 (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } 
--- /* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 (void) { return &v; } 
+-- int32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
+-- int32_t hs_bindgen_test_distilled_lib_1_efd27157959bd4b3 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
+-- /* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } 
+-- /* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } 
 {-| __C declaration:__ @another_typedef_struct_t@
 
     __defined at:__ @distilled_lib_1.h:9:9@
@@ -467,37 +468,6 @@ pattern ENUM_CASE_3 :: A_typedef_enum_e
     __exported by:__ @distilled_lib_1.h@
 -}
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_a1099223f16f8637" some_fun_wrapper :: Ptr A_type_t ->
-                                                                                                 HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                 Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                 IO HsBindgen.Runtime.Prelude.Int32
-some_fun :: Ptr A_type_t ->
-            HsBindgen.Runtime.Prelude.Word32 ->
-            IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-            IO HsBindgen.Runtime.Prelude.Int32
-some_fun = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> some_fun_wrapper x_0 x_1 ptr_3)
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_4a8e737205def139" hs_bindgen_test_distilled_lib_1_4a8e737205def139 :: IO (FunPtr (Ptr A_type_t ->
-                                                                                                                                             HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                                                             IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                                                             IO HsBindgen.Runtime.Prelude.Int32))
-{-# NOINLINE some_fun_ptr #-}
-some_fun_ptr :: FunPtr (Ptr A_type_t ->
-                        HsBindgen.Runtime.Prelude.Word32 ->
-                        IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-                        IO HsBindgen.Runtime.Prelude.Int32)
-some_fun_ptr = unsafePerformIO hs_bindgen_test_distilled_lib_1_4a8e737205def139
 {-| __C declaration:__ @callback_t@
 
     __defined at:__ @distilled_lib_1.h:77:19@
@@ -516,13 +486,59 @@ newtype Callback_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @distilled_lib_1.h:72:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun_wrapper :: Ptr A_type_t ->
+                                                                                                 HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                 Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                 IO HsBindgen.Runtime.Prelude.Int32
+some_fun :: Ptr A_type_t ->
+            HsBindgen.Runtime.Prelude.Word32 ->
+            IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+            IO HsBindgen.Runtime.Prelude.Int32
+some_fun = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> some_fun_wrapper x_0 x_1 ptr_3)
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @distilled_lib_1.h:72:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_efd27157959bd4b3" some_fun_wrapper :: Ptr A_type_t ->
+                                                                                                 HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                 Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                 IO HsBindgen.Runtime.Prelude.Int32
+some_fun :: Ptr A_type_t ->
+            HsBindgen.Runtime.Prelude.Word32 ->
+            IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+            IO HsBindgen.Runtime.Prelude.Int32
+some_fun = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> some_fun_wrapper x_0 x_1 ptr_3)
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @distilled_lib_1.h:72:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c :: IO (FunPtr (Ptr A_type_t ->
+                                                                                                                                             HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                                                             IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                                                             IO HsBindgen.Runtime.Prelude.Int32))
+{-# NOINLINE some_fun_ptr #-}
+some_fun_ptr :: FunPtr (Ptr A_type_t ->
+                        HsBindgen.Runtime.Prelude.Word32 ->
+                        IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                        IO HsBindgen.Runtime.Prelude.Int32)
+some_fun_ptr = unsafePerformIO hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
 {-| __C declaration:__ @v@
 
     __defined at:__ @distilled_lib_1.h:91:14@
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_0f967c83f73d0365" hs_bindgen_test_distilled_lib_1_0f967c83f73d0365 :: IO (Ptr Var_t)
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 :: IO (Ptr Var_t)
 {-# NOINLINE v_ptr #-}
 v_ptr :: Ptr Var_t
-v_ptr = unsafePerformIO hs_bindgen_test_distilled_lib_1_0f967c83f73d0365
+v_ptr = unsafePerformIO hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6

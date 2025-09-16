@@ -1,98 +1,4 @@
 [
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "fun2",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Nothing,
-          functionParameterType =
-          HsPrimType HsPrimCInt,
-          functionParameterComment =
-          Nothing}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_skip_over_long_double_c7f5e756cd95b3ed (signed int arg1) { fun2(arg1); }",
-          capiWrapperImport =
-          "skip_over_long_double.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              Nothing
-              (TypePrim
-                (PrimIntegral PrimInt Signed))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fun2",
-          commentLocation = Just
-            "skip_over_long_double.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["skip_over_long_double.h"],
-              headerInclude =
-              "skip_over_long_double.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_skip_over_long_double_94047676e402a0bf",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimUnit))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_skip_over_long_double_94047676e402a0bf",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_94047676e402a0bf (void)) (signed int arg1) { return &fun2; } ",
-          capiWrapperImport =
-          "skip_over_long_double.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fun2",
-          commentLocation = Just
-            "skip_over_long_double.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["skip_over_long_double.h"],
-              headerInclude =
-              "skip_over_long_double.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -544,4 +450,147 @@
         "@NsTypeConstr"
         "Struct2",
       deriveInstanceComment =
-      Nothing}]
+      Nothing},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (signed int arg1) { fun2(arg1); }",
+          capiWrapperImport =
+          "skip_over_long_double.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun2",
+          commentLocation = Just
+            "skip_over_long_double.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["skip_over_long_double.h"],
+              headerInclude =
+              "skip_over_long_double.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "fun2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc (signed int arg1) { fun2(arg1); }",
+          capiWrapperImport =
+          "skip_over_long_double.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun2",
+          commentLocation = Just
+            "skip_over_long_double.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["skip_over_long_double.h"],
+              headerInclude =
+              "skip_over_long_double.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } ",
+          capiWrapperImport =
+          "skip_over_long_double.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "fun2",
+          commentLocation = Just
+            "skip_over_long_double.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["skip_over_long_double.h"],
+              headerInclude =
+              "skip_over_long_double.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]
