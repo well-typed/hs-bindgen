@@ -35,10 +35,9 @@ runs:
       shell: bash
       working-directory: ./manual/hs
       run: |
-        echo "Writing cabal.project.local to configure C paths..."
+        echo "Writing cabal.project.local"
         cat <<EOF > cabal.project.local
-        -- The index state should match `cabal.project.ci` on top level.
-        index-state: 2025-09-16T04:55:58Z
+        import: ../../cabal.project.ci.base
 
         package manual
           extra-include-dirs:

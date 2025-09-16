@@ -31,8 +31,10 @@ runs:
       shell: bash
       working-directory: ./manual/hs
       run: |
-        echo "Writing cabal.project.local to configure C paths..."
+        echo "Writing cabal.project.local"
         cat <<EOF > cabal.project.local
+        import: ../../cabal.project.ci.base
+
         package *
           ghc-options:
             -optc-DSUPPORTS_UNICODE
