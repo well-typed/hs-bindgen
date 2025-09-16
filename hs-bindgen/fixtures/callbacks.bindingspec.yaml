@@ -1,0 +1,45 @@
+types:
+- headers: callbacks.h
+  cname: DataValidator
+  module: Example
+  identifier: DataValidator
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: FileOpenedNotification
+  module: Example
+  identifier: FileOpenedNotification
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: struct Measurement
+  module: Example
+  identifier: Measurement
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: MeasurementReceived
+  module: Example
+  identifier: MeasurementReceived
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: ProgressUpdate
+  module: Example
+  identifier: ProgressUpdate
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable

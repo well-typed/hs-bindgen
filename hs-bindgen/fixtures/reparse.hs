@@ -1751,6 +1751,52 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkFunptr_typedef1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsIO
+            (HsTypRef
+              (HsName "@NsTypeConstr" "A")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef1"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsIO
+                    (HsTypRef
+                      (HsName "@NsTypeConstr" "A"))),
+                TextContent "to",
+                Identifier "Funptr_typedef1",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1864,6 +1910,54 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkFunptr_typedef2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsIO
+            (HsPtr
+              (HsTypRef
+                (HsName "@NsTypeConstr" "A"))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef2"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsIO
+                    (HsPtr
+                      (HsTypRef
+                        (HsName "@NsTypeConstr" "A")))),
+                TextContent "to",
+                Identifier "Funptr_typedef2",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -1981,6 +2075,58 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkFunptr_typedef3",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsIO
+            (HsPtr
+              (HsPtr
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "A")))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef3"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsIO
+                    (HsPtr
+                      (HsPtr
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "A"))))),
+                TextContent "to",
+                Identifier "Funptr_typedef3",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2102,6 +2248,62 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkFunptr_typedef4",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "A")))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef4"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "A"))))),
+                TextContent "to",
+                Identifier "Funptr_typedef4",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -2225,6 +2427,66 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkFunptr_typedef5",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "A"))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef5"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsPtr
+                          (HsTypRef
+                            (HsName
+                              "@NsTypeConstr"
+                              "A")))))),
+                TextContent "to",
+                Identifier "Funptr_typedef5",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -6272,6 +6534,62 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "A")))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr1"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "A"))))),
+                TextContent "to",
+                Identifier "Const_funptr1",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -6394,6 +6712,62 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "A")))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr2"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsTypRef
+                          (HsName
+                            "@NsTypeConstr"
+                            "A"))))),
+                TextContent "to",
+                Identifier "Const_funptr2",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -6518,6 +6892,66 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr3",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "A"))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr3"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsPtr
+                          (HsTypRef
+                            (HsName
+                              "@NsTypeConstr"
+                              "A")))))),
+                TextContent "to",
+                Identifier "Const_funptr3",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -6642,6 +7076,66 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr4",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "A"))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr4"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsPtr
+                          (HsTypRef
+                            (HsName
+                              "@NsTypeConstr"
+                              "A")))))),
+                TextContent "to",
+                Identifier "Const_funptr4",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -6766,6 +7260,66 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr5",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "A"))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr5"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsPtr
+                          (HsTypRef
+                            (HsName
+                              "@NsTypeConstr"
+                              "A")))))),
+                TextContent "to",
+                Identifier "Const_funptr5",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -6891,6 +7445,66 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr6",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "A"))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr6"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsPtr
+                          (HsTypRef
+                            (HsName
+                              "@NsTypeConstr"
+                              "A")))))),
+                TextContent "to",
+                Identifier "Const_funptr6",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
@@ -7016,6 +7630,66 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "mkConst_funptr7",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "A"))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr7"))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin =
+      GeneratedWrapper,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Convert Haskell function",
+                TypeSignature
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsFun
+                      (HsPrimType HsPrimCDouble)
+                      (HsIO
+                        (HsPtr
+                          (HsTypRef
+                            (HsName
+                              "@NsTypeConstr"
+                              "A")))))),
+                TextContent "to",
+                Identifier "Const_funptr7",
+                TextContent
+                  "(C function pointer typedef)."]]},
+      foreignImportSafety = Safe},
   DeclNewtypeInstance
     DeriveInstance {
       deriveInstanceStrategy =
