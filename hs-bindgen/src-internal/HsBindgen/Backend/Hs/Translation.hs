@@ -119,8 +119,10 @@ generateDeclarations ::
   -> [C.Decl]
   -> [Hs.Decl]
 generateDeclarations opts haddockConfig moduleName decs =
-    flip State.evalState Map.empty $
-      concat <$> mapM (generateDecs opts haddockConfig moduleName typedefs) decs
+    flip State.evalState Map.empty $ do
+      decls <- concat <$> mapM (generateDecs opts haddockConfig moduleName typedefs) decs
+      let functionPointerWrappers = collectFunctionPointerTypes decls
+      return (decls ++ functionPointerWrappers)
   where
     typedefs :: Map C.Name C.Type
     typedefs = Map.union actualTypedefs pseudoTypedefs
@@ -331,7 +333,7 @@ generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
       C.DeclEnumOpaque ->
         opaqueEnumDecs haddockConfig info spec
       C.DeclTypedef d ->
-        typedefDecs opts haddockConfig info d spec
+        typedefDecs opts haddockConfig typedefs info d spec
       C.DeclFunction f ->
         let funDecls = functionDecs opts haddockConfig moduleName typedefs info f spec
             funType  = (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
@@ -782,11 +784,12 @@ typedefDecs ::
      State.MonadState InstanceMap m
   => TranslationOpts
   -> HaddockConfig
+  -> Map C.Name C.Type
   -> C.DeclInfo
   -> C.Typedef
   -> C.DeclSpec
   -> m [Hs.Decl]
-typedefDecs opts haddockConfig info typedef spec = do
+typedefDecs opts haddockConfig typedefs info typedef spec = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
     return decls
@@ -806,10 +809,71 @@ typedefDecs opts haddockConfig info typedef spec = do
     candidateInsts = Set.union (Set.singleton Hs.Storable) $
       Set.fromList (snd <$> translationDeriveTypedef opts)
 
+    newtypeWrapper :: [Hs.Decl]
+    newtypeWrapper =
+      case C.typedefType typedef of
+        -- We need to check C.Type here instead of Hs.HsType because we might
+        -- need to wrap/unwrap some of the function's argument types due to FFI
+        -- limitations.
+        --
+        C.TypePointer (C.TypeFun args res) ->
+          let wrappedArgs = map (wrapType typedefs) args
+              wrappedRes  = wrapType typedefs res
+              resType     = case wrappedRes of
+                r@HeapType {} -> unwrapType r
+                r@WrapType {} -> unwrapType r
+                CAType {} ->
+                    panicPure "ConstantArray cannot occur as a result type"
+                AType {} ->
+                    panicPure "Array cannot occur as a result type"
+              t           = typ $ C.TypeFun (map unwrapType wrappedArgs)
+                                            resType
+
+              isAnyFancy = anyFancy wrappedArgs wrappedRes
+
+              highlevelName = "mk" <> C.nameHs (C.declId info)
+              importName
+                  | isAnyFancy = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
+                  | otherwise  = highlevelName
+          in Hs.DeclForeignImport Hs.ForeignImportDecl
+             { foreignImportName       = importName
+             , foreignImportResultType = NormalResultType $ HsIO $ HsTypRef newtypeName
+             , foreignImportParameters = [wrapperParam t]
+             , foreignImportOrigName   = T.pack "wrapper"
+             , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+             , foreignImportOrigin     = Origin.GeneratedWrapper
+             , foreignImportComment    = Just wrapperComment
+             , foreignImportSafety     = SHs.Safe
+             } :
+             [ Hs.DeclSimple $ hsWrapperDecl highlevelName importName wrappedRes wrappedArgs
+             | isAnyFancy
+             ]
+        _ -> []
+      where
+        wrapperParam hsType = Hs.FunctionParameter
+          { functionParameterName    = Nothing
+          , functionParameterType    = hsType
+          , functionParameterComment = Nothing
+          }
+        wrapperComment = Hs.Comment
+          { commentTitle    = Nothing
+          , commentOrigin   = Nothing
+          , commentLocation = Nothing
+          , commentHeader   = Nothing
+          , commentChildren =
+              [ Hs.Paragraph
+                  [Hs.TextContent
+                    (  "Automatically generated wrapper to convert "
+                    <> "Haskell function to C function pointer"
+                    )
+                  ]
+              ]
+          }
+
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set HsTypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        newtypeDecl : storableDecl ++ optDecls
+      (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls
       where
         insts :: Set HsTypeClass
         insts =
@@ -1227,7 +1291,7 @@ functionDecs ::
 functionDecs opts haddockConfig moduleName typedefs info f _spec =
     funDecl : [
         Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
-      | anyFancy
+      | isAnyFancy
       ]
   where
     funDecl :: Hs.Decl
@@ -1250,47 +1314,27 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
             C.declHeader info
         }
 
-    -- Fancy types are heap types or constant arrays. We create high-level
-    -- wrapper for fancy types.
-    anyFancy = any p (res : wrappedArgTypes) where
-        p WrapType {} = False
-        p HeapType {} = True
-        p CAType {}   = True
-        p AType {}    = True
-
+    isAnyFancy = anyFancy wrappedArgTypes res
     highlevelName = C.nameHs (C.declId info)
     importName
-        | anyFancy   = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
+        | isAnyFancy = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
         | otherwise  = highlevelName
 
-    res = wrapType $ C.functionRes f
+    res = wrapType typedefs $ C.functionRes f
     (mbFIComment, parsedArgs) =
       generateHaddocksWithInfoParams haddockConfig info args
 
     args = [ Hs.FunctionParameter
               { functionParameterName    = fmap C.nameHs mbName
-              , functionParameterType    = typ' CFunArg (unwrapType (wrapType ty))
+              , functionParameterType    = typ' CFunArg (unwrapType (wrapType typedefs ty))
               , functionParameterComment = Nothing
               }
            | (mbName, ty) <- C.functionArgs f
            ]
     wrappedArgTypes =
-      [ wrapType ty
+      [ wrapType typedefs ty
       | (_, ty) <- C.functionArgs f
       ]
-
-    -- Types that we cannot directly pass via C FFI.
-    wrapType :: C.Type -> WrappedType
-    wrapType ty = go ty
-      where
-        go = \case
-          C.TypeStruct {}             -> HeapType ty
-          C.TypeUnion {}              -> HeapType ty
-          C.TypeComplex {}            -> HeapType ty
-          (C.TypeConstArray n ty')    -> CAType   ty n ty'
-          (C.TypeIncompleteArray ty') -> AType    ty ty'
-          (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
-          _                           -> WrapType ty
 
     resType :: ResultType HsType
     resType =
@@ -1350,6 +1394,161 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
     wrapperName :: String
     wrapperName = unUniqueSymbolId $
       getUniqueSymbolId (translationUniqueId opts) moduleName innerName
+
+
+-- | Fancy types are heap types or constant arrays. We create high-level
+-- wrapper for fancy types.
+--
+anyFancy :: [WrappedType] -> WrappedType -> Bool
+anyFancy wrappedArgTypes res = any p (res : wrappedArgTypes)
+  where
+    p WrapType {} = False
+    p HeapType {} = True
+    p CAType {}   = True
+    p AType {}    = True
+
+
+-- Types that we cannot directly pass via C FFI.
+wrapType :: Map C.Name C.Type -> C.Type -> WrappedType
+wrapType typedefs ty = go ty
+  where
+    go = \case
+      C.TypeStruct {}             -> HeapType ty
+      C.TypeUnion {}              -> HeapType ty
+      C.TypeComplex {}            -> HeapType ty
+      (C.TypeConstArray n ty')    -> CAType   ty n ty'
+      (C.TypeIncompleteArray ty') -> AType    ty ty'
+      (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
+      _                           -> WrapType ty
+
+{-------------------------------------------------------------------------------
+  Function Pointers
+-------------------------------------------------------------------------------}
+
+-- | Collect all HsFunPtr types from all declarations and generate wrappers
+--
+-- Generates wrappers only for function pointers that appear directly in
+-- foreign import parameters or struct fields. Newtype wrappers are handled
+-- separately in the typedef generation logic.
+--
+collectFunctionPointerTypes :: [Hs.Decl] -> [Hs.Decl]
+collectFunctionPointerTypes decls =
+    map generateFunctionPointerWrapper
+  . Set.toList
+  $ extractAllFunctionPointerTypes decls
+
+-- | Extract all unique function pointer types from declarations
+extractAllFunctionPointerTypes :: [Hs.Decl] -> Set Hs.HsType
+extractAllFunctionPointerTypes =
+    Set.fromList
+  . concatMap extractFromDecl
+  where
+    extractFromDecl :: Hs.Decl -> [Hs.HsType]
+    extractFromDecl = \case
+      Hs.DeclForeignImport decl -> extractFromForeignImport decl
+      Hs.DeclData struct        -> extractFromStruct struct
+      _                         -> []
+
+    extractFromForeignImport :: Hs.ForeignImportDecl -> [Hs.HsType]
+    extractFromForeignImport Hs.ForeignImportDecl{foreignImportParameters} =
+      [ fp | Hs.FunctionParameter{functionParameterType = HsFunPtr fp} <- foreignImportParameters ]
+
+    extractFromStruct :: Hs.Struct n -> [Hs.HsType]
+    extractFromStruct Hs.Struct{structFields} =
+      concatMap (extractFunctionPointersFromType . Hs.fieldType) (Vec.toList structFields)
+
+-- | Recursively extract all function pointer types from a type
+extractFunctionPointersFromType :: Hs.HsType -> [Hs.HsType]
+extractFunctionPointersFromType = \case
+  HsFunPtr hsType          -> [hsType]
+  HsPtr hsType             -> extractFunctionPointersFromType hsType
+  HsConstArray _ hsType    -> extractFunctionPointersFromType hsType
+  HsIncompleteArray hsType -> extractFunctionPointersFromType hsType
+  HsIO hsType              -> extractFunctionPointersFromType hsType
+  HsFun hsType hsType'     -> extractFunctionPointersFromType hsType
+                           ++ extractFunctionPointersFromType hsType'
+  HsBlock hsType           -> extractFunctionPointersFromType hsType
+  _                        -> []
+
+-- | Generate a wrapper declaration for a function pointer type
+generateFunctionPointerWrapper :: Hs.HsType -> Hs.Decl
+generateFunctionPointerWrapper hsType =
+  Hs.DeclForeignImport $ Hs.ForeignImportDecl
+    { foreignImportName       = generateWrapperName
+    , foreignImportResultType = NormalResultType $ HsIO $ HsFunPtr hsType
+    , foreignImportParameters = [wrapperParam]
+    , foreignImportOrigName   = T.pack "wrapper"
+    , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+    , foreignImportOrigin     = Origin.GeneratedWrapper
+    , foreignImportComment    = Just functionPointerWrapperComment
+    , foreignImportSafety     = SHs.Safe
+    }
+  where
+    generateWrapperName :: HsName NsVar
+    generateWrapperName =
+      HsName $ "wrapFunPtr_" <> T.pack (typeToString hsType)
+
+    wrapperParam :: Hs.FunctionParameter
+    wrapperParam = Hs.FunctionParameter
+      { functionParameterName    = Nothing
+      , functionParameterType    = hsType
+      , functionParameterComment = Nothing
+      }
+
+    functionPointerWrapperComment :: Hs.Comment
+    functionPointerWrapperComment = Hs.Comment
+      { commentTitle    = Nothing
+      , commentOrigin   = Nothing
+      , commentLocation = Nothing
+      , commentHeader   = Nothing
+      , commentChildren =
+          [ Hs.Paragraph
+              [ Hs.TextContent "Automatically generated wrapper to convert "
+              , Hs.TextContent "Haskell function to C function pointer"
+              ]
+          ]
+      }
+
+-- | Convert a Haskell type to a string for naming purposes
+typeToString :: Hs.HsType -> String
+typeToString = \case
+  HsConstArray n t      -> "ConstantArray" <> show n <> "_" <> typeToString t
+  HsIncompleteArray t   -> "IncompleteArray_" <> typeToString t
+  HsFunPtr t            -> "FunPtr_" <> typeToString t
+  HsIO t                -> typeToString t
+  HsFun arg res         -> typeToString arg <> "_to_" <> typeToString res
+  HsTypRef name         -> T.unpack $ getHsName name
+  HsByteArray           -> "ByteArray"
+  HsSizedByteArray n n' -> "SizedByteArray_" <> show n <> "_" <> show n'
+  HsPtr t               -> "Ptr_" <> typeToString t
+  HsPrimType prim       -> primTypeToString prim
+  HsComplexType prim    -> primTypeToString prim
+  HsBlock t             -> "Block_" <> typeToString t
+  HsExtBinding _ _      -> "ExtBinding"
+
+-- | Convert primitive types to strings
+primTypeToString :: HsPrimType -> String
+primTypeToString = \case
+  HsPrimVoid       -> "Void"
+  HsPrimUnit       -> "Unit"
+  HsPrimCChar      -> "CChar"
+  HsPrimCSChar     -> "CSChar"
+  HsPrimCUChar     -> "CUChar"
+  HsPrimCInt       -> "CInt"
+  HsPrimCUInt      -> "CUInt"
+  HsPrimCShort     -> "CShort"
+  HsPrimCUShort    -> "CUShort"
+  HsPrimCLong      -> "CLong"
+  HsPrimCULong     -> "CULong"
+  HsPrimCPtrDiff   -> "CPtrDiff"
+  HsPrimCSize      -> "CSize"
+  HsPrimCLLong     -> "CLLong"
+  HsPrimCULLong    -> "CULLong"
+  HsPrimCBool      -> "CBool"
+  HsPrimCFloat     -> "CFloat"
+  HsPrimCDouble    -> "CDouble"
+  HsPrimCStringLen -> "CStringLen"
+  HsPrimInt        -> "Int"
 
 {-------------------------------------------------------------------------------
   Globals

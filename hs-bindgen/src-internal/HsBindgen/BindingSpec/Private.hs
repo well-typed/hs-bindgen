@@ -150,7 +150,7 @@ data TypeSpec = TypeSpec {
     , -- | Instance specification
       typeSpecInstances :: Map HsTypeClass (Omittable InstanceSpec)
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 defaultTypeSpec :: TypeSpec
 defaultTypeSpec = TypeSpec {

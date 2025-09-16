@@ -57,6 +57,7 @@ data EmptyData =
 data ForeignImport =
     Function C.Function
   | Global C.Type
+  | GeneratedWrapper
   deriving stock (Generic, Show)
 
 newtype PatSyn =
