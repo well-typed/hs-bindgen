@@ -335,7 +335,7 @@ instance Pretty SDecl where
                   string header
                 , string $ Text.unpack foreignImportOrigName
                 ])
-              CallConvGhcCCall style -> ("capi", hcat [
+              CallConvGhcCCall style -> ("ccall", hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
