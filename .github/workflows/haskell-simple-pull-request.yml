@@ -12,12 +12,6 @@ concurrency:
 jobs:
   test:
     name: Test
-    # PRs can only be added to the MQ when all "required" checks pass.
-    # PRs can only be merged into `main` when all "required" checks pass in the MQ.
-    #
-    # So we need to always run all checks, but skip PR view jobs in the MQ, and
-    # MQ jobs in the PR view.
-    if: github.event_name == 'pull_request'
     strategy:
       matrix:
         runner: ['ubuntu-latest']
@@ -28,3 +22,9 @@ jobs:
       runner: ${{ matrix.runner }}
       ghc:    ${{ matrix.ghc }}
       llvm:   ${{ matrix.llvm }}
+      # PRs can only be added to the MQ when all "required" checks pass.
+      # PRs can only be merged into `main` when all "required" checks pass in the MQ.
+      #
+      # So we need to always run all checks, but skip PR view jobs in the MQ, and
+      # MQ jobs in the PR view.
+      active: ${{ github.event_name == 'pull_request' }}

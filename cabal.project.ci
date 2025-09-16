@@ -1,5 +1,6 @@
 -- The index state should match the one used for building the manual.
 index-state: 2025-09-16T04:55:58Z
+tests: true
 
 packages: ansi-diff
 packages: c-expr-runtime
