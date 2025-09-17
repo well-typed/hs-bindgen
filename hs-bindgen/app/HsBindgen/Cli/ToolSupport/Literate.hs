@@ -1,11 +1,11 @@
 {-# LANGUAGE ApplicativeDo #-}
 
--- | @hs-bindgen-cli internal literate@ command
+-- | @hs-bindgen-cli tool-support literate@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Internal.Literate qualified as Literate
-module HsBindgen.Cli.Internal.Literate (
+-- > import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
+module HsBindgen.Cli.ToolSupport.Literate (
     -- * CLI help
     info
     -- * Options

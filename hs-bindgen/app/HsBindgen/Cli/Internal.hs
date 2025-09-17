@@ -16,32 +16,32 @@ module HsBindgen.Cli.Internal (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Internal.Literate qualified as Literate
+import HsBindgen.Cli.Internal.Parse qualified as Parse
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Internal commands, not meant to be used directly"
+info = progDesc "Internal commands, for hs-bindgen development"
 
 {-------------------------------------------------------------------------------
   Commands
 -------------------------------------------------------------------------------}
 
--- | Ordered lexicographically
+-- Ordered lexicographically
 newtype Cmd =
-    CmdLiterate Literate.Opts
+    CmdParse Parse.Opts
 
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
-      cmd_ "literate" CmdLiterate Literate.parseOpts Literate.info
+      cmd "parse" CmdParse Parse.parseOpts Parse.info
     ]
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Cmd -> IO (Maybe Literate.Opts)
-exec _gopts = \case
-    CmdLiterate opts -> return (Just opts)
+exec :: GlobalOpts -> Cmd -> IO ()
+exec gopts = \case
+    CmdParse opts -> Parse.exec gopts opts

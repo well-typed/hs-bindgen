@@ -1,14 +1,14 @@
--- | @hs-bindgen-cli dev binding-spec@ commands
+-- | @hs-bindgen-cli internal parse@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.BindingSpec qualified as BindingSpec
-module HsBindgen.Cli.Dev.BindingSpec (
+-- > import HsBindgen.Cli.Internal.Parse qualified as Parse
+module HsBindgen.Cli.Internal.Parse (
     -- * CLI help
     info
-    -- * Commands
-  , Cmd(..)
-  , parseCmd
+    -- * Options
+  , Opts(..)
+  , parseOpts
     -- * Execution
   , exec
   ) where
@@ -16,32 +16,37 @@ module HsBindgen.Cli.Dev.BindingSpec (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Dev.BindingSpec.StdLib qualified as StdLib
+import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Binding specification commands"
+info = progDesc "Parse C headers"
 
 {-------------------------------------------------------------------------------
-  Commands
+  Options
 -------------------------------------------------------------------------------}
 
--- Ordered lexicographically
-newtype Cmd =
-    CmdStdLib StdLib.Opts
+data Opts = Opts {
+      bindgenConfig :: BindgenConfig
+    , inputs        :: [UncheckedHashIncludeArg]
+    }
 
-parseCmd :: Parser Cmd
-parseCmd = subparser $ mconcat [
-      cmd "stdlib" CmdStdLib StdLib.parseOpts StdLib.info
-    ]
+parseOpts :: Parser Opts
+parseOpts =
+    Opts
+      <$> parseBindgenConfig
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Cmd -> IO ()
-exec gopts = \case
-    CmdStdLib opts -> StdLib.exec gopts opts
+exec :: GlobalOpts -> Opts -> IO ()
+exec GlobalOpts{..} Opts{..} = do
+    let artefacts = ReifiedC :* Nil
+    (I decls :* Nil) <-
+      hsBindgen tracerConfig bindgenConfig inputs artefacts
+    print decls

@@ -1,14 +1,14 @@
--- | @hs-bindgen-cli dev parse@ command
+-- | @hs-bindgen-cli tool-support@ commands
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.Parse qualified as Parse
-module HsBindgen.Cli.Dev.Parse (
+-- > import HsBindgen.Cli.ToolSupport qualified as ToolSupport
+module HsBindgen.Cli.ToolSupport (
     -- * CLI help
     info
-    -- * Options
-  , Opts(..)
-  , parseOpts
+    -- * Commands
+  , Cmd(..)
+  , parseCmd
     -- * Execution
   , exec
   ) where
@@ -16,37 +16,32 @@ module HsBindgen.Cli.Dev.Parse (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Lib
+import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Parse C headers"
+info = progDesc "Tool support commands, not meant to be used directly"
 
 {-------------------------------------------------------------------------------
-  Options
+  Commands
 -------------------------------------------------------------------------------}
 
-data Opts = Opts {
-      bindgenConfig :: BindgenConfig
-    , inputs        :: [UncheckedHashIncludeArg]
-    }
+-- | Ordered lexicographically
+newtype Cmd =
+    CmdLiterate Literate.Opts
 
-parseOpts :: Parser Opts
-parseOpts =
-    Opts
-      <$> parseBindgenConfig
-      <*> parseInputs
+parseCmd :: Parser Cmd
+parseCmd = subparser $ mconcat [
+      cmd_ "literate" CmdLiterate Literate.parseOpts Literate.info
+    ]
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    let artefacts = ReifiedC :* Nil
-    (I decls :* Nil) <-
-      hsBindgen tracerConfig bindgenConfig inputs artefacts
-    print decls
+exec :: GlobalOpts -> Cmd -> IO (Maybe Literate.Opts)
+exec _gopts = \case
+    CmdLiterate opts -> return (Just opts)

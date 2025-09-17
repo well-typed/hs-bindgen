@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen.App
 import HsBindgen.Cli.Info.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Cli.Info.Libclang qualified as Libclang
 import HsBindgen.Cli.Info.ResolveHeader qualified as ResolveHeader
 
 {-------------------------------------------------------------------------------
@@ -33,6 +34,7 @@ info = progDesc "Informational commands, useful when creating bindings"
 -- Ordered lexicographically
 data Cmd =
     CmdIncludeGraph  IncludeGraph.Opts
+  | CmdLibclang      Libclang.Opts
   | CmdResolveHeader ResolveHeader.Opts
 
 parseCmd :: Parser Cmd
@@ -42,6 +44,11 @@ parseCmd = subparser $ mconcat [
         CmdIncludeGraph
         IncludeGraph.parseOpts
         IncludeGraph.info
+    , cmd
+        "libclang"
+        CmdLibclang
+        Libclang.parseOpts
+        Libclang.info
     , cmd
         "resolve-header"
         CmdResolveHeader
@@ -56,4 +63,5 @@ parseCmd = subparser $ mconcat [
 exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
     CmdIncludeGraph  opts -> IncludeGraph.exec  gopts opts
+    CmdLibclang      opts -> Libclang.exec      gopts opts
     CmdResolveHeader opts -> ResolveHeader.exec gopts opts

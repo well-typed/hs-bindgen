@@ -103,7 +103,7 @@ runs:
         echo '### Version'
         cabal run hs-bindgen-cli -- --version
         echo '### libclang -v'
-        cabal run hs-bindgen-cli -- dev clang --clang-option=-v
+        cabal run hs-bindgen-cli -- info libclang --clang-option=-v
         echo '### Resolve (clang)'
         cabal run hs-bindgen-cli -- info resolve-header -v4 --builtin-include-dir=clang stdint.h
 

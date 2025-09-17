@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli dev clang@ command
+-- | @hs-bindgen-cli info libclang@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.Clang qualified as Clang
-module HsBindgen.Cli.Dev.Clang (
+-- > import HsBindgen.Cli.Info.Libclang qualified as Libclang
+module HsBindgen.Cli.Info.Libclang (
     -- * CLI help
     info
     -- * Options
@@ -28,7 +28,7 @@ import HsBindgen.Lib
 
 info :: InfoMod a
 info = mconcat [
-      progDesc "Run Clang with empty input"
+      progDesc "Run libclang with empty input"
     , footerDoc . Just . PP.reflow $ mconcat [
           "This command provides a way to get output from libclang."
         , " For example, use --clang-option=-v to see version and include"
