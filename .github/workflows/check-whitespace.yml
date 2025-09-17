@@ -9,6 +9,7 @@ on:
 
 jobs:
   whitespace:
+    name: Whitespace
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:

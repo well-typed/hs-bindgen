@@ -8,6 +8,7 @@ on:
 
 jobs:
   stylish-haskell:
+    name: Stylish Haskell
     runs-on: ubuntu-latest
 
     steps:

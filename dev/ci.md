@@ -9,14 +9,13 @@ difference is
 
 ```diff
 diff --git a/.github/workflows/haskell-ci.yml b/.github/workflows/haskell-ci.yml
-index 7de2a924..f14dcda7 100644
+index 7de2a924..f3a016c1 100644
 --- a/.github/workflows/haskell-ci.yml
 +++ b/.github/workflows/haskell-ci.yml
-@@ -13,20 +13,24 @@
+@@ -13,16 +13,19 @@
  # REGENDATA ("0.19.20250821",["github","cabal.project.ci"])
  #
  name: Haskell-CI
-+
  on:
 -  push:
 -    branches:
@@ -24,9 +23,9 @@ index 7de2a924..f14dcda7 100644
    pull_request:
      branches:
        - main
-   merge_group:
-     branches:
-       - main
++  merge_group:
++    branches:
++      - main
 +
 +concurrency:
 +  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -35,12 +34,7 @@ index 7de2a924..f14dcda7 100644
  jobs:
    linux:
      name: Haskell-CI - Linux - ${{ matrix.compiler }}
-     runs-on: ubuntu-24.04
-+    if: ${{ github.event_name == 'merge_group' }}
-     timeout-minutes:
-       60
-     container:
-@@ -312,7 +316,7 @@ jobs:
+@@ -312,7 +315,7 @@ jobs:
            rm -f cabal.project.local
            $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks all
        - name: save cache

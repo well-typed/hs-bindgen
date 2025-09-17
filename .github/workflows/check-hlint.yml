@@ -9,6 +9,7 @@ on:
 
 jobs:
   hlint:
+    name: HLint
     runs-on: ubuntu-latest
 
     steps:
