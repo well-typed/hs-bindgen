@@ -29,7 +29,7 @@ data PassSimulatedOpenKind
 
 -- | Pass definition
 class IsPass (p :: Pass) where
-  -- | Identity of declarations
+  -- | Declaration identifier
   --
   -- This takes various forms during processing:
   --
