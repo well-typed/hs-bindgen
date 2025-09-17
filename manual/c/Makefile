@@ -27,7 +27,7 @@ ifeq ($(LLVM_BACKEND),1)
 	EXTRAFLAGS:=
 endif
 
-default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT} libarrays${TARGET_EXT} libfunctionpointers${TARGET_EXT} libcomplex_test${TARGET_EXT}
+default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT} libarrays${TARGET_EXT} libfunctionpointers${TARGET_EXT} libcomplex_test${TARGET_EXT} libcallbacks${TARGET_EXT}
 
 .PHONY: clean
 clean:
@@ -70,6 +70,12 @@ libcomplex_test${TARGET_EXT}: complex_test.o
 
 complex_test.o: complex_test.c complex_test.h
 	gcc ${EXTRAFLAGS} -Wall -o complex_test.o -c -fPIC complex_test.c
+
+libcallbacks${TARGET_EXT}: callbacks.o
+	gcc ${EXTRAFLAGS} -Wall -shared -o libcallbacks${TARGET_EXT} callbacks.o
+
+callbacks.o: callbacks.c callbacks.h
+	gcc ${EXTRAFLAGS} -Wall -o callbacks.o -c -fPIC callbacks.c
 
 # Example for external bindings
 

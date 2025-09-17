@@ -5,7 +5,7 @@
 module RunManual (main) where
 
 import Control.Exception (bracket)
-import Control.Monad (forM_)
+import Control.Monad (forM_, (<=<))
 import Data.Complex
 import Data.Vector.Storable qualified as VS
 import Foreign as F
@@ -27,6 +27,7 @@ import FunctionPointers as FPointers
 import Globals as Globals
 import Structs
 import Complex qualified
+import Callbacks
 
 import Game.Player
 import Game.State
@@ -461,6 +462,62 @@ main = do
       putStrLn $ "  Sum of complex_double_array_ptr: " <> show doubleArraySum
       putStrLn $ "  Expected: " <> show doubleArrayExpectedSum
       putStrLn $ "  Match: " <> show (complexEq 1e-12 doubleArraySum doubleArrayExpectedSum)
+
+    --
+    -- Callbacks
+    section "Callbacks (Passing Haskell functions to C callbacks"
+    --
+    do
+      let withCallback :: (a -> IO (FunPtr b)) -> (FunPtr b -> c) -> a -> (c -> IO d) -> IO d
+          withCallback mkFunPtr extract callback action =
+            bracket
+              (mkFunPtr callback)
+              freeHaskellFunPtr
+              (action . extract)
+
+      withCallback
+        (return . un_FileOpenedNotification <=< mkFileOpenedNotification)
+        id
+        (putStrLn "File opened (with cleanup)!")
+        (onFileOpened . FileOpenedNotification)
+
+      putStrLn ""
+      withCallback
+          (return . un_ProgressUpdate <=< mkProgressUpdate)
+          id
+          (\progress -> putStrLn $ "Progress: " ++ show progress ++ "%")
+          (onProgressChanged . ProgressUpdate)
+
+      putStrLn ""
+      withCallback
+        (return . un_DataValidator <=< mkDataValidator)
+        id
+        (\value -> do
+          putStrLn $ "Validating: " ++ show value
+          return $ if value > 0 then 1 else 0)
+        $ (\validator -> do
+            result1 <- validateInput validator 50
+            result2 <- validateInput validator (-10)
+            putStrLn $ "Validation results: " ++ show result1 ++ ", " ++ show result2
+          ) . DataValidator
+
+      putStrLn ""
+      withCallback
+        (return . un_MeasurementReceived <=< mkMeasurementReceived)
+        id
+        print
+        (onNewMeasurement . MeasurementReceived)
+
+      withCallback
+        (return . un_SampleBufferFull <=< mkSampleBufferFull)
+        id
+        (\samples -> do
+          putStrLn "Buffer samples:"
+          CA.withPtr samples $ \ptr -> do
+            values <- peekArray 10 ptr
+            print values)
+        (onBufferReady . SampleBufferFull)
+
 
 {-------------------------------------------------------------------------------
   Arrays
