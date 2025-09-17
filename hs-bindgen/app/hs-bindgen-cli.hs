@@ -16,8 +16,8 @@ import Clang.Version (clang_getClangVersion)
 
 import HsBindgen.App
 import HsBindgen.Cli qualified as Cli
-import HsBindgen.Cli.Internal.Literate qualified as Literate
 import HsBindgen.Cli.Preprocess qualified as Preprocess
+import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Lib

@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli internal@ commands
+-- | @hs-bindgen-cli tool-support@ commands
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Internal qualified as Internal
-module HsBindgen.Cli.Internal (
+-- > import HsBindgen.Cli.ToolSupport qualified as ToolSupport
+module HsBindgen.Cli.ToolSupport (
     -- * CLI help
     info
     -- * Commands
@@ -16,14 +16,14 @@ module HsBindgen.Cli.Internal (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Internal.Literate qualified as Literate
+import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Internal commands, not meant to be used directly"
+info = progDesc "Tool support commands, not meant to be used directly"
 
 {-------------------------------------------------------------------------------
   Commands
