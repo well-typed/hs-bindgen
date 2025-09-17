@@ -35,6 +35,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , readFile
   , readFileJson
   , readFileYaml
+  , parseValue
   , encodeJson
   , encodeYaml
   , writeFile
@@ -60,8 +61,6 @@ import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Yaml qualified as Yaml
-import Data.Yaml.Internal qualified
 import Data.Yaml.Pretty qualified
 
 import Clang.Args
@@ -261,46 +260,61 @@ lookupTypeSpec cQualName headers =
   API: YAML/JSON
 -------------------------------------------------------------------------------}
 
--- | Read a binding specification from a file
+-- | Read a binding specification file
 --
 -- The format is determined by the filename extension.
-readFile :: Tracer IO BindingSpecReadMsg -> FilePath -> IO UnresolvedBindingSpec
-readFile tracer path = case getFormat path of
-    FormatYAML -> readFileYaml tracer path
-    FormatJSON -> readFileJson tracer path
+readFile ::
+     Tracer IO BindingSpecReadMsg
+  -> FilePath
+  -> IO UnresolvedBindingSpec
+readFile = readFileAux readVersion
 
--- | Read a binding specification from a JSON file
+-- | Read a binding specification JSON file
 readFileJson ::
      Tracer IO BindingSpecReadMsg
   -> FilePath
   -> IO UnresolvedBindingSpec
-readFileJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
-    Right aspec -> do
-      let (errs, spec) = fromABindingSpec path aspec
-      mapM_ (traceWith tracer) errs
-      return spec
-    Left err -> do
-      traceWith tracer $ BindingSpecReadAesonError path err
-      return empty
+readFileJson = readFileAux readVersionJson
 
--- | Read a binding specification from a YAML file
+-- | Read a binding specification YAML file
 readFileYaml ::
      Tracer IO BindingSpecReadMsg
   -> FilePath
   -> IO UnresolvedBindingSpec
-readFileYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
-    Right (warnings, aspec) -> do
-      forM_ warnings $ \case
-        Data.Yaml.Internal.DuplicateKey jsonPath -> do
-          let msg = "duplicate key: " ++ Aeson.formatPath jsonPath
-          traceWith tracer $ BindingSpecReadYamlWarning path msg
-      let (errs, spec) = fromABindingSpec path aspec
-      mapM_ (traceWith tracer) errs
-      return spec
-    Left err -> do
-      let msg = Yaml.prettyPrintParseException err
-      traceWith tracer $ BindingSpecReadYamlError path msg
-      return empty
+readFileYaml = readFileAux readVersionYaml
+
+readFileAux ::
+     ReadVersionFunction
+  -> Tracer IO BindingSpecReadMsg
+  -> FilePath
+  -> IO UnresolvedBindingSpec
+readFileAux doRead tracer path = fmap (fromMaybe empty) $
+    doRead tracer path >>= \case
+      Just (version', value) -> parseValue tracer path version' value
+      Nothing                -> return Nothing
+
+parseValue ::
+     Monad m
+  => Tracer m BindingSpecReadMsg
+  -> FilePath
+  -> Version
+  -> Aeson.Value
+  -> m (Maybe UnresolvedBindingSpec)
+parseValue tracer path version' value
+    | isCompatVersions version' version = do
+        traceWith tracer $ BindingSpecReadParseVersion path version'
+        case Aeson.fromJSON value of
+          Aeson.Success aspec -> do
+            let (errs, spec) = fromABindingSpec path aspec
+            mapM_ (traceWith tracer) errs
+            return (Just spec)
+          Aeson.Error err -> do
+            traceWith tracer $ BindingSpecReadAesonError path err
+            return Nothing
+    -- | version' < version -> -- no lower versions
+    | otherwise = do
+        traceWith tracer $ BindingSpecReadIncompatibleVersion path version'
+        return Nothing
 
 -- | Encode a binding specification as JSON
 encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
@@ -325,6 +339,32 @@ writeFileJson path = BSL.writeFile path . encodeJson
 -- | Write a binding specification to a YAML file
 writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileYaml path = BSS.writeFile path . encodeYaml
+
+encodeJson' :: ABindingSpec -> BSL.ByteString
+encodeJson' = Aeson.encode
+
+encodeYaml' :: ABindingSpec -> BSS.ByteString
+encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
+  where
+    yamlConfig :: Data.Yaml.Pretty.Config
+    yamlConfig =
+          Data.Yaml.Pretty.setConfCompare (compare `on` keyPosition)
+        $ Data.Yaml.Pretty.defConfig
+
+    keyPosition :: Text -> Int
+    keyPosition = \case
+      "version"     ->  0  -- ABindingSpec:1
+      "omit"        ->  1  -- Omittable:1
+      "types"       ->  2  -- ABindingSpec:2
+      "class"       ->  3  -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "headers"     ->  4  -- ATypeSpecMapping:1
+      "cname"       ->  5  -- ATypeSpecMapping:2
+      "module"      ->  6  -- ATypeSpecMapping:3, AConstraintSpec:2
+      "identifier"  ->  7  -- ATypeSpecMapping:4, AConstraintSpec:3
+      "instances"   ->  8  -- ATypeSpecMapping:5
+      "strategy"    ->  9  -- AInstanceSpecMapping:2
+      "constraints" -> 10  -- AInstanceSpecMapping:3
+      key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -667,29 +707,3 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
       | (cQualName, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
       ]
-
-encodeJson' :: ABindingSpec -> BSL.ByteString
-encodeJson' = Aeson.encode
-
-encodeYaml' :: ABindingSpec -> BSS.ByteString
-encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
-  where
-    yamlConfig :: Data.Yaml.Pretty.Config
-    yamlConfig =
-          Data.Yaml.Pretty.setConfCompare (compare `on` keyPosition)
-        $ Data.Yaml.Pretty.defConfig
-
-    keyPosition :: Text -> Int
-    keyPosition = \case
-      "version"     ->  0  -- ABindingSpec:1
-      "omit"        ->  1  -- Omittable:1
-      "types"       ->  2  -- ABindingSpec:2
-      "class"       ->  3  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "headers"     ->  4  -- ATypeSpecMapping:1
-      "cname"       ->  5  -- ATypeSpecMapping:2
-      "module"      ->  6  -- ATypeSpecMapping:3, AConstraintSpec:2
-      "identifier"  ->  7  -- ATypeSpecMapping:4, AConstraintSpec:3
-      "instances"   ->  8  -- ATypeSpecMapping:5
-      "strategy"    ->  9  -- AInstanceSpecMapping:2
-      "constraints" -> 10  -- AInstanceSpecMapping:3
-      key -> panicPure $ "Unknown key: " ++ show key

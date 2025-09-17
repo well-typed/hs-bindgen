@@ -10,6 +10,7 @@ module HsBindgen.BindingSpec.Private.Version (
     -- * Version
     Version
   , constVersion
+  , parseVersion
   , isCompatVersions
   ) where
 
@@ -19,8 +20,11 @@ import Data.List qualified as List
 import Data.Text qualified as Text
 import Language.Haskell.TH.Syntax qualified as THS
 import Text.Read (readMaybe)
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors (failCode)
+import HsBindgen.Imports
+import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
   Version
@@ -39,13 +43,15 @@ data Version = UnsafeVersion Int Int
   deriving stock (Eq, Ord, THS.Lift)
 
 instance Aeson.FromJSON Version where
-  parseJSON = Aeson.withText "Version" $ \t ->
-    case parseVersion (Text.unpack t) of
-      Right v -> return v
-      Left  e -> Aeson.parseFail $ "Invalid version: " ++ e ++ ": " ++ show t
+  parseJSON = Aeson.withText "Version" $ \t -> case parseVersion t of
+    Right v -> return v
+    Left  e -> Aeson.parseFail $ "Invalid version: " ++ e ++ ": " ++ show t
 
 instance Aeson.ToJSON Version where
   toJSON = Aeson.String . Text.pack . show
+
+instance PrettyForTrace Version where
+  prettyForTrace = PP.string . show
 
 instance Show Version where
   show (UnsafeVersion x y) = show x ++ '.' : show y
@@ -67,8 +73,8 @@ constVersion major minor = case mkVersion major minor of
     Left  e -> failCode $ "Invalid version: " ++ e
 
 -- | Parse a 'Version'
-parseVersion :: String -> Either String Version
-parseVersion s = case List.uncons <$> span Char.isDigit s of
+parseVersion :: Text -> Either String Version
+parseVersion t = case List.uncons <$> span Char.isDigit (Text.unpack t) of
     (majorS, Just ('.', minorS)) -> case (readMaybe majorS, readMaybe minorS) of
       (Just major, Just minor) -> mkVersion major minor
       _otherwise -> Left "not in MAJOR.MINOR format"
