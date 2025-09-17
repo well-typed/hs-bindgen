@@ -351,9 +351,10 @@ include graph for one or more headers, in [Mermaid][] syntax.
 $ hs-bindgen-cli info include-graph stdint.h
 ```
 
-The `hs-bindgen-cli dev clang` command may be used to query Clang options such
-as `-v` using `libclang`, to confirm `libclang` C include search paths.
+The `hs-bindgen-cli info libclang` command may be used to run `libclang` with
+Clang options such as `-v`, to confirm the `libclang` version, C include search
+paths, etc.
 
 ```
-$ hs-bindgen-dev clang --clang-option=-v
+$ hs-bindgen-cli info libclang --clang-option=-v
 ```
