@@ -254,7 +254,7 @@ instance Pretty SDecl where
           typs = flip map instanceTypes $ \(g, typArg, typSyn) -> nest 2 $ fsep
             [ "type" <+> ppUnqualBackendName (resolve g) <+> prettyPrec 1 typArg
                 <+> char '='
-            , pretty typSyn
+            , nest 2 (pretty typSyn)
             ]
           decs = flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
             [ ppUnqualBackendName (resolve name) <+> char '='
