@@ -24,7 +24,6 @@ module HsBindgen.TH.Internal (
 import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Optics.Core (set, (%))
 import System.FilePath ((</>))
 
 import Clang.Paths
@@ -121,12 +120,7 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
             clangExtraIncludeDirs = CIncludeDir <$> includeDirs
           }
         bootConfig = baseBootConfig { bootClangArgsConfig = clangArgsConfig }
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1045: If a user only
-    -- configures the module organization in the backend configuration, we
-    -- overwrite this user configuration here. In TH mode, the user should NOT
-    -- be able to set the module organization in the backend configuration
-    -- directly, because 'Multiple' modules are not allowed.
-    backendConfig <- setSafety <$> ensureUniqueId baseBackendConfig
+    backendConfig <- ensureUniqueId baseBackendConfig
 
     let bindgenConfig =
           BindgenConfig bootConfig baseFrontendConfig backendConfig
@@ -174,12 +168,6 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
 
     getUniqueId :: TH.Q UniqueId
     getUniqueId = UniqueId . TH.loc_package <$> TH.location
-
-    setSafety :: BackendConfig -> BackendConfig
-    setSafety =
-      set
-        (#backendHsModuleOpts % #hsModuleOptsModuleOrg)
-        (Single safety)
 
 -- | @#include@ (i.e., generate bindings for) a C header.
 --

@@ -15,16 +15,16 @@ import Text.Read (readMaybe)
 import Clang.Version (clang_getClangVersion)
 
 import HsBindgen.App
-import HsBindgen.Backend.Artefact.HsModule.Translation (ModuleOrg (..))
 import HsBindgen.Backend.SHs.AST (Safety (..))
 import HsBindgen.Cli qualified as Cli
+import HsBindgen.Cli.Preprocess (Opts (moduleOrg))
 import HsBindgen.Cli.Preprocess qualified as Preprocess
 import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Lib
 
-import Optics (over, (%))
+import Optics (over)
 import Paths_hs_bindgen qualified as Package
 
 {-------------------------------------------------------------------------------
@@ -97,14 +97,7 @@ execLiterate literateOpts = do
     throw' = throw . LiterateFileException literateOpts.input
 
     setModuleStructure :: Preprocess.Opts -> Preprocess.Opts
-    setModuleStructure =
-      over
-        ( #bindgenConfig
-        % #bindgenBackendConfig
-        % #backendHsModuleOpts
-        % #hsModuleOptsModuleOrg
-        )
-        setModuleStructure'
+    setModuleStructure = over #moduleOrg setModuleStructure'
 
     setModuleStructure' :: ModuleOrg -> ModuleOrg
     setModuleStructure' Multiple = Single Safe

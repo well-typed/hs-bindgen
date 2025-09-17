@@ -39,7 +39,6 @@ backend BackendConfig{..} FrontendArtefact{..} =
     backendHsDecls             = hsDecls
   , backendFinalModuleBaseName = moduleBaseName
   , backendFinalDecls          = finalDecls
-  , backendFinalModule         = translateModule backendHsModuleOpts finalDecls
   }
   where
     moduleBaseName = hsModuleOptsBaseName backendHsModuleOpts
@@ -52,5 +51,4 @@ data BackendArtefact = BackendArtefact {
     backendHsDecls             :: SHs.ByCategory [Hs.Decl]
   , backendFinalDecls          :: SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl])
   , backendFinalModuleBaseName :: HsModuleName
-  , backendFinalModule         :: Either HsModule (SHs.ByCategory HsModule)
   }

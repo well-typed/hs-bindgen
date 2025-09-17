@@ -14,6 +14,9 @@ module HsBindgen.App (
   , parseClangArgsConfig
     -- ** Predicates and slicing
   , parseParsePredicate
+    -- ** Module organization
+  , ModuleOrg(..)
+  , parseModuleOrg
     -- ** Output options
   , parseOutput
   , parseGenBindingSpec
@@ -35,7 +38,6 @@ import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
-import HsBindgen.Backend.Artefact.HsModule.Translation (ModuleOrg (..))
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Language.Haskell (HsModuleName)
@@ -480,7 +482,7 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
 
 parseHsModuleOpts :: Parser HsModuleOpts
 parseHsModuleOpts =
-  HsModuleOpts <$> parseHsModuleName <*> parseModuleOrg
+  HsModuleOpts <$> parseHsModuleName
 
 parseHsModuleName :: Parser HsModuleName
 parseHsModuleName = strOption $ mconcat [
@@ -491,28 +493,23 @@ parseHsModuleName = strOption $ mconcat [
     , help "Name of the generated Haskell module"
     ]
 
--- parseModuleOrg :: Parser ModuleOrg
--- parseModuleOrg = option (eitherReader auxParse) $ mconcat [
---       long "single-module"
---     , metavar "SAFETY"
---     , showDefaultWith auxRender
---     , value def
---     , help
---       "Generate single module with one foreign import safety (supported: safe, unsafe, disable)"
---     ]
---   where
---     auxParse :: String -> Either String ModuleOrg
---     auxParse = \case
---       "safe"    -> Right $ SingleModule Safe
---       "unsafe"  -> Right $ SingleModule Unsafe
---       "disable" -> Right ModulesByBindingCategory
---       other     -> Left $ "invalid module structure: " ++ other
+{-------------------------------------------------------------------------------
+  Module organization
+-------------------------------------------------------------------------------}
 
---     auxRender :: ModuleOrg -> String
---     auxRender = \case
---       ModulesByBindingCategory -> "disable"
---       SingleModule (Safe)      -> "safe"
---       SingleModule (Unsafe)    -> "unsafe"
+-- | Organization of modules.
+data ModuleOrg =
+    -- | Create a separate module for each 'BindingCategory'.
+    Multiple
+    -- | Create one module containing all declarations. Both binding categories,
+    -- 'BSafe' and 'BUnsafe' contain the same set of declarations, and so, we
+    -- must decide if the single module should contains either 'Safe' or
+    -- 'Unsafe' declarations.
+  | Single Safety
+  deriving stock (Show, Eq)
+
+instance Default ModuleOrg where
+  def = Multiple
 
 parseModuleOrg :: Parser ModuleOrg
 parseModuleOrg = asum [

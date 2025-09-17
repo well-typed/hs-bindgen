@@ -117,9 +117,6 @@ getTestDefaultBackendConfig testName pathStyle = def{
       }
     , backendHsModuleOpts = HsModuleOpts{
         hsModuleOptsBaseName  = "Example"
-        -- TODO https://github.com/well-typed/hs-bindgen/issues/1089: Tests with
-        -- multiple modules.
-      , hsModuleOptsModuleOrg = Single Safe
       }
     , backendHaddockConfig = HaddockConfig pathStyle
     }

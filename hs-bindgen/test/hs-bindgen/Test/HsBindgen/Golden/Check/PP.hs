@@ -8,6 +8,8 @@ import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty
 
+import HsBindgen.Backend.SHs.AST (Safety (Safe))
+
 import HsBindgen
 
 {-------------------------------------------------------------------------------
@@ -17,9 +19,9 @@ import HsBindgen
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "pp" fixture $ \_report -> do
-      let artefacts = getBindings :* Nil
+      let artefacts = getBindings Safe :* Nil
       (I output :* Nil) <- runTestHsBindgen testResources test artefacts
-      return $ ActualValue $ either id concat output
+      return $ ActualValue output
   where
     fixture :: FilePath
     fixture = "fixtures" </> (testName test ++ ".pp.hs")

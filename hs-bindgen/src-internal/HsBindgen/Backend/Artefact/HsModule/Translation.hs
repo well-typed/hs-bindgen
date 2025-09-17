@@ -9,8 +9,8 @@ module HsBindgen.Backend.Artefact.HsModule.Translation (
   , HsModule(..)
     -- * Translation
   , HsModuleOpts(..)
-  , ModuleOrg(..)
-  , translateModule
+  , translateModuleMultiple
+  , translateModuleSingle
   , mergeDecls
   ) where
 
@@ -64,42 +64,19 @@ data HsModule = HsModule {
     , hsModuleDecls                :: [SDecl]
     }
 
--- | Organization of modules.
-data ModuleOrg =
-    -- | Create a separate module for each 'BindingCategory'.
-    Multiple
-    -- | Create one module containing all declarations. Both binding categories,
-    -- 'BSafe' and 'BUnsafe' contain the same set of declarations, and so, we
-    -- must decide if the single module should contains either 'Safe' or
-    -- 'Unsafe' declarations.
-  | Single Safety
-  deriving stock (Show, Eq, Generic)
-
-instance Default ModuleOrg where
-  def = Multiple
-
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
 data HsModuleOpts = HsModuleOpts {
       hsModuleOptsBaseName  :: HsModuleName
-    , hsModuleOptsModuleOrg :: ModuleOrg
     }
   deriving stock (Show, Eq, Generic)
 
 instance Default HsModuleOpts where
   def = HsModuleOpts {
       hsModuleOptsBaseName  = "Generated"
-    , hsModuleOptsModuleOrg = def
     }
-
-translateModule ::
-  HsModuleOpts -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> Either HsModule (ByCategory HsModule)
-translateModule HsModuleOpts{..} declsByCat = case hsModuleOptsModuleOrg of
-  Multiple -> Right $ translateModuleMultiple hsModuleOptsBaseName declsByCat
-  Single s -> Left  $ translateModuleSingle s hsModuleOptsBaseName declsByCat
 
 translateModuleMultiple ::
   HsModuleName -> ByCategory ([UserlandCapiWrapper], [SDecl]) -> ByCategory HsModule

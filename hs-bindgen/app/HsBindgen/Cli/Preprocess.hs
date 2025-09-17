@@ -14,12 +14,15 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Control.Monad (void)
+import Data.Maybe (maybeToList)
 import GHC.Generics (Generic)
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Lib
+
+import HsBindgen (sequenceArtefacts, writeBindingsMultiple)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -36,6 +39,7 @@ data Opts = Opts {
       bindgenConfig     :: BindgenConfig
     , output            :: Maybe FilePath
     , outputBindingSpec :: Maybe FilePath
+    , moduleOrg         :: ModuleOrg
     , haddockConfig     :: HaddockConfig
     , inputs            :: [UncheckedHashIncludeArg]
     -- NOTE inputs (arguments) must be last, options must go before it
@@ -48,6 +52,7 @@ parseOpts =
       <$> parseBindgenConfig
       <*> optional parseOutput
       <*> optional parseGenBindingSpec
+      <*> parseModuleOrg
       <*> parseHaddockConfig
       <*> parseInputs
 
@@ -56,17 +61,15 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    case outputBindingSpec of
-      -- NOTE: We can not assemble the heterogeneous list of artefacts before
-      -- evaluating `hsBindgen`. The types don't line up. (We even have to pull
-      -- 'void' inside the case statement).
-      Nothing ->
-        let artefacts = writeBindings output :* Nil
-        in  void $ run artefacts
-      Just file ->
-        let artefacts = writeBindings output :* writeBindingSpec file :* Nil
-        in  void $ run $ artefacts
+exec GlobalOpts{..} Opts{..} = void $ run $ (sequenceArtefacts artefacts) :* Nil
   where
     run :: Artefacts as -> IO (NP I as)
     run = hsBindgen tracerConfig bindgenConfig inputs
+
+    writeBdgs :: Artefact ()
+    writeBdgs = case moduleOrg of
+      Multiple      -> writeBindingsMultiple output
+      Single safety -> writeBindings safety  output
+
+    artefacts :: [Artefact ()]
+    artefacts = writeBdgs : [ writeBindingSpec file | file <- maybeToList outputBindingSpec ]

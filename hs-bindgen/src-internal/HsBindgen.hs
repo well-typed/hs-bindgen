@@ -5,11 +5,13 @@ module HsBindgen
 
     -- * Artefacts
   , Artefact (..)
+  , sequenceArtefacts
   , Artefacts
   , writeIncludeGraph
   , writeUseDeclGraph
   , getBindings
   , writeBindings
+  , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
 
@@ -103,8 +105,9 @@ data Artefact (a :: Star) where
   HsDecls             :: Artefact (ByCategory [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact HsModuleName
-  FinalModule         :: Artefact (Either HsModule (ByCategory HsModule))
-  -- * Lift
+  FinalModule         :: Safety -> Artefact HsModule
+  FinalModules        :: Artefact (ByCategory HsModule)
+  -- * Lift and sequence
   Lift                :: Artefacts as -> (NP I as -> IO b) -> Artefact b
 
 instance Functor Artefact where
@@ -112,6 +115,31 @@ instance Functor Artefact where
 
 -- | A list of 'Artefact's.
 type Artefacts as = NP Artefact as
+
+-- | Courtesy of Edsko :-).
+--
+-- Another implementation for `sequenceArtefacts` which has the drawback of
+-- creating deeply nested @(Lift .. (Lift .. ( .. )))@ structures.
+--
+-- @
+-- import Data.Semigroup (Semigroup (..))
+-- import Generics.SOP (unI)
+--
+-- instance Semigroup a => Semigroup (Artefact a) where
+--   l <> r = Lift (l :* r :* Nil) (\(r1 :* r2 :* Nil) -> pure (unI r1 <> unI r2))
+--
+-- instance Monoid a => Monoid (Artefact a) where
+--   mempty = Lift Nil (\_result -> return mempty)
+--
+-- sequenceArtefacts' :: [Artefact ()] -> Artefact ()
+-- sequenceArtefacts' = mconcat
+-- @
+sequenceArtefacts :: [Artefact ()] -> Artefact ()
+sequenceArtefacts = go Nil . reverse
+  where
+    go :: Artefacts as -> [Artefact ()] -> Artefact ()
+    go acc []     = Lift acc $ \_results -> return ()
+    go acc (a:as) = go (a :* acc) as
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: FilePath -> Artefact ()
@@ -125,22 +153,35 @@ writeUseDeclGraph file = Lift (DeclIndex :* UseDeclGraph :* Nil) $
     \(I index :* I useDeclGraph :* Nil) ->
       writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
 
--- | Get bindings.
-getBindings :: Artefact (Either String (ByCategory String))
-getBindings = Lift (FinalModule :* Nil) $
+-- | Get bindings (single module).
+getBindings :: Safety -> Artefact String
+getBindings safety = Lift (FinalModule safety :* Nil) $
     \(I finalModule :* Nil) ->
-      pure . bimap render (fmap render) $ finalModule
+      pure . render $ finalModule
+
+-- | Write bindings to file.
+--
+-- If no file is given, print to standard output.
+writeBindings :: Safety -> Maybe FilePath -> Artefact ()
+writeBindings safety mBasePath = Lift (getBindings safety :* Nil) $
+    \(I bindings :* Nil) ->
+      write mBasePath bindings
+
+-- | Get bindings (one module per binding category).
+getBindingsMultiple :: Artefact (ByCategory String)
+getBindingsMultiple = Lift (FinalModules :* Nil) $
+    \(I finalModule :* Nil) ->
+      pure . (fmap render) $ finalModule
 
 -- | Write bindings to files.
 --
 -- Each file contains a different binding category.
 --
 -- If no file is given, print to standard output.
-writeBindings :: Maybe FilePath -> Artefact ()
-writeBindings mBasePath = Lift (getBindings :* Nil) $
-    \(I eBindings :* Nil) -> case eBindings of
-      Left  single     -> write           mBasePath single
-      Right byCategory -> writeByCategory mBasePath byCategory
+writeBindingsMultiple :: Maybe FilePath -> Artefact ()
+writeBindingsMultiple mBasePath = Lift (getBindingsMultiple :* Nil) $
+    \(I bindingsByCategory :* Nil) ->
+      writeByCategory mBasePath bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
@@ -201,8 +242,9 @@ runArtefacts
       HsDecls             -> pure backendHsDecls
       FinalDecls          -> pure backendFinalDecls
       FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModule         -> pure backendFinalModule
-      -- Lift.
+      FinalModule safety  -> pure $ translateModuleSingle safety backendFinalModuleBaseName backendFinalDecls
+      FinalModules        -> pure $ translateModuleMultiple backendFinalModuleBaseName backendFinalDecls
+      -- Lift and sequence.
       (Lift as' f)        -> go as' >>= f
 
 {-------------------------------------------------------------------------------
