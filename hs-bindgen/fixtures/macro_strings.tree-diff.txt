@@ -10,7 +10,12 @@ TranslationUnit {
             "c1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -40,7 +45,12 @@ TranslationUnit {
             "c2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -71,7 +81,12 @@ TranslationUnit {
             "c3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -101,7 +116,12 @@ TranslationUnit {
             "c4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -132,7 +152,12 @@ TranslationUnit {
             "c5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -162,7 +187,12 @@ TranslationUnit {
             "c6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -193,7 +223,12 @@ TranslationUnit {
             "c7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -224,7 +259,12 @@ TranslationUnit {
             "c8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -254,7 +294,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "d"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -285,7 +330,12 @@ TranslationUnit {
             "j1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -318,7 +368,12 @@ TranslationUnit {
             "j2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -351,7 +406,12 @@ TranslationUnit {
             "j3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -384,7 +444,12 @@ TranslationUnit {
             "s1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -418,7 +483,12 @@ TranslationUnit {
             "s2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -453,7 +523,12 @@ TranslationUnit {
             "s3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -488,7 +563,12 @@ TranslationUnit {
             "s4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -523,7 +603,12 @@ TranslationUnit {
             "s5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -558,7 +643,12 @@ TranslationUnit {
             "s6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -592,7 +682,12 @@ TranslationUnit {
             "s7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -626,7 +721,12 @@ TranslationUnit {
             "s8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -660,7 +760,12 @@ TranslationUnit {
             "t1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -697,7 +802,12 @@ TranslationUnit {
             "t2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -734,7 +844,12 @@ TranslationUnit {
             "t3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -776,7 +891,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "u"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -822,7 +942,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "v"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -877,7 +1002,12 @@ TranslationUnit {
             "w1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -925,7 +1055,12 @@ TranslationUnit {
             "w2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "macro_strings.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_strings.h"],
+            headerInclude =
+            "macro_strings.h"},
         declComment = Nothing},
       declKind =
       DeclMacro

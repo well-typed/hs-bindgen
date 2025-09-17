@@ -180,7 +180,6 @@ library internal
       HsBindgen.Resolve
       HsBindgen.TH.Internal
       HsBindgen.TraceMsg
-      HsBindgen.Util.List
       HsBindgen.Util.Monad
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
@@ -198,6 +197,7 @@ library internal
     , aeson              >= 2.2.1.0    && < 2.3
     , ansi-terminal      >= 1.0.0      && < 1.2
     , array              >= 0.5.4.0    && < 0.6
+    , base-compat        >= 0.13.1     && < 0.15
     , base16-bytestring  >= 1.0.2.0    && < 1.1
     , bytestring         >= 0.11.4.0   && < 0.13
     , containers         >= 0.6.5.1    && < 0.8
@@ -268,7 +268,9 @@ executable hs-bindgen-cli
       HsBindgen.Cli.Dev.BindingSpec.StdLib
       HsBindgen.Cli.Dev.Clang
       HsBindgen.Cli.Dev.Parse
-      HsBindgen.Cli.Dev.Resolve
+      HsBindgen.Cli.Info
+      HsBindgen.Cli.Info.IncludeGraph
+      HsBindgen.Cli.Info.ResolveHeader
       HsBindgen.Cli.Internal
       HsBindgen.Cli.Internal.Literate
       HsBindgen.Cli.GenTests

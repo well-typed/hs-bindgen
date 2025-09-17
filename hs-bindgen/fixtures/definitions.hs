@@ -15,7 +15,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -50,8 +50,12 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "definitions.h:13:5",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -90,8 +94,12 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "definitions.h:13:5",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -125,8 +133,12 @@
           commentOrigin = Just "n",
           commentLocation = Just
             "definitions.h:18:5",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -166,8 +178,12 @@
               commentOrigin = Just "n",
               commentLocation = Just
                 "definitions.h:23:16",
-              commentHeader = Just
-                "definitions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["definitions.h"],
+                  headerInclude =
+                  "definitions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -178,7 +194,12 @@
               nameHsIdent = HsIdentifier "X"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "definitions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["definitions.h"],
+                headerInclude =
+                "definitions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -215,8 +236,12 @@
           commentOrigin = Just "X",
           commentLocation = Just
             "definitions.h:23:8",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -256,8 +281,12 @@
                   commentOrigin = Just "n",
                   commentLocation = Just
                     "definitions.h:23:16",
-                  commentHeader = Just
-                    "definitions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["definitions.h"],
+                      headerInclude =
+                      "definitions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -268,7 +297,12 @@
                   nameHsIdent = HsIdentifier "X"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "definitions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["definitions.h"],
+                    headerInclude =
+                    "definitions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -305,8 +339,12 @@
               commentOrigin = Just "X",
               commentLocation = Just
                 "definitions.h:23:8",
-              commentHeader = Just
-                "definitions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["definitions.h"],
+                  headerInclude =
+                  "definitions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -349,8 +387,12 @@
                           commentOrigin = Just "n",
                           commentLocation = Just
                             "definitions.h:23:16",
-                          commentHeader = Just
-                            "definitions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["definitions.h"],
+                              headerInclude =
+                              "definitions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -361,7 +403,12 @@
                           nameHsIdent = HsIdentifier "X"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "definitions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["definitions.h"],
+                            headerInclude =
+                            "definitions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -398,8 +445,12 @@
                       commentOrigin = Just "X",
                       commentLocation = Just
                         "definitions.h:23:8",
-                      commentHeader = Just
-                        "definitions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["definitions.h"],
+                          headerInclude =
+                          "definitions.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -442,8 +493,12 @@
                           commentOrigin = Just "n",
                           commentLocation = Just
                             "definitions.h:23:16",
-                          commentHeader = Just
-                            "definitions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["definitions.h"],
+                              headerInclude =
+                              "definitions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -454,7 +509,12 @@
                           nameHsIdent = HsIdentifier "X"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "definitions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["definitions.h"],
+                            headerInclude =
+                            "definitions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -491,8 +551,12 @@
                       commentOrigin = Just "X",
                       commentLocation = Just
                         "definitions.h:23:8",
-                      commentHeader = Just
-                        "definitions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["definitions.h"],
+                          headerInclude =
+                          "definitions.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -546,7 +610,12 @@
             nameHsIdent = HsIdentifier "Y"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "definitions.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -598,8 +667,12 @@
           commentOrigin = Just "Y",
           commentLocation = Just
             "definitions.h:26:7",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -628,8 +701,12 @@
           commentOrigin = Just "m",
           commentLocation = Just
             "definitions.h:26:15",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = [
             Paragraph
               [
@@ -650,7 +727,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -672,8 +749,12 @@
           commentOrigin = Just "o",
           commentLocation = Just
             "definitions.h:26:22",
-          commentHeader = Just
-            "definitions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
           commentChildren = [
             Paragraph
               [
@@ -694,7 +775,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [

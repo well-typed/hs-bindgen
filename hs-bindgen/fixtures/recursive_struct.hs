@@ -34,8 +34,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "recursive_struct.h:2:7",
-              commentHeader = Just
-                "recursive_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["recursive_struct.h"],
+                  headerInclude =
+                  "recursive_struct.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -72,8 +76,12 @@
               commentOrigin = Just "next",
               commentLocation = Just
                 "recursive_struct.h:3:27",
-              commentHeader = Just
-                "recursive_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["recursive_struct.h"],
+                  headerInclude =
+                  "recursive_struct.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -89,8 +97,12 @@
               (Name "linked_list_A_s"),
             declAliases = [
               Name "linked_list_A_t"],
-            declHeader =
-            "recursive_struct.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["recursive_struct.h"],
+                headerInclude =
+                "recursive_struct.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -149,8 +161,12 @@
             "linked_list_A_t",
           commentLocation = Just
             "recursive_struct.h:1:16",
-          commentHeader = Just
-            "recursive_struct.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["recursive_struct.h"],
+              headerInclude =
+              "recursive_struct.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -190,8 +206,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "recursive_struct.h:2:7",
-                  commentHeader = Just
-                    "recursive_struct.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["recursive_struct.h"],
+                      headerInclude =
+                      "recursive_struct.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -228,8 +248,12 @@
                   commentOrigin = Just "next",
                   commentLocation = Just
                     "recursive_struct.h:3:27",
-                  commentHeader = Just
-                    "recursive_struct.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["recursive_struct.h"],
+                      headerInclude =
+                      "recursive_struct.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -245,8 +269,12 @@
                   (Name "linked_list_A_s"),
                 declAliases = [
                   Name "linked_list_A_t"],
-                declHeader =
-                "recursive_struct.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["recursive_struct.h"],
+                    headerInclude =
+                    "recursive_struct.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -305,8 +333,12 @@
                 "linked_list_A_t",
               commentLocation = Just
                 "recursive_struct.h:1:16",
-              commentHeader = Just
-                "recursive_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["recursive_struct.h"],
+                  headerInclude =
+                  "recursive_struct.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -349,8 +381,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "recursive_struct.h:2:7",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -387,8 +423,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "recursive_struct.h:3:27",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -404,8 +444,12 @@
                           (Name "linked_list_A_s"),
                         declAliases = [
                           Name "linked_list_A_t"],
-                        declHeader =
-                        "recursive_struct.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["recursive_struct.h"],
+                            headerInclude =
+                            "recursive_struct.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -464,8 +508,12 @@
                         "linked_list_A_t",
                       commentLocation = Just
                         "recursive_struct.h:1:16",
-                      commentHeader = Just
-                        "recursive_struct.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["recursive_struct.h"],
+                          headerInclude =
+                          "recursive_struct.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -510,8 +558,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "recursive_struct.h:2:7",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -548,8 +600,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "recursive_struct.h:3:27",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -565,8 +621,12 @@
                           (Name "linked_list_A_s"),
                         declAliases = [
                           Name "linked_list_A_t"],
-                        declHeader =
-                        "recursive_struct.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["recursive_struct.h"],
+                            headerInclude =
+                            "recursive_struct.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -625,8 +685,12 @@
                         "linked_list_A_t",
                       commentLocation = Just
                         "recursive_struct.h:1:16",
-                      commentHeader = Just
-                        "recursive_struct.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["recursive_struct.h"],
+                          headerInclude =
+                          "recursive_struct.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -693,8 +757,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "recursive_struct.h:10:7",
-              commentHeader = Just
-                "recursive_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["recursive_struct.h"],
+                  headerInclude =
+                  "recursive_struct.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -733,8 +801,12 @@
               commentOrigin = Just "next",
               commentLocation = Just
                 "recursive_struct.h:11:20",
-              commentHeader = Just
-                "recursive_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["recursive_struct.h"],
+                  headerInclude =
+                  "recursive_struct.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -748,8 +820,12 @@
             declOrigin = NameOriginInSource,
             declAliases = [
               Name "linked_list_B_t"],
-            declHeader =
-            "recursive_struct.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["recursive_struct.h"],
+                headerInclude =
+                "recursive_struct.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -810,8 +886,12 @@
             "linked_list_B_t",
           commentLocation = Just
             "recursive_struct.h:9:8",
-          commentHeader = Just
-            "recursive_struct.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["recursive_struct.h"],
+              headerInclude =
+              "recursive_struct.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -851,8 +931,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "recursive_struct.h:10:7",
-                  commentHeader = Just
-                    "recursive_struct.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["recursive_struct.h"],
+                      headerInclude =
+                      "recursive_struct.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -891,8 +975,12 @@
                   commentOrigin = Just "next",
                   commentLocation = Just
                     "recursive_struct.h:11:20",
-                  commentHeader = Just
-                    "recursive_struct.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["recursive_struct.h"],
+                      headerInclude =
+                      "recursive_struct.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -906,8 +994,12 @@
                 declOrigin = NameOriginInSource,
                 declAliases = [
                   Name "linked_list_B_t"],
-                declHeader =
-                "recursive_struct.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["recursive_struct.h"],
+                    headerInclude =
+                    "recursive_struct.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -968,8 +1060,12 @@
                 "linked_list_B_t",
               commentLocation = Just
                 "recursive_struct.h:9:8",
-              commentHeader = Just
-                "recursive_struct.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["recursive_struct.h"],
+                  headerInclude =
+                  "recursive_struct.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -1012,8 +1108,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "recursive_struct.h:10:7",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1052,8 +1152,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "recursive_struct.h:11:20",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1067,8 +1171,12 @@
                         declOrigin = NameOriginInSource,
                         declAliases = [
                           Name "linked_list_B_t"],
-                        declHeader =
-                        "recursive_struct.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["recursive_struct.h"],
+                            headerInclude =
+                            "recursive_struct.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1129,8 +1237,12 @@
                         "linked_list_B_t",
                       commentLocation = Just
                         "recursive_struct.h:9:8",
-                      commentHeader = Just
-                        "recursive_struct.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["recursive_struct.h"],
+                          headerInclude =
+                          "recursive_struct.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1175,8 +1287,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "recursive_struct.h:10:7",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1215,8 +1331,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "recursive_struct.h:11:20",
-                          commentHeader = Just
-                            "recursive_struct.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["recursive_struct.h"],
+                              headerInclude =
+                              "recursive_struct.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1230,8 +1350,12 @@
                         declOrigin = NameOriginInSource,
                         declAliases = [
                           Name "linked_list_B_t"],
-                        declHeader =
-                        "recursive_struct.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["recursive_struct.h"],
+                            headerInclude =
+                            "recursive_struct.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1292,8 +1416,12 @@
                         "linked_list_B_t",
                       commentLocation = Just
                         "recursive_struct.h:9:8",
-                      commentHeader = Just
-                        "recursive_struct.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["recursive_struct.h"],
+                          headerInclude =
+                          "recursive_struct.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

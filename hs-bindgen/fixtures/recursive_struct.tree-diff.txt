@@ -13,8 +13,12 @@ TranslationUnit {
           (Name "linked_list_A_s"),
         declAliases = [
           Name "linked_list_A_t"],
-        declHeader =
-        "recursive_struct.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["recursive_struct.h"],
+            headerInclude =
+            "recursive_struct.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -75,8 +79,12 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [
           Name "linked_list_B_t"],
-        declHeader =
-        "recursive_struct.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["recursive_struct.h"],
+            headerInclude =
+            "recursive_struct.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

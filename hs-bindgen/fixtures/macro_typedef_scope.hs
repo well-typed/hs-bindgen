@@ -25,8 +25,12 @@
               "T1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_typedef_scope.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -66,8 +70,12 @@
           commentOrigin = Just "T1",
           commentLocation = Just
             "macro_typedef_scope.h:4:9",
-          commentHeader = Just
-            "macro_typedef_scope.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -226,8 +234,12 @@
               "T2"},
           declOrigin = NameOriginInSource,
           declAliases = [Name "T4"],
-          declHeader =
-          "macro_typedef_scope.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -270,8 +282,12 @@
           commentOrigin = Just "T2",
           commentLocation = Just
             "macro_typedef_scope.h:5:12",
-          commentHeader = Just
-            "macro_typedef_scope.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -430,8 +446,12 @@
               "T3"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_typedef_scope.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -475,8 +495,12 @@
           commentOrigin = Just "T3",
           commentLocation = Just
             "macro_typedef_scope.h:6:9",
-          commentHeader = Just
-            "macro_typedef_scope.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -635,8 +659,12 @@
               "T4"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "macro_typedef_scope.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -679,8 +707,12 @@
           commentOrigin = Just "T4",
           commentLocation = Just
             "macro_typedef_scope.h:7:12",
-          commentHeader = Just
-            "macro_typedef_scope.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_typedef_scope.h"],
+              headerInclude =
+              "macro_typedef_scope.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {

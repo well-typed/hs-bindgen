@@ -9,8 +9,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "I"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -39,8 +43,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "C"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -70,8 +78,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "F"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -100,8 +112,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "L"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -132,8 +148,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "S"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -165,8 +185,12 @@ TranslationUnit {
             "quux"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -211,8 +235,12 @@ TranslationUnit {
             "wam"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -260,8 +288,12 @@ TranslationUnit {
             "foo1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -311,8 +343,12 @@ TranslationUnit {
             "foo2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -364,8 +400,12 @@ TranslationUnit {
             "foo3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -416,8 +456,12 @@ TranslationUnit {
             "bar1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -459,8 +503,12 @@ TranslationUnit {
             "bar2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -503,8 +551,12 @@ TranslationUnit {
             "bar3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -549,8 +601,12 @@ TranslationUnit {
             "bar4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -593,8 +649,12 @@ TranslationUnit {
             "baz1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -637,8 +697,12 @@ TranslationUnit {
             "baz2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -682,8 +746,12 @@ TranslationUnit {
             "baz3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -727,8 +795,12 @@ TranslationUnit {
             "no_args_no_void"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_in_fundecl.h"],
+            headerInclude =
+            "macro_in_fundecl.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

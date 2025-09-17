@@ -11,8 +11,12 @@ TranslationUnit {
             "global_complex_unsigned_short"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "complex_non_float_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_non_float_test.h"],
+            headerInclude =
+            "complex_non_float_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -36,8 +40,12 @@ TranslationUnit {
             "global_complex_short"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "complex_non_float_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_non_float_test.h"],
+            headerInclude =
+            "complex_non_float_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -61,8 +69,12 @@ TranslationUnit {
             "global_complex_unsigned_int"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "complex_non_float_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_non_float_test.h"],
+            headerInclude =
+            "complex_non_float_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -86,8 +98,12 @@ TranslationUnit {
             "global_complex_int"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "complex_non_float_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_non_float_test.h"],
+            headerInclude =
+            "complex_non_float_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -109,8 +125,12 @@ TranslationUnit {
             "global_complex_char"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "complex_non_float_test.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["complex_non_float_test.h"],
+            headerInclude =
+            "complex_non_float_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex

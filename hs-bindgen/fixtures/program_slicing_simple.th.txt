@@ -4,7 +4,7 @@
 -- addDependentFile examples/golden/program_slicing_simple.h
 {-| __C declaration:__ @uint32_t@
 
-    __defined at:__ @alltypes.h:131:25@
+    __defined at:__ @bits/alltypes.h:131:25@
 
     __exported by:__ @program_slicing_simple.h@
 -}
@@ -12,7 +12,7 @@ newtype Uint32_t
     = Uint32_t {un_Uint32_t :: CUInt}
       {- ^ __C declaration:__ @uint32_t@
 
-           __defined at:__ @alltypes.h:131:25@
+           __defined at:__ @bits/alltypes.h:131:25@
 
            __exported by:__ @program_slicing_simple.h@
       -}

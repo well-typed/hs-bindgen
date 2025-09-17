@@ -9,8 +9,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "redeclaration_identical.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["redeclaration_identical.h"],
+            headerInclude =
+            "redeclaration_identical.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr

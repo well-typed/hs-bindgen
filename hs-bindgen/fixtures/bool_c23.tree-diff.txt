@@ -8,7 +8,11 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool_c23.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bool_c23.h"],
+            headerInclude = "bool_c23.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim PrimBool),

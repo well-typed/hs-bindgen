@@ -9,7 +9,11 @@ TranslationUnit {
             "First"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -58,7 +62,11 @@ TranslationUnit {
             "Second"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -116,7 +124,11 @@ TranslationUnit {
             "Same"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -165,7 +177,11 @@ TranslationUnit {
             "Nonseq"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -223,7 +239,11 @@ TranslationUnit {
             "Packed"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -283,7 +303,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "enums.h:30:9"),
         declAliases = [Name "enumA"],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -332,7 +356,11 @@ TranslationUnit {
             "EnumB"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "enumB"],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -381,7 +409,11 @@ TranslationUnit {
             "EnumC"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "enumC"],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -432,7 +464,11 @@ TranslationUnit {
         NameOriginRenamedFrom
           (Name "enumD"),
         declAliases = [Name "enumD_t"],
-        declHeader = "enums.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["enums.h"],
+            headerInclude = "enums.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {

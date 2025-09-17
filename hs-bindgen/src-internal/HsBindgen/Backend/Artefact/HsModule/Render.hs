@@ -11,6 +11,7 @@ module HsBindgen.Backend.Artefact.HsModule.Render (
 
 import Data.Char qualified
 import Data.List qualified as List
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as Text
 import Data.Word
 import GHC.Exts (Int (..), sizeofByteArray#)
@@ -20,7 +21,7 @@ import Text.SimplePrettyPrint
 
 import C.Char (CharValue (..))
 
-import Clang.HighLevel qualified as C
+import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Artefact.HsModule.Translation
@@ -29,6 +30,7 @@ import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -140,12 +142,12 @@ instance Pretty CommentKind where
               let parts = [ Just $ "__C declaration:__ @"
                                 >< textToCtxDoc cName
                                 >< "@"
-                          , (\loc -> "__defined at:__ @"
-                                  >< string (C.prettySingleLoc C.ShowFile loc)
-                                  >< "@") <$> commentLocation
-                          , (\header -> "__exported by:__ @"
-                                     >< (string . getHashIncludeArg $ header)
-                                     >< "@") <$> commentHeader
+                          , (\p -> "__defined at:__ @"
+                                >< uncurry prettyHashIncludeArgLoc p
+                                >< "@") <$> (liftA2 (,) commentHeaderInfo commentLocation)
+                          , (\hinfo -> "__exported by:__ @"
+                                    >< prettyMainHeaders hinfo
+                                    >< "@") <$> commentHeaderInfo
                           ]
               in vsep (catMaybes parts)
         firstContent =
@@ -166,6 +168,22 @@ instance Pretty CommentKind where
             $+$ vcat [ fromCCtxDoc
                      , string commentEnd
                      ]
+
+prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
+prettyHashIncludeArgLoc hinfo loc = string $
+    List.intercalate ":"
+      [ getHashIncludeArg (C.headerInclude hinfo)
+      , show (singleLocLine loc)
+      , show (singleLocColumn loc)
+      ]
+
+prettyMainHeaders :: C.HeaderInfo -> CtxDoc
+prettyMainHeaders
+    = string
+    . List.intercalate "@, @"
+    . map getHashIncludeArg
+    . NonEmpty.toList
+    . C.headerMainHeaders
 
 instance Pretty Hs.CommentBlockContent where
   pretty = \case

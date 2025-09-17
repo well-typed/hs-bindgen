@@ -10,8 +10,12 @@ TranslationUnit {
             "T1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -40,8 +44,12 @@ TranslationUnit {
             "T2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -72,8 +80,12 @@ TranslationUnit {
             "M1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -103,8 +115,12 @@ TranslationUnit {
             "M2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -135,8 +151,12 @@ TranslationUnit {
             "M3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -169,8 +189,12 @@ TranslationUnit {
             "ExampleStruct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -266,8 +290,12 @@ TranslationUnit {
             "Uint64_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -297,8 +325,12 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "typedef_vs_macro.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedef_vs_macro.h"],
+            headerInclude =
+            "typedef_vs_macro.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

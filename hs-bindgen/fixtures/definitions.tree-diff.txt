@@ -9,7 +9,12 @@ TranslationUnit {
             "foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["definitions.h"],
+            headerInclude =
+            "definitions.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -40,7 +45,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "n"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["definitions.h"],
+            headerInclude =
+            "definitions.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -59,7 +69,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "X"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["definitions.h"],
+            headerInclude =
+            "definitions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -96,7 +111,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "Y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "definitions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["definitions.h"],
+            headerInclude =
+            "definitions.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {

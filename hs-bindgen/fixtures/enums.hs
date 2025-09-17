@@ -24,7 +24,11 @@
               "First"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -72,7 +76,11 @@
           commentOrigin = Just "first",
           commentLocation = Just
             "enums.h:4:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -321,7 +329,11 @@
           commentOrigin = Just "FIRST1",
           commentLocation = Just
             "enums.h:5:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -351,7 +363,11 @@
           commentOrigin = Just "FIRST2",
           commentLocation = Just
             "enums.h:6:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -378,7 +394,11 @@
               "Second"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -435,7 +455,11 @@
           commentOrigin = Just "second",
           commentLocation = Just
             "enums.h:9:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -691,7 +715,11 @@
           commentOrigin = Just "SECOND_A",
           commentLocation = Just
             "enums.h:10:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -721,7 +749,11 @@
           commentOrigin = Just "SECOND_B",
           commentLocation = Just
             "enums.h:11:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -751,7 +783,11 @@
           commentOrigin = Just "SECOND_C",
           commentLocation = Just
             "enums.h:12:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -778,7 +814,11 @@
               "Same"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -826,7 +866,11 @@
           commentOrigin = Just "same",
           commentLocation = Just
             "enums.h:15:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1077,7 +1121,11 @@
           commentOrigin = Just "SAME_A",
           commentLocation = Just
             "enums.h:16:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1107,7 +1155,11 @@
           commentOrigin = Just "SAME_B",
           commentLocation = Just
             "enums.h:17:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -1134,7 +1186,11 @@
               "Nonseq"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -1191,7 +1247,11 @@
           commentOrigin = Just "nonseq",
           commentLocation = Just
             "enums.h:20:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1419,7 +1479,11 @@
           commentOrigin = Just "NONSEQ_A",
           commentLocation = Just
             "enums.h:21:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1449,7 +1513,11 @@
           commentOrigin = Just "NONSEQ_B",
           commentLocation = Just
             "enums.h:22:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1479,7 +1547,11 @@
           commentOrigin = Just "NONSEQ_C",
           commentLocation = Just
             "enums.h:23:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -1506,7 +1578,11 @@
               "Packed"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -1564,7 +1640,11 @@
           commentOrigin = Just "packed",
           commentLocation = Just
             "enums.h:26:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1820,7 +1900,11 @@
           commentOrigin = Just "PACKED_A",
           commentLocation = Just
             "enums.h:27:5",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1850,7 +1934,11 @@
           commentOrigin = Just "PACKED_B",
           commentLocation = Just
             "enums.h:27:15",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1880,7 +1968,11 @@
           commentOrigin = Just "PACKED_C",
           commentLocation = Just
             "enums.h:27:25",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -1908,7 +2000,11 @@
           declOrigin = NameOriginGenerated
             (AnonId "enums.h:30:9"),
           declAliases = [Name "enumA"],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -1956,7 +2052,11 @@
           commentOrigin = Just "enumA",
           commentLocation = Just
             "enums.h:30:9",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2205,7 +2305,11 @@
           commentOrigin = Just "A_FOO",
           commentLocation = Just
             "enums.h:30:16",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -2235,7 +2339,11 @@
           commentOrigin = Just "A_BAR",
           commentLocation = Just
             "enums.h:30:23",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -2262,7 +2370,11 @@
               "EnumB"},
           declOrigin = NameOriginInSource,
           declAliases = [Name "enumB"],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -2310,7 +2422,11 @@
           commentOrigin = Just "enumB",
           commentLocation = Just
             "enums.h:32:14",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2559,7 +2675,11 @@
           commentOrigin = Just "B_FOO",
           commentLocation = Just
             "enums.h:32:22",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -2589,7 +2709,11 @@
           commentOrigin = Just "B_BAR",
           commentLocation = Just
             "enums.h:32:29",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -2616,7 +2740,11 @@
               "EnumC"},
           declOrigin = NameOriginInSource,
           declAliases = [Name "enumC"],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -2664,7 +2792,11 @@
           commentOrigin = Just "enumC",
           commentLocation = Just
             "enums.h:34:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2913,7 +3045,11 @@
           commentOrigin = Just "C_FOO",
           commentLocation = Just
             "enums.h:34:14",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -2943,7 +3079,11 @@
           commentOrigin = Just "C_BAR",
           commentLocation = Just
             "enums.h:34:21",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -2972,7 +3112,11 @@
           NameOriginRenamedFrom
             (Name "enumD"),
           declAliases = [Name "enumD_t"],
-          declHeader = "enums.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -3020,7 +3164,11 @@
           commentOrigin = Just "enumD_t",
           commentLocation = Just
             "enums.h:37:6",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3269,7 +3417,11 @@
           commentOrigin = Just "D_FOO",
           commentLocation = Just
             "enums.h:37:14",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -3299,5 +3451,9 @@
           commentOrigin = Just "D_BAR",
           commentLocation = Just
             "enums.h:37:21",
-          commentHeader = Just "enums.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enums.h"],
+              headerInclude = "enums.h"},
           commentChildren = []}}]

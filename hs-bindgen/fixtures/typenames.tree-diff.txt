@@ -9,7 +9,11 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typenames.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typenames.h"],
+            headerInclude = "typenames.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -58,7 +62,11 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typenames.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typenames.h"],
+            headerInclude = "typenames.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {

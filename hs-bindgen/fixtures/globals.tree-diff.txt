@@ -10,7 +10,11 @@ TranslationUnit {
             "simpleGlobal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -36,7 +40,11 @@ TranslationUnit {
             "Config"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -85,7 +93,11 @@ TranslationUnit {
             "compoundGlobal1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeStruct
@@ -109,7 +121,11 @@ TranslationUnit {
             "Inline_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -160,7 +176,11 @@ TranslationUnit {
             "compoundGlobal2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeStruct
@@ -185,7 +205,11 @@ TranslationUnit {
             "nesInteger"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment =
         Just
           (Comment
@@ -232,7 +256,11 @@ TranslationUnit {
             "nesFloating"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -252,7 +280,11 @@ TranslationUnit {
             "nesString1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePointer
@@ -275,7 +307,11 @@ TranslationUnit {
             "nesString2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
@@ -299,7 +335,11 @@ TranslationUnit {
             "nesCharacter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -321,7 +361,11 @@ TranslationUnit {
             "nesParen"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -341,7 +385,11 @@ TranslationUnit {
             "nesUnary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -361,7 +409,11 @@ TranslationUnit {
             "nesBinary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -381,7 +433,11 @@ TranslationUnit {
             "nesConditional"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -401,7 +457,11 @@ TranslationUnit {
             "nesCast"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -421,7 +481,11 @@ TranslationUnit {
             "nesCompound"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePointer
@@ -442,7 +506,11 @@ TranslationUnit {
             "nesInitList"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
@@ -578,7 +646,11 @@ TranslationUnit {
             "nesBool"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim PrimBool),
@@ -598,7 +670,11 @@ TranslationUnit {
             "streamBinary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment =
         Just
           (Comment
@@ -760,7 +836,11 @@ TranslationUnit {
             "streamBinary_len"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeExtBinding
@@ -896,7 +976,11 @@ TranslationUnit {
           (AnonId "globals.h:406:9"),
         declAliases = [
           Name "version_t"],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -1303,7 +1387,11 @@ TranslationUnit {
           (AnonId "globals.h:413:9"),
         declAliases = [
           Name "struct1_t"],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -1490,7 +1578,11 @@ TranslationUnit {
           (AnonId "globals.h:420:9"),
         declAliases = [
           Name "struct2_t"],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -1538,7 +1630,11 @@ TranslationUnit {
             "some_global_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeTypedef
@@ -1567,7 +1663,11 @@ TranslationUnit {
             "globalConstant"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment =
         Just
           (Comment
@@ -1598,7 +1698,11 @@ TranslationUnit {
             "ConstInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1634,7 +1738,11 @@ TranslationUnit {
             "anotherGlobalConstant"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeTypedef
@@ -1659,7 +1767,11 @@ TranslationUnit {
             "staticConst"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment =
         Just
           (Comment
@@ -1691,7 +1803,11 @@ TranslationUnit {
             "classless"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1718,7 +1834,11 @@ TranslationUnit {
             "constArray1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1749,7 +1869,11 @@ TranslationUnit {
             "ConstIntArray"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1788,7 +1912,11 @@ TranslationUnit {
             "constArray2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeTypedef
@@ -1812,7 +1940,11 @@ TranslationUnit {
             "Tuple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -1862,7 +1994,11 @@ TranslationUnit {
             "constTuple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1893,7 +2029,11 @@ TranslationUnit {
             "nonConstTuple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1923,7 +2063,11 @@ TranslationUnit {
             "ptrToConstInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1953,7 +2097,11 @@ TranslationUnit {
             "constPtrToInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [
@@ -1984,7 +2132,11 @@ TranslationUnit {
             "constPtrToConstInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "globals.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["globals.h"],
+            headerInclude = "globals.h"},
         declComment = Just
           (Comment
             [

@@ -10,8 +10,12 @@ TranslationUnit {
             "MY_TYPE"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_typedef_struct.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_typedef_struct.h"],
+            headerInclude =
+            "macro_typedef_struct.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -43,8 +47,12 @@ TranslationUnit {
           (AnonId
             "macro_typedef_struct.h:3:9"),
         declAliases = [Name "bar"],
-        declHeader =
-        "macro_typedef_struct.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_typedef_struct.h"],
+            headerInclude =
+            "macro_typedef_struct.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

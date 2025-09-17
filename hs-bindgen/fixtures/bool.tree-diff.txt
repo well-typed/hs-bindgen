@@ -9,7 +9,11 @@ TranslationUnit {
             "Bools1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bool.h"],
+            headerInclude = "bool.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -58,7 +62,11 @@ TranslationUnit {
             "Bools2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bool.h"],
+            headerInclude = "bool.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -107,7 +115,11 @@ TranslationUnit {
             "BOOL"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bool.h"],
+            headerInclude = "bool.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -135,7 +147,11 @@ TranslationUnit {
             "Bools3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "bool.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["bool.h"],
+            headerInclude = "bool.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

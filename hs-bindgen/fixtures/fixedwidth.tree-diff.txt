@@ -9,7 +9,11 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fixedwidth.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fixedwidth.h"],
+            headerInclude = "fixedwidth.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

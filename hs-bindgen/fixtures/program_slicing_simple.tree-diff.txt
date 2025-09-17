@@ -12,8 +12,12 @@ TranslationUnit {
           Name "uint_fast16_t",
           Name "uint_fast32_t",
           Name "uint_least32_t"],
-        declHeader =
-        "program_slicing_simple.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["program_slicing_simple.h"],
+            headerInclude =
+            "bits/alltypes.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -44,8 +48,12 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "program_slicing_simple.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["program_slicing_simple.h"],
+            headerInclude =
+            "program_slicing_simple.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

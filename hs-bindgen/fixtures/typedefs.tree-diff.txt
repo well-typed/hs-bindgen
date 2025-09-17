@@ -9,7 +9,11 @@ TranslationUnit {
             "Myint"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typedefs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedefs.h"],
+            headerInclude = "typedefs.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -37,7 +41,11 @@ TranslationUnit {
             "Intptr"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "typedefs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedefs.h"],
+            headerInclude = "typedefs.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {

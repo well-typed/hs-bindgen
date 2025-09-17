@@ -136,8 +136,12 @@
             (AnonId
               "enum_cpp_syntax.h:4:9"),
           declAliases = [Name "foo_enum"],
-          declHeader =
-          "enum_cpp_syntax.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enum_cpp_syntax.h"],
+              headerInclude =
+              "enum_cpp_syntax.h"},
           declComment = Nothing},
         declKind = Enum
           Enum {
@@ -308,8 +312,12 @@
           commentOrigin = Just "foo_enum",
           commentLocation = Just
             "enum_cpp_syntax.h:4:9",
-          commentHeader = Just
-            "enum_cpp_syntax.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enum_cpp_syntax.h"],
+              headerInclude =
+              "enum_cpp_syntax.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1432,8 +1440,12 @@
           commentOrigin = Just "A",
           commentLocation = Just
             "enum_cpp_syntax.h:4:27",
-          commentHeader = Just
-            "enum_cpp_syntax.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enum_cpp_syntax.h"],
+              headerInclude =
+              "enum_cpp_syntax.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1463,8 +1475,12 @@
           commentOrigin = Just "B",
           commentLocation = Just
             "enum_cpp_syntax.h:4:30",
-          commentHeader = Just
-            "enum_cpp_syntax.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enum_cpp_syntax.h"],
+              headerInclude =
+              "enum_cpp_syntax.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1494,6 +1510,10 @@
           commentOrigin = Just "C",
           commentLocation = Just
             "enum_cpp_syntax.h:4:33",
-          commentHeader = Just
-            "enum_cpp_syntax.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["enum_cpp_syntax.h"],
+              headerInclude =
+              "enum_cpp_syntax.h"},
           commentChildren = []}}]

@@ -30,8 +30,11 @@
           commentOrigin = Just "h",
           commentLocation = Just
             "varargs.h:8:6",
-          commentHeader = Just
-            "varargs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["varargs.h"],
+              headerInclude = "varargs.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -63,8 +66,11 @@
           commentOrigin = Just "h",
           commentLocation = Just
             "varargs.h:8:6",
-          commentHeader = Just
-            "varargs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["varargs.h"],
+              headerInclude = "varargs.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

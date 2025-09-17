@@ -9,7 +9,11 @@ TranslationUnit {
             "Dim2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -58,7 +62,11 @@ TranslationUnit {
             "Dim3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -119,7 +127,11 @@ TranslationUnit {
             "DimPayload"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -176,7 +188,11 @@ TranslationUnit {
             "Dim"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -230,7 +246,11 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [
           Name "DimPayloadB"],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -287,7 +307,11 @@ TranslationUnit {
             "DimB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -344,7 +368,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "unions.h:35:5"),
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -394,7 +422,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "unions.h:36:5"),
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -445,7 +477,11 @@ TranslationUnit {
             "AnonA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {

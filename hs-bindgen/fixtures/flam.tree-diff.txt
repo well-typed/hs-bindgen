@@ -10,7 +10,11 @@ TranslationUnit {
             "Pascal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "flam.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["flam.h"],
+            headerInclude = "flam.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -62,7 +66,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "flam.h:10:2"),
         declAliases = [],
-        declHeader = "flam.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["flam.h"],
+            headerInclude = "flam.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -111,7 +119,11 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "flam.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["flam.h"],
+            headerInclude = "flam.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -165,7 +177,11 @@ TranslationUnit {
             "Diff"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "flam.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["flam.h"],
+            headerInclude = "flam.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -231,7 +247,11 @@ TranslationUnit {
             "Triplets"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "flam.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["flam.h"],
+            headerInclude = "flam.h"},
         declComment =
         Just
           (Comment

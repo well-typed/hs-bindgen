@@ -33,8 +33,11 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "anonymous.h:4:9",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -61,8 +64,11 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "anonymous.h:5:9",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -75,7 +81,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:3:3"),
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -123,8 +133,11 @@
           commentOrigin = Just "S1_c",
           commentLocation = Just
             "anonymous.h:3:3",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -163,8 +176,11 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "anonymous.h:4:9",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -191,8 +207,11 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "anonymous.h:5:9",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -205,7 +224,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "anonymous.h:3:3"),
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -253,8 +276,11 @@
               commentOrigin = Just "S1_c",
               commentLocation = Just
                 "anonymous.h:3:3",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -296,8 +322,11 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "anonymous.h:4:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -324,8 +353,11 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "anonymous.h:5:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -338,7 +370,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:3:3"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -386,8 +422,11 @@
                       commentOrigin = Just "S1_c",
                       commentLocation = Just
                         "anonymous.h:3:3",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -431,8 +470,11 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "anonymous.h:4:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -459,8 +501,11 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "anonymous.h:5:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -473,7 +518,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:3:3"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -521,8 +570,11 @@
                       commentOrigin = Just "S1_c",
                       commentLocation = Just
                         "anonymous.h:3:3",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -593,8 +645,11 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "anonymous.h:6:5",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -621,8 +676,11 @@
               commentOrigin = Just "d",
               commentLocation = Just
                 "anonymous.h:8:7",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -634,7 +692,11 @@
                 "S1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -687,8 +749,11 @@
           commentOrigin = Just "S1",
           commentLocation = Just
             "anonymous.h:2:8",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -732,8 +797,11 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "anonymous.h:6:5",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -760,8 +828,11 @@
                   commentOrigin = Just "d",
                   commentLocation = Just
                     "anonymous.h:8:7",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -773,7 +844,11 @@
                     "S1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -826,8 +901,11 @@
               commentOrigin = Just "S1",
               commentLocation = Just
                 "anonymous.h:2:8",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -874,8 +952,11 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "anonymous.h:6:5",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -902,8 +983,11 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "anonymous.h:8:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -915,7 +999,11 @@
                             "S1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -968,8 +1056,11 @@
                       commentOrigin = Just "S1",
                       commentLocation = Just
                         "anonymous.h:2:8",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1018,8 +1109,11 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "anonymous.h:6:5",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1046,8 +1140,11 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "anonymous.h:8:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1059,7 +1156,11 @@
                             "S1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1112,8 +1213,11 @@
                       commentOrigin = Just "S1",
                       commentLocation = Just
                         "anonymous.h:2:8",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1179,8 +1283,11 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "anonymous.h:16:11",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1193,7 +1300,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:15:5"),
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1232,8 +1343,11 @@
             "S2_inner_deep",
           commentLocation = Just
             "anonymous.h:15:5",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1272,8 +1386,11 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "anonymous.h:16:11",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1286,7 +1403,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "anonymous.h:15:5"),
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1325,8 +1446,11 @@
                 "S2_inner_deep",
               commentLocation = Just
                 "anonymous.h:15:5",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -1368,8 +1492,11 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "anonymous.h:16:11",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1382,7 +1509,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:15:5"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1421,8 +1552,11 @@
                         "S2_inner_deep",
                       commentLocation = Just
                         "anonymous.h:15:5",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -1464,8 +1598,11 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "anonymous.h:16:11",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1478,7 +1615,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:15:5"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1517,8 +1658,11 @@
                         "S2_inner_deep",
                       commentLocation = Just
                         "anonymous.h:15:5",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -1583,8 +1727,11 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "anonymous.h:14:9",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1618,8 +1765,11 @@
               commentOrigin = Just "deep",
               commentLocation = Just
                 "anonymous.h:17:7",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1632,7 +1782,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:13:3"),
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1685,8 +1839,11 @@
           commentOrigin = Just "S2_inner",
           commentLocation = Just
             "anonymous.h:13:3",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1725,8 +1882,11 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "anonymous.h:14:9",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1760,8 +1920,11 @@
                   commentOrigin = Just "deep",
                   commentLocation = Just
                     "anonymous.h:17:7",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1774,7 +1937,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "anonymous.h:13:3"),
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1827,8 +1994,11 @@
               commentOrigin = Just "S2_inner",
               commentLocation = Just
                 "anonymous.h:13:3",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -1870,8 +2040,11 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "anonymous.h:14:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1905,8 +2078,11 @@
                           commentOrigin = Just "deep",
                           commentLocation = Just
                             "anonymous.h:17:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1919,7 +2095,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:13:3"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1972,8 +2152,11 @@
                       commentOrigin = Just "S2_inner",
                       commentLocation = Just
                         "anonymous.h:13:3",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2017,8 +2200,11 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "anonymous.h:14:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2052,8 +2238,11 @@
                           commentOrigin = Just "deep",
                           commentLocation = Just
                             "anonymous.h:17:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2066,7 +2255,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:13:3"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2119,8 +2312,11 @@
                       commentOrigin = Just "S2_inner",
                       commentLocation = Just
                         "anonymous.h:13:3",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2193,8 +2389,11 @@
               commentOrigin = Just "inner",
               commentLocation = Just
                 "anonymous.h:18:5",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2221,8 +2420,11 @@
               commentOrigin = Just "d",
               commentLocation = Just
                 "anonymous.h:20:7",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2234,7 +2436,11 @@
                 "S2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2287,8 +2493,11 @@
           commentOrigin = Just "S2",
           commentLocation = Just
             "anonymous.h:12:8",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2334,8 +2543,11 @@
                   commentOrigin = Just "inner",
                   commentLocation = Just
                     "anonymous.h:18:5",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2362,8 +2574,11 @@
                   commentOrigin = Just "d",
                   commentLocation = Just
                     "anonymous.h:20:7",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2375,7 +2590,11 @@
                     "S2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2428,8 +2647,11 @@
               commentOrigin = Just "S2",
               commentLocation = Just
                 "anonymous.h:12:8",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -2478,8 +2700,11 @@
                           commentOrigin = Just "inner",
                           commentLocation = Just
                             "anonymous.h:18:5",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2506,8 +2731,11 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "anonymous.h:20:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2519,7 +2747,11 @@
                             "S2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2572,8 +2804,11 @@
                       commentOrigin = Just "S2",
                       commentLocation = Just
                         "anonymous.h:12:8",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2624,8 +2859,11 @@
                           commentOrigin = Just "inner",
                           commentLocation = Just
                             "anonymous.h:18:5",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2652,8 +2890,11 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "anonymous.h:20:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2665,7 +2906,11 @@
                             "S2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2718,8 +2963,11 @@
                       commentOrigin = Just "S2",
                       commentLocation = Just
                         "anonymous.h:12:8",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2785,8 +3033,11 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "anonymous.h:26:9",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2813,8 +3064,11 @@
               commentOrigin = Just "b",
               commentLocation = Just
                 "anonymous.h:27:9",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2827,7 +3081,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "anonymous.h:25:3"),
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2875,8 +3133,11 @@
           commentOrigin = Just "S3_c",
           commentLocation = Just
             "anonymous.h:25:3",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2915,8 +3176,11 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "anonymous.h:26:9",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2943,8 +3207,11 @@
                   commentOrigin = Just "b",
                   commentLocation = Just
                     "anonymous.h:27:9",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2957,7 +3224,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "anonymous.h:25:3"),
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3005,8 +3276,11 @@
               commentOrigin = Just "S3_c",
               commentLocation = Just
                 "anonymous.h:25:3",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -3048,8 +3322,11 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "anonymous.h:26:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3076,8 +3353,11 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "anonymous.h:27:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3090,7 +3370,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:25:3"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3138,8 +3422,11 @@
                       commentOrigin = Just "S3_c",
                       commentLocation = Just
                         "anonymous.h:25:3",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3183,8 +3470,11 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "anonymous.h:26:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3211,8 +3501,11 @@
                           commentOrigin = Just "b",
                           commentLocation = Just
                             "anonymous.h:27:9",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3225,7 +3518,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "anonymous.h:25:3"),
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3273,8 +3570,11 @@
                       commentOrigin = Just "S3_c",
                       commentLocation = Just
                         "anonymous.h:25:3",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3351,8 +3651,11 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "anonymous.h:28:7",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3379,8 +3682,11 @@
               commentOrigin = Just "d",
               commentLocation = Just
                 "anonymous.h:30:7",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3392,7 +3698,11 @@
                 "S3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "anonymous.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3447,8 +3757,11 @@
           commentOrigin = Just "S3",
           commentLocation = Just
             "anonymous.h:24:8",
-          commentHeader = Just
-            "anonymous.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3498,8 +3811,11 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "anonymous.h:28:7",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3526,8 +3842,11 @@
                   commentOrigin = Just "d",
                   commentLocation = Just
                     "anonymous.h:30:7",
-                  commentHeader = Just
-                    "anonymous.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3539,7 +3858,11 @@
                     "S3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "anonymous.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3594,8 +3917,11 @@
               commentOrigin = Just "S3",
               commentLocation = Just
                 "anonymous.h:24:8",
-              commentHeader = Just
-                "anonymous.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3648,8 +3974,11 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "anonymous.h:28:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3676,8 +4005,11 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "anonymous.h:30:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3689,7 +4021,11 @@
                             "S3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3744,8 +4080,11 @@
                       commentOrigin = Just "S3",
                       commentLocation = Just
                         "anonymous.h:24:8",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3800,8 +4139,11 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "anonymous.h:28:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3828,8 +4170,11 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "anonymous.h:30:7",
-                          commentHeader = Just
-                            "anonymous.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3841,7 +4186,11 @@
                             "S3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "anonymous.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3896,8 +4245,11 @@
                       commentOrigin = Just "S3",
                       commentLocation = Just
                         "anonymous.h:24:8",
-                      commentHeader = Just
-                        "anonymous.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

@@ -24,7 +24,12 @@
               "PtrInt"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -52,8 +57,12 @@
           commentOrigin = Just "PtrInt",
           commentLocation = Just
             "macro_types.h:2:9",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -121,7 +130,12 @@
               "PtrPtrChar"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -152,8 +166,12 @@
             "PtrPtrChar",
           commentLocation = Just
             "macro_types.h:5:9",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -220,7 +238,12 @@
               "MTy"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -259,8 +282,12 @@
           commentOrigin = Just "MTy",
           commentLocation = Just
             "macro_types.h:8:9",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -408,7 +435,12 @@
               "Tty"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -451,8 +483,12 @@
           commentOrigin = Just "tty",
           commentLocation = Just
             "macro_types.h:9:13",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -600,7 +636,12 @@
               "UINT8_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -641,8 +682,12 @@
           commentOrigin = Just "UINT8_T",
           commentLocation = Just
             "macro_types.h:11:9",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -802,7 +847,12 @@
               "BOOLEAN_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Macro
           CheckedMacroType {
@@ -847,8 +897,12 @@
             "BOOLEAN_T",
           commentLocation = Just
             "macro_types.h:12:9",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1008,7 +1062,12 @@
               "Boolean_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "macro_types.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -1053,8 +1112,12 @@
             "boolean_T",
           commentLocation = Just
             "macro_types.h:13:19",
-          commentHeader = Just
-            "macro_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_types.h"],
+              headerInclude =
+              "macro_types.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {

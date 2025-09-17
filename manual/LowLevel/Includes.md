@@ -334,12 +334,21 @@ configuration and confirm precedence.
 $ gcc -xc -E -v - </dev/null
 ```
 
-The `hs-bindgen-cli dev resolve` command may be used debug `hs-bindgen` header
-resolution.  When experimenting with builtin include directory configuration,
-it may be useful to show debug trace messages.
+The `hs-bindgen-cli info resolve-header` command may be used debug `hs-bindgen`
+header resolution.  When experimenting with builtin include directory
+configuration, it may be useful to show debug trace messages.
 
 ```
-$ hs-bindgen-cli dev resolve -v4 --builtin-include-dir=auto stddef.h
+$ hs-bindgen-cli info resolve-header -v4 stddef.h
+```
+
+The `hs-bindgen-cli info include-graph` command may be used to display the full
+include graph for one or more headers, in [Mermaid][] syntax.
+
+[Mermaid]: <https://mermaid.js.org/>
+
+```
+$ hs-bindgen-cli info include-graph stdint.h
 ```
 
 The `hs-bindgen-cli dev clang` command may be used to query Clang options such

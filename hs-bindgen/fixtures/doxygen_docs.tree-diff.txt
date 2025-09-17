@@ -10,7 +10,12 @@ TranslationUnit {
             "mAX_NAME_LENGTH"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -40,7 +45,12 @@ TranslationUnit {
             "Size_type"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -204,7 +214,12 @@ TranslationUnit {
             "global_counter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment =
         Just
           (Comment
@@ -246,7 +261,12 @@ TranslationUnit {
             "version_string"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -283,7 +303,12 @@ TranslationUnit {
             "Forward_declared_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -320,7 +345,12 @@ TranslationUnit {
             "Forward_declared_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -347,7 +377,12 @@ TranslationUnit {
             "Color_enum"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -433,7 +468,12 @@ TranslationUnit {
             "process_data"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment =
         Just
           (Comment
@@ -889,7 +929,12 @@ TranslationUnit {
             "process_file"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1003,7 +1048,12 @@ TranslationUnit {
             "calculate_value"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1093,7 +1143,12 @@ TranslationUnit {
             "html_example"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1257,7 +1312,12 @@ TranslationUnit {
             "list_example"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1380,7 +1440,12 @@ TranslationUnit {
             "dangerous_function"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1463,7 +1528,12 @@ TranslationUnit {
             "detailed_return_codes"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1548,7 +1618,12 @@ TranslationUnit {
             "old_function"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1618,7 +1693,12 @@ TranslationUnit {
             "versioned_function"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1692,7 +1772,12 @@ TranslationUnit {
             "Event_callback_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -1771,7 +1856,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "doxygen_docs.h:232:9"),
         declAliases = [Name "config_t"],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -2168,7 +2258,12 @@ TranslationUnit {
           (AnonId "doxygen_docs.h:258:9"),
         declAliases = [
           Name "status_code_t"],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -2311,7 +2406,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "doxygen_docs.h:290:5"),
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -2628,7 +2728,12 @@ TranslationUnit {
           (AnonId "doxygen_docs.h:281:9"),
         declAliases = [
           Name "data_union_t"],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment =
         Just
           (Comment
@@ -2990,7 +3095,12 @@ TranslationUnit {
           (AnonId "doxygen_docs.h:302:9"),
         declAliases = [
           Name "bitfield_t"],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3121,7 +3231,12 @@ TranslationUnit {
             "Processor_fn_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3200,7 +3315,12 @@ TranslationUnit {
             "Filename_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3244,7 +3364,12 @@ TranslationUnit {
             "process_buffer"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3446,7 +3571,12 @@ TranslationUnit {
             "my_memcpy"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3662,7 +3792,12 @@ TranslationUnit {
             "double_value"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3722,7 +3857,12 @@ TranslationUnit {
             "Flexible_array"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Just
           (Comment
             [
@@ -3938,7 +4078,12 @@ TranslationUnit {
             "complex_function"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment =
         Just
           (Comment
@@ -4414,7 +4559,12 @@ TranslationUnit {
             "hash"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -4450,7 +4600,12 @@ TranslationUnit {
             "square"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "doxygen_docs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

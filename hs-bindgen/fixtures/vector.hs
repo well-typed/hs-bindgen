@@ -33,7 +33,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "vector.h:2:12",
-              commentHeader = Just "vector.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["vector.h"],
+                  headerInclude = "vector.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -60,7 +64,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "vector.h:3:12",
-              commentHeader = Just "vector.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["vector.h"],
+                  headerInclude = "vector.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -73,7 +81,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "vector.h:1:9"),
             declAliases = [Name "vector"],
-            declHeader = "vector.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["vector.h"],
+                headerInclude = "vector.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -121,7 +133,11 @@
           commentOrigin = Just "vector",
           commentLocation = Just
             "vector.h:1:9",
-          commentHeader = Just "vector.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["vector.h"],
+              headerInclude = "vector.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -160,7 +176,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "vector.h:2:12",
-                  commentHeader = Just "vector.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["vector.h"],
+                      headerInclude = "vector.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -187,7 +207,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "vector.h:3:12",
-                  commentHeader = Just "vector.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["vector.h"],
+                      headerInclude = "vector.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -200,7 +224,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "vector.h:1:9"),
                 declAliases = [Name "vector"],
-                declHeader = "vector.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["vector.h"],
+                    headerInclude = "vector.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -248,7 +276,11 @@
               commentOrigin = Just "vector",
               commentLocation = Just
                 "vector.h:1:9",
-              commentHeader = Just "vector.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["vector.h"],
+                  headerInclude = "vector.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -290,7 +322,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "vector.h:2:12",
-                          commentHeader = Just "vector.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["vector.h"],
+                              headerInclude = "vector.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -317,7 +353,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "vector.h:3:12",
-                          commentHeader = Just "vector.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["vector.h"],
+                              headerInclude = "vector.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -330,7 +370,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "vector.h:1:9"),
                         declAliases = [Name "vector"],
-                        declHeader = "vector.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["vector.h"],
+                            headerInclude = "vector.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -378,7 +422,11 @@
                       commentOrigin = Just "vector",
                       commentLocation = Just
                         "vector.h:1:9",
-                      commentHeader = Just "vector.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["vector.h"],
+                          headerInclude = "vector.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -422,7 +470,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "vector.h:2:12",
-                          commentHeader = Just "vector.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["vector.h"],
+                              headerInclude = "vector.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -449,7 +501,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "vector.h:3:12",
-                          commentHeader = Just "vector.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["vector.h"],
+                              headerInclude = "vector.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -462,7 +518,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "vector.h:1:9"),
                         declAliases = [Name "vector"],
-                        declHeader = "vector.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["vector.h"],
+                            headerInclude = "vector.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -510,7 +570,11 @@
                       commentOrigin = Just "vector",
                       commentLocation = Just
                         "vector.h:1:9",
-                      commentHeader = Just "vector.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["vector.h"],
+                          headerInclude = "vector.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -558,7 +622,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -570,7 +634,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -626,7 +690,11 @@
             "new_vector",
           commentLocation = Just
             "vector.h:6:9",
-          commentHeader = Just "vector.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["vector.h"],
+              headerInclude = "vector.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -682,7 +750,11 @@
             "new_vector",
           commentLocation = Just
             "vector.h:6:9",
-          commentHeader = Just "vector.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["vector.h"],
+              headerInclude = "vector.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

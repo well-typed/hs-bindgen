@@ -12,7 +12,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
-  , evalGetMainHeader
+  , evalGetMainHeadersAndInclude
   , evalPredicate
     -- ** "State"
   , recordMacroExpansionAt
@@ -46,7 +46,7 @@ import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Predicate qualified as Predicate
-import HsBindgen.Frontend.ProcessIncludes (GetMainHeader)
+import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -88,22 +88,24 @@ run env f = do
 -------------------------------------------------------------------------------}
 
 data Env = Env {
-      envUnit              :: CXTranslationUnit
-    , envRootHeader        :: RootHeader
-    , envIsMainHeader      :: Predicate.IsMainHeader
-    , envIsInMainHeaderDir :: Predicate.IsInMainHeaderDir
-    , envGetMainHeader     :: GetMainHeader
-    , envPredicate         :: Predicate.ParsePredicate
-    , envTracer            :: Tracer IO ParseMsg
+      envUnit                     :: CXTranslationUnit
+    , envRootHeader               :: RootHeader
+    , envIsMainHeader             :: Predicate.IsMainHeader
+    , envIsInMainHeaderDir        :: Predicate.IsInMainHeaderDir
+    , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
+    , envPredicate                :: Predicate.ParsePredicate
+    , envTracer                   :: Tracer IO ParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
     return (envUnit parseEnv)
 
-evalGetMainHeader :: SourcePath -> ParseDecl HashIncludeArg
-evalGetMainHeader path = wrapEff $ \ParseSupport{parseEnv} ->
-    return $ (envGetMainHeader parseEnv) path
+evalGetMainHeadersAndInclude ::
+     SourcePath
+  -> ParseDecl (NonEmpty HashIncludeArg, HashIncludeArg)
+evalGetMainHeadersAndInclude path = wrapEff $ \ParseSupport{parseEnv} ->
+    either panicIO return $ (envGetMainHeadersAndInclude parseEnv) path
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
 evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> do

@@ -10,8 +10,12 @@ TranslationUnit {
             "T1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_typedef_scope.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_typedef_scope.h"],
+            headerInclude =
+            "macro_typedef_scope.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -41,8 +45,12 @@ TranslationUnit {
             "T2"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "T4"],
-        declHeader =
-        "macro_typedef_scope.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_typedef_scope.h"],
+            headerInclude =
+            "macro_typedef_scope.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -74,8 +82,12 @@ TranslationUnit {
             "T3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_typedef_scope.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_typedef_scope.h"],
+            headerInclude =
+            "macro_typedef_scope.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -109,8 +121,12 @@ TranslationUnit {
             "T4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_typedef_scope.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_typedef_scope.h"],
+            headerInclude =
+            "macro_typedef_scope.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {

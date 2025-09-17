@@ -40,8 +40,12 @@
           commentOrigin = Just "fun2",
           commentLocation = Just
             "skip_over_long_double.h:7:6",
-          commentHeader = Just
-            "skip_over_long_double.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["skip_over_long_double.h"],
+              headerInclude =
+              "skip_over_long_double.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -79,8 +83,12 @@
           commentOrigin = Just "fun2",
           commentLocation = Just
             "skip_over_long_double.h:7:6",
-          commentHeader = Just
-            "skip_over_long_double.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["skip_over_long_double.h"],
+              headerInclude =
+              "skip_over_long_double.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -120,8 +128,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "skip_over_long_double.h:14:7",
-              commentHeader = Just
-                "skip_over_long_double.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["skip_over_long_double.h"],
+                  headerInclude =
+                  "skip_over_long_double.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -134,8 +146,12 @@
                 "Struct2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "skip_over_long_double.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["skip_over_long_double.h"],
+                headerInclude =
+                "skip_over_long_double.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -172,8 +188,12 @@
           commentOrigin = Just "struct2",
           commentLocation = Just
             "skip_over_long_double.h:13:8",
-          commentHeader = Just
-            "skip_over_long_double.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["skip_over_long_double.h"],
+              headerInclude =
+              "skip_over_long_double.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -213,8 +233,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "skip_over_long_double.h:14:7",
-                  commentHeader = Just
-                    "skip_over_long_double.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["skip_over_long_double.h"],
+                      headerInclude =
+                      "skip_over_long_double.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -227,8 +251,12 @@
                     "Struct2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "skip_over_long_double.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["skip_over_long_double.h"],
+                    headerInclude =
+                    "skip_over_long_double.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -265,8 +293,12 @@
               commentOrigin = Just "struct2",
               commentLocation = Just
                 "skip_over_long_double.h:13:8",
-              commentHeader = Just
-                "skip_over_long_double.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["skip_over_long_double.h"],
+                  headerInclude =
+                  "skip_over_long_double.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -309,8 +341,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "skip_over_long_double.h:14:7",
-                          commentHeader = Just
-                            "skip_over_long_double.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["skip_over_long_double.h"],
+                              headerInclude =
+                              "skip_over_long_double.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -323,8 +359,12 @@
                             "Struct2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "skip_over_long_double.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["skip_over_long_double.h"],
+                            headerInclude =
+                            "skip_over_long_double.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -361,8 +401,12 @@
                       commentOrigin = Just "struct2",
                       commentLocation = Just
                         "skip_over_long_double.h:13:8",
-                      commentHeader = Just
-                        "skip_over_long_double.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["skip_over_long_double.h"],
+                          headerInclude =
+                          "skip_over_long_double.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -405,8 +449,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "skip_over_long_double.h:14:7",
-                          commentHeader = Just
-                            "skip_over_long_double.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["skip_over_long_double.h"],
+                              headerInclude =
+                              "skip_over_long_double.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -419,8 +467,12 @@
                             "Struct2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "skip_over_long_double.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["skip_over_long_double.h"],
+                            headerInclude =
+                            "skip_over_long_double.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -457,8 +509,12 @@
                       commentOrigin = Just "struct2",
                       commentLocation = Just
                         "skip_over_long_double.h:13:8",
-                      commentHeader = Just
-                        "skip_over_long_double.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["skip_over_long_double.h"],
+                          headerInclude =
+                          "skip_over_long_double.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq

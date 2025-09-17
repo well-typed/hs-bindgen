@@ -18,7 +18,12 @@
               nameHsIdent = HsIdentifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -42,8 +47,12 @@
           commentOrigin = Just "a",
           commentLocation = Just
             "named_vs_anon.h:15:8",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -67,7 +76,12 @@
                   nameHsIdent = HsIdentifier "A"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -91,8 +105,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "named_vs_anon.h:15:8",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -119,7 +137,12 @@
                           nameHsIdent = HsIdentifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -143,8 +166,12 @@
                       commentOrigin = Just "a",
                       commentLocation = Just
                         "named_vs_anon.h:15:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -171,7 +198,12 @@
                           nameHsIdent = HsIdentifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -195,8 +227,12 @@
                       commentOrigin = Just "a",
                       commentLocation = Just
                         "named_vs_anon.h:15:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -242,7 +278,12 @@
                 "Struct1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -266,8 +307,12 @@
           commentOrigin = Just "struct1",
           commentLocation = Just
             "named_vs_anon.h:16:8",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -292,7 +337,12 @@
                     "Struct1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -316,8 +366,12 @@
               commentOrigin = Just "struct1",
               commentLocation = Just
                 "named_vs_anon.h:16:8",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -345,7 +399,12 @@
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -369,8 +428,12 @@
                       commentOrigin = Just "struct1",
                       commentLocation = Just
                         "named_vs_anon.h:16:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -398,7 +461,12 @@
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -422,8 +490,12 @@
                       commentOrigin = Just "struct1",
                       commentLocation = Just
                         "named_vs_anon.h:16:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -469,7 +541,12 @@
                 "B_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -493,8 +570,12 @@
           commentOrigin = Just "b_s",
           commentLocation = Just
             "named_vs_anon.h:19:8",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -519,7 +600,12 @@
                     "B_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -543,8 +629,12 @@
               commentOrigin = Just "b_s",
               commentLocation = Just
                 "named_vs_anon.h:19:8",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -572,7 +662,12 @@
                             "B_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -596,8 +691,12 @@
                       commentOrigin = Just "b_s",
                       commentLocation = Just
                         "named_vs_anon.h:19:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -625,7 +724,12 @@
                             "B_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -649,8 +753,12 @@
                       commentOrigin = Just "b_s",
                       commentLocation = Just
                         "named_vs_anon.h:19:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -696,7 +804,12 @@
                 "Struct2_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -723,8 +836,12 @@
             "struct2_s",
           commentLocation = Just
             "named_vs_anon.h:20:8",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -749,7 +866,12 @@
                     "Struct2_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -776,8 +898,12 @@
                 "struct2_s",
               commentLocation = Just
                 "named_vs_anon.h:20:8",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -805,7 +931,12 @@
                             "Struct2_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -832,8 +963,12 @@
                         "struct2_s",
                       commentLocation = Just
                         "named_vs_anon.h:20:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -861,7 +996,12 @@
                             "Struct2_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -888,8 +1028,12 @@
                         "struct2_s",
                       commentLocation = Just
                         "named_vs_anon.h:20:8",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -934,7 +1078,12 @@
               nameHsIdent = HsIdentifier "C"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -958,8 +1107,12 @@
           commentOrigin = Just "c",
           commentLocation = Just
             "named_vs_anon.h:23:36",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -983,7 +1136,12 @@
                   nameHsIdent = HsIdentifier "C"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1007,8 +1165,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "named_vs_anon.h:23:36",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1035,7 +1197,12 @@
                           nameHsIdent = HsIdentifier "C"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1059,8 +1226,12 @@
                       commentOrigin = Just "c",
                       commentLocation = Just
                         "named_vs_anon.h:23:36",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1087,7 +1258,12 @@
                           nameHsIdent = HsIdentifier "C"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1111,8 +1287,12 @@
                       commentOrigin = Just "c",
                       commentLocation = Just
                         "named_vs_anon.h:23:36",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1158,7 +1338,12 @@
                 "Struct3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1182,8 +1367,12 @@
           commentOrigin = Just "struct3",
           commentLocation = Just
             "named_vs_anon.h:24:36",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1208,7 +1397,12 @@
                     "Struct3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1232,8 +1426,12 @@
               commentOrigin = Just "struct3",
               commentLocation = Just
                 "named_vs_anon.h:24:36",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1261,7 +1459,12 @@
                             "Struct3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1285,8 +1488,12 @@
                       commentOrigin = Just "struct3",
                       commentLocation = Just
                         "named_vs_anon.h:24:36",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1314,7 +1521,12 @@
                             "Struct3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1338,8 +1550,12 @@
                       commentOrigin = Just "struct3",
                       commentLocation = Just
                         "named_vs_anon.h:24:36",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1384,7 +1600,12 @@
               nameHsIdent = HsIdentifier "D"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1408,8 +1629,12 @@
           commentOrigin = Just "d",
           commentLocation = Just
             "named_vs_anon.h:27:15",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1433,7 +1658,12 @@
                   nameHsIdent = HsIdentifier "D"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1457,8 +1687,12 @@
               commentOrigin = Just "d",
               commentLocation = Just
                 "named_vs_anon.h:27:15",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1485,7 +1719,12 @@
                           nameHsIdent = HsIdentifier "D"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1509,8 +1748,12 @@
                       commentOrigin = Just "d",
                       commentLocation = Just
                         "named_vs_anon.h:27:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1537,7 +1780,12 @@
                           nameHsIdent = HsIdentifier "D"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1561,8 +1809,12 @@
                       commentOrigin = Just "d",
                       commentLocation = Just
                         "named_vs_anon.h:27:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1608,7 +1860,12 @@
                 "Struct4"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1632,8 +1889,12 @@
           commentOrigin = Just "struct4",
           commentLocation = Just
             "named_vs_anon.h:28:15",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1658,7 +1919,12 @@
                     "Struct4"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1682,8 +1948,12 @@
               commentOrigin = Just "struct4",
               commentLocation = Just
                 "named_vs_anon.h:28:15",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1711,7 +1981,12 @@
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1735,8 +2010,12 @@
                       commentOrigin = Just "struct4",
                       commentLocation = Just
                         "named_vs_anon.h:28:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1764,7 +2043,12 @@
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1788,8 +2072,12 @@
                       commentOrigin = Just "struct4",
                       commentLocation = Just
                         "named_vs_anon.h:28:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1835,7 +2123,12 @@
                 "E_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1859,8 +2152,12 @@
           commentOrigin = Just "e_s",
           commentLocation = Just
             "named_vs_anon.h:31:15",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1885,7 +2182,12 @@
                     "E_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1909,8 +2211,12 @@
               commentOrigin = Just "e_s",
               commentLocation = Just
                 "named_vs_anon.h:31:15",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1938,7 +2244,12 @@
                             "E_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1962,8 +2273,12 @@
                       commentOrigin = Just "e_s",
                       commentLocation = Just
                         "named_vs_anon.h:31:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1991,7 +2306,12 @@
                             "E_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2015,8 +2335,12 @@
                       commentOrigin = Just "e_s",
                       commentLocation = Just
                         "named_vs_anon.h:31:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2062,7 +2386,12 @@
                 "Struct5_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2089,8 +2418,12 @@
             "struct5_s",
           commentLocation = Just
             "named_vs_anon.h:32:15",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2115,7 +2448,12 @@
                     "Struct5_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2142,8 +2480,12 @@
                 "struct5_s",
               commentLocation = Just
                 "named_vs_anon.h:32:15",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -2171,7 +2513,12 @@
                             "Struct5_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2198,8 +2545,12 @@
                         "struct5_s",
                       commentLocation = Just
                         "named_vs_anon.h:32:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -2227,7 +2578,12 @@
                             "Struct5_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2254,8 +2610,12 @@
                         "struct5_s",
                       commentLocation = Just
                         "named_vs_anon.h:32:15",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2301,7 +2661,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:35:9"),
             declAliases = [Name "f"],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2325,8 +2690,12 @@
           commentOrigin = Just "f",
           commentLocation = Just
             "named_vs_anon.h:35:9",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2351,7 +2720,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:35:9"),
                 declAliases = [Name "f"],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2375,8 +2749,12 @@
               commentOrigin = Just "f",
               commentLocation = Just
                 "named_vs_anon.h:35:9",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -2404,7 +2782,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:35:9"),
                         declAliases = [Name "f"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2428,8 +2811,12 @@
                       commentOrigin = Just "f",
                       commentLocation = Just
                         "named_vs_anon.h:35:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -2457,7 +2844,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:35:9"),
                         declAliases = [Name "f"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2481,8 +2873,12 @@
                       commentOrigin = Just "f",
                       commentLocation = Just
                         "named_vs_anon.h:35:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2529,7 +2925,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:36:9"),
             declAliases = [Name "typedef1"],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2553,8 +2954,12 @@
           commentOrigin = Just "typedef1",
           commentLocation = Just
             "named_vs_anon.h:36:9",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2580,7 +2985,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:36:9"),
                 declAliases = [Name "typedef1"],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2604,8 +3014,12 @@
               commentOrigin = Just "typedef1",
               commentLocation = Just
                 "named_vs_anon.h:36:9",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -2634,7 +3048,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:36:9"),
                         declAliases = [Name "typedef1"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2658,8 +3077,12 @@
                       commentOrigin = Just "typedef1",
                       commentLocation = Just
                         "named_vs_anon.h:36:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -2688,7 +3111,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:36:9"),
                         declAliases = [Name "typedef1"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2712,8 +3140,12 @@
                       commentOrigin = Just "typedef1",
                       commentLocation = Just
                         "named_vs_anon.h:36:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2759,7 +3191,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:39:9"),
             declAliases = [Name "g"],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2783,8 +3220,12 @@
           commentOrigin = Just "g",
           commentLocation = Just
             "named_vs_anon.h:39:9",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2809,7 +3250,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:39:9"),
                 declAliases = [Name "g"],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2833,8 +3279,12 @@
               commentOrigin = Just "g",
               commentLocation = Just
                 "named_vs_anon.h:39:9",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -2862,7 +3312,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:39:9"),
                         declAliases = [Name "g"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2886,8 +3341,12 @@
                       commentOrigin = Just "g",
                       commentLocation = Just
                         "named_vs_anon.h:39:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -2915,7 +3374,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:39:9"),
                         declAliases = [Name "g"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2939,8 +3403,12 @@
                       commentOrigin = Just "g",
                       commentLocation = Just
                         "named_vs_anon.h:39:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2987,7 +3455,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:40:9"),
             declAliases = [Name "typedef2"],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3011,8 +3484,12 @@
           commentOrigin = Just "typedef2",
           commentLocation = Just
             "named_vs_anon.h:40:9",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3038,7 +3515,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:40:9"),
                 declAliases = [Name "typedef2"],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3062,8 +3544,12 @@
               commentOrigin = Just "typedef2",
               commentLocation = Just
                 "named_vs_anon.h:40:9",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -3092,7 +3578,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:40:9"),
                         declAliases = [Name "typedef2"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3116,8 +3607,12 @@
                       commentOrigin = Just "typedef2",
                       commentLocation = Just
                         "named_vs_anon.h:40:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -3146,7 +3641,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:40:9"),
                         declAliases = [Name "typedef2"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3170,8 +3670,12 @@
                       commentOrigin = Just "typedef2",
                       commentLocation = Just
                         "named_vs_anon.h:40:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -3217,7 +3721,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:43:9"),
             declAliases = [Name "h"],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3241,8 +3750,12 @@
           commentOrigin = Just "h",
           commentLocation = Just
             "named_vs_anon.h:43:9",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3267,7 +3780,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:43:9"),
                 declAliases = [Name "h"],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3291,8 +3809,12 @@
               commentOrigin = Just "h",
               commentLocation = Just
                 "named_vs_anon.h:43:9",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -3320,7 +3842,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:43:9"),
                         declAliases = [Name "h"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3344,8 +3871,12 @@
                       commentOrigin = Just "h",
                       commentLocation = Just
                         "named_vs_anon.h:43:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -3373,7 +3904,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:43:9"),
                         declAliases = [Name "h"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3397,8 +3933,12 @@
                       commentOrigin = Just "h",
                       commentLocation = Just
                         "named_vs_anon.h:43:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -3445,7 +3985,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:44:9"),
             declAliases = [Name "typedef3"],
-            declHeader = "named_vs_anon.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["named_vs_anon.h"],
+                headerInclude =
+                "named_vs_anon.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3469,8 +4014,12 @@
           commentOrigin = Just "typedef3",
           commentLocation = Just
             "named_vs_anon.h:44:9",
-          commentHeader = Just
-            "named_vs_anon.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["named_vs_anon.h"],
+              headerInclude =
+              "named_vs_anon.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3496,7 +4045,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:44:9"),
                 declAliases = [Name "typedef3"],
-                declHeader = "named_vs_anon.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["named_vs_anon.h"],
+                    headerInclude =
+                    "named_vs_anon.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3520,8 +4074,12 @@
               commentOrigin = Just "typedef3",
               commentLocation = Just
                 "named_vs_anon.h:44:9",
-              commentHeader = Just
-                "named_vs_anon.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["named_vs_anon.h"],
+                  headerInclude =
+                  "named_vs_anon.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -3550,7 +4108,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:44:9"),
                         declAliases = [Name "typedef3"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3574,8 +4137,12 @@
                       commentOrigin = Just "typedef3",
                       commentLocation = Just
                         "named_vs_anon.h:44:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -3604,7 +4171,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:44:9"),
                         declAliases = [Name "typedef3"],
-                        declHeader = "named_vs_anon.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["named_vs_anon.h"],
+                            headerInclude =
+                            "named_vs_anon.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3628,8 +4200,12 @@
                       commentOrigin = Just "typedef3",
                       commentLocation = Just
                         "named_vs_anon.h:44:9",
-                      commentHeader = Just
-                        "named_vs_anon.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["named_vs_anon.h"],
+                          headerInclude =
+                          "named_vs_anon.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},

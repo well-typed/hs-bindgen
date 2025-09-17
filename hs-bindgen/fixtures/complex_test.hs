@@ -29,8 +29,12 @@
             "global_complex_float",
           commentLocation = Just
             "complex_test.h:3:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -65,8 +69,12 @@
             "global_complex_double",
           commentLocation = Just
             "complex_test.h:4:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -101,8 +109,12 @@
             "global_complex_float_flipped",
           commentLocation = Just
             "complex_test.h:6:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -137,8 +149,12 @@
             "global_complex_double_flipped",
           commentLocation = Just
             "complex_test.h:7:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -173,8 +189,12 @@
             "global_Complex_float",
           commentLocation = Just
             "complex_test.h:9:24",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -209,8 +229,12 @@
             "global_Complex_double",
           commentLocation = Just
             "complex_test.h:10:24",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -245,8 +269,12 @@
             "global_Complex_float_flipped",
           commentLocation = Just
             "complex_test.h:12:24",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -281,8 +309,12 @@
             "global_Complex_double_flipped",
           commentLocation = Just
             "complex_test.h:13:24",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -318,8 +350,12 @@
             "const_complex_float",
           commentLocation = Just
             "complex_test.h:15:29",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -357,8 +393,12 @@
             "const_complex_double",
           commentLocation = Just
             "complex_test.h:16:29",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -395,8 +435,12 @@
             "volatile_complex_float",
           commentLocation = Just
             "complex_test.h:18:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -431,8 +475,12 @@
             "volatile_complex_double",
           commentLocation = Just
             "complex_test.h:19:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -453,7 +501,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "a",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -465,7 +513,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "b",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
@@ -509,8 +557,12 @@
             "multiply_complex_f",
           commentLocation = Just
             "complex_test.h:21:16",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -556,8 +608,12 @@
             "multiply_complex_f",
           commentLocation = Just
             "complex_test.h:21:16",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -578,7 +634,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "a",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -590,7 +646,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "b",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       HeapResultType
@@ -634,8 +690,12 @@
             "add_complex",
           commentLocation = Just
             "complex_test.h:22:16",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -681,8 +741,12 @@
             "add_complex",
           commentLocation = Just
             "complex_test.h:22:16",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -722,8 +786,12 @@
               commentOrigin = Just "velocity",
               commentLocation = Just
                 "complex_test.h:25:20",
-              commentHeader = Just
-                "complex_test.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["complex_test.h"],
+                  headerInclude =
+                  "complex_test.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -751,8 +819,12 @@
               commentOrigin = Just "position",
               commentLocation = Just
                 "complex_test.h:26:20",
-              commentHeader = Just
-                "complex_test.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["complex_test.h"],
+                  headerInclude =
+                  "complex_test.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -780,8 +852,12 @@
               commentOrigin = Just "id",
               commentLocation = Just
                 "complex_test.h:27:9",
-              commentHeader = Just
-                "complex_test.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["complex_test.h"],
+                  headerInclude =
+                  "complex_test.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -795,7 +871,12 @@
               (AnonId "complex_test.h:24:9"),
             declAliases = [
               Name "complex_object_t"],
-            declHeader = "complex_test.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["complex_test.h"],
+                headerInclude =
+                "complex_test.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -861,8 +942,12 @@
             "complex_object_t",
           commentLocation = Just
             "complex_test.h:24:9",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -902,8 +987,12 @@
                   commentOrigin = Just "velocity",
                   commentLocation = Just
                     "complex_test.h:25:20",
-                  commentHeader = Just
-                    "complex_test.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["complex_test.h"],
+                      headerInclude =
+                      "complex_test.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -931,8 +1020,12 @@
                   commentOrigin = Just "position",
                   commentLocation = Just
                     "complex_test.h:26:20",
-                  commentHeader = Just
-                    "complex_test.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["complex_test.h"],
+                      headerInclude =
+                      "complex_test.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -960,8 +1053,12 @@
                   commentOrigin = Just "id",
                   commentLocation = Just
                     "complex_test.h:27:9",
-                  commentHeader = Just
-                    "complex_test.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["complex_test.h"],
+                      headerInclude =
+                      "complex_test.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -975,7 +1072,12 @@
                   (AnonId "complex_test.h:24:9"),
                 declAliases = [
                   Name "complex_object_t"],
-                declHeader = "complex_test.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["complex_test.h"],
+                    headerInclude =
+                    "complex_test.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1041,8 +1143,12 @@
                 "complex_object_t",
               commentLocation = Just
                 "complex_test.h:24:9",
-              commentHeader = Just
-                "complex_test.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["complex_test.h"],
+                  headerInclude =
+                  "complex_test.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 32,
@@ -1085,8 +1191,12 @@
                           commentOrigin = Just "velocity",
                           commentLocation = Just
                             "complex_test.h:25:20",
-                          commentHeader = Just
-                            "complex_test.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["complex_test.h"],
+                              headerInclude =
+                              "complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1114,8 +1224,12 @@
                           commentOrigin = Just "position",
                           commentLocation = Just
                             "complex_test.h:26:20",
-                          commentHeader = Just
-                            "complex_test.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["complex_test.h"],
+                              headerInclude =
+                              "complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1143,8 +1257,12 @@
                           commentOrigin = Just "id",
                           commentLocation = Just
                             "complex_test.h:27:9",
-                          commentHeader = Just
-                            "complex_test.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["complex_test.h"],
+                              headerInclude =
+                              "complex_test.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1158,7 +1276,12 @@
                           (AnonId "complex_test.h:24:9"),
                         declAliases = [
                           Name "complex_object_t"],
-                        declHeader = "complex_test.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["complex_test.h"],
+                            headerInclude =
+                            "complex_test.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1224,8 +1347,12 @@
                         "complex_object_t",
                       commentLocation = Just
                         "complex_test.h:24:9",
-                      commentHeader = Just
-                        "complex_test.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["complex_test.h"],
+                          headerInclude =
+                          "complex_test.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1271,8 +1398,12 @@
                           commentOrigin = Just "velocity",
                           commentLocation = Just
                             "complex_test.h:25:20",
-                          commentHeader = Just
-                            "complex_test.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["complex_test.h"],
+                              headerInclude =
+                              "complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1300,8 +1431,12 @@
                           commentOrigin = Just "position",
                           commentLocation = Just
                             "complex_test.h:26:20",
-                          commentHeader = Just
-                            "complex_test.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["complex_test.h"],
+                              headerInclude =
+                              "complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1329,8 +1464,12 @@
                           commentOrigin = Just "id",
                           commentLocation = Just
                             "complex_test.h:27:9",
-                          commentHeader = Just
-                            "complex_test.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["complex_test.h"],
+                              headerInclude =
+                              "complex_test.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1344,7 +1483,12 @@
                           (AnonId "complex_test.h:24:9"),
                         declAliases = [
                           Name "complex_object_t"],
-                        declHeader = "complex_test.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["complex_test.h"],
+                            headerInclude =
+                            "complex_test.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1410,8 +1554,12 @@
                         "complex_object_t",
                       commentLocation = Just
                         "complex_test.h:24:9",
-                      commentHeader = Just
-                        "complex_test.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["complex_test.h"],
+                          headerInclude =
+                          "complex_test.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -1478,8 +1626,12 @@
             "complex_float_array",
           commentLocation = Just
             "complex_test.h:30:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1519,8 +1671,12 @@
             "complex_double_array",
           commentLocation = Just
             "complex_test.h:31:23",
-          commentHeader = Just
-            "complex_test.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["complex_test.h"],
+              headerInclude =
+              "complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

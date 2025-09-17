@@ -35,8 +35,11 @@
               commentOrigin = Just "fieldX",
               commentLocation = Just
                 "bitfields.h:2:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -63,8 +66,11 @@
               commentOrigin = Just "flagA",
               commentLocation = Just
                 "bitfields.h:3:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -91,8 +97,11 @@
               commentOrigin = Just "flagB",
               commentLocation = Just
                 "bitfields.h:4:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -119,8 +128,11 @@
               commentOrigin = Just "flagC",
               commentLocation = Just
                 "bitfields.h:5:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -149,8 +161,11 @@
               commentOrigin = Just "fieldY",
               commentLocation = Just
                 "bitfields.h:6:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -177,8 +192,11 @@
               commentOrigin = Just "bits",
               commentLocation = Just
                 "bitfields.h:7:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -190,7 +208,11 @@
                 "Flags"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -290,8 +312,11 @@
           commentOrigin = Just "flags",
           commentLocation = Just
             "bitfields.h:1:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -332,8 +357,11 @@
                   commentOrigin = Just "fieldX",
                   commentLocation = Just
                     "bitfields.h:2:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -360,8 +388,11 @@
                   commentOrigin = Just "flagA",
                   commentLocation = Just
                     "bitfields.h:3:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -388,8 +419,11 @@
                   commentOrigin = Just "flagB",
                   commentLocation = Just
                     "bitfields.h:4:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -416,8 +450,11 @@
                   commentOrigin = Just "flagC",
                   commentLocation = Just
                     "bitfields.h:5:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -446,8 +483,11 @@
                   commentOrigin = Just "fieldY",
                   commentLocation = Just
                     "bitfields.h:6:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -474,8 +514,11 @@
                   commentOrigin = Just "bits",
                   commentLocation = Just
                     "bitfields.h:7:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -487,7 +530,11 @@
                     "Flags"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -587,8 +634,11 @@
               commentOrigin = Just "flags",
               commentLocation = Just
                 "bitfields.h:1:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -632,8 +682,11 @@
                           commentOrigin = Just "fieldX",
                           commentLocation = Just
                             "bitfields.h:2:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -660,8 +713,11 @@
                           commentOrigin = Just "flagA",
                           commentLocation = Just
                             "bitfields.h:3:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -688,8 +744,11 @@
                           commentOrigin = Just "flagB",
                           commentLocation = Just
                             "bitfields.h:4:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -716,8 +775,11 @@
                           commentOrigin = Just "flagC",
                           commentLocation = Just
                             "bitfields.h:5:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -746,8 +808,11 @@
                           commentOrigin = Just "fieldY",
                           commentLocation = Just
                             "bitfields.h:6:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -774,8 +839,11 @@
                           commentOrigin = Just "bits",
                           commentLocation = Just
                             "bitfields.h:7:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -787,7 +855,11 @@
                             "Flags"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -887,8 +959,11 @@
                       commentOrigin = Just "flags",
                       commentLocation = Just
                         "bitfields.h:1:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -938,8 +1013,11 @@
                           commentOrigin = Just "fieldX",
                           commentLocation = Just
                             "bitfields.h:2:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -966,8 +1044,11 @@
                           commentOrigin = Just "flagA",
                           commentLocation = Just
                             "bitfields.h:3:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -994,8 +1075,11 @@
                           commentOrigin = Just "flagB",
                           commentLocation = Just
                             "bitfields.h:4:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1022,8 +1106,11 @@
                           commentOrigin = Just "flagC",
                           commentLocation = Just
                             "bitfields.h:5:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1052,8 +1139,11 @@
                           commentOrigin = Just "fieldY",
                           commentLocation = Just
                             "bitfields.h:6:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1080,8 +1170,11 @@
                           commentOrigin = Just "bits",
                           commentLocation = Just
                             "bitfields.h:7:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1093,7 +1186,11 @@
                             "Flags"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1193,8 +1290,11 @@
                       commentOrigin = Just "flags",
                       commentLocation = Just
                         "bitfields.h:1:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 6)
                 (Seq
@@ -1277,8 +1377,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bitfields.h:13:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1305,8 +1408,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bitfields.h:14:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1333,8 +1439,11 @@
               commentOrigin = Just "z",
               commentLocation = Just
                 "bitfields.h:15:9",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1346,7 +1455,11 @@
                 "Overflow32"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1409,8 +1522,11 @@
             "overflow32",
           commentLocation = Just
             "bitfields.h:12:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1449,8 +1565,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bitfields.h:13:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1477,8 +1596,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bitfields.h:14:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1505,8 +1627,11 @@
                   commentOrigin = Just "z",
                   commentLocation = Just
                     "bitfields.h:15:9",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1518,7 +1643,11 @@
                     "Overflow32"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1581,8 +1710,11 @@
                 "overflow32",
               commentLocation = Just
                 "bitfields.h:12:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -1624,8 +1756,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:13:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1652,8 +1787,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:14:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1680,8 +1818,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "bitfields.h:15:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1693,7 +1834,11 @@
                             "Overflow32"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1756,8 +1901,11 @@
                         "overflow32",
                       commentLocation = Just
                         "bitfields.h:12:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
@@ -1802,8 +1950,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:13:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1830,8 +1981,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:14:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1858,8 +2012,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "bitfields.h:15:9",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1871,7 +2028,11 @@
                             "Overflow32"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1934,8 +2095,11 @@
                         "overflow32",
                       commentLocation = Just
                         "bitfields.h:12:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -2011,8 +2175,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bitfields.h:19:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2039,8 +2206,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bitfields.h:20:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2067,8 +2237,11 @@
               commentOrigin = Just "z",
               commentLocation = Just
                 "bitfields.h:21:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2080,7 +2253,11 @@
                 "Overflow32b"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2143,8 +2320,11 @@
             "overflow32b",
           commentLocation = Just
             "bitfields.h:18:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2183,8 +2363,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bitfields.h:19:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2211,8 +2394,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bitfields.h:20:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2239,8 +2425,11 @@
                   commentOrigin = Just "z",
                   commentLocation = Just
                     "bitfields.h:21:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2252,7 +2441,11 @@
                     "Overflow32b"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2315,8 +2508,11 @@
                 "overflow32b",
               commentLocation = Just
                 "bitfields.h:18:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -2358,8 +2554,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:19:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2386,8 +2585,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:20:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2414,8 +2616,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "bitfields.h:21:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2427,7 +2632,11 @@
                             "Overflow32b"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2490,8 +2699,11 @@
                         "overflow32b",
                       commentLocation = Just
                         "bitfields.h:18:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
@@ -2536,8 +2748,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:19:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2564,8 +2779,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:20:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2592,8 +2810,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "bitfields.h:21:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2605,7 +2826,11 @@
                             "Overflow32b"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2668,8 +2893,11 @@
                         "overflow32b",
                       commentLocation = Just
                         "bitfields.h:18:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -2745,8 +2973,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bitfields.h:25:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2773,8 +3004,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bitfields.h:26:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2801,8 +3035,11 @@
               commentOrigin = Just "z",
               commentLocation = Just
                 "bitfields.h:27:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2814,7 +3051,11 @@
                 "Overflow32c"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2877,8 +3118,11 @@
             "overflow32c",
           commentLocation = Just
             "bitfields.h:24:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2917,8 +3161,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bitfields.h:25:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2945,8 +3192,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bitfields.h:26:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2973,8 +3223,11 @@
                   commentOrigin = Just "z",
                   commentLocation = Just
                     "bitfields.h:27:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2986,7 +3239,11 @@
                     "Overflow32c"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3049,8 +3306,11 @@
                 "overflow32c",
               commentLocation = Just
                 "bitfields.h:24:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3092,8 +3352,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:25:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3120,8 +3383,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:26:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3148,8 +3414,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "bitfields.h:27:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3161,7 +3430,11 @@
                             "Overflow32c"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3224,8 +3497,11 @@
                         "overflow32c",
                       commentLocation = Just
                         "bitfields.h:24:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekBitOffWidth (Idx 0) 0 17,
@@ -3270,8 +3546,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:25:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3298,8 +3577,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:26:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3326,8 +3608,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "bitfields.h:27:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3339,7 +3624,11 @@
                             "Overflow32c"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3402,8 +3691,11 @@
                         "overflow32c",
                       commentLocation = Just
                         "bitfields.h:24:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -3479,8 +3771,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bitfields.h:31:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3507,8 +3802,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bitfields.h:32:10",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3520,7 +3818,11 @@
                 "Overflow64"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3571,8 +3873,11 @@
             "overflow64",
           commentLocation = Just
             "bitfields.h:30:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3611,8 +3916,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bitfields.h:31:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3639,8 +3947,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bitfields.h:32:10",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3652,7 +3963,11 @@
                     "Overflow64"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3703,8 +4018,11 @@
                 "overflow64",
               commentLocation = Just
                 "bitfields.h:30:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3746,8 +4064,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:31:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3774,8 +4095,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:32:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3787,7 +4111,11 @@
                             "Overflow64"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3838,8 +4166,11 @@
                         "overflow64",
                       commentLocation = Just
                         "bitfields.h:30:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekBitOffWidth (Idx 0) 0 33,
@@ -3883,8 +4214,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:31:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3911,8 +4245,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:32:10",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3924,7 +4261,11 @@
                             "Overflow64"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3975,8 +4316,11 @@
                         "overflow64",
                       commentLocation = Just
                         "bitfields.h:30:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -4048,8 +4392,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bitfields.h:37:16",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4076,8 +4423,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bitfields.h:38:6",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -4089,7 +4439,11 @@
                 "AlignA"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -4138,8 +4492,11 @@
           commentOrigin = Just "alignA",
           commentLocation = Just
             "bitfields.h:36:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -4179,8 +4536,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bitfields.h:37:16",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4207,8 +4567,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bitfields.h:38:6",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -4220,7 +4583,11 @@
                     "AlignA"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -4269,8 +4636,11 @@
               commentOrigin = Just "alignA",
               commentLocation = Just
                 "bitfields.h:36:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -4313,8 +4683,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:37:16",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4341,8 +4714,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:38:6",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4354,7 +4730,11 @@
                             "AlignA"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4403,8 +4783,11 @@
                       commentOrigin = Just "alignA",
                       commentLocation = Just
                         "bitfields.h:36:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekBitOffWidth (Idx 0) 0 1,
@@ -4449,8 +4832,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:37:16",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4477,8 +4863,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:38:6",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4490,7 +4879,11 @@
                             "AlignA"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4539,8 +4932,11 @@
                       commentOrigin = Just "alignA",
                       commentLocation = Just
                         "bitfields.h:36:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -4612,8 +5008,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "bitfields.h:42:16",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4640,8 +5039,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "bitfields.h:43:6",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -4653,7 +5055,11 @@
                 "AlignB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "bitfields.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["bitfields.h"],
+                headerInclude = "bitfields.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -4702,8 +5108,11 @@
           commentOrigin = Just "alignB",
           commentLocation = Just
             "bitfields.h:41:8",
-          commentHeader = Just
-            "bitfields.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bitfields.h"],
+              headerInclude = "bitfields.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -4743,8 +5152,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "bitfields.h:42:16",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -4771,8 +5183,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "bitfields.h:43:6",
-                  commentHeader = Just
-                    "bitfields.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["bitfields.h"],
+                      headerInclude = "bitfields.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -4784,7 +5199,11 @@
                     "AlignB"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "bitfields.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["bitfields.h"],
+                    headerInclude = "bitfields.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -4833,8 +5252,11 @@
               commentOrigin = Just "alignB",
               commentLocation = Just
                 "bitfields.h:41:8",
-              commentHeader = Just
-                "bitfields.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["bitfields.h"],
+                  headerInclude = "bitfields.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -4877,8 +5299,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:42:16",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4905,8 +5330,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:43:6",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4918,7 +5346,11 @@
                             "AlignB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4967,8 +5399,11 @@
                       commentOrigin = Just "alignB",
                       commentLocation = Just
                         "bitfields.h:41:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
                 PeekBitOffWidth (Idx 0) 0 7,
@@ -5013,8 +5448,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "bitfields.h:42:16",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -5041,8 +5479,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "bitfields.h:43:6",
-                          commentHeader = Just
-                            "bitfields.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["bitfields.h"],
+                              headerInclude = "bitfields.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -5054,7 +5495,11 @@
                             "AlignB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "bitfields.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["bitfields.h"],
+                            headerInclude = "bitfields.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -5103,8 +5548,11 @@
                       commentOrigin = Just "alignB",
                       commentLocation = Just
                         "bitfields.h:41:8",
-                      commentHeader = Just
-                        "bitfields.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["bitfields.h"],
+                          headerInclude = "bitfields.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

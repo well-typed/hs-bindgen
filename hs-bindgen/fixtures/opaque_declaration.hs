@@ -14,8 +14,12 @@
               "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "opaque_declaration.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
@@ -30,8 +34,12 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "opaque_declaration.h:1:8",
-          commentHeader = Just
-            "opaque_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -74,8 +82,12 @@
               commentOrigin = Just "ptrA",
               commentLocation = Just
                 "opaque_declaration.h:5:17",
-              commentHeader = Just
-                "opaque_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["opaque_declaration.h"],
+                  headerInclude =
+                  "opaque_declaration.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -109,8 +121,12 @@
               commentOrigin = Just "ptrB",
               commentLocation = Just
                 "opaque_declaration.h:6:17",
-              commentHeader = Just
-                "opaque_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["opaque_declaration.h"],
+                  headerInclude =
+                  "opaque_declaration.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -123,8 +139,12 @@
                 "Bar"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "opaque_declaration.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["opaque_declaration.h"],
+                headerInclude =
+                "opaque_declaration.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -184,8 +204,12 @@
           commentOrigin = Just "bar",
           commentLocation = Just
             "opaque_declaration.h:4:8",
-          commentHeader = Just
-            "opaque_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -231,8 +255,12 @@
                   commentOrigin = Just "ptrA",
                   commentLocation = Just
                     "opaque_declaration.h:5:17",
-                  commentHeader = Just
-                    "opaque_declaration.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["opaque_declaration.h"],
+                      headerInclude =
+                      "opaque_declaration.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -266,8 +294,12 @@
                   commentOrigin = Just "ptrB",
                   commentLocation = Just
                     "opaque_declaration.h:6:17",
-                  commentHeader = Just
-                    "opaque_declaration.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["opaque_declaration.h"],
+                      headerInclude =
+                      "opaque_declaration.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -280,8 +312,12 @@
                     "Bar"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "opaque_declaration.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["opaque_declaration.h"],
+                    headerInclude =
+                    "opaque_declaration.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -341,8 +377,12 @@
               commentOrigin = Just "bar",
               commentLocation = Just
                 "opaque_declaration.h:4:8",
-              commentHeader = Just
-                "opaque_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["opaque_declaration.h"],
+                  headerInclude =
+                  "opaque_declaration.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -391,8 +431,12 @@
                           commentOrigin = Just "ptrA",
                           commentLocation = Just
                             "opaque_declaration.h:5:17",
-                          commentHeader = Just
-                            "opaque_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["opaque_declaration.h"],
+                              headerInclude =
+                              "opaque_declaration.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -426,8 +470,12 @@
                           commentOrigin = Just "ptrB",
                           commentLocation = Just
                             "opaque_declaration.h:6:17",
-                          commentHeader = Just
-                            "opaque_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["opaque_declaration.h"],
+                              headerInclude =
+                              "opaque_declaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -440,8 +488,12 @@
                             "Bar"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "opaque_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["opaque_declaration.h"],
+                            headerInclude =
+                            "opaque_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -501,8 +553,12 @@
                       commentOrigin = Just "bar",
                       commentLocation = Just
                         "opaque_declaration.h:4:8",
-                      commentHeader = Just
-                        "opaque_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["opaque_declaration.h"],
+                          headerInclude =
+                          "opaque_declaration.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -553,8 +609,12 @@
                           commentOrigin = Just "ptrA",
                           commentLocation = Just
                             "opaque_declaration.h:5:17",
-                          commentHeader = Just
-                            "opaque_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["opaque_declaration.h"],
+                              headerInclude =
+                              "opaque_declaration.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -588,8 +648,12 @@
                           commentOrigin = Just "ptrB",
                           commentLocation = Just
                             "opaque_declaration.h:6:17",
-                          commentHeader = Just
-                            "opaque_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["opaque_declaration.h"],
+                              headerInclude =
+                              "opaque_declaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -602,8 +666,12 @@
                             "Bar"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "opaque_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["opaque_declaration.h"],
+                            headerInclude =
+                            "opaque_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -663,8 +731,12 @@
                       commentOrigin = Just "bar",
                       commentLocation = Just
                         "opaque_declaration.h:4:8",
-                      commentHeader = Just
-                        "opaque_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["opaque_declaration.h"],
+                          headerInclude =
+                          "opaque_declaration.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -716,8 +788,12 @@
                 "Baz"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "opaque_declaration.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["opaque_declaration.h"],
+                headerInclude =
+                "opaque_declaration.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -741,8 +817,12 @@
           commentOrigin = Just "baz",
           commentLocation = Just
             "opaque_declaration.h:9:8",
-          commentHeader = Just
-            "opaque_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -767,8 +847,12 @@
                     "Baz"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "opaque_declaration.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["opaque_declaration.h"],
+                    headerInclude =
+                    "opaque_declaration.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -792,8 +876,12 @@
               commentOrigin = Just "baz",
               commentLocation = Just
                 "opaque_declaration.h:9:8",
-              commentHeader = Just
-                "opaque_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["opaque_declaration.h"],
+                  headerInclude =
+                  "opaque_declaration.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -821,8 +909,12 @@
                             "Baz"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "opaque_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["opaque_declaration.h"],
+                            headerInclude =
+                            "opaque_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -846,8 +938,12 @@
                       commentOrigin = Just "baz",
                       commentLocation = Just
                         "opaque_declaration.h:9:8",
-                      commentHeader = Just
-                        "opaque_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["opaque_declaration.h"],
+                          headerInclude =
+                          "opaque_declaration.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -875,8 +971,12 @@
                             "Baz"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "opaque_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["opaque_declaration.h"],
+                            headerInclude =
+                            "opaque_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -900,8 +1000,12 @@
                       commentOrigin = Just "baz",
                       commentLocation = Just
                         "opaque_declaration.h:9:8",
-                      commentHeader = Just
-                        "opaque_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["opaque_declaration.h"],
+                          headerInclude =
+                          "opaque_declaration.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -942,8 +1046,12 @@
               "Quu"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "opaque_declaration.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           declComment = Nothing},
         declKind = OpaqueEnum,
         declSpec = DeclSpec
@@ -958,8 +1066,12 @@
           commentOrigin = Just "quu",
           commentLocation = Just
             "opaque_declaration.h:11:6",
-          commentHeader = Just
-            "opaque_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           commentChildren = []}},
   DeclEmpty
     EmptyData {
@@ -976,8 +1088,12 @@
               "Opaque_union"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "opaque_declaration.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           declComment = Nothing},
         declKind = OpaqueUnion,
         declSpec = DeclSpec
@@ -993,6 +1109,10 @@
             "opaque_union",
           commentLocation = Just
             "opaque_declaration.h:13:7",
-          commentHeader = Just
-            "opaque_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["opaque_declaration.h"],
+              headerInclude =
+              "opaque_declaration.h"},
           commentChildren = []}}]

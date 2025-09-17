@@ -34,8 +34,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "forward_declaration.h:4:7",
-              commentHeader = Just
-                "forward_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["forward_declaration.h"],
+                  headerInclude =
+                  "forward_declaration.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -50,8 +54,12 @@
             NameOriginRenamedFrom
               (Name "S1"),
             declAliases = [Name "S1_t"],
-            declHeader =
-            "forward_declaration.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["forward_declaration.h"],
+                headerInclude =
+                "forward_declaration.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -88,8 +96,12 @@
           commentOrigin = Just "S1_t",
           commentLocation = Just
             "forward_declaration.h:3:8",
-          commentHeader = Just
-            "forward_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["forward_declaration.h"],
+              headerInclude =
+              "forward_declaration.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -129,8 +141,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "forward_declaration.h:4:7",
-                  commentHeader = Just
-                    "forward_declaration.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["forward_declaration.h"],
+                      headerInclude =
+                      "forward_declaration.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -145,8 +161,12 @@
                 NameOriginRenamedFrom
                   (Name "S1"),
                 declAliases = [Name "S1_t"],
-                declHeader =
-                "forward_declaration.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["forward_declaration.h"],
+                    headerInclude =
+                    "forward_declaration.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -183,8 +203,12 @@
               commentOrigin = Just "S1_t",
               commentLocation = Just
                 "forward_declaration.h:3:8",
-              commentHeader = Just
-                "forward_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["forward_declaration.h"],
+                  headerInclude =
+                  "forward_declaration.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -227,8 +251,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "forward_declaration.h:4:7",
-                          commentHeader = Just
-                            "forward_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["forward_declaration.h"],
+                              headerInclude =
+                              "forward_declaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -243,8 +271,12 @@
                         NameOriginRenamedFrom
                           (Name "S1"),
                         declAliases = [Name "S1_t"],
-                        declHeader =
-                        "forward_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["forward_declaration.h"],
+                            headerInclude =
+                            "forward_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -281,8 +313,12 @@
                       commentOrigin = Just "S1_t",
                       commentLocation = Just
                         "forward_declaration.h:3:8",
-                      commentHeader = Just
-                        "forward_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["forward_declaration.h"],
+                          headerInclude =
+                          "forward_declaration.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -325,8 +361,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "forward_declaration.h:4:7",
-                          commentHeader = Just
-                            "forward_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["forward_declaration.h"],
+                              headerInclude =
+                              "forward_declaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -341,8 +381,12 @@
                         NameOriginRenamedFrom
                           (Name "S1"),
                         declAliases = [Name "S1_t"],
-                        declHeader =
-                        "forward_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["forward_declaration.h"],
+                            headerInclude =
+                            "forward_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -379,8 +423,12 @@
                       commentOrigin = Just "S1_t",
                       commentLocation = Just
                         "forward_declaration.h:3:8",
-                      commentHeader = Just
-                        "forward_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["forward_declaration.h"],
+                          headerInclude =
+                          "forward_declaration.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -446,8 +494,12 @@
               commentOrigin = Just "a",
               commentLocation = Just
                 "forward_declaration.h:10:7",
-              commentHeader = Just
-                "forward_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["forward_declaration.h"],
+                  headerInclude =
+                  "forward_declaration.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -460,8 +512,12 @@
                 "S2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "forward_declaration.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["forward_declaration.h"],
+                headerInclude =
+                "forward_declaration.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -498,8 +554,12 @@
           commentOrigin = Just "S2",
           commentLocation = Just
             "forward_declaration.h:9:8",
-          commentHeader = Just
-            "forward_declaration.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["forward_declaration.h"],
+              headerInclude =
+              "forward_declaration.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -539,8 +599,12 @@
                   commentOrigin = Just "a",
                   commentLocation = Just
                     "forward_declaration.h:10:7",
-                  commentHeader = Just
-                    "forward_declaration.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["forward_declaration.h"],
+                      headerInclude =
+                      "forward_declaration.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -553,8 +617,12 @@
                     "S2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "forward_declaration.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["forward_declaration.h"],
+                    headerInclude =
+                    "forward_declaration.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -591,8 +659,12 @@
               commentOrigin = Just "S2",
               commentLocation = Just
                 "forward_declaration.h:9:8",
-              commentHeader = Just
-                "forward_declaration.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["forward_declaration.h"],
+                  headerInclude =
+                  "forward_declaration.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -635,8 +707,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "forward_declaration.h:10:7",
-                          commentHeader = Just
-                            "forward_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["forward_declaration.h"],
+                              headerInclude =
+                              "forward_declaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -649,8 +725,12 @@
                             "S2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "forward_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["forward_declaration.h"],
+                            headerInclude =
+                            "forward_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -687,8 +767,12 @@
                       commentOrigin = Just "S2",
                       commentLocation = Just
                         "forward_declaration.h:9:8",
-                      commentHeader = Just
-                        "forward_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["forward_declaration.h"],
+                          headerInclude =
+                          "forward_declaration.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -731,8 +815,12 @@
                           commentOrigin = Just "a",
                           commentLocation = Just
                             "forward_declaration.h:10:7",
-                          commentHeader = Just
-                            "forward_declaration.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["forward_declaration.h"],
+                              headerInclude =
+                              "forward_declaration.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -745,8 +833,12 @@
                             "S2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "forward_declaration.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["forward_declaration.h"],
+                            headerInclude =
+                            "forward_declaration.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -783,8 +875,12 @@
                       commentOrigin = Just "S2",
                       commentLocation = Just
                         "forward_declaration.h:9:8",
-                      commentHeader = Just
-                        "forward_declaration.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["forward_declaration.h"],
+                          headerInclude =
+                          "forward_declaration.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq

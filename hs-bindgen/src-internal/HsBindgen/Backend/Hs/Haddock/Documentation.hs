@@ -7,18 +7,17 @@ import GHC.Natural (Natural)
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
+import HsBindgen.Frontend.AST.External qualified as C
 
 -- | Haddock documentation representation
 --
 data Comment = Comment
-  { commentTitle    :: Maybe [CommentInlineContent] -- ^ Comment title
-  , commentOrigin   :: Maybe Text                   -- ^ Original C name reference
-  , commentLocation :: Maybe SingleLoc              -- ^ The source location of
-                                                    --   the original C name reference
-  , commentHeader   :: Maybe HashIncludeArg         -- ^ Header file that exports the
-                                                    --   original C name reference
-  , commentChildren :: [CommentBlockContent]        -- ^ Comment content
+  { commentTitle      :: Maybe [CommentInlineContent] -- ^ Comment title
+  , commentOrigin     :: Maybe Text                   -- ^ Original C name reference
+  , commentLocation   :: Maybe SingleLoc              -- ^ The source location of
+                                                      --   the original C name reference
+  , commentHeaderInfo :: Maybe C.HeaderInfo           -- ^ Header information
+  , commentChildren   :: [CommentBlockContent]        -- ^ Comment content
   }
   deriving (Show, Eq, Generic)
 

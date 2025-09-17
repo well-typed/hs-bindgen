@@ -67,7 +67,7 @@ instance Finalize Int.DeclInfo where
       , declId = namePair
       , declOrigin = nameOrigin
       , declAliases
-      , declHeader
+      , declHeaderInfo
       , declComment = fmap finalize declComment
       }
     where
@@ -75,7 +75,7 @@ instance Finalize Int.DeclInfo where
           declLoc
         , declId = (namePair, nameOrigin)
         , declAliases
-        , declHeader
+        , declHeaderInfo
         , declComment
         } = info
 

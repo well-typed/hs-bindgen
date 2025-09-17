@@ -30,8 +30,12 @@
           commentOrigin = Just "f0",
           commentLocation = Just
             "visibility_attributes.h:17:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -63,8 +67,12 @@
           commentOrigin = Just "f0",
           commentLocation = Just
             "visibility_attributes.h:17:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -100,8 +108,12 @@
           commentOrigin = Just "f1",
           commentLocation = Just
             "visibility_attributes.h:18:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -133,8 +145,12 @@
           commentOrigin = Just "f1",
           commentLocation = Just
             "visibility_attributes.h:18:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -170,8 +186,12 @@
           commentOrigin = Just "f2",
           commentLocation = Just
             "visibility_attributes.h:19:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -203,8 +223,12 @@
           commentOrigin = Just "f2",
           commentLocation = Just
             "visibility_attributes.h:19:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -240,8 +264,12 @@
           commentOrigin = Just "f3",
           commentLocation = Just
             "visibility_attributes.h:20:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -273,8 +301,12 @@
           commentOrigin = Just "f3",
           commentLocation = Just
             "visibility_attributes.h:20:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -310,8 +342,12 @@
           commentOrigin = Just "f4",
           commentLocation = Just
             "visibility_attributes.h:21:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -343,8 +379,12 @@
           commentOrigin = Just "f4",
           commentLocation = Just
             "visibility_attributes.h:21:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -380,8 +420,12 @@
           commentOrigin = Just "f5",
           commentLocation = Just
             "visibility_attributes.h:24:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -413,8 +457,12 @@
           commentOrigin = Just "f5",
           commentLocation = Just
             "visibility_attributes.h:24:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -450,8 +498,12 @@
           commentOrigin = Just "f6",
           commentLocation = Just
             "visibility_attributes.h:25:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -483,8 +535,12 @@
           commentOrigin = Just "f6",
           commentLocation = Just
             "visibility_attributes.h:25:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -520,8 +576,12 @@
           commentOrigin = Just "f7",
           commentLocation = Just
             "visibility_attributes.h:26:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -553,8 +613,12 @@
           commentOrigin = Just "f7",
           commentLocation = Just
             "visibility_attributes.h:26:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -590,8 +654,12 @@
           commentOrigin = Just "f8",
           commentLocation = Just
             "visibility_attributes.h:27:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -623,8 +691,12 @@
           commentOrigin = Just "f8",
           commentLocation = Just
             "visibility_attributes.h:27:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -660,8 +732,12 @@
           commentOrigin = Just "f9",
           commentLocation = Just
             "visibility_attributes.h:28:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -693,8 +769,12 @@
           commentOrigin = Just "f9",
           commentLocation = Just
             "visibility_attributes.h:28:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -730,8 +810,12 @@
           commentOrigin = Just "f10",
           commentLocation = Just
             "visibility_attributes.h:31:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -763,8 +847,12 @@
           commentOrigin = Just "f10",
           commentLocation = Just
             "visibility_attributes.h:31:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -800,8 +888,12 @@
           commentOrigin = Just "f11",
           commentLocation = Just
             "visibility_attributes.h:32:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -833,8 +925,12 @@
           commentOrigin = Just "f11",
           commentLocation = Just
             "visibility_attributes.h:32:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -870,8 +966,12 @@
           commentOrigin = Just "f12",
           commentLocation = Just
             "visibility_attributes.h:33:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -903,8 +1003,12 @@
           commentOrigin = Just "f12",
           commentLocation = Just
             "visibility_attributes.h:33:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -940,8 +1044,12 @@
           commentOrigin = Just "f13",
           commentLocation = Just
             "visibility_attributes.h:34:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -973,8 +1081,12 @@
           commentOrigin = Just "f13",
           commentLocation = Just
             "visibility_attributes.h:34:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1010,8 +1122,12 @@
           commentOrigin = Just "f14",
           commentLocation = Just
             "visibility_attributes.h:35:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1043,8 +1159,12 @@
           commentOrigin = Just "f14",
           commentLocation = Just
             "visibility_attributes.h:35:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1080,8 +1200,12 @@
           commentOrigin = Just "f15",
           commentLocation = Just
             "visibility_attributes.h:38:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1113,8 +1237,12 @@
           commentOrigin = Just "f15",
           commentLocation = Just
             "visibility_attributes.h:38:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1150,8 +1278,12 @@
           commentOrigin = Just "f16",
           commentLocation = Just
             "visibility_attributes.h:39:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1183,8 +1315,12 @@
           commentOrigin = Just "f16",
           commentLocation = Just
             "visibility_attributes.h:39:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1220,8 +1356,12 @@
           commentOrigin = Just "f17",
           commentLocation = Just
             "visibility_attributes.h:40:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1253,8 +1393,12 @@
           commentOrigin = Just "f17",
           commentLocation = Just
             "visibility_attributes.h:40:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1290,8 +1434,12 @@
           commentOrigin = Just "f18",
           commentLocation = Just
             "visibility_attributes.h:41:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1323,8 +1471,12 @@
           commentOrigin = Just "f18",
           commentLocation = Just
             "visibility_attributes.h:41:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1360,8 +1512,12 @@
           commentOrigin = Just "f19",
           commentLocation = Just
             "visibility_attributes.h:42:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1393,8 +1549,12 @@
           commentOrigin = Just "f19",
           commentLocation = Just
             "visibility_attributes.h:42:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1430,8 +1590,12 @@
           commentOrigin = Just "f20",
           commentLocation = Just
             "visibility_attributes.h:45:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1463,8 +1627,12 @@
           commentOrigin = Just "f20",
           commentLocation = Just
             "visibility_attributes.h:45:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1500,8 +1668,12 @@
           commentOrigin = Just "f21",
           commentLocation = Just
             "visibility_attributes.h:46:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1533,8 +1705,12 @@
           commentOrigin = Just "f21",
           commentLocation = Just
             "visibility_attributes.h:46:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1570,8 +1746,12 @@
           commentOrigin = Just "f22",
           commentLocation = Just
             "visibility_attributes.h:47:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1603,8 +1783,12 @@
           commentOrigin = Just "f22",
           commentLocation = Just
             "visibility_attributes.h:47:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1640,8 +1824,12 @@
           commentOrigin = Just "f23",
           commentLocation = Just
             "visibility_attributes.h:48:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1673,8 +1861,12 @@
           commentOrigin = Just "f23",
           commentLocation = Just
             "visibility_attributes.h:48:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1710,8 +1902,12 @@
           commentOrigin = Just "f24",
           commentLocation = Just
             "visibility_attributes.h:49:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1743,8 +1939,12 @@
           commentOrigin = Just "f24",
           commentLocation = Just
             "visibility_attributes.h:49:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1780,8 +1980,12 @@
           commentOrigin = Just "f25",
           commentLocation = Just
             "visibility_attributes.h:52:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1813,8 +2017,12 @@
           commentOrigin = Just "f25",
           commentLocation = Just
             "visibility_attributes.h:52:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1850,8 +2058,12 @@
           commentOrigin = Just "f26",
           commentLocation = Just
             "visibility_attributes.h:53:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1883,8 +2095,12 @@
           commentOrigin = Just "f26",
           commentLocation = Just
             "visibility_attributes.h:53:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1920,8 +2136,12 @@
           commentOrigin = Just "f27",
           commentLocation = Just
             "visibility_attributes.h:54:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -1953,8 +2173,12 @@
           commentOrigin = Just "f27",
           commentLocation = Just
             "visibility_attributes.h:54:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1990,8 +2214,12 @@
           commentOrigin = Just "f28",
           commentLocation = Just
             "visibility_attributes.h:55:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2023,8 +2251,12 @@
           commentOrigin = Just "f28",
           commentLocation = Just
             "visibility_attributes.h:55:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2060,8 +2292,12 @@
           commentOrigin = Just "f29",
           commentLocation = Just
             "visibility_attributes.h:56:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -2093,8 +2329,12 @@
           commentOrigin = Just "f29",
           commentLocation = Just
             "visibility_attributes.h:56:56",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2128,8 +2368,12 @@
           commentOrigin = Just "i0",
           commentLocation = Just
             "visibility_attributes.h:61:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2163,8 +2407,12 @@
           commentOrigin = Just "i1",
           commentLocation = Just
             "visibility_attributes.h:62:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2198,8 +2446,12 @@
           commentOrigin = Just "i2",
           commentLocation = Just
             "visibility_attributes.h:63:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2233,8 +2485,12 @@
           commentOrigin = Just "i3",
           commentLocation = Just
             "visibility_attributes.h:64:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2268,8 +2524,12 @@
           commentOrigin = Just "i4",
           commentLocation = Just
             "visibility_attributes.h:65:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2303,8 +2563,12 @@
           commentOrigin = Just "i5",
           commentLocation = Just
             "visibility_attributes.h:68:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2338,8 +2602,12 @@
           commentOrigin = Just "i6",
           commentLocation = Just
             "visibility_attributes.h:69:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2373,8 +2641,12 @@
           commentOrigin = Just "i7",
           commentLocation = Just
             "visibility_attributes.h:70:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2408,8 +2680,12 @@
           commentOrigin = Just "i8",
           commentLocation = Just
             "visibility_attributes.h:71:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2443,8 +2719,12 @@
           commentOrigin = Just "i9",
           commentLocation = Just
             "visibility_attributes.h:72:48",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2478,8 +2758,12 @@
           commentOrigin = Just "i10",
           commentLocation = Just
             "visibility_attributes.h:75:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2513,8 +2797,12 @@
           commentOrigin = Just "i11",
           commentLocation = Just
             "visibility_attributes.h:76:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2548,8 +2836,12 @@
           commentOrigin = Just "i12",
           commentLocation = Just
             "visibility_attributes.h:77:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2583,8 +2875,12 @@
           commentOrigin = Just "i13",
           commentLocation = Just
             "visibility_attributes.h:78:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2618,8 +2914,12 @@
           commentOrigin = Just "i14",
           commentLocation = Just
             "visibility_attributes.h:79:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2653,8 +2953,12 @@
           commentOrigin = Just "i15",
           commentLocation = Just
             "visibility_attributes.h:82:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2688,8 +2992,12 @@
           commentOrigin = Just "i16",
           commentLocation = Just
             "visibility_attributes.h:83:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2723,8 +3031,12 @@
           commentOrigin = Just "i17",
           commentLocation = Just
             "visibility_attributes.h:84:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2758,8 +3070,12 @@
           commentOrigin = Just "i18",
           commentLocation = Just
             "visibility_attributes.h:85:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2793,8 +3109,12 @@
           commentOrigin = Just "i19",
           commentLocation = Just
             "visibility_attributes.h:86:55",
-          commentHeader = Just
-            "visibility_attributes.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["visibility_attributes.h"],
+              headerInclude =
+              "visibility_attributes.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

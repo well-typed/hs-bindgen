@@ -11,8 +11,12 @@ TranslationUnit {
             "iNCR"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -48,8 +52,12 @@ TranslationUnit {
             "aDD"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -82,8 +90,12 @@ TranslationUnit {
             "iD"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -109,8 +121,12 @@ TranslationUnit {
             "cONST"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -138,8 +154,12 @@ TranslationUnit {
             "cMP"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -173,8 +193,12 @@ TranslationUnit {
             "fUN1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -218,8 +242,12 @@ TranslationUnit {
             "fUN2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -262,8 +290,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -309,8 +341,12 @@ TranslationUnit {
             "dIV1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -354,8 +390,12 @@ TranslationUnit {
             "dIV2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -401,8 +441,12 @@ TranslationUnit {
             "sWAP32"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -471,8 +515,12 @@ TranslationUnit {
             "aV_VERSION_INT"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_functions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["macro_functions.h"],
+            headerInclude =
+            "macro_functions.h"},
         declComment = Nothing},
       declKind =
       DeclMacro

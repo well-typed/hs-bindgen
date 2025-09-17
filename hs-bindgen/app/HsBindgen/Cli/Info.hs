@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli dev@ commands
+-- | @hs-bindgen-cli info@ commands
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev qualified as Dev
-module HsBindgen.Cli.Dev (
+-- > import HsBindgen.Cli.Info qualified as Info
+module HsBindgen.Cli.Info (
     -- * CLI help
     info
     -- * Commands
@@ -16,16 +16,15 @@ module HsBindgen.Cli.Dev (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Dev.BindingSpec qualified as BindingSpec
-import HsBindgen.Cli.Dev.Clang qualified as Clang
-import HsBindgen.Cli.Dev.Parse qualified as Parse
+import HsBindgen.Cli.Info.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Cli.Info.ResolveHeader qualified as ResolveHeader
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Development commands, used for debugging"
+info = progDesc "Informational commands, useful when creating bindings"
 
 {-------------------------------------------------------------------------------
   Commands
@@ -33,15 +32,21 @@ info = progDesc "Development commands, used for debugging"
 
 -- Ordered lexicographically
 data Cmd =
-    CmdBindingSpec BindingSpec.Cmd
-  | CmdClang       Clang.Opts
-  | CmdParse       Parse.Opts
+    CmdIncludeGraph  IncludeGraph.Opts
+  | CmdResolveHeader ResolveHeader.Opts
 
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
-      cmd "binding-spec" CmdBindingSpec BindingSpec.parseCmd BindingSpec.info
-    , cmd "clang"        CmdClang       Clang.parseOpts      Clang.info
-    , cmd "parse"        CmdParse       Parse.parseOpts      Parse.info
+      cmd
+        "include-graph"
+        CmdIncludeGraph
+        IncludeGraph.parseOpts
+        IncludeGraph.info
+    , cmd
+        "resolve-header"
+        CmdResolveHeader
+        ResolveHeader.parseOpts
+        ResolveHeader.info
     ]
 
 {-------------------------------------------------------------------------------
@@ -50,6 +55,5 @@ parseCmd = subparser $ mconcat [
 
 exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
-    CmdBindingSpec cmd' -> BindingSpec.exec gopts cmd'
-    CmdClang       opts -> Clang.exec       gopts opts
-    CmdParse       opts -> Parse.exec       gopts opts
+    CmdIncludeGraph  opts -> IncludeGraph.exec  gopts opts
+    CmdResolveHeader opts -> ResolveHeader.exec gopts opts

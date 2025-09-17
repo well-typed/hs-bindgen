@@ -24,8 +24,12 @@
           commentOrigin = Just "C1",
           commentLocation = Just
             "macro_strings.h:4:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -52,8 +56,12 @@
           commentOrigin = Just "C2",
           commentLocation = Just
             "macro_strings.h:5:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -80,8 +88,12 @@
           commentOrigin = Just "C3",
           commentLocation = Just
             "macro_strings.h:6:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -108,8 +120,12 @@
           commentOrigin = Just "C4",
           commentLocation = Just
             "macro_strings.h:7:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -136,8 +152,12 @@
           commentOrigin = Just "C5",
           commentLocation = Just
             "macro_strings.h:8:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -164,8 +184,12 @@
           commentOrigin = Just "C6",
           commentLocation = Just
             "macro_strings.h:9:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -192,8 +216,12 @@
           commentOrigin = Just "C7",
           commentLocation = Just
             "macro_strings.h:10:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -220,8 +248,12 @@
           commentOrigin = Just "C8",
           commentLocation = Just
             "macro_strings.h:11:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -248,8 +280,12 @@
           commentOrigin = Just "D",
           commentLocation = Just
             "macro_strings.h:13:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -278,8 +314,12 @@
           commentOrigin = Just "J1",
           commentLocation = Just
             "macro_strings.h:15:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -308,8 +348,12 @@
           commentOrigin = Just "J2",
           commentLocation = Just
             "macro_strings.h:16:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -337,8 +381,12 @@
           commentOrigin = Just "J3",
           commentLocation = Just
             "macro_strings.h:17:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -391,8 +439,12 @@
           commentOrigin = Just "S1",
           commentLocation = Just
             "macro_strings.h:20:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -445,8 +497,12 @@
           commentOrigin = Just "S2",
           commentLocation = Just
             "macro_strings.h:21:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -499,8 +555,12 @@
           commentOrigin = Just "S3",
           commentLocation = Just
             "macro_strings.h:22:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -553,8 +613,12 @@
           commentOrigin = Just "S4",
           commentLocation = Just
             "macro_strings.h:23:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -607,8 +671,12 @@
           commentOrigin = Just "S5",
           commentLocation = Just
             "macro_strings.h:24:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -661,8 +729,12 @@
           commentOrigin = Just "S6",
           commentLocation = Just
             "macro_strings.h:25:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -715,8 +787,12 @@
           commentOrigin = Just "S7",
           commentLocation = Just
             "macro_strings.h:26:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -769,8 +845,12 @@
           commentOrigin = Just "S8",
           commentLocation = Just
             "macro_strings.h:27:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -824,8 +904,12 @@
           commentOrigin = Just "T1",
           commentLocation = Just
             "macro_strings.h:29:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -879,8 +963,12 @@
           commentOrigin = Just "T2",
           commentLocation = Just
             "macro_strings.h:30:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -934,8 +1022,12 @@
           commentOrigin = Just "T3",
           commentLocation = Just
             "macro_strings.h:31:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -997,8 +1089,12 @@
           commentOrigin = Just "U",
           commentLocation = Just
             "macro_strings.h:33:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1052,8 +1148,12 @@
           commentOrigin = Just "V",
           commentLocation = Just
             "macro_strings.h:34:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1107,8 +1207,12 @@
           commentOrigin = Just "W1",
           commentLocation = Just
             "macro_strings.h:36:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1171,6 +1275,10 @@
           commentOrigin = Just "W2",
           commentLocation = Just
             "macro_strings.h:37:9",
-          commentHeader = Just
-            "macro_strings.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_strings.h"],
+              headerInclude =
+              "macro_strings.h"},
           commentChildren = []}}]

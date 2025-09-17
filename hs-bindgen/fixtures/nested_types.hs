@@ -33,8 +33,12 @@
               commentOrigin = Just "i",
               commentLocation = Just
                 "nested_types.h:2:9",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -64,8 +68,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "nested_types.h:3:10",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -77,7 +85,12 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_types.h"],
+                headerInclude =
+                "nested_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -128,8 +141,12 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "nested_types.h:1:8",
-          commentHeader = Just
-            "nested_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_types.h"],
+              headerInclude =
+              "nested_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -168,8 +185,12 @@
                   commentOrigin = Just "i",
                   commentLocation = Just
                     "nested_types.h:2:9",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -199,8 +220,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "nested_types.h:3:10",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -212,7 +237,12 @@
                     "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_types.h"],
+                    headerInclude =
+                    "nested_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -263,8 +293,12 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "nested_types.h:1:8",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -306,8 +340,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "nested_types.h:2:9",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -337,8 +375,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "nested_types.h:3:10",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -350,7 +392,12 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -401,8 +448,12 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "nested_types.h:1:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -446,8 +497,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "nested_types.h:2:9",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -477,8 +532,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "nested_types.h:3:10",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -490,7 +549,12 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -541,8 +605,12 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "nested_types.h:1:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -613,8 +681,12 @@
               commentOrigin = Just "foo1",
               commentLocation = Just
                 "nested_types.h:7:16",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -646,8 +718,12 @@
               commentOrigin = Just "foo2",
               commentLocation = Just
                 "nested_types.h:8:16",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -659,7 +735,12 @@
                 "Bar"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_types.h"],
+                headerInclude =
+                "nested_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -717,8 +798,12 @@
           commentOrigin = Just "bar",
           commentLocation = Just
             "nested_types.h:6:8",
-          commentHeader = Just
-            "nested_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_types.h"],
+              headerInclude =
+              "nested_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -762,8 +847,12 @@
                   commentOrigin = Just "foo1",
                   commentLocation = Just
                     "nested_types.h:7:16",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -795,8 +884,12 @@
                   commentOrigin = Just "foo2",
                   commentLocation = Just
                     "nested_types.h:8:16",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -808,7 +901,12 @@
                     "Bar"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_types.h"],
+                    headerInclude =
+                    "nested_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -866,8 +964,12 @@
               commentOrigin = Just "bar",
               commentLocation = Just
                 "nested_types.h:6:8",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -914,8 +1016,12 @@
                           commentOrigin = Just "foo1",
                           commentLocation = Just
                             "nested_types.h:7:16",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -947,8 +1053,12 @@
                           commentOrigin = Just "foo2",
                           commentLocation = Just
                             "nested_types.h:8:16",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -960,7 +1070,12 @@
                             "Bar"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1018,8 +1133,12 @@
                       commentOrigin = Just "bar",
                       commentLocation = Just
                         "nested_types.h:6:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1068,8 +1187,12 @@
                           commentOrigin = Just "foo1",
                           commentLocation = Just
                             "nested_types.h:7:16",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1101,8 +1224,12 @@
                           commentOrigin = Just "foo2",
                           commentLocation = Just
                             "nested_types.h:8:16",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1114,7 +1241,12 @@
                             "Bar"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1172,8 +1304,12 @@
                       commentOrigin = Just "bar",
                       commentLocation = Just
                         "nested_types.h:6:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1240,8 +1376,12 @@
               commentOrigin = Just "ex3_a",
               commentLocation = Just
                 "nested_types.h:13:13",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1271,8 +1411,12 @@
               commentOrigin = Just "ex3_b",
               commentLocation = Just
                 "nested_types.h:14:14",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1285,7 +1429,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "nested_types.h:12:5"),
             declAliases = [],
-            declHeader = "nested_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_types.h"],
+                headerInclude =
+                "nested_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1340,8 +1489,12 @@
             "ex3_ex3_struct",
           commentLocation = Just
             "nested_types.h:12:5",
-          commentHeader = Just
-            "nested_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_types.h"],
+              headerInclude =
+              "nested_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1381,8 +1534,12 @@
                   commentOrigin = Just "ex3_a",
                   commentLocation = Just
                     "nested_types.h:13:13",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1412,8 +1569,12 @@
                   commentOrigin = Just "ex3_b",
                   commentLocation = Just
                     "nested_types.h:14:14",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1426,7 +1587,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "nested_types.h:12:5"),
                 declAliases = [],
-                declHeader = "nested_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_types.h"],
+                    headerInclude =
+                    "nested_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1481,8 +1647,12 @@
                 "ex3_ex3_struct",
               commentLocation = Just
                 "nested_types.h:12:5",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -1525,8 +1695,12 @@
                           commentOrigin = Just "ex3_a",
                           commentLocation = Just
                             "nested_types.h:13:13",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1556,8 +1730,12 @@
                           commentOrigin = Just "ex3_b",
                           commentLocation = Just
                             "nested_types.h:14:14",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1570,7 +1748,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "nested_types.h:12:5"),
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1625,8 +1808,12 @@
                         "ex3_ex3_struct",
                       commentLocation = Just
                         "nested_types.h:12:5",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1671,8 +1858,12 @@
                           commentOrigin = Just "ex3_a",
                           commentLocation = Just
                             "nested_types.h:13:13",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1702,8 +1893,12 @@
                           commentOrigin = Just "ex3_b",
                           commentLocation = Just
                             "nested_types.h:14:14",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1716,7 +1911,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "nested_types.h:12:5"),
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1771,8 +1971,12 @@
                         "ex3_ex3_struct",
                       commentLocation = Just
                         "nested_types.h:12:5",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1847,8 +2051,12 @@
                 "ex3_struct",
               commentLocation = Just
                 "nested_types.h:15:7",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1876,8 +2084,12 @@
               commentOrigin = Just "ex3_c",
               commentLocation = Just
                 "nested_types.h:16:11",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1889,7 +2101,12 @@
                 "Ex3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_types.h"],
+                headerInclude =
+                "nested_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1944,8 +2161,12 @@
           commentOrigin = Just "ex3",
           commentLocation = Just
             "nested_types.h:11:8",
-          commentHeader = Just
-            "nested_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_types.h"],
+              headerInclude =
+              "nested_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1993,8 +2214,12 @@
                     "ex3_struct",
                   commentLocation = Just
                     "nested_types.h:15:7",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2022,8 +2247,12 @@
                   commentOrigin = Just "ex3_c",
                   commentLocation = Just
                     "nested_types.h:16:11",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2035,7 +2264,12 @@
                     "Ex3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_types.h"],
+                    headerInclude =
+                    "nested_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2090,8 +2324,12 @@
               commentOrigin = Just "ex3",
               commentLocation = Just
                 "nested_types.h:11:8",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -2142,8 +2380,12 @@
                             "ex3_struct",
                           commentLocation = Just
                             "nested_types.h:15:7",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2171,8 +2413,12 @@
                           commentOrigin = Just "ex3_c",
                           commentLocation = Just
                             "nested_types.h:16:11",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2184,7 +2430,12 @@
                             "Ex3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2239,8 +2490,12 @@
                       commentOrigin = Just "ex3",
                       commentLocation = Just
                         "nested_types.h:11:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2293,8 +2548,12 @@
                             "ex3_struct",
                           commentLocation = Just
                             "nested_types.h:15:7",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2322,8 +2581,12 @@
                           commentOrigin = Just "ex3_c",
                           commentLocation = Just
                             "nested_types.h:16:11",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2335,7 +2598,12 @@
                             "Ex3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2390,8 +2658,12 @@
                       commentOrigin = Just "ex3",
                       commentLocation = Just
                         "nested_types.h:11:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2458,8 +2730,12 @@
               commentOrigin = Just "value",
               commentLocation = Just
                 "nested_types.h:25:16",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2495,8 +2771,12 @@
               commentOrigin = Just "next",
               commentLocation = Just
                 "nested_types.h:26:25",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2509,7 +2789,12 @@
                 "Ex4_even"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_types.h"],
+                headerInclude =
+                "nested_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2564,8 +2849,12 @@
           commentOrigin = Just "ex4_even",
           commentLocation = Just
             "nested_types.h:24:12",
-          commentHeader = Just
-            "nested_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_types.h"],
+              headerInclude =
+              "nested_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2605,8 +2894,12 @@
                   commentOrigin = Just "value",
                   commentLocation = Just
                     "nested_types.h:25:16",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2642,8 +2935,12 @@
                   commentOrigin = Just "next",
                   commentLocation = Just
                     "nested_types.h:26:25",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2656,7 +2953,12 @@
                     "Ex4_even"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_types.h"],
+                    headerInclude =
+                    "nested_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2711,8 +3013,12 @@
               commentOrigin = Just "ex4_even",
               commentLocation = Just
                 "nested_types.h:24:12",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -2755,8 +3061,12 @@
                           commentOrigin = Just "value",
                           commentLocation = Just
                             "nested_types.h:25:16",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2792,8 +3102,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "nested_types.h:26:25",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2806,7 +3120,12 @@
                             "Ex4_even"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2861,8 +3180,12 @@
                       commentOrigin = Just "ex4_even",
                       commentLocation = Just
                         "nested_types.h:24:12",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2907,8 +3230,12 @@
                           commentOrigin = Just "value",
                           commentLocation = Just
                             "nested_types.h:25:16",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2944,8 +3271,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "nested_types.h:26:25",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2958,7 +3289,12 @@
                             "Ex4_even"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3013,8 +3349,12 @@
                       commentOrigin = Just "ex4_even",
                       commentLocation = Just
                         "nested_types.h:24:12",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3081,8 +3421,12 @@
               commentOrigin = Just "value",
               commentLocation = Just
                 "nested_types.h:23:9",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3118,8 +3462,12 @@
               commentOrigin = Just "next",
               commentLocation = Just
                 "nested_types.h:27:8",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3131,7 +3479,12 @@
                 "Ex4_odd"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "nested_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["nested_types.h"],
+                headerInclude =
+                "nested_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3186,8 +3539,12 @@
           commentOrigin = Just "ex4_odd",
           commentLocation = Just
             "nested_types.h:22:8",
-          commentHeader = Just
-            "nested_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["nested_types.h"],
+              headerInclude =
+              "nested_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3227,8 +3584,12 @@
                   commentOrigin = Just "value",
                   commentLocation = Just
                     "nested_types.h:23:9",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3264,8 +3625,12 @@
                   commentOrigin = Just "next",
                   commentLocation = Just
                     "nested_types.h:27:8",
-                  commentHeader = Just
-                    "nested_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["nested_types.h"],
+                      headerInclude =
+                      "nested_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3277,7 +3642,12 @@
                     "Ex4_odd"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "nested_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["nested_types.h"],
+                    headerInclude =
+                    "nested_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3332,8 +3702,12 @@
               commentOrigin = Just "ex4_odd",
               commentLocation = Just
                 "nested_types.h:22:8",
-              commentHeader = Just
-                "nested_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["nested_types.h"],
+                  headerInclude =
+                  "nested_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3376,8 +3750,12 @@
                           commentOrigin = Just "value",
                           commentLocation = Just
                             "nested_types.h:23:9",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3413,8 +3791,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "nested_types.h:27:8",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3426,7 +3808,12 @@
                             "Ex4_odd"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3481,8 +3868,12 @@
                       commentOrigin = Just "ex4_odd",
                       commentLocation = Just
                         "nested_types.h:22:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3527,8 +3918,12 @@
                           commentOrigin = Just "value",
                           commentLocation = Just
                             "nested_types.h:23:9",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3564,8 +3959,12 @@
                           commentOrigin = Just "next",
                           commentLocation = Just
                             "nested_types.h:27:8",
-                          commentHeader = Just
-                            "nested_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["nested_types.h"],
+                              headerInclude =
+                              "nested_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3577,7 +3976,12 @@
                             "Ex4_odd"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "nested_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["nested_types.h"],
+                            headerInclude =
+                            "nested_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3632,8 +4036,12 @@
                       commentOrigin = Just "ex4_odd",
                       commentLocation = Just
                         "nested_types.h:22:8",
-                      commentHeader = Just
-                        "nested_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["nested_types.h"],
+                          headerInclude =
+                          "nested_types.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq

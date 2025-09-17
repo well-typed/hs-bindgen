@@ -9,7 +9,11 @@ TranslationUnit {
             "MyEnum"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "uses_utf8.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["uses_utf8.h"],
+            headerInclude = "uses_utf8.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {

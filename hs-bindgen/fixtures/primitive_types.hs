@@ -36,8 +36,12 @@
               commentOrigin = Just "c",
               commentLocation = Just
                 "primitive_types.h:2:10",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -66,8 +70,12 @@
               commentOrigin = Just "sc",
               commentLocation = Just
                 "primitive_types.h:3:17",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -96,8 +104,12 @@
               commentOrigin = Just "uc",
               commentLocation = Just
                 "primitive_types.h:4:19",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -125,8 +137,12 @@
               commentOrigin = Just "s",
               commentLocation = Just
                 "primitive_types.h:6:11",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -154,8 +170,12 @@
               commentOrigin = Just "si",
               commentLocation = Just
                 "primitive_types.h:7:15",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -183,8 +203,12 @@
               commentOrigin = Just "ss",
               commentLocation = Just
                 "primitive_types.h:8:18",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -212,8 +236,12 @@
               commentOrigin = Just "ssi",
               commentLocation = Just
                 "primitive_types.h:9:22",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -243,8 +271,12 @@
               commentOrigin = Just "us",
               commentLocation = Just
                 "primitive_types.h:11:20",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -274,8 +306,12 @@
               commentOrigin = Just "usi",
               commentLocation = Just
                 "primitive_types.h:12:24",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -303,8 +339,12 @@
               commentOrigin = Just "i",
               commentLocation = Just
                 "primitive_types.h:14:9",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -332,8 +372,12 @@
               commentOrigin = Just "s2",
               commentLocation = Just
                 "primitive_types.h:15:12",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -361,8 +405,12 @@
               commentOrigin = Just "si2",
               commentLocation = Just
                 "primitive_types.h:16:16",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -390,8 +438,12 @@
               commentOrigin = Just "u",
               commentLocation = Just
                 "primitive_types.h:18:14",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -419,8 +471,12 @@
               commentOrigin = Just "ui",
               commentLocation = Just
                 "primitive_types.h:19:18",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -448,8 +504,12 @@
               commentOrigin = Just "l",
               commentLocation = Just
                 "primitive_types.h:21:10",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -477,8 +537,12 @@
               commentOrigin = Just "li",
               commentLocation = Just
                 "primitive_types.h:22:14",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -506,8 +570,12 @@
               commentOrigin = Just "sl",
               commentLocation = Just
                 "primitive_types.h:23:17",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -535,8 +603,12 @@
               commentOrigin = Just "sli",
               commentLocation = Just
                 "primitive_types.h:24:21",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -566,8 +638,12 @@
               commentOrigin = Just "ul",
               commentLocation = Just
                 "primitive_types.h:26:19",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -597,8 +673,12 @@
               commentOrigin = Just "uli",
               commentLocation = Just
                 "primitive_types.h:27:23",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -628,8 +708,12 @@
               commentOrigin = Just "ll",
               commentLocation = Just
                 "primitive_types.h:29:15",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -659,8 +743,12 @@
               commentOrigin = Just "lli",
               commentLocation = Just
                 "primitive_types.h:30:19",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -690,8 +778,12 @@
               commentOrigin = Just "sll",
               commentLocation = Just
                 "primitive_types.h:31:22",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -721,8 +813,12 @@
               commentOrigin = Just "slli",
               commentLocation = Just
                 "primitive_types.h:32:26",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -752,8 +848,12 @@
               commentOrigin = Just "ull",
               commentLocation = Just
                 "primitive_types.h:34:24",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -783,8 +883,12 @@
               commentOrigin = Just "ulli",
               commentLocation = Just
                 "primitive_types.h:35:28",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -812,8 +916,12 @@
               commentOrigin = Just "f",
               commentLocation = Just
                 "primitive_types.h:37:11",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -841,8 +949,12 @@
               commentOrigin = Just "d",
               commentLocation = Just
                 "primitive_types.h:38:12",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -855,8 +967,12 @@
                 "Primitive"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "primitive_types.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["primitive_types.h"],
+                headerInclude =
+                "primitive_types.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1271,8 +1387,12 @@
             "primitive",
           commentLocation = Just
             "primitive_types.h:1:8",
-          commentHeader = Just
-            "primitive_types.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["primitive_types.h"],
+              headerInclude =
+              "primitive_types.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1314,8 +1434,12 @@
                   commentOrigin = Just "c",
                   commentLocation = Just
                     "primitive_types.h:2:10",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1344,8 +1468,12 @@
                   commentOrigin = Just "sc",
                   commentLocation = Just
                     "primitive_types.h:3:17",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1374,8 +1502,12 @@
                   commentOrigin = Just "uc",
                   commentLocation = Just
                     "primitive_types.h:4:19",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1403,8 +1535,12 @@
                   commentOrigin = Just "s",
                   commentLocation = Just
                     "primitive_types.h:6:11",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1432,8 +1568,12 @@
                   commentOrigin = Just "si",
                   commentLocation = Just
                     "primitive_types.h:7:15",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1461,8 +1601,12 @@
                   commentOrigin = Just "ss",
                   commentLocation = Just
                     "primitive_types.h:8:18",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1490,8 +1634,12 @@
                   commentOrigin = Just "ssi",
                   commentLocation = Just
                     "primitive_types.h:9:22",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1521,8 +1669,12 @@
                   commentOrigin = Just "us",
                   commentLocation = Just
                     "primitive_types.h:11:20",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1552,8 +1704,12 @@
                   commentOrigin = Just "usi",
                   commentLocation = Just
                     "primitive_types.h:12:24",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1581,8 +1737,12 @@
                   commentOrigin = Just "i",
                   commentLocation = Just
                     "primitive_types.h:14:9",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1610,8 +1770,12 @@
                   commentOrigin = Just "s2",
                   commentLocation = Just
                     "primitive_types.h:15:12",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1639,8 +1803,12 @@
                   commentOrigin = Just "si2",
                   commentLocation = Just
                     "primitive_types.h:16:16",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1668,8 +1836,12 @@
                   commentOrigin = Just "u",
                   commentLocation = Just
                     "primitive_types.h:18:14",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1697,8 +1869,12 @@
                   commentOrigin = Just "ui",
                   commentLocation = Just
                     "primitive_types.h:19:18",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1726,8 +1902,12 @@
                   commentOrigin = Just "l",
                   commentLocation = Just
                     "primitive_types.h:21:10",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1755,8 +1935,12 @@
                   commentOrigin = Just "li",
                   commentLocation = Just
                     "primitive_types.h:22:14",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1784,8 +1968,12 @@
                   commentOrigin = Just "sl",
                   commentLocation = Just
                     "primitive_types.h:23:17",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1813,8 +2001,12 @@
                   commentOrigin = Just "sli",
                   commentLocation = Just
                     "primitive_types.h:24:21",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1844,8 +2036,12 @@
                   commentOrigin = Just "ul",
                   commentLocation = Just
                     "primitive_types.h:26:19",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1875,8 +2071,12 @@
                   commentOrigin = Just "uli",
                   commentLocation = Just
                     "primitive_types.h:27:23",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1906,8 +2106,12 @@
                   commentOrigin = Just "ll",
                   commentLocation = Just
                     "primitive_types.h:29:15",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1937,8 +2141,12 @@
                   commentOrigin = Just "lli",
                   commentLocation = Just
                     "primitive_types.h:30:19",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1968,8 +2176,12 @@
                   commentOrigin = Just "sll",
                   commentLocation = Just
                     "primitive_types.h:31:22",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1999,8 +2211,12 @@
                   commentOrigin = Just "slli",
                   commentLocation = Just
                     "primitive_types.h:32:26",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2030,8 +2246,12 @@
                   commentOrigin = Just "ull",
                   commentLocation = Just
                     "primitive_types.h:34:24",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2061,8 +2281,12 @@
                   commentOrigin = Just "ulli",
                   commentLocation = Just
                     "primitive_types.h:35:28",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2090,8 +2314,12 @@
                   commentOrigin = Just "f",
                   commentLocation = Just
                     "primitive_types.h:37:11",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2119,8 +2347,12 @@
                   commentOrigin = Just "d",
                   commentLocation = Just
                     "primitive_types.h:38:12",
-                  commentHeader = Just
-                    "primitive_types.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["primitive_types.h"],
+                      headerInclude =
+                      "primitive_types.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2133,8 +2365,12 @@
                     "Primitive"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "primitive_types.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["primitive_types.h"],
+                    headerInclude =
+                    "primitive_types.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2549,8 +2785,12 @@
                 "primitive",
               commentLocation = Just
                 "primitive_types.h:1:8",
-              commentHeader = Just
-                "primitive_types.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["primitive_types.h"],
+                  headerInclude =
+                  "primitive_types.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 152,
@@ -2595,8 +2835,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "primitive_types.h:2:10",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2625,8 +2869,12 @@
                           commentOrigin = Just "sc",
                           commentLocation = Just
                             "primitive_types.h:3:17",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2655,8 +2903,12 @@
                           commentOrigin = Just "uc",
                           commentLocation = Just
                             "primitive_types.h:4:19",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2684,8 +2936,12 @@
                           commentOrigin = Just "s",
                           commentLocation = Just
                             "primitive_types.h:6:11",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2713,8 +2969,12 @@
                           commentOrigin = Just "si",
                           commentLocation = Just
                             "primitive_types.h:7:15",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2742,8 +3002,12 @@
                           commentOrigin = Just "ss",
                           commentLocation = Just
                             "primitive_types.h:8:18",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2771,8 +3035,12 @@
                           commentOrigin = Just "ssi",
                           commentLocation = Just
                             "primitive_types.h:9:22",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2802,8 +3070,12 @@
                           commentOrigin = Just "us",
                           commentLocation = Just
                             "primitive_types.h:11:20",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2833,8 +3105,12 @@
                           commentOrigin = Just "usi",
                           commentLocation = Just
                             "primitive_types.h:12:24",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2862,8 +3138,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "primitive_types.h:14:9",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2891,8 +3171,12 @@
                           commentOrigin = Just "s2",
                           commentLocation = Just
                             "primitive_types.h:15:12",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2920,8 +3204,12 @@
                           commentOrigin = Just "si2",
                           commentLocation = Just
                             "primitive_types.h:16:16",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2949,8 +3237,12 @@
                           commentOrigin = Just "u",
                           commentLocation = Just
                             "primitive_types.h:18:14",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2978,8 +3270,12 @@
                           commentOrigin = Just "ui",
                           commentLocation = Just
                             "primitive_types.h:19:18",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3007,8 +3303,12 @@
                           commentOrigin = Just "l",
                           commentLocation = Just
                             "primitive_types.h:21:10",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3036,8 +3336,12 @@
                           commentOrigin = Just "li",
                           commentLocation = Just
                             "primitive_types.h:22:14",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3065,8 +3369,12 @@
                           commentOrigin = Just "sl",
                           commentLocation = Just
                             "primitive_types.h:23:17",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3094,8 +3402,12 @@
                           commentOrigin = Just "sli",
                           commentLocation = Just
                             "primitive_types.h:24:21",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3125,8 +3437,12 @@
                           commentOrigin = Just "ul",
                           commentLocation = Just
                             "primitive_types.h:26:19",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3156,8 +3472,12 @@
                           commentOrigin = Just "uli",
                           commentLocation = Just
                             "primitive_types.h:27:23",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3187,8 +3507,12 @@
                           commentOrigin = Just "ll",
                           commentLocation = Just
                             "primitive_types.h:29:15",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3218,8 +3542,12 @@
                           commentOrigin = Just "lli",
                           commentLocation = Just
                             "primitive_types.h:30:19",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3249,8 +3577,12 @@
                           commentOrigin = Just "sll",
                           commentLocation = Just
                             "primitive_types.h:31:22",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3280,8 +3612,12 @@
                           commentOrigin = Just "slli",
                           commentLocation = Just
                             "primitive_types.h:32:26",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3311,8 +3647,12 @@
                           commentOrigin = Just "ull",
                           commentLocation = Just
                             "primitive_types.h:34:24",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3342,8 +3682,12 @@
                           commentOrigin = Just "ulli",
                           commentLocation = Just
                             "primitive_types.h:35:28",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3371,8 +3715,12 @@
                           commentOrigin = Just "f",
                           commentLocation = Just
                             "primitive_types.h:37:11",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3400,8 +3748,12 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "primitive_types.h:38:12",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3414,8 +3766,12 @@
                             "Primitive"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "primitive_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["primitive_types.h"],
+                            headerInclude =
+                            "primitive_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3830,8 +4186,12 @@
                         "primitive",
                       commentLocation = Just
                         "primitive_types.h:1:8",
-                      commentHeader = Just
-                        "primitive_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["primitive_types.h"],
+                          headerInclude =
+                          "primitive_types.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3904,8 +4264,12 @@
                           commentOrigin = Just "c",
                           commentLocation = Just
                             "primitive_types.h:2:10",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3934,8 +4298,12 @@
                           commentOrigin = Just "sc",
                           commentLocation = Just
                             "primitive_types.h:3:17",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3964,8 +4332,12 @@
                           commentOrigin = Just "uc",
                           commentLocation = Just
                             "primitive_types.h:4:19",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3993,8 +4365,12 @@
                           commentOrigin = Just "s",
                           commentLocation = Just
                             "primitive_types.h:6:11",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4022,8 +4398,12 @@
                           commentOrigin = Just "si",
                           commentLocation = Just
                             "primitive_types.h:7:15",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4051,8 +4431,12 @@
                           commentOrigin = Just "ss",
                           commentLocation = Just
                             "primitive_types.h:8:18",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4080,8 +4464,12 @@
                           commentOrigin = Just "ssi",
                           commentLocation = Just
                             "primitive_types.h:9:22",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4111,8 +4499,12 @@
                           commentOrigin = Just "us",
                           commentLocation = Just
                             "primitive_types.h:11:20",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4142,8 +4534,12 @@
                           commentOrigin = Just "usi",
                           commentLocation = Just
                             "primitive_types.h:12:24",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4171,8 +4567,12 @@
                           commentOrigin = Just "i",
                           commentLocation = Just
                             "primitive_types.h:14:9",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4200,8 +4600,12 @@
                           commentOrigin = Just "s2",
                           commentLocation = Just
                             "primitive_types.h:15:12",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4229,8 +4633,12 @@
                           commentOrigin = Just "si2",
                           commentLocation = Just
                             "primitive_types.h:16:16",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4258,8 +4666,12 @@
                           commentOrigin = Just "u",
                           commentLocation = Just
                             "primitive_types.h:18:14",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4287,8 +4699,12 @@
                           commentOrigin = Just "ui",
                           commentLocation = Just
                             "primitive_types.h:19:18",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4316,8 +4732,12 @@
                           commentOrigin = Just "l",
                           commentLocation = Just
                             "primitive_types.h:21:10",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4345,8 +4765,12 @@
                           commentOrigin = Just "li",
                           commentLocation = Just
                             "primitive_types.h:22:14",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4374,8 +4798,12 @@
                           commentOrigin = Just "sl",
                           commentLocation = Just
                             "primitive_types.h:23:17",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4403,8 +4831,12 @@
                           commentOrigin = Just "sli",
                           commentLocation = Just
                             "primitive_types.h:24:21",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4434,8 +4866,12 @@
                           commentOrigin = Just "ul",
                           commentLocation = Just
                             "primitive_types.h:26:19",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4465,8 +4901,12 @@
                           commentOrigin = Just "uli",
                           commentLocation = Just
                             "primitive_types.h:27:23",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4496,8 +4936,12 @@
                           commentOrigin = Just "ll",
                           commentLocation = Just
                             "primitive_types.h:29:15",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4527,8 +4971,12 @@
                           commentOrigin = Just "lli",
                           commentLocation = Just
                             "primitive_types.h:30:19",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4558,8 +5006,12 @@
                           commentOrigin = Just "sll",
                           commentLocation = Just
                             "primitive_types.h:31:22",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4589,8 +5041,12 @@
                           commentOrigin = Just "slli",
                           commentLocation = Just
                             "primitive_types.h:32:26",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4620,8 +5076,12 @@
                           commentOrigin = Just "ull",
                           commentLocation = Just
                             "primitive_types.h:34:24",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4651,8 +5111,12 @@
                           commentOrigin = Just "ulli",
                           commentLocation = Just
                             "primitive_types.h:35:28",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4680,8 +5144,12 @@
                           commentOrigin = Just "f",
                           commentLocation = Just
                             "primitive_types.h:37:11",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4709,8 +5177,12 @@
                           commentOrigin = Just "d",
                           commentLocation = Just
                             "primitive_types.h:38:12",
-                          commentHeader = Just
-                            "primitive_types.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["primitive_types.h"],
+                              headerInclude =
+                              "primitive_types.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4723,8 +5195,12 @@
                             "Primitive"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "primitive_types.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["primitive_types.h"],
+                            headerInclude =
+                            "primitive_types.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -5139,8 +5615,12 @@
                         "primitive",
                       commentLocation = Just
                         "primitive_types.h:1:8",
-                      commentHeader = Just
-                        "primitive_types.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["primitive_types.h"],
+                          headerInclude =
+                          "primitive_types.h"},
                       commentChildren = []}}
                 (Add 28)
                 (Seq

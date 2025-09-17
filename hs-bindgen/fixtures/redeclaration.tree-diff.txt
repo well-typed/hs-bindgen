@@ -9,7 +9,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "x"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "redeclaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["redeclaration.h"],
+            headerInclude =
+            "redeclaration.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -30,7 +35,12 @@ TranslationUnit {
             "Int_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "redeclaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["redeclaration.h"],
+            headerInclude =
+            "redeclaration.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -58,7 +68,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "X"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "redeclaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["redeclaration.h"],
+            headerInclude =
+            "redeclaration.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -96,7 +111,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "Y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "redeclaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["redeclaration.h"],
+            headerInclude =
+            "redeclaration.h"},
         declComment = Nothing},
       declKind = DeclUnionOpaque,
       declSpec = DeclSpec
@@ -114,7 +134,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "Y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "redeclaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["redeclaration.h"],
+            headerInclude =
+            "redeclaration.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {

@@ -10,7 +10,12 @@ TranslationUnit {
             "S1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -66,7 +71,12 @@ TranslationUnit {
         NameOriginRenamedFrom
           (Name "S2"),
         declAliases = [Name "S2_t"],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -135,7 +145,12 @@ TranslationUnit {
           (AnonId
             "simple_structs.h:15:9"),
         declAliases = [Name "S3_t"],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -176,7 +191,12 @@ TranslationUnit {
             "S4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -244,7 +264,12 @@ TranslationUnit {
             "S5"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "S5"],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -298,7 +323,12 @@ TranslationUnit {
             "S6"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "S6"],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -354,7 +384,12 @@ TranslationUnit {
           (AnonId
             "simple_structs.h:34:9"),
         declAliases = [],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -410,7 +445,12 @@ TranslationUnit {
             "S7a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -448,7 +488,12 @@ TranslationUnit {
           (AnonId
             "simple_structs.h:35:9"),
         declAliases = [],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -504,7 +549,12 @@ TranslationUnit {
             "S7b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "simple_structs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["simple_structs.h"],
+            headerInclude =
+            "simple_structs.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {

@@ -11,8 +11,12 @@ TranslationUnit {
             "FileOperationStatus"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "program_slicing_selection.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["program_slicing_selection.h"],
+            headerInclude =
+            "program_slicing_selection.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -107,8 +111,12 @@ TranslationUnit {
             "FileOperationRecord"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "program_slicing_selection.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["program_slicing_selection.h"],
+            headerInclude =
+            "program_slicing_selection.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -281,8 +289,12 @@ TranslationUnit {
             "read_file_chunk"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "program_slicing_selection.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["program_slicing_selection.h"],
+            headerInclude =
+            "program_slicing_selection.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

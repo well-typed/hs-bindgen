@@ -92,5 +92,5 @@ dfFindMember = Labelled.dfFindMember
 -- | Render a Mermaid diagram
 --
 -- See https://mermaid.js.org/>
-dumpMermaid :: (a -> String) -> DynGraph a -> String
-dumpMermaid = Labelled.dumpMermaid (const Nothing)
+dumpMermaid :: Bool -> (a -> String) -> DynGraph a -> String
+dumpMermaid isTranspose = Labelled.dumpMermaid isTranspose (const Nothing)

@@ -10,8 +10,13 @@ TranslationUnit {
             "MC"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroType
@@ -42,8 +47,13 @@ TranslationUnit {
             "TC"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -74,8 +84,13 @@ TranslationUnit {
             "quux1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -123,8 +138,13 @@ TranslationUnit {
             "quux2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -172,8 +192,13 @@ TranslationUnit {
             "wam1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -222,8 +247,13 @@ TranslationUnit {
             "wam2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -272,8 +302,13 @@ TranslationUnit {
             "Struct1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -314,8 +349,13 @@ TranslationUnit {
           (AnonId
             "macro_in_fundecl_vs_typedef.h:19:9"),
         declAliases = [Name "struct2"],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -355,8 +395,13 @@ TranslationUnit {
         declOrigin = NameOriginInSource,
         declAliases = [
           Name "struct3_t"],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -395,8 +440,13 @@ TranslationUnit {
             "Struct3_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -429,8 +479,13 @@ TranslationUnit {
             "Struct4"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "struct4"],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -469,8 +524,13 @@ TranslationUnit {
             "struct_typedef1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -522,8 +582,13 @@ TranslationUnit {
             "struct_typedef2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -570,8 +635,13 @@ TranslationUnit {
             "struct_typedef3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -621,8 +691,13 @@ TranslationUnit {
             "struct_name1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -669,8 +744,13 @@ TranslationUnit {
             "struct_name2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -717,8 +797,13 @@ TranslationUnit {
             "struct_name3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "macro_in_fundecl_vs_typedef.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "macro_in_fundecl_vs_typedef.h"],
+            headerInclude =
+            "macro_in_fundecl_vs_typedef.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

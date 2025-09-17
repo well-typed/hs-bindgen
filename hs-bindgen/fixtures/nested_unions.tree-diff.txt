@@ -10,7 +10,12 @@ TranslationUnit {
             "UnionA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_unions.h"],
+            headerInclude =
+            "nested_unions.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -63,7 +68,12 @@ TranslationUnit {
             "ExA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_unions.h"],
+            headerInclude =
+            "nested_unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -106,7 +116,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "nested_unions.h:9:9"),
         declAliases = [],
-        declHeader = "nested_unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_unions.h"],
+            headerInclude =
+            "nested_unions.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -159,7 +174,12 @@ TranslationUnit {
             "ExB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_unions.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_unions.h"],
+            headerInclude =
+            "nested_unions.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

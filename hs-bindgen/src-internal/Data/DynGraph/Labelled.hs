@@ -15,6 +15,8 @@ module Data.DynGraph.Labelled (
   , dff
   , dfFindMember
   , findTrailFrom
+  , findTargets
+  , FindTargetsResult(..)
     -- * Deletion
   , deleteEdges
     -- * Debugging
@@ -26,15 +28,18 @@ module Data.DynGraph.Labelled (
 
 import Prelude hiding (reverse)
 
-import Control.Monad ((<=<))
+import Control.Monad (unless, (<=<))
 import Control.Monad.ST (ST)
 import Control.Monad.ST qualified as ST
 import Data.Array.ST.Safe qualified as Array
 import Data.Bifunctor
 import Data.IntMap.Strict (IntMap)
 import Data.IntMap.Strict qualified as IntMap
+import Data.IntSet (IntSet)
 import Data.IntSet qualified as IntSet
 import Data.List qualified as List
+import Data.List.NonEmpty (NonEmpty)
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe, mapMaybe)
@@ -186,6 +191,101 @@ findTrailFrom DynGraph{..} f = go
             next   <- Set.toList <$> IntMap.lookup currIx edges
             return $ map (first (idxMap IntMap.!)) next
 
+-- | Find all target vertices reachable from the specified starting vertex
+--
+-- When target vertices are found, a label from an edge from the starting
+-- vertex is also returned.
+findTargets :: forall l a.
+     Ord a
+  => Set a
+  -> DynGraph l a
+  -> a
+  -> FindTargetsResult l a
+findTargets targets DynGraph{..} v
+    | v `Set.member` targets = FindTargetsTarget
+    | Set.size targets /= IntSet.size targetIxs = FindTargetsInvalid
+    | Just ix <- Map.lookup v vtxMap =
+        run (0, Map.size vtxMap - 1) $ \(check :: Int -> ST s Bool) ->
+
+          let findInit ::
+                   [(Int, l)]  -- Remaining edges from starting vertex
+                -> ST s (FindTargetsResult l a)
+              findInit ((ix', l) : rest) = findFirst l [ix'] rest
+              findInit []                = return FindTargetsNotFound
+
+              findFirst ::
+                   l           -- Label of edge from starting vertex
+                -> [Int]       -- Remaining vertices to explore
+                -> [(Int, l)]  -- Remaining edges from starting vertex
+                -> ST s (FindTargetsResult l a)
+              findFirst l (ix' : ixs') rest = check ix' >>= \case
+                True -> findFirst l ixs' rest
+                False
+                  | ix' `IntSet.member` targetIxs ->
+                      case IntMap.lookup ix' idxMap of
+                        Just v' -> findRest l (NonEmpty.singleton v') $
+                          (ixs' ++ map fst rest)
+                        Nothing -> return FindTargetsInvalid
+                  | otherwise ->
+                      case Set.toList <$> IntMap.lookup ix' edges of
+                        Just ps -> findFirst l (map fst ps ++ ixs') rest
+                        Nothing -> findFirst l ixs' rest
+              findFirst _ [] rest = findInit rest
+
+              findRest ::
+                   l           -- Label of edge from starting vertex
+                -> NonEmpty a  -- Found target vertices (reversed)
+                -> [Int]       -- Remaining vertices to explore
+                -> ST s (FindTargetsResult l a)
+              findRest l acc (ix' : ixs') = check ix' >>= \case
+                True -> findRest l acc ixs'
+                False
+                  | ix' `IntSet.member` targetIxs ->
+                      case IntMap.lookup ix' idxMap of
+                        Just v' -> findRest l (NonEmpty.cons v' acc) ixs'
+                        Nothing -> return FindTargetsInvalid
+                  | otherwise ->
+                      case Set.toList <$> IntMap.lookup ix' edges of
+                        Just ps -> findRest l acc (map fst ps ++ ixs')
+                        Nothing -> findRest l acc ixs'
+              findRest l acc [] =
+                return $ FindTargetsFound (NonEmpty.reverse acc) l
+
+          in  case Set.toList <$> IntMap.lookup ix edges of
+                Just ps -> findInit ps
+                Nothing -> return FindTargetsNotFound
+
+    | otherwise = FindTargetsInvalid
+  where
+    targetIxs :: IntSet
+    targetIxs = IntSet.fromList $
+      mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
+
+    run :: forall x.
+         (Int, Int)
+      -> (forall s. (Int -> ST s Bool) -> ST s x)
+      -> x
+    run bnds f = ST.runST $ do
+      m <- Array.newArray bnds False :: ST s (Array.STUArray s Int Bool)
+      f $ \idx -> do
+            visited <- Array.readArray m idx
+            unless visited $ Array.writeArray m idx True
+            return visited
+
+-- | 'findTargets' result
+data FindTargetsResult l a  =
+    -- | Invalid graph: one or more vertex not found
+    FindTargetsInvalid
+
+    -- | Starting vertex is a target vertex
+  | FindTargetsTarget
+
+    -- | No target vertices are reachable
+  | FindTargetsNotFound
+
+    -- | Reachable target vertices and label
+  | FindTargetsFound (NonEmpty a) l
+
 {-------------------------------------------------------------------------------
   Deletion
 -------------------------------------------------------------------------------}
@@ -295,11 +395,12 @@ dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
 --
 -- See https://mermaid.js.org/>
 dumpMermaid ::
-     (l -> Maybe String) -- ^ Function to optionally render an edge
+     Bool                -- ^ 'True' to transpose (reverse edges)
+  -> (l -> Maybe String) -- ^ Function to optionally render an edge
   -> (a -> String)       -- ^ Function to render a vertex
   -> DynGraph l a
   -> String
-dumpMermaid renderEdge renderVertex DynGraph{..} =
+dumpMermaid isTranspose renderEdge renderVertex DynGraph{..} =
     unlines $ header : nodes ++ links
   where
     header :: String
@@ -307,18 +408,17 @@ dumpMermaid renderEdge renderVertex DynGraph{..} =
 
     nodes, links :: [String]
     nodes = [
-        -- TODO escape quotes?
         "  v" ++ show idx ++ "[\"" ++ escapeString (renderVertex v) ++ "\"]"
       | (v, idx) <- Map.toAscList vtxMap
       ]
     links = [
          concat [
              "  v"
-           , show fr
+           , show (if isTranspose then to else fr)
            , "-->"
            , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") (renderEdge l)
            , "v"
-           , show to
+           , show (if isTranspose then fr else to)
            ]
        | (fr, rSet) <- IntMap.toAscList edges
        , (to, l) <- Set.toAscList rSet
@@ -326,7 +426,9 @@ dumpMermaid renderEdge renderVertex DynGraph{..} =
 
     escapeString :: String -> [Char]
     escapeString = concatMap $ \case
-        '"' -> "#quot;"
+        '"' -> "&quot;"
+        '<' -> "&lt;"
+        '>' -> "&gt;"
         c   -> [c]
 
 {-------------------------------------------------------------------------------

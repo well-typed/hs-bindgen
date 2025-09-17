@@ -10,7 +10,11 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "vector.h:1:9"),
         declAliases = [Name "vector"],
-        declHeader = "vector.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["vector.h"],
+            headerInclude = "vector.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -59,7 +63,11 @@ TranslationUnit {
             "new_vector"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "vector.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["vector.h"],
+            headerInclude = "vector.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

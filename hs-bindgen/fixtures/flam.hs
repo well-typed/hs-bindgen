@@ -33,7 +33,11 @@
               commentOrigin = Just "len",
               commentLocation = Just
                 "flam.h:3:9",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -45,7 +49,11 @@
                 "Pascal"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "flam.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["flam.h"],
+                headerInclude = "flam.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -95,7 +103,11 @@
           commentOrigin = Just "pascal",
           commentLocation = Just
             "flam.h:2:8",
-          commentHeader = Just "flam.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["flam.h"],
+              headerInclude = "flam.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -134,7 +146,11 @@
                   commentOrigin = Just "len",
                   commentLocation = Just
                     "flam.h:3:9",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -146,7 +162,11 @@
                     "Pascal"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -196,7 +216,11 @@
               commentOrigin = Just "pascal",
               commentLocation = Just
                 "flam.h:2:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -238,7 +262,11 @@
                           commentOrigin = Just "len",
                           commentLocation = Just
                             "flam.h:3:9",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -250,7 +278,11 @@
                             "Pascal"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -300,7 +332,11 @@
                       commentOrigin = Just "pascal",
                       commentLocation = Just
                         "flam.h:2:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -342,7 +378,11 @@
                           commentOrigin = Just "len",
                           commentLocation = Just
                             "flam.h:3:9",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -354,7 +394,11 @@
                             "Pascal"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -404,7 +448,11 @@
                       commentOrigin = Just "pascal",
                       commentLocation = Just
                         "flam.h:2:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -472,7 +520,11 @@
                   commentOrigin = Just "len",
                   commentLocation = Just
                     "flam.h:3:9",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -484,7 +536,11 @@
                     "Pascal"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -534,7 +590,11 @@
               commentOrigin = Just "pascal",
               commentLocation = Just
                 "flam.h:2:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         (HsPrimType HsPrimCChar)
         4,
@@ -574,7 +634,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "flam.h:11:7",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -601,7 +665,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "flam.h:12:7",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -614,7 +682,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "flam.h:10:2"),
             declAliases = [],
-            declHeader = "flam.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["flam.h"],
+                headerInclude = "flam.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -662,7 +734,11 @@
           commentOrigin = Just "foo_bar",
           commentLocation = Just
             "flam.h:10:2",
-          commentHeader = Just "flam.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["flam.h"],
+              headerInclude = "flam.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -701,7 +777,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "flam.h:11:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -728,7 +808,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "flam.h:12:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -741,7 +825,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "flam.h:10:2"),
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -789,7 +877,11 @@
               commentOrigin = Just "foo_bar",
               commentLocation = Just
                 "flam.h:10:2",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -831,7 +923,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "flam.h:11:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -858,7 +954,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "flam.h:12:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -871,7 +971,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "flam.h:10:2"),
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -919,7 +1023,11 @@
                       commentOrigin = Just "foo_bar",
                       commentLocation = Just
                         "flam.h:10:2",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -963,7 +1071,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "flam.h:11:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -990,7 +1102,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "flam.h:12:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1003,7 +1119,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "flam.h:10:2"),
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1051,7 +1171,11 @@
                       commentOrigin = Just "foo_bar",
                       commentLocation = Just
                         "flam.h:10:2",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -1117,7 +1241,11 @@
               commentOrigin = Just "len",
               commentLocation = Just
                 "flam.h:9:6",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1129,7 +1257,11 @@
                 "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "flam.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["flam.h"],
+                headerInclude = "flam.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1182,7 +1314,11 @@
           commentOrigin = Just "foo",
           commentLocation = Just
             "flam.h:8:8",
-          commentHeader = Just "flam.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["flam.h"],
+              headerInclude = "flam.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1221,7 +1357,11 @@
                   commentOrigin = Just "len",
                   commentLocation = Just
                     "flam.h:9:6",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1233,7 +1373,11 @@
                     "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1286,7 +1430,11 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "flam.h:8:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -1328,7 +1476,11 @@
                           commentOrigin = Just "len",
                           commentLocation = Just
                             "flam.h:9:6",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1340,7 +1492,11 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1393,7 +1549,11 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "flam.h:8:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -1435,7 +1595,11 @@
                           commentOrigin = Just "len",
                           commentLocation = Just
                             "flam.h:9:6",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1447,7 +1611,11 @@
                             "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1500,7 +1668,11 @@
                       commentOrigin = Just "foo",
                       commentLocation = Just
                         "flam.h:8:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -1568,7 +1740,11 @@
                   commentOrigin = Just "len",
                   commentLocation = Just
                     "flam.h:9:6",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1580,7 +1756,11 @@
                     "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1633,7 +1813,11 @@
               commentOrigin = Just "foo",
               commentLocation = Just
                 "flam.h:8:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         (HsTypRef
           (HsName
@@ -1676,7 +1860,11 @@
               commentOrigin = Just "first",
               commentLocation = Just
                 "flam.h:18:7",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1705,7 +1893,11 @@
               commentOrigin = Just "second",
               commentLocation = Just
                 "flam.h:19:7",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1717,7 +1909,11 @@
                 "Diff"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "flam.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["flam.h"],
+                headerInclude = "flam.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1781,7 +1977,11 @@
           commentOrigin = Just "diff",
           commentLocation = Just
             "flam.h:17:8",
-          commentHeader = Just "flam.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["flam.h"],
+              headerInclude = "flam.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1820,7 +2020,11 @@
                   commentOrigin = Just "first",
                   commentLocation = Just
                     "flam.h:18:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1849,7 +2053,11 @@
                   commentOrigin = Just "second",
                   commentLocation = Just
                     "flam.h:19:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1861,7 +2069,11 @@
                     "Diff"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1925,7 +2137,11 @@
               commentOrigin = Just "diff",
               commentLocation = Just
                 "flam.h:17:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -1967,7 +2183,11 @@
                           commentOrigin = Just "first",
                           commentLocation = Just
                             "flam.h:18:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1996,7 +2216,11 @@
                           commentOrigin = Just "second",
                           commentLocation = Just
                             "flam.h:19:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2008,7 +2232,11 @@
                             "Diff"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2072,7 +2300,11 @@
                       commentOrigin = Just "diff",
                       commentLocation = Just
                         "flam.h:17:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2116,7 +2348,11 @@
                           commentOrigin = Just "first",
                           commentLocation = Just
                             "flam.h:18:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2145,7 +2381,11 @@
                           commentOrigin = Just "second",
                           commentLocation = Just
                             "flam.h:19:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2157,7 +2397,11 @@
                             "Diff"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2221,7 +2465,11 @@
                       commentOrigin = Just "diff",
                       commentLocation = Just
                         "flam.h:17:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2290,7 +2538,11 @@
                   commentOrigin = Just "first",
                   commentLocation = Just
                     "flam.h:18:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2319,7 +2571,11 @@
                   commentOrigin = Just "second",
                   commentLocation = Just
                     "flam.h:19:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2331,7 +2587,11 @@
                     "Diff"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2395,7 +2655,11 @@
               commentOrigin = Just "diff",
               commentLocation = Just
                 "flam.h:17:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         (HsPrimType HsPrimCChar)
         9,
@@ -2435,7 +2699,11 @@
               commentOrigin = Just "len",
               commentLocation = Just
                 "flam.h:27:7",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}],
       structOrigin =
       Just
@@ -2449,7 +2717,11 @@
                 "Triplets"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "flam.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["flam.h"],
+                headerInclude = "flam.h"},
             declComment =
             Just
               (Comment
@@ -2519,7 +2791,11 @@
           commentOrigin = Just "triplets",
           commentLocation = Just
             "flam.h:26:8",
-          commentHeader = Just "flam.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["flam.h"],
+              headerInclude = "flam.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2558,7 +2834,11 @@
                   commentOrigin = Just "len",
                   commentLocation = Just
                     "flam.h:27:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin =
           Just
@@ -2572,7 +2852,11 @@
                     "Triplets"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment =
                 Just
                   (Comment
@@ -2642,7 +2926,11 @@
               commentOrigin = Just "triplets",
               commentLocation = Just
                 "flam.h:26:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -2685,7 +2973,11 @@
                           commentOrigin = Just "len",
                           commentLocation = Just
                             "flam.h:27:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin =
                   Just
@@ -2699,7 +2991,11 @@
                             "Triplets"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment =
                         Just
                           (Comment
@@ -2769,7 +3065,11 @@
                       commentOrigin = Just "triplets",
                       commentLocation = Just
                         "flam.h:26:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke =
@@ -2812,7 +3112,11 @@
                           commentOrigin = Just "len",
                           commentLocation = Just
                             "flam.h:27:7",
-                          commentHeader = Just "flam.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["flam.h"],
+                              headerInclude = "flam.h"},
                           commentChildren = []}}],
                   structOrigin =
                   Just
@@ -2826,7 +3130,11 @@
                             "Triplets"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "flam.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["flam.h"],
+                            headerInclude = "flam.h"},
                         declComment =
                         Just
                           (Comment
@@ -2896,7 +3204,11 @@
                       commentOrigin = Just "triplets",
                       commentLocation = Just
                         "flam.h:26:8",
-                      commentHeader = Just "flam.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["flam.h"],
+                          headerInclude = "flam.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -2964,7 +3276,11 @@
                   commentOrigin = Just "len",
                   commentLocation = Just
                     "flam.h:27:7",
-                  commentHeader = Just "flam.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["flam.h"],
+                      headerInclude = "flam.h"},
                   commentChildren = []}}],
           structOrigin =
           Just
@@ -2978,7 +3294,11 @@
                     "Triplets"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "flam.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["flam.h"],
+                    headerInclude = "flam.h"},
                 declComment =
                 Just
                   (Comment
@@ -3048,7 +3368,11 @@
               commentOrigin = Just "triplets",
               commentLocation = Just
                 "flam.h:26:8",
-              commentHeader = Just "flam.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["flam.h"],
+                  headerInclude = "flam.h"},
               commentChildren = []}}
         (HsConstArray
           3

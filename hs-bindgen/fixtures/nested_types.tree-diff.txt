@@ -9,7 +9,12 @@ TranslationUnit {
             "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -61,7 +66,12 @@ TranslationUnit {
             "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -121,7 +131,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "nested_types.h:12:5"),
         declAliases = [],
-        declHeader = "nested_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -176,7 +191,12 @@ TranslationUnit {
             "Ex3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -233,7 +253,12 @@ TranslationUnit {
             "Ex4_even"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -289,7 +314,12 @@ TranslationUnit {
             "Ex4_odd"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "nested_types.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

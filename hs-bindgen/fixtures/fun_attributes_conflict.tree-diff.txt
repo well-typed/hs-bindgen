@@ -12,8 +12,12 @@ TranslationUnit {
             "square_cp"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes_conflict.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes_conflict.h"],
+            headerInclude =
+            "fun_attributes_conflict.h"},
         declComment =
         Just
           (Comment
@@ -57,8 +61,12 @@ TranslationUnit {
             "square_pc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes_conflict.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes_conflict.h"],
+            headerInclude =
+            "fun_attributes_conflict.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -91,8 +99,12 @@ TranslationUnit {
             "square_cc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes_conflict.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes_conflict.h"],
+            headerInclude =
+            "fun_attributes_conflict.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -125,8 +137,12 @@ TranslationUnit {
             "square_pp"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "fun_attributes_conflict.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes_conflict.h"],
+            headerInclude =
+            "fun_attributes_conflict.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

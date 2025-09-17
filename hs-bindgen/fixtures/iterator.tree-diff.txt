@@ -9,7 +9,11 @@ TranslationUnit {
             "Toggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -39,7 +43,11 @@ TranslationUnit {
             "makeToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -75,7 +83,11 @@ TranslationUnit {
             "toggleNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -112,7 +124,11 @@ TranslationUnit {
             "releaseToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -148,7 +164,11 @@ TranslationUnit {
             "Counter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -181,7 +201,11 @@ TranslationUnit {
             "makeCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -226,7 +250,11 @@ TranslationUnit {
             "counterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -263,7 +291,11 @@ TranslationUnit {
             "releaseCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -299,7 +331,11 @@ TranslationUnit {
             "VarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -334,7 +370,11 @@ TranslationUnit {
             "makeVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -371,7 +411,11 @@ TranslationUnit {
             "varCounterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -417,7 +461,11 @@ TranslationUnit {
             "releaseVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "iterator.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["iterator.h"],
+            headerInclude = "iterator.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

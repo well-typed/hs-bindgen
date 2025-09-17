@@ -12,8 +12,12 @@ TranslationUnit {
         NameOriginRenamedFrom
           (Name "S1"),
         declAliases = [Name "S1_t"],
-        declHeader =
-        "forward_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["forward_declaration.h"],
+            headerInclude =
+            "forward_declaration.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -52,8 +56,12 @@ TranslationUnit {
             "S2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "forward_declaration.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["forward_declaration.h"],
+            headerInclude =
+            "forward_declaration.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {

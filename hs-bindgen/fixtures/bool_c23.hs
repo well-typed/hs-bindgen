@@ -27,8 +27,11 @@
           commentOrigin = Just "b",
           commentLocation = Just
             "bool_c23.h:3:13",
-          commentHeader = Just
-            "bool_c23.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["bool_c23.h"],
+              headerInclude = "bool_c23.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

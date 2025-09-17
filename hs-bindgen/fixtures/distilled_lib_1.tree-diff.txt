@@ -16,8 +16,12 @@ TranslationUnit {
         declAliases = [
           Name
             "another_typedef_struct_t"],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -77,8 +81,12 @@ TranslationUnit {
             "distilled_lib_1.h:10:9"),
         declAliases = [
           Name "another_typedef_enum_e"],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -129,8 +137,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -159,8 +171,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -191,8 +207,12 @@ TranslationUnit {
             "sOME_DEFINED_CONSTANT"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -222,8 +242,12 @@ TranslationUnit {
             "A_type_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -252,8 +276,12 @@ TranslationUnit {
             "Var_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -286,8 +314,12 @@ TranslationUnit {
           (Name "a_typedef_struct"),
         declAliases = [
           Name "a_typedef_struct_t"],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -975,8 +1007,12 @@ TranslationUnit {
             "a_DEFINE_0"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -1006,8 +1042,12 @@ TranslationUnit {
             "a_DEFINE_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -1038,8 +1078,12 @@ TranslationUnit {
             "a_DEFINE_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclMacro
         (MacroExpr
@@ -1069,8 +1113,12 @@ TranslationUnit {
             "tWO_ARGS"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind =
       DeclMacro
@@ -1113,8 +1161,12 @@ TranslationUnit {
             "distilled_lib_1.h:61:9"),
         declAliases = [
           Name "a_typedef_enum_e"],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclEnum
         Enum {
@@ -1187,8 +1239,12 @@ TranslationUnit {
             "some_fun"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -1583,8 +1639,12 @@ TranslationUnit {
             "Callback_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -1846,8 +1906,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "v"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "distilled_lib_1.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["distilled_lib_1.h"],
+            headerInclude =
+            "distilled_lib_1.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeTypedef

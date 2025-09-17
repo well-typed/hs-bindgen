@@ -8,6 +8,7 @@ module HsBindgen.Resolve (
 import Control.Monad ((<=<))
 import Control.Monad.Trans.Maybe (MaybeT (..), runMaybeT)
 import Data.Either (partitionEithers)
+import Data.List.Compat ((!?))
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
@@ -24,7 +25,6 @@ import HsBindgen.Clang
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Util.List ((!?))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

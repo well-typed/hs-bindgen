@@ -33,7 +33,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "unions.h:2:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -60,7 +64,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "unions.h:3:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -72,7 +80,11 @@
                 "Dim2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "unions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["unions.h"],
+                headerInclude = "unions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -120,7 +132,11 @@
           commentOrigin = Just "Dim2",
           commentLocation = Just
             "unions.h:1:8",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -159,7 +175,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "unions.h:2:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -186,7 +206,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "unions.h:3:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -198,7 +222,11 @@
                     "Dim2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "unions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["unions.h"],
+                    headerInclude = "unions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -246,7 +274,11 @@
               commentOrigin = Just "Dim2",
               commentLocation = Just
                 "unions.h:1:8",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -288,7 +320,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "unions.h:2:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -315,7 +351,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "unions.h:3:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -327,7 +367,11 @@
                             "Dim2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -375,7 +419,11 @@
                       commentOrigin = Just "Dim2",
                       commentLocation = Just
                         "unions.h:1:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -419,7 +467,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "unions.h:2:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -446,7 +498,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "unions.h:3:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -458,7 +514,11 @@
                             "Dim2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -506,7 +566,11 @@
                       commentOrigin = Just "Dim2",
                       commentLocation = Just
                         "unions.h:1:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -572,7 +636,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "unions.h:7:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -599,7 +667,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "unions.h:8:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -626,7 +698,11 @@
               commentOrigin = Just "z",
               commentLocation = Just
                 "unions.h:9:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -638,7 +714,11 @@
                 "Dim3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "unions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["unions.h"],
+                headerInclude = "unions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -698,7 +778,11 @@
           commentOrigin = Just "Dim3",
           commentLocation = Just
             "unions.h:6:8",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -737,7 +821,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "unions.h:7:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -764,7 +852,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "unions.h:8:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -791,7 +883,11 @@
                   commentOrigin = Just "z",
                   commentLocation = Just
                     "unions.h:9:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -803,7 +899,11 @@
                     "Dim3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "unions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["unions.h"],
+                    headerInclude = "unions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -863,7 +963,11 @@
               commentOrigin = Just "Dim3",
               commentLocation = Just
                 "unions.h:6:8",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -905,7 +1009,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "unions.h:7:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -932,7 +1040,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "unions.h:8:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -959,7 +1071,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "unions.h:9:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -971,7 +1087,11 @@
                             "Dim3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1031,7 +1151,11 @@
                       commentOrigin = Just "Dim3",
                       commentLocation = Just
                         "unions.h:6:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1076,7 +1200,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "unions.h:7:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1103,7 +1231,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "unions.h:8:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1130,7 +1262,11 @@
                           commentOrigin = Just "z",
                           commentLocation = Just
                             "unions.h:9:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1142,7 +1278,11 @@
                             "Dim3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1202,7 +1342,11 @@
                       commentOrigin = Just "Dim3",
                       commentLocation = Just
                         "unions.h:6:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -1259,7 +1403,11 @@
               "DimPayload"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "unions.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -1316,7 +1464,11 @@
             "DimPayload",
           commentLocation = Just
             "unions.h:12:7",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1345,7 +1497,11 @@
           commentOrigin = Just "dim2",
           commentLocation = Just
             "unions.h:13:17",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = [
             Paragraph
               [
@@ -1367,7 +1523,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -1390,7 +1546,11 @@
           commentOrigin = Just "dim3",
           commentLocation = Just
             "unions.h:14:17",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = [
             Paragraph
               [
@@ -1412,7 +1572,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -1453,7 +1613,11 @@
               commentOrigin = Just "tag",
               commentLocation = Just
                 "unions.h:18:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -1486,7 +1650,11 @@
               commentOrigin = Just "payload",
               commentLocation = Just
                 "unions.h:19:22",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -1498,7 +1666,11 @@
                 "Dim"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "unions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["unions.h"],
+                headerInclude = "unions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1550,7 +1722,11 @@
           commentOrigin = Just "Dim",
           commentLocation = Just
             "unions.h:17:8",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1589,7 +1765,11 @@
                   commentOrigin = Just "tag",
                   commentLocation = Just
                     "unions.h:18:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1622,7 +1802,11 @@
                   commentOrigin = Just "payload",
                   commentLocation = Just
                     "unions.h:19:22",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -1634,7 +1818,11 @@
                     "Dim"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "unions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["unions.h"],
+                    headerInclude = "unions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1686,7 +1874,11 @@
               commentOrigin = Just "Dim",
               commentLocation = Just
                 "unions.h:17:8",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -1728,7 +1920,11 @@
                           commentOrigin = Just "tag",
                           commentLocation = Just
                             "unions.h:18:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1761,7 +1957,11 @@
                           commentOrigin = Just "payload",
                           commentLocation = Just
                             "unions.h:19:22",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1773,7 +1973,11 @@
                             "Dim"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1825,7 +2029,11 @@
                       commentOrigin = Just "Dim",
                       commentLocation = Just
                         "unions.h:17:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -1869,7 +2077,11 @@
                           commentOrigin = Just "tag",
                           commentLocation = Just
                             "unions.h:18:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1902,7 +2114,11 @@
                           commentOrigin = Just "payload",
                           commentLocation = Just
                             "unions.h:19:22",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -1914,7 +2130,11 @@
                             "Dim"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1966,7 +2186,11 @@
                       commentOrigin = Just "Dim",
                       commentLocation = Just
                         "unions.h:17:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2003,7 +2227,11 @@
           declOrigin = NameOriginInSource,
           declAliases = [
             Name "DimPayloadB"],
-          declHeader = "unions.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -2060,7 +2288,11 @@
             "DimPayloadB",
           commentLocation = Just
             "unions.h:23:15",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2089,7 +2321,11 @@
           commentOrigin = Just "dim2",
           commentLocation = Just
             "unions.h:24:17",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = [
             Paragraph
               [
@@ -2111,7 +2347,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -2134,7 +2370,11 @@
           commentOrigin = Just "dim3",
           commentLocation = Just
             "unions.h:25:17",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = [
             Paragraph
               [
@@ -2156,7 +2396,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -2197,7 +2437,11 @@
               commentOrigin = Just "tag",
               commentLocation = Just
                 "unions.h:29:9",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2233,7 +2477,11 @@
               commentOrigin = Just "payload",
               commentLocation = Just
                 "unions.h:30:17",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2245,7 +2493,11 @@
                 "DimB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "unions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["unions.h"],
+                headerInclude = "unions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2300,7 +2552,11 @@
           commentOrigin = Just "DimB",
           commentLocation = Just
             "unions.h:28:8",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2339,7 +2595,11 @@
                   commentOrigin = Just "tag",
                   commentLocation = Just
                     "unions.h:29:9",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2375,7 +2635,11 @@
                   commentOrigin = Just "payload",
                   commentLocation = Just
                     "unions.h:30:17",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2387,7 +2651,11 @@
                     "DimB"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "unions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["unions.h"],
+                    headerInclude = "unions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2442,7 +2710,11 @@
               commentOrigin = Just "DimB",
               commentLocation = Just
                 "unions.h:28:8",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 12,
@@ -2484,7 +2756,11 @@
                           commentOrigin = Just "tag",
                           commentLocation = Just
                             "unions.h:29:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2520,7 +2796,11 @@
                           commentOrigin = Just "payload",
                           commentLocation = Just
                             "unions.h:30:17",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2532,7 +2812,11 @@
                             "DimB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2587,7 +2871,11 @@
                       commentOrigin = Just "DimB",
                       commentLocation = Just
                         "unions.h:28:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -2631,7 +2919,11 @@
                           commentOrigin = Just "tag",
                           commentLocation = Just
                             "unions.h:29:9",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -2667,7 +2959,11 @@
                           commentOrigin = Just "payload",
                           commentLocation = Just
                             "unions.h:30:17",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -2679,7 +2975,11 @@
                             "DimB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2734,7 +3034,11 @@
                       commentOrigin = Just "DimB",
                       commentLocation = Just
                         "unions.h:28:8",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -2780,7 +3084,11 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "unions.h:35:21",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2807,7 +3115,11 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "unions.h:35:31",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2820,7 +3132,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "unions.h:35:5"),
             declAliases = [],
-            declHeader = "unions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["unions.h"],
+                headerInclude = "unions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2868,7 +3184,11 @@
           commentOrigin = Just "AnonA_xy",
           commentLocation = Just
             "unions.h:35:5",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2907,7 +3227,11 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "unions.h:35:21",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -2934,7 +3258,11 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "unions.h:35:31",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -2947,7 +3275,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "unions.h:35:5"),
                 declAliases = [],
-                declHeader = "unions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["unions.h"],
+                    headerInclude = "unions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2995,7 +3327,11 @@
               commentOrigin = Just "AnonA_xy",
               commentLocation = Just
                 "unions.h:35:5",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3037,7 +3373,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "unions.h:35:21",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3064,7 +3404,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "unions.h:35:31",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3077,7 +3421,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "unions.h:35:5"),
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3125,7 +3473,11 @@
                       commentOrigin = Just "AnonA_xy",
                       commentLocation = Just
                         "unions.h:35:5",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3169,7 +3521,11 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "unions.h:35:21",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3196,7 +3552,11 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "unions.h:35:31",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3209,7 +3569,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "unions.h:35:5"),
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3257,7 +3621,11 @@
                       commentOrigin = Just "AnonA_xy",
                       commentLocation = Just
                         "unions.h:35:5",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3323,7 +3691,11 @@
               commentOrigin = Just "r",
               commentLocation = Just
                 "unions.h:36:21",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3350,7 +3722,11 @@
               commentOrigin = Just "p",
               commentLocation = Just
                 "unions.h:36:31",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3363,7 +3739,11 @@
             declOrigin = NameOriginGenerated
               (AnonId "unions.h:36:5"),
             declAliases = [],
-            declHeader = "unions.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["unions.h"],
+                headerInclude = "unions.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3414,7 +3794,11 @@
             "AnonA_polar",
           commentLocation = Just
             "unions.h:36:5",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3453,7 +3837,11 @@
                   commentOrigin = Just "r",
                   commentLocation = Just
                     "unions.h:36:21",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3480,7 +3868,11 @@
                   commentOrigin = Just "p",
                   commentLocation = Just
                     "unions.h:36:31",
-                  commentHeader = Just "unions.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["unions.h"],
+                      headerInclude = "unions.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3493,7 +3885,11 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "unions.h:36:5"),
                 declAliases = [],
-                declHeader = "unions.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["unions.h"],
+                    headerInclude = "unions.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3544,7 +3940,11 @@
                 "AnonA_polar",
               commentLocation = Just
                 "unions.h:36:5",
-              commentHeader = Just "unions.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["unions.h"],
+                  headerInclude = "unions.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3586,7 +3986,11 @@
                           commentOrigin = Just "r",
                           commentLocation = Just
                             "unions.h:36:21",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3613,7 +4017,11 @@
                           commentOrigin = Just "p",
                           commentLocation = Just
                             "unions.h:36:31",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3626,7 +4034,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "unions.h:36:5"),
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3677,7 +4089,11 @@
                         "AnonA_polar",
                       commentLocation = Just
                         "unions.h:36:5",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3721,7 +4137,11 @@
                           commentOrigin = Just "r",
                           commentLocation = Just
                             "unions.h:36:21",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3748,7 +4168,11 @@
                           commentOrigin = Just "p",
                           commentLocation = Just
                             "unions.h:36:31",
-                          commentHeader = Just "unions.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["unions.h"],
+                              headerInclude = "unions.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3761,7 +4185,11 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "unions.h:36:5"),
                         declAliases = [],
-                        declHeader = "unions.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["unions.h"],
+                            headerInclude = "unions.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3812,7 +4240,11 @@
                         "AnonA_polar",
                       commentLocation = Just
                         "unions.h:36:5",
-                      commentHeader = Just "unions.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["unions.h"],
+                          headerInclude = "unions.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3868,7 +4300,11 @@
               "AnonA"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "unions.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -3926,7 +4362,11 @@
           commentOrigin = Just "AnonA",
           commentLocation = Just
             "unions.h:34:7",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -3957,7 +4397,11 @@
           commentOrigin = Just "xy",
           commentLocation = Just
             "unions.h:35:36",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = [
             Paragraph
               [
@@ -3980,7 +4424,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -4004,7 +4448,11 @@
           commentOrigin = Just "polar",
           commentLocation = Just
             "unions.h:36:36",
-          commentHeader = Just "unions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
           commentChildren = [
             Paragraph
               [
@@ -4028,7 +4476,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [

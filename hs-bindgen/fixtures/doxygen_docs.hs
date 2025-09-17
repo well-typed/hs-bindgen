@@ -31,8 +31,12 @@
             "MAX_NAME_LENGTH",
           commentLocation = Just
             "doxygen_docs.h:39:9",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []}},
   DeclNewtype
     Newtype {
@@ -169,7 +173,12 @@
               "Size_type"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -348,8 +357,12 @@
             "size_type",
           commentLocation = Just
             "doxygen_docs.h:54:16",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim "size_type",
             Paragraph
@@ -517,8 +530,12 @@
             "global_counter",
           commentLocation = Just
             "doxygen_docs.h:61:12",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim
               "extern int global_counter",
@@ -568,8 +585,12 @@
             "version_string",
           commentLocation = Just
             "doxygen_docs.h:67:20",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim
               "extern const char* version_string",
@@ -595,7 +616,12 @@
               "Forward_declared_struct"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -634,8 +660,12 @@
             "forward_declared_struct",
           commentLocation = Just
             "doxygen_docs.h:72:8",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -656,7 +686,12 @@
               "Forward_declared_union"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -681,8 +716,12 @@
             "forward_declared_union",
           commentLocation = Just
             "doxygen_docs.h:77:7",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -713,7 +752,12 @@
               "Color_enum"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -797,8 +841,12 @@
             "color_enum",
           commentLocation = Just
             "doxygen_docs.h:83:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim "color_enum",
             Paragraph
@@ -1068,8 +1116,12 @@
             "COLOR_RED",
           commentLocation = Just
             "doxygen_docs.h:84:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1106,8 +1158,12 @@
             "COLOR_GREEN",
           commentLocation = Just
             "doxygen_docs.h:85:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
@@ -1144,8 +1200,12 @@
             "COLOR_BLUE",
           commentLocation = Just
             "doxygen_docs.h:86:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
@@ -1274,7 +1334,7 @@
               commentOrigin = Just
                 "input_data",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -1408,7 +1468,7 @@
               commentOrigin = Just
                 "output_data",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -1541,7 +1601,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "size",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -1952,8 +2012,12 @@
             "process_data",
           commentLocation = Just
             "doxygen_docs.h:105:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren =
           [
             Paragraph
@@ -2728,8 +2792,12 @@
             "process_data",
           commentLocation = Just
             "doxygen_docs.h:105:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren =
           [
             Paragraph
@@ -2797,7 +2865,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "filename",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -2850,8 +2918,12 @@
             "process_file",
           commentLocation = Just
             "doxygen_docs.h:116:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -2931,8 +3003,12 @@
             "process_file",
           commentLocation = Just
             "doxygen_docs.h:116:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -2991,7 +3067,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "base",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3012,7 +3088,7 @@
               commentOrigin = Just
                 "multiplier",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3068,8 +3144,12 @@
             "calculate_value",
           commentLocation = Just
             "doxygen_docs.h:131:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3147,8 +3227,12 @@
             "calculate_value",
           commentLocation = Just
             "doxygen_docs.h:131:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3203,7 +3287,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "value",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3250,8 +3334,12 @@
             "html_example",
           commentLocation = Just
             "doxygen_docs.h:148:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3325,8 +3413,12 @@
             "html_example",
           commentLocation = Just
             "doxygen_docs.h:148:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3383,7 +3475,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "items",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3405,7 +3497,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "count",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3463,8 +3555,12 @@
             "list_example",
           commentLocation = Just
             "doxygen_docs.h:174:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3620,8 +3716,12 @@
             "list_example",
           commentLocation = Just
             "doxygen_docs.h:174:6",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3750,7 +3850,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "ptr",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3798,8 +3898,12 @@
             "dangerous_function",
           commentLocation = Just
             "doxygen_docs.h:186:7",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3872,8 +3976,12 @@
             "dangerous_function",
           commentLocation = Just
             "doxygen_docs.h:186:7",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -3929,7 +4037,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "input",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -3980,8 +4088,12 @@
             "detailed_return_codes",
           commentLocation = Just
             "doxygen_docs.h:197:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4059,8 +4171,12 @@
             "detailed_return_codes",
           commentLocation = Just
             "doxygen_docs.h:197:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4116,7 +4232,7 @@
               commentOrigin = Just
                 "old_param",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -4164,8 +4280,12 @@
             "old_function",
           commentLocation = Just
             "doxygen_docs.h:206:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4230,8 +4350,12 @@
             "old_function",
           commentLocation = Just
             "doxygen_docs.h:206:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4277,7 +4401,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "data'",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -4314,8 +4438,12 @@
             "versioned_function",
           commentLocation = Just
             "doxygen_docs.h:216:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4373,8 +4501,12 @@
             "versioned_function",
           commentLocation = Just
             "doxygen_docs.h:216:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4428,7 +4560,12 @@
               "Event_callback_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -4505,8 +4642,12 @@
             "event_callback_t",
           commentLocation = Just
             "doxygen_docs.h:225:15",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -4844,8 +4985,12 @@
               commentOrigin = Just "id",
               commentLocation = Just
                 "doxygen_docs.h:234:14",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -4891,8 +5036,12 @@
               commentOrigin = Just "name",
               commentLocation = Just
                 "doxygen_docs.h:237:10",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -5156,8 +5305,12 @@
               commentOrigin = Just "flags",
               commentLocation = Just
                 "doxygen_docs.h:240:14",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -5214,8 +5367,12 @@
               commentOrigin = Just "callback",
               commentLocation = Just
                 "doxygen_docs.h:247:22",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -5262,8 +5419,12 @@
                 "user_data",
               commentLocation = Just
                 "doxygen_docs.h:250:11",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -5281,7 +5442,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "doxygen_docs.h:232:9"),
             declAliases = [Name "config_t"],
-            declHeader = "doxygen_docs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["doxygen_docs.h"],
+                headerInclude =
+                "doxygen_docs.h"},
             declComment = Just
               (Comment
                 [
@@ -5674,8 +5840,12 @@
           commentOrigin = Just "config_t",
           commentLocation = Just
             "doxygen_docs.h:232:9",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -5955,8 +6125,12 @@
                   commentOrigin = Just "id",
                   commentLocation = Just
                     "doxygen_docs.h:234:14",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -6002,8 +6176,12 @@
                   commentOrigin = Just "name",
                   commentLocation = Just
                     "doxygen_docs.h:237:10",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -6267,8 +6445,12 @@
                   commentOrigin = Just "flags",
                   commentLocation = Just
                     "doxygen_docs.h:240:14",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -6325,8 +6507,12 @@
                   commentOrigin = Just "callback",
                   commentLocation = Just
                     "doxygen_docs.h:247:22",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -6373,8 +6559,12 @@
                     "user_data",
                   commentLocation = Just
                     "doxygen_docs.h:250:11",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -6394,7 +6584,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "doxygen_docs.h:232:9"),
                 declAliases = [Name "config_t"],
-                declHeader = "doxygen_docs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["doxygen_docs.h"],
+                    headerInclude =
+                    "doxygen_docs.h"},
                 declComment =
                 Just
                   (Comment
@@ -6788,8 +6983,12 @@
               commentOrigin = Just "config_t",
               commentLocation = Just
                 "doxygen_docs.h:232:9",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -7073,8 +7272,12 @@
                           commentOrigin = Just "id",
                           commentLocation = Just
                             "doxygen_docs.h:234:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -7120,8 +7323,12 @@
                           commentOrigin = Just "name",
                           commentLocation = Just
                             "doxygen_docs.h:237:10",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -7385,8 +7592,12 @@
                           commentOrigin = Just "flags",
                           commentLocation = Just
                             "doxygen_docs.h:240:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -7443,8 +7654,12 @@
                           commentOrigin = Just "callback",
                           commentLocation = Just
                             "doxygen_docs.h:247:22",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -7491,8 +7706,12 @@
                             "user_data",
                           commentLocation = Just
                             "doxygen_docs.h:250:11",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -7512,7 +7731,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:232:9"),
                         declAliases = [Name "config_t"],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment =
                         Just
                           (Comment
@@ -7907,8 +8131,12 @@
                       commentOrigin = Just "config_t",
                       commentLocation = Just
                         "doxygen_docs.h:232:9",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren =
                       [
                         Paragraph
@@ -8198,8 +8426,12 @@
                           commentOrigin = Just "id",
                           commentLocation = Just
                             "doxygen_docs.h:234:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -8245,8 +8477,12 @@
                           commentOrigin = Just "name",
                           commentLocation = Just
                             "doxygen_docs.h:237:10",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -8510,8 +8746,12 @@
                           commentOrigin = Just "flags",
                           commentLocation = Just
                             "doxygen_docs.h:240:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -8568,8 +8808,12 @@
                           commentOrigin = Just "callback",
                           commentLocation = Just
                             "doxygen_docs.h:247:22",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -8616,8 +8860,12 @@
                             "user_data",
                           commentLocation = Just
                             "doxygen_docs.h:250:11",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -8637,7 +8885,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:232:9"),
                         declAliases = [Name "config_t"],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment =
                         Just
                           (Comment
@@ -9032,8 +9285,12 @@
                       commentOrigin = Just "config_t",
                       commentLocation = Just
                         "doxygen_docs.h:232:9",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren =
                       [
                         Paragraph
@@ -9105,7 +9362,12 @@
             (AnonId "doxygen_docs.h:258:9"),
           declAliases = [
             Name "status_code_t"],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -9245,8 +9507,12 @@
             "status_code_t",
           commentLocation = Just
             "doxygen_docs.h:258:9",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -9502,8 +9768,12 @@
             "STATUS_OK",
           commentLocation = Just
             "doxygen_docs.h:260:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -9549,8 +9819,12 @@
             "STATUS_INVALID_PARAM",
           commentLocation = Just
             "doxygen_docs.h:263:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -9595,8 +9869,12 @@
             "STATUS_NO_MEMORY",
           commentLocation = Just
             "doxygen_docs.h:266:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -9641,8 +9919,12 @@
             "STATUS_TIMEOUT",
           commentLocation = Just
             "doxygen_docs.h:269:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -9687,8 +9969,12 @@
             "STATUS_ERROR",
           commentLocation = Just
             "doxygen_docs.h:272:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -9959,8 +10245,12 @@
               commentOrigin = Just "low",
               commentLocation = Just
                 "doxygen_docs.h:291:18",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [TextContent "Low 16 bits"]]}},
@@ -10221,8 +10511,12 @@
               commentOrigin = Just "high",
               commentLocation = Just
                 "doxygen_docs.h:292:18",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -10240,7 +10534,12 @@
             declOrigin = NameOriginGenerated
               (AnonId "doxygen_docs.h:290:5"),
             declAliases = [],
-            declHeader = "doxygen_docs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["doxygen_docs.h"],
+                headerInclude =
+                "doxygen_docs.h"},
             declComment = Just
               (Comment
                 [
@@ -10553,8 +10852,12 @@
             "data_union_t_as_parts",
           commentLocation = Just
             "doxygen_docs.h:290:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -10833,8 +11136,12 @@
                   commentOrigin = Just "low",
                   commentLocation = Just
                     "doxygen_docs.h:291:18",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [TextContent "Low 16 bits"]]}},
@@ -11095,8 +11402,12 @@
                   commentOrigin = Just "high",
                   commentLocation = Just
                     "doxygen_docs.h:292:18",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -11116,7 +11427,12 @@
                 declOrigin = NameOriginGenerated
                   (AnonId "doxygen_docs.h:290:5"),
                 declAliases = [],
-                declHeader = "doxygen_docs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["doxygen_docs.h"],
+                    headerInclude =
+                    "doxygen_docs.h"},
                 declComment =
                 Just
                   (Comment
@@ -11431,8 +11747,12 @@
                 "data_union_t_as_parts",
               commentLocation = Just
                 "doxygen_docs.h:290:5",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -11715,8 +12035,12 @@
                           commentOrigin = Just "low",
                           commentLocation = Just
                             "doxygen_docs.h:291:18",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [TextContent "Low 16 bits"]]}},
@@ -11977,8 +12301,12 @@
                           commentOrigin = Just "high",
                           commentLocation = Just
                             "doxygen_docs.h:292:18",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -11998,7 +12326,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:290:5"),
                         declAliases = [],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment =
                         Just
                           (Comment
@@ -12314,8 +12647,12 @@
                         "data_union_t_as_parts",
                       commentLocation = Just
                         "doxygen_docs.h:290:5",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren =
                       [
                         Paragraph
@@ -12601,8 +12938,12 @@
                           commentOrigin = Just "low",
                           commentLocation = Just
                             "doxygen_docs.h:291:18",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [TextContent "Low 16 bits"]]}},
@@ -12863,8 +13204,12 @@
                           commentOrigin = Just "high",
                           commentLocation = Just
                             "doxygen_docs.h:292:18",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -12884,7 +13229,12 @@
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:290:5"),
                         declAliases = [],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment =
                         Just
                           (Comment
@@ -13200,8 +13550,12 @@
                         "data_union_t_as_parts",
                       commentLocation = Just
                         "doxygen_docs.h:290:5",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren =
                       [
                         Paragraph
@@ -13271,7 +13625,12 @@
             (AnonId "doxygen_docs.h:281:9"),
           declAliases = [
             Name "data_union_t"],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment =
           Just
             (Comment
@@ -13630,8 +13989,12 @@
             "data_union_t",
           commentLocation = Just
             "doxygen_docs.h:281:9",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim "data_union_t",
             Paragraph
@@ -13778,8 +14141,12 @@
           commentOrigin = Just "as_int",
           commentLocation = Just
             "doxygen_docs.h:282:13",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -13914,7 +14281,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -13937,8 +14304,12 @@
           commentOrigin = Just "as_float",
           commentLocation = Just
             "doxygen_docs.h:283:11",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -13964,7 +14335,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -14098,8 +14469,12 @@
           commentOrigin = Just "as_bytes",
           commentLocation = Just
             "doxygen_docs.h:284:13",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -14236,7 +14611,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -14262,8 +14637,12 @@
           commentOrigin = Just "as_parts",
           commentLocation = Just
             "doxygen_docs.h:293:30",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -14287,7 +14666,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -14338,8 +14717,12 @@
               commentOrigin = Just "flag1",
               commentLocation = Just
                 "doxygen_docs.h:303:14",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -14380,8 +14763,12 @@
               commentOrigin = Just "flag2",
               commentLocation = Just
                 "doxygen_docs.h:304:14",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -14422,8 +14809,12 @@
               commentOrigin = Just "counter",
               commentLocation = Just
                 "doxygen_docs.h:305:14",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -14464,8 +14855,12 @@
               commentOrigin = Just "reserved",
               commentLocation = Just
                 "doxygen_docs.h:306:14",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -14484,7 +14879,12 @@
               (AnonId "doxygen_docs.h:302:9"),
             declAliases = [
               Name "bitfield_t"],
-            declHeader = "doxygen_docs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["doxygen_docs.h"],
+                headerInclude =
+                "doxygen_docs.h"},
             declComment = Just
               (Comment
                 [
@@ -14614,8 +15014,12 @@
             "bitfield_t",
           commentLocation = Just
             "doxygen_docs.h:302:9",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim "bitfield_t",
             Paragraph
@@ -14673,8 +15077,12 @@
                   commentOrigin = Just "flag1",
                   commentLocation = Just
                     "doxygen_docs.h:303:14",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -14715,8 +15123,12 @@
                   commentOrigin = Just "flag2",
                   commentLocation = Just
                     "doxygen_docs.h:304:14",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -14757,8 +15169,12 @@
                   commentOrigin = Just "counter",
                   commentLocation = Just
                     "doxygen_docs.h:305:14",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -14799,8 +15215,12 @@
                   commentOrigin = Just "reserved",
                   commentLocation = Just
                     "doxygen_docs.h:306:14",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -14819,7 +15239,12 @@
                   (AnonId "doxygen_docs.h:302:9"),
                 declAliases = [
                   Name "bitfield_t"],
-                declHeader = "doxygen_docs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["doxygen_docs.h"],
+                    headerInclude =
+                    "doxygen_docs.h"},
                 declComment = Just
                   (Comment
                     [
@@ -14949,8 +15374,12 @@
                 "bitfield_t",
               commentLocation = Just
                 "doxygen_docs.h:302:9",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Verbatim "bitfield_t",
                 Paragraph
@@ -15011,8 +15440,12 @@
                           commentOrigin = Just "flag1",
                           commentLocation = Just
                             "doxygen_docs.h:303:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15053,8 +15486,12 @@
                           commentOrigin = Just "flag2",
                           commentLocation = Just
                             "doxygen_docs.h:304:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15095,8 +15532,12 @@
                           commentOrigin = Just "counter",
                           commentLocation = Just
                             "doxygen_docs.h:305:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15137,8 +15578,12 @@
                           commentOrigin = Just "reserved",
                           commentLocation = Just
                             "doxygen_docs.h:306:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15157,7 +15602,12 @@
                           (AnonId "doxygen_docs.h:302:9"),
                         declAliases = [
                           Name "bitfield_t"],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment = Just
                           (Comment
                             [
@@ -15287,8 +15737,12 @@
                         "bitfield_t",
                       commentLocation = Just
                         "doxygen_docs.h:302:9",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren = [
                         Verbatim "bitfield_t",
                         Paragraph
@@ -15353,8 +15807,12 @@
                           commentOrigin = Just "flag1",
                           commentLocation = Just
                             "doxygen_docs.h:303:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15395,8 +15853,12 @@
                           commentOrigin = Just "flag2",
                           commentLocation = Just
                             "doxygen_docs.h:304:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15437,8 +15899,12 @@
                           commentOrigin = Just "counter",
                           commentLocation = Just
                             "doxygen_docs.h:305:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15479,8 +15945,12 @@
                           commentOrigin = Just "reserved",
                           commentLocation = Just
                             "doxygen_docs.h:306:14",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -15499,7 +15969,12 @@
                           (AnonId "doxygen_docs.h:302:9"),
                         declAliases = [
                           Name "bitfield_t"],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment = Just
                           (Comment
                             [
@@ -15629,8 +16104,12 @@
                         "bitfield_t",
                       commentLocation = Just
                         "doxygen_docs.h:302:9",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren = [
                         Verbatim "bitfield_t",
                         Paragraph
@@ -15717,7 +16196,12 @@
               "Processor_fn_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -15795,8 +16279,12 @@
             "processor_fn_t",
           commentLocation = Just
             "doxygen_docs.h:317:15",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim "processor_fn_t",
             Paragraph
@@ -15894,7 +16382,12 @@
               "Filename_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader = "doxygen_docs.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           declComment = Just
             (Comment
               [
@@ -15937,8 +16430,12 @@
             "filename_t",
           commentLocation = Just
             "doxygen_docs.h:323:14",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Verbatim "filename_t",
             Paragraph
@@ -15991,7 +16488,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "buffer",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -16124,7 +16621,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "size",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -16297,8 +16794,12 @@
             "process_buffer",
           commentLocation = Just
             "doxygen_docs.h:332:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -16603,8 +17104,12 @@
             "process_buffer",
           commentLocation = Just
             "doxygen_docs.h:332:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -16655,7 +17160,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "dest",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -16677,7 +17182,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "src",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -16809,7 +17314,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "n",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -16986,8 +17491,12 @@
             "my_memcpy",
           commentLocation = Just
             "doxygen_docs.h:342:7",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -17297,8 +17806,12 @@
             "my_memcpy",
           commentLocation = Just
             "doxygen_docs.h:342:7",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -17358,7 +17871,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -17404,8 +17917,12 @@
             "double_value",
           commentLocation = Just
             "doxygen_docs.h:350:19",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [TextContent "Inline function"],
@@ -17459,8 +17976,12 @@
             "double_value",
           commentLocation = Just
             "doxygen_docs.h:350:19",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [TextContent "Inline function"],
@@ -17746,8 +18267,12 @@
               commentOrigin = Just "count",
               commentLocation = Just
                 "doxygen_docs.h:361:12",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -17764,7 +18289,12 @@
                 "Flexible_array"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader = "doxygen_docs.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["doxygen_docs.h"],
+                headerInclude =
+                "doxygen_docs.h"},
             declComment = Just
               (Comment
                 [
@@ -17978,8 +18508,12 @@
             "flexible_array",
           commentLocation = Just
             "doxygen_docs.h:360:8",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -18270,8 +18804,12 @@
                   commentOrigin = Just "count",
                   commentLocation = Just
                     "doxygen_docs.h:361:12",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -18288,7 +18826,12 @@
                     "Flexible_array"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "doxygen_docs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["doxygen_docs.h"],
+                    headerInclude =
+                    "doxygen_docs.h"},
                 declComment = Just
                   (Comment
                     [
@@ -18502,8 +19045,12 @@
                 "flexible_array",
               commentLocation = Just
                 "doxygen_docs.h:360:8",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -18797,8 +19344,12 @@
                           commentOrigin = Just "count",
                           commentLocation = Just
                             "doxygen_docs.h:361:12",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -18815,7 +19366,12 @@
                             "Flexible_array"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment = Just
                           (Comment
                             [
@@ -19029,8 +19585,12 @@
                         "flexible_array",
                       commentLocation = Just
                         "doxygen_docs.h:360:8",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren = [
                         Paragraph
                           [
@@ -19324,8 +19884,12 @@
                           commentOrigin = Just "count",
                           commentLocation = Just
                             "doxygen_docs.h:361:12",
-                          commentHeader = Just
-                            "doxygen_docs.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["doxygen_docs.h"],
+                              headerInclude =
+                              "doxygen_docs.h"},
                           commentChildren = [
                             Paragraph
                               [
@@ -19342,7 +19906,12 @@
                             "Flexible_array"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader = "doxygen_docs.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["doxygen_docs.h"],
+                            headerInclude =
+                            "doxygen_docs.h"},
                         declComment = Just
                           (Comment
                             [
@@ -19556,8 +20125,12 @@
                         "flexible_array",
                       commentLocation = Just
                         "doxygen_docs.h:360:8",
-                      commentHeader = Just
-                        "doxygen_docs.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["doxygen_docs.h"],
+                          headerInclude =
+                          "doxygen_docs.h"},
                       commentChildren = [
                         Paragraph
                           [
@@ -19877,8 +20450,12 @@
                   commentOrigin = Just "count",
                   commentLocation = Just
                     "doxygen_docs.h:361:12",
-                  commentHeader = Just
-                    "doxygen_docs.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["doxygen_docs.h"],
+                      headerInclude =
+                      "doxygen_docs.h"},
                   commentChildren = [
                     Paragraph
                       [
@@ -19895,7 +20472,12 @@
                     "Flexible_array"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader = "doxygen_docs.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["doxygen_docs.h"],
+                    headerInclude =
+                    "doxygen_docs.h"},
                 declComment = Just
                   (Comment
                     [
@@ -20109,8 +20691,12 @@
                 "flexible_array",
               commentLocation = Just
                 "doxygen_docs.h:360:8",
-              commentHeader = Just
-                "doxygen_docs.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["doxygen_docs.h"],
+                  headerInclude =
+                  "doxygen_docs.h"},
               commentChildren = [
                 Paragraph
                   [
@@ -20154,7 +20740,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "config",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -20289,7 +20875,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "data'",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -20411,7 +20997,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "size",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = [
                 DefinitionList {
                   definitionListTerm = Bold
@@ -20728,8 +21314,12 @@
             "complex_function",
           commentLocation = Just
             "doxygen_docs.h:423:15",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren =
           [
             Paragraph
@@ -21422,8 +22012,12 @@
             "complex_function",
           commentLocation = Just
             "doxygen_docs.h:423:15",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren =
           [
             Paragraph
@@ -21611,7 +22205,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "s",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -21649,8 +22243,12 @@
           commentOrigin = Just "hash",
           commentLocation = Just
             "doxygen_docs.h:427:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = [
             Paragraph
               [
@@ -21701,8 +22299,12 @@
           commentOrigin = Just "hash",
           commentLocation = Just
             "doxygen_docs.h:427:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -21723,7 +22325,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -21758,8 +22360,12 @@
           commentOrigin = Just "square",
           commentLocation = Just
             "doxygen_docs.h:429:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -21798,8 +22404,12 @@
           commentOrigin = Just "square",
           commentLocation = Just
             "doxygen_docs.h:429:5",
-          commentHeader = Just
-            "doxygen_docs.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

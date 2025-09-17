@@ -14,8 +14,12 @@
               "Opaque"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "decls_in_signature.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
@@ -30,8 +34,12 @@
           commentOrigin = Just "opaque",
           commentLocation = Just
             "decls_in_signature.h:2:8",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -68,8 +76,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "decls_in_signature.h:4:7",
-              commentHeader = Just
-                "decls_in_signature.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["decls_in_signature.h"],
+                  headerInclude =
+                  "decls_in_signature.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -97,8 +109,12 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "decls_in_signature.h:5:7",
-              commentHeader = Just
-                "decls_in_signature.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["decls_in_signature.h"],
+                  headerInclude =
+                  "decls_in_signature.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -111,8 +127,12 @@
                 "Outside"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "decls_in_signature.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["decls_in_signature.h"],
+                headerInclude =
+                "decls_in_signature.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -162,8 +182,12 @@
           commentOrigin = Just "outside",
           commentLocation = Just
             "decls_in_signature.h:3:8",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -203,8 +227,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "decls_in_signature.h:4:7",
-                  commentHeader = Just
-                    "decls_in_signature.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["decls_in_signature.h"],
+                      headerInclude =
+                      "decls_in_signature.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -232,8 +260,12 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "decls_in_signature.h:5:7",
-                  commentHeader = Just
-                    "decls_in_signature.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["decls_in_signature.h"],
+                      headerInclude =
+                      "decls_in_signature.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -246,8 +278,12 @@
                     "Outside"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "decls_in_signature.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["decls_in_signature.h"],
+                    headerInclude =
+                    "decls_in_signature.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -297,8 +333,12 @@
               commentOrigin = Just "outside",
               commentLocation = Just
                 "decls_in_signature.h:3:8",
-              commentHeader = Just
-                "decls_in_signature.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["decls_in_signature.h"],
+                  headerInclude =
+                  "decls_in_signature.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 8,
@@ -341,8 +381,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "decls_in_signature.h:4:7",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -370,8 +414,12 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "decls_in_signature.h:5:7",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -384,8 +432,12 @@
                             "Outside"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "decls_in_signature.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["decls_in_signature.h"],
+                            headerInclude =
+                            "decls_in_signature.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -435,8 +487,12 @@
                       commentOrigin = Just "outside",
                       commentLocation = Just
                         "decls_in_signature.h:3:8",
-                      commentHeader = Just
-                        "decls_in_signature.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["decls_in_signature.h"],
+                          headerInclude =
+                          "decls_in_signature.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -481,8 +537,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "decls_in_signature.h:4:7",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -510,8 +570,12 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "decls_in_signature.h:5:7",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -524,8 +588,12 @@
                             "Outside"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "decls_in_signature.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["decls_in_signature.h"],
+                            headerInclude =
+                            "decls_in_signature.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -575,8 +643,12 @@
                       commentOrigin = Just "outside",
                       commentLocation = Just
                         "decls_in_signature.h:3:8",
-                      commentHeader = Just
-                        "decls_in_signature.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["decls_in_signature.h"],
+                          headerInclude =
+                          "decls_in_signature.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -630,7 +702,7 @@
               commentOrigin = Just
                 "ptr_to_opaque",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -648,7 +720,7 @@
               commentOrigin = Just
                 "ptr_to_defined",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
@@ -663,7 +735,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "by_value",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -728,8 +800,12 @@
           commentOrigin = Just "normal",
           commentLocation = Just
             "decls_in_signature.h:7:6",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -801,8 +877,12 @@
           commentOrigin = Just "normal",
           commentLocation = Just
             "decls_in_signature.h:7:6",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -842,8 +922,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "decls_in_signature.h:17:35",
-              commentHeader = Just
-                "decls_in_signature.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["decls_in_signature.h"],
+                  headerInclude =
+                  "decls_in_signature.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -871,8 +955,12 @@
               commentOrigin = Just "y",
               commentLocation = Just
                 "decls_in_signature.h:17:42",
-              commentHeader = Just
-                "decls_in_signature.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["decls_in_signature.h"],
+                  headerInclude =
+                  "decls_in_signature.h"},
               commentChildren = []}}],
       structOrigin =
       Just
@@ -887,8 +975,12 @@
                 "Named_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "decls_in_signature.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["decls_in_signature.h"],
+                headerInclude =
+                "decls_in_signature.h"},
             declComment =
             Just
               (Comment
@@ -954,8 +1046,12 @@
             "named_struct",
           commentLocation = Just
             "decls_in_signature.h:17:16",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren =
           [
             Paragraph
@@ -1002,8 +1098,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "decls_in_signature.h:17:35",
-                  commentHeader = Just
-                    "decls_in_signature.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["decls_in_signature.h"],
+                      headerInclude =
+                      "decls_in_signature.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -1031,8 +1131,12 @@
                   commentOrigin = Just "y",
                   commentLocation = Just
                     "decls_in_signature.h:17:42",
-                  commentHeader = Just
-                    "decls_in_signature.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["decls_in_signature.h"],
+                      headerInclude =
+                      "decls_in_signature.h"},
                   commentChildren = []}}],
           structOrigin =
           Just
@@ -1047,8 +1151,12 @@
                     "Named_struct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "decls_in_signature.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["decls_in_signature.h"],
+                    headerInclude =
+                    "decls_in_signature.h"},
                 declComment =
                 Just
                   (Comment
@@ -1114,8 +1222,12 @@
                 "named_struct",
               commentLocation = Just
                 "decls_in_signature.h:17:16",
-              commentHeader = Just
-                "decls_in_signature.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["decls_in_signature.h"],
+                  headerInclude =
+                  "decls_in_signature.h"},
               commentChildren =
               [
                 Paragraph
@@ -1166,8 +1278,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "decls_in_signature.h:17:35",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1195,8 +1311,12 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "decls_in_signature.h:17:42",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}}],
                   structOrigin =
                   Just
@@ -1211,8 +1331,12 @@
                             "Named_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "decls_in_signature.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["decls_in_signature.h"],
+                            headerInclude =
+                            "decls_in_signature.h"},
                         declComment =
                         Just
                           (Comment
@@ -1278,8 +1402,12 @@
                         "named_struct",
                       commentLocation = Just
                         "decls_in_signature.h:17:16",
-                      commentHeader = Just
-                        "decls_in_signature.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["decls_in_signature.h"],
+                          headerInclude =
+                          "decls_in_signature.h"},
                       commentChildren =
                       [
                         Paragraph
@@ -1332,8 +1460,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "decls_in_signature.h:17:35",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -1361,8 +1493,12 @@
                           commentOrigin = Just "y",
                           commentLocation = Just
                             "decls_in_signature.h:17:42",
-                          commentHeader = Just
-                            "decls_in_signature.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["decls_in_signature.h"],
+                              headerInclude =
+                              "decls_in_signature.h"},
                           commentChildren = []}}],
                   structOrigin =
                   Just
@@ -1377,8 +1513,12 @@
                             "Named_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "decls_in_signature.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["decls_in_signature.h"],
+                            headerInclude =
+                            "decls_in_signature.h"},
                         declComment =
                         Just
                           (Comment
@@ -1444,8 +1584,12 @@
                         "named_struct",
                       commentLocation = Just
                         "decls_in_signature.h:17:16",
-                      commentHeader = Just
-                        "decls_in_signature.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["decls_in_signature.h"],
+                          headerInclude =
+                          "decls_in_signature.h"},
                       commentChildren =
                       [
                         Paragraph
@@ -1503,7 +1647,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "arg",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1544,8 +1688,12 @@
           commentOrigin = Just "f1",
           commentLocation = Just
             "decls_in_signature.h:17:6",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren =
           [
             Paragraph
@@ -1600,8 +1748,12 @@
           commentOrigin = Just "f1",
           commentLocation = Just
             "decls_in_signature.h:17:6",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren =
           [
             Paragraph
@@ -1638,8 +1790,12 @@
               "Named_union"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "decls_in_signature.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           declComment = Nothing},
         declKind = Union
           Union {
@@ -1692,8 +1848,12 @@
             "named_union",
           commentLocation = Just
             "decls_in_signature.h:20:15",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1722,8 +1882,12 @@
           commentOrigin = Just "x",
           commentLocation = Just
             "decls_in_signature.h:20:33",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = [
             Paragraph
               [
@@ -1745,7 +1909,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -1768,8 +1932,12 @@
           commentOrigin = Just "y",
           commentLocation = Just
             "decls_in_signature.h:20:41",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = [
             Paragraph
               [
@@ -1791,7 +1959,7 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Nothing,
-          commentHeader = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = [
             Paragraph
               [
@@ -1817,7 +1985,7 @@
               commentTitle = Nothing,
               commentOrigin = Just "arg",
               commentLocation = Nothing,
-              commentHeader = Nothing,
+              commentHeaderInfo = Nothing,
               commentChildren = []}}],
       foreignImportResultType =
       NormalResultType
@@ -1856,8 +2024,12 @@
           commentOrigin = Just "f2",
           commentLocation = Just
             "decls_in_signature.h:20:6",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -1903,8 +2075,12 @@
           commentOrigin = Just "f2",
           commentLocation = Just
             "decls_in_signature.h:20:6",
-          commentHeader = Just
-            "decls_in_signature.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

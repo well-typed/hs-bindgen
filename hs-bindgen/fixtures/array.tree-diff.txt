@@ -9,7 +9,11 @@ TranslationUnit {
             "arr0"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -37,7 +41,11 @@ TranslationUnit {
             "arr1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -65,7 +73,11 @@ TranslationUnit {
             "arr2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -93,7 +105,11 @@ TranslationUnit {
             "arr3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -121,7 +137,11 @@ TranslationUnit {
             "arr6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -149,7 +169,11 @@ TranslationUnit {
             "arr7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -176,7 +200,11 @@ TranslationUnit {
             "Triplet"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -206,7 +234,11 @@ TranslationUnit {
             "List"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -236,7 +268,11 @@ TranslationUnit {
             "Matrix"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -270,7 +306,11 @@ TranslationUnit {
             "Tripletlist"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -304,7 +344,11 @@ TranslationUnit {
             "Example"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -359,7 +403,11 @@ TranslationUnit {
             "arr_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -387,7 +435,11 @@ TranslationUnit {
             "arr_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -417,7 +469,11 @@ TranslationUnit {
             "arr_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -444,7 +500,11 @@ TranslationUnit {
             "arr_4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -474,7 +534,11 @@ TranslationUnit {
             "arr_5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -506,7 +570,11 @@ TranslationUnit {
             "arr_6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -536,7 +604,11 @@ TranslationUnit {
             "arr_7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -567,7 +639,11 @@ TranslationUnit {
             "arr_8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -597,7 +673,11 @@ TranslationUnit {
             "fun_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -647,7 +727,11 @@ TranslationUnit {
             "fun_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -690,7 +774,11 @@ TranslationUnit {
             "fun_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -732,7 +820,11 @@ TranslationUnit {
             "fun_4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -775,7 +867,11 @@ TranslationUnit {
             "fun_5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -820,7 +916,11 @@ TranslationUnit {
             "fun_6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -863,7 +963,11 @@ TranslationUnit {
             "fun_7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -907,7 +1011,11 @@ TranslationUnit {
             "fun_8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -950,7 +1058,11 @@ TranslationUnit {
             "fun_9"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -986,7 +1098,11 @@ TranslationUnit {
             "fun_10"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -1022,7 +1138,11 @@ TranslationUnit {
             "fun_11"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -1057,7 +1177,11 @@ TranslationUnit {
             "fun_12"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -1093,7 +1217,11 @@ TranslationUnit {
             "fun_13"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -1131,7 +1259,11 @@ TranslationUnit {
             "fun_14"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -1167,7 +1299,11 @@ TranslationUnit {
             "fun_15"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [
@@ -1204,7 +1340,11 @@ TranslationUnit {
             "fun_16"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "array.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
         declComment = Just
           (Comment
             [

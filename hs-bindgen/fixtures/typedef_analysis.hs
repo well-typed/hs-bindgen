@@ -24,8 +24,12 @@
               (Name "struct1"),
             declAliases = [
               Name "struct1_t"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment =
             Just
               (Comment
@@ -64,8 +68,12 @@
             "struct1_t",
           commentLocation = Just
             "typedef_analysis.h:7:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -95,8 +103,12 @@
                   (Name "struct1"),
                 declAliases = [
                   Name "struct1_t"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment =
                 Just
                   (Comment
@@ -135,8 +147,12 @@
                 "struct1_t",
               commentLocation = Just
                 "typedef_analysis.h:7:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -170,8 +186,12 @@
                           (Name "struct1"),
                         declAliases = [
                           Name "struct1_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment =
                         Just
                           (Comment
@@ -210,8 +230,12 @@
                         "struct1_t",
                       commentLocation = Just
                         "typedef_analysis.h:7:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke =
@@ -245,8 +269,12 @@
                           (Name "struct1"),
                         declAliases = [
                           Name "struct1_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment =
                         Just
                           (Comment
@@ -285,8 +313,12 @@
                         "struct1_t",
                       commentLocation = Just
                         "typedef_analysis.h:7:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -335,8 +367,12 @@
               (Name "struct2"),
             declAliases = [
               Name "struct2_t"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -363,8 +399,12 @@
             "struct2_t",
           commentLocation = Just
             "typedef_analysis.h:11:16",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -392,8 +432,12 @@
                   (Name "struct2"),
                 declAliases = [
                   Name "struct2_t"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -420,8 +464,12 @@
                 "struct2_t",
               commentLocation = Just
                 "typedef_analysis.h:11:16",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -452,8 +500,12 @@
                           (Name "struct2"),
                         declAliases = [
                           Name "struct2_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -480,8 +532,12 @@
                         "struct2_t",
                       commentLocation = Just
                         "typedef_analysis.h:11:16",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -512,8 +568,12 @@
                           (Name "struct2"),
                         declAliases = [
                           Name "struct2_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -540,8 +600,12 @@
                         "struct2_t",
                       commentLocation = Just
                         "typedef_analysis.h:11:16",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -585,8 +649,12 @@
             (Name "struct3"),
           declAliases = [
             Name "struct3_t"],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
@@ -602,8 +670,12 @@
             "struct3_t",
           commentLocation = Just
             "typedef_analysis.h:14:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclEmpty
     EmptyData {
@@ -623,8 +695,12 @@
             (Name "struct4"),
           declAliases = [
             Name "struct4_t"],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = OpaqueStruct,
         declSpec = DeclSpec
@@ -640,8 +716,12 @@
             "struct4_t",
           commentLocation = Just
             "typedef_analysis.h:18:16",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclData
     Struct {
@@ -663,8 +743,12 @@
                 "Struct5"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -688,8 +772,12 @@
           commentOrigin = Just "struct5",
           commentLocation = Just
             "typedef_analysis.h:21:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -714,8 +802,12 @@
                     "Struct5"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -739,8 +831,12 @@
               commentOrigin = Just "struct5",
               commentLocation = Just
                 "typedef_analysis.h:21:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -768,8 +864,12 @@
                             "Struct5"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -793,8 +893,12 @@
                       commentOrigin = Just "struct5",
                       commentLocation = Just
                         "typedef_analysis.h:21:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -822,8 +926,12 @@
                             "Struct5"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -847,8 +955,12 @@
                       commentOrigin = Just "struct5",
                       commentLocation = Just
                         "typedef_analysis.h:21:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -903,8 +1015,12 @@
               "Struct5_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -937,8 +1053,12 @@
             "struct5_t",
           commentLocation = Just
             "typedef_analysis.h:22:25",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1002,8 +1122,12 @@
             NameOriginRenamedFrom
               (Name "struct6"),
             declAliases = [],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1030,8 +1154,12 @@
             "struct6_Deref",
           commentLocation = Just
             "typedef_analysis.h:25:16",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1058,8 +1186,12 @@
                 NameOriginRenamedFrom
                   (Name "struct6"),
                 declAliases = [],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1086,8 +1218,12 @@
                 "struct6_Deref",
               commentLocation = Just
                 "typedef_analysis.h:25:16",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1117,8 +1253,12 @@
                         NameOriginRenamedFrom
                           (Name "struct6"),
                         declAliases = [],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1145,8 +1285,12 @@
                         "struct6_Deref",
                       commentLocation = Just
                         "typedef_analysis.h:25:16",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1176,8 +1320,12 @@
                         NameOriginRenamedFrom
                           (Name "struct6"),
                         declAliases = [],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1204,8 +1352,12 @@
                         "struct6_Deref",
                       commentLocation = Just
                         "typedef_analysis.h:25:16",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1260,8 +1412,12 @@
               "Struct6"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -1294,8 +1450,12 @@
           commentOrigin = Just "struct6",
           commentLocation = Just
             "typedef_analysis.h:25:28",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1359,8 +1519,12 @@
             declAliases = [
               Name "struct7a",
               Name "struct7b"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1384,8 +1548,12 @@
           commentOrigin = Just "struct7",
           commentLocation = Just
             "typedef_analysis.h:28:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1412,8 +1580,12 @@
                 declAliases = [
                   Name "struct7a",
                   Name "struct7b"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1437,8 +1609,12 @@
               commentOrigin = Just "struct7",
               commentLocation = Just
                 "typedef_analysis.h:28:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1468,8 +1644,12 @@
                         declAliases = [
                           Name "struct7a",
                           Name "struct7b"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1493,8 +1673,12 @@
                       commentOrigin = Just "struct7",
                       commentLocation = Just
                         "typedef_analysis.h:28:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1524,8 +1708,12 @@
                         declAliases = [
                           Name "struct7a",
                           Name "struct7b"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1549,8 +1737,12 @@
                       commentOrigin = Just "struct7",
                       commentLocation = Just
                         "typedef_analysis.h:28:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -1604,8 +1796,12 @@
               "Struct7a"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -1636,8 +1832,12 @@
           commentOrigin = Just "struct7a",
           commentLocation = Just
             "typedef_analysis.h:29:24",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1697,8 +1897,12 @@
               "Struct7b"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -1729,8 +1933,12 @@
           commentOrigin = Just "struct7b",
           commentLocation = Just
             "typedef_analysis.h:30:24",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -1784,8 +1992,12 @@
             declAliases = [
               Name "struct8",
               Name "struct8b"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -1809,8 +2021,12 @@
           commentOrigin = Just "struct8",
           commentLocation = Just
             "typedef_analysis.h:33:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -1837,8 +2053,12 @@
                 declAliases = [
                   Name "struct8",
                   Name "struct8b"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -1862,8 +2082,12 @@
               commentOrigin = Just "struct8",
               commentLocation = Just
                 "typedef_analysis.h:33:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -1893,8 +2117,12 @@
                         declAliases = [
                           Name "struct8",
                           Name "struct8b"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1918,8 +2146,12 @@
                       commentOrigin = Just "struct8",
                       commentLocation = Just
                         "typedef_analysis.h:33:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -1949,8 +2181,12 @@
                         declAliases = [
                           Name "struct8",
                           Name "struct8b"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -1974,8 +2210,12 @@
                       commentOrigin = Just "struct8",
                       commentLocation = Just
                         "typedef_analysis.h:33:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2029,8 +2269,12 @@
               "Struct8b"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -2061,8 +2305,12 @@
           commentOrigin = Just "struct8b",
           commentLocation = Just
             "typedef_analysis.h:35:24",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2114,8 +2362,12 @@
                 "Struct9"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "struct9"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2139,8 +2391,12 @@
           commentOrigin = Just "struct9",
           commentLocation = Just
             "typedef_analysis.h:38:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2165,8 +2421,12 @@
                     "Struct9"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "struct9"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2190,8 +2450,12 @@
               commentOrigin = Just "struct9",
               commentLocation = Just
                 "typedef_analysis.h:38:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -2219,8 +2483,12 @@
                             "Struct9"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "struct9"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2244,8 +2512,12 @@
                       commentOrigin = Just "struct9",
                       commentLocation = Just
                         "typedef_analysis.h:38:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -2273,8 +2545,12 @@
                             "Struct9"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "struct9"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2298,8 +2574,12 @@
                       commentOrigin = Just "struct9",
                       commentLocation = Just
                         "typedef_analysis.h:38:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2353,8 +2633,12 @@
               "Struct9_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -2389,8 +2673,12 @@
             "struct9_t",
           commentLocation = Just
             "typedef_analysis.h:40:17",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2445,8 +2733,12 @@
               (Name "struct10"),
             declAliases = [
               Name "struct10_t"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2473,8 +2765,12 @@
             "struct10_t",
           commentLocation = Just
             "typedef_analysis.h:46:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2502,8 +2798,12 @@
                   (Name "struct10"),
                 declAliases = [
                   Name "struct10_t"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -2530,8 +2830,12 @@
                 "struct10_t",
               commentLocation = Just
                 "typedef_analysis.h:46:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 0,
@@ -2562,8 +2866,12 @@
                           (Name "struct10"),
                         declAliases = [
                           Name "struct10_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2590,8 +2898,12 @@
                         "struct10_t",
                       commentLocation = Just
                         "typedef_analysis.h:46:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               []),
           storablePoke = Lambda
@@ -2622,8 +2934,12 @@
                           (Name "struct10"),
                         declAliases = [
                           Name "struct10_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -2650,8 +2966,12 @@
                         "struct10_t",
                       commentLocation = Just
                         "typedef_analysis.h:46:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 0)
                 (Seq [])))},
@@ -2705,8 +3025,12 @@
               "Struct10_t_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
-          declHeader =
-          "typedef_analysis.h",
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           declComment = Nothing},
         declKind = Typedef
           Typedef {
@@ -2742,8 +3066,12 @@
             "struct10_t_t",
           commentLocation = Just
             "typedef_analysis.h:48:20",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclNewtypeInstance
     DeriveInstance {
@@ -2810,8 +3138,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "typedef_analysis.h:52:7",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -2848,8 +3180,12 @@
               commentOrigin = Just "self",
               commentLocation = Just
                 "typedef_analysis.h:53:20",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -2865,8 +3201,12 @@
               (Name "struct11"),
             declAliases = [
               Name "struct11_t"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -2925,8 +3265,12 @@
             "struct11_t",
           commentLocation = Just
             "typedef_analysis.h:51:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -2966,8 +3310,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "typedef_analysis.h:52:7",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3004,8 +3352,12 @@
                   commentOrigin = Just "self",
                   commentLocation = Just
                     "typedef_analysis.h:53:20",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3021,8 +3373,12 @@
                   (Name "struct11"),
                 declAliases = [
                   Name "struct11_t"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3081,8 +3437,12 @@
                 "struct11_t",
               commentLocation = Just
                 "typedef_analysis.h:51:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3125,8 +3485,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "typedef_analysis.h:52:7",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3163,8 +3527,12 @@
                           commentOrigin = Just "self",
                           commentLocation = Just
                             "typedef_analysis.h:53:20",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3180,8 +3548,12 @@
                           (Name "struct11"),
                         declAliases = [
                           Name "struct11_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3240,8 +3612,12 @@
                         "struct11_t",
                       commentLocation = Just
                         "typedef_analysis.h:51:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3286,8 +3662,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "typedef_analysis.h:52:7",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3324,8 +3704,12 @@
                           commentOrigin = Just "self",
                           commentLocation = Just
                             "typedef_analysis.h:53:20",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3341,8 +3725,12 @@
                           (Name "struct11"),
                         declAliases = [
                           Name "struct11_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3401,8 +3789,12 @@
                         "struct11_t",
                       commentLocation = Just
                         "typedef_analysis.h:51:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -3469,8 +3861,12 @@
               commentOrigin = Just "x",
               commentLocation = Just
                 "typedef_analysis.h:61:7",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -3510,8 +3906,12 @@
               commentOrigin = Just "self",
               commentLocation = Just
                 "typedef_analysis.h:62:15",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -3527,8 +3927,12 @@
               (Name "struct12"),
             declAliases = [
               Name "struct12_t"],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -3590,8 +3994,12 @@
             "struct12_t",
           commentLocation = Just
             "typedef_analysis.h:60:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -3631,8 +4039,12 @@
                   commentOrigin = Just "x",
                   commentLocation = Just
                     "typedef_analysis.h:61:7",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -3672,8 +4084,12 @@
                   commentOrigin = Just "self",
                   commentLocation = Just
                     "typedef_analysis.h:62:15",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -3689,8 +4105,12 @@
                   (Name "struct12"),
                 declAliases = [
                   Name "struct12_t"],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -3752,8 +4172,12 @@
                 "struct12_t",
               commentLocation = Just
                 "typedef_analysis.h:60:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -3796,8 +4220,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "typedef_analysis.h:61:7",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -3837,8 +4265,12 @@
                           commentOrigin = Just "self",
                           commentLocation = Just
                             "typedef_analysis.h:62:15",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -3854,8 +4286,12 @@
                           (Name "struct12"),
                         declAliases = [
                           Name "struct12_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -3917,8 +4353,12 @@
                         "struct12_t",
                       commentLocation = Just
                         "typedef_analysis.h:60:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -3963,8 +4403,12 @@
                           commentOrigin = Just "x",
                           commentLocation = Just
                             "typedef_analysis.h:61:7",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -4004,8 +4448,12 @@
                           commentOrigin = Just "self",
                           commentLocation = Just
                             "typedef_analysis.h:62:15",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -4021,8 +4469,12 @@
                           (Name "struct12"),
                         declAliases = [
                           Name "struct12_t"],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -4084,8 +4536,12 @@
                         "struct12_t",
                       commentLocation = Just
                         "typedef_analysis.h:60:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -4164,8 +4620,12 @@
                 "useTypedef_struct1_t",
               commentLocation = Just
                 "typedef_analysis.h:68:13",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4205,8 +4665,12 @@
                 "useTypedef_struct2_t",
               commentLocation = Just
                 "typedef_analysis.h:71:13",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4248,8 +4712,12 @@
                 "useTypedef_struct3_t",
               commentLocation = Just
                 "typedef_analysis.h:74:14",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4291,8 +4759,12 @@
                 "useTypedef_struct4_t",
               commentLocation = Just
                 "typedef_analysis.h:75:14",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4328,8 +4800,12 @@
                 "useStruct_struct5",
               commentLocation = Just
                 "typedef_analysis.h:78:18",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4365,8 +4841,12 @@
                 "useTypedef_struct5_t",
               commentLocation = Just
                 "typedef_analysis.h:79:13",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4403,8 +4883,12 @@
                 "useStruct_struct6",
               commentLocation = Just
                 "typedef_analysis.h:82:18",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4440,8 +4924,12 @@
                 "useTypedef_struct6",
               commentLocation = Just
                 "typedef_analysis.h:83:11",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4477,8 +4965,12 @@
                 "useTypedef_struct7a",
               commentLocation = Just
                 "typedef_analysis.h:86:12",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4514,8 +5006,12 @@
                 "useTypedef_struct7b",
               commentLocation = Just
                 "typedef_analysis.h:87:12",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4554,8 +5050,12 @@
                 "useTypedef_struct8",
               commentLocation = Just
                 "typedef_analysis.h:91:11",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4591,8 +5091,12 @@
                 "useTypedef_struct8b",
               commentLocation = Just
                 "typedef_analysis.h:92:12",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4631,8 +5135,12 @@
                 "useTypedef_struct9",
               commentLocation = Just
                 "typedef_analysis.h:96:11",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4668,8 +5176,12 @@
                 "useTypedef_struct9_t",
               commentLocation = Just
                 "typedef_analysis.h:97:13",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4709,8 +5221,12 @@
                 "useTypedef_struct10_t",
               commentLocation = Just
                 "typedef_analysis.h:98:14",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4746,8 +5262,12 @@
                 "useTypedef_struct10_t_t",
               commentLocation = Just
                 "typedef_analysis.h:99:16",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4787,8 +5307,12 @@
                 "useTypedef_struct11_t",
               commentLocation = Just
                 "typedef_analysis.h:102:14",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -4828,8 +5352,12 @@
                 "useTypedef_struct12_t",
               commentLocation = Just
                 "typedef_analysis.h:103:14",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
@@ -4842,8 +5370,12 @@
                 "Use_sites"},
             declOrigin = NameOriginInSource,
             declAliases = [],
-            declHeader =
-            "typedef_analysis.h",
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["typedef_analysis.h"],
+                headerInclude =
+                "typedef_analysis.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -5231,8 +5763,12 @@
             "use_sites",
           commentLocation = Just
             "typedef_analysis.h:66:8",
-          commentHeader = Just
-            "typedef_analysis.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedef_analysis.h"],
+              headerInclude =
+              "typedef_analysis.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -5284,8 +5820,12 @@
                     "useTypedef_struct1_t",
                   commentLocation = Just
                     "typedef_analysis.h:68:13",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5325,8 +5865,12 @@
                     "useTypedef_struct2_t",
                   commentLocation = Just
                     "typedef_analysis.h:71:13",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5368,8 +5912,12 @@
                     "useTypedef_struct3_t",
                   commentLocation = Just
                     "typedef_analysis.h:74:14",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5411,8 +5959,12 @@
                     "useTypedef_struct4_t",
                   commentLocation = Just
                     "typedef_analysis.h:75:14",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5448,8 +6000,12 @@
                     "useStruct_struct5",
                   commentLocation = Just
                     "typedef_analysis.h:78:18",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5485,8 +6041,12 @@
                     "useTypedef_struct5_t",
                   commentLocation = Just
                     "typedef_analysis.h:79:13",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5523,8 +6083,12 @@
                     "useStruct_struct6",
                   commentLocation = Just
                     "typedef_analysis.h:82:18",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5560,8 +6124,12 @@
                     "useTypedef_struct6",
                   commentLocation = Just
                     "typedef_analysis.h:83:11",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5597,8 +6165,12 @@
                     "useTypedef_struct7a",
                   commentLocation = Just
                     "typedef_analysis.h:86:12",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5634,8 +6206,12 @@
                     "useTypedef_struct7b",
                   commentLocation = Just
                     "typedef_analysis.h:87:12",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5674,8 +6250,12 @@
                     "useTypedef_struct8",
                   commentLocation = Just
                     "typedef_analysis.h:91:11",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5711,8 +6291,12 @@
                     "useTypedef_struct8b",
                   commentLocation = Just
                     "typedef_analysis.h:92:12",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5751,8 +6335,12 @@
                     "useTypedef_struct9",
                   commentLocation = Just
                     "typedef_analysis.h:96:11",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5788,8 +6376,12 @@
                     "useTypedef_struct9_t",
                   commentLocation = Just
                     "typedef_analysis.h:97:13",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5829,8 +6421,12 @@
                     "useTypedef_struct10_t",
                   commentLocation = Just
                     "typedef_analysis.h:98:14",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5866,8 +6462,12 @@
                     "useTypedef_struct10_t_t",
                   commentLocation = Just
                     "typedef_analysis.h:99:16",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5907,8 +6507,12 @@
                     "useTypedef_struct11_t",
                   commentLocation = Just
                     "typedef_analysis.h:102:14",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -5948,8 +6552,12 @@
                     "useTypedef_struct12_t",
                   commentLocation = Just
                     "typedef_analysis.h:103:14",
-                  commentHeader = Just
-                    "typedef_analysis.h",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["typedef_analysis.h"],
+                      headerInclude =
+                      "typedef_analysis.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
@@ -5962,8 +6570,12 @@
                     "Use_sites"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
-                declHeader =
-                "typedef_analysis.h",
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["typedef_analysis.h"],
+                    headerInclude =
+                    "typedef_analysis.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -6351,8 +6963,12 @@
                 "use_sites",
               commentLocation = Just
                 "typedef_analysis.h:66:8",
-              commentHeader = Just
-                "typedef_analysis.h",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["typedef_analysis.h"],
+                  headerInclude =
+                  "typedef_analysis.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 64,
@@ -6407,8 +7023,12 @@
                             "useTypedef_struct1_t",
                           commentLocation = Just
                             "typedef_analysis.h:68:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6448,8 +7068,12 @@
                             "useTypedef_struct2_t",
                           commentLocation = Just
                             "typedef_analysis.h:71:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6491,8 +7115,12 @@
                             "useTypedef_struct3_t",
                           commentLocation = Just
                             "typedef_analysis.h:74:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6534,8 +7162,12 @@
                             "useTypedef_struct4_t",
                           commentLocation = Just
                             "typedef_analysis.h:75:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6571,8 +7203,12 @@
                             "useStruct_struct5",
                           commentLocation = Just
                             "typedef_analysis.h:78:18",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6608,8 +7244,12 @@
                             "useTypedef_struct5_t",
                           commentLocation = Just
                             "typedef_analysis.h:79:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6646,8 +7286,12 @@
                             "useStruct_struct6",
                           commentLocation = Just
                             "typedef_analysis.h:82:18",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6683,8 +7327,12 @@
                             "useTypedef_struct6",
                           commentLocation = Just
                             "typedef_analysis.h:83:11",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6720,8 +7368,12 @@
                             "useTypedef_struct7a",
                           commentLocation = Just
                             "typedef_analysis.h:86:12",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6757,8 +7409,12 @@
                             "useTypedef_struct7b",
                           commentLocation = Just
                             "typedef_analysis.h:87:12",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6797,8 +7453,12 @@
                             "useTypedef_struct8",
                           commentLocation = Just
                             "typedef_analysis.h:91:11",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6834,8 +7494,12 @@
                             "useTypedef_struct8b",
                           commentLocation = Just
                             "typedef_analysis.h:92:12",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6874,8 +7538,12 @@
                             "useTypedef_struct9",
                           commentLocation = Just
                             "typedef_analysis.h:96:11",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6911,8 +7579,12 @@
                             "useTypedef_struct9_t",
                           commentLocation = Just
                             "typedef_analysis.h:97:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6952,8 +7624,12 @@
                             "useTypedef_struct10_t",
                           commentLocation = Just
                             "typedef_analysis.h:98:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -6989,8 +7665,12 @@
                             "useTypedef_struct10_t_t",
                           commentLocation = Just
                             "typedef_analysis.h:99:16",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7030,8 +7710,12 @@
                             "useTypedef_struct11_t",
                           commentLocation = Just
                             "typedef_analysis.h:102:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7071,8 +7755,12 @@
                             "useTypedef_struct12_t",
                           commentLocation = Just
                             "typedef_analysis.h:103:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -7085,8 +7773,12 @@
                             "Use_sites"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -7474,8 +8166,12 @@
                         "use_sites",
                       commentLocation = Just
                         "typedef_analysis.h:66:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -7548,8 +8244,12 @@
                             "useTypedef_struct1_t",
                           commentLocation = Just
                             "typedef_analysis.h:68:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7589,8 +8289,12 @@
                             "useTypedef_struct2_t",
                           commentLocation = Just
                             "typedef_analysis.h:71:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7632,8 +8336,12 @@
                             "useTypedef_struct3_t",
                           commentLocation = Just
                             "typedef_analysis.h:74:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7675,8 +8383,12 @@
                             "useTypedef_struct4_t",
                           commentLocation = Just
                             "typedef_analysis.h:75:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7712,8 +8424,12 @@
                             "useStruct_struct5",
                           commentLocation = Just
                             "typedef_analysis.h:78:18",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7749,8 +8465,12 @@
                             "useTypedef_struct5_t",
                           commentLocation = Just
                             "typedef_analysis.h:79:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7787,8 +8507,12 @@
                             "useStruct_struct6",
                           commentLocation = Just
                             "typedef_analysis.h:82:18",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7824,8 +8548,12 @@
                             "useTypedef_struct6",
                           commentLocation = Just
                             "typedef_analysis.h:83:11",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7861,8 +8589,12 @@
                             "useTypedef_struct7a",
                           commentLocation = Just
                             "typedef_analysis.h:86:12",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7898,8 +8630,12 @@
                             "useTypedef_struct7b",
                           commentLocation = Just
                             "typedef_analysis.h:87:12",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7938,8 +8674,12 @@
                             "useTypedef_struct8",
                           commentLocation = Just
                             "typedef_analysis.h:91:11",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -7975,8 +8715,12 @@
                             "useTypedef_struct8b",
                           commentLocation = Just
                             "typedef_analysis.h:92:12",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8015,8 +8759,12 @@
                             "useTypedef_struct9",
                           commentLocation = Just
                             "typedef_analysis.h:96:11",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8052,8 +8800,12 @@
                             "useTypedef_struct9_t",
                           commentLocation = Just
                             "typedef_analysis.h:97:13",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8093,8 +8845,12 @@
                             "useTypedef_struct10_t",
                           commentLocation = Just
                             "typedef_analysis.h:98:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8130,8 +8886,12 @@
                             "useTypedef_struct10_t_t",
                           commentLocation = Just
                             "typedef_analysis.h:99:16",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8171,8 +8931,12 @@
                             "useTypedef_struct11_t",
                           commentLocation = Just
                             "typedef_analysis.h:102:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -8212,8 +8976,12 @@
                             "useTypedef_struct12_t",
                           commentLocation = Just
                             "typedef_analysis.h:103:14",
-                          commentHeader = Just
-                            "typedef_analysis.h",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["typedef_analysis.h"],
+                              headerInclude =
+                              "typedef_analysis.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
@@ -8226,8 +8994,12 @@
                             "Use_sites"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
-                        declHeader =
-                        "typedef_analysis.h",
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["typedef_analysis.h"],
+                            headerInclude =
+                            "typedef_analysis.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -8615,8 +9387,12 @@
                         "use_sites",
                       commentLocation = Just
                         "typedef_analysis.h:66:8",
-                      commentHeader = Just
-                        "typedef_analysis.h",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["typedef_analysis.h"],
+                          headerInclude =
+                          "typedef_analysis.h"},
                       commentChildren = []}}
                 (Add 18)
                 (Seq

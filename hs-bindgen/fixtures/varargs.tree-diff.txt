@@ -8,7 +8,11 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "h"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "varargs.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["varargs.h"],
+            headerInclude = "varargs.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

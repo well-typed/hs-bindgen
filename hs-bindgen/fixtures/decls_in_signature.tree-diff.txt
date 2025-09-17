@@ -11,8 +11,12 @@ TranslationUnit {
             "Opaque"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment = Nothing},
       declKind = DeclStructOpaque,
       declSpec = DeclSpec
@@ -31,8 +35,12 @@ TranslationUnit {
             "Outside"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -84,8 +92,12 @@ TranslationUnit {
             "normal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -149,8 +161,12 @@ TranslationUnit {
             "Named_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment =
         Just
           (Comment
@@ -216,8 +232,12 @@ TranslationUnit {
             "f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment =
         Just
           (Comment
@@ -265,8 +285,12 @@ TranslationUnit {
             "Named_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment = Nothing},
       declKind = DeclUnion
         Union {
@@ -320,8 +344,12 @@ TranslationUnit {
             "f2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader =
-        "decls_in_signature.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["decls_in_signature.h"],
+            headerInclude =
+            "decls_in_signature.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

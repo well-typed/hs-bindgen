@@ -13,7 +13,12 @@ TranslationUnit {
         declOrigin = NameOriginGenerated
           (AnonId "fun_attributes.h:7:9"),
         declAliases = [Name "FILE"],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment =
         Just
           (Comment
@@ -50,7 +55,12 @@ TranslationUnit {
             "Size_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -79,7 +89,12 @@ TranslationUnit {
             "__f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -104,7 +119,12 @@ TranslationUnit {
             "f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -129,7 +149,12 @@ TranslationUnit {
             "my_memalign"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -171,7 +196,12 @@ TranslationUnit {
             "my_calloc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -213,7 +243,12 @@ TranslationUnit {
             "my_realloc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -250,7 +285,12 @@ TranslationUnit {
             "my_alloc1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -284,7 +324,12 @@ TranslationUnit {
             "my_alloc2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -318,7 +363,12 @@ TranslationUnit {
             "square"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -348,7 +398,12 @@ TranslationUnit {
             "old_fn"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -374,7 +429,12 @@ TranslationUnit {
             "my_dgettext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -426,7 +486,12 @@ TranslationUnit {
             "fdopen"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -474,7 +539,12 @@ TranslationUnit {
             "f2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -499,7 +569,12 @@ TranslationUnit {
             "my_memcpy"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -552,7 +627,12 @@ TranslationUnit {
             "fatal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -577,7 +657,12 @@ TranslationUnit {
             "hash"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -610,7 +695,12 @@ TranslationUnit {
             "mymalloc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -648,7 +738,12 @@ TranslationUnit {
             "foobar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -673,7 +768,12 @@ TranslationUnit {
             "core2_func"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -699,7 +799,12 @@ TranslationUnit {
             "sse3_func"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -725,7 +830,12 @@ TranslationUnit {
             "f3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -749,7 +859,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "i"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -770,7 +885,12 @@ TranslationUnit {
             "fn"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -795,7 +915,12 @@ TranslationUnit {
           nameHsIdent = HsIdentifier "y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -821,7 +946,12 @@ TranslationUnit {
             "x1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -847,7 +977,12 @@ TranslationUnit {
             "x2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "fun_attributes.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["fun_attributes.h"],
+            headerInclude =
+            "fun_attributes.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

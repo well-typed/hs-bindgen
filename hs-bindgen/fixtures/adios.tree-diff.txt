@@ -9,7 +9,11 @@ TranslationUnit {
             "Adio'0301s"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -37,7 +41,11 @@ TranslationUnit {
             "C\25968\23383"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclTypedef
         Typedef {
@@ -65,7 +73,11 @@ TranslationUnit {
             "c\978"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -89,7 +101,11 @@ TranslationUnit {
             "c\978\978"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim
@@ -109,7 +125,11 @@ TranslationUnit {
             "c\978\978\978"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -130,7 +150,11 @@ TranslationUnit {
             "\25308\25308"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -154,7 +178,11 @@ TranslationUnit {
             "say\25308\25308"},
         declOrigin = NameOriginInSource,
         declAliases = [],
-        declHeader = "adios.h",
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["adios.h"],
+            headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {

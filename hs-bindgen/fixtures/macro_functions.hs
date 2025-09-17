@@ -62,8 +62,12 @@
           commentOrigin = Just "INCR",
           commentLocation = Just
             "macro_functions.h:1:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -110,8 +114,12 @@
           commentOrigin = Just "ADD",
           commentLocation = Just
             "macro_functions.h:2:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -136,8 +144,12 @@
           commentOrigin = Just "ID",
           commentLocation = Just
             "macro_functions.h:4:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -168,8 +180,12 @@
           commentOrigin = Just "CONST",
           commentLocation = Just
             "macro_functions.h:5:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -223,8 +239,12 @@
           commentOrigin = Just "CMP",
           commentLocation = Just
             "macro_functions.h:7:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -333,8 +353,12 @@
           commentOrigin = Just "FUN1",
           commentLocation = Just
             "macro_functions.h:8:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -421,8 +445,12 @@
           commentOrigin = Just "FUN2",
           commentLocation = Just
             "macro_functions.h:9:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -500,8 +528,12 @@
           commentOrigin = Just "G",
           commentLocation = Just
             "macro_functions.h:11:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -607,8 +639,12 @@
           commentOrigin = Just "DIV1",
           commentLocation = Just
             "macro_functions.h:13:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -706,8 +742,12 @@
           commentOrigin = Just "DIV2",
           commentLocation = Just
             "macro_functions.h:14:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -887,8 +927,12 @@
           commentOrigin = Just "SWAP32",
           commentLocation = Just
             "macro_functions.h:18:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}},
   DeclVar
     VarDecl {
@@ -1027,6 +1071,10 @@
             "AV_VERSION_INT",
           commentLocation = Just
             "macro_functions.h:19:9",
-          commentHeader = Just
-            "macro_functions.h",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["macro_functions.h"],
+              headerInclude =
+              "macro_functions.h"},
           commentChildren = []}}]
