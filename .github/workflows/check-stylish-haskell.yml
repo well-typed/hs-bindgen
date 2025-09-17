@@ -1,0 +1,56 @@
+name: Stylish Haskell
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  merge_group:
+
+jobs:
+  stylish-haskell:
+    name: Stylish Haskell
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Haskell
+      id: setup-haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: 9.12.2
+        cabal-version: 3.16
+
+    - name: cabal.project
+      run: cp cabal.project.ci cabal.project
+
+    - name: Dry build (for cache key)
+      run: cabal build all --dry-run
+
+    - name: Restore cache
+      id: cache-cabal-restore
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.setup-haskell.outputs.ghc-version }}-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+        restore-keys: ${{ steps.setup-haskell.outputs.ghc-version }}-
+
+    - name: Install stylish-haskell
+      run: |
+        cabal update
+        cabal install stylish-haskell
+
+    - name: Check import formatting
+      run: |
+        chmod +x scripts/ci/run-stylish-haskell.sh
+        scripts/ci/run-stylish-haskell.sh -c
+
+    - name: Save cache
+      uses: actions/cache/save@v4
+      # Even save the cache, even when a previous job failed. Do not save the
+      # cache when the job gets canceled.
+      if: ${{ !cancelled() }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}

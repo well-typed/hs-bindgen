@@ -1,20 +1,10 @@
+import: ./cabal.project.ci.base
+
+tests: true
+
 packages: ansi-diff
 packages: c-expr-runtime
 packages: clang
 packages: hs-bindgen
 packages: hs-bindgen-runtime
 packages: hs-bindgen-test-runtime
-
-package ansi-diff
-  ghc-options: -Werror
-
-package clang
-  ghc-options: -Werror
-  flags: +dev
-
-package hs-bindgen
-  ghc-options: -Werror
-  flags: +dev
-
-package hs-bindgen-runtime
-  ghc-options: -Werror

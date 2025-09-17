@@ -2,16 +2,15 @@ name: HLint
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
   merge_group:
 
 jobs:
   hlint:
+    name: HLint
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
 
     steps:
     - name: Checkout repository

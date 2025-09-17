@@ -1,0 +1,77 @@
+name: Manual (macOS)
+description: Build and run the manual on macOS
+
+# If needed, we can SSH into the machine executing the job and
+# figure out what's going on:
+# - name: Setup tmate session
+#   uses: mxschmitt/action-tmate@v3
+
+runs:
+  using: composite
+  steps:
+    # The MacOS assembler has an issue with Unicode characters so we don't set
+    # SUPPORTS_UNICODE.
+    - name: Configure environment variables
+      shell: bash
+      run: |
+        export DYLD_LIBRARY_PATH=${{ github.workspace }}/manual/c/:$DYLD_LIBRARY_PATH
+        echo $DYLD_LIBRARY_PATH
+        echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> "$GITHUB_ENV"
+
+    # We do not pass '-DSUPPORTS_UNICODE'.
+    #
+    # In `manual_examples.{c,h}` and `manual/hs/app/RunManual.hs` we have CPP
+    # clauses to replace the 拜拜 and ϒ functions by ByeBye and Gamma. The
+    # former, because LLVM itermediate representation (IR) does not support
+    # Unicode characters and the latter because Apple's assembler also does not
+    # support Unicode characters.
+    #
+    # This file is needed to run `./manual/generate.sh`, and also to build the
+    # manual.
+    - name: Create cabal.project.local in ./manual/hs
+      shell: bash
+      working-directory: ./manual/hs
+      run: |
+        echo "Writing cabal.project.local"
+        cat <<EOF > cabal.project.local
+        import: ../../cabal.project.ci.base
+
+        package manual
+          extra-include-dirs:
+              ${{ github.workspace }}/manual/c
+          extra-lib-dirs:
+              ${{ github.workspace }}/manual/c
+
+        package hs-game
+          extra-include-dirs:
+              ${{ github.workspace }}/manual/c
+          extra-lib-dirs:
+              ${{ github.workspace }}/manual/c
+
+        package hs-vector
+          extra-include-dirs:
+              ${{ github.workspace }}/manual/c
+          extra-lib-dirs:
+              ${{ github.workspace }}/manual/c
+        EOF
+
+    - name: Build the C libraries
+      shell: bash
+      working-directory: ./manual/c
+      run: make
+
+    - name: Run binding generation script
+      shell: bash
+      working-directory: ./manual
+      run: ./generate.sh
+
+    - name: Build the manual
+      shell: bash
+      working-directory: ./manual/hs
+      run: cabal build all
+
+    - name: Run the manual executable
+      shell: bash
+      working-directory: ./manual/hs
+      run: |
+        cabal run manual

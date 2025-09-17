@@ -1,0 +1,45 @@
+name: Pull request
+on:
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pull-request:
+    name: Pull request (${{ matrix.runner }}, GHC${{ matrix.ghc }}, LLVM${{matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      matrix:
+        runner: ['ubuntu-latest']
+        ghc:    ['9.4.8']
+        llvm:   ['15']
+    steps:
+      - name: Set git to use LF
+        shell: bash
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run test
+        uses: ./.github/actions/base
+        # PRs can only be added to the MQ when all "required" checks pass.
+        # PRs can only be merged into `main` when all "required" checks pass in the MQ.
+        #
+        # So we need to always run all checks, but skip PR view jobs in the MQ, and
+        # MQ jobs in the PR view.
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          runner: ${{ matrix.runner }}
+          ghc:    ${{ matrix.ghc }}
+          llvm:   ${{ matrix.llvm }}
