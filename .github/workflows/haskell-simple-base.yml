@@ -12,15 +12,12 @@ on:
       llvm:
         required: true
         type: string
-      active:
-        required: true
-        type: boolean
 
 jobs:
   base:
-    name: Base (${{ inputs.runner }}, GHC${{ inputs.ghc }}, LLVM${{inputs.llvm }})
+    # name: Base (${{ inputs.runner }}, GHC${{ inputs.ghc }}, LLVM${{inputs.llvm }})
+    name: Base
     runs-on: ${{ inputs.runner }}
-    if: ${{ inputs.active }}
     timeout-minutes: 45
     steps:
       - name: Set git to use LF

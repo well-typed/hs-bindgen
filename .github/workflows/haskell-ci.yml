@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   linux:
-    name: Haskell-CI - Linux - ${{ matrix.compiler }}
+    name: Haskell-CI
     runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'merge_group' }}
     timeout-minutes:
