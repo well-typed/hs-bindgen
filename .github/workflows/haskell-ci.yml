@@ -15,12 +15,22 @@
 name: Haskell-CI
 
 on:
+  pull_request:
+    branches:
+      - main
   merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   linux:
     name: Haskell-CI - Linux - ${{ matrix.compiler }}
     runs-on: ubuntu-24.04
+    if: ${{ github.event_name == 'merge_group' }}
     timeout-minutes:
       60
     container:

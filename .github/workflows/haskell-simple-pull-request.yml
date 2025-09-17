@@ -16,7 +16,7 @@ jobs:
       matrix:
         runner: ['ubuntu-latest']
         ghc:    ['9.4.8']
-        llvm:   ['14']
+        llvm:   ['15']
     uses: ./.github/workflows/haskell-simple-base.yml
     with:
       runner: ${{ matrix.runner }}
