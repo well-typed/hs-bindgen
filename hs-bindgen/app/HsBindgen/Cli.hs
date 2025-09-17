@@ -38,7 +38,7 @@ data Cmd =
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
       cmd  "preprocess"   CmdPreprocess  Preprocess.parseOpts Preprocess.info
-    , cmd  "gentests"     CmdGenTests    GenTests.parseOpts   GenTests.info
+    , cmd  "gen-tests"    CmdGenTests    GenTests.parseOpts   GenTests.info
     , cmd  "binding-spec" CmdBindingSpec BindingSpec.parseCmd BindingSpec.info
     , cmd  "info"         CmdInfo        Info.parseCmd        Info.info
     , cmd  "dev"          CmdDev         Dev.parseCmd         Dev.info
