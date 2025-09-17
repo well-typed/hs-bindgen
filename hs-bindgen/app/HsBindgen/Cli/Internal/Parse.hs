@@ -1,14 +1,14 @@
--- | @hs-bindgen-cli dev@ commands
+-- | @hs-bindgen-cli internal parse@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev qualified as Dev
-module HsBindgen.Cli.Dev (
+-- > import HsBindgen.Cli.Internal.Parse qualified as Parse
+module HsBindgen.Cli.Internal.Parse (
     -- * CLI help
     info
-    -- * Commands
-  , Cmd(..)
-  , parseCmd
+    -- * Options
+  , Opts(..)
+  , parseOpts
     -- * Execution
   , exec
   ) where
@@ -16,32 +16,37 @@ module HsBindgen.Cli.Dev (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Dev.Parse qualified as Parse
+import HsBindgen.Lib
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Development commands, used for debugging"
+info = progDesc "Parse C headers"
 
 {-------------------------------------------------------------------------------
-  Commands
+  Options
 -------------------------------------------------------------------------------}
 
--- Ordered lexicographically
-newtype Cmd =
-    CmdParse Parse.Opts
+data Opts = Opts {
+      bindgenConfig :: BindgenConfig
+    , inputs        :: [UncheckedHashIncludeArg]
+    }
 
-parseCmd :: Parser Cmd
-parseCmd = subparser $ mconcat [
-      cmd "parse" CmdParse Parse.parseOpts Parse.info
-    ]
+parseOpts :: Parser Opts
+parseOpts =
+    Opts
+      <$> parseBindgenConfig
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Cmd -> IO ()
-exec gopts = \case
-    CmdParse opts -> Parse.exec gopts opts
+exec :: GlobalOpts -> Opts -> IO ()
+exec GlobalOpts{..} Opts{..} = do
+    let artefacts = ReifiedC :* Nil
+    (I decls :* Nil) <-
+      hsBindgen tracerConfig bindgenConfig inputs artefacts
+    print decls

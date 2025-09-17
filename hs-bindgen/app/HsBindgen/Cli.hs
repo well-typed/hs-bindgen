@@ -15,9 +15,9 @@ import Options.Applicative
 
 import HsBindgen.App
 import HsBindgen.Cli.BindingSpec qualified as BindingSpec
-import HsBindgen.Cli.Dev qualified as Dev
 import HsBindgen.Cli.GenTests qualified as GenTests
 import HsBindgen.Cli.Info qualified as Info
+import HsBindgen.Cli.Internal qualified as Internal
 import HsBindgen.Cli.Preprocess qualified as Preprocess
 import HsBindgen.Cli.ToolSupport qualified as ToolSupport
 import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
@@ -32,7 +32,7 @@ data Cmd =
   | CmdGenTests    GenTests.Opts
   | CmdBindingSpec BindingSpec.Cmd
   | CmdInfo        Info.Cmd
-  | CmdDev         Dev.Cmd
+  | CmdInternal    Internal.Cmd
   | CmdToolSupport ToolSupport.Cmd
 
 parseCmd :: Parser Cmd
@@ -41,7 +41,7 @@ parseCmd = subparser $ mconcat [
     , cmd  "gen-tests"    CmdGenTests    GenTests.parseOpts   GenTests.info
     , cmd  "binding-spec" CmdBindingSpec BindingSpec.parseCmd BindingSpec.info
     , cmd  "info"         CmdInfo        Info.parseCmd        Info.info
-    , cmd  "dev"          CmdDev         Dev.parseCmd         Dev.info
+    , cmd  "internal"     CmdInternal    Internal.parseCmd    Internal.info
     , cmd_ "tool-support" CmdToolSupport ToolSupport.parseCmd ToolSupport.info
     ]
 
@@ -55,5 +55,5 @@ exec gopts = \case
     CmdGenTests    opts -> Nothing <$ GenTests.exec    gopts opts
     CmdBindingSpec cmd' -> Nothing <$ BindingSpec.exec gopts cmd'
     CmdInfo        cmd' -> Nothing <$ Info.exec        gopts cmd'
-    CmdDev         cmd' -> Nothing <$ Dev.exec         gopts cmd'
+    CmdInternal    cmd' -> Nothing <$ Internal.exec    gopts cmd'
     CmdToolSupport cmd' ->            ToolSupport.exec gopts cmd'

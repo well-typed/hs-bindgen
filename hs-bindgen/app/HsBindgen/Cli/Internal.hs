@@ -1,14 +1,14 @@
--- | @hs-bindgen-cli dev parse@ command
+-- | @hs-bindgen-cli internal@ commands
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Dev.Parse qualified as Parse
-module HsBindgen.Cli.Dev.Parse (
+-- > import HsBindgen.Cli.Internal qualified as Internal
+module HsBindgen.Cli.Internal (
     -- * CLI help
     info
-    -- * Options
-  , Opts(..)
-  , parseOpts
+    -- * Commands
+  , Cmd(..)
+  , parseCmd
     -- * Execution
   , exec
   ) where
@@ -16,37 +16,32 @@ module HsBindgen.Cli.Dev.Parse (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Lib
+import HsBindgen.Cli.Internal.Parse qualified as Parse
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Parse C headers"
+info = progDesc "Internal commands, for hs-bindgen development"
 
 {-------------------------------------------------------------------------------
-  Options
+  Commands
 -------------------------------------------------------------------------------}
 
-data Opts = Opts {
-      bindgenConfig :: BindgenConfig
-    , inputs        :: [UncheckedHashIncludeArg]
-    }
+-- Ordered lexicographically
+newtype Cmd =
+    CmdParse Parse.Opts
 
-parseOpts :: Parser Opts
-parseOpts =
-    Opts
-      <$> parseBindgenConfig
-      <*> parseInputs
+parseCmd :: Parser Cmd
+parseCmd = subparser $ mconcat [
+      cmd "parse" CmdParse Parse.parseOpts Parse.info
+    ]
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    let artefacts = ReifiedC :* Nil
-    (I decls :* Nil) <-
-      hsBindgen tracerConfig bindgenConfig inputs artefacts
-    print decls
+exec :: GlobalOpts -> Cmd -> IO ()
+exec gopts = \case
+    CmdParse opts -> Parse.exec gopts opts
