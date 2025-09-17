@@ -44,7 +44,7 @@ instance F.Storable Foo_enum where
 instance HsBindgen.Runtime.CEnum.CEnum Foo_enum where
 
   type CEnumZ Foo_enum =
-  HsBindgen.Runtime.Prelude.Word32
+    HsBindgen.Runtime.Prelude.Word32
 
   toCEnum = Foo_enum
 
