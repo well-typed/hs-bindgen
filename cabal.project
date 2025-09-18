@@ -1,6 +1,5 @@
 packages: ansi-diff
 packages: c-expr-runtime
-packages: clang
 packages: hs-bindgen
 packages: hs-bindgen-runtime
 packages: hs-bindgen-test-runtime
@@ -17,3 +16,9 @@ package hs-bindgen
 package hs-bindgen-runtime
 
 package hs-bindgen-test-runtime
+
+-- Note: this should point to a commit on libclang's main branch
+source-repository-package
+    type: git
+    location: https://github.com/well-typed/libclang
+    tag: 1c9b6198ea7f9c4e5595b2c3770d3521819dd42b

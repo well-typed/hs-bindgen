@@ -125,7 +125,7 @@ test-suite tests
   build-depends:
       -- Internal dependencies
       c-expr-runtime:c-expr-core
-    , clang
+    , libclang-bindings
   build-depends:
       -- Inherited dependencies
       data-default

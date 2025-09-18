@@ -8,12 +8,11 @@
 #
 # For more information, see https://github.com/haskell-CI/haskell-ci
 #
-# version: 0.19.20250821
+# version: 0.19.20250917
 #
-# REGENDATA ("0.19.20250821",["github","cabal.project.ci"])
+# REGENDATA ("0.19.20250917",["github","cabal.project.ci"])
 #
 name: Haskell-CI
-
 on:
   pull_request:
     branches:
@@ -168,7 +167,7 @@ jobs:
           chmod a+x $HOME/.cabal/bin/cabal-docspec
           cabal-docspec --version
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: source
       - name: initial cabal.project for sdist
@@ -176,7 +175,6 @@ jobs:
           touch cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/ansi-diff" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/c-expr-runtime" >> cabal.project
-          echo "packages: $GITHUB_WORKSPACE/source/clang" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-runtime" >> cabal.project
           echo "packages: $GITHUB_WORKSPACE/source/hs-bindgen-test-runtime" >> cabal.project
@@ -195,8 +193,6 @@ jobs:
           echo "PKGDIR_ansi_diff=${PKGDIR_ansi_diff}" >> "$GITHUB_ENV"
           PKGDIR_c_expr_runtime="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/c-expr-runtime-[0-9.]*')"
           echo "PKGDIR_c_expr_runtime=${PKGDIR_c_expr_runtime}" >> "$GITHUB_ENV"
-          PKGDIR_clang="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/clang-[0-9.]*')"
-          echo "PKGDIR_clang=${PKGDIR_clang}" >> "$GITHUB_ENV"
           PKGDIR_hs_bindgen="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-[0-9.]*')"
           echo "PKGDIR_hs_bindgen=${PKGDIR_hs_bindgen}" >> "$GITHUB_ENV"
           PKGDIR_hs_bindgen_runtime="$(find "$GITHUB_WORKSPACE/unpacked" -maxdepth 1 -type d -regex '.*/hs-bindgen-runtime-[0-9.]*')"
@@ -208,15 +204,12 @@ jobs:
           touch cabal.project.local
           echo "packages: ${PKGDIR_ansi_diff}" >> cabal.project
           echo "packages: ${PKGDIR_c_expr_runtime}" >> cabal.project
-          echo "packages: ${PKGDIR_clang}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen_runtime}" >> cabal.project
           echo "packages: ${PKGDIR_hs_bindgen_test_runtime}" >> cabal.project
           echo "package ansi-diff" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package c-expr-runtime" >> cabal.project
-          echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
-          echo "package clang" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
           echo "package hs-bindgen" >> cabal.project
           echo "    ghc-options: -Werror=missing-methods -Werror=missing-fields" >> cabal.project
@@ -228,8 +221,6 @@ jobs:
           if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
           if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package c-expr-runtime" >> cabal.project ; fi
           if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
-          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package clang" >> cabal.project ; fi
-          if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
           if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package hs-bindgen" >> cabal.project ; fi
           if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "    ghc-options: -Werror=unused-packages" >> cabal.project ; fi
           if [ $((HCNUMVER >= 90400)) -ne 0 ] ; then echo "package hs-bindgen-runtime" >> cabal.project ; fi
@@ -240,8 +231,6 @@ jobs:
           echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
           echo "package c-expr-runtime" >> cabal.project
           echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
-          echo "package clang" >> cabal.project
-          echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
           echo "package hs-bindgen" >> cabal.project
           echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
           echo "package hs-bindgen-runtime" >> cabal.project
@@ -249,21 +238,25 @@ jobs:
           echo "package hs-bindgen-test-runtime" >> cabal.project
           echo "    ghc-options: -Werror=incomplete-patterns -Werror=incomplete-uni-patterns" >> cabal.project
           cat >> cabal.project <<EOF
+          index-state: 2025-09-16T04:55:58Z
+
           package ansi-diff
             ghc-options: -Werror
 
-          package clang
-            ghc-options: -Werror
-            flags:       +dev
-
           package hs-bindgen
             ghc-options: -Werror
-            flags:       +dev
+            flags: +dev
 
           package hs-bindgen-runtime
             ghc-options: -Werror
+
+          -- Note: this should point to a commit on libclang's main branch
+          source-repository-package
+              type: git
+              location: https://github.com/well-typed/libclang
+              tag: 1c9b6198ea7f9c4e5595b2c3770d3521819dd42b
           EOF
-          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr-runtime|clang|hs-bindgen|hs-bindgen-runtime|hs-bindgen-test-runtime)$/; }' >> cabal.project.local
+          $HCPKG list --simple-output --names-only | perl -ne 'for (split /\s+/) { print "constraints: any.$_ installed\n" unless /^(ansi-diff|c-expr-runtime|hs-bindgen|hs-bindgen-runtime|hs-bindgen-test-runtime)$/; }' >> cabal.project.local
           cat cabal.project
           cat cabal.project.local
       - name: dump install plan
@@ -298,8 +291,6 @@ jobs:
           cd ${PKGDIR_ansi_diff} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_c_expr_runtime} || false
-          ${CABAL} -vnormal check
-          cd ${PKGDIR_clang} || false
           ${CABAL} -vnormal check
           cd ${PKGDIR_hs_bindgen} || false
           ${CABAL} -vnormal check
