@@ -264,12 +264,11 @@ unionDecl info = simpleFold $ \curr -> do
         let partitionChildren ::
                  [Either [C.Decl Parse] (C.UnionField Parse)]
               -> ParseDecl (Maybe ([C.Decl Parse], [C.UnionField Parse]))
-            partitionChildren xs
-              | null unused = return $ Just (used, fields)
-              | otherwise   = do
-                  recordTrace info (NameKindTagged TagKindUnion)
-                    $ ParseUnsupportedImplicitFields info
-                  return Nothing
+            partitionChildren xs = do
+                unless (null unused) $
+                  recordTrace info (NameKindTagged TagKindUnion) $
+                    ParseUnionImplicitFields info (map C.declInfo unused)
+                return $ Just (used, fields)
               where
                 otherDecls :: [C.Decl Parse]
                 fields     :: [C.UnionField Parse]
@@ -743,6 +742,8 @@ detectUnionImplicitFields ::
   -> [C.UnionField Parse]
      -- ^ Fields of the (outer) union
   -> ([C.Decl Parse], [C.Decl Parse])
+     -- ^ The first component contains the implicit fields, the second component
+     -- contains the "regular" fields.
 detectUnionImplicitFields nestedDecls outerFields =
     List.partition declIsUsed nestedDecls
   where

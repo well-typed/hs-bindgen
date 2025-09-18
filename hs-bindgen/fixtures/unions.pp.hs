@@ -457,3 +457,102 @@ get_anonA_polar =
 set_anonA_polar :: AnonA_polar -> AnonA
 set_anonA_polar =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U1 = U1
+  { un_U1 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable U1
+
+newtype U2 = U2
+  { un_U2 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U2
+
+newtype U3 = U3
+  { un_U3 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable U3
+
+{-|
+
+  __See:__ 'set_u3_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:61:7@
+
+__exported by:__ @unions.h@
+-}
+get_u3_l1 :: U3 -> FC.CInt
+get_u3_l1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u3_l1'
+
+-}
+set_u3_l1 :: FC.CInt -> U3
+set_u3_l1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U4 = U4
+  { un_U4 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U4
+
+{-|
+
+  __See:__ 'set_u4_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:70:7@
+
+__exported by:__ @unions.h@
+-}
+get_u4_l1 :: U4 -> FC.CInt
+get_u4_l1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u4_l1'
+
+-}
+set_u4_l1 :: FC.CInt -> U4
+set_u4_l1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U5 = U5
+  { un_U5 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U5
+
+{-|
+
+  __See:__ 'set_u5_uint32_t'
+
+__C declaration:__ @uint32_t@
+
+__defined at:__ @unions.h:82:7@
+
+__exported by:__ @unions.h@
+-}
+get_u5_uint32_t :: U5 -> FC.CInt
+get_u5_uint32_t =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_uint32_t'
+
+-}
+set_u5_uint32_t :: FC.CInt -> U5
+set_u5_uint32_t =
+  HsBindgen.Runtime.ByteArray.setUnionPayload

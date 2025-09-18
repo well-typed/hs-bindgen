@@ -137,6 +137,9 @@ data ParseMsg =
     -- | Struct with implicit fields
   | ParseUnsupportedImplicitFields (C.DeclInfo Parse)
 
+    -- | Union with implicit fields
+  | ParseUnionImplicitFields (C.DeclInfo Parse) [C.DeclInfo Parse]
+
     -- | Unexpected anonymous declaration inside function signature
     --
     -- Consider:
@@ -245,6 +248,13 @@ instance PrettyForTrace ParseMsg where
           prettyForTrace err
       ParseUnsupportedImplicitFields info -> noBindingsGenerated info $
           "unsupported implicit fields"
+      ParseUnionImplicitFields info unused -> PP.hcat
+        [ "Union declaration "
+        , prettyForTrace info
+        , " contains implicit fields referring to anonymous declarations. "
+        , "Bindings are not generated for these anonymous declarations: "
+        , PP.hlist '[' ']' (map prettyForTrace unused)
+        ]
       ParseUnexpectedAnonInSignature info -> noBindingsGenerated info $
           "unexpected anonymous declaration in function signature"
       ParseUnexpectedAnonInExtern info -> noBindingsGenerated info $
@@ -287,6 +297,7 @@ instance IsTrace Level ParseMsg where
       ParseExcluded{}                  -> Info
       ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
       ParseUnsupportedImplicitFields{} -> Warning
+      ParseUnionImplicitFields{}       -> Notice
       ParseUnexpectedAnonInSignature{} -> Warning
       ParseUnexpectedAnonInExtern{}    -> Warning
       ParseUnsupportedTLS{}            -> Warning

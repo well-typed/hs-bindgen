@@ -1,5 +1,6 @@
 TranslationUnit {
-  unitDecls = [
+  unitDecls =
+  [
     Decl {
       declInfo = DeclInfo {
         declLoc = "unions.h:1:8",
@@ -525,6 +526,248 @@ TranslationUnit {
                     "AnonA_polar"}
                 (NameOriginGenerated
                   (AnonId "unions.h:36:5"))}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "unions.h:44:7",
+        declId = NamePair {
+          nameC = Name "u1",
+          nameHsIdent = HsIdentifier
+            "U1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A union containing only an implicit, anonymous struct."]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "U1",
+            newtypeField = HsName
+              "@NsVar"
+              "un_U1"},
+          unionSizeof = 8,
+          unionAlignment = 4,
+          unionFields = []},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:52:7",
+        declId = NamePair {
+          nameC = Name "u2",
+          nameHsIdent = HsIdentifier
+            "U2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A union containing only an implicit, anonymous union."]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "U2",
+            newtypeField = HsName
+              "@NsVar"
+              "un_U2"},
+          unionSizeof = 4,
+          unionAlignment = 4,
+          unionFields = []},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "unions.h:60:7",
+        declId = NamePair {
+          nameC = Name "u3",
+          nameHsIdent = HsIdentifier
+            "U3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A union containing a regular field and an implicit, anonymous struct."]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "U3",
+            newtypeField = HsName
+              "@NsVar"
+              "un_U3"},
+          unionSizeof = 8,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:61:7",
+                fieldName = NamePair {
+                  nameC = Name "l1",
+                  nameHsIdent = HsIdentifier
+                    "u3_l1"},
+                fieldComment = Nothing},
+              unionFieldType = TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc = "unions.h:69:7",
+        declId = NamePair {
+          nameC = Name "u4",
+          nameHsIdent = HsIdentifier
+            "U4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A union containing a regular field and an implicit, anonymous union."]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "U4",
+            newtypeField = HsName
+              "@NsVar"
+              "un_U4"},
+          unionSizeof = 4,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:70:7",
+                fieldName = NamePair {
+                  nameC = Name "l1",
+                  nameHsIdent = HsIdentifier
+                    "u4_l1"},
+                fieldComment = Nothing},
+              unionFieldType = TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:81:7",
+        declId = NamePair {
+          nameC = Name "u5",
+          nameHsIdent = HsIdentifier
+            "U5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["unions.h"],
+            headerInclude = "unions.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A union containing:",
+                  TextContent "- a regular field",
+                  TextContent
+                    "- an implicit, anonymous struct",
+                  TextContent
+                    "- an implicit, anonymous union"]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "U5",
+            newtypeField = HsName
+              "@NsVar"
+              "un_U5"},
+          unionSizeof = 4,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:82:7",
+                fieldName = NamePair {
+                  nameC = Name "uint32_t",
+                  nameHsIdent = HsIdentifier
+                    "u5_uint32_t"},
+                fieldComment = Nothing},
+              unionFieldType = TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed)}]},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

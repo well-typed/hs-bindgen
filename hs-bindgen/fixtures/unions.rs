@@ -143,3 +143,198 @@ const _: () = {
     ["Offset of field: AnonA::xy"][::std::mem::offset_of!(AnonA, xy) - 0usize];
     ["Offset of field: AnonA::polar"][::std::mem::offset_of!(AnonA, polar) - 0usize];
 };
+///! A union containing only an implicit, anonymous struct.
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u1 {
+    pub __bindgen_anon_1: u1__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct u1__bindgen_ty_1 {
+    pub x1: ::std::os::raw::c_int,
+    pub x2: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u1__bindgen_ty_1"][::std::mem::size_of::<u1__bindgen_ty_1>() - 8usize];
+    [
+        "Alignment of u1__bindgen_ty_1",
+    ][::std::mem::align_of::<u1__bindgen_ty_1>() - 4usize];
+    [
+        "Offset of field: u1__bindgen_ty_1::x1",
+    ][::std::mem::offset_of!(u1__bindgen_ty_1, x1) - 0usize];
+    [
+        "Offset of field: u1__bindgen_ty_1::x2",
+    ][::std::mem::offset_of!(u1__bindgen_ty_1, x2) - 4usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u1"][::std::mem::size_of::<u1>() - 8usize];
+    ["Alignment of u1"][::std::mem::align_of::<u1>() - 4usize];
+};
+///! A union containing only an implicit, anonymous union.
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u2 {
+    pub __bindgen_anon_1: u2__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u2__bindgen_ty_1 {
+    pub x1: ::std::os::raw::c_int,
+    pub x2: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u2__bindgen_ty_1"][::std::mem::size_of::<u2__bindgen_ty_1>() - 4usize];
+    [
+        "Alignment of u2__bindgen_ty_1",
+    ][::std::mem::align_of::<u2__bindgen_ty_1>() - 4usize];
+    [
+        "Offset of field: u2__bindgen_ty_1::x1",
+    ][::std::mem::offset_of!(u2__bindgen_ty_1, x1) - 0usize];
+    [
+        "Offset of field: u2__bindgen_ty_1::x2",
+    ][::std::mem::offset_of!(u2__bindgen_ty_1, x2) - 0usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u2"][::std::mem::size_of::<u2>() - 4usize];
+    ["Alignment of u2"][::std::mem::align_of::<u2>() - 4usize];
+};
+///! A union containing a regular field and an implicit, anonymous struct.
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u3 {
+    pub l1: ::std::os::raw::c_int,
+    pub __bindgen_anon_1: u3__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct u3__bindgen_ty_1 {
+    pub x1: ::std::os::raw::c_int,
+    pub x2: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u3__bindgen_ty_1"][::std::mem::size_of::<u3__bindgen_ty_1>() - 8usize];
+    [
+        "Alignment of u3__bindgen_ty_1",
+    ][::std::mem::align_of::<u3__bindgen_ty_1>() - 4usize];
+    [
+        "Offset of field: u3__bindgen_ty_1::x1",
+    ][::std::mem::offset_of!(u3__bindgen_ty_1, x1) - 0usize];
+    [
+        "Offset of field: u3__bindgen_ty_1::x2",
+    ][::std::mem::offset_of!(u3__bindgen_ty_1, x2) - 4usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u3"][::std::mem::size_of::<u3>() - 8usize];
+    ["Alignment of u3"][::std::mem::align_of::<u3>() - 4usize];
+    ["Offset of field: u3::l1"][::std::mem::offset_of!(u3, l1) - 0usize];
+};
+///! A union containing a regular field and an implicit, anonymous union.
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u4 {
+    pub l1: ::std::os::raw::c_int,
+    pub __bindgen_anon_1: u4__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u4__bindgen_ty_1 {
+    pub x1: ::std::os::raw::c_int,
+    pub x2: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u4__bindgen_ty_1"][::std::mem::size_of::<u4__bindgen_ty_1>() - 4usize];
+    [
+        "Alignment of u4__bindgen_ty_1",
+    ][::std::mem::align_of::<u4__bindgen_ty_1>() - 4usize];
+    [
+        "Offset of field: u4__bindgen_ty_1::x1",
+    ][::std::mem::offset_of!(u4__bindgen_ty_1, x1) - 0usize];
+    [
+        "Offset of field: u4__bindgen_ty_1::x2",
+    ][::std::mem::offset_of!(u4__bindgen_ty_1, x2) - 0usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u4"][::std::mem::size_of::<u4>() - 4usize];
+    ["Alignment of u4"][::std::mem::align_of::<u4>() - 4usize];
+    ["Offset of field: u4::l1"][::std::mem::offset_of!(u4, l1) - 0usize];
+};
+/**! A union containing:
+! - a regular field
+! - an implicit, anonymous struct
+! - an implicit, anonymous union*/
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u5 {
+    pub uint32_t: ::std::os::raw::c_int,
+    pub __bindgen_anon_1: u5__bindgen_ty_1,
+    pub __bindgen_anon_2: u5__bindgen_ty_2,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct u5__bindgen_ty_1 {
+    pub x1: ::std::os::raw::c_char,
+    pub x2: ::std::os::raw::c_char,
+    pub x3: ::std::os::raw::c_char,
+    pub x4: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u5__bindgen_ty_1"][::std::mem::size_of::<u5__bindgen_ty_1>() - 4usize];
+    [
+        "Alignment of u5__bindgen_ty_1",
+    ][::std::mem::align_of::<u5__bindgen_ty_1>() - 1usize];
+    [
+        "Offset of field: u5__bindgen_ty_1::x1",
+    ][::std::mem::offset_of!(u5__bindgen_ty_1, x1) - 0usize];
+    [
+        "Offset of field: u5__bindgen_ty_1::x2",
+    ][::std::mem::offset_of!(u5__bindgen_ty_1, x2) - 1usize];
+    [
+        "Offset of field: u5__bindgen_ty_1::x3",
+    ][::std::mem::offset_of!(u5__bindgen_ty_1, x3) - 2usize];
+    [
+        "Offset of field: u5__bindgen_ty_1::x4",
+    ][::std::mem::offset_of!(u5__bindgen_ty_1, x4) - 3usize];
+};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union u5__bindgen_ty_2 {
+    pub y1: ::std::os::raw::c_char,
+    pub y2: ::std::os::raw::c_char,
+    pub y3: ::std::os::raw::c_char,
+    pub y4: ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u5__bindgen_ty_2"][::std::mem::size_of::<u5__bindgen_ty_2>() - 1usize];
+    [
+        "Alignment of u5__bindgen_ty_2",
+    ][::std::mem::align_of::<u5__bindgen_ty_2>() - 1usize];
+    [
+        "Offset of field: u5__bindgen_ty_2::y1",
+    ][::std::mem::offset_of!(u5__bindgen_ty_2, y1) - 0usize];
+    [
+        "Offset of field: u5__bindgen_ty_2::y2",
+    ][::std::mem::offset_of!(u5__bindgen_ty_2, y2) - 0usize];
+    [
+        "Offset of field: u5__bindgen_ty_2::y3",
+    ][::std::mem::offset_of!(u5__bindgen_ty_2, y3) - 0usize];
+    [
+        "Offset of field: u5__bindgen_ty_2::y4",
+    ][::std::mem::offset_of!(u5__bindgen_ty_2, y4) - 0usize];
+};
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of u5"][::std::mem::size_of::<u5>() - 4usize];
+    ["Alignment of u5"][::std::mem::align_of::<u5>() - 4usize];
+    ["Offset of field: u5::uint32_t"][::std::mem::offset_of!(u5, uint32_t) - 0usize];
+};

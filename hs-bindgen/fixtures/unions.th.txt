@@ -464,3 +464,115 @@ set_anonA_polar :: AnonA_polar -> AnonA
 
 -}
 set_anonA_polar = setUnionPayload
+newtype U1 = U1 {un_U1 :: ByteArray}
+deriving via (SizedByteArray 8 4) instance Storable U1
+newtype U2 = U2 {un_U2 :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable U2
+newtype U3 = U3 {un_U3 :: ByteArray}
+deriving via (SizedByteArray 8 4) instance Storable U3
+{-|
+
+  __See:__ 'set_u3_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:61:7@
+
+__exported by:__ @unions.h@
+-}
+get_u3_l1 :: U3 -> CInt
+{-|
+
+  __See:__ 'set_u3_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:61:7@
+
+__exported by:__ @unions.h@
+-}
+get_u3_l1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u3_l1'
+
+-}
+set_u3_l1 :: CInt -> U3
+{-|
+
+  __See:__ 'get_u3_l1'
+
+-}
+set_u3_l1 = setUnionPayload
+newtype U4 = U4 {un_U4 :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable U4
+{-|
+
+  __See:__ 'set_u4_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:70:7@
+
+__exported by:__ @unions.h@
+-}
+get_u4_l1 :: U4 -> CInt
+{-|
+
+  __See:__ 'set_u4_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:70:7@
+
+__exported by:__ @unions.h@
+-}
+get_u4_l1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u4_l1'
+
+-}
+set_u4_l1 :: CInt -> U4
+{-|
+
+  __See:__ 'get_u4_l1'
+
+-}
+set_u4_l1 = setUnionPayload
+newtype U5 = U5 {un_U5 :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable U5
+{-|
+
+  __See:__ 'set_u5_uint32_t'
+
+__C declaration:__ @uint32_t@
+
+__defined at:__ @unions.h:82:7@
+
+__exported by:__ @unions.h@
+-}
+get_u5_uint32_t :: U5 -> CInt
+{-|
+
+  __See:__ 'set_u5_uint32_t'
+
+__C declaration:__ @uint32_t@
+
+__defined at:__ @unions.h:82:7@
+
+__exported by:__ @unions.h@
+-}
+get_u5_uint32_t = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_uint32_t'
+
+-}
+set_u5_uint32_t :: CInt -> U5
+{-|
+
+  __See:__ 'get_u5_uint32_t'
+
+-}
+set_u5_uint32_t = setUnionPayload

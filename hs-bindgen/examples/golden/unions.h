@@ -35,3 +35,62 @@ union AnonA {
     struct { double x; double y; } xy;
     struct { double r; double p; } polar;
 };
+
+/*
+ * Nested anonymous declarations
+ */
+
+//! A union containing only an implicit, anonymous struct.
+union u1 {
+  struct {
+    int x1;
+    char x2;
+  };
+};
+
+//! A union containing only an implicit, anonymous union.
+union u2 {
+  union {
+    int x1;
+    char x2;
+  };
+};
+
+//! A union containing a regular field and an implicit, anonymous struct.
+union u3 {
+  int l1;
+  struct {
+    int x1;
+    char x2;
+  };
+};
+
+//! A union containing a regular field and an implicit, anonymous union.
+union u4 {
+  int l1;
+  union {
+    int x1;
+    char x2;
+  };
+};
+
+//! A union containing:
+//! - a regular field
+//! - an implicit, anonymous struct
+//! - an implicit, anonymous union
+union u5 {
+  int uint32_t;
+  struct {
+    char x1;
+    char x2;
+    char x3;
+    char x4;
+  };
+  union {
+    char y1;
+    char y2;
+    char y3;
+    char y4;
+  };
+};
+
