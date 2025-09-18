@@ -1389,7 +1389,7 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
 
     wrapperName :: String
     wrapperName = unUniqueSymbolId $
-      getUniqueSymbolId (translationUniqueId opts) moduleName innerName
+      getUniqueSymbolId (translationUniqueId opts) moduleName (Just safety) innerName
 
 getMainHashIncludeArg :: C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
@@ -1560,7 +1560,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     stubNameMangled :: String
     stubNameMangled = unUniqueSymbolId $
-        getUniqueSymbolId (translationUniqueId opts) moduleName stubName
+        getUniqueSymbolId (translationUniqueId opts) moduleName Nothing stubName
 
     stubName :: String
     stubName = "get_" ++ varName ++ "_ptr"
@@ -1806,15 +1806,15 @@ macroName (C.Name cName) =
 newtype UniqueSymbolId = UniqueSymbolId { unUniqueSymbolId :: String }
   deriving newtype (Show)
 
-getUniqueSymbolId :: UniqueId -> HsModuleName -> String -> UniqueSymbolId
-getUniqueSymbolId (UniqueId uniqueId) moduleName symbolName =
+getUniqueSymbolId :: UniqueId -> HsModuleName -> Maybe Safety -> String -> UniqueSymbolId
+getUniqueSymbolId (UniqueId uniqueId) moduleName msafety symbolName =
     UniqueSymbolId $ intercalate "_" components
   where
     components :: [String]
     components =
          [ "hs_bindgen"                   ]
       ++ [ x | let x = sanitize uniqueId, not (null x) ]
-      ++ [ getHash moduleName symbolName  ]
+      ++ [ getHash moduleName msafety symbolName  ]
 
     sanitize :: String -> String
     sanitize [] = []
@@ -1826,11 +1826,11 @@ getUniqueSymbolId (UniqueId uniqueId) moduleName symbolName =
 
     -- We use `cryptohash-sha256` to avoid potential dynamic linker problems
     -- (https://github.com/haskell-haskey/xxhash-ffi/issues/4).
-    getHash :: HsModuleName -> String -> String
-    getHash x y = B.unpack $ B.take 16 $ B16.encode $
-      hash $ getString x y
+    getHash :: HsModuleName -> Maybe Safety -> String -> String
+    getHash x y z = B.unpack $ B.take 16 $ B16.encode $
+      hash $ getString x y z
 
     -- We use ByteString to avoid hash changes induced by a change of how Text
     -- is encoded in GHC 9.2.
-    getString :: HsModuleName -> String -> ByteString
-    getString x y = B.pack $ T.unpack (getHsModuleName x) <> y
+    getString :: HsModuleName -> Maybe Safety -> String -> ByteString
+    getString x y z = B.pack $ T.unpack (getHsModuleName x) <> show y <> z
