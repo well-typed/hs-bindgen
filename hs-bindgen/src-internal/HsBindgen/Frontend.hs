@@ -145,9 +145,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     let -- Unit.
         cTranslationUnit :: C.TranslationUnit
         cTranslationUnit = finalize afterMangleNames
+        -- Include graph predicate
+        includeGraphP :: IncludeGraph.Predicate
+        includeGraphP path =
+             matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
+          && path /= name
         -- Graphs.
-        frontendIncludeGraph :: IncludeGraph.IncludeGraph
-        frontendIncludeGraph = unitIncludeGraph afterParse
+        frontendIncludeGraph :: (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+        frontendIncludeGraph = (includeGraphP, unitIncludeGraph afterParse)
         frontendIndex        :: DeclIndex.DeclIndex
         frontendIndex        = declIndex $ unitAnn afterSort
         frontendUseDeclGraph :: UseDeclGraph.UseDeclGraph
@@ -201,12 +206,12 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-    frontendIncludeGraph    :: IncludeGraph.IncludeGraph
-  , frontendIndex           :: DeclIndex.DeclIndex
-  , frontendUseDeclGraph    :: UseDeclGraph.UseDeclGraph
-  , frontendDeclUseGraph    :: DeclUseGraph.DeclUseGraph
-  , frontendCDecls          :: [C.Decl]
-  , frontendDependencies    :: [SourcePath]
+    frontendIncludeGraph :: (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+  , frontendIndex        :: DeclIndex.DeclIndex
+  , frontendUseDeclGraph :: UseDeclGraph.UseDeclGraph
+  , frontendDeclUseGraph :: DeclUseGraph.DeclUseGraph
+  , frontendCDecls       :: [C.Decl]
+  , frontendDependencies :: [SourcePath]
   }
 
 {-------------------------------------------------------------------------------
