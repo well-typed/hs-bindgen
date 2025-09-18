@@ -92,7 +92,8 @@ execWithTracer Opts{..} tracer = do
       exitOnClangError <=< withClang clangTracer clangSetup $
         fmap Just . processIncludes
     let p path =
-          Predicate.matchParse isMainHeader isInMainHeaderDir path predicate
+             Predicate.matchParse isMainHeader isInMainHeaderDir path predicate
+          && path /= RootHeader.name
     case output of
       Just path -> writeFile path $ IncludeGraph.dumpMermaid p includeGraph
       Nothing   -> putStr         $ IncludeGraph.dumpMermaid p includeGraph

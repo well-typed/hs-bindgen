@@ -37,7 +37,8 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.Frontend.RootHeader (HashIncludeArg, UncheckedHashIncludeArg)
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.TraceMsg
@@ -112,7 +113,9 @@ writeIncludeGraph file =
   Lift
     (IncludeGraph :* Nil)
     (\(I includeGraph :* Nil) ->
-       writeFile file (IncludeGraph.dumpMermaid (const True) includeGraph))
+       writeFile
+         file
+         (IncludeGraph.dumpMermaid (/= RootHeader.name) includeGraph))
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()
