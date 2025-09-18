@@ -60,64 +60,59 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
   Parse pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_parseTrue :: SingleLoc -> C.PrelimDeclId -> Bool
-prop_parseTrue loc declId = matchParse (const True) (const True) loc declId PTrue
+prop_parseTrue :: SingleLoc -> Bool
+prop_parseTrue loc = matchParse (const True) (const True) loc PTrue
 
-prop_parseFalse :: SingleLoc -> C.PrelimDeclId -> Bool
-prop_parseFalse loc declId =
-    not $ matchParse (const True) (const True) loc declId PFalse
+prop_parseFalse :: SingleLoc -> Bool
+prop_parseFalse loc = not $ matchParse (const True) (const True) loc PFalse
 
 prop_parseAnd
   :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
-  -> C.PrelimDeclId -> ParsePredicate -> ParsePredicate -> Bool
-prop_parseAnd (Fn isMainHeader) (Fn isInMainHeaderDir) loc declId p1 p2 =
-    let p1Res = matchParse isMainHeader isInMainHeaderDir loc declId p1
-        p2Res = matchParse isMainHeader isInMainHeaderDir loc declId p2
-        p1AndP2Res =
-          matchParse isMainHeader isInMainHeaderDir loc declId (PAnd p1 p2)
+  -> ParsePredicate -> ParsePredicate -> Bool
+prop_parseAnd (Fn isMainHeader) (Fn isInMainHeaderDir) loc p1 p2 =
+    let p1Res = matchParse isMainHeader isInMainHeaderDir loc p1
+        p2Res = matchParse isMainHeader isInMainHeaderDir loc p2
+        p1AndP2Res = matchParse isMainHeader isInMainHeaderDir loc (PAnd p1 p2)
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_parseOr
   :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
-  -> C.PrelimDeclId -> ParsePredicate -> ParsePredicate -> Bool
-prop_parseOr (Fn isMainHeader) (Fn isInMainHeaderDir) loc declId p1 p2 =
-    let p1Res = matchParse isMainHeader isInMainHeaderDir loc declId p1
-        p2Res = matchParse isMainHeader isInMainHeaderDir loc declId p2
-        p1OrP2Res =
-          matchParse isMainHeader isInMainHeaderDir loc declId (POr p1 p2)
+  -> ParsePredicate -> ParsePredicate -> Bool
+prop_parseOr (Fn isMainHeader) (Fn isInMainHeaderDir) loc p1 p2 =
+    let p1Res = matchParse isMainHeader isInMainHeaderDir loc p1
+        p2Res = matchParse isMainHeader isInMainHeaderDir loc p2
+        p1OrP2Res = matchParse isMainHeader isInMainHeaderDir loc (POr p1 p2)
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_parseNot
   :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
-  -> C.PrelimDeclId -> ParsePredicate -> Property
-prop_parseNot (Fn isMainHeader) (Fn isInMainHeaderDir) loc declId p =
-      matchParse isMainHeader isInMainHeaderDir loc declId p
-  =/= matchParse isMainHeader isInMainHeaderDir loc declId (PNot p)
+  -> ParsePredicate -> Property
+prop_parseNot (Fn isMainHeader) (Fn isInMainHeaderDir) loc p =
+      matchParse isMainHeader isInMainHeaderDir loc p
+  =/= matchParse isMainHeader isInMainHeaderDir loc (PNot p)
 
-prop_parseFromMainHeaders
-  :: Fun SingleLoc Bool -> SingleLoc -> C.PrelimDeclId -> Bool
-prop_parseFromMainHeaders (Fn isMainHeader) loc declId =
+prop_parseFromMainHeaders :: Fun SingleLoc Bool -> SingleLoc -> Bool
+prop_parseFromMainHeaders (Fn isMainHeader) loc =
   let p = PIf FromMainHeaders
-   in matchParse isMainHeader unused loc declId p == isMainHeader loc
+   in matchParse isMainHeader unused loc p == isMainHeader loc
 
-prop_parseFromMainHeaderDirs
-  :: Fun SingleLoc Bool -> SingleLoc -> C.PrelimDeclId -> Bool
-prop_parseFromMainHeaderDirs (Fn isInMainHeaderDir) loc declId =
+prop_parseFromMainHeaderDirs :: Fun SingleLoc Bool -> SingleLoc -> Bool
+prop_parseFromMainHeaderDirs (Fn isInMainHeaderDir) loc =
   let p = PIf FromMainHeaderDirs
-   in matchParse unused isInMainHeaderDir loc declId p == isInMainHeaderDir loc
+   in matchParse unused isInMainHeaderDir loc p == isInMainHeaderDir loc
 
-prop_parseHeaderPathMatchesAll :: SingleLoc -> C.PrelimDeclId -> Bool
-prop_parseHeaderPathMatchesAll loc declId =
+prop_parseHeaderPathMatchesAll :: SingleLoc -> Bool
+prop_parseHeaderPathMatchesAll loc =
   let p = PIf (HeaderPathMatches ".*")
-   in matchParse unused unused loc declId p
+   in matchParse unused unused loc p
 
-prop_parseHeaderPathMatchesNeedle :: SingleLoc -> C.PrelimDeclId -> Bool
-prop_parseHeaderPathMatchesNeedle loc declId =
+prop_parseHeaderPathMatchesNeedle :: SingleLoc -> Bool
+prop_parseHeaderPathMatchesNeedle loc =
   let (SourcePath path) = singleLocPath loc
       path' = path <> "NEEDLE" <> path
       loc' = loc { singleLocPath = SourcePath path' }
       p = PIf (HeaderPathMatches "NEEDLE")
-   in matchParse unused unused loc' declId p
+   in matchParse unused unused loc' p
 
 {-------------------------------------------------------------------------------
   Select pass selection properties
@@ -260,15 +255,10 @@ instance Arbitrary C.Name where
 instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary C.PrelimDeclId where
+instance Arbitrary C.NameOrigin where
   -- TODO: We currently never produce anonymous or builtin declarations.
   -- In this module we check that selection predicates behave as boolean
   -- functions; this is not true for builtins (which are /never/ selected).
-  arbitrary = C.PrelimDeclIdNamed <$> arbitrary
-
-instance Arbitrary C.NameOrigin where
-  -- TODO: We currently never produce anonymous or builtin declarations.
-  -- See comment for @Arbitrary C.PrelimDeclId@
   arbitrary = pure C.NameOriginInSource
 
 instance Arbitrary C.QualDeclId where

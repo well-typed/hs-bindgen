@@ -113,7 +113,6 @@ evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> do
                      (envIsMainHeader parseEnv)
                      (envIsInMainHeaderDir parseEnv)
                      (C.declLoc info)
-                     (C.declId info)
                      (envPredicate parseEnv)
     unless selected $ traceWith (envTracer parseEnv) (ParseExcluded info)
     return selected

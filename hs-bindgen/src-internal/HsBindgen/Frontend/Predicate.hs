@@ -33,7 +33,6 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -150,17 +149,10 @@ matchParse ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SingleLoc
-  -> PrelimDeclId
   -> ParsePredicate
   -> Bool
-matchParse isMainHeader isInMainHeaderDir loc prelimDeclId
-    | isBuiltin = const False
-    | otherwise = eval (matchHeaderPath isMainHeader isInMainHeaderDir loc)
-  where
-    isBuiltin :: Bool
-    isBuiltin = case prelimDeclId of
-      PrelimDeclIdBuiltin{} -> True
-      _otherwise            -> False
+matchParse isMainHeader isInMainHeaderDir loc = eval $
+    matchHeaderPath isMainHeader isInMainHeaderDir loc
 
 -- | Match 'SelectPredicate' predicates
 matchSelect ::
