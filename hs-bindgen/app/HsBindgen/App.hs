@@ -12,6 +12,8 @@ module HsBindgen.App (
   , parseBindgenConfig
     -- ** Clang arguments
   , parseClangArgsConfig
+    -- ** Predicates and slicing
+  , parseParsePredicate
     -- ** Output options
   , parseOutput
   , parseGenBindingSpec
@@ -360,25 +362,25 @@ parseParsePredicate :: Parser ParsePredicate
 parseParsePredicate = fmap aux . many . asum $ [
       flag' (Right PTrue) $ mconcat [
           long "parse-all"
-        , help "Parse all declarations"
+        , help "Parse all headers"
         ]
     , flag' (Right (PIf FromMainHeaders)) $ mconcat [
           long "parse-from-main-headers"
-        , help "Parse declarations in main headers"
+        , help "Parse main headers"
         ]
     , flag' (Right (PIf FromMainHeaderDirs)) $ mconcat [
           long "parse-from-main-header-dirs"
-        , help "Parse declarations in main header directories (default)"
+        , help "Parse headers in main header directories (default)"
         ]
     , fmap (Right . PIf . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-by-header-path"
         , metavar "PCRE"
-        , help "Parse declarations in headers with paths that match PCRE"
+        , help "Parse headers with paths that match PCRE"
         ]
     , fmap (Left . PIf . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-except-by-header-path"
         , metavar "PCRE"
-        , help "Parse except declarations in headers with paths that match PCRE"
+        , help "Parse except headers with paths that match PCRE"
         ]
     ]
   where

@@ -161,6 +161,7 @@ dumpMermaid :: DeclIndex -> UseDeclGraph -> String
 dumpMermaid declIndex (Wrap graph) =
     DynGraph.dumpMermaid
       False
+      (const True)
       (Just . show)
       (\uid -> showDecl $ declIndex DeclIndex.! uid)
       graph

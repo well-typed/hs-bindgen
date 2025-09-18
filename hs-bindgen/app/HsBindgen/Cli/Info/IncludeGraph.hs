@@ -25,6 +25,7 @@ import HsBindgen.App
 import HsBindgen.Boot qualified as Boot
 import HsBindgen.Clang
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Frontend.ProcessIncludes (processIncludes)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
@@ -43,6 +44,7 @@ info = progDesc "Compute the include graph"
 
 data Opts = Opts {
       clangArgsConfig :: ClangArgsConfig
+    , predicate       :: ParsePredicate
     , output          :: Maybe FilePath
     , inputs          :: [UncheckedHashIncludeArg]
     }
@@ -51,16 +53,17 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseClangArgsConfig
+      <*> parseParsePredicate
       <*> optional parseOutput'
       <*> parseInputs
-  where
-    parseOutput' :: Parser FilePath
-    parseOutput' = strOption $ mconcat [
-        short 'o'
-      , long "output"
-      , metavar "PATH"
-      , help "Output path for the graph"
-      ]
+
+parseOutput' :: Parser FilePath
+parseOutput' = strOption $ mconcat [
+      short 'o'
+    , long "output"
+    , metavar "PATH"
+    , help "Output path for the graph"
+    ]
 
 {-------------------------------------------------------------------------------
   Execution
@@ -85,13 +88,14 @@ execWithTracer Opts{..} tracer = do
               ]
           }
         exitOnClangError = maybe (throwIO $ ExitFailure 1) return
-    includeGraph <-
-      exitOnClangError <=< withClang clangTracer clangSetup $ \unit -> do
-        (includeGraph, _, _, _) <- processIncludes unit
-        return $ Just includeGraph
+    (includeGraph, isMainHeader, isInMainHeaderDir, _) <-
+      exitOnClangError <=< withClang clangTracer clangSetup $
+        fmap Just . processIncludes
+    let p path =
+          Predicate.matchParse isMainHeader isInMainHeaderDir path predicate
     case output of
-      Just path -> writeFile path $ IncludeGraph.dumpMermaid includeGraph
-      Nothing   -> putStr         $ IncludeGraph.dumpMermaid includeGraph
+      Just path -> writeFile path $ IncludeGraph.dumpMermaid p includeGraph
+      Nothing   -> putStr         $ IncludeGraph.dumpMermaid p includeGraph
   where
     hiaTracer :: Tracer IO HashIncludeArgMsg
     hiaTracer = contramap (TraceBoot . BootHashIncludeArg) tracer

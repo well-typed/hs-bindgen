@@ -112,7 +112,7 @@ writeIncludeGraph file =
   Lift
     (IncludeGraph :* Nil)
     (\(I includeGraph :* Nil) ->
-       writeFile file (IncludeGraph.dumpMermaid includeGraph))
+       writeFile file (IncludeGraph.dumpMermaid (const True) includeGraph))
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()
