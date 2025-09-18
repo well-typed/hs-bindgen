@@ -21,8 +21,9 @@ module HsBindgen
   ) where
 
 import Data.Map qualified as Map
+import Data.Text qualified as T
 import System.Directory (createDirectoryIfMissing)
-import System.FilePath (splitExtension, takeDirectory, (<.>), (</>))
+import System.FilePath (takeDirectory, (<.>), (</>))
 
 import Clang.Paths
 
@@ -48,7 +49,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, UncheckedHashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell (HsModuleName)
+import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -163,9 +164,9 @@ getBindings safety = Lift (FinalModule safety :* Nil) $
 --
 -- If no file is given, print to standard output.
 writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety mBasePath = Lift (getBindings safety :* Nil) $
+writeBindings safety path = Lift (getBindings safety :* Nil) $
     \(I bindings :* Nil) ->
-      write mBasePath bindings
+      write path bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
@@ -173,15 +174,15 @@ getBindingsMultiple = Lift (FinalModules :* Nil) $
     \(I finalModule :* Nil) ->
       pure . (fmap render) $ finalModule
 
--- | Write bindings to files.
+-- | Write bindings to files in provided output directory.
 --
 -- Each file contains a different binding category.
 --
 -- If no file is given, print to standard output.
-writeBindingsMultiple :: Maybe FilePath -> Artefact ()
-writeBindingsMultiple mBasePath = Lift (getBindingsMultiple :* Nil) $
-    \(I bindingsByCategory :* Nil) ->
-      writeByCategory mBasePath bindingsByCategory
+writeBindingsMultiple :: FilePath -> Artefact ()
+writeBindingsMultiple hsOutputDir = Lift (FinalModuleBaseName :* getBindingsMultiple :* Nil) $
+    \(I moduleBaseName :* I bindingsByCategory :* Nil) ->
+      writeByCategory hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
@@ -257,10 +258,8 @@ write (Just path) str = do
       createDirectoryIfMissing True $ takeDirectory path
       writeFile path str
 
-writeByCategory :: Maybe FilePath -> ByCategory String -> IO ()
-writeByCategory Nothing =
-    mapM_ putStrLn . unByCategory
-writeByCategory (Just basePath) =
+writeByCategory :: FilePath -> HsModuleName -> ByCategory String -> IO ()
+writeByCategory hsOutputDir moduleBaseName =
     mapM_ (uncurry writeCategory) . Map.toList . unByCategory
   where
     writeCategory :: BindingCategory -> String -> IO ()
@@ -268,11 +267,9 @@ writeByCategory (Just basePath) =
       let addSubModule = case cat of
             BType    -> id
             otherCat -> (</> displayBindingCategory otherCat)
-          path = addSubModule basePathNoExt <.> ext
+          path = addSubModule baseFilePath <.> "hs"
       createDirectoryIfMissing True $ takeDirectory path
       writeFile path str
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1090: Think about
-    -- how we treat extensions.
-    (basePathNoExt, maybeExt) = splitExtension basePath
-    ext = if null maybeExt then "hs" else maybeExt
+    baseFilePath :: FilePath
+    baseFilePath = hsOutputDir </> T.unpack (getHsModuleName moduleBaseName)

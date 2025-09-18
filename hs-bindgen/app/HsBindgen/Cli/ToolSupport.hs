@@ -42,6 +42,6 @@ parseCmd = subparser $ mconcat [
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Cmd -> IO (Maybe Literate.Opts)
+exec :: GlobalOpts -> Cmd -> IO ()
 exec _gopts = \case
-    CmdLiterate opts -> return (Just opts)
+    CmdLiterate opts -> Literate.exec opts

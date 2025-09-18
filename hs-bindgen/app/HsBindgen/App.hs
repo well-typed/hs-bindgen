@@ -14,11 +14,8 @@ module HsBindgen.App (
   , parseClangArgsConfig
     -- ** Predicates and slicing
   , parseParsePredicate
-    -- ** Module organization
-  , ModuleOrg(..)
-  , parseModuleOrg
     -- ** Output options
-  , parseOutput
+  , parseHsOutputDir
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -39,7 +36,6 @@ import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.Lib
 
@@ -490,60 +486,18 @@ parseHsModuleName = strOption $ mconcat [
     , metavar "NAME"
     , showDefault
     , value $ hsModuleOptsBaseName def
-    , help "Name of the generated Haskell module"
+    , help "Base name of the generated Haskell modules"
     ]
-
-{-------------------------------------------------------------------------------
-  Module organization
--------------------------------------------------------------------------------}
-
--- | Organization of modules.
-data ModuleOrg =
-    -- | Create a separate module for each 'BindingCategory'.
-    Multiple
-    -- | Create one module containing all declarations. Both binding categories,
-    -- 'BSafe' and 'BUnsafe' contain the same set of declarations, and so, we
-    -- must decide if the single module should contains either 'Safe' or
-    -- 'Unsafe' declarations.
-  | Single Safety
-  deriving stock (Show, Eq)
-
-instance Default ModuleOrg where
-  def = Multiple
-
-parseModuleOrg :: Parser ModuleOrg
-parseModuleOrg = asum [
-      flag' Multiple $ mconcat [
-          long "modules-multiple"
-        , help $ "Generate one for each binding category (" <> catsStr <> "; default)"
-        ]
-    , flag' (Single Safe) $ mconcat [
-          long "modules-safe"
-        , help "Generate one module with _safe_ foreign function imports"
-        ]
-    , flag' (Single Unsafe) $ mconcat [
-          long "modules-unsafe"
-        , help "Generate one module with _unsafe_ foreign function imports"
-        ]
-    , pure Multiple
-    ]
-  where
-    cats :: [BindingCategory]
-    cats = [minBound .. maxBound]
-
-    catsStr :: String
-    catsStr = List.intercalate ", "  $ map show cats
 
 {-------------------------------------------------------------------------------
   Output options
 -------------------------------------------------------------------------------}
 
-parseOutput :: Parser FilePath
-parseOutput = strOption $ mconcat [
-      short 'o'
-    , long "output"
+parseHsOutputDir :: Parser FilePath
+parseHsOutputDir = strOption $ mconcat [
+      long "hs-output-dir"
     , metavar "PATH"
-    , help "Output path for the Haskell module"
+    , help "Output directory of generated Haskell modules"
     ]
 
 parseGenBindingSpec :: Parser FilePath

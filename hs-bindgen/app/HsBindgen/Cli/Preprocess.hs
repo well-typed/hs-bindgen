@@ -19,7 +19,6 @@ import GHC.Generics (Generic)
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Lib
 
 import HsBindgen (sequenceArtefacts, writeBindingsMultiple)
@@ -37,10 +36,8 @@ info = progDesc "Generate Haskell module from C headers"
 
 data Opts = Opts {
       bindgenConfig     :: BindgenConfig
-    , output            :: Maybe FilePath
+    , hsOutputDir       :: FilePath
     , outputBindingSpec :: Maybe FilePath
-    , moduleOrg         :: ModuleOrg
-    , haddockConfig     :: HaddockConfig
     , inputs            :: [UncheckedHashIncludeArg]
     -- NOTE inputs (arguments) must be last, options must go before it
     }
@@ -50,10 +47,8 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseBindgenConfig
-      <*> optional parseOutput
+      <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
-      <*> parseModuleOrg
-      <*> parseHaddockConfig
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -66,10 +61,7 @@ exec GlobalOpts{..} Opts{..} = void $ run $ (sequenceArtefacts artefacts) :* Nil
     run :: Artefacts as -> IO (NP I as)
     run = hsBindgen tracerConfig bindgenConfig inputs
 
-    writeBdgs :: Artefact ()
-    writeBdgs = case moduleOrg of
-      Multiple      -> writeBindingsMultiple output
-      Single safety -> writeBindings safety  output
-
     artefacts :: [Artefact ()]
-    artefacts = writeBdgs : [ writeBindingSpec file | file <- maybeToList outputBindingSpec ]
+    artefacts =
+          writeBindingsMultiple hsOutputDir
+      : [ writeBindingSpec file | file <- maybeToList outputBindingSpec ]
