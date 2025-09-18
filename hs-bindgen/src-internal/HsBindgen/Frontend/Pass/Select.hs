@@ -110,7 +110,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
       Predicate.matchSelect
         isMainHeader
         isInMainHeaderDir
-        loc
+        (singleLocPath loc)
         qualDeclId
         selectConfigPredicate
 

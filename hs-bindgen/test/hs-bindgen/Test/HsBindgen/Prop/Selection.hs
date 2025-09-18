@@ -7,12 +7,10 @@ import Data.Text qualified as Text
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, HasCallStack, testCase, (@?=))
 import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
-                              Fun, Function (function),
-                              NonNegative (getNonNegative), Property,
+                              Fun, Function (function), Property,
                               coarbitraryShow, elements, functionMap, oneof,
                               pattern Fn, testProperty, (=/=), (===))
 
-import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
@@ -60,134 +58,130 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
   Parse pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_parseTrue :: SingleLoc -> Bool
-prop_parseTrue loc = matchParse (const True) (const True) loc PTrue
+prop_parseTrue :: SourcePath -> Bool
+prop_parseTrue path = matchParse (const True) (const True) path PTrue
 
-prop_parseFalse :: SingleLoc -> Bool
-prop_parseFalse loc = not $ matchParse (const True) (const True) loc PFalse
+prop_parseFalse :: SourcePath -> Bool
+prop_parseFalse path = not $ matchParse (const True) (const True) path PFalse
 
 prop_parseAnd
-  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
+  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath
   -> ParsePredicate -> ParsePredicate -> Bool
-prop_parseAnd (Fn isMainHeader) (Fn isInMainHeaderDir) loc p1 p2 =
-    let p1Res = matchParse isMainHeader isInMainHeaderDir loc p1
-        p2Res = matchParse isMainHeader isInMainHeaderDir loc p2
-        p1AndP2Res = matchParse isMainHeader isInMainHeaderDir loc (PAnd p1 p2)
+prop_parseAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path p1 p2 =
+    let p1Res = matchParse isMainHeader isInMainHeaderDir path p1
+        p2Res = matchParse isMainHeader isInMainHeaderDir path p2
+        p1AndP2Res = matchParse isMainHeader isInMainHeaderDir path (PAnd p1 p2)
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_parseOr
-  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
+  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath
   -> ParsePredicate -> ParsePredicate -> Bool
-prop_parseOr (Fn isMainHeader) (Fn isInMainHeaderDir) loc p1 p2 =
-    let p1Res = matchParse isMainHeader isInMainHeaderDir loc p1
-        p2Res = matchParse isMainHeader isInMainHeaderDir loc p2
-        p1OrP2Res = matchParse isMainHeader isInMainHeaderDir loc (POr p1 p2)
+prop_parseOr (Fn isMainHeader) (Fn isInMainHeaderDir) path p1 p2 =
+    let p1Res = matchParse isMainHeader isInMainHeaderDir path p1
+        p2Res = matchParse isMainHeader isInMainHeaderDir path p2
+        p1OrP2Res = matchParse isMainHeader isInMainHeaderDir path (POr p1 p2)
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_parseNot
-  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc
+  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath
   -> ParsePredicate -> Property
-prop_parseNot (Fn isMainHeader) (Fn isInMainHeaderDir) loc p =
-      matchParse isMainHeader isInMainHeaderDir loc p
-  =/= matchParse isMainHeader isInMainHeaderDir loc (PNot p)
+prop_parseNot (Fn isMainHeader) (Fn isInMainHeaderDir) path p =
+      matchParse isMainHeader isInMainHeaderDir path p
+  =/= matchParse isMainHeader isInMainHeaderDir path (PNot p)
 
-prop_parseFromMainHeaders :: Fun SingleLoc Bool -> SingleLoc -> Bool
-prop_parseFromMainHeaders (Fn isMainHeader) loc =
+prop_parseFromMainHeaders :: Fun SourcePath Bool -> SourcePath -> Bool
+prop_parseFromMainHeaders (Fn isMainHeader) path =
   let p = PIf FromMainHeaders
-   in matchParse isMainHeader unused loc p == isMainHeader loc
+   in matchParse isMainHeader unused path p == isMainHeader path
 
-prop_parseFromMainHeaderDirs :: Fun SingleLoc Bool -> SingleLoc -> Bool
-prop_parseFromMainHeaderDirs (Fn isInMainHeaderDir) loc =
+prop_parseFromMainHeaderDirs :: Fun SourcePath Bool -> SourcePath -> Bool
+prop_parseFromMainHeaderDirs (Fn isInMainHeaderDir) path =
   let p = PIf FromMainHeaderDirs
-   in matchParse unused isInMainHeaderDir loc p == isInMainHeaderDir loc
+   in matchParse unused isInMainHeaderDir path p == isInMainHeaderDir path
 
-prop_parseHeaderPathMatchesAll :: SingleLoc -> Bool
-prop_parseHeaderPathMatchesAll loc =
+prop_parseHeaderPathMatchesAll :: SourcePath -> Bool
+prop_parseHeaderPathMatchesAll path =
   let p = PIf (HeaderPathMatches ".*")
-   in matchParse unused unused loc p
+   in matchParse unused unused path p
 
-prop_parseHeaderPathMatchesNeedle :: SingleLoc -> Bool
-prop_parseHeaderPathMatchesNeedle loc =
-  let (SourcePath path) = singleLocPath loc
-      path' = path <> "NEEDLE" <> path
-      loc' = loc { singleLocPath = SourcePath path' }
+prop_parseHeaderPathMatchesNeedle :: SourcePath -> Bool
+prop_parseHeaderPathMatchesNeedle (SourcePath pathT) =
+  let path = SourcePath $ pathT <> "NEEDLE" <> pathT
       p = PIf (HeaderPathMatches "NEEDLE")
-   in matchParse unused unused loc' p
+   in matchParse unused unused path p
 
 {-------------------------------------------------------------------------------
   Select pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectTrue :: SingleLoc -> C.QualDeclId -> Bool
-prop_selectTrue loc qid = matchSelect (const True) (const True) loc qid PTrue
+prop_selectTrue :: SourcePath -> C.QualDeclId -> Bool
+prop_selectTrue path qid = matchSelect (const True) (const True) path qid PTrue
 
-prop_selectFalse :: SingleLoc -> C.QualDeclId -> Bool
-prop_selectFalse loc qid =
-    not $ matchSelect (const True) (const True) loc qid PFalse
+prop_selectFalse :: SourcePath -> C.QualDeclId -> Bool
+prop_selectFalse path qid =
+    not $ matchSelect (const True) (const True) path qid PFalse
 
 prop_selectAnd
-  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId
+  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath -> C.QualDeclId
   -> SelectPredicate -> SelectPredicate -> Bool
-prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir loc qid p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir loc qid p2
+prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path qid p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir path qid p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir path qid p2
         p1AndP2Res =
-          matchSelect isMainHeader isInMainHeaderDir loc qid (PAnd p1 p2)
+          matchSelect isMainHeader isInMainHeaderDir path qid (PAnd p1 p2)
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectOr
-  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId
+  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath -> C.QualDeclId
   -> SelectPredicate -> SelectPredicate -> Bool
-prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir loc qid p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir loc qid p2
+prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path qid p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir path qid p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir path qid p2
         p1OrP2Res =
-          matchSelect isMainHeader isInMainHeaderDir loc qid (POr p1 p2)
+          matchSelect isMainHeader isInMainHeaderDir path qid (POr p1 p2)
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_selectNot
-  :: Fun SingleLoc Bool -> Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId
+  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath -> C.QualDeclId
   -> SelectPredicate -> Property
-prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) loc qid p =
-      matchSelect isMainHeader isInMainHeaderDir loc qid p
-  =/= matchSelect isMainHeader isInMainHeaderDir loc qid (PNot p)
+prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path qid p =
+      matchSelect isMainHeader isInMainHeaderDir path qid p
+  =/= matchSelect isMainHeader isInMainHeaderDir path qid (PNot p)
 
 prop_selectFromMainHeaders
-  :: Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId -> Bool
-prop_selectFromMainHeaders (Fn isMainHeader) loc qid =
+  :: Fun SourcePath Bool -> SourcePath -> C.QualDeclId -> Bool
+prop_selectFromMainHeaders (Fn isMainHeader) path qid =
   let p = PIf $ Left FromMainHeaders
-   in matchSelect isMainHeader unused loc qid p == isMainHeader loc
+   in matchSelect isMainHeader unused path qid p == isMainHeader path
 
 prop_selectFromMainHeaderDirs
-  :: Fun SingleLoc Bool -> SingleLoc -> C.QualDeclId -> Bool
-prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) loc qid =
+  :: Fun SourcePath Bool -> SourcePath -> C.QualDeclId -> Bool
+prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) path qid =
   let p = PIf $ Left FromMainHeaderDirs
-   in matchSelect unused isInMainHeaderDir loc qid p == isInMainHeaderDir loc
+   in matchSelect unused isInMainHeaderDir path qid p == isInMainHeaderDir path
 
-prop_selectHeaderPathMatchesAll :: SingleLoc -> C.QualDeclId -> Bool
-prop_selectHeaderPathMatchesAll loc qid =
+prop_selectHeaderPathMatchesAll :: SourcePath -> C.QualDeclId -> Bool
+prop_selectHeaderPathMatchesAll path qid =
   let p = PIf $ Left (HeaderPathMatches ".*")
-   in matchSelect unused unused loc qid p
+   in matchSelect unused unused path qid p
 
-prop_selectHeaderPathMatchesNeedle :: SingleLoc -> C.QualDeclId -> Bool
-prop_selectHeaderPathMatchesNeedle loc qid =
-  let (SourcePath path) = singleLocPath loc
-      path' = path <> "NEEDLE" <> path
-      loc' = loc { singleLocPath = SourcePath path' }
+prop_selectHeaderPathMatchesNeedle :: SourcePath -> C.QualDeclId -> Bool
+prop_selectHeaderPathMatchesNeedle (SourcePath pathT) qid =
+  let path = SourcePath $ pathT <> "NEEDLE" <> pathT
       p = PIf $ Left (HeaderPathMatches "NEEDLE")
-   in matchSelect unused unused loc' qid p
+   in matchSelect unused unused path qid p
 
-prop_selectDeclNameMatchesAll :: SingleLoc -> C.QualDeclId -> Bool
-prop_selectDeclNameMatchesAll loc qid =
+prop_selectDeclNameMatchesAll :: SourcePath -> C.QualDeclId -> Bool
+prop_selectDeclNameMatchesAll path qid =
   let p = PIf $ Right (DeclNameMatches ".*")
-   in matchSelect unused unused loc qid p
+   in matchSelect unused unused path qid p
 
-prop_selectDeclNameMatchesNeedle :: SingleLoc -> C.QualDeclId -> Bool
-prop_selectDeclNameMatchesNeedle loc qid =
+prop_selectDeclNameMatchesNeedle :: SourcePath -> C.QualDeclId -> Bool
+prop_selectDeclNameMatchesNeedle path qid =
   let name  = C.qualDeclIdName qid
       qid'  = qid { C.qualDeclIdName = name <> "NEEDLE" <> name }
       p     = PIf $ Right (DeclNameMatches "NEEDLE")
-   in matchSelect unused unused loc qid' p
+   in matchSelect unused unused path qid' p
 
 {-------------------------------------------------------------------------------
   Match tests and properties
@@ -237,17 +231,6 @@ instance Function SourcePath where
 
 instance CoArbitrary SourcePath where
   coarbitrary = coarbitraryShow
-
-instance Arbitrary SingleLoc where
-  arbitrary = SingleLoc
-    <$> arbitrary
-    <*> (getNonNegative <$> arbitrary)
-    <*> (getNonNegative <$> arbitrary)
-    <*> (getNonNegative <$> arbitrary)
-
-instance Function SingleLoc
-
-instance CoArbitrary SingleLoc
 
 instance Arbitrary C.Name where
   arbitrary = C.Name . Text.pack <$> arbitrary

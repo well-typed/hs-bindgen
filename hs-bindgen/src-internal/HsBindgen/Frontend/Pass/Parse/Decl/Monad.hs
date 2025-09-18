@@ -112,7 +112,7 @@ evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> do
     let selected = Predicate.matchParse
                      (envIsMainHeader parseEnv)
                      (envIsInMainHeaderDir parseEnv)
-                     (C.declLoc info)
+                     (singleLocPath (C.declLoc info))
                      (envPredicate parseEnv)
     unless selected $ traceWith (envTracer parseEnv) (ParseExcluded info)
     return selected
