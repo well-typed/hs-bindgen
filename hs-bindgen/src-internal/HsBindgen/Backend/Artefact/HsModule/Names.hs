@@ -197,39 +197,39 @@ resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
-    Tuple_type i         -> tupleResolvedName True  i
-    Tuple_constructor i  -> tupleResolvedName False i
-    Applicative_pure     -> importU 'pure
-    Applicative_seq      -> importU '(<*>)
-    Monad_return         -> importU 'return
-    Monad_seq            -> importU '(>>)
-    StaticSize_class     -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
-    ReadRaw_class        -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
-    WriteRaw_class       -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
-    Storable_class       -> importQ ''Foreign.Storable
-    Storable_sizeOf      -> importQ 'Foreign.sizeOf
-    Storable_alignment   -> importQ 'Foreign.alignment
-    Storable_peekByteOff -> importQ 'Foreign.peekByteOff
-    Storable_pokeByteOff -> importQ 'Foreign.pokeByteOff
-    Storable_peek        -> importQ 'Foreign.peek
-    Storable_poke        -> importQ 'Foreign.poke
-    Foreign_Ptr          -> importQ ''Foreign.Ptr
-    Foreign_FunPtr       -> importQ ''Foreign.FunPtr
-    Ptr_constructor      -> importQ ''GHC.Ptr.Ptr
-    ConstantArray        -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
-    IncompleteArray      -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-    IO_type              -> importU ''IO
-    HasFlexibleArrayMember_class -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
+    Tuple_type i                  -> tupleResolvedName True  i
+    Tuple_constructor i           -> tupleResolvedName False i
+    Applicative_pure              -> importU 'pure
+    Applicative_seq               -> importU '(<*>)
+    Monad_return                  -> importU 'return
+    Monad_seq                     -> importU '(>>)
+    StaticSize_class              -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
+    ReadRaw_class                 -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
+    WriteRaw_class                -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
+    Storable_class                -> importQ ''Foreign.Storable
+    Storable_sizeOf               -> importQ 'Foreign.sizeOf
+    Storable_alignment            -> importQ 'Foreign.alignment
+    Storable_peekByteOff          -> importQ 'Foreign.peekByteOff
+    Storable_pokeByteOff          -> importQ 'Foreign.pokeByteOff
+    Storable_peek                 -> importQ 'Foreign.peek
+    Storable_poke                 -> importQ 'Foreign.poke
+    Foreign_Ptr                   -> importQ ''Foreign.Ptr
+    Foreign_FunPtr                -> importQ ''Foreign.FunPtr
+    Ptr_constructor               -> importQ ''GHC.Ptr.Ptr
+    ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
+    IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+    IO_type                       -> importU ''IO
+    HasFlexibleArrayMember_class  -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
-    Bitfield_peekBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
-    Bitfield_pokeBitOffWidth -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
-    CharValue_tycon       -> importQ ''C.Char.CharValue
-    CharValue_constructor -> importQ 'C.Char.CharValue
-    CharValue_fromAddr    -> importQ 'C.Char.charValueFromAddr
-    CAPI_with             -> importQ 'Foreign.with
-    CAPI_allocaAndPeek    -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
-    ConstantArray_withPtr -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
-    IncompleteArray_withPtr -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
+    Bitfield_peekBitOffWidth      -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
+    Bitfield_pokeBitOffWidth      -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
+    CharValue_tycon               -> importQ ''C.Char.CharValue
+    CharValue_constructor         -> importQ 'C.Char.CharValue
+    CharValue_fromAddr            -> importQ 'C.Char.charValueFromAddr
+    CAPI_with                     -> importQ 'Foreign.with
+    CAPI_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
+    ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
+    IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
@@ -311,10 +311,10 @@ resolveGlobal = \case
     Shift_shiftL          -> importQ '(C.Expr.HostPlatform.<<)
     Shift_shiftR          -> importQ '(C.Expr.HostPlatform.>>)
 
-    GHC_Float_castWord32ToFloat -> importQ 'GHC.Float.castWord32ToFloat
+    GHC_Float_castWord32ToFloat  -> importQ 'GHC.Float.castWord32ToFloat
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble
-    CFloat_constructor -> importQ ''Foreign.C.CFloat
-    CDouble_constructor -> importQ ''Foreign.C.CDouble
+    CFloat_constructor           -> importQ ''Foreign.C.CFloat
+    CDouble_constructor          -> importQ ''Foreign.C.CDouble
 
     NonEmpty_constructor     -> importQ '(NonEmpty.:|)
     NonEmpty_singleton       -> importQ 'NonEmpty.singleton
@@ -351,7 +351,7 @@ resolveGlobal = \case
     ByteArray_getUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.getUnionPayload
     ByteArray_setUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.setUnionPayload
 
-    PrimType hsPrimType  -> case hsPrimType of
+    PrimType hsPrimType -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void
       HsPrimUnit       -> tupleResolvedName True 0
       HsPrimCChar      -> importQ ''Foreign.C.CChar

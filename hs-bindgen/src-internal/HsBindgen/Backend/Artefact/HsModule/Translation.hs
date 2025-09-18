@@ -117,9 +117,9 @@ translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls 
         hsModuleImports =
           resolveImports moduleBaseName mcat hsModuleUserlandCapiWrappers hsModuleDecls
         addSubModule = case mcat of
-          Nothing         -> id
-          (Just BType)    -> id
-          (Just otherCat) -> (<> ('.' : displayBindingCategory otherCat))
+          Nothing       -> id
+          Just BType    -> id
+          Just otherCat -> (<> ('.' : displayBindingCategory otherCat))
         hsModuleName = addSubModule $ Text.unpack $ getHsModuleName moduleBaseName
     in  HsModule{..}
 
@@ -153,17 +153,18 @@ resolveDeclPragmas decl =
 resolveImports ::
   HsModuleName -> Maybe BindingCategory -> [UserlandCapiWrapper] -> [SDecl] -> [ImportListItem]
 resolveImports baseModule cat wrappers ds =
-    let (qs, us) = unImportAcc . mconcat $ map resolveDeclImports ds
+    let ImportAcc requiresTypeModule qs us = mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
-            bindingCatImport
+            bindingCatImport requiresTypeModule
           : Set.map QualifiedImportListItem (userlandCapiImport <> qs)
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
   where
     mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
     mkUImportListItem imp xs = UnqualifiedImportListItem imp (Just $ Set.toAscList xs)
 
-    bindingCatImport :: Set ImportListItem
-    bindingCatImport = case cat of
+    bindingCatImport :: Bool -> Set ImportListItem
+    bindingCatImport False = mempty
+    bindingCatImport True = case cat of
       Nothing      -> mempty
       (Just BType) -> mempty
       _otherCat ->
@@ -179,16 +180,18 @@ resolveImports baseModule cat wrappers ds =
 -- | Accumulator for resolving imports
 --
 -- Both qualified imports and unqualified imports are accumulated.
-newtype ImportAcc = ImportAcc {
-      unImportAcc :: (Set HsImportModule, Map HsImportModule (Set ResolvedName))
+data ImportAcc = ImportAcc {
+      _importAccRequireTypeModule :: Bool
+    , _importAccQualified         :: Set HsImportModule
+    , _importAccUnqualified       :: Map HsImportModule (Set ResolvedName)
     }
 
 instance Semigroup ImportAcc where
-  ImportAcc (qL, uL) <> ImportAcc (qR, uR) =
-    ImportAcc (qL <> qR, Map.unionWith (<>) uL uR)
+  ImportAcc tL qL uL <> ImportAcc tR qR uR =
+    ImportAcc (tL || tR) (qL <> qR) (Map.unionWith (<>) uL uR)
 
 instance Monoid ImportAcc where
-  mempty = ImportAcc (mempty, mempty)
+  mempty = ImportAcc False mempty mempty
 
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
@@ -231,13 +234,13 @@ resolveNestedDeriv = mconcat . map aux
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc
-resolveGlobalImports g = ImportAcc $ case resolveGlobal g of
+resolveGlobalImports g = case resolveGlobal g of
     n@ResolvedName{..} -> case resolvedNameImport of
-      Nothing -> (mempty, mempty)
+      Nothing -> ImportAcc False mempty mempty
       Just (QualifiedHsImport hsImportModule) ->
-        (Set.singleton hsImportModule, mempty)
+        ImportAcc False (Set.singleton hsImportModule) mempty
       Just (UnqualifiedHsImport hsImportModule) ->
-        (mempty, Map.singleton hsImportModule (Set.singleton n))
+        ImportAcc False mempty (Map.singleton hsImportModule (Set.singleton n))
 
 -- | Resolve imports in an expression
 resolveExprImports :: SExpr ctx -> ImportAcc
@@ -280,7 +283,7 @@ resolvePatExprImports = \case
 resolveTypeImports :: SType ctx -> ImportAcc
 resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
-    TCon _n -> mempty
+    TCon _n -> ImportAcc True mempty mempty
     TLit _n -> mempty
     TExt ref _typeSpec -> resolveExtHsRefImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
@@ -304,4 +307,4 @@ resolveExtHsRefImports ExtHsRef{..} =
             hsImportModuleName  = Text.unpack $ getHsModuleName extHsRefModule
           , hsImportModuleAlias = Nothing
           }
-    in  ImportAcc (Set.singleton hsImportModule, mempty)
+    in  ImportAcc False (Set.singleton hsImportModule) mempty
