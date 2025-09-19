@@ -11,10 +11,10 @@ set -e
 # Check inside manual_examples.{c,h} for where this macro flag is used.
 #
 if [[ "$(uname -s)" == "Linux" && "${LLVM_BACKEND}" != "1" ]]; then
-  echo "Setting SUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS"
-  export BINDGEN_EXTRA_CLANG_ARGS="-DSUPPORTS_UNICODE ${BINDGEN_EXTRA_CLANG_ARGS:-}"
+    echo "Setting SUPPORTS_UNICODE in BINDGEN_EXTRA_CLANG_ARGS"
+    export BINDGEN_EXTRA_CLANG_ARGS="-DSUPPORTS_UNICODE ${BINDGEN_EXTRA_CLANG_ARGS:-}"
 else
-  echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
+    echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
 fi
 
 echo "# "
@@ -24,84 +24,75 @@ echo "# "
 mkdir -p hs/manual/generated
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c/ \
-    -o hs/manual/generated/Example.hs \
+    --hs-output-dir hs/manual/generated \
     --module Example \
-    --modules-safe \
     manual_examples.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/manual/generated/Structs.hs \
+    --hs-output-dir hs/manual/generated \
     --module Structs \
-    --modules-safe \
     structs.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/manual/generated/Globals.hs \
+    --hs-output-dir hs/manual/generated \
     --module Globals \
-    --modules-safe \
     globals.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/manual/generated/Arrays.hs \
+    --hs-output-dir hs/manual/generated \
     --module Arrays \
-    --modules-safe \
     arrays.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/manual/generated/FunctionPointers.hs \
+    --hs-output-dir hs/manual/generated \
     --module FunctionPointers \
-    --modules-safe \
     function_pointers.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c/ \
-    -o hs/manual/generated/Complex.hs \
+    --hs-output-dir hs/manual/generated \
     --module Complex \
-    --modules-safe \
-    complex_test.h
+    hsb_complex_test.h
 
 echo "# "
 echo "# External bindings: vector example"
 echo "# "
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/hs-vector/generated/Vector.hs \
+    --hs-output-dir hs/hs-vector/generated \
     --gen-binding-spec external/vector.yaml \
     --module Vector \
-    --modules-safe \
     vector.h
 
 mkdir -p hs/hs-vector/generated/Vector
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/hs-vector/generated/Vector/Rotate.hs \
+    --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
     --module Vector.Rotate \
-    --modules-safe \
     vector_rotate.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/hs-vector/generated/Vector/Length.hs \
+    --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
     --module Vector.Length \
-    --modules-safe \
     vector_length.h
 
 echo "# "
@@ -111,30 +102,27 @@ echo "# "
 mkdir -p hs/hs-game/generated/Game
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
     --select-by-header-path 'game_internal\.h$' \
-    -o hs/hs-game/generated/Game/State.hs \
+    --hs-output-dir hs/hs-game/generated \
     --gen-binding-spec external/game.yaml \
     --module Game.State \
-    --modules-safe \
     game_world.h \
     game_player.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/hs-game/generated/Game/World.hs \
+    --hs-output-dir hs/hs-game/generated \
     --external-binding-spec external/game.yaml \
     --module Game.World \
-    --modules-safe \
     game_world.h
 
 cabal run hs-bindgen-cli -- \
-  preprocess \
+    preprocess \
     -I c \
-    -o hs/hs-game/generated/Game/Player.hs \
+    --hs-output-dir hs/hs-game/generated \
     --external-binding-spec external/game.yaml \
     --module Game.Player \
-    --modules-safe \
     game_player.h

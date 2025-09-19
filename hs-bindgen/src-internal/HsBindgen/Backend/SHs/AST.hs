@@ -264,7 +264,7 @@ data SDecl =
   deriving stock (Show)
 
 newtype ByCategory a = ByCategory { unByCategory :: Map BindingCategory a }
-  deriving newtype (Functor, Foldable)
+  deriving newtype (Functor, Foldable, Show)
 
 mapByCategory :: (BindingCategory -> a -> b) -> ByCategory a -> ByCategory b
 mapByCategory f = ByCategory . Map.mapWithKey f . unByCategory

@@ -168,8 +168,15 @@ resolveImports baseModule cat wrappers ds =
       Nothing      -> mempty
       (Just BType) -> mempty
       _otherCat ->
-        let mdl = HsImportModule (Text.unpack $ getHsModuleName baseModule) Nothing
-        in  Set.singleton $ UnqualifiedImportListItem mdl Nothing
+        let base = HsImportModule (Text.unpack $ getHsModuleName baseModule) Nothing
+            -- TODO https://github.com/well-typed/hs-bindgen/issues/1123:
+            -- Foreign imports need access to data constructors, which they know
+            -- nothing about. So we always import the custom Prelude for now.
+            prel = HsImportModule "HsBindgen.Runtime.Prelude" (Just "HsP")
+        in  Set.fromList [
+              UnqualifiedImportListItem base Nothing
+            , QualifiedImportListItem prel
+            ]
 
     userlandCapiImport :: Set HsImportModule
     userlandCapiImport = case wrappers of

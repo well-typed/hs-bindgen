@@ -18,7 +18,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "complex_test.h:25:20",
+                "hsb_complex_test.h:25:20",
                 fieldName = NamePair {
                   nameC = Name "velocity",
                   nameHsIdent = HsIdentifier
@@ -33,13 +33,13 @@
               commentTitle = Nothing,
               commentOrigin = Just "velocity",
               commentLocation = Just
-                "complex_test.h:25:20",
+                "hsb_complex_test.h:25:20",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["complex_test.h"],
+                    ["hsb_complex_test.h"],
                   headerInclude =
-                  "complex_test.h"},
+                  "hsb_complex_test.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -51,7 +51,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "complex_test.h:26:20",
+                "hsb_complex_test.h:26:20",
                 fieldName = NamePair {
                   nameC = Name "position",
                   nameHsIdent = HsIdentifier
@@ -66,13 +66,13 @@
               commentTitle = Nothing,
               commentOrigin = Just "position",
               commentLocation = Just
-                "complex_test.h:26:20",
+                "hsb_complex_test.h:26:20",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["complex_test.h"],
+                    ["hsb_complex_test.h"],
                   headerInclude =
-                  "complex_test.h"},
+                  "hsb_complex_test.h"},
               commentChildren = []}},
         Field {
           fieldName = HsName
@@ -84,7 +84,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "complex_test.h:27:9",
+                "hsb_complex_test.h:27:9",
                 fieldName = NamePair {
                   nameC = Name "id",
                   nameHsIdent = HsIdentifier
@@ -99,32 +99,34 @@
               commentTitle = Nothing,
               commentOrigin = Just "id",
               commentLocation = Just
-                "complex_test.h:27:9",
+                "hsb_complex_test.h:27:9",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["complex_test.h"],
+                    ["hsb_complex_test.h"],
                   headerInclude =
-                  "complex_test.h"},
+                  "hsb_complex_test.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
-            declLoc = "complex_test.h:24:9",
+            declLoc =
+            "hsb_complex_test.h:24:9",
             declId = NamePair {
               nameC = Name "complex_object_t",
               nameHsIdent = HsIdentifier
                 "Complex_object_t"},
             declOrigin = NameOriginGenerated
-              (AnonId "complex_test.h:24:9"),
+              (AnonId
+                "hsb_complex_test.h:24:9"),
             declAliases = [
               Name "complex_object_t"],
             declHeaderInfo = Just
               HeaderInfo {
                 headerMainHeaders = NE.fromList
-                  ["complex_test.h"],
+                  ["hsb_complex_test.h"],
                 headerInclude =
-                "complex_test.h"},
+                "hsb_complex_test.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -138,7 +140,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "complex_test.h:25:20",
+                    "hsb_complex_test.h:25:20",
                     fieldName = NamePair {
                       nameC = Name "velocity",
                       nameHsIdent = HsIdentifier
@@ -151,7 +153,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "complex_test.h:26:20",
+                    "hsb_complex_test.h:26:20",
                     fieldName = NamePair {
                       nameC = Name "position",
                       nameHsIdent = HsIdentifier
@@ -164,7 +166,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "complex_test.h:27:9",
+                    "hsb_complex_test.h:27:9",
                     fieldName = NamePair {
                       nameC = Name "id",
                       nameHsIdent = HsIdentifier
@@ -189,13 +191,13 @@
           commentOrigin = Just
             "complex_object_t",
           commentLocation = Just
-            "complex_test.h:24:9",
+            "hsb_complex_test.h:24:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -219,7 +221,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "complex_test.h:25:20",
+                    "hsb_complex_test.h:25:20",
                     fieldName = NamePair {
                       nameC = Name "velocity",
                       nameHsIdent = HsIdentifier
@@ -234,13 +236,13 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "velocity",
                   commentLocation = Just
-                    "complex_test.h:25:20",
+                    "hsb_complex_test.h:25:20",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["complex_test.h"],
+                        ["hsb_complex_test.h"],
                       headerInclude =
-                      "complex_test.h"},
+                      "hsb_complex_test.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -252,7 +254,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "complex_test.h:26:20",
+                    "hsb_complex_test.h:26:20",
                     fieldName = NamePair {
                       nameC = Name "position",
                       nameHsIdent = HsIdentifier
@@ -267,13 +269,13 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "position",
                   commentLocation = Just
-                    "complex_test.h:26:20",
+                    "hsb_complex_test.h:26:20",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["complex_test.h"],
+                        ["hsb_complex_test.h"],
                       headerInclude =
-                      "complex_test.h"},
+                      "hsb_complex_test.h"},
                   commentChildren = []}},
             Field {
               fieldName = HsName
@@ -285,7 +287,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "complex_test.h:27:9",
+                    "hsb_complex_test.h:27:9",
                     fieldName = NamePair {
                       nameC = Name "id",
                       nameHsIdent = HsIdentifier
@@ -300,32 +302,34 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "id",
                   commentLocation = Just
-                    "complex_test.h:27:9",
+                    "hsb_complex_test.h:27:9",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["complex_test.h"],
+                        ["hsb_complex_test.h"],
                       headerInclude =
-                      "complex_test.h"},
+                      "hsb_complex_test.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
-                declLoc = "complex_test.h:24:9",
+                declLoc =
+                "hsb_complex_test.h:24:9",
                 declId = NamePair {
                   nameC = Name "complex_object_t",
                   nameHsIdent = HsIdentifier
                     "Complex_object_t"},
                 declOrigin = NameOriginGenerated
-                  (AnonId "complex_test.h:24:9"),
+                  (AnonId
+                    "hsb_complex_test.h:24:9"),
                 declAliases = [
                   Name "complex_object_t"],
                 declHeaderInfo = Just
                   HeaderInfo {
                     headerMainHeaders = NE.fromList
-                      ["complex_test.h"],
+                      ["hsb_complex_test.h"],
                     headerInclude =
-                    "complex_test.h"},
+                    "hsb_complex_test.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -339,7 +343,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "complex_test.h:25:20",
+                        "hsb_complex_test.h:25:20",
                         fieldName = NamePair {
                           nameC = Name "velocity",
                           nameHsIdent = HsIdentifier
@@ -352,7 +356,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "complex_test.h:26:20",
+                        "hsb_complex_test.h:26:20",
                         fieldName = NamePair {
                           nameC = Name "position",
                           nameHsIdent = HsIdentifier
@@ -365,7 +369,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "complex_test.h:27:9",
+                        "hsb_complex_test.h:27:9",
                         fieldName = NamePair {
                           nameC = Name "id",
                           nameHsIdent = HsIdentifier
@@ -390,13 +394,13 @@
               commentOrigin = Just
                 "complex_object_t",
               commentLocation = Just
-                "complex_test.h:24:9",
+                "hsb_complex_test.h:24:9",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["complex_test.h"],
+                    ["hsb_complex_test.h"],
                   headerInclude =
-                  "complex_test.h"},
+                  "hsb_complex_test.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 32,
@@ -423,7 +427,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "complex_test.h:25:20",
+                            "hsb_complex_test.h:25:20",
                             fieldName = NamePair {
                               nameC = Name "velocity",
                               nameHsIdent = HsIdentifier
@@ -438,13 +442,13 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "velocity",
                           commentLocation = Just
-                            "complex_test.h:25:20",
+                            "hsb_complex_test.h:25:20",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["complex_test.h"],
+                                ["hsb_complex_test.h"],
                               headerInclude =
-                              "complex_test.h"},
+                              "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -456,7 +460,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "complex_test.h:26:20",
+                            "hsb_complex_test.h:26:20",
                             fieldName = NamePair {
                               nameC = Name "position",
                               nameHsIdent = HsIdentifier
@@ -471,13 +475,13 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "position",
                           commentLocation = Just
-                            "complex_test.h:26:20",
+                            "hsb_complex_test.h:26:20",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["complex_test.h"],
+                                ["hsb_complex_test.h"],
                               headerInclude =
-                              "complex_test.h"},
+                              "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -489,7 +493,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "complex_test.h:27:9",
+                            "hsb_complex_test.h:27:9",
                             fieldName = NamePair {
                               nameC = Name "id",
                               nameHsIdent = HsIdentifier
@@ -504,32 +508,34 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "id",
                           commentLocation = Just
-                            "complex_test.h:27:9",
+                            "hsb_complex_test.h:27:9",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["complex_test.h"],
+                                ["hsb_complex_test.h"],
                               headerInclude =
-                              "complex_test.h"},
+                              "hsb_complex_test.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "complex_test.h:24:9",
+                        declLoc =
+                        "hsb_complex_test.h:24:9",
                         declId = NamePair {
                           nameC = Name "complex_object_t",
                           nameHsIdent = HsIdentifier
                             "Complex_object_t"},
                         declOrigin = NameOriginGenerated
-                          (AnonId "complex_test.h:24:9"),
+                          (AnonId
+                            "hsb_complex_test.h:24:9"),
                         declAliases = [
                           Name "complex_object_t"],
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["complex_test.h"],
+                              ["hsb_complex_test.h"],
                             headerInclude =
-                            "complex_test.h"},
+                            "hsb_complex_test.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -543,7 +549,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "complex_test.h:25:20",
+                                "hsb_complex_test.h:25:20",
                                 fieldName = NamePair {
                                   nameC = Name "velocity",
                                   nameHsIdent = HsIdentifier
@@ -556,7 +562,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "complex_test.h:26:20",
+                                "hsb_complex_test.h:26:20",
                                 fieldName = NamePair {
                                   nameC = Name "position",
                                   nameHsIdent = HsIdentifier
@@ -569,7 +575,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "complex_test.h:27:9",
+                                "hsb_complex_test.h:27:9",
                                 fieldName = NamePair {
                                   nameC = Name "id",
                                   nameHsIdent = HsIdentifier
@@ -594,13 +600,13 @@
                       commentOrigin = Just
                         "complex_object_t",
                       commentLocation = Just
-                        "complex_test.h:24:9",
+                        "hsb_complex_test.h:24:9",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["complex_test.h"],
+                            ["hsb_complex_test.h"],
                           headerInclude =
-                          "complex_test.h"},
+                          "hsb_complex_test.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -630,7 +636,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "complex_test.h:25:20",
+                            "hsb_complex_test.h:25:20",
                             fieldName = NamePair {
                               nameC = Name "velocity",
                               nameHsIdent = HsIdentifier
@@ -645,13 +651,13 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "velocity",
                           commentLocation = Just
-                            "complex_test.h:25:20",
+                            "hsb_complex_test.h:25:20",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["complex_test.h"],
+                                ["hsb_complex_test.h"],
                               headerInclude =
-                              "complex_test.h"},
+                              "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -663,7 +669,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "complex_test.h:26:20",
+                            "hsb_complex_test.h:26:20",
                             fieldName = NamePair {
                               nameC = Name "position",
                               nameHsIdent = HsIdentifier
@@ -678,13 +684,13 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "position",
                           commentLocation = Just
-                            "complex_test.h:26:20",
+                            "hsb_complex_test.h:26:20",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["complex_test.h"],
+                                ["hsb_complex_test.h"],
                               headerInclude =
-                              "complex_test.h"},
+                              "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = HsName
@@ -696,7 +702,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "complex_test.h:27:9",
+                            "hsb_complex_test.h:27:9",
                             fieldName = NamePair {
                               nameC = Name "id",
                               nameHsIdent = HsIdentifier
@@ -711,32 +717,34 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "id",
                           commentLocation = Just
-                            "complex_test.h:27:9",
+                            "hsb_complex_test.h:27:9",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["complex_test.h"],
+                                ["hsb_complex_test.h"],
                               headerInclude =
-                              "complex_test.h"},
+                              "hsb_complex_test.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "complex_test.h:24:9",
+                        declLoc =
+                        "hsb_complex_test.h:24:9",
                         declId = NamePair {
                           nameC = Name "complex_object_t",
                           nameHsIdent = HsIdentifier
                             "Complex_object_t"},
                         declOrigin = NameOriginGenerated
-                          (AnonId "complex_test.h:24:9"),
+                          (AnonId
+                            "hsb_complex_test.h:24:9"),
                         declAliases = [
                           Name "complex_object_t"],
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["complex_test.h"],
+                              ["hsb_complex_test.h"],
                             headerInclude =
-                            "complex_test.h"},
+                            "hsb_complex_test.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -750,7 +758,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "complex_test.h:25:20",
+                                "hsb_complex_test.h:25:20",
                                 fieldName = NamePair {
                                   nameC = Name "velocity",
                                   nameHsIdent = HsIdentifier
@@ -763,7 +771,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "complex_test.h:26:20",
+                                "hsb_complex_test.h:26:20",
                                 fieldName = NamePair {
                                   nameC = Name "position",
                                   nameHsIdent = HsIdentifier
@@ -776,7 +784,7 @@
                             StructField {
                               structFieldInfo = FieldInfo {
                                 fieldLoc =
-                                "complex_test.h:27:9",
+                                "hsb_complex_test.h:27:9",
                                 fieldName = NamePair {
                                   nameC = Name "id",
                                   nameHsIdent = HsIdentifier
@@ -801,13 +809,13 @@
                       commentOrigin = Just
                         "complex_object_t",
                       commentLocation = Just
-                        "complex_test.h:24:9",
+                        "hsb_complex_test.h:24:9",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["complex_test.h"],
+                            ["hsb_complex_test.h"],
                           headerInclude =
-                          "complex_test.h"},
+                          "hsb_complex_test.h"},
                       commentChildren = []}}
                 (Add 3)
                 (Seq
@@ -875,14 +883,14 @@
         (HsPtr
           (HsComplexType HsPrimCFloat)),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_b84ea846e04d5fd6",
+      "hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_complex_test_b84ea846e04d5fd6 (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
+          "void hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6 (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -911,13 +919,13 @@
           commentOrigin = Just
             "multiply_complex_f",
           commentLocation = Just
-            "complex_test.h:21:16",
+            "hsb_complex_test.h:21:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -956,14 +964,14 @@
         (HsPtr
           (HsComplexType HsPrimCDouble)),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_8dd079d1707c36b3",
+      "hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_complex_test_8dd079d1707c36b3 (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
+          "void hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3 (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -992,13 +1000,13 @@
           commentOrigin = Just
             "add_complex",
           commentLocation = Just
-            "complex_test.h:22:16",
+            "hsb_complex_test.h:22:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclSimple,
@@ -1037,14 +1045,14 @@
         (HsPtr
           (HsComplexType HsPrimCFloat)),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_5b05fdb10924da35",
+      "hs_bindgen_test_hsb_complex_test_5b05fdb10924da35",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_complex_test_5b05fdb10924da35 (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
+          "void hs_bindgen_test_hsb_complex_test_5b05fdb10924da35 (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1073,13 +1081,13 @@
           commentOrigin = Just
             "multiply_complex_f",
           commentLocation = Just
-            "complex_test.h:21:16",
+            "hsb_complex_test.h:21:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1118,14 +1126,14 @@
         (HsPtr
           (HsComplexType HsPrimCDouble)),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_59f299d5d991ed72",
+      "hs_bindgen_test_hsb_complex_test_59f299d5d991ed72",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_complex_test_59f299d5d991ed72 (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
+          "void hs_bindgen_test_hsb_complex_test_59f299d5d991ed72 (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -1154,13 +1162,13 @@
           commentOrigin = Just
             "add_complex",
           commentLocation = Just
-            "complex_test.h:22:16",
+            "hsb_complex_test.h:22:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1168,7 +1176,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_a7d89c01385c8c56",
+        "hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1182,14 +1190,14 @@
                   (HsComplexType
                     HsPrimCFloat)))))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_a7d89c01385c8c56",
+      "hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_multiply_complex_f_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_complex_test_a7d89c01385c8c56 (void)) (float _Complex arg1, float _Complex arg2) { return &multiply_complex_f; } ",
+          "/* get_multiply_complex_f_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56 (void)) (float _Complex arg1, float _Complex arg2) { return &multiply_complex_f; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1205,13 +1213,13 @@
           commentOrigin = Just
             "multiply_complex_f",
           commentLocation = Just
-            "complex_test.h:21:16",
+            "hsb_complex_test.h:21:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1220,7 +1228,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_b6226a5bde741b3f",
+        "hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1234,14 +1242,14 @@
                   (HsComplexType
                     HsPrimCDouble)))))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_b6226a5bde741b3f",
+      "hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_add_complex_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_complex_test_b6226a5bde741b3f (void)) (double _Complex arg1, double _Complex arg2) { return &add_complex; } ",
+          "/* get_add_complex_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f (void)) (double _Complex arg1, double _Complex arg2) { return &add_complex; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -1257,13 +1265,13 @@
           commentOrigin = Just
             "add_complex",
           commentLocation = Just
-            "complex_test.h:22:16",
+            "hsb_complex_test.h:22:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1272,7 +1280,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_69e4d4972011967b",
+        "hs_bindgen_test_hsb_complex_test_69e4d4972011967b",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1280,14 +1288,14 @@
           (HsPtr
             (HsComplexType HsPrimCFloat))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_69e4d4972011967b",
+      "hs_bindgen_test_hsb_complex_test_69e4d4972011967b",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_69e4d4972011967b (void) { return &global_complex_float; } ",
+          "/* get_global_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_69e4d4972011967b (void) { return &global_complex_float; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -1297,13 +1305,13 @@
           commentOrigin = Just
             "global_complex_float",
           commentLocation = Just
-            "complex_test.h:3:23",
+            "hsb_complex_test.h:3:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1312,7 +1320,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_c3633906ced5dab3",
+        "hs_bindgen_test_hsb_complex_test_c3633906ced5dab3",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1320,14 +1328,14 @@
           (HsPtr
             (HsComplexType HsPrimCDouble))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_c3633906ced5dab3",
+      "hs_bindgen_test_hsb_complex_test_c3633906ced5dab3",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_c3633906ced5dab3 (void) { return &global_complex_double; } ",
+          "/* get_global_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_c3633906ced5dab3 (void) { return &global_complex_double; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -1337,13 +1345,13 @@
           commentOrigin = Just
             "global_complex_double",
           commentLocation = Just
-            "complex_test.h:4:23",
+            "hsb_complex_test.h:4:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1352,7 +1360,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_7ef41813e25ff8c1",
+        "hs_bindgen_test_hsb_complex_test_7ef41813e25ff8c1",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1360,14 +1368,14 @@
           (HsPtr
             (HsComplexType HsPrimCFloat))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_7ef41813e25ff8c1",
+      "hs_bindgen_test_hsb_complex_test_7ef41813e25ff8c1",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_7ef41813e25ff8c1 (void) { return &global_complex_float_flipped; } ",
+          "/* get_global_complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_7ef41813e25ff8c1 (void) { return &global_complex_float_flipped; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -1377,13 +1385,13 @@
           commentOrigin = Just
             "global_complex_float_flipped",
           commentLocation = Just
-            "complex_test.h:6:23",
+            "hsb_complex_test.h:6:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1392,7 +1400,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_abdd562bd1b14921",
+        "hs_bindgen_test_hsb_complex_test_abdd562bd1b14921",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1400,14 +1408,14 @@
           (HsPtr
             (HsComplexType HsPrimCDouble))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_abdd562bd1b14921",
+      "hs_bindgen_test_hsb_complex_test_abdd562bd1b14921",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_abdd562bd1b14921 (void) { return &global_complex_double_flipped; } ",
+          "/* get_global_complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_abdd562bd1b14921 (void) { return &global_complex_double_flipped; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -1417,13 +1425,13 @@
           commentOrigin = Just
             "global_complex_double_flipped",
           commentLocation = Just
-            "complex_test.h:7:23",
+            "hsb_complex_test.h:7:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1432,7 +1440,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_02f701d4163d6ce7",
+        "hs_bindgen_test_hsb_complex_test_02f701d4163d6ce7",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1440,14 +1448,14 @@
           (HsPtr
             (HsComplexType HsPrimCFloat))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_02f701d4163d6ce7",
+      "hs_bindgen_test_hsb_complex_test_02f701d4163d6ce7",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_02f701d4163d6ce7 (void) { return &global_Complex_float; } ",
+          "/* get_global_Complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_02f701d4163d6ce7 (void) { return &global_Complex_float; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -1457,13 +1465,13 @@
           commentOrigin = Just
             "global_Complex_float",
           commentLocation = Just
-            "complex_test.h:9:24",
+            "hsb_complex_test.h:9:24",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1472,7 +1480,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_a6117bb5e7cacd17",
+        "hs_bindgen_test_hsb_complex_test_a6117bb5e7cacd17",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1480,14 +1488,14 @@
           (HsPtr
             (HsComplexType HsPrimCDouble))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_a6117bb5e7cacd17",
+      "hs_bindgen_test_hsb_complex_test_a6117bb5e7cacd17",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_a6117bb5e7cacd17 (void) { return &global_Complex_double; } ",
+          "/* get_global_Complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_a6117bb5e7cacd17 (void) { return &global_Complex_double; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -1497,13 +1505,13 @@
           commentOrigin = Just
             "global_Complex_double",
           commentLocation = Just
-            "complex_test.h:10:24",
+            "hsb_complex_test.h:10:24",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1512,7 +1520,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_da2309480d364cee",
+        "hs_bindgen_test_hsb_complex_test_da2309480d364cee",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1520,14 +1528,14 @@
           (HsPtr
             (HsComplexType HsPrimCFloat))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_da2309480d364cee",
+      "hs_bindgen_test_hsb_complex_test_da2309480d364cee",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_da2309480d364cee (void) { return &global_Complex_float_flipped; } ",
+          "/* get_global_Complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_da2309480d364cee (void) { return &global_Complex_float_flipped; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -1537,13 +1545,13 @@
           commentOrigin = Just
             "global_Complex_float_flipped",
           commentLocation = Just
-            "complex_test.h:12:24",
+            "hsb_complex_test.h:12:24",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1552,7 +1560,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_467427dc59fbef50",
+        "hs_bindgen_test_hsb_complex_test_467427dc59fbef50",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1560,14 +1568,14 @@
           (HsPtr
             (HsComplexType HsPrimCDouble))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_467427dc59fbef50",
+      "hs_bindgen_test_hsb_complex_test_467427dc59fbef50",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_467427dc59fbef50 (void) { return &global_Complex_double_flipped; } ",
+          "/* get_global_Complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_467427dc59fbef50 (void) { return &global_Complex_double_flipped; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -1577,13 +1585,13 @@
           commentOrigin = Just
             "global_Complex_double_flipped",
           commentLocation = Just
-            "complex_test.h:13:24",
+            "hsb_complex_test.h:13:24",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1592,7 +1600,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_bb0fb18f3dfee47d",
+        "hs_bindgen_test_hsb_complex_test_bb0fb18f3dfee47d",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1600,14 +1608,14 @@
           (HsPtr
             (HsComplexType HsPrimCFloat))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_bb0fb18f3dfee47d",
+      "hs_bindgen_test_hsb_complex_test_bb0fb18f3dfee47d",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_complex_float_ptr */ __attribute__ ((const)) float _Complex const *hs_bindgen_test_complex_test_bb0fb18f3dfee47d (void) { return &const_complex_float; } ",
+          "/* get_const_complex_float_ptr */ __attribute__ ((const)) float _Complex const *hs_bindgen_test_hsb_complex_test_bb0fb18f3dfee47d (void) { return &const_complex_float; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypeComplex
@@ -1618,13 +1626,13 @@
           commentOrigin = Just
             "const_complex_float",
           commentLocation = Just
-            "complex_test.h:15:29",
+            "hsb_complex_test.h:15:29",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1635,7 +1643,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_f491f52e529a459a",
+        "hs_bindgen_test_hsb_complex_test_f491f52e529a459a",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1643,14 +1651,14 @@
           (HsPtr
             (HsComplexType HsPrimCDouble))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_f491f52e529a459a",
+      "hs_bindgen_test_hsb_complex_test_f491f52e529a459a",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_complex_double_ptr */ __attribute__ ((const)) double _Complex const *hs_bindgen_test_complex_test_f491f52e529a459a (void) { return &const_complex_double; } ",
+          "/* get_const_complex_double_ptr */ __attribute__ ((const)) double _Complex const *hs_bindgen_test_hsb_complex_test_f491f52e529a459a (void) { return &const_complex_double; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeConst
           (TypeComplex
@@ -1661,13 +1669,13 @@
           commentOrigin = Just
             "const_complex_double",
           commentLocation = Just
-            "complex_test.h:16:29",
+            "hsb_complex_test.h:16:29",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1678,7 +1686,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_ecb5f4a0ccb7ee75",
+        "hs_bindgen_test_hsb_complex_test_ecb5f4a0ccb7ee75",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1686,14 +1694,14 @@
           (HsPtr
             (HsComplexType HsPrimCFloat))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_ecb5f4a0ccb7ee75",
+      "hs_bindgen_test_hsb_complex_test_ecb5f4a0ccb7ee75",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_volatile_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_complex_test_ecb5f4a0ccb7ee75 (void) { return &volatile_complex_float; } ",
+          "/* get_volatile_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_ecb5f4a0ccb7ee75 (void) { return &volatile_complex_float; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
@@ -1703,13 +1711,13 @@
           commentOrigin = Just
             "volatile_complex_float",
           commentLocation = Just
-            "complex_test.h:18:23",
+            "hsb_complex_test.h:18:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1718,7 +1726,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_6b136090c38a69c4",
+        "hs_bindgen_test_hsb_complex_test_6b136090c38a69c4",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1726,14 +1734,14 @@
           (HsPtr
             (HsComplexType HsPrimCDouble))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_6b136090c38a69c4",
+      "hs_bindgen_test_hsb_complex_test_6b136090c38a69c4",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_volatile_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_complex_test_6b136090c38a69c4 (void) { return &volatile_complex_double; } ",
+          "/* get_volatile_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_6b136090c38a69c4 (void) { return &volatile_complex_double; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
@@ -1743,13 +1751,13 @@
           commentOrigin = Just
             "volatile_complex_double",
           commentLocation = Just
-            "complex_test.h:19:23",
+            "hsb_complex_test.h:19:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1758,7 +1766,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_55b7fb104be53f70",
+        "hs_bindgen_test_hsb_complex_test_55b7fb104be53f70",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1768,14 +1776,14 @@
               10
               (HsComplexType HsPrimCFloat)))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_55b7fb104be53f70",
+      "hs_bindgen_test_hsb_complex_test_55b7fb104be53f70",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_complex_float_array_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_complex_test_55b7fb104be53f70 (void))[10] { return &complex_float_array; } ",
+          "/* get_complex_float_array_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_hsb_complex_test_55b7fb104be53f70 (void))[10] { return &complex_float_array; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           10
@@ -1787,13 +1795,13 @@
           commentOrigin = Just
             "complex_float_array",
           commentLocation = Just
-            "complex_test.h:30:23",
+            "hsb_complex_test.h:30:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1802,7 +1810,7 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_complex_test_0b63f3bda9243457",
+        "hs_bindgen_test_hsb_complex_test_0b63f3bda9243457",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -1813,14 +1821,14 @@
               (HsComplexType
                 HsPrimCDouble)))),
       foreignImportOrigName =
-      "hs_bindgen_test_complex_test_0b63f3bda9243457",
+      "hs_bindgen_test_hsb_complex_test_0b63f3bda9243457",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_complex_double_array_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_complex_test_0b63f3bda9243457 (void))[10] { return &complex_double_array; } ",
+          "/* get_complex_double_array_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_hsb_complex_test_0b63f3bda9243457 (void))[10] { return &complex_double_array; } ",
           capiWrapperImport =
-          "complex_test.h"},
+          "hsb_complex_test.h"},
       foreignImportOrigin = Global
         (TypeConstArray
           10
@@ -1832,13 +1840,13 @@
           commentOrigin = Just
             "complex_double_array",
           commentLocation = Just
-            "complex_test.h:31:23",
+            "hsb_complex_test.h:31:23",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["complex_test.h"],
+                ["hsb_complex_test.h"],
               headerInclude =
-              "complex_test.h"},
+              "hsb_complex_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclSimple,

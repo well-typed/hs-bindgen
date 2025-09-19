@@ -20,6 +20,10 @@ library
   extra-libraries: game
 
   exposed-modules:
-      Game.Player
+      Game.Player.FunPtr
+      Game.Player.Safe
+      Game.Player.Unsafe
       Game.State
-      Game.World
+      Game.World.FunPtr
+      Game.World.Safe
+      Game.World.Unsafe

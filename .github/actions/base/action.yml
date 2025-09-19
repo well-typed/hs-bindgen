@@ -91,11 +91,11 @@ runs:
 
     - name: Dependencies
       shell: bash
-      run: cabal build all --only-dependencies
+      run: cabal build all --only-dependencies -j4
 
     - name: Build
       shell: bash
-      run: cabal build all
+      run: cabal build all -j4
 
     - name: Debug (hs-bindgen)
       shell: bash

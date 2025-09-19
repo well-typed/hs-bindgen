@@ -20,6 +20,7 @@ module HsBindgen
   , NP (..)
   ) where
 
+import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Text qualified as T
 import System.Directory (createDirectoryIfMissing)
@@ -143,16 +144,16 @@ sequenceArtefacts = go Nil . reverse
     go acc (a:as) = go (a :* acc) as
 
 -- | Write the include graph to `STDOUT` or a file.
-writeIncludeGraph :: FilePath -> Artefact ()
+writeIncludeGraph :: Maybe FilePath -> Artefact ()
 writeIncludeGraph mPath = Lift (IncludeGraph :* Nil) $
     \(I (p, includeGraph) :* Nil) ->
       write mPath $ IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()
-writeUseDeclGraph file = Lift (DeclIndex :* UseDeclGraph :* Nil) $
+writeUseDeclGraph path = Lift (DeclIndex :* UseDeclGraph :* Nil) $
     \(I index :* I useDeclGraph :* Nil) ->
-      writeFile file (UseDeclGraph.dumpMermaid index useDeclGraph)
+      writeFile path (UseDeclGraph.dumpMermaid index useDeclGraph)
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
@@ -186,14 +187,14 @@ writeBindingsMultiple hsOutputDir = Lift (FinalModuleBaseName :* getBindingsMult
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
-writeBindingSpec file =
+writeBindingSpec path =
   Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
     \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
       -- Generate binding specification only for declarations of binding
       -- category 'BType'. If, in the future, we generate binding specifications
       -- for other binding categories, we need to take care of the final module
       -- names (e.g., @Generated.Safe@).
-      genBindingSpec moduleBaseName hashIncludeArgs file $
+      genBindingSpec moduleBaseName hashIncludeArgs path $
         fromMaybe (panicPure "binding category BType is missing")
           (Map.lookup BType $ unByCategory hsDecls)
 
@@ -272,4 +273,5 @@ writeByCategory hsOutputDir moduleBaseName =
       writeFile path str
 
     baseFilePath :: FilePath
-    baseFilePath = hsOutputDir </> T.unpack (getHsModuleName moduleBaseName)
+    baseFilePath = Foldable.foldl' (</>) "" $
+      hsOutputDir : map T.unpack (T.splitOn "." (getHsModuleName moduleBaseName))
