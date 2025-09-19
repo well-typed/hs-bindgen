@@ -1,0 +1,9 @@
+types:
+- headers: data_kind_pragma.h
+  cname: triplet
+  module: Example
+  identifier: Triplet
+  instances:
+  - Eq
+  - Show
+  - Storable

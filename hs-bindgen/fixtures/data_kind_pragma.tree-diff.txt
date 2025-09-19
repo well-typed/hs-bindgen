@@ -1,0 +1,39 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "data_kind_pragma.h:3:13",
+        declId = NamePair {
+          nameC = Name "triplet",
+          nameHsIdent = HsIdentifier
+            "Triplet"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["data_kind_pragma.h"],
+            headerInclude =
+            "data_kind_pragma.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "Triplet",
+            newtypeField = HsName
+              "@NsVar"
+              "un_Triplet"},
+          typedefType = TypeConstArray
+            3
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = ["data_kind_pragma"]}
