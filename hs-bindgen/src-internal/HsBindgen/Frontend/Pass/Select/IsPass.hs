@@ -93,7 +93,7 @@ data SelectConfig = SelectConfig {
 -- | Select trace messages
 data SelectMsg =
     SelectTransitiveDependencyUnavailable C.NsPrelimDeclId
-  | SelectExcluded (C.DeclInfo Select)
+  | SelectNotSelected (C.DeclInfo Select)
   | SelectSelected (C.DeclInfo Select)
   | SelectedButFailed ParseMsg
   -- TODO https://github.com/well-typed/hs-bindgen/issues/1037: Introduce
@@ -104,17 +104,17 @@ instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
     SelectTransitiveDependencyUnavailable qualId ->
       "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
-    SelectExcluded info     -> prettyForTrace info >< " excluded"
+    SelectNotSelected info  -> prettyForTrace info >< " not selected"
     SelectSelected info     -> "Selected " >< prettyForTrace info
-    SelectedButFailed  x -> "Missed declaration: " >< prettyForTrace x
+    SelectedButFailed  x    -> "Missed declaration: " >< prettyForTrace x
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectTransitiveDependencyUnavailable{} -> Error
-    SelectExcluded{}                        -> Info
+    SelectNotSelected{}                     -> Info
     SelectSelected{}                        -> Info
-    SelectedButFailed  x                 -> getDefaultLogLevel x
+    SelectedButFailed  x                    -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = \case
     SelectedButFailed  x -> "select-miss-" <> getTraceId x
-    _else                   -> "select"
+    _else                -> "select"

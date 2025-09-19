@@ -240,7 +240,7 @@ data ParseMsg =
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
       ParseExcluded info ->
-          prettyForTrace info >< " excluded"
+          prettyForTrace info >< " parse not attempted"
       ParseUnsupportedType info err -> noBindingsGenerated info $
           prettyForTrace err
       ParseUnsupportedImplicitFields info -> noBindingsGenerated info $
