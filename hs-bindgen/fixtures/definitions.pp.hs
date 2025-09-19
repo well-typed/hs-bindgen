@@ -18,49 +18,7 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }\n/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_fb3e409881d8c524 (void)) (double arg1) { return &foo; } \n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } \n")
-
-{-| __C declaration:__ @foo@
-
-    __defined at:__ @definitions.h:13:5@
-
-    __exported by:__ @definitions.h@
--}
-foreign import ccall safe "hs_bindgen_test_definitions_a7d624773bb0585c" foo
-  :: FC.CDouble
-     {- ^ __C declaration:__ @x@
-     -}
-  -> IO FC.CInt
-
-{-| __C declaration:__ @foo@
-
-    __defined at:__ @definitions.h:13:5@
-
-    __exported by:__ @definitions.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_definitions_fb3e409881d8c524" hs_bindgen_test_definitions_fb3e409881d8c524
-  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
-
-{-# NOINLINE foo_ptr #-}
-
-foo_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
-foo_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_fb3e409881d8c524
-
-{-| __C declaration:__ @n@
-
-    __defined at:__ @definitions.h:18:5@
-
-    __exported by:__ @definitions.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_definitions_fc2aad2af9befead" hs_bindgen_test_definitions_fc2aad2af9befead
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE n_ptr #-}
-
-n_ptr :: Ptr.Ptr FC.CInt
-n_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_fc2aad2af9befead
+$(CAPI.addCSource "#include <definitions.h>\nsigned int hs_bindgen_test_definitions_5a514c66396155ff (double arg1) { return foo(arg1); }\n/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_32925a42980e81cd (void)) (double arg1) { return &foo; } \n/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_cfec0f95f22bb37c (void) { return &n; } \n")
 
 {-| __C declaration:__ @X@
 
@@ -149,3 +107,45 @@ get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
 -}
 set_y_o :: FC.CInt -> Y
 set_y_o = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @definitions.h:13:5@
+
+    __exported by:__ @definitions.h@
+-}
+foreign import ccall safe "hs_bindgen_test_definitions_5a514c66396155ff" foo
+  :: FC.CDouble
+     {- ^ __C declaration:__ @x@
+     -}
+  -> IO FC.CInt
+
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @definitions.h:13:5@
+
+    __exported by:__ @definitions.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_definitions_32925a42980e81cd" hs_bindgen_test_definitions_32925a42980e81cd
+  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
+
+{-# NOINLINE foo_ptr #-}
+
+foo_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
+foo_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_32925a42980e81cd
+
+{-| __C declaration:__ @n@
+
+    __defined at:__ @definitions.h:18:5@
+
+    __exported by:__ @definitions.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_definitions_cfec0f95f22bb37c" hs_bindgen_test_definitions_cfec0f95f22bb37c
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE n_ptr #-}
+
+n_ptr :: Ptr.Ptr FC.CInt
+n_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_cfec0f95f22bb37c

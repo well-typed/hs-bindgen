@@ -2,38 +2,55 @@
 {-# LANGUAGE DataKinds #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module RunManual (main) where
+module Manual (main) where
 
 import Control.Exception (bracket)
-import Control.Monad (forM_)
+import Control.Monad (forM_, (<=<))
 import Data.Complex
 import Data.Vector.Storable qualified as VS
 import Foreign as F
 import Foreign.C (castCCharToChar, withCString)
 import Foreign.C qualified as FC
+import GHC.TypeNats
 import System.IO.Unsafe
 import Text.Read (readEither)
 
-import GHC.TypeNats
+import Arrays.Global qualified as Arrays
+import Arrays.Safe qualified as Arrays
+
+import Complex.Global qualified as Complex
+import Complex.Safe qualified as Complex
+
+import Example.Global
+import Example.Unsafe
+
+import FunctionPointers.FunPtr qualified as FunPtr
+import FunctionPointers.Safe qualified as FunPtr
+
+import Game.Player.Safe
+import Game.State
+import Game.World.Safe
+
+import Globals.Global qualified as Globals
 
 import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
+import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
-import HsBindgen.Runtime.ConstantArray qualified as CA
 
-import Arrays as Arrays
-import Example
-import FunctionPointers as FPointers
-import Globals as Globals
-import Structs
+import Manual.Tools
+
+import Structs.Safe
+
+import Vector.Length.Safe
+import Vector.Rotate.Safe
+import Vector.Safe
+
+import Arrays qualified
 import Complex qualified
-
-import Game.Player
-import Game.State
-import Game.World
-import Vector
-import Vector.Length
-import Vector.Rotate
+import Example
+import Globals qualified
+import Structs
 
 {-------------------------------------------------------------------------------
   Simple struct
@@ -111,35 +128,25 @@ hashSafe s = fromIntegral $ unsafePerformIO $ withCString s hash
 main :: IO ()
 main = do
 
+--------------------------------------------------------------------------------
     section "Simple"
-
-    --
-    -- Simple struct
-    --
+    subsection "Simple struct"
 
     let triple = mkTriple 1 2 3
     print triple
 
-    --
-    -- Simple enum
-    --
+    subsection "Simple enum"
 
     print (indexTriple triple A)
 
-
-    --
-    -- Typedefs
+--------------------------------------------------------------------------------
     section "Typedefs"
-    --
 
     print (sumTriple triple)
     print (averageTriple triple)
 
-
-    --
-    -- Macros
+--------------------------------------------------------------------------------
     section "Macros"
-    --
 
     buffer <- mallocForeignPtrBytes 8
     (x :: Word32) <- withForeignPtr buffer $ \ptr -> do
@@ -153,10 +160,8 @@ main = do
       getYear ptr
     print year
 
-    --
-    -- Unions
+--------------------------------------------------------------------------------
     section "Unions"
-    --
 
     do let occupation = set_occupation_student Student{
            student_university = nullPtr
@@ -171,10 +176,8 @@ main = do
          }
        with occupation $ print_occupation 1
 
-    --
-    -- Awkward names
+--------------------------------------------------------------------------------
     section "Awkward names"
-    --
 
 -- There's a quirk with Apple assembler and LLVM IR that do not accept
 -- Unicode characters. So make sure to set SUPPORTS_UNICODE environment
@@ -189,12 +192,11 @@ main = do
     byeBye
     gamma
 #endif
+
     import'
 
-    --
-    -- External binding specifications
+--------------------------------------------------------------------------------
     section "External binding specifications"
-    --
 
     v <- new_vector 2 1
     print =<< peek v
@@ -206,61 +208,53 @@ main = do
     move_world  $ Game_state nullPtr
     move_player $ Game_state nullPtr
 
-    --
-    -- Structs
+--------------------------------------------------------------------------------
     section "Structs"
-    --
 
     bracket (withCString "Rich" $ \cstr -> surname_alloc_wrapper cstr) surname_free $
       \ptr -> do
-        (surname :: Surname) <- peek ptr
+        (surname :: Structs.Surname) <- peek ptr
         putStrLn $ "The length of the surname is: " <> show (surname_len surname)
-        (surnameWithFlam :: FLAM.WithFlexibleArrayMember FC.CChar Surname) <-
+        (surnameWithFlam :: FLAM.WithFlexibleArrayMember FC.CChar Structs.Surname) <-
           FLAM.peekWithFLAM ptr
         let name :: VS.Vector FC.CChar
             name = FLAM.flamExtra surnameWithFlam
         print $ VS.map castCCharToChar name
 
-    --
-    -- Enums
+--------------------------------------------------------------------------------
     section "Enums"
-    --
 
     print [Ok, minBound]
     putStrLn $ "After " ++ show Moved ++ " comes " ++ show (succ Moved)
-    putStrLn $ "Possible votes: " ++ show ([minBound .. maxBound] :: [Vote])
+    putStrLn $ "Possible votes: " ++ show ([minBound .. maxBound] :: [Example.Vote])
     print CXCursor_UnexposedExpr
     putStrLn $ showCursorKind CXCursor_UnexposedExpr
     print (succ Y, pred Y)
 
     -- Read instance (Index).
-    print $ "Read declared (A ~ Index 0): " <> show (read "A" :: Index)
+    print $ "Read declared (A ~ Index 0): " <> show (read "A" :: Example.Index)
     print $ "Read declared but using undeclared string (Index 0): "
-      <> show (read "Index 0" :: Index)
-    print $ "Read undeclared (Index 10): " <> show (read "Index 10" :: Index)
+      <> show (read "Index 0" :: Example.Index)
+    print $ "Read undeclared (Index 10): " <> show (read "Index 10" :: Example.Index)
     -- Read instance (HTTP_status).
-    print $ (read "HTTP_status 200" :: HTTP_status)
-    print $ (read "Ok" :: HTTP_status)
-    print $ (read "HTTP_status 200" :: HTTP_status) == (read "Ok" :: HTTP_status)
+    print $ (read "HTTP_status 200" :: Example.HTTP_status)
+    print $ (read "Ok" :: Example.HTTP_status)
+    print $ (read "HTTP_status 200" :: Example.HTTP_status) == (read "Ok" :: Example.HTTP_status)
     -- Read instance (overriding).
     print $ (readEitherIndexWith 100 "Index (-1)")
 
     -- Static inline function
     print =<< mod_10 123
 
-    --
-    -- Function attributes
+--------------------------------------------------------------------------------
     section "Function attributes"
-    --
 
-    withCString "\DC1" $ \ptr -> print =<< hash ptr
+    withCString "\DC1" $ (print <=< hash)
     print (hashSafe "abc")
-    print (Example.square 2)
+    print (square 2)
 
-    --
-    -- Globals
+--------------------------------------------------------------------------------
     section "Globals"
-    --
     do
       subsection "Variables"
       config <- peek globalConfig_ptr
@@ -270,8 +264,8 @@ main = do
       config' <- peek globalConfig_ptr
       print config'
 
-      print =<< peek globalInt_ptr
-      print =<< peek externGlobalInt_ptr
+      print =<< peek Globals.globalInt_ptr
+      print =<< peek Globals.externGlobalInt_ptr
 
       -- Constants
       subsection "Constants"
@@ -289,10 +283,8 @@ main = do
       print Globals.constPtrToInt
       print Globals.constPtrToConstInt
 
-    --
-    -- Arrays
+--------------------------------------------------------------------------------
     section "Arrays"
-    --
     do
       -- Global array variables
       subsection "Global variables"
@@ -328,22 +320,18 @@ main = do
       print =<< IA.peekArray 3 Arrays.global_triplet_ptrs_ptr
       Arrays.pretty_print_triplets_wrapper (castPtr Arrays.global_triplet_ptrs_ptr)
 
-    --
-    -- Function pointers
+--------------------------------------------------------------------------------
     section "Function pointers"
-    --
     do
-      print =<< FPointers.apply1 FPointers.square_ptr 4
-      print =<< FPointers.apply1 FPointers.square_ptr 5
-      print =<< FPointers.apply1 FPointers.square_ptr 6
-      print =<< FPointers.apply2 FPointers.plus_ptr 7 8
-      print =<< FPointers.apply2 FPointers.plus_ptr 9 10
-      print =<< FPointers.apply2 FPointers.plus_ptr 11 12
+      print =<< FunPtr.apply1 FunPtr.square_ptr 4
+      print =<< FunPtr.apply1 FunPtr.square_ptr 5
+      print =<< FunPtr.apply1 FunPtr.square_ptr 6
+      print =<< FunPtr.apply2 FunPtr.plus_ptr 7 8
+      print =<< FunPtr.apply2 FunPtr.plus_ptr 9 10
+      print =<< FunPtr.apply2 FunPtr.plus_ptr 11 12
 
-    --
-    -- Complex types
+--------------------------------------------------------------------------------
     section "Complex types"
-    --
     do
       subsection "Basic Complex Type Read/Write"
 
@@ -519,22 +507,6 @@ reverseIncompleteArrayElems n ptr = do
 transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
 transposeMatrix inputMatrix =
     CA.withPtr inputMatrix $ \inputPtr -> do
-      F.alloca $ \(outputPtr :: Ptr Matrix) -> do
+      F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
         Arrays.transpose_wrapper (inputPtr) (snd $ CA.isFirstElem outputPtr)
         peek outputPtr
-
-{-------------------------------------------------------------------------------
-  Aux
--------------------------------------------------------------------------------}
-
-section :: String -> IO ()
-section s = do
-  putStrLn ""
-  putStrLn $ "*** " <> s <> " ***"
-  putStrLn ""
-
-subsection :: String -> IO ()
-subsection s = do
-  putStrLn ""
-  putStrLn $ "** " <> s <> " **"
-  putStrLn ""

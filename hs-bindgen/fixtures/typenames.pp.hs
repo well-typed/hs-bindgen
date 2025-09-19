@@ -10,8 +10,8 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
-import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 import qualified Text.Read
+import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 
 {-| __C declaration:__ @foo@
 

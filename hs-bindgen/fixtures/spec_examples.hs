@@ -3073,12 +3073,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_spec_examples_bab0544b0c2274da",
+      "hs_bindgen_test_spec_examples_7d4128962cfce15d",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_spec_examples_bab0544b0c2274da (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
+          "void hs_bindgen_test_spec_examples_7d4128962cfce15d (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
           capiWrapperImport =
           "spec_examples.h"},
       foreignImportOrigin = Function
@@ -3184,7 +3184,212 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_spec_examples_215c42c65ae193a6",
+        "resample_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_num_valid_samples"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Int32_T")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_num_valid_samples",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_iq_int"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_iq_int",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_old_rate"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_old_rate",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_new_rate"),
+          functionParameterType = HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_new_rate",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName
+              "@NsVar"
+              "res_m_iq_resampled_int"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_iq_resampled_int",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_spec_examples_f31d4400b3244637",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_spec_examples_f31d4400b3244637 (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
+          capiWrapperImport =
+          "spec_examples.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_num_valid_samples",
+                  nameHsIdent = HsIdentifier
+                    "res_m_num_valid_samples"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int32_T",
+                      nameHsIdent = HsIdentifier
+                        "Int32_T"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_iq_int",
+                  nameHsIdent = HsIdentifier
+                    "res_m_iq_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_old_rate",
+                  nameHsIdent = HsIdentifier
+                    "res_m_old_rate"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = HsIdentifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_new_rate",
+                  nameHsIdent = HsIdentifier
+                    "res_m_new_rate"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = HsIdentifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_iq_resampled_int",
+                  nameHsIdent = HsIdentifier
+                    "res_m_iq_resampled_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9"))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "resample",
+          commentLocation = Just
+            "spec_examples.h:31:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_spec_examples_46b04422dcd0bbd5",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -3223,12 +3428,12 @@
                       (HsIO
                         (HsPrimType HsPrimUnit))))))))),
       foreignImportOrigName =
-      "hs_bindgen_test_spec_examples_215c42c65ae193a6",
+      "hs_bindgen_test_spec_examples_46b04422dcd0bbd5",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_215c42c65ae193a6 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
+          "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
           capiWrapperImport =
           "spec_examples.h"},
       foreignImportOrigin = Global

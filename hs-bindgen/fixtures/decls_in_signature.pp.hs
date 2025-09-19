@@ -19,7 +19,7 @@ import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <decls_in_signature.h>\nvoid hs_bindgen_test_decls_in_signature_16f5d4c94f55e369 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\n/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93 (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } \nvoid hs_bindgen_test_decls_in_signature_8b60d38de80093fa (struct named_struct *arg1) { f1(*arg1); }\n/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8 (void)) (struct named_struct arg1) { return &f1; } \nvoid hs_bindgen_test_decls_in_signature_4a86b0420a250963 (union named_union *arg1) { f2(*arg1); }\n/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba (void)) (union named_union arg1) { return &f2; } \n")
+$(CAPI.addCSource "#include <decls_in_signature.h>\nvoid hs_bindgen_test_decls_in_signature_001a08d4459ec455 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\nvoid hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (struct named_struct *arg1) { f1(*arg1); }\nvoid hs_bindgen_test_decls_in_signature_1d043de05a457e90 (union named_union *arg1) { f2(*arg1); }\n/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } \n/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) (struct named_struct arg1) { return &f1; } \n/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) (union named_union arg1) { return &f2; } \n")
 
 {-| __C declaration:__ @opaque@
 
@@ -73,45 +73,6 @@ instance F.Storable Outside where
                F.pokeByteOff ptr0 (0 :: Int) outside_x2
             >> F.pokeByteOff ptr0 (4 :: Int) outside_y3
 
-{-| __C declaration:__ @normal@
-
-    __defined at:__ @decls_in_signature.h:7:6@
-
-    __exported by:__ @decls_in_signature.h@
--}
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_16f5d4c94f55e369" normal_wrapper
-  :: Ptr.Ptr Opaque
-     {- ^ __C declaration:__ @ptr_to_opaque@
-     -}
-  -> Ptr.Ptr Outside
-     {- ^ __C declaration:__ @ptr_to_defined@
-     -}
-  -> Ptr.Ptr Outside
-     {- ^ __C declaration:__ @by_value@
-     -}
-  -> IO ()
-
-normal :: (Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()
-normal =
-  \x0 ->
-    \x1 ->
-      \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
-
-{-| __C declaration:__ @normal@
-
-    __defined at:__ @decls_in_signature.h:7:6@
-
-    __exported by:__ @decls_in_signature.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93" hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()))
-
-{-# NOINLINE normal_ptr #-}
-
-normal_ptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ())
-normal_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_87a8c2dd9b065b93
-
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -159,44 +120,6 @@ instance F.Storable Named_struct where
           Named_struct named_struct_x2 named_struct_y3 ->
                F.pokeByteOff ptr0 (0 :: Int) named_struct_x2
             >> F.pokeByteOff ptr0 (4 :: Int) named_struct_y3
-
-{-| Error cases
-
-  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
-
-__C declaration:__ @f1@
-
-__defined at:__ @decls_in_signature.h:17:6@
-
-__exported by:__ @decls_in_signature.h@
--}
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_8b60d38de80093fa" f1_wrapper
-  :: Ptr.Ptr Named_struct
-     {- ^ __C declaration:__ @arg@
-     -}
-  -> IO ()
-
-f1 :: Named_struct -> IO ()
-f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
-
-{-| Error cases
-
-  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
-
-__C declaration:__ @f1@
-
-__defined at:__ @decls_in_signature.h:17:6@
-
-__exported by:__ @decls_in_signature.h@
--}
-foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8" hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8
-  :: IO (Ptr.FunPtr (Named_struct -> IO ()))
-
-{-# NOINLINE f1_ptr #-}
-
-f1_ptr :: Ptr.FunPtr (Named_struct -> IO ())
-f1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_a1b79fe9af8e18b8
 
 {-| __C declaration:__ @named_union@
 
@@ -256,13 +179,56 @@ set_named_union_y :: FC.CChar -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+{-| __C declaration:__ @normal@
+
+    __defined at:__ @decls_in_signature.h:7:6@
+
+    __exported by:__ @decls_in_signature.h@
+-}
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_001a08d4459ec455" normal_wrapper
+  :: Ptr.Ptr Opaque
+     {- ^ __C declaration:__ @ptr_to_opaque@
+     -}
+  -> Ptr.Ptr Outside
+     {- ^ __C declaration:__ @ptr_to_defined@
+     -}
+  -> Ptr.Ptr Outside
+     {- ^ __C declaration:__ @by_value@
+     -}
+  -> IO ()
+
+normal :: (Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()
+normal =
+  \x0 ->
+    \x1 ->
+      \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
+
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+__C declaration:__ @f1@
+
+__defined at:__ @decls_in_signature.h:17:6@
+
+__exported by:__ @decls_in_signature.h@
+-}
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_a2f84d2570ef3892" f1_wrapper
+  :: Ptr.Ptr Named_struct
+     {- ^ __C declaration:__ @arg@
+     -}
+  -> IO ()
+
+f1 :: Named_struct -> IO ()
+f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
+
 {-| __C declaration:__ @f2@
 
     __defined at:__ @decls_in_signature.h:20:6@
 
     __exported by:__ @decls_in_signature.h@
 -}
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" f2_wrapper
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_1d043de05a457e90" f2_wrapper
   :: Ptr.Ptr Named_union
      {- ^ __C declaration:__ @arg@
      -}
@@ -271,17 +237,51 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_4a86b0420a250963" 
 f2 :: Named_union -> IO ()
 f2 = \x0 -> F.with x0 (\y1 -> f2_wrapper y1)
 
+{-| __C declaration:__ @normal@
+
+    __defined at:__ @decls_in_signature.h:7:6@
+
+    __exported by:__ @decls_in_signature.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_b040d51578b7b05e" hs_bindgen_test_decls_in_signature_b040d51578b7b05e
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()))
+
+{-# NOINLINE normal_ptr #-}
+
+normal_ptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ())
+normal_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_b040d51578b7b05e
+
+{-| Error cases
+
+  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
+
+__C declaration:__ @f1@
+
+__defined at:__ @decls_in_signature.h:17:6@
+
+__exported by:__ @decls_in_signature.h@
+-}
+foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_5469bdc0395f86c1" hs_bindgen_test_decls_in_signature_5469bdc0395f86c1
+  :: IO (Ptr.FunPtr (Named_struct -> IO ()))
+
+{-# NOINLINE f1_ptr #-}
+
+f1_ptr :: Ptr.FunPtr (Named_struct -> IO ())
+f1_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_5469bdc0395f86c1
+
 {-| __C declaration:__ @f2@
 
     __defined at:__ @decls_in_signature.h:20:6@
 
     __exported by:__ @decls_in_signature.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba" hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba
+foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_490ca7e8c8282a69" hs_bindgen_test_decls_in_signature_490ca7e8c8282a69
   :: IO (Ptr.FunPtr (Named_union -> IO ()))
 
 {-# NOINLINE f2_ptr #-}
 
 f2_ptr :: Ptr.FunPtr (Named_union -> IO ())
 f2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_74cfd16f2b7e27ba
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_decls_in_signature_490ca7e8c8282a69

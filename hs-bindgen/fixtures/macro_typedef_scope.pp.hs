@@ -4,11 +4,11 @@
 
 module Example where
 
-import Data.Bits (FiniteBits)
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import Data.Bits (FiniteBits)
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @T1@

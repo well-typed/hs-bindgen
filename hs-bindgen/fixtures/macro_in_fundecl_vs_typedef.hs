@@ -424,626 +424,6 @@
         "TC",
       deriveInstanceComment =
       Nothing},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "quux1",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "y"),
-          functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "TC"),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCChar)),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_macro_in_fundecl_vs_typedef_07fab5dfa3fd2fad (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypeMacroTypedef
-                NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
-                      "TC"}))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimChar
-              (PrimSignImplicit Nothing))},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:8:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName "@NsTypeConstr" "MC"))
-              (HsFun
-                (HsTypRef
-                  (HsName "@NsTypeConstr" "TC"))
-                (HsIO
-                  (HsPrimType HsPrimCChar)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_quux1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_c5b48c28b2fe82e8 (void)) (MC arg1, TC arg2) { return &quux1; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"})]
-          (TypePrim
-            (PrimChar
-              (PrimSignImplicit Nothing)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:8:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "quux2",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "y"),
-          functionParameterType =
-          HsPrimType HsPrimCChar,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsTypRef
-            (HsName "@NsTypeConstr" "TC"))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_63e619d3916718c2 (MC arg1, char arg2) { return quux2(arg1, arg2); }",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypeMacroTypedef
-                NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing)))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "TC",
-                nameHsIdent = HsIdentifier
-                  "TC"})},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:9:4",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsTypRef
-                (HsName "@NsTypeConstr" "MC"))
-              (HsFun
-                (HsPrimType HsPrimCChar)
-                (HsIO
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "TC"))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_quux2_ptr */ __attribute__ ((const)) TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_f16957714a069f3b (void)) (MC arg1, char arg2) { return &quux2; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))]
-          (TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "TC",
-                nameHsIdent = HsIdentifier
-                  "TC"}))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:9:4",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "wam1",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType =
-          HsPrimType HsPrimCFloat,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "y"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (HsName "@NsTypeConstr" "TC")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "MC")))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_cf2edbc5f779e4a0 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypePrim
-                (PrimFloating PrimFloat)),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
-              (TypePointer
-                (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "TC",
-                      nameHsIdent = HsIdentifier
-                        "TC"})))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            (TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:10:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCFloat)
-              (HsFun
-                (HsPtr
-                  (HsTypRef
-                    (HsName "@NsTypeConstr" "TC")))
-                (HsIO
-                  (HsPtr
-                    (HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "MC")))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_wam1_ptr */ __attribute__ ((const)) MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_d6bcc35669bacd77 (void)) (float arg1, TC *arg2) { return &wam1; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
-                      "TC"}))]
-          (TypePointer
-            (TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:10:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "wam2",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType =
-          HsPrimType HsPrimCFloat,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "y"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (HsName "@NsTypeConstr" "MC")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "TC")))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_261e915bc628d210 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypePrim
-                (PrimFloating PrimFloat)),
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
-              (TypePointer
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "MC",
-                    nameHsIdent = HsIdentifier "MC"}
-                  NameOriginInSource))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"}))},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCFloat)
-              (HsFun
-                (HsPtr
-                  (HsTypRef
-                    (HsName "@NsTypeConstr" "MC")))
-                (HsIO
-                  (HsPtr
-                    (HsTypRef
-                      (HsName
-                        "@NsTypeConstr"
-                        "TC")))))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_wam2_ptr */ __attribute__ ((const)) TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_134ac41aded5511f (void)) (float arg1, MC *arg2) { return &wam2; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
-                NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource)]
-          (TypePointer
-            (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -3020,6 +2400,370 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
+        "quux1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "TC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCChar)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_c7ba346f3006b36f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char hs_bindgen_test_macro_in_fundecl_vs_typedef_c7ba346f3006b36f (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:8:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "quux2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCChar,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName "@NsTypeConstr" "TC"))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_db114519a8645d1f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_db114519a8645d1f (MC arg1, char arg2) { return quux2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "TC",
+                nameHsIdent = HsIdentifier
+                  "TC"})},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:9:4",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wam1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "TC")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "MC")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_0a613fb26d413eaa",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_0a613fb26d413eaa (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = HsIdentifier
+                        "TC"})))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:10:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wam2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "MC")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "TC")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_279b15c6940eb4f8",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_279b15c6940eb4f8 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "MC",
+                    nameHsIdent = HsIdentifier "MC"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:11:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
         "struct_typedef1",
       foreignImportParameters = [
         FunctionParameter {
@@ -3053,12 +2797,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_27a965a9bfd8c176",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_0411223e6a6740c0 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_27a965a9bfd8c176 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3115,75 +2859,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Struct2")))
-              (HsFun
-                (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
-                (HsIO
-                  (HsPrimType HsPrimUnit)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_struct_typedef1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_68ab150f99707009 (void)) (struct2 *arg1, MC arg2) { return &struct_typedef1; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct2")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct2",
-                      nameHsIdent = HsIdentifier
-                        "Struct2"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_typedef1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:23:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "struct_typedef2",
       foreignImportParameters = [
         FunctionParameter {
@@ -3217,12 +2892,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_8e7c55302a7b5716",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_46539ee6ebd5a75d (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8e7c55302a7b5716 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3274,70 +2949,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Struct3_t")))
-              (HsFun
-                (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
-                (HsIO
-                  (HsPrimType HsPrimUnit)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_struct_typedef2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b031fbdf6da5bfb3 (void)) (struct3_t *arg1, MC arg2) { return &struct_typedef2; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct3_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct3_t"})),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_typedef2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:24:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "struct_typedef3",
       foreignImportParameters = [
         FunctionParameter {
@@ -3371,12 +2982,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_fe83edb35a817050",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_bac0c4d09acb0d94 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_fe83edb35a817050 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3431,73 +3042,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Struct4")))
-              (HsFun
-                (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
-                (HsIO
-                  (HsPrimType HsPrimUnit)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_struct_typedef3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_5a8d8a53b2ab3802 (void)) (struct4 *arg1, MC arg2) { return &struct_typedef3; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct4")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct4",
-                      nameHsIdent = HsIdentifier
-                        "Struct4"}
-                    NameOriginInSource))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_typedef3",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:25:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "struct_name1",
       foreignImportParameters = [
         FunctionParameter {
@@ -3531,12 +3075,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_162df9fabcbef0c4",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8026baca65480b26 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_162df9fabcbef0c4 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3588,70 +3132,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Struct1")))
-              (HsFun
-                (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
-                (HsIO
-                  (HsPrimType HsPrimUnit)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_struct_name1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_ef2f629cf616f835 (void)) (struct struct1 *arg1, MC arg2) { return &struct_name1; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
-                NamePair {
-                  nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
-                    "Struct1"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_name1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "struct_name2",
       foreignImportParameters = [
         FunctionParameter {
@@ -3685,12 +3165,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_a6b5f272333b19d4",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4923fa8dff338449 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_a6b5f272333b19d4 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3742,70 +3222,6 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Struct3")))
-              (HsFun
-                (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
-                (HsIO
-                  (HsPrimType HsPrimUnit)))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_1823618a49e45636 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } ",
-          capiWrapperImport =
-          "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
-                NamePair {
-                  nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
-                    "Struct3"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_name2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:28:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
         "struct_name3",
       foreignImportParameters = [
         FunctionParameter {
@@ -3839,12 +3255,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_9eadc48880259e4a",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cbb77211881a7cdf (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_9eadc48880259e4a (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3896,7 +3312,1308 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788",
+        "quux1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "TC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCChar)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_d8e3530b80cd03ff",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "char hs_bindgen_test_macro_in_fundecl_vs_typedef_d8e3530b80cd03ff (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:8:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "quux2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCChar,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsTypRef
+            (HsName "@NsTypeConstr" "TC"))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_857e3b8d0292d39d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_857e3b8d0292d39d (MC arg1, char arg2) { return quux2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "TC",
+                nameHsIdent = HsIdentifier
+                  "TC"})},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:9:4",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wam1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "TC")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "MC")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_81d53aede4a7b424",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_81d53aede4a7b424 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = HsIdentifier
+                        "TC"})))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:10:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "wam2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "MC")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "TC")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_035abb3b83b92fea",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_035abb3b83b92fea (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "MC",
+                    nameHsIdent = HsIdentifier "MC"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:11:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_typedef1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct2")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_34300aead966e212",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_34300aead966e212 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct2")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct2",
+                        nameHsIdent = HsIdentifier
+                          "Struct2"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:23:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_typedef2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct3_t")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_cc4abaeb55d1e034",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cc4abaeb55d1e034 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct3_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct3_t"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:24:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_typedef3",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct4")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_d068247e5a3b03e6",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_d068247e5a3b03e6 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct4")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct4",
+                        nameHsIdent = HsIdentifier
+                          "Struct4"}
+                      NameOriginInSource)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:25:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_name1",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct1")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_4107c49ec0f22d0c",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4107c49ec0f22d0c (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct1",
+                    nameHsIdent = HsIdentifier
+                      "Struct1"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:27:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_name2",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct3")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_124c6e0ae4b86063",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_124c6e0ae4b86063 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct3",
+                    nameHsIdent = HsIdentifier
+                      "Struct3"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:28:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "struct_name3",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "s"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Struct4")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "s",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (HsName "@NsTypeConstr" "MC"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_4241bc0cd1393d99",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4241bc0cd1393d99 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct4",
+                    nameHsIdent = HsIdentifier
+                      "Struct4"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:29:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "MC"))
+              (HsFun
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "TC"))
+                (HsIO
+                  (HsPrimType HsPrimCChar)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_quux1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293 (void)) (MC arg1, TC arg2) { return &quux1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource,
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"})]
+          (TypePrim
+            (PrimChar
+              (PrimSignImplicit Nothing)))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:8:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName "@NsTypeConstr" "MC"))
+              (HsFun
+                (HsPrimType HsPrimCChar)
+                (HsIO
+                  (HsTypRef
+                    (HsName
+                      "@NsTypeConstr"
+                      "TC"))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_quux2_ptr */ __attribute__ ((const)) TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b (void)) (MC arg1, char arg2) { return &quux2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource,
+            TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))]
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "TC",
+                nameHsIdent = HsIdentifier
+                  "TC"}))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "quux2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:9:4",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCFloat)
+              (HsFun
+                (HsPtr
+                  (HsTypRef
+                    (HsName "@NsTypeConstr" "TC")))
+                (HsIO
+                  (HsPtr
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "MC")))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_wam1_ptr */ __attribute__ ((const)) MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe (void)) (float arg1, TC *arg2) { return &wam1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))]
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:10:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCFloat)
+              (HsFun
+                (HsPtr
+                  (HsTypRef
+                    (HsName "@NsTypeConstr" "MC")))
+                (HsIO
+                  (HsPtr
+                    (HsTypRef
+                      (HsName
+                        "@NsTypeConstr"
+                        "TC")))))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_wam2_ptr */ __attribute__ ((const)) TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63 (void)) (float arg1, MC *arg2) { return &wam2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimFloat),
+            TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)]
+          (TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = HsIdentifier
+                    "TC"})))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wam2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:11:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Struct2")))
+              (HsFun
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "MC"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_typedef1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152 (void)) (struct2 *arg1, MC arg2) { return &struct_typedef1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (Name "struct2")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct2",
+                      nameHsIdent = HsIdentifier
+                        "Struct2"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:23:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Struct3_t")))
+              (HsFun
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "MC"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_typedef2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043 (void)) (struct3_t *arg1, MC arg2) { return &struct_typedef2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "struct3_t",
+                    nameHsIdent = HsIdentifier
+                      "Struct3_t"})),
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:24:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -3914,12 +4631,207 @@
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
-      "hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788",
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_2437573379090788 (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } ",
+          "/* get_struct_typedef3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368 (void)) (struct4 *arg1, MC arg2) { return &struct_typedef3; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeTypedef
+                (TypedefSquashed
+                  (Name "struct4")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct4",
+                      nameHsIdent = HsIdentifier
+                        "Struct4"}
+                    NameOriginInSource))),
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_typedef3",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:25:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Struct1")))
+              (HsFun
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "MC"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_name1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042 (void)) (struct struct1 *arg1, MC arg2) { return &struct_name1; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "struct1",
+                  nameHsIdent = HsIdentifier
+                    "Struct1"}
+                NameOriginInSource),
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name1",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:27:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Struct3")))
+              (HsFun
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "MC"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } ",
+          capiWrapperImport =
+          "macro_in_fundecl_vs_typedef.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "struct3",
+                  nameHsIdent = HsIdentifier
+                    "Struct3"}
+                NameOriginInSource),
+            TypeMacroTypedef
+              NamePair {
+                nameC = Name "MC",
+                nameHsIdent = HsIdentifier "MC"}
+              NameOriginInSource]
+          TypeVoid),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "struct_name2",
+          commentLocation = Just
+            "macro_in_fundecl_vs_typedef.h:28:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                [
+                  "macro_in_fundecl_vs_typedef.h"],
+              headerInclude =
+              "macro_in_fundecl_vs_typedef.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Struct4")))
+              (HsFun
+                (HsTypRef
+                  (HsName "@NsTypeConstr" "MC"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global

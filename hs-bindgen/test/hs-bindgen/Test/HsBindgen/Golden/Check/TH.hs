@@ -7,6 +7,7 @@ module Test.HsBindgen.Golden.Check.TH (check) where
 
 import Control.Monad (join)
 import Control.Monad.State.Strict (State, get, put, runState)
+import Data.Foldable qualified as Foldable
 import Data.Generics qualified as SYB
 import Data.Map.Strict qualified as Map
 import Language.Haskell.TH qualified as TH
@@ -47,7 +48,7 @@ check testResources test =
           runTestHsBindgen testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
-            thDecls = getThDecls deps decls
+            thDecls = uncurry (getThDecls deps) $ Foldable.fold decls
 
             (QuState{..}, thdecs) = runQu thDecls
 

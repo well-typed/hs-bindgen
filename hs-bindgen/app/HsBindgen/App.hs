@@ -15,7 +15,7 @@ module HsBindgen.App (
     -- ** Predicates and slicing
   , parseParsePredicate
     -- ** Output options
-  , parseOutput
+  , parseHsOutputDir
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -36,10 +36,10 @@ import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
+import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.Lib
 
 import Optics (set)
-
 {-------------------------------------------------------------------------------
   Global options
 -------------------------------------------------------------------------------}
@@ -477,24 +477,27 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
 -------------------------------------------------------------------------------}
 
 parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts = fmap HsModuleOpts . strOption $ mconcat [
+parseHsModuleOpts =
+  HsModuleOpts <$> parseHsModuleName
+
+parseHsModuleName :: Parser HsModuleName
+parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value $ hsModuleOptsName def
-    , help "Name of the generated Haskell module"
+    , value $ hsModuleOptsBaseName def
+    , help "Base name of the generated Haskell modules"
     ]
 
 {-------------------------------------------------------------------------------
   Output options
 -------------------------------------------------------------------------------}
 
-parseOutput :: Parser FilePath
-parseOutput = strOption $ mconcat [
-      short 'o'
-    , long "output"
+parseHsOutputDir :: Parser FilePath
+parseHsOutputDir = strOption $ mconcat [
+      long "hs-output-dir"
     , metavar "PATH"
-    , help "Output path for the Haskell module"
+    , help "Output directory of generated Haskell modules"
     ]
 
 parseGenBindingSpec :: Parser FilePath

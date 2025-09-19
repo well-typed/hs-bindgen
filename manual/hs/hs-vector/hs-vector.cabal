@@ -24,8 +24,16 @@ library
 
       -- generated
       Vector
+      Vector.FunPtr
       Vector.Length
-      Vector.Rotate
+      Vector.Length.FunPtr
+      Vector.Length.Safe
+      Vector.Length.Unsafe
+      Vector.Safe
+      Vector.Unsafe
+      Vector.Rotate.FunPtr
+      Vector.Rotate.Safe
+      Vector.Rotate.Unsafe
 
   extra-libraries:
       vector

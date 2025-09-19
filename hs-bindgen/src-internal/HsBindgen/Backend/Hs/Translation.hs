@@ -32,6 +32,7 @@ import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueId
@@ -118,8 +119,34 @@ generateDeclarations ::
   -> HaddockConfig
   -> HsModuleName
   -> [C.Decl]
-  -> [Hs.Decl]
-generateDeclarations opts haddockConfig moduleName decs =
+  -> ByCategory [Hs.Decl]
+generateDeclarations opts config name =
+    ByCategory . Map.map reverse .
+      foldl' partitionBindingCategories  Map.empty .
+      generateDeclarations' opts config name
+  where
+    partitionBindingCategories ::
+      Map BindingCategory [a] -> WithCategory a  -> Map BindingCategory [a]
+    partitionBindingCategories m (WithCategory cat decl) =
+      Map.alter (addDecl decl) cat m
+
+    addDecl :: a -> Maybe [a] -> Maybe [a]
+    addDecl decl Nothing      = Just [decl]
+    addDecl decl (Just decls) = Just $ decl : decls
+
+-- | Internal. Top-level declaration with foreign import category.
+data WithCategory a = WithCategory {
+    _withCategoryCategory :: BindingCategory
+  , _withCategoryDecl     :: a
+  }
+
+generateDeclarations' ::
+     TranslationOpts
+  -> HaddockConfig
+  -> HsModuleName
+  -> [C.Decl]
+  -> [WithCategory Hs.Decl]
+generateDeclarations' opts haddockConfig moduleName decs =
     flip State.evalState Map.empty $
       concat <$> mapM (generateDecs opts haddockConfig moduleName typedefs) decs
   where
@@ -316,36 +343,47 @@ generateDecs ::
   -> HsModuleName
   -> Map C.Name C.Type
   -> C.Decl
-  -> m [Hs.Decl]
+  -> m [WithCategory Hs.Decl]
 generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
     case kind of
-      C.DeclStruct struct ->
+      C.DeclStruct struct -> withCategoryM BType $
         reifyStructFields struct $ structDecs opts haddockConfig info struct spec
-      C.DeclStructOpaque ->
+      C.DeclStructOpaque -> withCategoryM BType $
         opaqueStructDecs haddockConfig info spec
-      C.DeclUnion union ->
+      C.DeclUnion union -> withCategoryM BType $
         unionDecs haddockConfig info union spec
-      C.DeclUnionOpaque ->
+      C.DeclUnionOpaque -> withCategoryM BType $
         opaqueUnionDecs haddockConfig info spec
-      C.DeclEnum e ->
+      C.DeclEnum e -> withCategoryM BType $
         enumDecs opts haddockConfig info e spec
-      C.DeclEnumOpaque ->
+      C.DeclEnumOpaque -> withCategoryM BType $
         opaqueEnumDecs haddockConfig info spec
-      C.DeclTypedef d ->
+      C.DeclTypedef d -> withCategoryM BType $
         typedefDecs opts haddockConfig info d spec
       C.DeclFunction f ->
-        let funDecls = functionDecs opts haddockConfig moduleName typedefs info f spec
+        let funDeclsWith safety =
+              functionDecs safety opts haddockConfig moduleName typedefs info f spec
             funType  = (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
               addressStubDecs opts haddockConfig moduleName info funType spec
-        in pure $ funDecls ++ funPtrDecls
-      C.DeclMacro macro ->
+        in  pure $ withCategory BSafe   (funDeclsWith SHs.Safe)
+                ++ withCategory BUnsafe (funDeclsWith SHs.Unsafe)
+                ++ withCategory BFunPtr  funPtrDecls
+      C.DeclMacro macro -> withCategoryM BType $
         macroDecs opts haddockConfig info macro spec
       C.DeclGlobal ty ->
         State.get >>= \instsMap ->
-          return $ global opts haddockConfig moduleName instsMap typedefs info ty spec
+          pure $ withCategory BGlobal $
+            global opts haddockConfig moduleName instsMap typedefs info ty spec
+    where
+      withCategory :: BindingCategory -> [a] -> [WithCategory a]
+      withCategory c = map (WithCategory c)
+
+      withCategoryM :: Functor m => BindingCategory -> m [a] -> m [WithCategory a]
+      withCategoryM c = fmap (withCategory c)
+
 
 {-------------------------------------------------------------------------------
   Structs
@@ -370,7 +408,7 @@ structDecs :: forall n m.
 structDecs opts haddockConfig info struct spec fields = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert structName insts
-    return decls
+    pure decls
   where
     structName :: HsName NsTypeConstr
     structName = C.nameHs (C.declId info)
@@ -538,7 +576,7 @@ unionDecs ::
 unionDecs haddockConfig info union spec = do
     decls <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
-    return decls
+    pure decls
   where
     newtypeName :: HsName NsTypeConstr
     newtypeName = C.nameHs (C.declId info)
@@ -645,7 +683,7 @@ enumDecs ::
   -> m [Hs.Decl]
 enumDecs opts haddockConfig info e spec = do
     State.modify' $ Map.insert newtypeName insts
-    return $
+    pure $
       newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
     newtypeName :: HsName NsTypeConstr
@@ -790,7 +828,7 @@ typedefDecs ::
 typedefDecs opts haddockConfig info typedef spec = do
     (insts, decls) <- aux <$> State.get
     State.modify' $ Map.insert newtypeName insts
-    return decls
+    pure decls
   where
     newtypeName :: HsName NsTypeConstr
     newtypeName = C.nameHs (C.declId info)
@@ -893,7 +931,7 @@ macroDecs ::
 macroDecs opts haddockConfig info checkedMacro spec =
     case checkedMacro of
       C.MacroType ty   -> macroDecsTypedef opts haddockConfig info ty spec
-      C.MacroExpr expr -> return $ macroVarDecs haddockConfig info expr
+      C.MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
      State.MonadState InstanceMap m
@@ -906,7 +944,7 @@ macroDecsTypedef ::
 macroDecsTypedef opts haddockConfig info macroType spec = do
     (insts, decls) <- aux (C.macroType macroType) <$> State.get
     State.modify' $ Map.insert newtypeName insts
-    return decls
+    pure $ decls
   where
     newtypeName :: HsName NsTypeConstr
     newtypeName = C.nameHs (C.declId info)
@@ -1217,7 +1255,8 @@ shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
 
 functionDecs ::
-     TranslationOpts
+     SHs.Safety
+  -> TranslationOpts
   -> HaddockConfig
   -> HsModuleName
   -> Map C.Name C.Type -- ^ typedefs
@@ -1225,7 +1264,7 @@ functionDecs ::
   -> C.Function
   -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs opts haddockConfig moduleName typedefs info f _spec =
+functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     funDecl : [
         Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
       | anyFancy
@@ -1240,7 +1279,7 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
         , foreignImportComment    = mbFIComment <> ioComment
-        , foreignImportSafety     = SHs.Safe
+        , foreignImportSafety     = safety
         }
 
     userlandCapiWrapper :: UserlandCapiWrapper
@@ -1350,7 +1389,7 @@ functionDecs opts haddockConfig moduleName typedefs info f _spec =
 
     wrapperName :: String
     wrapperName = unUniqueSymbolId $
-      getUniqueSymbolId (translationUniqueId opts) moduleName innerName
+      getUniqueSymbolId (translationUniqueId opts) moduleName (Just safety) innerName
 
 getMainHashIncludeArg :: C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
@@ -1432,7 +1471,8 @@ global opts haddockConfig moduleName instsMap typedefs info ty _spec =
     -- *** Stub ***
     stubDecs :: [Hs.Decl]
     pureStubName :: HsName NsVar
-    (stubDecs, pureStubName) = addressStubDecs opts haddockConfig moduleName info ty _spec
+    (stubDecs, pureStubName) =
+      addressStubDecs opts haddockConfig moduleName info ty _spec
 
     getConstGetterOfType :: C.Type -> [Hs.Decl]
     getConstGetterOfType t = constGetter (typ t) instsMap info pureStubName
@@ -1520,7 +1560,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     stubNameMangled :: String
     stubNameMangled = unUniqueSymbolId $
-        getUniqueSymbolId (translationUniqueId opts) moduleName stubName
+        getUniqueSymbolId (translationUniqueId opts) moduleName Nothing stubName
 
     stubName :: String
     stubName = "get_" ++ varName ++ "_ptr"
@@ -1766,15 +1806,15 @@ macroName (C.Name cName) =
 newtype UniqueSymbolId = UniqueSymbolId { unUniqueSymbolId :: String }
   deriving newtype (Show)
 
-getUniqueSymbolId :: UniqueId -> HsModuleName -> String -> UniqueSymbolId
-getUniqueSymbolId (UniqueId uniqueId) moduleName symbolName =
+getUniqueSymbolId :: UniqueId -> HsModuleName -> Maybe Safety -> String -> UniqueSymbolId
+getUniqueSymbolId (UniqueId uniqueId) moduleName msafety symbolName =
     UniqueSymbolId $ intercalate "_" components
   where
     components :: [String]
     components =
          [ "hs_bindgen"                   ]
       ++ [ x | let x = sanitize uniqueId, not (null x) ]
-      ++ [ getHash moduleName symbolName  ]
+      ++ [ getHash moduleName msafety symbolName  ]
 
     sanitize :: String -> String
     sanitize [] = []
@@ -1786,11 +1826,11 @@ getUniqueSymbolId (UniqueId uniqueId) moduleName symbolName =
 
     -- We use `cryptohash-sha256` to avoid potential dynamic linker problems
     -- (https://github.com/haskell-haskey/xxhash-ffi/issues/4).
-    getHash :: HsModuleName -> String -> String
-    getHash x y = B.unpack $ B.take 16 $ B16.encode $
-      hash $ getString x y
+    getHash :: HsModuleName -> Maybe Safety -> String -> String
+    getHash x y z = B.unpack $ B.take 16 $ B16.encode $
+      hash $ getString x y z
 
     -- We use ByteString to avoid hash changes induced by a change of how Text
     -- is encoded in GHC 9.2.
-    getString :: HsModuleName -> String -> ByteString
-    getString x y = B.pack $ T.unpack (getHsModuleName x) <> y
+    getString :: HsModuleName -> Maybe Safety -> String -> ByteString
+    getString x y z = B.pack $ T.unpack (getHsModuleName x) <> show y <> z

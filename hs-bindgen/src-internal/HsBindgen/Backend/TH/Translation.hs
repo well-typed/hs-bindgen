@@ -653,10 +653,6 @@ mkDecl = \case
             (mkPat (patSynRHS ps))
           ]
 
-      DCSource src -> do
-          addCSource src
-          return []
-
       DPragma p ->
           case p of
             NOINLINE n ->

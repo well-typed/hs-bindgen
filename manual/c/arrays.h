@@ -10,7 +10,7 @@
  */
 
 //! Global, complete, initialised
-int arr1[] = {1, 2, 3};
+extern int arr1[1];
 
 //! Global, extern, complete, not initialised
 extern int arr2[3];

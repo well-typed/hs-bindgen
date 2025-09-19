@@ -10,14 +10,11 @@ import Options.Applicative
 import Options.Applicative.Help qualified as Help
 import Prettyprinter.Util qualified as PP
 import System.Exit (ExitCode, exitFailure)
-import Text.Read (readMaybe)
 
 import Clang.Version (clang_getClangVersion)
 
 import HsBindgen.App
 import HsBindgen.Cli qualified as Cli
-import HsBindgen.Cli.Preprocess qualified as Preprocess
-import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Lib
@@ -69,30 +66,7 @@ execCliParser = do
 main :: IO ()
 main = handle exceptionHandler $ do
     Cli{..} <- execCliParser
-    Cli.exec cliGlobalOpts cliCmd >>= \case
-      Nothing   -> return ()
-      Just opts -> execLiterate opts
-
-execLiterate :: Literate.Opts -> IO ()
-execLiterate literateOpts = do
-    args <- maybe (throw' "cannot parse literate file") return . readMaybe
-      =<< readFile literateOpts.input
-    Cli{..} <- maybe (throw' "cannot parse arguments in literate file") return $
-      pureParseCmdPreprocess args
-    void . Cli.exec cliGlobalOpts $ case cliCmd of
-      Cli.CmdPreprocess opts -> Cli.CmdPreprocess opts{
-          Preprocess.output = Just literateOpts.output
-        }
-      _otherwise             -> cliCmd
-  where
-    throw' :: String -> IO a
-    throw' = throwIO . LiterateFileException literateOpts.input
-
-    pureParseCmdPreprocess :: [String] -> Maybe Cli
-    pureParseCmdPreprocess =
-        getParseResult
-      . execParserPure (prefs subparserInline) (info parseCli mempty)
-      . ("preprocess" :)
+    Cli.exec cliGlobalOpts cliCmd
 
 {-------------------------------------------------------------------------------
   Auxiliary functions: exception handling
@@ -118,15 +92,6 @@ exceptionHandler e@(SomeException e')
       -- TODO: we could print exception context here, but it seems to be empty
       -- for IOExceptions anyway.
       exitFailure
-
-data LiterateFileException = LiterateFileException FilePath String
-  deriving Show
-
-instance Exception LiterateFileException where
-    toException = hsBindgenExceptionToException
-    fromException = hsBindgenExceptionFromException
-    displayException (LiterateFileException path err) =
-      "error loading " ++ path ++ ": " ++ err
 
 {-------------------------------------------------------------------------------
   Auxiliary functions: footers

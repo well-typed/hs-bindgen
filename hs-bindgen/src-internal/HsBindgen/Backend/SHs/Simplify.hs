@@ -6,6 +6,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST.Strategy
+import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
@@ -14,12 +15,17 @@ import HsBindgen.Language.Haskell
   Top-level
 -------------------------------------------------------------------------------}
 
-simplifySHs :: [SDecl] -> [SDecl]
-simplifySHs decls =
-    let (decls', simpleInstances) =
-          second (Map.fromListWith (<>)) $
-            partitionMaybe toSimpleInstances decls
-    in reconstruct simpleInstances decls'
+simplifySHs ::
+     ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+simplifySHs = fmap (\(x, y) -> (x, go y))
+  where
+    go :: [SDecl] -> [SDecl]
+    go decls =
+        let (decls', simpleInstances) =
+              second (Map.fromListWith (<>)) $
+                partitionMaybe toSimpleInstances decls
+        in reconstruct simpleInstances decls'
 
 reconstruct ::
      Map (HsName NsTypeConstr) SimpleInstances

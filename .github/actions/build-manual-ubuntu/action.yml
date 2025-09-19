@@ -35,10 +35,11 @@ runs:
         cat <<EOF > cabal.project.local
         import: ../../cabal.project.ci.base
 
-        package *
+        package manual
           ghc-options:
             -optc-DSUPPORTS_UNICODE
             -DSUPPORTS_UNICODE
+
         package manual
           extra-include-dirs:
               ${{ github.workspace }}/manual/c

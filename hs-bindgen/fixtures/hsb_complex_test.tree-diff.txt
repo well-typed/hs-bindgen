@@ -2,7 +2,8 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "complex_test.h:3:23",
+        declLoc =
+        "hsb_complex_test.h:3:23",
         declId = NamePair {
           nameC = Name
             "global_complex_float",
@@ -13,9 +14,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -28,7 +29,8 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "complex_test.h:4:23",
+        declLoc =
+        "hsb_complex_test.h:4:23",
         declId = NamePair {
           nameC = Name
             "global_complex_double",
@@ -39,9 +41,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -54,7 +56,8 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "complex_test.h:6:23",
+        declLoc =
+        "hsb_complex_test.h:6:23",
         declId = NamePair {
           nameC = Name
             "global_complex_float_flipped",
@@ -65,9 +68,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -80,7 +83,8 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "complex_test.h:7:23",
+        declLoc =
+        "hsb_complex_test.h:7:23",
         declId = NamePair {
           nameC = Name
             "global_complex_double_flipped",
@@ -91,9 +95,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -106,7 +110,8 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "complex_test.h:9:24",
+        declLoc =
+        "hsb_complex_test.h:9:24",
         declId = NamePair {
           nameC = Name
             "global_Complex_float",
@@ -117,9 +122,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -133,7 +138,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:10:24",
+        "hsb_complex_test.h:10:24",
         declId = NamePair {
           nameC = Name
             "global_Complex_double",
@@ -144,9 +149,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -160,7 +165,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:12:24",
+        "hsb_complex_test.h:12:24",
         declId = NamePair {
           nameC = Name
             "global_Complex_float_flipped",
@@ -171,9 +176,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -187,7 +192,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:13:24",
+        "hsb_complex_test.h:13:24",
         declId = NamePair {
           nameC = Name
             "global_Complex_double_flipped",
@@ -198,9 +203,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -214,7 +219,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:15:29",
+        "hsb_complex_test.h:15:29",
         declId = NamePair {
           nameC = Name
             "const_complex_float",
@@ -225,9 +230,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -242,7 +247,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:16:29",
+        "hsb_complex_test.h:16:29",
         declId = NamePair {
           nameC = Name
             "const_complex_double",
@@ -253,9 +258,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConst
@@ -270,7 +275,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:18:23",
+        "hsb_complex_test.h:18:23",
         declId = NamePair {
           nameC = Name
             "volatile_complex_float",
@@ -281,9 +286,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -297,7 +302,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:19:23",
+        "hsb_complex_test.h:19:23",
         declId = NamePair {
           nameC = Name
             "volatile_complex_double",
@@ -308,9 +313,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeComplex
@@ -324,7 +329,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:21:16",
+        "hsb_complex_test.h:21:16",
         declId = NamePair {
           nameC = Name
             "multiply_complex_f",
@@ -335,9 +340,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -370,7 +375,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:22:16",
+        "hsb_complex_test.h:22:16",
         declId = NamePair {
           nameC = Name "add_complex",
           nameHsIdent = HsIdentifier
@@ -380,9 +385,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -414,21 +419,23 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "complex_test.h:24:9",
+        declLoc =
+        "hsb_complex_test.h:24:9",
         declId = NamePair {
           nameC = Name "complex_object_t",
           nameHsIdent = HsIdentifier
             "Complex_object_t"},
         declOrigin = NameOriginGenerated
-          (AnonId "complex_test.h:24:9"),
+          (AnonId
+            "hsb_complex_test.h:24:9"),
         declAliases = [
           Name "complex_object_t"],
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -442,7 +449,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "complex_test.h:25:20",
+                "hsb_complex_test.h:25:20",
                 fieldName = NamePair {
                   nameC = Name "velocity",
                   nameHsIdent = HsIdentifier
@@ -455,7 +462,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "complex_test.h:26:20",
+                "hsb_complex_test.h:26:20",
                 fieldName = NamePair {
                   nameC = Name "position",
                   nameHsIdent = HsIdentifier
@@ -468,7 +475,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "complex_test.h:27:9",
+                "hsb_complex_test.h:27:9",
                 fieldName = NamePair {
                   nameC = Name "id",
                   nameHsIdent = HsIdentifier
@@ -488,7 +495,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:30:23",
+        "hsb_complex_test.h:30:23",
         declId = NamePair {
           nameC = Name
             "complex_float_array",
@@ -499,9 +506,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
@@ -517,7 +524,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "complex_test.h:31:23",
+        "hsb_complex_test.h:31:23",
         declId = NamePair {
           nameC = Name
             "complex_double_array",
@@ -528,9 +535,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["complex_test.h"],
+              ["hsb_complex_test.h"],
             headerInclude =
-            "complex_test.h"},
+            "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
         (TypeConstArray
@@ -545,4 +552,4 @@ TranslationUnit {
             []}}],
   unitDeps = [
     "complex",
-    "complex_test"]}
+    "hsb_complex_test"]}

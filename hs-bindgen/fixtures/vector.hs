@@ -645,12 +645,12 @@
                 "@NsTypeConstr"
                 "Vector")))),
       foreignImportOrigName =
-      "hs_bindgen_test_vector_72a6c90b1b14a9b0",
+      "hs_bindgen_test_vector_c8cd49ec7dbcac25",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          "vector *hs_bindgen_test_vector_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
           capiWrapperImport = "vector.h"},
       foreignImportOrigin = Function
         Function {
@@ -701,7 +701,98 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_vector_94a1e2e4670c0a3e",
+        "new_vector",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "y"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Vector")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_vector_30a7381111c0131a",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "vector *hs_bindgen_test_vector_30a7381111c0131a (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          capiWrapperImport = "vector.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefSquashed
+                (Name "vector")
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "vector",
+                    nameHsIdent = HsIdentifier
+                      "Vector"}
+                  (NameOriginGenerated
+                    (AnonId "vector.h:1:9")))))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "new_vector",
+          commentLocation = Just
+            "vector.h:6:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["vector.h"],
+              headerInclude = "vector.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_vector_7672b9e7f001c998",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -718,12 +809,12 @@
                         "@NsTypeConstr"
                         "Vector")))))))),
       foreignImportOrigName =
-      "hs_bindgen_test_vector_94a1e2e4670c0a3e",
+      "hs_bindgen_test_vector_7672b9e7f001c998",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } ",
+          "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } ",
           capiWrapperImport = "vector.h"},
       foreignImportOrigin = Global
         (TypeFun

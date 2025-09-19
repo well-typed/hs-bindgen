@@ -8,6 +8,10 @@ module HsBindgen.Backend.SHs.AST (
     SAlt (..),
     PatExpr (..),
     SDecl (..),
+    ByCategory(..),
+    BindingCategory(..),
+    mapByCategory,
+    displayBindingCategory,
     Pragma (..),
     ClosedType,
     SType (..),
@@ -23,6 +27,8 @@ module HsBindgen.Backend.SHs.AST (
     FunctionParameter (..),
     PatternSynonym (..),
 ) where
+
+import Data.Map qualified as Map
 
 import C.Char qualified
 
@@ -255,10 +261,35 @@ data SDecl =
   | DForeignImport ForeignImport
   | DPatternSynonym PatternSynonym
   | DPragma Pragma
-  -- TODO https://github.com/well-typed/hs-bindgen/issues/94: Pull 'DCSource'
-  -- out of the AST.
-  | DCSource String
   deriving stock (Show)
+
+newtype ByCategory a = ByCategory { unByCategory :: Map BindingCategory a }
+  deriving newtype (Functor, Foldable, Show)
+
+mapByCategory :: (BindingCategory -> a -> b) -> ByCategory a -> ByCategory b
+mapByCategory f = ByCategory . Map.mapWithKey f . unByCategory
+
+-- | Foreign import category.
+data BindingCategory =
+    -- | Types (top-level bindings).
+    BType
+    -- | Foreign import bindings with a @safe@ foreign import modifier.
+  | BSafe
+    -- | Foreign import bindings with an @unsafe@ foreign import modifier.
+  | BUnsafe
+    -- | Pointers to functions; generally @unsafe@.
+  | BFunPtr
+    -- | Temporary category for bindings to global variables or constants.
+  | BGlobal
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+displayBindingCategory :: BindingCategory -> String
+displayBindingCategory = \case
+  BType   -> "Type"
+  BSafe   -> "Safe"
+  BUnsafe -> "Unsafe"
+  BFunPtr -> "FunPtr"
+  BGlobal -> "Global"
 
 type ClosedType = SType EmptyCtx
 
@@ -358,7 +389,7 @@ data ForeignImport = ForeignImport
 
 -- | Safety of foreign import declarations.
 data Safety = Safe | Unsafe
-  deriving stock (Generic, Show)
+  deriving stock (Show, Eq, Generic)
 
 data FunctionParameter = FunctionParameter
   { functionParameterName    :: Maybe (HsName NsVar)

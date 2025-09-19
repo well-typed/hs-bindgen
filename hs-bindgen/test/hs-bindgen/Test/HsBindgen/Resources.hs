@@ -114,7 +114,9 @@ getTestDefaultBackendConfig testName pathStyle = def{
       backendTranslationOpts = def {
         translationUniqueId = UniqueId $ "test." ++ testName
       }
-    , backendHsModuleOpts = HsModuleOpts{hsModuleOptsName = "Example"}
+    , backendHsModuleOpts = HsModuleOpts{
+        hsModuleOptsBaseName  = "Example"
+      }
     , backendHaddockConfig = HaddockConfig pathStyle
     }
 

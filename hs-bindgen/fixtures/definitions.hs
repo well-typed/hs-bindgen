@@ -1,148 +1,4 @@
 [
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "foo",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (HsName "@NsVar" "x"),
-          functionParameterType =
-          HsPrimType HsPrimCDouble,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimCInt)),
-      foreignImportOrigName =
-      "hs_bindgen_test_definitions_a7d624773bb0585c",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_definitions_a7d624773bb0585c (double arg1) { return foo(arg1); }",
-          capiWrapperImport =
-          "definitions.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
-              (TypePrim
-                (PrimFloating PrimDouble))],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo",
-          commentLocation = Just
-            "definitions.h:13:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["definitions.h"],
-              headerInclude =
-              "definitions.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_definitions_fb3e409881d8c524",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
-      foreignImportOrigName =
-      "hs_bindgen_test_definitions_fb3e409881d8c524",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_fb3e409881d8c524 (void)) (double arg1) { return &foo; } ",
-          capiWrapperImport =
-          "definitions.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo",
-          commentLocation = Just
-            "definitions.h:13:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["definitions.h"],
-              headerInclude =
-              "definitions.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = HsName
-        "@NsVar"
-        "hs_bindgen_test_definitions_fc2aad2af9befead",
-      foreignImportParameters = [],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO
-          (HsPtr
-            (HsPrimType HsPrimCInt))),
-      foreignImportOrigName =
-      "hs_bindgen_test_definitions_fc2aad2af9befead",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_fc2aad2af9befead (void) { return &n; } ",
-          capiWrapperImport =
-          "definitions.h"},
-      foreignImportOrigin = Global
-        (TypePrim
-          (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "n",
-          commentLocation = Just
-            "definitions.h:18:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["definitions.h"],
-              headerInclude =
-              "definitions.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclSimple,
   DeclData
     Struct {
       structName = HsName
@@ -780,4 +636,207 @@
             Paragraph
               [
                 Bold [TextContent "See:"],
-                Identifier "get_y_o"]]}}]
+                Identifier "get_y_o"]]}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "foo",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_definitions_5a514c66396155ff",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_definitions_5a514c66396155ff (double arg1) { return foo(arg1); }",
+          capiWrapperImport =
+          "definitions.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "definitions.h:13:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "foo",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_definitions_84e4eb047d6694cd",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_definitions_84e4eb047d6694cd (double arg1) { return foo(arg1); }",
+          capiWrapperImport =
+          "definitions.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "definitions.h:13:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_definitions_32925a42980e81cd",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_definitions_32925a42980e81cd",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_32925a42980e81cd (void)) (double arg1) { return &foo; } ",
+          capiWrapperImport =
+          "definitions.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "definitions.h:13:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_definitions_cfec0f95f22bb37c",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsPrimType HsPrimCInt))),
+      foreignImportOrigName =
+      "hs_bindgen_test_definitions_cfec0f95f22bb37c",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_cfec0f95f22bb37c (void) { return &n; } ",
+          capiWrapperImport =
+          "definitions.h"},
+      foreignImportOrigin = Global
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "n",
+          commentLocation = Just
+            "definitions.h:18:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["definitions.h"],
+              headerInclude =
+              "definitions.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple]

@@ -14,11 +14,14 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Control.Monad (void)
+import Data.Maybe (maybeToList)
+import GHC.Generics (Generic)
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Lib
+
+import HsBindgen (sequenceArtefacts, writeBindingsMultiple)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -33,20 +36,19 @@ info = progDesc "Generate Haskell module from C headers"
 
 data Opts = Opts {
       bindgenConfig     :: BindgenConfig
-    , output            :: Maybe FilePath
+    , hsOutputDir       :: FilePath
     , outputBindingSpec :: Maybe FilePath
-    , haddockConfig     :: HaddockConfig
     , inputs            :: [UncheckedHashIncludeArg]
     -- NOTE inputs (arguments) must be last, options must go before it
     }
+  deriving (Generic)
 
 parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseBindgenConfig
-      <*> optional parseOutput
+      <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
-      <*> parseHaddockConfig
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -54,17 +56,12 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    case outputBindingSpec of
-      -- NOTE: We can not assemble the heterogeneous list of artefacts before
-      -- evaluating `hsBindgen`. The types don't line up. (We even have to pull
-      -- 'void' inside the case statement).
-      Nothing ->
-        let artefacts = writeBindings output :* Nil
-        in  void $ run artefacts
-      Just file ->
-        let artefacts = writeBindings output :* writeBindingSpec file :* Nil
-        in  void $ run $ artefacts
+exec GlobalOpts{..} Opts{..} = void $ run $ (sequenceArtefacts artefacts) :* Nil
   where
     run :: Artefacts as -> IO (NP I as)
     run = hsBindgen tracerConfig bindgenConfig inputs
+
+    artefacts :: [Artefact ()]
+    artefacts =
+          writeBindingsMultiple hsOutputDir
+      : [ writeBindingSpec file | file <- maybeToList outputBindingSpec ]

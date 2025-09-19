@@ -21,28 +21,28 @@ import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Frontend.Macro qualified as Macro
-import HsBindgen.Frontend.RootHeader (getHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 
 import DeBruijn (rzeroAdd)
-import Witherable (ordNub)
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
-translateDecls :: [Hs.Decl] -> [SDecl]
-translateDecls decls
-    | null csources' =                      concatMap translateDecl decls
-    | otherwise      = DCSource csources' : concatMap translateDecl decls
+translateDecls ::
+  ByCategory [Hs.Decl] -> ByCategory ([UserlandCapiWrapper], [SDecl])
+translateDecls = fmap go
   where
-    csources' = getCSources decls
+    go :: [Hs.Decl] -> ([UserlandCapiWrapper], [SDecl])
+    go decls = (wrappers, concatMap translateDecl decls)
+      where
+        wrappers = getUserlandCapiWrappers decls
 
 -- Find and assemble C sources required by foreign imports.
-getCSources :: [Hs.Decl] -> String
-getCSources decls = unlines $ headers ++ bodies
+getUserlandCapiWrappers :: [Hs.Decl] -> [UserlandCapiWrapper]
+getUserlandCapiWrappers decls = mapMaybe getUserlandCapiWrapper decls
   where
     getUserlandCapiWrapper :: Hs.Decl -> Maybe UserlandCapiWrapper
     getUserlandCapiWrapper = \case
@@ -50,20 +50,7 @@ getCSources decls = unlines $ headers ++ bodies
         case foreignImportCallConv of
           CallConvUserlandCAPI w -> Just w
           _otherCallConv         -> Nothing
-      _otherDecl          -> Nothing
-
-    wrappers :: [UserlandCapiWrapper]
-    wrappers = mapMaybe getUserlandCapiWrapper decls
-
-    getImport :: UserlandCapiWrapper -> String
-    getImport =
-      (\h -> "#include <" ++ getHashIncludeArg h ++ ">") . capiWrapperImport
-
-    -- It is important that we don't include the same header more than once,
-    -- /especially/ for non-extern non-static globals.
-    headers, bodies :: [String]
-    headers = ordNub $ map getImport wrappers
-    bodies = map capiWrapperDefinition wrappers
+      _otherDecl -> Nothing
 
 translateDecl :: Hs.Decl -> [SDecl]
 translateDecl (Hs.DeclData d) = singleton $ translateDeclData d

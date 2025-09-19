@@ -6,6 +6,8 @@
  * Global variables
  */
 
+int arr1[1] = {2};
+
 int arr2[3] = {2, 3, 4};
 
 int arr3[] = {3, 4, 5};

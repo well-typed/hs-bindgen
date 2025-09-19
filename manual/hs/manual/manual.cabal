@@ -18,10 +18,10 @@ common lang
 
 executable run-manual
   import:          lang
-  main-is:         RunManual.hs
-  ghc-options:     -main-is RunManual
+  main-is:         Manual.hs
+  ghc-options:     -main-is Manual
   hs-source-dirs:  app, generated
-  extra-libraries: example, structs, globals, arrays, functionpointers, complex_test
+  extra-libraries: example, structs, globals, arrays, functionpointers, hsb_complex_test
 
   build-depends:
     -- Internal.
@@ -34,12 +34,23 @@ executable run-manual
     , vector
 
   other-modules:
+      Manual.Tools
+      --
       Arrays
-      Example
-      Structs
-      Globals
-      FunctionPointers
+      Arrays.Global
+      Arrays.Safe
       Complex
+      Complex.Global
+      Complex.Safe
+      Example
+      Example.Global
+      Example.Unsafe
+      FunctionPointers.FunPtr
+      FunctionPointers.Safe
+      Globals
+      Globals.Global
+      Structs
+      Structs.Safe
 
   ghc-options:
       -- Avoid gcc warnings about non-NFC characters

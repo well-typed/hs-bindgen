@@ -1,7 +1,8 @@
 -- addDependentFile examples/golden/vector.h
 -- #include <vector.h>
--- vector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }
--- /* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } 
+-- vector *hs_bindgen_test_vector_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }
+-- vector *hs_bindgen_test_vector_30a7381111c0131a (double arg1, double arg2) { return new_vector(arg1, arg2); }
+-- /* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } 
 {-| __C declaration:__ @vector@
 
     __defined at:__ @vector.h:1:9@
@@ -43,7 +44,7 @@ instance Storable Vector
 
     __exported by:__ @vector.h@
 -}
-foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector :: CDouble ->
+foreign import ccall safe "hs_bindgen_test_vector_c8cd49ec7dbcac25" new_vector :: CDouble ->
                                                                                   CDouble ->
                                                                                   IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
@@ -52,9 +53,18 @@ foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector :
 
     __exported by:__ @vector.h@
 -}
-foreign import ccall safe "hs_bindgen_test_vector_94a1e2e4670c0a3e" hs_bindgen_test_vector_94a1e2e4670c0a3e :: IO (FunPtr (CDouble ->
+foreign import ccall safe "hs_bindgen_test_vector_30a7381111c0131a" new_vector :: CDouble ->
+                                                                                  CDouble ->
+                                                                                  IO (Ptr Vector)
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @vector.h:6:9@
+
+    __exported by:__ @vector.h@
+-}
+foreign import ccall safe "hs_bindgen_test_vector_7672b9e7f001c998" hs_bindgen_test_vector_7672b9e7f001c998 :: IO (FunPtr (CDouble ->
                                                                                                                            CDouble ->
                                                                                                                            IO (Ptr Vector)))
 {-# NOINLINE new_vector_ptr #-}
 new_vector_ptr :: FunPtr (CDouble -> CDouble -> IO (Ptr Vector))
-new_vector_ptr = unsafePerformIO hs_bindgen_test_vector_94a1e2e4670c0a3e
+new_vector_ptr = unsafePerformIO hs_bindgen_test_vector_7672b9e7f001c998

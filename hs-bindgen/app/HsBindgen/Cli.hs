@@ -20,7 +20,6 @@ import HsBindgen.Cli.Info qualified as Info
 import HsBindgen.Cli.Internal qualified as Internal
 import HsBindgen.Cli.Preprocess qualified as Preprocess
 import HsBindgen.Cli.ToolSupport qualified as ToolSupport
-import HsBindgen.Cli.ToolSupport.Literate qualified as Literate
 
 {-------------------------------------------------------------------------------
   Commands
@@ -49,11 +48,11 @@ parseCmd = subparser $ mconcat [
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Cmd -> IO (Maybe Literate.Opts)
+exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
-    CmdPreprocess  opts -> Nothing <$ Preprocess.exec  gopts opts
-    CmdGenTests    opts -> Nothing <$ GenTests.exec    gopts opts
-    CmdBindingSpec cmd' -> Nothing <$ BindingSpec.exec gopts cmd'
-    CmdInfo        cmd' -> Nothing <$ Info.exec        gopts cmd'
-    CmdInternal    cmd' -> Nothing <$ Internal.exec    gopts cmd'
-    CmdToolSupport cmd' ->            ToolSupport.exec gopts cmd'
+    CmdPreprocess  opts -> Preprocess.exec  gopts opts
+    CmdGenTests    opts -> GenTests.exec    gopts opts
+    CmdBindingSpec cmd' -> BindingSpec.exec gopts cmd'
+    CmdInfo        cmd' -> Info.exec        gopts cmd'
+    CmdInternal    cmd' -> Internal.exec    gopts cmd'
+    CmdToolSupport cmd' -> ToolSupport.exec gopts cmd'

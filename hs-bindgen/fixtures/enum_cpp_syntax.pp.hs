@@ -9,8 +9,8 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.Prelude
-import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 import qualified Text.Read
+import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @foo_enum@
 

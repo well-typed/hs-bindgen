@@ -12,7 +12,7 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI as CAPI
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <vector.h>\nvector *hs_bindgen_test_vector_72a6c90b1b14a9b0 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_94a1e2e4670c0a3e (void)) (double arg1, double arg2) { return &new_vector; } \n")
+$(CAPI.addCSource "#include <vector.h>\nvector *hs_bindgen_test_vector_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } \n")
 
 {-| __C declaration:__ @vector@
 
@@ -64,7 +64,7 @@ instance F.Storable Vector where
 
     __exported by:__ @vector.h@
 -}
-foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
+foreign import ccall safe "hs_bindgen_test_vector_c8cd49ec7dbcac25" new_vector
   :: FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
@@ -79,11 +79,11 @@ foreign import ccall safe "hs_bindgen_test_vector_72a6c90b1b14a9b0" new_vector
 
     __exported by:__ @vector.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_vector_94a1e2e4670c0a3e" hs_bindgen_test_vector_94a1e2e4670c0a3e
+foreign import ccall unsafe "hs_bindgen_test_vector_7672b9e7f001c998" hs_bindgen_test_vector_7672b9e7f001c998
   :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
 
 {-# NOINLINE new_vector_ptr #-}
 
 new_vector_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
 new_vector_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_vector_94a1e2e4670c0a3e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_vector_7672b9e7f001c998

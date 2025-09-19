@@ -9,12 +9,12 @@
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
       foreignImportOrigName =
-      "hs_bindgen_test_varargs_0fd77c5efa209398",
+      "hs_bindgen_test_varargs_a17c4f0272bbe42a",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_varargs_0fd77c5efa209398 (void) { h(); }",
+          "void hs_bindgen_test_varargs_a17c4f0272bbe42a (void) { h(); }",
           capiWrapperImport =
           "varargs.h"},
       foreignImportOrigin = Function
@@ -41,7 +41,45 @@
     ForeignImportDecl {
       foreignImportName = HsName
         "@NsVar"
-        "hs_bindgen_test_varargs_0a93e926c5626347",
+        "h",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_varargs_ec9e8ecfd27bead3",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_varargs_ec9e8ecfd27bead3 (void) { h(); }",
+          capiWrapperImport =
+          "varargs.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "h",
+          commentLocation = Just
+            "varargs.h:8:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["varargs.h"],
+              headerInclude = "varargs.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_varargs_6344539fe0b25338",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -50,12 +88,12 @@
             (HsIO
               (HsPrimType HsPrimUnit)))),
       foreignImportOrigName =
-      "hs_bindgen_test_varargs_0a93e926c5626347",
+      "hs_bindgen_test_varargs_6344539fe0b25338",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_0a93e926c5626347 (void)) (void) { return &h; } ",
+          "/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_6344539fe0b25338 (void)) (void) { return &h; } ",
           capiWrapperImport =
           "varargs.h"},
       foreignImportOrigin = Global
