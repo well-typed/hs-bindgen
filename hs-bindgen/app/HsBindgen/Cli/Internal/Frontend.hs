@@ -1,9 +1,9 @@
--- | @hs-bindgen-cli internal parse@ command
+-- | @hs-bindgen-cli internal frontend@ command
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Cli.Internal.Parse qualified as Parse
-module HsBindgen.Cli.Internal.Parse (
+-- > import HsBindgen.Cli.Internal.Frontend qualified as Frontend
+module HsBindgen.Cli.Internal.Frontend (
     -- * CLI help
     info
     -- * Options
@@ -23,7 +23,7 @@ import HsBindgen.Lib
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Parse C headers"
+info = progDesc "Parse C headers (all Frontend passes)"
 
 {-------------------------------------------------------------------------------
   Options
