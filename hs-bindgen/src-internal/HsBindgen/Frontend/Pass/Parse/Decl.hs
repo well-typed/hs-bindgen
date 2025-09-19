@@ -32,16 +32,23 @@ import HsBindgen.Imports
 foldDecl :: Fold ParseDecl [C.Decl Parse]
 foldDecl = foldWithHandler handleTypeException $ \curr -> do
     info <- getDeclInfo curr
+    let isBuiltin = case C.declId info of
+          C.PrelimDeclIdBuiltin{} -> True
+          _otherwise              -> False
 
     let parseWith ::
              (C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse])
           -> C.NameKind
           -> ParseDecl (Next ParseDecl [C.Decl Parse])
-        parseWith parser kind = do
-            selected <- evalPredicate info
-            if selected
-              then runFold (parser info) curr
-              else recordNonParsedDecl info kind >> foldContinue
+        parseWith parser kind
+          | isBuiltin =
+              -- TODO Support builtin macros (#1087)
+              recordNonParsedDecl info kind >> foldContinue
+          | otherwise = do
+              selected <- evalPredicate info
+              if selected
+                then runFold (parser info) curr
+                else recordNonParsedDecl info kind >> foldContinue
 
     dispatch curr $ \case
       -- Ordinary kinds that we parse

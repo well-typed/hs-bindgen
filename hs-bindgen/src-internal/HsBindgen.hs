@@ -37,7 +37,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.Frontend.RootHeader (HashIncludeArg, UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.TraceMsg
@@ -86,7 +86,7 @@ data Artefact (a :: Star) where
   -- * Boot
   HashIncludeArgs :: Artefact [HashIncludeArg]
   -- * Frontend
-  IncludeGraph    :: Artefact IncludeGraph.IncludeGraph
+  IncludeGraph    :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
   DeclIndex       :: Artefact DeclIndex.DeclIndex
   UseDeclGraph    :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph    :: Artefact DeclUseGraph.DeclUseGraph
@@ -106,13 +106,14 @@ instance Functor Artefact where
 -- | A list of 'Artefact's.
 type Artefacts as = NP Artefact as
 
--- | Write the include graph to file.
-writeIncludeGraph :: FilePath -> Artefact ()
-writeIncludeGraph file =
+-- | Write the include graph to `STDOUT` or a file.
+writeIncludeGraph :: Maybe FilePath -> Artefact ()
+writeIncludeGraph mPath =
   Lift
     (IncludeGraph :* Nil)
-    (\(I includeGraph :* Nil) ->
-       writeFile file (IncludeGraph.dumpMermaid includeGraph))
+    (\(I (p, includeGraph) :* Nil) ->
+      write mPath $ IncludeGraph.dumpMermaid p includeGraph
+    )
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()

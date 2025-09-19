@@ -17,6 +17,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , toSortedList
   , getIncludes
     -- * Debugging
+  , Predicate
   , dumpMermaid
   ) where
 
@@ -102,9 +103,15 @@ getIncludes mainPaths (IncludeGraph graph) =
   Debugging
 -------------------------------------------------------------------------------}
 
-dumpMermaid :: IncludeGraph -> String
-dumpMermaid (IncludeGraph graph) =
-    DynGraph.dumpMermaid True (Just . renderInclude) getSourcePath graph
+-- | Include graph predicate
+--
+-- An include graph predicate can be used to filter which indexes of an include
+-- graph are shown.
+type Predicate = SourcePath -> Bool
+
+dumpMermaid :: Predicate -> IncludeGraph -> String
+dumpMermaid p (IncludeGraph graph) =
+    DynGraph.dumpMermaid True p (Just . renderInclude) getSourcePath graph
   where
     renderInclude :: Include -> String
     renderInclude = \case

@@ -29,11 +29,9 @@ import System.FilePath qualified as FilePath
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
-import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -112,25 +110,25 @@ instance Default SelectPredicate where
 --
 -- Dealing with main headers is somewhat subtle.  See
 -- "HsBindgen.Frontend.ProcessIncludes" for discussion.
-type IsMainHeader = SingleLoc -> Bool
+type IsMainHeader = SourcePath -> Bool
 
 -- | Construct an 'IsMainHeader' function for the given main header paths
 mkIsMainHeader ::
      Set SourcePath -- ^ Main header paths
   -> IsMainHeader
-mkIsMainHeader paths loc = singleLocPath loc `Set.member` paths
+mkIsMainHeader paths path = path `Set.member` paths
 
 -- | Check if a declaration is in a main header directory, including
 -- subdirectories
-type IsInMainHeaderDir = SingleLoc -> Bool
+type IsInMainHeaderDir = SourcePath -> Bool
 
 -- | Construct an 'IsInMainHeaderDir' function for the given main header paths
 mkIsInMainHeaderDir ::
      Set SourcePath -- ^ Main header paths
   -> IsInMainHeaderDir
-mkIsInMainHeaderDir paths loc =
+mkIsInMainHeaderDir paths path =
     let dir = FilePath.splitDirectories . FilePath.takeDirectory $
-          getSourcePath (singleLocPath loc)
+          getSourcePath path
     in  any (`List.isPrefixOf` dir) mainDirs
   where
     mainDirs :: [[FilePath]]
@@ -149,29 +147,22 @@ mkIsInMainHeaderDir paths loc =
 matchParse ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SingleLoc
-  -> PrelimDeclId
+  -> SourcePath
   -> ParsePredicate
   -> Bool
-matchParse isMainHeader isInMainHeaderDir loc prelimDeclId
-    | isBuiltin = const False
-    | otherwise = eval (matchHeaderPath isMainHeader isInMainHeaderDir loc)
-  where
-    isBuiltin :: Bool
-    isBuiltin = case prelimDeclId of
-      PrelimDeclIdBuiltin{} -> True
-      _otherwise            -> False
+matchParse isMainHeader isInMainHeaderDir path = eval $
+    matchHeaderPath isMainHeader isInMainHeaderDir path
 
 -- | Match 'SelectPredicate' predicates
 matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SingleLoc
+  -> SourcePath
   -> C.QualDeclId
   -> SelectPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir loc qid = eval $
-    either (matchHeaderPath isMainHeader isInMainHeaderDir loc) (matchDecl qid)
+matchSelect isMainHeader isInMainHeaderDir path qid = eval $
+    either (matchHeaderPath isMainHeader isInMainHeaderDir path) (matchDecl qid)
 
 {-------------------------------------------------------------------------------
   Merging
@@ -237,15 +228,13 @@ eval f = go
 matchHeaderPath ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> SingleLoc
+  -> SourcePath
   -> HeaderPathPredicate
   -> Bool
-matchHeaderPath isMainHeader isInMainHeaderDir loc = \case
-    FromMainHeaders      -> isMainHeader loc
-    FromMainHeaderDirs   -> isInMainHeaderDir loc
-    HeaderPathMatches re ->
-      let (SourcePath path) = singleLocPath loc
-       in matchTest re path
+matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
+    FromMainHeaders      -> isMainHeader path
+    FromMainHeaderDirs   -> isInMainHeaderDir path
+    HeaderPathMatches re -> matchTest re pathT
 
 -- | Match 'DeclPredicate' predicates
 matchDecl :: C.QualDeclId -> DeclPredicate -> Bool

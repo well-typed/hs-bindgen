@@ -13,88 +13,51 @@ module HsBindgen.Cli.Info.IncludeGraph (
   , exec
   ) where
 
-import Control.Monad ((<=<))
 import Options.Applicative hiding (info)
-import System.Exit (ExitCode (ExitFailure))
-
-import Clang.Enum.Bitfield
-import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.App
-import HsBindgen.Boot qualified as Boot
-import HsBindgen.Clang
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.ProcessIncludes (processIncludes)
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Lib
+
+import HsBindgen (writeIncludeGraph)
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Compute the include graph"
+info = progDesc "Output the include graph"
 
 {-------------------------------------------------------------------------------
   Options
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      clangArgsConfig :: ClangArgsConfig
-    , output          :: Maybe FilePath
-    , inputs          :: [UncheckedHashIncludeArg]
+      bindgenConfig :: BindgenConfig
+    , output        :: Maybe FilePath
+    , inputs        :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
 parseOpts =
     Opts
-      <$> parseClangArgsConfig
+      <$> parseBindgenConfig
       <*> optional parseOutput'
       <*> parseInputs
-  where
-    parseOutput' :: Parser FilePath
-    parseOutput' = strOption $ mconcat [
-        short 'o'
-      , long "output"
-      , metavar "PATH"
-      , help "Output path for the graph"
-      ]
+
+parseOutput' :: Parser FilePath
+parseOutput' = strOption $ mconcat [
+      short 'o'
+    , long "output"
+    , metavar "PATH"
+    , help "Output path for the graph"
+    ]
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} opts =
-    either throwIO return =<< withTracer tracerConfig (execWithTracer opts)
-
-execWithTracer :: Opts -> Tracer IO TraceMsg -> IO ()
-execWithTracer Opts{..} tracer = do
-    hashIncludeArgs <- mapM (hashIncludeArgWithTrace hiaTracer) inputs
-    let rootHeader = RootHeader.fromMainFiles hashIncludeArgs
-    clangArgs <- Boot.getClangArgs (contramap TraceBoot tracer) clangArgsConfig
-    let clangInput =
-          ClangInputMemory
-            (getSourcePath RootHeader.name)
-            (RootHeader.content rootHeader)
-        clangSetup = (defaultClangSetup clangArgs clangInput) {
-            clangFlags = bitfieldEnum [
-                CXTranslationUnit_DetailedPreprocessingRecord
-              ]
-          }
-        exitOnClangError = maybe (throwIO $ ExitFailure 1) return
-    includeGraph <-
-      exitOnClangError <=< withClang clangTracer clangSetup $ \unit -> do
-        (includeGraph, _, _, _) <- processIncludes unit
-        return $ Just includeGraph
-    case output of
-      Just path -> writeFile path $ IncludeGraph.dumpMermaid includeGraph
-      Nothing   -> putStr         $ IncludeGraph.dumpMermaid includeGraph
-  where
-    hiaTracer :: Tracer IO HashIncludeArgMsg
-    hiaTracer = contramap (TraceBoot . BootHashIncludeArg) tracer
-
-    clangTracer :: Tracer IO ClangMsg
-    clangTracer = contramap (TraceFrontend . FrontendClang) tracer
+exec GlobalOpts{..} Opts{..} = do
+    let artefacts = writeIncludeGraph output :* Nil
+    void $ hsBindgen tracerConfig bindgenConfig inputs artefacts
