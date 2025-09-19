@@ -28,6 +28,7 @@ requiredExtensions = \case
       ]
     DNewtype n -> mconcat [
         nestedDeriving (newtypeDeriv n)
+      , typeExtensions $ fieldType $ newtypeField n
       ]
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls

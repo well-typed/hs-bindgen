@@ -78,6 +78,7 @@ testCases = [
     , defaultTest "bitfields"
     , defaultTest "bool"
     , defaultTest "complex_test"
+    , defaultTest "data_kind_pragma"
     , defaultTest "distilled_lib_1"
     , defaultTest "enum_cpp_syntax"
     , defaultTest "enums"
