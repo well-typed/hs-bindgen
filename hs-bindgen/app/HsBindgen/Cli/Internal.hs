@@ -16,7 +16,7 @@ module HsBindgen.Cli.Internal (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Cli.Internal.Parse qualified as Parse
+import HsBindgen.Cli.Internal.Frontend qualified as Frontend
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -31,11 +31,11 @@ info = progDesc "Internal commands, for hs-bindgen development"
 
 -- Ordered lexicographically
 newtype Cmd =
-    CmdParse Parse.Opts
+    CmdFrontend Frontend.Opts
 
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [
-      cmd "parse" CmdParse Parse.parseOpts Parse.info
+      cmd "frontend" CmdFrontend Frontend.parseOpts Frontend.info
     ]
 
 {-------------------------------------------------------------------------------
@@ -44,4 +44,4 @@ parseCmd = subparser $ mconcat [
 
 exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
-    CmdParse opts -> Parse.exec gopts opts
+    CmdFrontend opts -> Frontend.exec gopts opts
