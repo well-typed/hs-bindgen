@@ -51,7 +51,7 @@ parseDecls
           }
     root  <- clang_getTranslationUnitCursor unit
     (omittedDecls, decls) <- fmap (fmap concat) . ParseDecl.run parseEnv $
-      HighLevel.clang_visitChildren root foldDecl
+      HighLevel.clang_visitChildren root topLevelDecl
     let reifiedUnit = C.TranslationUnit{
         unitDecls        = decls
       , unitIncludeGraph = includeGraph
