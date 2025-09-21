@@ -28,6 +28,7 @@ module HsBindgen.BindingSpec (
   , Common.BindingSpecMsg(..)
 
     -- * Internal API
+  , BindingSpec.version
     -- ** Types
   , Common.Omittable(..)
   , BindingSpec.TypeSpec(..)
