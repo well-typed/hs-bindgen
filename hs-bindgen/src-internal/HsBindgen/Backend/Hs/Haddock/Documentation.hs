@@ -7,8 +7,8 @@ import GHC.Natural (Natural)
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Backend.Hs.AST.Type (HsType)
+import HsBindgen.Frontend.AST.External qualified as C
 
 -- | Haddock documentation representation
 --

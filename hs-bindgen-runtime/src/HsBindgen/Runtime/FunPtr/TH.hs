@@ -6,6 +6,7 @@
 module HsBindgen.Runtime.FunPtr.TH where
 
 import Foreign.C.Types
+
 import HsBindgen.Runtime.FunPtr.Common
 
 -- | Generate instances for all @IO a@ functions

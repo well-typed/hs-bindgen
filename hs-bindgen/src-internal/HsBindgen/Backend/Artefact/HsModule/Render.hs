@@ -32,8 +32,8 @@ import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Backend.SHs.Translation (translateType)
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
