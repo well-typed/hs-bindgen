@@ -84,7 +84,7 @@ hsBindgen
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- either throwIO pure eArtefact
     -- 3. Backend.
-    let backendArtefact = backend bindgenBackendConfig frontendArtefact
+    backendArtefact <- backend bindgenBackendConfig frontendArtefact
     -- 4. Artefacts.
     runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 
@@ -234,18 +234,18 @@ runArtefacts
       --Boot.
       HashIncludeArgs     -> pure bootHashIncludeArgs
       -- Frontend.
-      IncludeGraph        -> pure frontendIncludeGraph
-      DeclIndex           -> pure frontendIndex
-      UseDeclGraph        -> pure frontendUseDeclGraph
-      DeclUseGraph        -> pure frontendDeclUseGraph
-      ReifiedC            -> pure frontendCDecls
-      Dependencies        -> pure frontendDependencies
+      IncludeGraph        -> frontendIncludeGraph
+      DeclIndex           -> frontendIndex
+      UseDeclGraph        -> frontendUseDeclGraph
+      DeclUseGraph        -> frontendDeclUseGraph
+      ReifiedC            -> frontendCDecls
+      Dependencies        -> frontendDependencies
       -- Backend.
-      HsDecls             -> pure backendHsDecls
-      FinalDecls          -> pure backendFinalDecls
+      HsDecls             -> backendHsDecls
+      FinalDecls          -> backendFinalDecls
       FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModule safety  -> pure $ translateModuleSingle safety backendFinalModuleBaseName backendFinalDecls
-      FinalModules        -> pure $ translateModuleMultiple backendFinalModuleBaseName backendFinalDecls
+      FinalModule safety  -> translateModuleSingle safety backendFinalModuleBaseName <$> backendFinalDecls
+      FinalModules        -> translateModuleMultiple backendFinalModuleBaseName <$> backendFinalDecls
       -- Lift and sequence.
       (Lift as' f)        -> go as' >>= f
 
