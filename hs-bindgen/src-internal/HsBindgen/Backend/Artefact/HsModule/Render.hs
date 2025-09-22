@@ -24,6 +24,7 @@ import C.Char (CharValue (..))
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Backend.Artefact.HsModule.Capi (renderCapiWrapper)
 import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -243,9 +244,7 @@ instance Pretty Hs.CommentMeta where
 renderWrappers :: [UserlandCapiWrapper] -> CtxDoc
 renderWrappers wrappers
   | null src  = empty
-  | otherwise =
-      -- The single string literal is quite ugly but simple.
-      "$(CAPI.addCSource" <+> fromString (show src) >< ")"
+  | otherwise = renderCapiWrapper src
   where
     src :: String
     src = getUserlandCapiWrappersSource wrappers

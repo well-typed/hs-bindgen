@@ -7,10 +7,10 @@ module Example where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI as CAPI
+import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
-$(CAPI.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_fcd0c984d664f6ee (void) { return &b; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_fcd0c984d664f6ee (void) { return &b; } \n")
 
 {-| __C declaration:__ @b@
 

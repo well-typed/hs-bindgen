@@ -17,7 +17,6 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
@@ -27,7 +26,7 @@ import Data.Bits (FiniteBits)
 import Data.Void (Void)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-$(CAPI.addCSource "#include <distilled_lib_1.h>\nint32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } \n/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <distilled_lib_1.h>\nint32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } \n/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } \n")
 
 {-| __C declaration:__ @another_typedef_struct_t@
 

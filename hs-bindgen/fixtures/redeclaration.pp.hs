@@ -18,12 +18,12 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
-import qualified HsBindgen.Runtime.CAPI as CAPI
+import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(CAPI.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } \n")
 
 {-| __C declaration:__ @int_t@
 

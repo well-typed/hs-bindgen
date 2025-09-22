@@ -55,6 +55,9 @@ library
   hs-source-dirs:
       src
   build-depends:
+      -- Internal dependencies
+  build-depends:
+      -- External dependencies
     , containers >= 0.6.5.1 && < 0.8
     , vector ^>=0.13.2.0
     , primitive ^>=0.9.0.0

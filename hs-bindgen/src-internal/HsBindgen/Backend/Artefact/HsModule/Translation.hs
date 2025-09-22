@@ -19,6 +19,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
+import HsBindgen.Backend.Artefact.HsModule.Capi (capiImport)
 import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -169,20 +170,11 @@ resolveImports baseModule cat wrappers ds =
       (Just BType) -> mempty
       _otherCat ->
         let base = HsImportModule (Text.unpack $ getHsModuleName baseModule) Nothing
-            -- TODO https://github.com/well-typed/hs-bindgen/issues/1123:
-            -- Foreign imports need access to data constructors, which they know
-            -- nothing about. So we always import the custom Prelude for now.
-            prel = HsImportModule "HsBindgen.Runtime.Prelude" (Just "HsP")
-        in  Set.fromList [
-              UnqualifiedImportListItem base Nothing
-            , QualifiedImportListItem prel
-            ]
-
+        in  Set.singleton $ UnqualifiedImportListItem base Nothing
     userlandCapiImport :: Set HsImportModule
     userlandCapiImport = case wrappers of
       []  -> mempty
-      _xs -> let mdl = HsImportModule "HsBindgen.Runtime.CAPI" (Just "CAPI")
-             in  Set.singleton mdl
+      _xs -> Set.singleton capiImport
 
 -- | Accumulator for resolving imports
 --

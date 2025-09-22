@@ -9,10 +9,10 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI as CAPI
+import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(CAPI.addCSource "#include <skip_over_long_double.h>\nvoid hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (signed int arg1) { fun2(arg1); }\n/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <skip_over_long_double.h>\nvoid hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (signed int arg1) { fun2(arg1); }\n/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } \n")
 
 {-| __C declaration:__ @struct2@
 
