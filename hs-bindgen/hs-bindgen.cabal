@@ -81,6 +81,7 @@ library internal
       HsBindgen.Backend.Artefact.HsModule.Names
       HsBindgen.Backend.Artefact.HsModule.Render
       HsBindgen.Backend.Artefact.HsModule.Translation
+      HsBindgen.Backend.Artefact.HsModule.Capi
       HsBindgen.Backend.Artefact.Test
       HsBindgen.Backend.Artefact.Test.C
       HsBindgen.Backend.Artefact.Test.Hs

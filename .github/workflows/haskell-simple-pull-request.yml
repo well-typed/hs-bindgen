@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run test
+      - name: Build and test `hs-bindgen` and manual
         uses: ./.github/actions/base
         # PRs can only be added to the MQ when all "required" checks pass.
         # PRs can only be merged into `main` when all "required" checks pass in the MQ.

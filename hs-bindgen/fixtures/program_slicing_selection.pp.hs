@@ -12,14 +12,13 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI as CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
 import Data.Void (Void)
 import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 
-$(CAPI.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <program_slicing_selection.h>\nenum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }\n/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } \n")
 
 {-| __C declaration:__ @FileOperationStatus@
 

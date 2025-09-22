@@ -3,6 +3,12 @@
 -- The binding specification for the types in this module is defined in
 -- @HsBindgen.BindingSpec.Stdlib@ in the @hs-bindgen:internal@ library, in the
 -- same order.
+--
+-- References in chronological order:
+-- - https://github.com/well-typed/hs-bindgen/issues/293
+-- - https://github.com/well-typed/hs-bindgen/issues/478
+-- - https://github.com/well-typed/hs-bindgen/pull/957
+-- - https://github.com/well-typed/hs-bindgen/issues/1123
 module HsBindgen.Runtime.Prelude (
     -- * Primitive types
     -- $PrimitiveTypes
@@ -92,12 +98,16 @@ module HsBindgen.Runtime.Prelude (
 
     -- * Unique type
   , HsBindgenRuntimePreludeIsInScope
+
+    -- * Userland CAPI
+  , module HsBindgen.Runtime.CAPI
   ) where
 
 import Data.Int qualified
 import Data.Word qualified
 import Foreign.C qualified
 
+import HsBindgen.Runtime.CAPI
 import HsBindgen.Runtime.LibC qualified as LibC
 import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray
 
