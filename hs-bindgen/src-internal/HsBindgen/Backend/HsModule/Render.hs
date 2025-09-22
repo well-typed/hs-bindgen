@@ -33,8 +33,8 @@ import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Backend.SHs.Translation (translateType)
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs

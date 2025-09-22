@@ -31,11 +31,11 @@ module HsBindgen.Runtime.FunPtr.Common (
   , generateInstance
   ) where
 
+import Data.Void (Void)
 import Foreign qualified as F
+import Foreign.C.Types
 import GHC.Ptr qualified as Ptr
 import Language.Haskell.TH
-import Foreign.C.Types
-import Data.Void (Void)
 
 -- | Type class for converting Haskell functions to C function pointers.
 --

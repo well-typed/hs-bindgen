@@ -50,12 +50,12 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.FunPtr.Common qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
-import HsBindgen.Runtime.FunPtr.Common qualified
 
 {-------------------------------------------------------------------------------
   Backend definition
