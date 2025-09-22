@@ -423,8 +423,11 @@ prettyForeignImportType resultType params =
     _  -> prettyParams params
   where
     prettyParam FunctionParameter{..} =
-         prettyType EmptyEnv 0 functionParameterType
+      case functionParameterType of
+        TFun {} -> prettyType EmptyEnv 1 functionParameterType
+        _       -> prettyType EmptyEnv 0 functionParameterType
       $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
+
 
     prettyResultType = \case
       NormalResultType t -> prettyType EmptyEnv 0 t

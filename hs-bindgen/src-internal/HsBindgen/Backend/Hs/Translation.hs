@@ -847,13 +847,69 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
       }
 
     candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.singleton Hs.Storable) $
-      Set.fromList (snd <$> translationDeriveTypedef opts)
+    candidateInsts = Set.unions
+                   $ [ Set.singleton Hs.Storable
+                     , Set.fromList (snd <$> translationDeriveTypedef opts)
+                     ]
+
+    newtypeWrapper :: [Hs.Decl]
+    newtypeWrapper =
+      case C.typedefType typedef of
+        -- We need to check C.Type here instead of Hs.HsType because we might
+        -- need to wrap/unwrap some of the function's argument types due to FFI
+        -- limitations.
+        --
+        -- We also need to be careful and not generate any wrappers for
+        -- function types that receive data types not supported by Haskell's
+        -- FFI (i.e. structs, unions by value).
+        --
+        ctype@(C.TypePointer (C.TypeFun args res))
+          | not (any hasUnsupportedType (res:args)) ->
+          let highlevelName = "mk" <> C.nameHs (C.declId info)
+          in [Hs.DeclForeignImport Hs.ForeignImportDecl
+              { foreignImportName       = highlevelName
+              , foreignImportResultType = NormalResultType $ HsIO $ HsTypRef newtypeName
+              , foreignImportParameters = [wrapperParam (HsTypRef newtypeName)]
+              , foreignImportOrigName   = T.pack "wrapper"
+              , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+              , foreignImportOrigin     = Origin.ToFunPtr ctype
+              , foreignImportComment    = Just wrapperComment
+              , foreignImportSafety     = SHs.Safe
+              }
+             ]
+        C.TypePointer (C.TypeFun _ _)
+          -- TODO: We should issue a warning here but we can't until #1132 is
+          -- done.
+          | otherwise -> []
+        _ -> []
+      where
+        hasUnsupportedType :: C.Type -> Bool
+        hasUnsupportedType = anyFancy . singleton . wrapType typedefs
+
+        wrapperParam hsType = Hs.FunctionParameter
+          { functionParameterName    = Nothing
+          , functionParameterType    = hsType
+          , functionParameterComment = Nothing
+          }
+        wrapperComment = HsDoc.Comment
+          { commentTitle    = Nothing
+          , commentOrigin   = Nothing
+          , commentLocation = Nothing
+          , commentHeaderInfo = Nothing
+          , commentChildren =
+              [ HsDoc.Paragraph
+                  [HsDoc.TextContent
+                    (  "Automatically generated wrapper to convert "
+                    <> "Haskell function to C function pointer"
+                    )
+                  ]
+              ]
+          }
 
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        newtypeDecl : storableDecl ++ optDecls
+      (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls
       where
         insts :: Set Hs.TypeClass
         insts =
@@ -1117,6 +1173,30 @@ data WrappedType
     | AType C.Type C.Type
   deriving Show
 
+-- | Fancy types are heap types or constant arrays. We create high-level
+-- wrapper for fancy types.
+--
+anyFancy :: [WrappedType] -> Bool
+anyFancy types = any p types where
+    p WrapType {} = False
+    p HeapType {} = True
+    p CAType {}   = True
+    p AType {}    = True
+
+-- | Types that we cannot directly pass via C FFI.
+--
+wrapType :: Map C.Name C.Type -> C.Type -> WrappedType
+wrapType typedefs ty = go ty
+  where
+    go = \case
+      C.TypeStruct {}             -> HeapType ty
+      C.TypeUnion {}              -> HeapType ty
+      C.TypeComplex {}            -> HeapType ty
+      (C.TypeConstArray n ty')    -> CAType   ty n ty'
+      (C.TypeIncompleteArray ty') -> AType    ty ty'
+      (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
+      _                           -> WrapType ty
+
 -- | Type in low-level Haskell wrapper
 unwrapType :: WrappedType -> C.Type
 unwrapType (WrapType ty)   = ty
@@ -1276,9 +1356,10 @@ functionDecs ::
 functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     funDecl : [
         Hs.DeclSimple $ hsWrapperDecl typedefs highlevelName importName res wrappedArgTypes mbFIComment
-      | anyFancy
+      | areFancy
       ]
   where
+    areFancy = anyFancy (res : wrappedArgTypes)
     funDecl :: Hs.Decl
     funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = importName
@@ -1299,47 +1380,26 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
             getMainHashIncludeArg info
         }
 
-    -- Fancy types are heap types or constant arrays. We create high-level
-    -- wrapper for fancy types.
-    anyFancy = any p (res : wrappedArgTypes) where
-        p WrapType {} = False
-        p HeapType {} = True
-        p CAType {}   = True
-        p AType {}    = True
-
     highlevelName = C.nameHs (C.declId info)
     importName
-        | anyFancy   = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
-        | otherwise  = highlevelName
+        | areFancy  = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
+        | otherwise = highlevelName
 
-    res = wrapType $ C.functionRes f
+    res = wrapType typedefs $ C.functionRes f
     (mbFIComment, parsedArgs) =
       generateHaddocksWithInfoParams haddockConfig info args
 
     args = [ Hs.FunctionParameter
               { functionParameterName    = fmap C.nameHs mbName
-              , functionParameterType    = typ' CFunArg typedefs (unwrapType (wrapType ty))
+              , functionParameterType    = typ' CFunArg typedefs (unwrapType (wrapType typedefs ty))
               , functionParameterComment = Nothing
               }
            | (mbName, ty) <- C.functionArgs f
            ]
     wrappedArgTypes =
-      [ wrapType ty
+      [ wrapType typedefs ty
       | (_, ty) <- C.functionArgs f
       ]
-
-    -- Types that we cannot directly pass via C FFI.
-    wrapType :: C.Type -> WrappedType
-    wrapType ty = go ty
-      where
-        go = \case
-          C.TypeStruct {}             -> HeapType ty
-          C.TypeUnion {}              -> HeapType ty
-          C.TypeComplex {}            -> HeapType ty
-          (C.TypeConstArray n ty')    -> CAType   ty n ty'
-          (C.TypeIncompleteArray ty') -> AType    ty ty'
-          (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
-          _                           -> WrapType ty
 
     resType :: ResultType HsType
     resType =
