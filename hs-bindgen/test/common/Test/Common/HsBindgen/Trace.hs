@@ -9,7 +9,7 @@ import HsBindgen.Util.Tracer
 
 -- Seeing both, the pretty trace and the 'Show' instance greatly simplifies test
 -- design and debugging.
-reportTrace :: forall l a. (IsTrace l a, Show a) => a -> CtxDoc
+reportTrace :: forall a l. (IsTrace l a, Show a) => a -> CtxDoc
 reportTrace trace = PP.vcat $
               [ "[" >< ppTraceId >< "][pretty] " >< prettyForTrace trace
               , "[" >< ppTraceId >< "][show  ] " >< PP.showToCtxDoc trace

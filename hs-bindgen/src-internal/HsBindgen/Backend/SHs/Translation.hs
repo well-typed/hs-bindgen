@@ -8,7 +8,6 @@ module HsBindgen.Backend.SHs.Translation (
 
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy (..))
 import Data.Text qualified as T
 import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec

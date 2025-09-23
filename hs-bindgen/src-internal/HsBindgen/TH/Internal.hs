@@ -10,7 +10,6 @@ module HsBindgen.TH.Internal (
     , baseFrontendConfig
     , safety
     , baseBackendConfig
-    , tracerConfig
     )
   , tracerConfigDefTH
   , withHsBindgen
@@ -40,7 +39,6 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
-import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 #ifdef MIN_VERSION_th_compat
@@ -72,26 +70,21 @@ data BindgenOpts = BindgenOpts {
     -- * Backend configuration
   , safety             :: SHs.Safety
   , baseBackendConfig  :: BackendConfig
-    -- * Tracer
-  , tracerConfig       :: TracerConfig IO Level TraceMsg
   }
 
 instance Default BindgenOpts where
   def = BindgenOpts {
-      baseBootConfig     = def
-    , extraIncludeDirs   = []
-    , baseFrontendConfig = def
-    , safety             = SHs.Safe
-    , baseBackendConfig  = def
-    , tracerConfig       = tracerConfigDefTH
+      baseBootConfig      = def
+    , extraIncludeDirs    = []
+    , baseFrontendConfig  = def
+    , safety              = SHs.Safe
+    , baseBackendConfig   = def
     }
 
--- | The default tracer configuration in Q has verbosity 'Notice' and uses
--- 'outputConfigTH'.
-tracerConfigDefTH :: TracerConfig IO Level TraceMsg
+-- | The default tracer configuration in Q uses 'outputConfigTH'.
+tracerConfigDefTH :: TracerConfig IO l a
 tracerConfigDefTH = def {
-        tVerbosity = Verbosity Notice
-      , tOutputConfig = outputConfigTH
+        tOutputConfig = outputConfigTH
       }
 
 -- | Internal! See 'withHsBindgen'.
@@ -137,7 +130,12 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         artefacts = Dependencies :* FinalDecls :* Nil
 
     (I deps :* I decls' :* Nil) <- liftIO $
-      hsBindgen tracerConfig bindgenConfig uncheckedHashIncludeArgs artefacts
+      hsBindgen
+        tracerConfigDefTH
+        tracerConfigDefTH
+        bindgenConfig
+        uncheckedHashIncludeArgs
+        artefacts
     let decls = mergeDecls safety decls'
         requiredExts = uncurry getExtensions $ decls
     checkLanguageExtensions requiredExts

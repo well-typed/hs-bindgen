@@ -94,7 +94,6 @@ import Data.GADT.Compare (GEq (..), defaultEq)
 import Data.Kind qualified as Hs
 import Data.List.NonEmpty qualified as NE
 import Data.Maybe (fromJust)
-import Data.Proxy (Proxy (..))
 import Data.Text qualified as Text
 import Data.Type.Equality (type (:~:) (..))
 import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum)
