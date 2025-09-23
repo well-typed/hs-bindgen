@@ -9,6 +9,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Boot
+import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Config
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -96,11 +97,12 @@ frontend ::
   -> BootArtefact
   -> IO FrontendArtefact
 frontend tracer FrontendConfig{..} BootArtefact{..} = do
-    -- Frontend: Impure parse pass
-    (afterParse, isMainHeader, isInMainHeaderDir) <- fmap (fromMaybe emptyParseResult) $
+    parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $ do
+      setup <- getSetup
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
+        rootHeader <- getRootHeader
         reifiedUnit <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
@@ -112,80 +114,113 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
           unit
         pure (reifiedUnit, isMainHeader, isInMainHeaderDir)
 
-    -- Frontend: Pure passes.
-    let (afterSort, msgsSort) =
-          sortDecls afterParse
-        (afterHandleMacros, msgsHandleMacros) =
-          handleMacros afterSort
-        (afterNameAnon, msgsNameAnon) =
-          nameAnon afterHandleMacros
-        (afterResolveBindingSpec, msgsResolveBindingSpecs) =
-          resolveBindingSpec bootExternalBindingSpec bootPrescriptiveBindingSpec afterNameAnon
-        (afterSelect, msgsParseDelayed, msgsSelect) =
-          selectDecls isMainHeader isInMainHeaderDir selectConfig afterResolveBindingSpec
-        (afterHandleTypedefs, msgsHandleTypedefs) =
-          handleTypedefs afterSelect
-        (afterMangleNames, msgsMangleNames) =
-          mangleNames afterHandleTypedefs
+    sortPass <- cache "sort" $ do
+      (afterParse, _, _) <- parsePass
+      let (afterSort, msgsSort) = sortDecls afterParse
+      forM_ msgsSort $ traceWith tracer . FrontendSort
+      pure afterSort
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/967: By emitting
-    -- all traces in one place, we lose the callstack and timestamp
-    -- information of the individual traces.
+    handleMacrosPass <- cache "handleMacros" $ do
+      afterSort <- sortPass
+      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterSort
+      forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
+      pure afterHandleMacros
 
-    -- TODO: Emitting traces forces all passes.
-    forM_ msgsParseDelayed        $ traceWith tracer . FrontendParse
-    forM_ msgsSort                $ traceWith tracer . FrontendSort
-    forM_ msgsHandleMacros        $ traceWith tracer . FrontendHandleMacros
-    forM_ msgsNameAnon            $ traceWith tracer . FrontendNameAnon
-    forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-    forM_ msgsSelect              $ traceWith tracer . FrontendSelect
-    forM_ msgsHandleTypedefs      $ traceWith tracer . FrontendHandleTypedefs
-    forM_ msgsMangleNames         $ traceWith tracer . FrontendMangleNames
+    nameAnonPass <- cache "nameAnon" $ do
+      afterHandleMacros <- handleMacrosPass
+      let (afterNameAnon, msgsNameAnon) = nameAnon afterHandleMacros
+      forM_ msgsNameAnon $ traceWith tracer . FrontendNameAnon
+      pure afterNameAnon
 
-    let -- Unit.
-        cTranslationUnit :: C.TranslationUnit
-        cTranslationUnit = finalize afterMangleNames
-        -- Include graph predicate
-        includeGraphP :: IncludeGraph.Predicate
-        includeGraphP path =
-             matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
-          && path /= name
-        -- Graphs.
-        frontendIncludeGraph :: (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-        frontendIncludeGraph = (includeGraphP, unitIncludeGraph afterParse)
-        frontendIndex        :: DeclIndex.DeclIndex
-        frontendIndex        = declIndex $ unitAnn afterSort
-        frontendUseDeclGraph :: UseDeclGraph.UseDeclGraph
-        frontendUseDeclGraph = declUseDecl $ unitAnn afterSort
-        frontendDeclUseGraph :: DeclUseGraph.DeclUseGraph
-        frontendDeclUseGraph = declDeclUse $ unitAnn afterSort
-        -- Declarations.
-        frontendCDecls :: [C.Decl]
-        frontendCDecls = C.unitDecls cTranslationUnit
-        -- Dependencies.
-        frontendDependencies :: [SourcePath]
-        frontendDependencies = C.unitDeps cTranslationUnit
+    resolveBindingSpecPass <- cache "resolveBindingSpec" $ do
+      afterNameAnon <- nameAnonPass
+      extlSpec <- bootExternalBindingSpec
+      presSpec <- bootPrescriptiveBindingSpec
+      let (afterResolveBindingSpec, msgsResolveBindingSpecs) =
+            resolveBindingSpec
+              extlSpec
+              presSpec
+              afterNameAnon
+      forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
+      pure afterResolveBindingSpec
+
+    selectPass <- cache "select" $ do
+      (_, isMainHeader, isInMainHeaderDir) <- parsePass
+      afterResolveBindingSpec              <- resolveBindingSpecPass
+      let (afterSelect, msgsParseDelayed, msgsSelect) =
+            selectDecls
+              isMainHeader
+              isInMainHeaderDir
+              selectConfig
+              afterResolveBindingSpec
+      forM_ msgsParseDelayed $ traceWith tracer . FrontendParse
+      forM_ msgsSelect       $ traceWith tracer . FrontendSelect
+      pure afterSelect
+
+    handleTypedefsPass <- cache "handleTypedefs" $ do
+      afterSelect <- selectPass
+      let (afterHandleTypedefs, msgsHandleTypedefs) = handleTypedefs afterSelect
+      forM_ msgsHandleTypedefs $ traceWith tracer . FrontendHandleTypedefs
+      pure afterHandleTypedefs
+
+    mangleNamesPass <- cache "mangleNames" $ do
+      afterHandleTypedefs <- handleTypedefsPass
+      let (afterMangleNames, msgsMangleNames) = mangleNames afterHandleTypedefs
+      forM_ msgsMangleNames $ traceWith tracer . FrontendMangleNames
+      pure afterMangleNames
+
+    -- Unit.
+    getCTranslationUnit <- cache "getCTranslationUnit" $ do
+      afterMangleNames <- mangleNamesPass
+      pure $ finalize afterMangleNames
+
+    -- Include graph predicate.
+    getIncludeGraphP <- cache "getIncludeGraphP" $ do
+      (_, isMainHeader, isInMainHeaderDir) <- parsePass
+      pure $ \path ->
+        matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
+        && path /= name
+
+    -- Graphs.
+    frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
+      includeGraphP <- getIncludeGraphP
+      (afterParse, _, _) <- parsePass
+      pure (includeGraphP, unitIncludeGraph afterParse)
+    frontendIndex <- cache "frontendIndex" $
+      declIndex . unitAnn <$> sortPass
+    frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
+      declUseDecl . unitAnn <$> sortPass
+    frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
+      declDeclUse . unitAnn <$> sortPass
+
+    -- Declarations.
+    frontendCDecls <- cache "frontendDecls" $
+      C.unitDecls <$> getCTranslationUnit
+
+    -- Dependencies.
+    frontendDependencies <- cache "frontendDependencies" $
+      C.unitDeps <$> getCTranslationUnit
 
     pure FrontendArtefact{..}
   where
-    rootHeader :: RootHeader
-    rootHeader = fromMainFiles bootHashIncludeArgs
+    getRootHeader :: IO RootHeader
+    getRootHeader = fromMainFiles <$> bootHashIncludeArgs
 
-    setup :: ClangSetup
-    setup = (defaultClangSetup bootClangArgs $
-              ClangInputMemory hFilePath hContent) {
-                clangFlags = bitfieldEnum [
-                    CXTranslationUnit_DetailedPreprocessingRecord
-                  , CXTranslationUnit_IncludeAttributedTypes
-                  , CXTranslationUnit_VisitImplicitAttributes
-                  ]
-              }
+    getSetup :: IO ClangSetup
+    getSetup = do
+      clangArgs <- bootClangArgs
+      hContent <- content <$> getRootHeader
+      let setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
+      pure $ setup {
+          clangFlags = bitfieldEnum [
+            CXTranslationUnit_DetailedPreprocessingRecord
+          , CXTranslationUnit_IncludeAttributedTypes
+          , CXTranslationUnit_VisitImplicitAttributes
+          ]
+        }
 
     hFilePath :: FilePath
     hFilePath = getSourcePath name
-
-    hContent :: String
-    hContent = content rootHeader
 
     selectConfig :: SelectConfig
     selectConfig =
@@ -201,17 +236,20 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     emptyParseResult :: (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir)
     emptyParseResult = (emptyTranslationUnit, const False, const False)
 
+    cache :: String -> IO a -> IO (IO a)
+    cache = cacheWith (contramap FrontendCache tracer) . Just
+
 {-------------------------------------------------------------------------------
   Artefact
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-    frontendIncludeGraph :: (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  , frontendIndex        :: DeclIndex.DeclIndex
-  , frontendUseDeclGraph :: UseDeclGraph.UseDeclGraph
-  , frontendDeclUseGraph :: DeclUseGraph.DeclUseGraph
-  , frontendCDecls       :: [C.Decl]
-  , frontendDependencies :: [SourcePath]
+    frontendIncludeGraph :: IO (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+  , frontendIndex        :: IO DeclIndex.DeclIndex
+  , frontendUseDeclGraph :: IO UseDeclGraph.UseDeclGraph
+  , frontendDeclUseGraph :: IO DeclUseGraph.DeclUseGraph
+  , frontendCDecls       :: IO [C.Decl]
+  , frontendDependencies :: IO [SourcePath]
   }
 
 {-------------------------------------------------------------------------------
@@ -231,5 +269,6 @@ data FrontendMsg =
   | FrontendSelect (Msg Select)
   | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
+  | FrontendCache CacheMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

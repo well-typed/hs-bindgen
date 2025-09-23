@@ -108,6 +108,7 @@ library internal
       HsBindgen.BindingSpec.Private
       HsBindgen.BindingSpec.Private.Stdlib
       HsBindgen.Boot
+      HsBindgen.Cache
       HsBindgen.Clang
       HsBindgen.Clang.BuiltinIncDir
       HsBindgen.Clang.ExtraClangArgs
