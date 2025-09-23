@@ -23,7 +23,7 @@ import HsBindgen.Util.Tracer (nullTracer)
 backend :: BackendConfig -> FrontendArtefact -> IO BackendArtefact
 backend BackendConfig{..} FrontendArtefact{..} = do
     -- 1. Reified C declarations to @Hs@ declarations.
-    hsDecls <- cache $
+    backendHsDecls <- cache $
       Hs.generateDeclarations
         backendTranslationOpts
         backendHaddockConfig
@@ -31,15 +31,22 @@ backend BackendConfig{..} FrontendArtefact{..} = do
         frontendCDecls
 
     -- 2. @Hs@ declarations to simple @Hs@ declarations.
-    sHsDecls <- cache $ SHs.translateDecls <$> hsDecls
+    sHsDecls <- cache $ SHs.translateDecls <$> backendHsDecls
 
-    -- 3. Simplify
-    finalDecls <- cache $ SHs.simplifySHs <$> sHsDecls
+    -- 3. Simplify.
+    backendFinalDecls <- cache $ SHs.simplifySHs <$> sHsDecls
+
+    -- 4. Translate to modules.
+    backendFinalModuleSafe <- cache $
+      translateModuleSingle SHs.Safe moduleBaseName <$> backendFinalDecls
+    backendFinalModuleUnsafe <- cache $
+      translateModuleSingle SHs.Unsafe moduleBaseName <$> backendFinalDecls
+    backendFinalModules <- cache $
+      translateModuleMultiple moduleBaseName <$> backendFinalDecls
 
     pure $ BackendArtefact {
-      backendHsDecls             = hsDecls
-    , backendFinalModuleBaseName = moduleBaseName
-    , backendFinalDecls          = finalDecls
+      backendFinalModuleBaseName = moduleBaseName
+    , ..
     }
   where
     moduleBaseName = hsModuleOptsBaseName backendHsModuleOpts
@@ -56,4 +63,7 @@ data BackendArtefact = BackendArtefact {
     backendHsDecls             :: IO (SHs.ByCategory [Hs.Decl])
   , backendFinalDecls          :: IO (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
   , backendFinalModuleBaseName :: HsModuleName
+  , backendFinalModuleSafe     :: IO HsModule
+  , backendFinalModuleUnsafe   :: IO HsModule
+  , backendFinalModules        :: IO (SHs.ByCategory HsModule)
   }

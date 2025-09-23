@@ -97,10 +97,12 @@ frontend ::
   -> BootArtefact
   -> IO FrontendArtefact
 frontend tracer FrontendConfig{..} BootArtefact{..} = do
-    parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $
+    parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $ do
+      setup <- getSetup
       withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
+        rootHeader <- getRootHeader
         reifiedUnit <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
@@ -132,10 +134,12 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     resolveBindingSpecPass <- cache "resolveBindingSpec" $ do
       afterNameAnon <- nameAnonPass
+      extlSpec <- bootExternalBindingSpec
+      presSpec <- bootPrescriptiveBindingSpec
       let (afterResolveBindingSpec, msgsResolveBindingSpecs) =
             resolveBindingSpec
-              bootExternalBindingSpec
-              bootPrescriptiveBindingSpec
+              extlSpec
+              presSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
       pure afterResolveBindingSpec
@@ -199,24 +203,24 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     pure FrontendArtefact{..}
   where
-    rootHeader :: RootHeader
-    rootHeader = fromMainFiles bootHashIncludeArgs
+    getRootHeader :: IO RootHeader
+    getRootHeader = fromMainFiles <$> bootHashIncludeArgs
 
-    setup :: ClangSetup
-    setup = (defaultClangSetup bootClangArgs $
-              ClangInputMemory hFilePath hContent) {
-                clangFlags = bitfieldEnum [
-                    CXTranslationUnit_DetailedPreprocessingRecord
-                  , CXTranslationUnit_IncludeAttributedTypes
-                  , CXTranslationUnit_VisitImplicitAttributes
-                  ]
-              }
+    getSetup :: IO ClangSetup
+    getSetup = do
+      clangArgs <- bootClangArgs
+      hContent <- content <$> getRootHeader
+      let setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
+      pure $ setup {
+          clangFlags = bitfieldEnum [
+            CXTranslationUnit_DetailedPreprocessingRecord
+          , CXTranslationUnit_IncludeAttributedTypes
+          , CXTranslationUnit_VisitImplicitAttributes
+          ]
+        }
 
     hFilePath :: FilePath
     hFilePath = getSourcePath name
-
-    hContent :: String
-    hContent = content rootHeader
 
     selectConfig :: SelectConfig
     selectConfig =

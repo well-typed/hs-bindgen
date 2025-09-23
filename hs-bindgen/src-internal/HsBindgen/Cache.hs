@@ -4,9 +4,9 @@ module HsBindgen.Cache (
   )
 where
 
-import Control.Concurrent (MVar, newEmptyMVar, tryPutMVar, tryReadMVar)
+import Control.Concurrent (MVar, modifyMVar, newMVar)
 import GHC.Generics (Generic)
-import Text.SimplePrettyPrint (CtxDoc, (><))
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Util.Tracer
@@ -16,28 +16,25 @@ import HsBindgen.Util.Tracer
 -- Names only serve for debug messages. They need not be unique.
 cacheWith :: Tracer IO CacheMsg -> Maybe String -> IO a -> IO (IO a)
 cacheWith tracer name computeRes = do
-  cacheVar <- newEmptyMVar
+  cacheVar <- newMVar Nothing
   pure $ getWithCache tracer name cacheVar computeRes
 
-getWithCache :: Tracer IO CacheMsg -> Maybe String -> MVar a -> IO a -> IO a
-getWithCache tracer name cacheVar computeRes = do
-  maybeCachedRes <- tryReadMVar cacheVar
-  case maybeCachedRes of
+getWithCache :: Tracer IO CacheMsg -> Maybe String -> MVar (Maybe a) -> IO a -> IO a
+getWithCache tracer name cacheVar computeRes = modifyMVar cacheVar $ \case
     Nothing -> do
-      traceWith tracer $ CacheFail name
-      newRes <- computeRes
-      _ <- tryPutMVar cacheVar newRes
-      pure newRes
+      traceWith tracer $ CacheMiss name
+      !newRes <- computeRes
+      pure (Just newRes, newRes)
     Just cachedRes -> do
       traceWith tracer $ CacheHit name
-      pure cachedRes
+      pure (Just cachedRes, cachedRes)
 
 {-------------------------------------------------------------------------------
   Traces
 -------------------------------------------------------------------------------}
 
 data CacheMsg =
-    CacheFail (Maybe String)
+    CacheMiss (Maybe String)
   | CacheHit  (Maybe String)
   deriving (Show, Eq, Generic)
 
@@ -47,8 +44,8 @@ prettyForTraceName (Just name) = PP.string name
 
 instance PrettyForTrace CacheMsg where
   prettyForTrace = \case
-    CacheFail mName -> "Cache miss: " >< prettyForTraceName mName
-    CacheHit  mName -> "Cache hit : " >< prettyForTraceName mName
+    CacheMiss mName -> "Cache miss:" <+> prettyForTraceName mName >< "; computing value"
+    CacheHit  mName -> "Cache hit: " <+> prettyForTraceName mName
 
 instance IsTrace Level CacheMsg where
   getDefaultLogLevel = const Debug

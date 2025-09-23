@@ -107,7 +107,8 @@ data Artefact (a :: Star) where
   HsDecls             :: Artefact (ByCategory [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact HsModuleName
-  FinalModule         :: Safety -> Artefact HsModule
+  FinalModuleSafe     :: Artefact HsModule
+  FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
   -- * Lift and sequence
   Lift                :: Artefacts as -> (NP I as -> IO b) -> Artefact b
@@ -157,9 +158,12 @@ writeUseDeclGraph path = Lift (DeclIndex :* UseDeclGraph :* Nil) $
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
-getBindings safety = Lift (FinalModule safety :* Nil) $
+getBindings safety = Lift (finalModuleArtefact :* Nil) $
     \(I finalModule :* Nil) ->
       pure . render $ finalModule
+  where finalModuleArtefact = case safety of
+          Safe   -> FinalModuleSafe
+          Unsafe -> FinalModuleUnsafe
 
 -- | Write bindings to file.
 --
@@ -214,6 +218,9 @@ writeTests testDir =
 -------------------------------------------------------------------------------}
 
 -- | Compute the results of a list of artefacts.
+--
+-- All top-level artefacts will be cached (this is not true for computed
+-- artefacts, using, for example, the 'Functor' interface, or 'Lift').
 runArtefacts ::
      BootArtefact
   -> FrontendArtefact
@@ -232,7 +239,7 @@ runArtefacts
     runArtefact :: Artefact a -> IO a
     runArtefact = \case
       --Boot.
-      HashIncludeArgs     -> pure bootHashIncludeArgs
+      HashIncludeArgs     -> bootHashIncludeArgs
       -- Frontend.
       IncludeGraph        -> frontendIncludeGraph
       DeclIndex           -> frontendIndex
@@ -244,8 +251,9 @@ runArtefacts
       HsDecls             -> backendHsDecls
       FinalDecls          -> backendFinalDecls
       FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModule safety  -> translateModuleSingle safety backendFinalModuleBaseName <$> backendFinalDecls
-      FinalModules        -> translateModuleMultiple backendFinalModuleBaseName <$> backendFinalDecls
+      FinalModuleSafe     -> backendFinalModuleSafe
+      FinalModuleUnsafe   -> backendFinalModuleUnsafe
+      FinalModules        -> backendFinalModules
       -- Lift and sequence.
       (Lift as' f)        -> go as' >>= f
 
