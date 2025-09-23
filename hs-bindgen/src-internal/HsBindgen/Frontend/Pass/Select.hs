@@ -8,6 +8,7 @@ import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
@@ -21,13 +22,7 @@ import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.Imports
-
--- | A declaration directly selected by the selection predicate.
-type Root = C.NsPrelimDeclId
-
--- | A declaration indirectly selected because it is the transitive dependency
--- of a 'Root'.
-type TransitiveDependency = C.NsPrelimDeclId
+import HsBindgen.Util.Tracer
 
 selectDecls ::
      Predicate.IsMainHeader
@@ -46,7 +41,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
             (parseMsgs, failedParseMsgs) = getParseMsgs' matchedDecls
 
             selectMsgs :: [Msg Select]
-            selectMsgs = map (SelectSelected . C.declInfo) matchedDecls
+            selectMsgs = map (SelectSelected SelectionRoot . C.declInfo) matchedDecls
          in ( unitSelect { C.unitDecls = matchedDecls }
             , parseMsgs, failedParseMsgs ++ selectMsgs
             )
@@ -55,10 +50,10 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
         let matchedDecls, unmatchedDecls :: [C.Decl Select]
             (matchedDecls, unmatchedDecls) = partition matchDecl decls
 
-            selectedRoots :: [Root]
+            selectedRoots :: [C.NsPrelimDeclId]
             selectedRoots = map C.declOrigNsPrelimDeclId matchedDecls
 
-            transitiveDeps :: Set TransitiveDependency
+            transitiveDeps :: Set C.NsPrelimDeclId
             transitiveDeps =
               UseDeclGraph.getTransitiveDeps useDeclGraph selectedRoots
 
@@ -75,13 +70,25 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
             (parseMsgs, failedParseMsgs) = getParseMsgs' selectedDecls
 
             selectMsgs :: [Msg Select]
-            selectMsgs =
-              getSelectMsgs transitiveDeps selectedDecls unmatchedDecls
+            unavailableTransitiveDeps :: Set C.NsPrelimDeclId
+            (selectMsgs, unavailableTransitiveDeps) =
+              getSelectMsgs selectedRoots transitiveDeps selectedDecls unmatchedDecls
 
-        in ( unitSelect { C.unitDecls = selectedDecls }
-           , parseMsgs, failedParseMsgs ++ selectMsgs
-           )
+        in if Set.null unavailableTransitiveDeps
+           then ( unitSelect { C.unitDecls = selectedDecls }
+                , parseMsgs, failedParseMsgs ++ selectMsgs
+                )
+           else panicPure $ errorMsgWith unavailableTransitiveDeps
   where
+    errorMsgWith :: Set C.NsPrelimDeclId -> String
+    errorMsgWith xs = unlines $
+        "Unavailable transitive dependencies: "
+      : map (show . prettyForTrace) (Set.toList xs)
+      ++ [
+           "This is an indication that declarations have been removed after parse."
+         , "Please remove unsupported declarations in the parse pass, and not later!"
+         ]
+
     unitSelect :: C.TranslationUnit Select
     unitSelect =
       let C.TranslationUnit{..} = unitRBS
@@ -135,23 +142,39 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
 -------------------------------------------------------------------------------}
 
 getSelectMsgs
-  :: Set C.NsPrelimDeclId
+  :: [C.NsPrelimDeclId]
+  -> Set C.NsPrelimDeclId
   -> [C.Decl Select]
   -> [C.Decl Select]
-  -> [Msg Select]
-getSelectMsgs transitiveDeps selectedDecls unmatchedDecls =
-    errorMsgs ++ excludeMsgs ++ selectMsgs
+  -> ([Msg Select], Set C.NsPrelimDeclId)
+getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
+    (excludeMsgs ++ selectRootMsgs ++ selectTransMsgs, unavailableTransitiveDeps)
   where
     unavailableTransitiveDeps :: Set C.NsPrelimDeclId
     unavailableTransitiveDeps =
       transitiveDeps `Set.difference`
         (Set.fromList $ map C.declOrigNsPrelimDeclId selectedDecls)
 
-    errorMsgs, excludeMsgs, selectMsgs :: [Msg Select]
-    errorMsgs = map SelectTransitiveDependencyUnavailable $
-      Set.toList unavailableTransitiveDeps
-    excludeMsgs = map (SelectExcluded . C.declInfo) unmatchedDecls
-    selectMsgs  = map (SelectSelected . C.declInfo) selectedDecls
+    unselectedDecls :: [C.Decl Select]
+    unselectedDecls =
+      filter
+        ((`Set.notMember` transitiveDeps) . C.declOrigNsPrelimDeclId)
+        unmatchedDecls
+
+    isRoot :: C.Decl Select -> Bool
+    isRoot x = Set.member (C.declOrigNsPrelimDeclId x) (Set.fromList selectedRootsIds)
+
+    -- | Strict transitive dependencies are not selection roots.
+    selectedRoots, transitiveDepsStrict :: [C.Decl Select]
+    (selectedRoots, transitiveDepsStrict) = partition isRoot selectedDecls
+
+    excludeMsgs, selectRootMsgs, selectTransMsgs :: [Msg Select]
+    excludeMsgs =
+      map (SelectNotSelected                   . C.declInfo) unselectedDecls
+    selectRootMsgs =
+      map (SelectSelected SelectionRoot        . C.declInfo) selectedRoots
+    selectTransMsgs =
+      map (SelectSelected TransitiveDependency . C.declInfo) transitiveDepsStrict
 
 type Key = ParseMsgKey Select
 

@@ -39,7 +39,7 @@ testGetTargetTriple testResources = do
         setup = defaultClangSetup clangArgs $
                   ClangInputMemory "hs-bindgen-triple.h" ""
 
-    triple <- withTracePredicate defaultTracePredicate $ \tracer ->
+    triple <- withTracePredicate noReport defaultTracePredicate $ \tracer ->
       getTargetTriple tracer setup
 
     -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
@@ -54,6 +54,9 @@ testGetTargetTriple testResources = do
             (clang_getTranslationUnitTargetInfo unit)
             clang_TargetInfo_dispose
             clang_TargetInfo_getTriple
+
+    noReport :: a -> IO ()
+    noReport = const $ pure ()
 
 
 {-------------------------------------------------------------------------------
@@ -82,9 +85,11 @@ getExtraClangArgsTests = testGroup "getExtraClangArgs" [
   where
     assertExtraClangArgs :: [(EnvVar, EnvVal)] -> Maybe Target -> [String] -> IO ()
     assertExtraClangArgs xs mtarget x = do
-        withTracePredicate defaultTracePredicate $ \tracer ->
+        withTracePredicate noReport defaultTracePredicate $ \tracer ->
           assertWithEnv xs (getExtraClangArgs tracer mtarget) x
 
+    noReport :: a -> IO ()
+    noReport = const $ pure ()
 {-------------------------------------------------------------------------------
   Split arguments
 -------------------------------------------------------------------------------}

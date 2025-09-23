@@ -225,18 +225,21 @@ getTestBackendConfig :: TestCase -> BackendConfig
 getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName testPathStyle
 
 withTestTraceConfig ::
-     TestCase
+     (String -> IO ())
+  -> TestCase
   -> (TracerConfig IO Level TraceMsg -> IO b)
   -> IO b
-withTestTraceConfig TestCase{testTracePredicate} =
-    withTraceConfigPredicate testTracePredicate
+withTestTraceConfig report TestCase{testTracePredicate} =
+    withTraceConfigPredicate report testTracePredicate
 
 -- | Run 'hsBindgen'.
 --
 -- On 'TraceException's, print error traces.
-runTestHsBindgen :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
-runTestHsBindgen testResources test artefacts =
-    handle exceptionHandler $ runTestHsBindgen' testResources test artefacts
+runTestHsBindgen ::
+  (String -> IO ()) -> IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestHsBindgen report testResources test artefacts =
+    handle exceptionHandler $
+      runTestHsBindgen' report testResources test artefacts
   where
     exceptionHandler :: SomeException -> IO a
     exceptionHandler e@(SomeException e')
@@ -246,13 +249,14 @@ runTestHsBindgen testResources test artefacts =
     printTrace = print . reportTrace
 
 -- | Like 'runTestHsBindgen', but do not print error traces.
-runTestHsBindgen' :: IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
-runTestHsBindgen' testResources test artefacts = do
+runTestHsBindgen' ::
+  (String -> IO ()) -> IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+runTestHsBindgen' report testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
-    withTestTraceConfig test $ \traceConfig ->
+    withTestTraceConfig report test $ \traceConfig ->
       hsBindgen
         traceConfig
         bindgenConfig

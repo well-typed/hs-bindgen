@@ -1,11 +1,12 @@
 module HsBindgen.Frontend.Pass.Select.IsPass (
     Select
-  , SelectDeclMeta (..)
+  , SelectDeclMeta(..)
     -- * Configuration
-  , ProgramSlicing (..)
-  , SelectConfig (..)
+  , ProgramSlicing(..)
+  , SelectConfig(..)
     -- * Trace messages
-  , SelectMsg (..)
+  , SelectReason(..)
+  , SelectMsg(..)
   ) where
 
 import Data.Default (Default (def))
@@ -90,11 +91,23 @@ data SelectConfig = SelectConfig {
   Trace messages
 -------------------------------------------------------------------------------}
 
+data SelectReason =
+    -- | The user actively selects the declarations.
+    SelectionRoot
+    -- | The user has activated program slicing, and the declaration is a
+    -- transitive dependency of a selection root.
+  | TransitiveDependency
+  deriving stock (Show, Eq)
+
+instance PrettyForTrace SelectReason where
+  prettyForTrace = \case
+    SelectionRoot        -> "selection root"
+    TransitiveDependency -> "transitive dependency"
+
 -- | Select trace messages
 data SelectMsg =
-    SelectTransitiveDependencyUnavailable C.NsPrelimDeclId
-  | SelectExcluded (C.DeclInfo Select)
-  | SelectSelected (C.DeclInfo Select)
+    SelectNotSelected (C.DeclInfo Select)
+  | SelectSelected SelectReason (C.DeclInfo Select)
   | SelectedButFailed ParseMsg
   -- TODO https://github.com/well-typed/hs-bindgen/issues/1037: Introduce
   -- `SelectedButSkipped`.
@@ -102,19 +115,19 @@ data SelectMsg =
 
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
-    SelectTransitiveDependencyUnavailable qualId ->
-      "Program slicing: Transitive dependency unavailable: " >< prettyForTrace qualId
-    SelectExcluded info     -> prettyForTrace info >< " excluded"
-    SelectSelected info     -> "Selected " >< prettyForTrace info
-    SelectedButFailed  x -> "Missed declaration: " >< prettyForTrace x
+    SelectNotSelected info ->
+      prettyForTrace info >< " not selected"
+    SelectSelected reason info ->
+      prettyForTrace info >< " selected (" >< prettyForTrace reason >< ")"
+    SelectedButFailed  x ->
+      "Missed declaration: " >< prettyForTrace x
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectTransitiveDependencyUnavailable{} -> Error
-    SelectExcluded{}                        -> Info
+    SelectNotSelected{}                     -> Info
     SelectSelected{}                        -> Info
-    SelectedButFailed  x                 -> getDefaultLogLevel x
+    SelectedButFailed  x                    -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = \case
     SelectedButFailed  x -> "select-miss-" <> getTraceId x
-    _else                   -> "select"
+    _else                -> "select"

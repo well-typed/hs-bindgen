@@ -116,9 +116,10 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTracePredicate
   :: (IsTrace Level a , Typeable a, Show a)
-  => TracePredicate a -> (Tracer IO a -> IO b) -> IO b
-withTracePredicate predicate action = fmap fst $
-  withTraceConfigPredicate predicate $ \traceConfig ->
+  => (String -> IO ())
+  -> TracePredicate a -> (Tracer IO a -> IO b) -> IO b
+withTracePredicate report predicate action = fmap fst $
+  withTraceConfigPredicate report predicate $ \traceConfig ->
     withTracer' traceConfig action
 
 -- | Run an action with a tracer configuration that collects all trace messages.
@@ -126,8 +127,9 @@ withTracePredicate predicate action = fmap fst $
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate
   :: forall a b. (IsTrace Level a , Typeable a, Show a)
-  => TracePredicate a -> (TracerConfig IO Level a -> IO b) -> IO b
-withTraceConfigPredicate (TracePredicate predicate) action = do
+  => (String -> IO ())
+  -> TracePredicate a -> (TracerConfig IO Level a -> IO b) -> IO b
+withTraceConfigPredicate report (TracePredicate predicate) action = do
   tracesRef <- newIORef []
   let writer :: Report IO a
       writer _ trace _ = modifyIORef' tracesRef ((:) trace)
@@ -136,6 +138,7 @@ withTraceConfigPredicate (TracePredicate predicate) action = do
     , tOutputConfig = OutputCustom writer DisableAnsiColor
     }) `finally` do
       traces <- readIORef tracesRef
+      mapM_ (report . show . prettyForTrace) traces
       case runExcept (predicate traces) of
         Left  e -> throwIO e
         Right _ -> pure ()
