@@ -18,9 +18,12 @@ import Data.ByteString qualified as BS
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Boot (getClangArgs)
+import HsBindgen.BindingSpec
+import HsBindgen.Boot
+import HsBindgen.Config.ClangArgs hiding (getClangArgs)
 import HsBindgen.Imports
-import HsBindgen.Lib
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -34,7 +37,7 @@ info = progDesc "Write stdlib external binding specification"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      clangArgsConfig :: ClangArgsConfig
+      clangArgsConfig :: ClangArgsConfig FilePath
     , output          :: Maybe FilePath
     }
 

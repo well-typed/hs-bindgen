@@ -67,10 +67,9 @@ library internal
   import:         lang
   hs-source-dirs: src-internal
 
-  -- Modules intended to define the public interface.
+  -- Modules containing public API.
   exposed-modules:
-      HsBindgen.Common
-      HsBindgen.Lib
+      HsBindgen.Config
 
   -- Internal modules.
   exposed-modules:
@@ -110,24 +109,24 @@ library internal
       HsBindgen.Clang
       HsBindgen.Clang.BuiltinIncDir
       HsBindgen.Clang.ExtraClangArgs
-      HsBindgen.Config
       HsBindgen.Config.ClangArgs
       HsBindgen.Config.FixCandidate
       HsBindgen.Config.FixCandidate.ReservedNames
+      HsBindgen.Config.Internal
       HsBindgen.Eff
       HsBindgen.Errors
       HsBindgen.Frontend
-      HsBindgen.Frontend.Analysis.DeclIndex
-      HsBindgen.Frontend.Analysis.DeclUseGraph
-      HsBindgen.Frontend.Analysis.IncludeGraph
-      HsBindgen.Frontend.Analysis.Typedefs
-      HsBindgen.Frontend.Analysis.UseDeclGraph
       HsBindgen.Frontend.AST.Coerce
       HsBindgen.Frontend.AST.Deps
       HsBindgen.Frontend.AST.External
       HsBindgen.Frontend.AST.Finalize
       HsBindgen.Frontend.AST.Internal
       HsBindgen.Frontend.AST.PrettyPrinter
+      HsBindgen.Frontend.Analysis.DeclIndex
+      HsBindgen.Frontend.Analysis.DeclUseGraph
+      HsBindgen.Frontend.Analysis.IncludeGraph
+      HsBindgen.Frontend.Analysis.Typedefs
+      HsBindgen.Frontend.Analysis.UseDeclGraph
       HsBindgen.Frontend.LanguageC
       HsBindgen.Frontend.LanguageC.Monad
       HsBindgen.Frontend.LanguageC.PartialAST
@@ -178,12 +177,12 @@ library internal
       HsBindgen.Orphans
       HsBindgen.PrettyC
       HsBindgen.Resolve
+      HsBindgen.TH.Internal
       HsBindgen.Test
       HsBindgen.Test.C
       HsBindgen.Test.Hs
       HsBindgen.Test.Internal
       HsBindgen.Test.Readme
-      HsBindgen.TH.Internal
       HsBindgen.TraceMsg
       HsBindgen.Util.Monad
       HsBindgen.Util.Parsec
@@ -248,17 +247,17 @@ library
 
   exposed-modules:
       HsBindgen.TH
+
   other-modules:
+
   reexported-modules:
-    , HsBindgen.Config.FixCandidate
-    , HsBindgen.Config.FixCandidate.ReservedNames
-    , HsBindgen.Errors
 
   build-depends:
       -- Internal dependencies
     , hs-bindgen:internal
   build-depends:
       -- Inherited dependencies
+    , data-default
 
 executable hs-bindgen-cli
   import:         lang
@@ -295,9 +294,9 @@ executable hs-bindgen-cli
       -- Inherited dependencies
     , bytestring
     , containers
+    , data-default
   build-depends:
       -- External dependencies
-    , optics               >= 0.4.2.1   && < 0.5
     , optparse-applicative >= 0.18      && < 0.19
     , prettyprinter        ^>=1.7.1
     , text                 >= 1.2       && < 2.2
@@ -431,6 +430,7 @@ test-suite test-th
   build-depends:
       -- Inherited dependencies
     , base
+    , optics
     , tasty
     , tasty-hunit
   build-depends:

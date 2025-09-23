@@ -19,7 +19,6 @@ module HsBindgen.Config.ClangArgs (
 import Data.List qualified as List
 
 import Clang.Args
-import Clang.Paths
 
 import HsBindgen.Imports
 
@@ -34,7 +33,7 @@ import HsBindgen.Imports
 --
 -- This is not intended to be complete; we have added the arguments that are
 -- most relevant to @hs-bindgen@.
-data ClangArgsConfig = ClangArgsConfig {
+data ClangArgsConfig path = ClangArgsConfig {
       -- | Target architecture ('Nothing' to compile for the host architecture)
       --
       -- The environment can be overriden separately, if necessary.
@@ -53,7 +52,7 @@ data ClangArgsConfig = ClangArgsConfig {
       --
       -- This corresponds to the @-I@ clang argument.  See
       -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management>.
-    , clangExtraIncludeDirs :: [CIncludeDir]
+    , clangExtraIncludeDirs :: [path]
 
       -- | Preprocessor macro definitions
       --
@@ -101,9 +100,9 @@ data ClangArgsConfig = ClangArgsConfig {
       -- See 'clangArgsInner'.
     , clangArgsAfter :: [String]
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic, Functor, Foldable, Traversable)
 
-instance Default ClangArgsConfig where
+instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
       clangTarget           = Nothing
     , clangCStandard        = Nothing
@@ -243,7 +242,7 @@ instance Default BuiltinIncDirConfig where
   Translation
 -------------------------------------------------------------------------------}
 
-getClangArgs :: ClangArgsConfig -> Either InvalidClangArgs ClangArgs
+getClangArgs :: ClangArgsConfig FilePath -> Either InvalidClangArgs ClangArgs
 getClangArgs config = do
     clangArgsInternal <- getClangArgsInternal config
     return . ClangArgs $ concat [
@@ -253,7 +252,7 @@ getClangArgs config = do
       , clangArgsAfter    config
       ]
 
-getClangArgsInternal :: ClangArgsConfig -> Either InvalidClangArgs [String]
+getClangArgsInternal :: ClangArgsConfig FilePath -> Either InvalidClangArgs [String]
 getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
       ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
         return ["-target", target]
@@ -266,7 +265,7 @@ getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
         ]
 
     , return $ concat [
-          ["-I", getCIncludeDir path]
+          ["-I", path]
         | path <- clangExtraIncludeDirs
         ]
 

@@ -35,8 +35,8 @@ import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
-import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports

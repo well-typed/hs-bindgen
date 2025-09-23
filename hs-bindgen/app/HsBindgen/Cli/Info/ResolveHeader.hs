@@ -19,9 +19,13 @@ import Options.Applicative hiding (info)
 import System.Exit (ExitCode (ExitFailure))
 
 import HsBindgen.App
-import HsBindgen.Boot (getClangArgs)
+import HsBindgen.Boot
+import HsBindgen.Config.ClangArgs hiding (getClangArgs)
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Lib
+import HsBindgen.Resolve
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -35,7 +39,7 @@ info = progDesc "Resolve C headers to source paths"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      clangArgsConfig :: ClangArgsConfig
+      clangArgsConfig :: ClangArgsConfig FilePath
     , inputs          :: [UncheckedHashIncludeArg]
     }
 

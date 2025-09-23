@@ -41,7 +41,7 @@ data Options = Options {
     , optExtents         :: !Bool
     , optFile            :: !HashIncludeArg
     , optKind            :: !Bool
-    , optIncludePath     :: [CIncludeDir]
+    , optIncludePath     :: [FilePath]
     , optClangArgsInner  :: [String]
     , optSameFile        :: !Bool
     , optType            :: !Bool
@@ -104,7 +104,7 @@ clangAstDump opts@Options{..} = do
         tVerbosity = Verbosity Debug
       }
 
-    cArgsConfig :: ClangArgsConfig
+    cArgsConfig :: ClangArgsConfig FilePath
     cArgsConfig = def {
         clangExtraIncludeDirs = optIncludePath
       , clangArgsInner        = optClangArgsInner
@@ -470,7 +470,7 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       optFile            <- fileArgument
       pure (optAll, Options{..})
 
-    includeDirOptions :: OA.Parser [CIncludeDir]
+    includeDirOptions :: OA.Parser [FilePath]
     includeDirOptions = OA.many . OA.strOption $ mconcat
       [ OA.short 'I'
       , OA.metavar "DIR"

@@ -1,4 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 
@@ -9,8 +10,12 @@ module Test.TH.Simple where
 import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
-let opts = def { extraIncludeDirs = [ RelativeToPkgRoot "examples" ] }
- in withHsBindgen opts $ hashInclude "simple.h"
+import Optics (set, (%), (&))
+
+let cfg :: Config IncludeDir
+    cfg = def & set ( #configClangArgsConfig % #clangExtraIncludeDirs )
+            [ RelativeToPkgRoot "examples" ]
+ in withHsBindgen cfg def $ hashInclude "simple.h"
 
 x :: Simple
 x = Simple { simple_n = 10 }

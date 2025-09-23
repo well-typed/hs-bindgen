@@ -14,9 +14,9 @@ import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Clang.ExtraClangArgs
-import HsBindgen.Config
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -83,7 +83,7 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
     cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
 -- | Determine Clang arguments
-getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig -> IO ClangArgs
+getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
 getClangArgs tracer config = do
     extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
       fst <$> ClangArgs.clangTarget config

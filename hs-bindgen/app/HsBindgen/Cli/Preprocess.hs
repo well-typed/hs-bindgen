@@ -19,9 +19,12 @@ import GHC.Generics (Generic)
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Lib
+import HsBindgen.Artefact
+import HsBindgen.Config
+import HsBindgen.Config.Internal
+import HsBindgen.Frontend.RootHeader
 
-import HsBindgen (sequenceArtefacts, writeBindingsMultiple)
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -35,7 +38,8 @@ info = progDesc "Generate Haskell module from C headers"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      bindgenConfig     :: BindgenConfig
+      config            :: Config FilePath
+    , configPP          :: ConfigPP
     , hsOutputDir       :: FilePath
     , outputBindingSpec :: Maybe FilePath
     , inputs            :: [UncheckedHashIncludeArg]
@@ -46,7 +50,8 @@ data Opts = Opts {
 parseOpts :: Parser Opts
 parseOpts =
     Opts
-      <$> parseBindgenConfig
+      <$> parseConfig
+      <*> parseConfigPP
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
       <*> parseInputs
@@ -58,6 +63,9 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = void $ run $ (sequenceArtefacts artefacts) :* Nil
   where
+    bindgenConfig :: BindgenConfig
+    bindgenConfig = toBindgenConfigPP config configPP
+
     run :: Artefacts as -> IO (NP I as)
     run = hsBindgen tracerConfig bindgenConfig inputs
 

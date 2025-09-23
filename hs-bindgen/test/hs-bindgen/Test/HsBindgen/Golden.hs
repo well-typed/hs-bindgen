@@ -23,8 +23,8 @@ import Clang.LowLevel.Core
 import Clang.Version
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Select.IsPass

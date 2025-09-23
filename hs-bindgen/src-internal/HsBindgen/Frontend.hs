@@ -11,7 +11,7 @@ import Clang.Paths
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
-import HsBindgen.Config
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph

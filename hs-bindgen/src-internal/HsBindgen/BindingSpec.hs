@@ -102,6 +102,9 @@ data EnableStdlibBindingSpec =
   | DisableStdlibBindingSpec
   deriving stock (Show, Eq)
 
+instance Default EnableStdlibBindingSpec where
+  def = EnableStdlibBindingSpec
+
 -- | Load external binding specifications
 --
 -- The format is determined by filename extension.  The following formats are

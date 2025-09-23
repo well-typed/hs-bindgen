@@ -17,7 +17,10 @@ import Control.Monad (void)
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
-import HsBindgen.Lib
+import HsBindgen.Config
+import HsBindgen.Frontend.RootHeader
+
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -31,15 +34,17 @@ info = progDesc "Generate tests for generated Haskell code"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      bindgenConfig :: BindgenConfig
-    , output        :: FilePath
-    , inputs        :: [UncheckedHashIncludeArg]
+      config   :: Config FilePath
+    , configPP :: ConfigPP
+    , output   :: FilePath
+    , inputs   :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
 parseOpts =
     Opts
-      <$> parseBindgenConfig
+      <$> parseConfig
+      <*> parseConfigPP
       <*> parseGenTestsOutput
       <*> parseInputs
 
@@ -50,4 +55,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefacts = writeTests output :* Nil
+        bindgenConfig = toBindgenConfigPP config configPP
     void $ hsBindgen tracerConfig bindgenConfig inputs artefacts

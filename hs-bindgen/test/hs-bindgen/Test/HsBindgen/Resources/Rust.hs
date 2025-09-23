@@ -82,7 +82,7 @@ freeRustBindgen = \case
 --
 -- Returns the process' exit code, stdout and stderr.
 runRustBindgen ::
-     ClangArgsConfig
+     ClangArgsConfig FilePath
   -> FilePath -- ^ Path to the @rust-bindgen@ executable
   -> FilePath -- ^ Input header to run it on
   -> IO (ExitCode, String, String)

@@ -1,13 +1,10 @@
 {-# LANGUAGE CPP #-}
 
--- | Main entry point for using @hs-bindgen@ in TH mode.
+-- | Main entry point for using @hs-bindgen@ in Template-Haskell mode.
 --
 -- Intended for unqualified import.
 
 -- NOTE: Client code should /NOT/ have to import from @clang@.
-
--- TODO https://github.com/well-typed/hs-bindgen/issues/1045: Expand interface
--- to meet needs; delete other comments; check haddocks.
 
 module HsBindgen.TH (
     -- * Template Haskell API
@@ -15,107 +12,52 @@ module HsBindgen.TH (
   , TH.hashInclude
 
     -- * Configuration
+  , Config.Config(..)
+  , Config.ConfigTH(..)
+
+    -- ** Clang arguments
+  , ClangArgs.ClangArgsConfig(..)
+  , ClangArgs.Target(..)
+  , ClangArgs.TargetEnv(..)
+  , ClangArgs.CStandard(..)
+  , ClangArgs.Gnu(..)
+  , ClangArgs.BuiltinIncDirConfig(..)
   , TH.IncludeDir(..)
-  , TH.BindgenOpts(..)
-  -- , TH.tracerConfigDefTH
 
-  --   -- ** Boot
-  -- , Common.BootConfig(..)
-  --   -- *** Builtin include directory
-  -- , Common.BuiltinIncDirConfig(..)
-  --   -- *** Binding specifications
-  -- , Common.BindingSpecConfig(..)
-  -- , Common.EnableStdlibBindingSpec(..)
+    -- ** Binding specifications
+  , BindingSpec.EnableStdlibBindingSpec(..)
+  , BindingSpec.BindingSpecCompatibility(..)
 
-  --   -- ** Frontend
-  -- , Common.FrontendConfig(..)
-  --   -- *** Clang arguments
-  -- , Common.ClangArgs(..)
-  -- , Common.Target(..)
-  -- , Common.TargetEnv(..)
-  -- , Common.targetTriple
-  -- , Common.CStandard(..)
-  --   -- *** Predicates
-  -- , Common.Predicate(..)
-  -- , Common.HeaderPathPredicate (..)
-  -- , Common.DeclPredicate (..)
-  -- , Common.ParsePredicate
-  -- , Common.SelectPredicate
-  -- , Common.Regex -- opaque
-  -- , Common.mergePredicates
-  --   -- *** Program slicing
-  -- , Common.ProgramSlicing(..)
+    -- ** Predicates and program slicing
+  , Predicate.Predicate(..)
+  , Predicate.HeaderPathPredicate(..)
+  , Predicate.Regex
 
-  --   -- ** Backend
-  -- , Common.BackendConfig(..)
-  --   -- *** Translation options
-  -- , Common.UniqueId(..)
-  -- , Common.TranslationOpts(..)
-  -- , Common.Strategy(..)
-  -- , Common.HsTypeClass(..)
-  -- , Common.HsModuleOpts(..)
+    -- *** Parse predicates
+  , Predicate.ParsePredicate
 
-  --   -- * Paths
-  -- , Common.HashIncludeArg(..)
-  -- , Common.hashIncludeArg
-  -- , Common.UncheckedHashIncludeArg
-  -- , Common.hashIncludeArgWithTrace
-  -- , Common.CIncludeDir(..)
-  -- , (Common.</>)
-  -- , Common.joinPath
+    -- *** Select predicates and program slicing
+  , Predicate.DeclPredicate(..)
+  , Predicate.SelectPredicate
+  , Select.ProgramSlicing(..)
 
-  --   -- * Logging
-  -- , Common.TraceMsg(..)
-  -- , Common.BindingSpecMsg(..)
-  -- , Common.BootMsg(..)
-  -- , Common.ClangMsg(..)
-  -- , Common.DeclIndexError(..)
-  -- , Common.Diagnostic(..)
-  -- , Common.FrontendMsg(..)
-  -- , Common.HandleMacrosMsg(..)
-  -- , Common.HandleTypedefsMsg(..)
-  -- , Common.HashIncludeArgMsg(..)
-  -- , Common.MangleNamesMsg(..)
-  -- , Common.NameAnonMsg(..)
-  -- , Common.ParseMsg(..)
-  -- , Common.ParseTypeException(..)
-  -- , Common.ReparseError(..)
-  -- , Common.ResolveBindingSpecMsg(..)
-  -- , Common.ResolveHeaderMsg(..)
-  -- , Common.SelectMsg(..)
-  -- , Common.SortMsg(..)
-  -- , Common.TcMacroError(..)
-  --   -- ** Tracer definition and main API
-  -- , Common.Tracer -- opaque
-  -- , Common.traceWith
-  -- , Common.simpleTracer
-  --   -- ** Data types and typeclasses useful for tracing
-  -- , Common.PrettyForTrace(..)
-  -- , Common.Level(..)
-  -- , Common.SafeLevel(..)
-  -- , Common.Source(..)
-  -- , Common.TraceId(..)
-  -- , Common.IsTrace(..)
-  -- , Common.Verbosity(..)
-  --   -- ** Tracer configuration
-  -- , Common.ShowTimeStamp(..)
-  -- , Common.ShowCallStack(..)
-  -- , Common.TracerConfig(..)
-  --   -- *** Custom output
-  -- , Common.AnsiColor(..)
-  -- , Common.Report
-  -- , Common.OutputConfig(..)
-  --   -- *** Custom log levels
-  -- , Common.CustomLogLevel(..)
-  -- , Common.CustomLogLevelSetting(..)
-  -- , Common.getCustomLogLevel
-  --   -- ** Tracers
-  -- , Common.withTracer
+    -- ** Haddocks
+  , Haddock.PathStyle(..)
+
+    -- ** Safety
+  , Safety.Safety(..)
 
    -- * Re-exports
-  -- , Common.Contravariant(..)
-  , Common.Default(..)
+  , Default.Default(..)
   ) where
 
-import HsBindgen.Common qualified as Common
+import Data.Default qualified as Default
+
+import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock
+import HsBindgen.Backend.SHs.AST qualified as Safety
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Config qualified as Config
+import HsBindgen.Config.ClangArgs qualified as ClangArgs
+import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
+import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.TH.Internal qualified as TH

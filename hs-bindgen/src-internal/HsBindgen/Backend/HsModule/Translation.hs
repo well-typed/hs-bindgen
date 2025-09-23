@@ -73,11 +73,7 @@ data HsModuleOpts = HsModuleOpts {
       hsModuleOptsBaseName  :: HsModuleName
     }
   deriving stock (Show, Eq, Generic)
-
-instance Default HsModuleOpts where
-  def = HsModuleOpts {
-      hsModuleOptsBaseName  = "Generated"
-    }
+  deriving anyclass (Default)
 
 translateModuleMultiple ::
   HsModuleName -> ByCategory ([UserlandCapiWrapper], [SDecl]) -> ByCategory HsModule

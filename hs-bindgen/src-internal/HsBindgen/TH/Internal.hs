@@ -3,15 +3,7 @@
 
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
-    IncludeDir (..)
-  , BindgenOpts (
-      baseBootConfig
-    , extraIncludeDirs
-    , baseFrontendConfig
-    , safety
-    , baseBackendConfig
-    )
-  , tracerConfigDefTH
+    IncludeDir(..)
   , withHsBindgen
   , hashInclude
 
@@ -27,16 +19,18 @@ import System.FilePath ((</>))
 
 import Clang.Paths
 import HsBindgen
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
 import HsBindgen.Backend.UniqueId
+import HsBindgen.BindingSpec
 import HsBindgen.Config
-import HsBindgen.Config.ClangArgs
-import HsBindgen.Errors (failQ)
+import HsBindgen.Config.Internal
+import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -59,42 +53,7 @@ data IncludeDir =
     IncludeDir        FilePath
     -- | Include directory relative to package root.
   | RelativeToPkgRoot FilePath
-  deriving stock (Eq, Show)
-
--- | Options (opaque, but with record selector functions exported).
-data BindgenOpts = BindgenOpts {
-    -- * Binding specifications
-    baseBootConfig     :: BootConfig
-    -- * Frontend configuration
-  , extraIncludeDirs   :: [IncludeDir]
-  , baseFrontendConfig :: FrontendConfig
-    -- * Backend configuration
-  , safety             :: SHs.Safety
-  , baseBackendConfig  :: BackendConfig
-  }
-
-instance Default BindgenOpts where
-  def = BindgenOpts {
-      baseBootConfig      = def
-    , extraIncludeDirs    = []
-    , baseFrontendConfig  = def
-    , safety              = SHs.Safe
-    , baseBackendConfig   = def
-    }
-
--- | The default tracer configuration in Q uses 'outputConfigTH'.
-tracerConfigDefTH :: TracerConfig IO l a
-tracerConfigDefTH = def {
-        tOutputConfig = outputConfigTH
-      }
-
--- | Internal! See 'withHsBindgen'.
-type Bindgen a = State BindgenState a
-
--- | Internal! State manipulated by 'hashInclude'.
-data BindgenState = BindgenState {
-    bindgenStateUncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
-  }
+  deriving stock (Eq, Show, Generic)
 
 -- | Generate bindings for given C headers at compile-time.
 --
@@ -105,19 +64,11 @@ data BindgenState = BindgenState {
 -- > withHsBindgen def $ do
 -- >   hashInclude "a.h"
 -- >   hashInclude "b.h"
-withHsBindgen :: BindgenOpts -> Bindgen () -> TH.Q [TH.Dec]
-withHsBindgen BindgenOpts{..} hashIncludes = do
+withHsBindgen :: Config IncludeDir -> ConfigTH -> Bindgen () -> TH.Q [TH.Dec]
+withHsBindgen config ConfigTH{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
-    includeDirs <- toFilePaths extraIncludeDirs
-    let clangArgsConfig :: ClangArgsConfig
-        clangArgsConfig = def {
-            clangExtraIncludeDirs = CIncludeDir <$> includeDirs
-          }
-        bootConfig = baseBootConfig { bootClangArgsConfig = clangArgsConfig }
-    backendConfig <- ensureUniqueId baseBackendConfig
 
-    let bindgenConfig =
-          BindgenConfig bootConfig baseFrontendConfig backendConfig
+    bindgenConfig <- toBindgenConfigTH config
 
     let -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -136,36 +87,10 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
         bindgenConfig
         uncheckedHashIncludeArgs
         artefacts
-    let decls = mergeDecls safety decls'
+    let decls = mergeDecls configTHSafety decls'
         requiredExts = uncurry getExtensions $ decls
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
-  where
-    toFilePath :: FilePath -> IncludeDir -> FilePath
-    toFilePath root (RelativeToPkgRoot x) = root </> x
-    toFilePath _    (IncludeDir        x) = x
-
-    toFilePaths :: [IncludeDir] -> TH.Q [FilePath]
-    toFilePaths xs = do
-      root <- getPackageRoot
-      pure $ map (toFilePath root) xs
-
-    ensureUniqueId :: BackendConfig -> TH.Q BackendConfig
-    ensureUniqueId backendConfig = do
-      let translationOpts = backendTranslationOpts backendConfig
-      uniqueId <- updateUniqueId $ translationUniqueId translationOpts
-      pure backendConfig{
-          backendTranslationOpts =
-            translationOpts{ translationUniqueId = uniqueId }
-        }
-
-    updateUniqueId :: UniqueId -> TH.Q UniqueId
-    updateUniqueId uniqueId@(UniqueId val)
-      | null val  = getUniqueId
-      | otherwise = pure uniqueId
-
-    getUniqueId :: TH.Q UniqueId
-    getUniqueId = UniqueId . TH.loc_package <$> TH.location
 
 -- | @#include@ (i.e., generate bindings for) a C header.
 --
@@ -223,6 +148,20 @@ getThDecls deps wrappers decls = do
   Helpers
 -------------------------------------------------------------------------------}
 
+-- | The default tracer configuration in Q uses 'outputConfigTH'.
+tracerConfigDefTH :: TracerConfig IO l a
+tracerConfigDefTH = def {
+        tOutputConfig = outputConfigTH
+      }
+
+-- | Internal! See 'withHsBindgen'.
+type Bindgen a = State BindgenState a
+
+-- | Internal! State manipulated by 'hashInclude'.
+data BindgenState = BindgenState {
+    bindgenStateUncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
+  }
+
 -- See discussion of the PR https://github.com/well-typed/hs-bindgen/pull/957,
 -- in particular https://gitlab.haskell.org/ghc/ghc/-/issues/25774, and
 -- https://gitlab.haskell.org/ghc/ghc/-/issues/8510.
@@ -256,3 +195,44 @@ checkLanguageExtensions requiredExts = do
       failQ $ unlines $
         "Missing language extension(s): " :
           (map (("    - " ++) . show) (toList missingExts))
+
+
+toBindgenConfigTH :: Config IncludeDir -> TH.Q BindgenConfig
+toBindgenConfigTH config = do
+    packageRoot <- getPackageRoot
+    let Config{..} = toFilePath packageRoot <$> config
+
+    uniqueId <- getUniqueId
+
+    let bootConfig = BootConfig {
+            bootClangArgsConfig   = configClangArgsConfig
+          , bootBindingSpecConfig = BindingSpecConfig {
+                bindingSpecStdlibSpec              = configStdlibSpec
+              , bindingSpecCompatibility           = configCompatibility
+              , bindingSpecExtBindingSpecs         = configExtBindingSpecs
+              , bindingSpecPrescriptiveBindingSpec = configPrescriptiveBindingSpec
+              }
+          }
+        frontendConfig = FrontendConfig {
+            frontendParsePredicate  = configParsePredicate
+          , frontendSelectPredicate = configSelectPredicate
+          , frontendProgramSlicing  = configProgramSlicing
+          }
+        backendConfig = BackendConfig {
+            backendTranslationOpts = def {
+                translationUniqueId = uniqueId
+              }
+          , backendHsModuleOpts = def
+          , backendHaddockConfig = HaddockConfig {
+                pathStyle = configHaddockPathStyle
+              }
+          }
+
+    pure $ BindgenConfig bootConfig frontendConfig backendConfig
+  where
+    toFilePath :: FilePath -> IncludeDir -> FilePath
+    toFilePath root (RelativeToPkgRoot x) = root </> x
+    toFilePath _    (IncludeDir        x) = x
+
+    getUniqueId :: TH.Q UniqueId
+    getUniqueId = UniqueId . TH.loc_package <$> TH.location

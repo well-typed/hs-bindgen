@@ -9,19 +9,17 @@ module HsBindgen.App (
 
     -- * Argument/option parsers
     -- ** Bindgen configuration
-  , parseBindgenConfig
+  , parseConfig
+  , parseConfigPP
+  , toBindgenConfigPP
     -- ** Clang arguments
   , parseClangArgsConfig
-    -- ** Predicates and slicing
-  , parseParsePredicate
     -- ** Output options
   , parseHsOutputDir
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
   , parseInputs
-    -- ** Haddock arguments
-  , parseHaddockConfig
 
     -- * Auxiliary optparse-applicative functions
   , cmd
@@ -29,17 +27,27 @@ module HsBindgen.App (
   ) where
 
 import Data.Char qualified as Char
+import Data.Default (Default (..))
 import Data.Either (partitionEithers)
 import Data.List qualified as List
-import Data.Maybe (catMaybes)
+import Data.Maybe (catMaybes, fromMaybe)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
-import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
+import HsBindgen.Backend.Hs.Haddock.Config
+import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.UniqueId
+import HsBindgen.BindingSpec
+import HsBindgen.Config
+import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Predicate
+import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Language.Haskell (HsModuleName)
-import HsBindgen.Lib
-
-import Optics (set)
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Global options
@@ -138,47 +146,59 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
     ]
 
 {-------------------------------------------------------------------------------
-  Bindgen configuration
+  Configuration
 -------------------------------------------------------------------------------}
 
-parseBindgenConfig :: Parser BindgenConfig
-parseBindgenConfig = BindgenConfig
-    <$> parseBootConfig
-    <*> parseFrontendConfig
-    <*> parseBackendConfig
-
-parseBootConfig :: Parser BootConfig
-parseBootConfig = BootConfig
+parseConfig :: Parser (Config FilePath)
+parseConfig = Config
     <$> parseClangArgsConfig
-    <*> parseBindingSpecConfig
-
-parseFrontendConfig :: Parser FrontendConfig
-parseFrontendConfig = FrontendConfig
-    <$> parseParsePredicate
+    <*> parseEnableStdlibBindingSpec
+    <*> parseBindingSpecAllowNewer
+    <*> many parseExtBindingSpec
+    <*> optional parsePrescriptiveBindingSpec
+    <*> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
+    <*> parsePathStyle
 
-parseBackendConfig :: Parser BackendConfig
-parseBackendConfig = BackendConfig
-    <$> parseTranslationOpts
-    <*> parseHsModuleOpts
-    <*> parseHaddockConfig
+parseConfigPP :: Parser ConfigPP
+parseConfigPP = ConfigPP
+    <$> optional parseUniqueId
+    <*> parseHsModuleName
 
-parseHaddockConfig :: Parser HaddockConfig
-parseHaddockConfig = HaddockConfig
-    <$> parsePathStyle
+toBindgenConfigPP :: Config FilePath -> ConfigPP -> BindgenConfig
+toBindgenConfigPP Config{..} ConfigPP{..} =
+  BindgenConfig bootConfig frontendConfig backendConfig
+  where
+    bootConfig = BootConfig {
+        bootClangArgsConfig = configClangArgsConfig
+      , bootBindingSpecConfig = BindingSpecConfig {
+              bindingSpecStdlibSpec              = configStdlibSpec
+            , bindingSpecCompatibility           = configCompatibility
+            , bindingSpecExtBindingSpecs         = configExtBindingSpecs
+            , bindingSpecPrescriptiveBindingSpec = configPrescriptiveBindingSpec
+          }
+      }
+    frontendConfig = FrontendConfig {
+          frontendParsePredicate  = configParsePredicate
+        , frontendSelectPredicate = configSelectPredicate
+        , frontendProgramSlicing  = configProgramSlicing
+      }
+    backendConfig = BackendConfig {
+        backendTranslationOpts = def {
+            translationUniqueId = fromMaybe def configPPUniqueId
+          }
+      , backendHsModuleOpts = HsModuleOpts {
+            hsModuleOptsBaseName = configPPModuleName
+          }
+      , backendHaddockConfig = HaddockConfig {
+            pathStyle = configHaddockPathStyle
+          }
+      }
 
 {-------------------------------------------------------------------------------
   Binding specifications
 -------------------------------------------------------------------------------}
-
-parseBindingSpecConfig :: Parser BindingSpecConfig
-parseBindingSpecConfig =
-    BindingSpecConfig
-      <$> parseEnableStdlibBindingSpec
-      <*> parseBindingSpecAllowNewer
-      <*> many parseExtBindingSpec
-      <*> optional parsePrescriptiveBindingSpec
 
 parseEnableStdlibBindingSpec :: Parser EnableStdlibBindingSpec
 parseEnableStdlibBindingSpec =
@@ -237,7 +257,7 @@ parseBuiltinIncDirConfig = option (eitherReader auxParse) $ mconcat [
   Clang arguments
 -------------------------------------------------------------------------------}
 
-parseClangArgsConfig :: Parser ClangArgsConfig
+parseClangArgsConfig :: Parser (ClangArgsConfig FilePath)
 parseClangArgsConfig = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
@@ -327,7 +347,7 @@ parseEnableBlocks = switch $ mconcat [
     , help "Enable the 'blocks' language feature"
     ]
 
-parseIncludeDir :: Parser CIncludeDir
+parseIncludeDir :: Parser FilePath
 parseIncludeDir = strOption $ mconcat [
       short 'I'
     , metavar "DIR"
@@ -463,14 +483,6 @@ parseProgramSlicing =
   Translation options
 -------------------------------------------------------------------------------}
 
-parseTranslationOpts :: Parser TranslationOpts
-parseTranslationOpts = aux <$> optional parseUniqueId
-  where
-    aux :: Maybe UniqueId -> TranslationOpts
-    aux mUniqueId = case mUniqueId of
-      Nothing       -> def
-      Just uniqueId -> set #translationUniqueId uniqueId def
-
 parseUniqueId :: Parser UniqueId
 parseUniqueId = fmap UniqueId . strOption $ mconcat [
       long "unique-id"
@@ -484,10 +496,6 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
 {-------------------------------------------------------------------------------
   Pretty printer options
 -------------------------------------------------------------------------------}
-
-parseHsModuleOpts :: Parser HsModuleOpts
-parseHsModuleOpts =
-  HsModuleOpts <$> parseHsModuleName
 
 parseHsModuleName :: Parser HsModuleName
 parseHsModuleName = strOption $ mconcat [
