@@ -55,7 +55,6 @@ import Data.ByteString.Lazy qualified as BSL
 import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
-import Data.Proxy (Proxy (Proxy))
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Typeable (Typeable, typeRep)

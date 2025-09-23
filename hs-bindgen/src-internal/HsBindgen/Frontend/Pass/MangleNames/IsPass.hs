@@ -68,8 +68,8 @@ instance PrettyForTrace MangleNamesMsg where
         "Could not mangle C name identifier: " >< textToCtxDoc name
 
 instance IsTrace Level MangleNamesMsg where
-  getDefaultLogLevel (MangleNamesMissingIdentifier _) = Warning
-  getDefaultLogLevel _                                = Error
-
-  getSource          = const HsBindgen
-  getTraceId         = const "mangle-names"
+  getDefaultLogLevel = \case
+    MangleNamesMissingIdentifier _ -> Warning
+    _other                         -> Error
+  getSource  = const HsBindgen
+  getTraceId = const "mangle-names"

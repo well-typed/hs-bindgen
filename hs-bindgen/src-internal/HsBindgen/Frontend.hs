@@ -237,7 +237,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     emptyParseResult = (emptyTranslationUnit, const False, const False)
 
     cache :: String -> IO a -> IO (IO a)
-    cache = cacheWith (contramap FrontendCache tracer) . Just
+    cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -269,6 +269,6 @@ data FrontendMsg =
   | FrontendSelect (Msg Select)
   | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
-  | FrontendCache CacheMsg
+  | FrontendCache (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

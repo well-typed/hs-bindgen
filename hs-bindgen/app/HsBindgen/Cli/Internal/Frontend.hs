@@ -48,5 +48,5 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefacts = ReifiedC :* Nil
     (I decls :* Nil) <-
-      hsBindgen tracerConfig bindgenConfig inputs artefacts
+      hsBindgen tracerConfig tracerConfigBackend bindgenConfig inputs artefacts
     print decls

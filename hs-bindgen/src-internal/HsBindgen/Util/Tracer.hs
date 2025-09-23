@@ -37,6 +37,7 @@ module HsBindgen.Util.Tracer (
   , TraceException (..)
     -- * Safe tracers
   , withTracerSafe
+  , SafeTrace(..)
     -- * Re-exports
   , Contravariant(..)
   ) where
@@ -265,8 +266,8 @@ instance (GIsTrace l r1, GIsTrace l r2) => GIsTrace l (r1 :+: r2) where
 
 instance IsTrace l a => GIsTrace l (K1 tag a) where
   gGetDefaultLogLevel (K1 x) = getDefaultLogLevel x
-  gGetSource          (K1 x) = getSource  x
-  gGetTraceId         (K1 x) = getTraceId x
+  gGetSource          (K1 x) = getSource          x
+  gGetTraceId         (K1 x) = getTraceId         x
 
 gGetDefaultLogLevel' :: (GHC.Generic a, GIsTrace l (GHC.Rep a)) => a -> l
 gGetDefaultLogLevel' = gGetDefaultLogLevel . GHC.from
@@ -313,6 +314,10 @@ data ShowCallStack = EnableCallStack | DisableCallStack
 -- need the custom log level. This is sub-optimal. We could use newtype wrappers
 -- to directly change the log level, and not provide the custom log level
 -- separately here.
+--
+-- The report function has access to the typed trace @a@, and the formatted
+-- trace. The formatted trace also possibly contains the time stamp, the call
+-- stack, or other information.
 type Report m a = Level -> a -> String -> m ()
 
 data OutputConfig m a =
@@ -515,7 +520,6 @@ withTracerSafe tracerConf action =
       , tCustomLogLevel = customLogLevel
       }
 
--- Internal; ensure a trace has a safe log level.
 newtype SafeTrace a = SafeTrace { getSafeTrace :: a }
   deriving (Show, Eq, Generic)
 
@@ -621,7 +625,7 @@ type Format m a = AnsiColor -> ShowTimeStamp -> Level -> a -> m String
 -- [OPTIONAL TIMESTAMP] [LEVEL] [SOURCE] Message.
 --   Indent subsequent lines.
 --   OPTION CALL STACK.
-formatTrace :: (MonadIO m, IsTrace l a) => Format m a
+formatTrace :: (MonadIO m, IsTrace Level a) => Format m a
 formatTrace ansiColor showTimeStamp level trace = do
     mTime <- case showTimeStamp of
       DisableTimeStamp -> pure Nothing

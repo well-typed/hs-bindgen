@@ -126,9 +126,9 @@ withTracePredicate report predicate action = fmap fst $
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate
-  :: forall a b. (IsTrace Level a , Typeable a, Show a)
+  :: forall a b l. (IsTrace Level a , Typeable a, Show a)
   => (String -> IO ())
-  -> TracePredicate a -> (TracerConfig IO Level a -> IO b) -> IO b
+  -> TracePredicate a -> (TracerConfig IO l a -> IO b) -> IO b
 withTraceConfigPredicate report (TracePredicate predicate) action = do
   tracesRef <- newIORef []
   let writer :: Report IO a

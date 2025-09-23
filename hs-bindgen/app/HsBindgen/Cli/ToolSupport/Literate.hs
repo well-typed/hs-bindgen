@@ -105,7 +105,7 @@ exec literateOpts = do
     Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
     let GlobalOpts{..} = globalOpts
-    void $ hsBindgen tracerConfig bindgenConfig inputs $
+    void $ hsBindgen tracerConfig tracerConfigBackend bindgenConfig inputs $
       writeBindings safety (Just literateOpts.output) :* Nil
   where
     throwIO' :: String -> IO a
