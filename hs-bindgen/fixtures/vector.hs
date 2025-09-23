@@ -834,19 +834,7 @@
                       "Vector"}
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9"))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "new_vector",
-          commentLocation = Just
-            "vector.h:6:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["vector.h"],
-              headerInclude = "vector.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

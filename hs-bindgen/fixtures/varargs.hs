@@ -98,18 +98,7 @@
           "varargs.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "h",
-          commentLocation = Just
-            "varargs.h:8:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["varargs.h"],
-              headerInclude = "varargs.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

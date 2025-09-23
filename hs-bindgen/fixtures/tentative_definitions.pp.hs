@@ -1,6 +1,7 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -12,20 +13,25 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource "#include <tentative_definitions.h>\n/* get_i1_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983 (void) { return &i1; } \n/* get_i2_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_8a341976b53c3159 (void) { return &i2; } \n/* get_i3_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_8a18e8a325536dc5 (void) { return &i3; } \n")
 
+foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983" hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE i1_ptr #-}
+
 {-| __C declaration:__ @i1@
 
     __defined at:__ @tentative_definitions.h:17:5@
 
     __exported by:__ @tentative_definitions.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983" hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE i1_ptr #-}
-
 i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983
+
+foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a341976b53c3159" hs_bindgen_test_tentative_definitions_8a341976b53c3159
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE i2_ptr #-}
 
 {-| __C declaration:__ @i2@
 
@@ -33,14 +39,14 @@ i1_ptr =
 
     __exported by:__ @tentative_definitions.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a341976b53c3159" hs_bindgen_test_tentative_definitions_8a341976b53c3159
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE i2_ptr #-}
-
 i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_tentative_definitions_8a341976b53c3159
+
+foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a18e8a325536dc5" hs_bindgen_test_tentative_definitions_8a18e8a325536dc5
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE i3_ptr #-}
 
 {-| __C declaration:__ @i3@
 
@@ -48,11 +54,6 @@ i2_ptr =
 
     __exported by:__ @tentative_definitions.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a18e8a325536dc5" hs_bindgen_test_tentative_definitions_8a18e8a325536dc5
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE i3_ptr #-}
-
 i3_ptr :: Ptr.Ptr FC.CInt
 i3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_tentative_definitions_8a18e8a325536dc5

@@ -207,20 +207,7 @@
                       (PrimSignImplicit Nothing))))),
             TypePrim PrimSize]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "list_example",
-          commentLocation = Just
-            "type_qualifiers.h:14:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_qualifiers.h"],
-              headerInclude =
-              "type_qualifiers.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -248,19 +235,7 @@
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "a",
-          commentLocation = Just
-            "type_qualifiers.h:5:18",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_qualifiers.h"],
-              headerInclude =
-              "type_qualifiers.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -294,19 +269,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "b",
-          commentLocation = Just
-            "type_qualifiers.h:7:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_qualifiers.h"],
-              headerInclude =
-              "type_qualifiers.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -338,19 +301,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "c",
-          commentLocation = Just
-            "type_qualifiers.h:9:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_qualifiers.h"],
-              headerInclude =
-              "type_qualifiers.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -385,19 +336,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "d",
-          commentLocation = Just
-            "type_qualifiers.h:11:25",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_qualifiers.h"],
-              headerInclude =
-              "type_qualifiers.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,

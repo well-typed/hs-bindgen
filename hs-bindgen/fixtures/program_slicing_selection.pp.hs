@@ -4,6 +4,7 @@
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -203,17 +204,17 @@ foreign import ccall safe "hs_bindgen_test_program_slicing_selection_13b0ed81415
      -}
   -> IO FileOperationStatus
 
+foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4" hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4
+  :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+
+{-# NOINLINE read_file_chunk_ptr #-}
+
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program_slicing_selection.h:21:26@
 
     __exported by:__ @program_slicing_selection.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4" hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4
-  :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
-
-{-# NOINLINE read_file_chunk_ptr #-}
-
 read_file_chunk_ptr :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
 read_file_chunk_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4

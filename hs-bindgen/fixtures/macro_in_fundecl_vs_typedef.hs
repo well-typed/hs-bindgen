@@ -4264,20 +4264,7 @@
           (TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:8:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4327,20 +4314,7 @@
                 nameC = Name "TC",
                 nameHsIdent = HsIdentifier
                   "TC"}))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:9:4",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4393,20 +4367,7 @@
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:10:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4459,20 +4420,7 @@
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
                     "TC"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4527,21 +4475,7 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_typedef1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:23:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4591,21 +4525,7 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_typedef2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:24:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4658,21 +4578,7 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_typedef3",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:25:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4722,21 +4628,7 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_name1",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4786,21 +4678,7 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_name2",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:28:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4850,21 +4728,7 @@
                 nameHsIdent = HsIdentifier "MC"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct_name3",
-          commentLocation = Just
-            "macro_in_fundecl_vs_typedef.h:29:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                [
-                  "macro_in_fundecl_vs_typedef.h"],
-              headerInclude =
-              "macro_in_fundecl_vs_typedef.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

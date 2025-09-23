@@ -5,6 +5,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -222,6 +223,12 @@ foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resam
      -}
   -> IO ()
 
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @spec_examples.h:31:6@
+
+    __exported by:__ @spec_examples.h@
+-}
 resample :: (Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()
 resample =
   \x0 ->
@@ -233,17 +240,17 @@ resample =
                                                           HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr6 ->
                                                                                                         resample_wrapper x0 ptr6 x2 x3 ptr5))
 
+foreign import ccall unsafe "hs_bindgen_test_spec_examples_46b04422dcd0bbd5" hs_bindgen_test_spec_examples_46b04422dcd0bbd5
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
+
+{-# NOINLINE resample_ptr #-}
+
 {-| __C declaration:__ @resample@
 
     __defined at:__ @spec_examples.h:31:6@
 
     __exported by:__ @spec_examples.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_spec_examples_46b04422dcd0bbd5" hs_bindgen_test_spec_examples_46b04422dcd0bbd5
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
-
-{-# NOINLINE resample_ptr #-}
-
 resample_ptr :: Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())
 resample_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_spec_examples_46b04422dcd0bbd5

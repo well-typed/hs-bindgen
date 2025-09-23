@@ -9745,21 +9745,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent "Global variables"],
-          commentOrigin = Just
-            "simpleGlobal",
-          commentLocation = Just
-            "globals.h:9:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9793,19 +9779,7 @@
             nameHsIdent = HsIdentifier
               "Config"}
           NameOriginInSource),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "compoundGlobal1",
-          commentLocation = Just
-            "globals.h:16:22",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9839,19 +9813,7 @@
             nameHsIdent = HsIdentifier
               "Inline_struct"}
           NameOriginInSource),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "compoundGlobal2",
-          commentLocation = Just
-            "globals.h:19:47",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9878,44 +9840,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Non-extern non-static global variables"],
-          commentOrigin = Just
-            "nesInteger",
-          commentLocation = Just
-            "globals.h:35:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "These kinds of variables need to be treated with care, to avoid duplicate",
-                TextContent
-                  "symbols, but do exist in the wild."],
-            Paragraph
-              [
-                TextContent
-                  "We test with various kinds of initializers as we must explicitly ignore them",
-                TextContent
-                  "in our parser. The list here roughly follows the definition of `CXCursor`",
-                TextContent
-                  "[1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl'",
-                TextContent
-                  "in `HsBindgen.Frontend.Pass.Parse.Decl`."],
-            Paragraph
-              [
-                TextContent
-                  "[1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9942,19 +9867,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesFloating",
-          commentLocation = Just
-            "globals.h:36:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -9985,19 +9898,7 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesString1",
-          commentLocation = Just
-            "globals.h:38:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10030,19 +9931,7 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesString2",
-          commentLocation = Just
-            "globals.h:39:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10071,19 +9960,7 @@
           (PrimChar
             (PrimSignImplicit
               (Just Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesCharacter",
-          commentLocation = Just
-            "globals.h:40:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10110,18 +9987,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "nesParen",
-          commentLocation = Just
-            "globals.h:41:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10148,18 +10014,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "nesUnary",
-          commentLocation = Just
-            "globals.h:42:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10186,19 +10041,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesBinary",
-          commentLocation = Just
-            "globals.h:43:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10225,19 +10068,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesConditional",
-          commentLocation = Just
-            "globals.h:44:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10264,18 +10095,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "nesCast",
-          commentLocation = Just
-            "globals.h:45:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10304,19 +10124,7 @@
         (TypePointer
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesCompound",
-          commentLocation = Just
-            "globals.h:46:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10571,19 +10379,7 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "nesInitList",
-          commentLocation = Just
-            "globals.h:47:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10609,18 +10405,7 @@
           "globals.h"},
       foreignImportOrigin = Global
         (TypePrim PrimBool),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "nesBool",
-          commentLocation = Just
-            "globals.h:48:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -10875,40 +10660,7 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle =
-          Just
-            [
-              TextContent
-                "Additional examples of global variables, abstracted from real examples"],
-          commentOrigin = Just
-            "streamBinary",
-          commentLocation = Just
-            "globals.h:60:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "The `streamBinary`/`streamBinary_len` example comes from [1], and is an",
-                TextContent
-                  "example of a non-extern non-static global (indeed, the header does not even",
-                TextContent "use",
-                TextContent "",
-                TextContent "once",
-                TextContent "@",
-                TextContent "or similar)."],
-            Paragraph
-              [
-                TextContent
-                  "[1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11159,19 +10911,7 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = [
                           ]})]}}),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "streamBinary_len",
-          commentLocation = Just
-            "globals.h:404:10",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11209,19 +10949,7 @@
                   "Struct2_t"}
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "some_global_struct",
-          commentLocation = Just
-            "globals.h:425:11",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11249,27 +10977,7 @@
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Constant"],
-          commentOrigin = Just
-            "globalConstant",
-          commentLocation = Just
-            "globals.h:445:18",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Although this is a constant, we don't expect an initializer (since it's",
-                TextContent "`extern`)."]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11305,19 +11013,7 @@
               nameC = Name "ConstInt",
               nameHsIdent = HsIdentifier
                 "ConstInt"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "anotherGlobalConstant",
-          commentLocation = Just
-            "globals.h:449:17",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11347,28 +11043,7 @@
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Constant, but local to the file"],
-          commentOrigin = Just
-            "staticConst",
-          commentLocation = Just
-            "globals.h:454:18",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Unlike with `extern`, in this we _do_ expect an initializer."]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11398,22 +11073,7 @@
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "No storage class specified"],
-          commentOrigin = Just
-            "classless",
-          commentLocation = Just
-            "globals.h:457:11",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11449,22 +11109,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "A an array of size 4 containing constant integers"],
-          commentOrigin = Just
-            "constArray1",
-          commentLocation = Just
-            "globals.h:460:18",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11500,19 +11145,7 @@
               nameC = Name "ConstIntArray",
               nameHsIdent = HsIdentifier
                 "ConstIntArray"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "constArray2",
-          commentLocation = Just
-            "globals.h:464:22",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11547,21 +11180,7 @@
               nameHsIdent = HsIdentifier
                 "Tuple"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent "A constant tuple"],
-          commentOrigin = Just
-            "constTuple",
-          commentLocation = Just
-            "globals.h:468:27",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11597,22 +11216,7 @@
             nameHsIdent = HsIdentifier
               "Tuple"}
           NameOriginInSource),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "A non-constant tuple with a constant member"],
-          commentOrigin = Just
-            "nonConstTuple",
-          commentLocation = Just
-            "globals.h:470:21",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11644,22 +11248,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "A pointer to const int"],
-          commentOrigin = Just
-            "ptrToConstInt",
-          commentLocation = Just
-            "globals.h:473:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11691,22 +11280,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "A const pointer to int"],
-          commentOrigin = Just
-            "constPtrToInt",
-          commentLocation = Just
-            "globals.h:475:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -11741,22 +11315,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "A const pointer to const int"],
-          commentOrigin = Just
-            "constPtrToConstInt",
-          commentLocation = Just
-            "globals.h:477:26",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["globals.h"],
-              headerInclude = "globals.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,

@@ -1,6 +1,7 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -75,20 +76,25 @@ foreign import ccall safe "hs_bindgen_test_simple_func_51ad12b64aea929d" fun
      -}
   -> IO FC.CInt
 
+foreign import ccall unsafe "hs_bindgen_test_simple_func_723348151ff43970" hs_bindgen_test_simple_func_723348151ff43970
+  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
+
+{-# NOINLINE erf_ptr #-}
+
 {-| __C declaration:__ @erf@
 
     __defined at:__ @simple_func.h:1:8@
 
     __exported by:__ @simple_func.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_simple_func_723348151ff43970" hs_bindgen_test_simple_func_723348151ff43970
-  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
-
-{-# NOINLINE erf_ptr #-}
-
 erf_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
 erf_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_simple_func_723348151ff43970
+
+foreign import ccall unsafe "hs_bindgen_test_simple_func_f3190cb919f94cd9" hs_bindgen_test_simple_func_f3190cb919f94cd9
+  :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
+
+{-# NOINLINE bad_fma_ptr #-}
 
 {-| __C declaration:__ @bad_fma@
 
@@ -96,14 +102,14 @@ erf_ptr =
 
     __exported by:__ @simple_func.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_simple_func_f3190cb919f94cd9" hs_bindgen_test_simple_func_f3190cb919f94cd9
-  :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
-
-{-# NOINLINE bad_fma_ptr #-}
-
 bad_fma_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
 bad_fma_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_simple_func_f3190cb919f94cd9
+
+foreign import ccall unsafe "hs_bindgen_test_simple_func_fbdbb067d942094e" hs_bindgen_test_simple_func_fbdbb067d942094e
+  :: IO (Ptr.FunPtr (IO ()))
+
+{-# NOINLINE no_args_ptr #-}
 
 {-| __C declaration:__ @no_args@
 
@@ -111,14 +117,14 @@ bad_fma_ptr =
 
     __exported by:__ @simple_func.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_simple_func_fbdbb067d942094e" hs_bindgen_test_simple_func_fbdbb067d942094e
-  :: IO (Ptr.FunPtr (IO ()))
-
-{-# NOINLINE no_args_ptr #-}
-
 no_args_ptr :: Ptr.FunPtr (IO ())
 no_args_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_simple_func_fbdbb067d942094e
+
+foreign import ccall unsafe "hs_bindgen_test_simple_func_452280b5085b4ccd" hs_bindgen_test_simple_func_452280b5085b4ccd
+  :: IO (Ptr.FunPtr (IO ()))
+
+{-# NOINLINE no_args_no_void_ptr #-}
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -126,14 +132,14 @@ no_args_ptr =
 
     __exported by:__ @simple_func.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_simple_func_452280b5085b4ccd" hs_bindgen_test_simple_func_452280b5085b4ccd
-  :: IO (Ptr.FunPtr (IO ()))
-
-{-# NOINLINE no_args_no_void_ptr #-}
-
 no_args_no_void_ptr :: Ptr.FunPtr (IO ())
 no_args_no_void_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_simple_func_452280b5085b4ccd
+
+foreign import ccall unsafe "hs_bindgen_test_simple_func_b16b846810561073" hs_bindgen_test_simple_func_b16b846810561073
+  :: IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
+
+{-# NOINLINE fun_ptr #-}
 
 {-| __C declaration:__ @fun@
 
@@ -141,11 +147,6 @@ no_args_no_void_ptr =
 
     __exported by:__ @simple_func.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_simple_func_b16b846810561073" hs_bindgen_test_simple_func_b16b846810561073
-  :: IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
-
-{-# NOINLINE fun_ptr #-}
-
 fun_ptr :: Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt)
 fun_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_simple_func_b16b846810561073

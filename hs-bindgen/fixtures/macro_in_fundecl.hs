@@ -3131,19 +3131,7 @@
           (TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "quux",
-          commentLocation = Just
-            "macro_in_fundecl.h:12:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3195,19 +3183,7 @@
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wam",
-          commentLocation = Just
-            "macro_in_fundecl.h:13:4",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3257,19 +3233,7 @@
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo1",
-          commentLocation = Just
-            "macro_in_fundecl.h:16:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3322,19 +3286,7 @@
             (TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo2",
-          commentLocation = Just
-            "macro_in_fundecl.h:17:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3388,19 +3340,7 @@
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
               NameOriginInSource))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foo3",
-          commentLocation = Just
-            "macro_in_fundecl.h:18:4",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3445,19 +3385,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar1",
-          commentLocation = Just
-            "macro_in_fundecl.h:21:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3506,19 +3434,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar2",
-          commentLocation = Just
-            "macro_in_fundecl.h:22:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3567,19 +3483,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar3",
-          commentLocation = Just
-            "macro_in_fundecl.h:23:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3628,19 +3532,7 @@
                   nameC = Name "I",
                   nameHsIdent = HsIdentifier "I"}
                 NameOriginInSource)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bar4",
-          commentLocation = Just
-            "macro_in_fundecl.h:24:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3687,19 +3579,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "baz1",
-          commentLocation = Just
-            "macro_in_fundecl.h:27:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3750,19 +3630,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "baz2",
-          commentLocation = Just
-            "macro_in_fundecl.h:35:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3813,19 +3681,7 @@
                     nameC = Name "I",
                     nameHsIdent = HsIdentifier "I"}
                   NameOriginInSource))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "baz3",
-          commentLocation = Just
-            "macro_in_fundecl.h:43:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3861,20 +3717,7 @@
               nameC = Name "I",
               nameHsIdent = HsIdentifier "I"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "no_args_no_void",
-          commentLocation = Just
-            "macro_in_fundecl.h:53:3",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["macro_in_fundecl.h"],
-              headerInclude =
-              "macro_in_fundecl.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

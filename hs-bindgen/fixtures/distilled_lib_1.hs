@@ -13419,19 +13419,7 @@
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "some_fun",
-          commentLocation = Just
-            "distilled_lib_1.h:72:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["distilled_lib_1.h"],
-              headerInclude =
-              "distilled_lib_1.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -13465,19 +13453,7 @@
               nameC = Name "var_t",
               nameHsIdent = HsIdentifier
                 "Var_t"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "v",
-          commentLocation = Just
-            "distilled_lib_1.h:91:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["distilled_lib_1.h"],
-              headerInclude =
-              "distilled_lib_1.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]
