@@ -151,7 +151,8 @@ instance Pretty CommentKind where
                                 >< "@"
                           , (\p -> "__defined at:__ @"
                                 >< uncurry prettyHashIncludeArgLoc p
-                                >< "@") <$> (liftA2 (,) commentHeaderInfo commentLocation)
+                                >< "@"
+                            ) <$> (liftA2 (,) commentHeaderInfo commentLocation)
                           , (\hinfo -> "__exported by:__ @"
                                     >< prettyMainHeaders hinfo
                                     >< "@") <$> commentHeaderInfo
@@ -179,7 +180,7 @@ instance Pretty CommentKind where
 prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
 prettyHashIncludeArgLoc hinfo loc = string $
     List.intercalate ":"
-      [ getHashIncludeArg (C.headerInclude hinfo)
+      [ escapePaths $ getHashIncludeArg (C.headerInclude hinfo)
       , show (singleLocLine loc)
       , show (singleLocColumn loc)
       ]
@@ -188,9 +189,14 @@ prettyMainHeaders :: C.HeaderInfo -> CtxDoc
 prettyMainHeaders
     = string
     . List.intercalate "@, @"
-    . map getHashIncludeArg
+    . map (escapePaths . getHashIncludeArg)
     . NonEmpty.toList
     . C.headerMainHeaders
+
+escapePaths :: String -> String
+escapePaths []       = []
+escapePaths ('/':ss) = "\\/" ++ escapePaths ss
+escapePaths (s:ss)   = s : escapePaths ss
 
 instance Pretty Hs.CommentBlockContent where
   pretty = \case
