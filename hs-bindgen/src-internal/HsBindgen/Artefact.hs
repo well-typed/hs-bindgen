@@ -14,9 +14,9 @@ import Clang.Paths
 import Generics.SOP (I (..), NP (..))
 
 import HsBindgen.Backend
-import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
@@ -54,7 +54,8 @@ data Artefact (a :: Star) where
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
   -- * Lift and sequence
-  Lift                :: Artefacts as -> (Tracer IO RunArtefactMsg -> NP I as -> IO b) -> Artefact b
+  -- TODO_PR.
+  Lift                :: Artefacts as -> (NP I as -> ArtefactM b) -> Artefact b
 
 instance Functor Artefact where
   fmap f x = Lift (x :* Nil) (\_ (I r :* Nil) -> pure (f r))

@@ -1,4 +1,4 @@
-module HsBindgen.Backend.Artefact.HsModule.Capi (
+module HsBindgen.Backend.HsModule.Capi (
     capiImport
   , renderCapiWrapper
   )
@@ -6,7 +6,7 @@ where
 
 import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 
-import HsBindgen.Backend.Artefact.HsModule.Names
+import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Imports
 
 -- | The CAPI `addCSource` import.

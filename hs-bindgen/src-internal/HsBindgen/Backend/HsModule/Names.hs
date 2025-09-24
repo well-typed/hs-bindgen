@@ -1,5 +1,5 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
-module HsBindgen.Backend.Artefact.HsModule.Names (
+module HsBindgen.Backend.HsModule.Names (
     -- * Imports
     HsImportModule(..)
   , HsImport(..)

@@ -1,4 +1,4 @@
-module HsBindgen.Backend.Artefact.Test.C (
+module HsBindgen.Artefact.Test.C (
     genTestsC
   ) where
 

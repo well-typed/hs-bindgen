@@ -2,7 +2,7 @@
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module HsBindgen.Backend.Artefact.HsModule.Render (
+module HsBindgen.Backend.HsModule.Render (
     -- * Rendering
     render
   , renderWrappers
@@ -24,13 +24,13 @@ import C.Char (CharValue (..))
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Backend.Artefact.HsModule.Capi (renderCapiWrapper)
-import HsBindgen.Backend.Artefact.HsModule.Names
-import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
+import HsBindgen.Backend.HsModule.Names
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))

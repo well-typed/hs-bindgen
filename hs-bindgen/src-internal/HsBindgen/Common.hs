@@ -109,9 +109,9 @@ import System.FilePath qualified as FilePath
 
 import Clang.Paths qualified as Paths
 
-import HsBindgen.Backend.Artefact.HsModule.Translation qualified as HsModule
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Translation qualified as Hs
+import HsBindgen.Backend.HsModule.Translation qualified as HsModule
 import HsBindgen.Backend.UniqueId qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config qualified as Config

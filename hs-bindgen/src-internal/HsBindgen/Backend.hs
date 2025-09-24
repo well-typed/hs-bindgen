@@ -4,10 +4,10 @@ module HsBindgen.Backend
   , BackendMsg(..)
   ) where
 
-import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Translation qualified as Hs
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Simplify qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -76,7 +76,6 @@ data BackendArtefact = BackendArtefact {
 -- | Frontend trace messages
 --
 -- Most passes in the frontend have their own set of trace messages.
-data BackendMsg =
-    BackendCache       CacheMsg
+data BackendMsg = BackendCache CacheMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace SafeLevel)
