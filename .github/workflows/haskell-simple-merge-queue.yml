@@ -72,7 +72,8 @@ jobs:
         #
         # So we need to always run all checks, but skip PR view jobs in the MQ, and
         # MQ jobs in the PR view.
-        if: ${{ github.event_name == 'merge_group' }}
+        # TODO_PR
+        # if: ${{ github.event_name == 'merge_group' }}
         with:
           runner: ${{ matrix.runner }}
           ghc:    ${{ matrix.ghc }}

@@ -1,9 +1,8 @@
-import: ./cabal.project.ci.base
+import: ./cabal.project.base.ci
 
-tests: true
-
-packages: ansi-diff
-packages: c-expr-runtime
-packages: hs-bindgen
-packages: hs-bindgen-runtime
-packages: hs-bindgen-test-runtime
+packages:
+  ansi-diff
+  c-expr-runtime
+  hs-bindgen
+  hs-bindgen-runtime
+  hs-bindgen-test-runtime

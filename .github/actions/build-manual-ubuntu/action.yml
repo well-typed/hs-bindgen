@@ -27,14 +27,15 @@ runs:
 
     # Note that -DSUPPORTS_UNICODE is set, but is only needed to run the manual,
     # not to actually compile the project.
-    - name: Create cabal.project.local
+    - name: Create cabal.project and cabal.project.local in ./manual/hs
       shell: bash
       working-directory: ./manual/hs
       run: |
-        echo "Writing cabal.project.local"
-        cat <<EOF > cabal.project.local
-        import: ../../cabal.project.ci.base
+        echo "Copying cabal.project"
+        cp cabal.project.ci cabal.project
 
+        echo "Creating cabal.project.local"
+        cat <<EOF > cabal.project.local
         package manual
           ghc-options:
             -optc-DSUPPORTS_UNICODE

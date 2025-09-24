@@ -1,4 +1,4 @@
-import: ../../cabal.project.base
+import: ../../cabal.project.base.ci
 
 packages:
   hs-vector
