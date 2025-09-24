@@ -63,6 +63,64 @@ main = do
 
 [globals]:./Globals.md#Guidelines-for-binding-generation
 
+## Implicit function to pointer conversion
+
+In C, functions are not "first-class citizens", but *pointers to functions* can
+be passed around freely. Typically, C code is explicit about the fact that it
+deals with function pointers, but there are some cases where implicit conversion
+happens, and we should take that into account for binding generation.
+
+One such case is when function parameters have function types. Quoted from the
+["Function declarations" section][creference:fun-decl] of the C reference
+website:
+
+> * any parameter of function type is adjusted to the corresponding pointer type
+>
+>   ```c
+>   int f(char g(double)); // declares int f(char (*g)(double))
+>   int h(int(void)); // declares int h(int (*)(void))
+>   ```
+
+Another such case is when function names are used in expressions. Quoted from
+the ["Implicit conversions" section][creference:fun-decl] of the C reference
+website:
+
+> Any function designator expression, when used in any context other than ...
+> undergoes a conversion to the non-lvalue pointer to the function designated by
+> the expression.
+>
+> ```c
+> int f(int);
+> int (*p)(int) = f; // conversion to &f
+> (***p)(1); // repeated dereference to f and conversion back to &f
+> ```
+
+Technically, only the latter case is called an "implicit conversion" by the C
+reference website. Still, the former case is very similar in that a function
+type is "adjusted" to the corresponding pointer type.
+
+How does this affect binding generation? On the Haskell side, whenever we see a
+non-pointer function type in the position of a function argument, we convert the
+non-pointer function type to a function pointer type instead. As a result,
+foreign imports for both the `f` and `g` examples below would get the same type.
+
+```c
+int f(char h(double));
+int g(char (*h)(double));
+```
+
+```hs
+foreign import {-# details elided #-} f :: FunPtr (CChar -> IO CDouble) -> CInt
+foreign import {-# details elided #-} g :: FunPtr (CChar -> IO CDouble) -> CInt
+```
+
+Similarly, the address stubs `f_ptr` and `g_ptr` that we generate (see the
+["Function pointers" section](#function-pointers)) would get the exact same
+type.
+
+[creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
+[creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
+
 ## Userland CAPI
 
 TODO

@@ -191,7 +191,7 @@ getInstances instanceMap name = aux
     aux acc (hsType:hsTypes)
       | Set.null acc = acc
       | otherwise = case hsType of
-          HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
+          HsPrimType primT -> aux (acc /\ hsPrimTypeInsts primT) hsTypes
           HsTypRef name'
             | name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
@@ -218,7 +218,7 @@ getInstances instanceMap name = aux
             in  aux acc' hsTypes
           HsBlock t ->
             aux acc (t:hsTypes)
-          HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
+          HsComplexType primT -> aux (acc /\ hsPrimTypeInsts primT) hsTypes
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
@@ -1043,9 +1043,9 @@ typ' ctx = go ctx
     go _ (C.TypeMacroTypedef name _origin) =
         Hs.HsTypRef (C.nameHs name)
     go c C.TypeVoid =
-        Hs.HsPrimType (goVoid c)
+        Hs.HsPrimType (voidType c)
     go _ (C.TypePrim p) =
-        Hs.HsPrimType (goPrim p)
+        Hs.HsPrimType (primType p)
     go _ (C.TypePointer t) = case t of
         C.TypeFun {} -> Hs.HsFunPtr (go CPtrArg t)
         _            -> Hs.HsPtr (go CPtrArg t)
@@ -1053,8 +1053,11 @@ typ' ctx = go ctx
         Hs.HsConstArray n $ go CTop ty
     go _ (C.TypeIncompleteArray ty) =
         Hs.HsIncompleteArray $ go CTop ty
-    go _ (C.TypeFun xs y) =
-        foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
+    go c (C.TypeFun xs y) =
+      let hsFunType = foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs in
+      case c of
+        CFunArg -> Hs.HsFunPtr hsFunType
+        _ -> hsFunType
     go _ (C.TypeBlock ty) =
         HsBlock $ go CTop ty
     go _ (C.TypeExtBinding ext) =
@@ -1062,27 +1065,27 @@ typ' ctx = go ctx
     go c (C.TypeConst ty) =
         go c ty
     go _ (C.TypeComplex p) =
-        Hs.HsComplexType (goPrim p)
+        Hs.HsComplexType (primType p)
 
-    goPrim :: C.PrimType -> HsPrimType
-    goPrim C.PrimBool           = HsPrimCBool
-    goPrim (C.PrimIntegral i s) = integralType i s
-    goPrim (C.PrimFloating f)   = floatingType f
-    goPrim C.PrimPtrDiff        = HsPrimCPtrDiff
-    goPrim C.PrimSize           = HsPrimCSize
-    goPrim (C.PrimChar sign)    =
-        case sign of
-          C.PrimSignImplicit _          -> HsPrimCChar
-          C.PrimSignExplicit C.Signed   -> HsPrimCSChar
-          C.PrimSignExplicit C.Unsigned -> HsPrimCUChar
+voidType :: HasCallStack => TypeContext -> HsPrimType
+voidType CFunRes = HsPrimUnit
+voidType CPtrArg = HsPrimVoid
+voidType c       = panicPure $ "unexpected type void in context " ++ show c
+  -- TODO: we can run into this with macros, e.g.
+  --
+  --   #define MyVoid void
 
-    goVoid :: TypeContext -> HsPrimType
-    goVoid CFunRes = HsPrimUnit
-    goVoid CPtrArg = HsPrimVoid
-    goVoid c       = panicPure $ "unexpected type void in context " ++ show c
-      -- TODO: we can run into this with macros, e.g.
-      --
-      --   #define MyVoid void
+primType :: C.PrimType -> HsPrimType
+primType C.PrimBool           = HsPrimCBool
+primType (C.PrimIntegral i s) = integralType i s
+primType (C.PrimFloating f)   = floatingType f
+primType C.PrimPtrDiff        = HsPrimCPtrDiff
+primType C.PrimSize           = HsPrimCSize
+primType (C.PrimChar sign)    =
+    case sign of
+      C.PrimSignImplicit _          -> HsPrimCChar
+      C.PrimSignExplicit C.Signed   -> HsPrimCSChar
+      C.PrimSignExplicit C.Unsigned -> HsPrimCUChar
 
 integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
 integralType C.PrimInt      C.Signed   = HsPrimCInt
