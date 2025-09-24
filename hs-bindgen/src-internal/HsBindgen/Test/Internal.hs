@@ -1,4 +1,4 @@
-module HsBindgen.Artefact.Test.Internal (
+module HsBindgen.Test.Internal (
     -- * C function prefix
     CFunPrefix
   , getCFunPrefix

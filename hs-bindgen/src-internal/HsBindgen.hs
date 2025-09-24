@@ -20,6 +20,7 @@ module HsBindgen
   , NP (..)
   ) where
 
+import Control.Monad.Trans.Reader (ask)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Text qualified as T
@@ -29,7 +30,6 @@ import System.FilePath (takeDirectory, (<.>), (</>))
 import Generics.SOP (I (..), NP (..))
 
 import HsBindgen.Artefact
-import HsBindgen.Artefact.Test (genTests)
 import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
@@ -43,6 +43,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
+import HsBindgen.Test (genTests)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -117,25 +118,25 @@ sequenceArtefacts :: [Artefact ()] -> Artefact ()
 sequenceArtefacts = go Nil . reverse
   where
     go :: Artefacts as -> [Artefact ()] -> Artefact ()
-    go acc []     = Lift acc $ \_tracer _results -> return ()
+    go acc []     = Lift acc $ \_results -> pure ()
     go acc (a:as) = go (a :* acc) as
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: Maybe FilePath -> Artefact ()
 writeIncludeGraph mPath = Lift (IncludeGraph :* Nil) $
-    \tracer (I (p, includeGraph) :* Nil) ->
-      write tracer "include graph" mPath $ IncludeGraph.dumpMermaid p includeGraph
+    \(I (p, includeGraph) :* Nil) ->
+      write "include graph" mPath $ IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()
 writeUseDeclGraph path = Lift (DeclIndex :* UseDeclGraph :* Nil) $
-    \tracer (I index :* I useDeclGraph :* Nil) ->
-      write tracer "use-decl graph" (Just path) (UseDeclGraph.dumpMermaid index useDeclGraph)
+    \(I index :* I useDeclGraph :* Nil) ->
+      write "use-decl graph" (Just path) (UseDeclGraph.dumpMermaid index useDeclGraph)
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
 getBindings safety = Lift (finalModuleArtefact :* Nil) $
-    \_tracer (I finalModule :* Nil) ->
+    \(I finalModule :* Nil) ->
       pure . render $ finalModule
   where finalModuleArtefact = case safety of
           Safe   -> FinalModuleSafe
@@ -146,13 +147,13 @@ getBindings safety = Lift (finalModuleArtefact :* Nil) $
 -- If no file is given, print to standard output.
 writeBindings :: Safety -> Maybe FilePath -> Artefact ()
 writeBindings safety mPath = Lift (getBindings safety :* Nil) $
-    \tracer (I bindings :* Nil) ->
-      write tracer "bindings" mPath bindings
+    \(I bindings :* Nil) ->
+      write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
 getBindingsMultiple = Lift (FinalModules :* Nil) $
-    \_tracer (I finalModule :* Nil) ->
+    \(I finalModule :* Nil) ->
       pure . (fmap render) $ finalModule
 
 -- | Write bindings to files in provided output directory.
@@ -162,29 +163,31 @@ getBindingsMultiple = Lift (FinalModules :* Nil) $
 -- If no file is given, print to standard output.
 writeBindingsMultiple :: FilePath -> Artefact ()
 writeBindingsMultiple hsOutputDir = Lift (FinalModuleBaseName :* getBindingsMultiple :* Nil) $
-    \tracer (I moduleBaseName :* I bindingsByCategory :* Nil) ->
-      writeByCategory tracer "bindings" hsOutputDir moduleBaseName bindingsByCategory
+    \(I moduleBaseName :* I bindingsByCategory :* Nil) ->
+      writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec path =
   Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
-    \tracer (I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) -> do
-      traceWith tracer $ RunArtefactWriteFile "binding specifications" path
-      -- Generate binding specification only for declarations of binding
-      -- category 'BType'. If, in the future, we generate binding specifications
-      -- for other binding categories, we need to take care of the final module
-      -- names (e.g., @Generated.Safe@).
-      genBindingSpec moduleBaseName hashIncludeArgs path $
-        fromMaybe (panicPure "binding category BType is missing")
-          (Map.lookup BType $ unByCategory hsDecls)
+    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) -> do
+      tracer <- artefactTracer <$> ask
+      liftIO $ do
+        traceWith tracer $ RunArtefactWriteFile "binding specifications" path
+        -- Generate binding specification only for declarations of binding
+        -- category 'BType'. If, in the future, we generate binding
+        -- specifications for other binding categories, we need to take care of
+        -- the final module names (e.g., @Generated.Safe@).
+        genBindingSpec moduleBaseName hashIncludeArgs path $
+          fromMaybe (panicPure "binding category BType is missing")
+            (Map.lookup BType $ unByCategory hsDecls)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
 writeTests testDir =
   Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
-    \_tracer (I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-      genTests
+    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
+      liftIO $ genTests
         hashIncludeArgs
         hsDecls
         moduleBaseName
@@ -194,26 +197,32 @@ writeTests testDir =
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: Tracer IO RunArtefactMsg -> String -> Maybe FilePath -> String -> IO ()
-write _      _    Nothing     str = putStrLn str
-write tracer what (Just path) str = do
-      traceWith tracer $ RunArtefactWriteFile what path
-      createDirectoryIfMissing True $ takeDirectory path
-      writeFile path str
+write :: String -> Maybe FilePath -> String -> ArtefactM ()
+write _    Nothing     str = liftIO $ putStrLn str
+write what (Just path) str = do
+      tracer <- artefactTracer <$> ask
+      liftIO $ do
+        traceWith tracer $ RunArtefactWriteFile what path
+        createDirectoryIfMissing True $ takeDirectory path
+        writeFile path str
 
 writeByCategory ::
-  Tracer IO RunArtefactMsg -> String -> FilePath -> HsModuleName -> ByCategory String -> IO ()
-writeByCategory tracer what hsOutputDir moduleBaseName =
+     String
+  -> FilePath
+  -> HsModuleName
+  -> ByCategory String
+  -> ArtefactM ()
+writeByCategory what hsOutputDir moduleBaseName =
     mapM_ (uncurry writeCategory) . Map.toList . unByCategory
   where
-    writeCategory :: BindingCategory -> String -> IO ()
+    writeCategory :: BindingCategory -> String -> ArtefactM ()
     writeCategory cat str = do
       let addSubModule = case cat of
             BType    -> id
             otherCat -> (</> displayBindingCategory otherCat)
           path = addSubModule baseFilePath <.> "hs"
           whatWithCategory = what ++ " (" ++ show cat ++ ")"
-      write tracer whatWithCategory (Just path) str
+      write whatWithCategory (Just path) str
 
     baseFilePath :: FilePath
     baseFilePath = Foldable.foldl' (</>) "" $

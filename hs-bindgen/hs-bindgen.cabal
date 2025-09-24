@@ -78,11 +78,6 @@ library internal
       Data.DynGraph.Labelled
       HsBindgen
       HsBindgen.Artefact
-      HsBindgen.Artefact.Test
-      HsBindgen.Artefact.Test.C
-      HsBindgen.Artefact.Test.Hs
-      HsBindgen.Artefact.Test.Internal
-      HsBindgen.Artefact.Test.Readme
       HsBindgen.Backend
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.Hs.AST
@@ -181,6 +176,11 @@ library internal
       HsBindgen.Orphans
       HsBindgen.PrettyC
       HsBindgen.Resolve
+      HsBindgen.Test
+      HsBindgen.Test.C
+      HsBindgen.Test.Hs
+      HsBindgen.Test.Internal
+      HsBindgen.Test.Readme
       HsBindgen.TH.Internal
       HsBindgen.TraceMsg
       HsBindgen.Util.Monad

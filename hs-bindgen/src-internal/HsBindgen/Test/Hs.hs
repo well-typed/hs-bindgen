@@ -1,4 +1,4 @@
-module HsBindgen.Artefact.Test.Hs (
+module HsBindgen.Test.Hs (
     genTestsHs
   ) where
 
